@@ -23,7 +23,8 @@ Role: Dev Ops + Authentication + UI
 image::Xiaohang.jpg[width="150", align="left"]
 {empty}[https://github.com/Kelly9373[github]] [<<Xiaohang#, portfolio>>]
 
-Role: Developer 
+Role: Developer +
+Responsibilities: Data
 
 '''
 
