@@ -21,10 +21,9 @@ Role: Dev Ops + Authentication + UI
 
 === Liu Xiaohang
 image::Xiaohang.jpg[width="150", align="left"]
-{empty}[https://github.com/Kelly9373[homepage]] [<<Xiaohang#, portfolio>>]
+{empty}[https://github.com/Kelly9373[github]] [<<Xiaohang#, portfolio>>]
 
-Role: Developer +
-Responsibilities: Email + CLI UX improvements 
+Role: Developer 
 
 '''
 
