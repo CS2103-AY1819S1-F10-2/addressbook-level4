@@ -21,7 +21,7 @@ Role: Project Advisor
 
 === Liu Xiaohang
 image::Xiaohang.jpg[width="150", align="left"]
-{empty}[https://github.com/Kelly9373[homepage]] [<<johndoe#, portfolio>>]
+{empty}[https://github.com/Kelly9373[homepage]] [<<Xiaohang#, portfolio>>]
 
 Role: 
 Responsibilities: 
