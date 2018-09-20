@@ -1,7 +1,7 @@
 = LoanBook - User Guide
 :site-section: UserGuide
-:toc:
-:toc-title:
+:toc:left
+:toc-title:Table of Content
 :toc-placement: preamble
 :sectnums:
 :imagesDir: images
@@ -12,9 +12,9 @@ ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level4
+:repoURL: https://github.com/CS2103-AY1819S1-F10-2/main
 
-By: `Team F10-2`      Since: `Sep 2018`      Licence: `Team SE-EDU`, `MIT`
+By: `Team F10-2`      Since: `Sep 2018`      Licence: `MIT`
 
 == Introduction
 
@@ -110,7 +110,7 @@ Searches for loans made by James Tan
 * `search p/John Doe o/Bicycle-007` +
 Searches for loans made by John Doe where the item loaned out is Bicycle-007
 
-=== Deleting the chosen loan from the list : `delete`
+=== Deleting the chosen loan from the loan book : `delete`
 
 Delete the loan from the loan book. If you want to delete one loan, use `delete i/LOAN_ID`. If you want to delete all, use`delete!` +
 Format: `delete i/LOAN_ID` or `delete!`
@@ -167,7 +167,7 @@ Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and 
 * Send reminder email to the borrower after a day of borrowing reminding them to return the bike.
 * Login authentication to ensure that some other bugger don't delete the loan stuffs. Require password when deleting.
 
-=== Please ignore the content below.
+////
 // tag::undoredo[]
 === Undoing previous command : `undo`
 
@@ -262,3 +262,4 @@ e.g.`select 2`
 * *History* : `history`
 * *Undo* : `undo`
 * *Redo* : `redo`
+////
