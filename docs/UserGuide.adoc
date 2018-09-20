@@ -1,7 +1,7 @@
 = LoanBook - User Guide
 :site-section: UserGuide
-:toc:left
-:toc-title:Table of Content
+:toc: left
+:toc-title: UserGuide
 :toc-placement: preamble
 :sectnums:
 :imagesDir: images
