@@ -28,9 +28,9 @@ Responsibilities: Data
 
 '''
 
-=== Johnny Doe
-image::yijinl.jpg[width="150", align="left"]
-{empty}[http://github.com/yijinl[github]] [<<johndoe#, portfolio>>]
+=== Lim Fong Yuan
+image::fongyuan.jpg[width="150", align="left"]
+{empty}[https://github.com/FongYuan[github]] [<<fongyuan#, portfolio>>]
 
 Role: Developer +
 Responsibilities: Data
