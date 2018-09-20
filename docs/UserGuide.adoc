@@ -157,9 +157,9 @@ Format: `history`
 Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and next input respectively in the command box.
 ====
 
-=== Non-functional features : 
+=== Non-functional features :
 * Aliases to allow users to use the CLI with less keystrokes.
-* Chainable commands. I.e. allow adding and deleting of items asynchronously. 
+* Chainable commands. I.e. allow adding and deleting of items asynchronously.
 ** `add_items i/bicycle q/5 delete_items motorbike q/7`
 * Auto complete
 ** Populate recently loaned items/users, depending on the input. i.e. add i/ should show a dropdown on the last 5 items used. User can type add i/5 to select the 5th LRU item.
