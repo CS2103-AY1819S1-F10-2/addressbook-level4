@@ -12,10 +12,10 @@ import static seedu.address.ui.testutil.GuiTestAssert.assertCardEquals;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-import guitests.guihandles.LoanCardHandle;
-import guitests.guihandles.LoanListPanelHandle;
 import org.junit.Test;
 
+import guitests.guihandles.LoanCardHandle;
+import guitests.guihandles.LoanListPanelHandle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.commons.events.ui.JumpToListRequestEvent;

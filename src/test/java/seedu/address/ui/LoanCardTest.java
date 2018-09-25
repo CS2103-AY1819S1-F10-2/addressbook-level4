@@ -5,9 +5,9 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.ui.testutil.GuiTestAssert.assertCardDisplaysLoan;
 
-import guitests.guihandles.LoanCardHandle;
 import org.junit.Test;
 
+import guitests.guihandles.LoanCardHandle;
 import seedu.address.model.person.Loan;
 import seedu.address.testutil.PersonBuilder;
 
