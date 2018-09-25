@@ -132,15 +132,18 @@ public class XmlUtilTest {
         dataToWrite = new XmlSerializableAddressBook(
                 builder.withPerson(new PersonBuilder().build()).build());
 
-        XmlUtil.saveDataToFile(TEMP_FILE, dataToWrite);
+        XmlUtil.saveDataToFile(TEMP_FILE,
+            dataToWrite);
         dataFromFile = XmlUtil.getDataFromFile(TEMP_FILE, XmlSerializableAddressBook.class);
         assertEquals(dataToWrite, dataFromFile);
     }
+
 
     /**
      * Test class annotated with {@code XmlRootElement} to allow unmarshalling of .xml data to {@code XmlAdaptedPerson}
      * objects.
      */
+
     @XmlRootElement(name = "person")
     private static class XmlAdaptedPersonWithRootElement extends XmlAdaptedPerson {}
 }
