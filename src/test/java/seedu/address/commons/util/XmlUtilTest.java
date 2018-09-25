@@ -29,9 +29,9 @@ public class XmlUtilTest {
     private static final Path EMPTY_FILE = TEST_DATA_FOLDER.resolve("empty.xml");
     private static final Path MISSING_FILE = TEST_DATA_FOLDER.resolve("missing.xml");
     private static final Path VALID_FILE = TEST_DATA_FOLDER.resolve("validAddressBook.xml");
-    private static final Path MISSING_PERSON_FIELD_FILE = TEST_DATA_FOLDER.resolve("missingPersonField.xml");
-    private static final Path INVALID_PERSON_FIELD_FILE = TEST_DATA_FOLDER.resolve("invalidPersonField.xml");
-    private static final Path VALID_PERSON_FILE = TEST_DATA_FOLDER.resolve("validPerson.xml");
+    private static final Path MISSING_LOAN_FIELD_FILE = TEST_DATA_FOLDER.resolve("missingPersonField.xml");
+    private static final Path INVALID_LOAN_FIELD_FILE = TEST_DATA_FOLDER.resolve("invalidPersonField.xml");
+    private static final Path VALID_LOAN_FILE = TEST_DATA_FOLDER.resolve("validPerson.xml");
     private static final Path TEMP_FILE = TestUtil.getFilePathInSandboxFolder("tempAddressBook.xml");
 
     private static final String INVALID_PHONE = "9482asf424";
@@ -72,34 +72,34 @@ public class XmlUtilTest {
     @Test
     public void getDataFromFile_validFile_validResult() throws Exception {
         AddressBook dataFromFile = XmlUtil.getDataFromFile(VALID_FILE, XmlSerializableAddressBook.class).toModelType();
-        assertEquals(9, dataFromFile.getPersonList().size());
+        assertEquals(9, dataFromFile.getLoanList().size());
     }
 
     @Test
-    public void xmlAdaptedPersonFromFile_fileWithMissingPersonField_validResult() throws Exception {
-        XmlAdaptedLoan actualPerson = XmlUtil.getDataFromFile(
-                MISSING_PERSON_FIELD_FILE, XmlAdaptedLoanWithRootElement.class);
-        XmlAdaptedLoan expectedPerson = new XmlAdaptedLoan(
+    public void xmlAdaptedLoanFromFile_fileWithMissingLoanField_validResult() throws Exception {
+        XmlAdaptedLoan actualLoan = XmlUtil.getDataFromFile(
+            MISSING_LOAN_FIELD_FILE, XmlAdaptedLoanWithRootElement.class);
+        XmlAdaptedLoan expectedLoan = new XmlAdaptedLoan(
                 null, VALID_PHONE, VALID_EMAIL, VALID_ADDRESS, VALID_TAGS);
-        assertEquals(expectedPerson, actualPerson);
+        assertEquals(expectedLoan, actualLoan);
     }
 
     @Test
-    public void xmlAdaptedPersonFromFile_fileWithInvalidPersonField_validResult() throws Exception {
-        XmlAdaptedLoan actualPerson = XmlUtil.getDataFromFile(
-                INVALID_PERSON_FIELD_FILE, XmlAdaptedLoanWithRootElement.class);
-        XmlAdaptedLoan expectedPerson = new XmlAdaptedLoan(
+    public void xmlAdaptedLoanFromFile_fileWithInvalidLoanField_validResult() throws Exception {
+        XmlAdaptedLoan actualLoan = XmlUtil.getDataFromFile(
+            INVALID_LOAN_FIELD_FILE, XmlAdaptedLoanWithRootElement.class);
+        XmlAdaptedLoan expectedLoan = new XmlAdaptedLoan(
                 VALID_NAME, INVALID_PHONE, VALID_EMAIL, VALID_ADDRESS, VALID_TAGS);
-        assertEquals(expectedPerson, actualPerson);
+        assertEquals(expectedLoan, actualLoan);
     }
 
     @Test
-    public void xmlAdaptedPersonFromFile_fileWithValidPerson_validResult() throws Exception {
-        XmlAdaptedLoan actualPerson = XmlUtil.getDataFromFile(
-                VALID_PERSON_FILE, XmlAdaptedLoanWithRootElement.class);
-        XmlAdaptedLoan expectedPerson = new XmlAdaptedLoan(
+    public void xmlAdaptedLoanFromFile_fileWithValidLoan_validResult() throws Exception {
+        XmlAdaptedLoan actualLoan = XmlUtil.getDataFromFile(
+            VALID_LOAN_FILE, XmlAdaptedLoanWithRootElement.class);
+        XmlAdaptedLoan expectedLoan = new XmlAdaptedLoan(
                 VALID_NAME, VALID_PHONE, VALID_EMAIL, VALID_ADDRESS, VALID_TAGS);
-        assertEquals(expectedPerson, actualPerson);
+        assertEquals(expectedLoan, actualLoan);
     }
 
     @Test
@@ -130,7 +130,7 @@ public class XmlUtilTest {
 
         AddressBookBuilder builder = new AddressBookBuilder(new AddressBook());
         dataToWrite = new XmlSerializableAddressBook(
-                builder.withPerson(new LoanBuilder().build()).build());
+                builder.withLoan(new LoanBuilder().build()).build());
 
         XmlUtil.saveDataToFile(TEMP_FILE,
             dataToWrite);

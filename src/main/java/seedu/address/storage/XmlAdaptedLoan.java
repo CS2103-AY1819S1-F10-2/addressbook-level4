@@ -76,9 +76,9 @@ public class XmlAdaptedLoan {
      * @throws IllegalValueException if there were any data constraints violated in the adapted loan
      */
     public Loan toModelType() throws IllegalValueException {
-        final List<Tag> personTags = new ArrayList<>();
+        final List<Tag> loanTags = new ArrayList<>();
         for (XmlAdaptedTag tag : tagged) {
-            personTags.add(tag.toModelType());
+            loanTags.add(tag.toModelType());
         }
 
         if (name == null) {
@@ -113,7 +113,7 @@ public class XmlAdaptedLoan {
         }
         final Address modelAddress = new Address(address);
 
-        final Set<Tag> modelTags = new HashSet<>(personTags);
+        final Set<Tag> modelTags = new HashSet<>(loanTags);
         return new Loan(modelName, modelPhone, modelEmail, modelAddress, modelTags);
     }
 
@@ -127,11 +127,11 @@ public class XmlAdaptedLoan {
             return false;
         }
 
-        XmlAdaptedLoan otherPerson = (XmlAdaptedLoan) other;
-        return Objects.equals(name, otherPerson.name)
-                && Objects.equals(phone, otherPerson.phone)
-                && Objects.equals(email, otherPerson.email)
-                && Objects.equals(address, otherPerson.address)
-                && tagged.equals(otherPerson.tagged);
+        XmlAdaptedLoan otherLoan = (XmlAdaptedLoan) other;
+        return Objects.equals(name, otherLoan.name)
+                && Objects.equals(phone, otherLoan.phone)
+                && Objects.equals(email, otherLoan.email)
+                && Objects.equals(address, otherLoan.address)
+                && tagged.equals(otherLoan.tagged);
     }
 }

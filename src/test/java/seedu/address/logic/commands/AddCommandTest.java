@@ -168,7 +168,7 @@ public class AddCommandTest {
         @Override
         public boolean hasPerson(Loan loan) {
             requireNonNull(loan);
-            return this.loan.isSamePerson(loan);
+            return this.loan.isSameLoan(loan);
         }
     }
 
@@ -181,7 +181,7 @@ public class AddCommandTest {
         @Override
         public boolean hasPerson(Loan loan) {
             requireNonNull(loan);
-            return personsAdded.stream().anyMatch(loan::isSamePerson);
+            return personsAdded.stream().anyMatch(loan::isSameLoan);
         }
 
         @Override

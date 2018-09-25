@@ -8,21 +8,21 @@ import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.address.model.loan.exceptions.DuplicatePersonException;
-import seedu.address.model.loan.exceptions.PersonNotFoundException;
+import seedu.address.model.loan.exceptions.DuplicateLoanException;
+import seedu.address.model.loan.exceptions.LoanNotFoundException;
 
 /**
- * A list of persons that enforces uniqueness between its elements and does not allow nulls.
- * A loan is considered unique by comparing using {@code Loan#isSamePerson(Loan)}. As such, adding and updating of
- * persons uses Loan#isSamePerson(Loan) for equality so as to ensure that the loan being added or updated is
- * unique in terms of identity in the UniquePersonList. However, the removal of a loan uses Loan#equals(Object) so
+ * A list of loans that enforces uniqueness between its elements and does not allow nulls.
+ * A loan is considered unique by comparing using {@code Loan#isSameLoan(Loan)}. As such, adding and updating of
+ * loans uses Loan#isSameLoan(Loan) for equality so as to ensure that the loan being added or updated is
+ * unique in terms of identity in the UniqueLoanList. However, the removal of a loan uses Loan#equals(Object) so
  * as to ensure that the loan with exactly the same fields will be removed.
  *
  * Supports a minimal set of list operations.
  *
- * @see Loan#isSamePerson(Loan)
+ * @see Loan#isSameLoan(Loan)
  */
-public class UniquePersonList implements Iterable<Loan> {
+public class UniqueLoanList implements Iterable<Loan> {
 
     private final ObservableList<Loan> internalList = FXCollections.observableArrayList();
 
@@ -31,7 +31,7 @@ public class UniquePersonList implements Iterable<Loan> {
      */
     public boolean contains(Loan toCheck) {
         requireNonNull(toCheck);
-        return internalList.stream().anyMatch(toCheck::isSamePerson);
+        return internalList.stream().anyMatch(toCheck::isSameLoan);
     }
 
     /**
@@ -41,7 +41,7 @@ public class UniquePersonList implements Iterable<Loan> {
     public void add(Loan toAdd) {
         requireNonNull(toAdd);
         if (contains(toAdd)) {
-            throw new DuplicatePersonException();
+            throw new DuplicateLoanException();
         }
         internalList.add(toAdd);
     }
@@ -51,16 +51,16 @@ public class UniquePersonList implements Iterable<Loan> {
      * {@code target} must exist in the list.
      * The loan identity of {@code editedLoan} must not be the same as another existing loan in the list.
      */
-    public void setPerson(Loan target, Loan editedLoan) {
+    public void setLoan(Loan target, Loan editedLoan) {
         requireAllNonNull(target, editedLoan);
 
         int index = internalList.indexOf(target);
         if (index == -1) {
-            throw new PersonNotFoundException();
+            throw new LoanNotFoundException();
         }
 
-        if (!target.isSamePerson(editedLoan) && contains(editedLoan)) {
-            throw new DuplicatePersonException();
+        if (!target.isSameLoan(editedLoan) && contains(editedLoan)) {
+            throw new DuplicateLoanException();
         }
 
         internalList.set(index, editedLoan);
@@ -73,11 +73,11 @@ public class UniquePersonList implements Iterable<Loan> {
     public void remove(Loan toRemove) {
         requireNonNull(toRemove);
         if (!internalList.remove(toRemove)) {
-            throw new PersonNotFoundException();
+            throw new LoanNotFoundException();
         }
     }
 
-    public void setPersons(UniquePersonList replacement) {
+    public void setLoans(UniqueLoanList replacement) {
         requireNonNull(replacement);
         internalList.setAll(replacement.internalList);
     }
@@ -86,10 +86,10 @@ public class UniquePersonList implements Iterable<Loan> {
      * Replaces the contents of this list with {@code loans}.
      * {@code loans} must not contain duplicate loans.
      */
-    public void setPersons(List<Loan> loans) {
+    public void setLoans(List<Loan> loans) {
         requireAllNonNull(loans);
-        if (!personsAreUnique(loans)) {
-            throw new DuplicatePersonException();
+        if (!loansAreUnique(loans)) {
+            throw new DuplicateLoanException();
         }
 
         internalList.setAll(loans);
@@ -110,8 +110,8 @@ public class UniquePersonList implements Iterable<Loan> {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof UniquePersonList // instanceof handles nulls
-                        && internalList.equals(((UniquePersonList) other).internalList));
+                || (other instanceof UniqueLoanList // instanceof handles nulls
+                        && internalList.equals(((UniqueLoanList) other).internalList));
     }
 
     @Override
@@ -122,10 +122,10 @@ public class UniquePersonList implements Iterable<Loan> {
     /**
      * Returns true if {@code loans} contains only unique loans.
      */
-    private boolean personsAreUnique(List<Loan> loans) {
+    private boolean loansAreUnique(List<Loan> loans) {
         for (int i = 0; i < loans.size() - 1; i++) {
             for (int j = i + 1; j < loans.size(); j++) {
-                if (loans.get(i).isSamePerson(loans.get(j))) {
+                if (loans.get(i).isSameLoan(loans.get(j))) {
                     return false;
                 }
             }

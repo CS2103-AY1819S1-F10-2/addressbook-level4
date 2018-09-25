@@ -36,7 +36,7 @@ public class XmlSerializableAddressBook {
      */
     public XmlSerializableAddressBook(ReadOnlyAddressBook src) {
         this();
-        persons.addAll(src.getPersonList().stream().map(XmlAdaptedLoan::new).collect(Collectors.toList()));
+        persons.addAll(src.getLoanList().stream().map(XmlAdaptedLoan::new).collect(Collectors.toList()));
     }
 
     /**
@@ -49,10 +49,10 @@ public class XmlSerializableAddressBook {
         AddressBook addressBook = new AddressBook();
         for (XmlAdaptedLoan p : persons) {
             Loan loan = p.toModelType();
-            if (addressBook.hasPerson(loan)) {
+            if (addressBook.hasLoan(loan)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_PERSON);
             }
-            addressBook.addPerson(loan);
+            addressBook.addLoan(loan);
         }
         return addressBook;
     }

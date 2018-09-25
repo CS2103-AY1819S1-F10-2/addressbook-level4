@@ -20,7 +20,7 @@ import org.junit.rules.ExpectedException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.loan.Loan;
-import seedu.address.model.loan.exceptions.DuplicatePersonException;
+import seedu.address.model.loan.exceptions.DuplicateLoanException;
 import seedu.address.testutil.LoanBuilder;
 
 public class AddressBookTest {
@@ -32,7 +32,7 @@ public class AddressBookTest {
 
     @Test
     public void constructor() {
-        assertEquals(Collections.emptyList(), addressBook.getPersonList());
+        assertEquals(Collections.emptyList(), addressBook.getLoanList());
     }
 
     @Test
@@ -56,39 +56,39 @@ public class AddressBookTest {
         List<Loan> newLoans = Arrays.asList(ALICE, editedAlice);
         AddressBookStub newData = new AddressBookStub(newLoans);
 
-        thrown.expect(DuplicatePersonException.class);
+        thrown.expect(DuplicateLoanException.class);
         addressBook.resetData(newData);
     }
 
     @Test
     public void hasPerson_nullPerson_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        addressBook.hasPerson(null);
+        addressBook.hasLoan(null);
     }
 
     @Test
     public void hasPerson_personNotInAddressBook_returnsFalse() {
-        assertFalse(addressBook.hasPerson(ALICE));
+        assertFalse(addressBook.hasLoan(ALICE));
     }
 
     @Test
     public void hasPerson_personInAddressBook_returnsTrue() {
-        addressBook.addPerson(ALICE);
-        assertTrue(addressBook.hasPerson(ALICE));
+        addressBook.addLoan(ALICE);
+        assertTrue(addressBook.hasLoan(ALICE));
     }
 
     @Test
     public void hasPerson_personWithSameIdentityFieldsInAddressBook_returnsTrue() {
-        addressBook.addPerson(ALICE);
+        addressBook.addLoan(ALICE);
         Loan editedAlice = new LoanBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
-        assertTrue(addressBook.hasPerson(editedAlice));
+        assertTrue(addressBook.hasLoan(editedAlice));
     }
 
     @Test
     public void getPersonList_modifyList_throwsUnsupportedOperationException() {
         thrown.expect(UnsupportedOperationException.class);
-        addressBook.getPersonList().remove(0);
+        addressBook.getLoanList().remove(0);
     }
 
     /**
@@ -102,7 +102,7 @@ public class AddressBookTest {
         }
 
         @Override
-        public ObservableList<Loan> getPersonList() {
+        public ObservableList<Loan> getLoanList() {
             return loans;
         }
     }

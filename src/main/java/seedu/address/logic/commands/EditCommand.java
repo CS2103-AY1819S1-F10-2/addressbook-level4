@@ -78,7 +78,7 @@ public class EditCommand extends Command {
         Loan loanToEdit = lastShownList.get(index.getZeroBased());
         Loan editedLoan = createEditedPerson(loanToEdit, editPersonDescriptor);
 
-        if (!loanToEdit.isSamePerson(editedLoan) && model.hasPerson(editedLoan)) {
+        if (!loanToEdit.isSameLoan(editedLoan) && model.hasPerson(editedLoan)) {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
         }
 

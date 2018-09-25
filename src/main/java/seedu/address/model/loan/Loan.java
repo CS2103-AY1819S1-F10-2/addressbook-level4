@@ -61,10 +61,10 @@ public class Loan {
     }
 
     /**
-     * Returns true if both persons of the same name have at least one other identity field that is the same.
-     * This defines a weaker notion of equality between two persons.
+     * Returns true if both loans of the same name have at least one other identity field that is the same.
+     * This defines a weaker notion of equality between two loans.
      */
-    public boolean isSamePerson(Loan otherLoan) {
+    public boolean isSameLoan(Loan otherLoan) {
         if (otherLoan == this) {
             return true;
         }
@@ -75,8 +75,8 @@ public class Loan {
     }
 
     /**
-     * Returns true if both persons have the same identity and data fields.
-     * This defines a stronger notion of equality between two persons.
+     * Returns true if both loans have the same identity and data fields.
+     * This defines a stronger notion of equality between two loans.
      */
     @Override
     public boolean equals(Object other) {

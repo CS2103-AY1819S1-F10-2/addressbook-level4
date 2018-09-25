@@ -6,15 +6,15 @@ import java.util.List;
 
 import javafx.collections.ObservableList;
 import seedu.address.model.loan.Loan;
-import seedu.address.model.loan.UniquePersonList;
+import seedu.address.model.loan.UniqueLoanList;
 
 /**
  * Wraps all data at the address-book level
- * Duplicates are not allowed (by .isSamePerson comparison)
+ * Duplicates are not allowed (by .isSameLoan comparison)
  */
 public class AddressBook implements ReadOnlyAddressBook {
 
-    private final UniquePersonList persons;
+    private final UniqueLoanList loans;
 
     /*
      * The 'unusual' code block below is an non-static initialization block, sometimes used to avoid duplication
@@ -24,13 +24,13 @@ public class AddressBook implements ReadOnlyAddressBook {
      *   among constructors.
      */
     {
-        persons = new UniquePersonList();
+        loans = new UniqueLoanList();
     }
 
     public AddressBook() {}
 
     /**
-     * Creates an AddressBook using the Persons in the {@code toBeCopied}
+     * Creates an AddressBook using the Loans in the {@code toBeCopied}
      */
     public AddressBook(ReadOnlyAddressBook toBeCopied) {
         this();
@@ -43,8 +43,8 @@ public class AddressBook implements ReadOnlyAddressBook {
      * Replaces the contents of the loan list with {@code loans}.
      * {@code loans} must not contain duplicate loans.
      */
-    public void setPersons(List<Loan> loans) {
-        this.persons.setPersons(loans);
+    public void setLoans(List<Loan> loans) {
+        this.loans.setLoans(loans);
     }
 
     /**
@@ -53,7 +53,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     public void resetData(ReadOnlyAddressBook newData) {
         requireNonNull(newData);
 
-        setPersons(newData.getPersonList());
+        setLoans(newData.getLoanList());
     }
 
     //// loan-level operations
@@ -61,17 +61,17 @@ public class AddressBook implements ReadOnlyAddressBook {
     /**
      * Returns true if a loan with the same identity as {@code loan} exists in the address book.
      */
-    public boolean hasPerson(Loan loan) {
+    public boolean hasLoan(Loan loan) {
         requireNonNull(loan);
-        return persons.contains(loan);
+        return loans.contains(loan);
     }
 
     /**
      * Adds a loan to the address book.
      * The loan must not already exist in the address book.
      */
-    public void addPerson(Loan p) {
-        persons.add(p);
+    public void addLoan(Loan p) {
+        loans.add(p);
     }
 
     /**
@@ -79,42 +79,42 @@ public class AddressBook implements ReadOnlyAddressBook {
      * {@code target} must exist in the address book.
      * The loan identity of {@code editedLoan} must not be the same as another existing loan in the address book.
      */
-    public void updatePerson(Loan target, Loan editedLoan) {
+    public void updateLoan(Loan target, Loan editedLoan) {
         requireNonNull(editedLoan);
 
-        persons.setPerson(target, editedLoan);
+        loans.setLoan(target, editedLoan);
     }
 
     /**
      * Removes {@code key} from this {@code AddressBook}.
      * {@code key} must exist in the address book.
      */
-    public void removePerson(Loan key) {
-        persons.remove(key);
+    public void removeLoan(Loan key) {
+        loans.remove(key);
     }
 
     //// util methods
 
     @Override
     public String toString() {
-        return persons.asUnmodifiableObservableList().size() + " persons";
+        return loans.asUnmodifiableObservableList().size() + " loans";
         // TODO: refine later
     }
 
     @Override
-    public ObservableList<Loan> getPersonList() {
-        return persons.asUnmodifiableObservableList();
+    public ObservableList<Loan> getLoanList() {
+        return loans.asUnmodifiableObservableList();
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof AddressBook // instanceof handles nulls
-                && persons.equals(((AddressBook) other).persons));
+                && loans.equals(((AddressBook) other).loans));
     }
 
     @Override
     public int hashCode() {
-        return persons.hashCode();
+        return loans.hashCode();
     }
 }

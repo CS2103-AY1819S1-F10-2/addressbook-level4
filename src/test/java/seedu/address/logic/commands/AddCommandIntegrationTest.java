@@ -41,7 +41,7 @@ public class AddCommandIntegrationTest {
 
     @Test
     public void execute_duplicatePerson_throwsCommandException() {
-        Loan loanInList = model.getAddressBook().getPersonList().get(0);
+        Loan loanInList = model.getAddressBook().getLoanList().get(0);
         assertCommandFailure(new AddCommand(loanInList), model, commandHistory,
                 AddCommand.MESSAGE_DUPLICATE_PERSON);
     }
