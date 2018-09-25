@@ -18,17 +18,17 @@ import seedu.address.model.loan.Loan;
 @XmlRootElement(name = "addressbook")
 public class XmlSerializableAddressBook {
 
-    public static final String MESSAGE_DUPLICATE_PERSON = "Persons list contains duplicate loan(s).";
+    public static final String MESSAGE_DUPLICATE_LOAN = "Loans list contains duplicate loan(s).";
 
     @XmlElement
-    private List<XmlAdaptedLoan> persons;
+    private List<XmlAdaptedLoan> loans;
 
     /**
      * Creates an empty XmlSerializableAddressBook.
      * This empty constructor is required for marshalling.
      */
     public XmlSerializableAddressBook() {
-        persons = new ArrayList<>();
+        loans = new ArrayList<>();
     }
 
     /**
@@ -36,7 +36,7 @@ public class XmlSerializableAddressBook {
      */
     public XmlSerializableAddressBook(ReadOnlyAddressBook src) {
         this();
-        persons.addAll(src.getLoanList().stream().map(XmlAdaptedLoan::new).collect(Collectors.toList()));
+        loans.addAll(src.getLoanList().stream().map(XmlAdaptedLoan::new).collect(Collectors.toList()));
     }
 
     /**
@@ -47,10 +47,10 @@ public class XmlSerializableAddressBook {
      */
     public AddressBook toModelType() throws IllegalValueException {
         AddressBook addressBook = new AddressBook();
-        for (XmlAdaptedLoan p : persons) {
+        for (XmlAdaptedLoan p : loans) {
             Loan loan = p.toModelType();
             if (addressBook.hasLoan(loan)) {
-                throw new IllegalValueException(MESSAGE_DUPLICATE_PERSON);
+                throw new IllegalValueException(MESSAGE_DUPLICATE_LOAN);
             }
             addressBook.addLoan(loan);
         }
@@ -66,6 +66,6 @@ public class XmlSerializableAddressBook {
         if (!(other instanceof XmlSerializableAddressBook)) {
             return false;
         }
-        return persons.equals(((XmlSerializableAddressBook) other).persons);
+        return loans.equals(((XmlSerializableAddressBook) other).loans);
     }
 }

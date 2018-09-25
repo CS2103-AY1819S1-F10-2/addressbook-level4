@@ -144,6 +144,6 @@ public class XmlUtilTest {
      * objects.
      */
 
-    @XmlRootElement(name = "person")
+    @XmlRootElement(name = "loan")
     private static class XmlAdaptedLoanWithRootElement extends XmlAdaptedLoan {}
 }
