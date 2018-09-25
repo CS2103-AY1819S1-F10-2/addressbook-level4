@@ -25,7 +25,7 @@ public class SelectCommand extends Command {
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_SELECT_PERSON_SUCCESS = "Selected Loan: %1$s";
+    public static final String MESSAGE_SELECT_LOAN_SUCCESS = "Selected Loan: %1$s";
 
     private final Index targetIndex;
 
@@ -37,14 +37,14 @@ public class SelectCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
 
-        List<Loan> filteredLoanList = model.getFilteredPersonList();
+        List<Loan> filteredLoanList = model.getFilteredLoanList();
 
         if (targetIndex.getZeroBased() >= filteredLoanList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+            throw new CommandException(Messages.MESSAGE_INVALID_LOAN_DISPLAYED_INDEX);
         }
 
         EventsCenter.getInstance().post(new JumpToListRequestEvent(targetIndex));
-        return new CommandResult(String.format(MESSAGE_SELECT_PERSON_SUCCESS, targetIndex.getOneBased()));
+        return new CommandResult(String.format(MESSAGE_SELECT_LOAN_SUCCESS, targetIndex.getOneBased()));
 
     }
 

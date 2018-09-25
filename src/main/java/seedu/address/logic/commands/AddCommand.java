@@ -35,7 +35,7 @@ public class AddCommand extends Command {
             + PREFIX_TAG + "owesMoney";
 
     public static final String MESSAGE_SUCCESS = "New loan added: %1$s";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This loan already exists in the address book";
+    public static final String MESSAGE_DUPLICATE_LOAN = "This loan already exists in the address book";
 
     private final Loan toAdd;
 
@@ -51,11 +51,11 @@ public class AddCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
 
-        if (model.hasPerson(toAdd)) {
-            throw new CommandException(MESSAGE_DUPLICATE_PERSON);
+        if (model.hasLoan(toAdd)) {
+            throw new CommandException(MESSAGE_DUPLICATE_LOAN);
         }
 
-        model.addPerson(toAdd);
+        model.addLoan(toAdd);
         model.commitAddressBook();
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }

@@ -1,14 +1,14 @@
 package systemtests;
 
 import static org.junit.Assert.assertTrue;
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_LOAN_DISPLAYED_INDEX;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-import static seedu.address.logic.commands.DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS;
+import static seedu.address.logic.commands.DeleteCommand.MESSAGE_DELETE_LOAN_SUCCESS;
 import static seedu.address.testutil.TestUtil.getLastIndex;
 import static seedu.address.testutil.TestUtil.getMidIndex;
-import static seedu.address.testutil.TestUtil.getPerson;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
-import static seedu.address.testutil.TypicalPersons.KEYWORD_MATCHING_MEIER;
+import static seedu.address.testutil.TestUtil.getLoan;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_LOAN;
+import static seedu.address.testutil.TypicalLoans.KEYWORD_MATCHING_MEIER;
 
 import org.junit.Test;
 
@@ -31,15 +31,15 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
 
         /* Case: delete the first loan in the list, command with leading spaces and trailing spaces -> deleted */
         Model expectedModel = getModel();
-        String command = "     " + DeleteCommand.COMMAND_WORD + "      " + INDEX_FIRST_PERSON.getOneBased() + "       ";
-        Loan deletedLoan = removePerson(expectedModel, INDEX_FIRST_PERSON);
-        String expectedResultMessage = String.format(MESSAGE_DELETE_PERSON_SUCCESS, deletedLoan);
+        String command = "     " + DeleteCommand.COMMAND_WORD + "      " + INDEX_FIRST_LOAN.getOneBased() + "       ";
+        Loan deletedLoan = removeLoan(expectedModel, INDEX_FIRST_LOAN);
+        String expectedResultMessage = String.format(MESSAGE_DELETE_LOAN_SUCCESS, deletedLoan);
         assertCommandSuccess(command, expectedModel, expectedResultMessage);
 
         /* Case: delete the last loan in the list -> deleted */
         Model modelBeforeDeletingLast = getModel();
-        Index lastPersonIndex = getLastIndex(modelBeforeDeletingLast);
-        assertCommandSuccess(lastPersonIndex);
+        Index lastLoanIndex = getLastIndex(modelBeforeDeletingLast);
+        assertCommandSuccess(lastLoanIndex);
 
         /* Case: undo deleting the last loan in the list -> last loan restored */
         command = UndoCommand.COMMAND_WORD;
@@ -48,41 +48,41 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
 
         /* Case: redo deleting the last loan in the list -> last loan deleted again */
         command = RedoCommand.COMMAND_WORD;
-        removePerson(modelBeforeDeletingLast, lastPersonIndex);
+        removeLoan(modelBeforeDeletingLast, lastLoanIndex);
         expectedResultMessage = RedoCommand.MESSAGE_SUCCESS;
         assertCommandSuccess(command, modelBeforeDeletingLast, expectedResultMessage);
 
         /* Case: delete the middle loan in the list -> deleted */
-        Index middlePersonIndex = getMidIndex(getModel());
-        assertCommandSuccess(middlePersonIndex);
+        Index middleLoanIndex = getMidIndex(getModel());
+        assertCommandSuccess(middleLoanIndex);
 
         /* ------------------ Performing delete operation while a filtered list is being shown ---------------------- */
 
         /* Case: filtered loan list, delete index within bounds of address book and loan list -> deleted */
-        showPersonsWithName(KEYWORD_MATCHING_MEIER);
-        Index index = INDEX_FIRST_PERSON;
-        assertTrue(index.getZeroBased() < getModel().getFilteredPersonList().size());
+        showLoansWithName(KEYWORD_MATCHING_MEIER);
+        Index index = INDEX_FIRST_LOAN;
+        assertTrue(index.getZeroBased() < getModel().getFilteredLoanList().size());
         assertCommandSuccess(index);
 
         /* Case: filtered loan list, delete index within bounds of address book but out of bounds of loan list
          * -> rejected
          */
-        showPersonsWithName(KEYWORD_MATCHING_MEIER);
+        showLoansWithName(KEYWORD_MATCHING_MEIER);
         int invalidIndex = getModel().getAddressBook().getLoanList().size();
         command = DeleteCommand.COMMAND_WORD + " " + invalidIndex;
-        assertCommandFailure(command, MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        assertCommandFailure(command, MESSAGE_INVALID_LOAN_DISPLAYED_INDEX);
 
         /* --------------------- Performing delete operation while a loan card is selected ------------------------ */
 
         /* Case: delete the selected loan -> loan list panel selects the loan before the deleted loan */
-        showAllPersons();
+        showAllLoans();
         expectedModel = getModel();
         Index selectedIndex = getLastIndex(expectedModel);
         Index expectedIndex = Index.fromZeroBased(selectedIndex.getZeroBased() - 1);
-        selectPerson(selectedIndex);
+        selectLoan(selectedIndex);
         command = DeleteCommand.COMMAND_WORD + " " + selectedIndex.getOneBased();
-        deletedLoan = removePerson(expectedModel, selectedIndex);
-        expectedResultMessage = String.format(MESSAGE_DELETE_PERSON_SUCCESS, deletedLoan);
+        deletedLoan = removeLoan(expectedModel, selectedIndex);
+        expectedResultMessage = String.format(MESSAGE_DELETE_LOAN_SUCCESS, deletedLoan);
         assertCommandSuccess(command, expectedModel, expectedResultMessage, expectedIndex);
 
         /* --------------------------------- Performing invalid delete operation ------------------------------------ */
@@ -99,7 +99,7 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
         Index outOfBoundsIndex = Index.fromOneBased(
                 getModel().getAddressBook().getLoanList().size() + 1);
         command = DeleteCommand.COMMAND_WORD + " " + outOfBoundsIndex.getOneBased();
-        assertCommandFailure(command, MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        assertCommandFailure(command, MESSAGE_INVALID_LOAN_DISPLAYED_INDEX);
 
         /* Case: invalid arguments (alphabets) -> rejected */
         assertCommandFailure(DeleteCommand.COMMAND_WORD + " abc", MESSAGE_INVALID_DELETE_COMMAND_FORMAT);
@@ -115,9 +115,9 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
      * Removes the {@code Loan} at the specified {@code index} in {@code model}'s address book.
      * @return the removed loan
      */
-    private Loan removePerson(Model model, Index index) {
-        Loan targetLoan = getPerson(model, index);
-        model.deletePerson(targetLoan);
+    private Loan removeLoan(Model model, Index index) {
+        Loan targetLoan = getLoan(model, index);
+        model.deleteLoan(targetLoan);
         return targetLoan;
     }
 
@@ -128,8 +128,8 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
      */
     private void assertCommandSuccess(Index toDelete) {
         Model expectedModel = getModel();
-        Loan deletedLoan = removePerson(expectedModel, toDelete);
-        String expectedResultMessage = String.format(MESSAGE_DELETE_PERSON_SUCCESS, deletedLoan);
+        Loan deletedLoan = removeLoan(expectedModel, toDelete);
+        String expectedResultMessage = String.format(MESSAGE_DELETE_LOAN_SUCCESS, deletedLoan);
 
         assertCommandSuccess(
                 DeleteCommand.COMMAND_WORD + " " + toDelete.getOneBased(), expectedModel, expectedResultMessage);

@@ -9,26 +9,26 @@ import javafx.scene.control.ListView;
 import seedu.address.model.loan.Loan;
 
 /**
- * Provides a handle for {@code PersonListPanel} containing the list of {@code PersonCard}.
+ * Provides a handle for {@code LoanListPanel} containing the list of {@code LoanCard}.
  */
-public class PersonListPanelHandle extends NodeHandle<ListView<Loan>> {
-    public static final String PERSON_LIST_VIEW_ID = "#personListView";
+public class LoanListPanelHandle extends NodeHandle<ListView<Loan>> {
+    public static final String LOAN_LIST_VIEW_ID = "#loanListView";
 
     private static final String CARD_PANE_ID = "#cardPane";
 
-    private Optional<Loan> lastRememberedSelectedPersonCard;
+    private Optional<Loan> lastRememberedSelectedLoanCard;
 
-    public PersonListPanelHandle(ListView<Loan> personListPanelNode) {
-        super(personListPanelNode);
+    public LoanListPanelHandle(ListView<Loan> loanListPanelNode) {
+        super(loanListPanelNode);
     }
 
     /**
-     * Returns a handle to the selected {@code PersonCardHandle}.
+     * Returns a handle to the selected {@code LoanCardHandle}.
      * A maximum of 1 item can be selected at any time.
      * @throws AssertionError if no card is selected, or more than 1 card is selected.
      * @throws IllegalStateException if the selected card is currently not in the scene graph.
      */
-    public PersonCardHandle getHandleToSelectedCard() {
+    public LoanCardHandle getHandleToSelectedCard() {
         List<Loan> selectedLoanList = getRootNode().getSelectionModel().getSelectedItems();
 
         if (selectedLoanList.size() != 1) {
@@ -36,7 +36,7 @@ public class PersonListPanelHandle extends NodeHandle<ListView<Loan>> {
         }
 
         return getAllCardNodes().stream()
-                .map(PersonCardHandle::new)
+                .map(LoanCardHandle::new)
                 .filter(handle -> handle.equals(selectedLoanList.get(0)))
                 .findFirst()
                 .orElseThrow(IllegalStateException::new);
@@ -91,7 +91,7 @@ public class PersonListPanelHandle extends NodeHandle<ListView<Loan>> {
     }
 
     /**
-     * Selects the {@code PersonCard} at {@code index} in the list.
+     * Selects the {@code LoanCard} at {@code index} in the list.
      */
     public void select(int index) {
         getRootNode().getSelectionModel().select(index);
@@ -101,15 +101,15 @@ public class PersonListPanelHandle extends NodeHandle<ListView<Loan>> {
      * Returns the loan card handle of a loan associated with the {@code index} in the list.
      * @throws IllegalStateException if the selected card is currently not in the scene graph.
      */
-    public PersonCardHandle getPersonCardHandle(int index) {
+    public LoanCardHandle getLoanCardHandle(int index) {
         return getAllCardNodes().stream()
-                .map(PersonCardHandle::new)
-                .filter(handle -> handle.equals(getPerson(index)))
+                .map(LoanCardHandle::new)
+                .filter(handle -> handle.equals(getLoan(index)))
                 .findFirst()
                 .orElseThrow(IllegalStateException::new);
     }
 
-    private Loan getPerson(int index) {
+    private Loan getLoan(int index) {
         return getRootNode().getItems().get(index);
     }
 
@@ -123,30 +123,30 @@ public class PersonListPanelHandle extends NodeHandle<ListView<Loan>> {
     }
 
     /**
-     * Remembers the selected {@code PersonCard} in the list.
+     * Remembers the selected {@code LoanCard} in the list.
      */
-    public void rememberSelectedPersonCard() {
+    public void rememberSelectedLoanCard() {
         List<Loan> selectedItems = getRootNode().getSelectionModel().getSelectedItems();
 
         if (selectedItems.size() == 0) {
-            lastRememberedSelectedPersonCard = Optional.empty();
+            lastRememberedSelectedLoanCard = Optional.empty();
         } else {
-            lastRememberedSelectedPersonCard = Optional.of(selectedItems.get(0));
+            lastRememberedSelectedLoanCard = Optional.of(selectedItems.get(0));
         }
     }
 
     /**
-     * Returns true if the selected {@code PersonCard} is different from the value remembered by the most recent
-     * {@code rememberSelectedPersonCard()} call.
+     * Returns true if the selected {@code LoanCard} is different from the value remembered by the most recent
+     * {@code rememberSelectedLoanCard()} call.
      */
-    public boolean isSelectedPersonCardChanged() {
+    public boolean isSelectedLoanCardChanged() {
         List<Loan> selectedItems = getRootNode().getSelectionModel().getSelectedItems();
 
         if (selectedItems.size() == 0) {
-            return lastRememberedSelectedPersonCard.isPresent();
+            return lastRememberedSelectedLoanCard.isPresent();
         } else {
-            return !lastRememberedSelectedPersonCard.isPresent()
-                    || !lastRememberedSelectedPersonCard.get().equals(selectedItems.get(0));
+            return !lastRememberedSelectedLoanCard.isPresent()
+                    || !lastRememberedSelectedLoanCard.get().equals(selectedItems.get(0));
         }
     }
 

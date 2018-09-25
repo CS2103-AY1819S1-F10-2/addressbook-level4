@@ -57,26 +57,26 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public boolean hasPerson(Loan loan) {
+    public boolean hasLoan(Loan loan) {
         requireNonNull(loan);
         return versionedAddressBook.hasLoan(loan);
     }
 
     @Override
-    public void deletePerson(Loan target) {
+    public void deleteLoan(Loan target) {
         versionedAddressBook.removeLoan(target);
         indicateAddressBookChanged();
     }
 
     @Override
-    public void addPerson(Loan loan) {
+    public void addLoan(Loan loan) {
         versionedAddressBook.addLoan(loan);
-        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        updateFilteredLoanList(PREDICATE_SHOW_ALL_LOANS);
         indicateAddressBookChanged();
     }
 
     @Override
-    public void updatePerson(Loan target, Loan editedLoan) {
+    public void updateLoan(Loan target, Loan editedLoan) {
         requireAllNonNull(target, editedLoan);
 
         versionedAddressBook.updateLoan(target, editedLoan);
@@ -90,12 +90,12 @@ public class ModelManager extends ComponentManager implements Model {
      * {@code versionedAddressBook}
      */
     @Override
-    public ObservableList<Loan> getFilteredPersonList() {
+    public ObservableList<Loan> getFilteredLoanList() {
         return FXCollections.unmodifiableObservableList(filteredLoans);
     }
 
     @Override
-    public void updateFilteredPersonList(Predicate<Loan> predicate) {
+    public void updateFilteredLoanList(Predicate<Loan> predicate) {
         requireNonNull(predicate);
         filteredLoans.setPredicate(predicate);
     }

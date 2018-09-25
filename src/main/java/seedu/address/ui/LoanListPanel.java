@@ -12,48 +12,48 @@ import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.ui.JumpToListRequestEvent;
-import seedu.address.commons.events.ui.PersonPanelSelectionChangedEvent;
+import seedu.address.commons.events.ui.LoanPanelSelectionChangedEvent;
 import seedu.address.model.loan.Loan;
 
 /**
- * Panel containing the list of persons.
+ * Panel containing the list of loans.
  */
-public class PersonListPanel extends UiPart<Region> {
-    private static final String FXML = "PersonListPanel.fxml";
-    private final Logger logger = LogsCenter.getLogger(PersonListPanel.class);
+public class LoanListPanel extends UiPart<Region> {
+    private static final String FXML = "LoanListPanel.fxml";
+    private final Logger logger = LogsCenter.getLogger(LoanListPanel.class);
 
     @FXML
-    private ListView<Loan> personListView;
+    private ListView<Loan> loanListView;
 
-    public PersonListPanel(ObservableList<Loan> loanList) {
+    public LoanListPanel(ObservableList<Loan> loanList) {
         super(FXML);
         setConnections(loanList);
         registerAsAnEventHandler(this);
     }
 
     private void setConnections(ObservableList<Loan> loanList) {
-        personListView.setItems(loanList);
-        personListView.setCellFactory(listView -> new PersonListViewCell());
+        loanListView.setItems(loanList);
+        loanListView.setCellFactory(listView -> new LoanListViewCell());
         setEventHandlerForSelectionChangeEvent();
     }
 
     private void setEventHandlerForSelectionChangeEvent() {
-        personListView.getSelectionModel().selectedItemProperty()
+        loanListView.getSelectionModel().selectedItemProperty()
                 .addListener((observable, oldValue, newValue) -> {
                     if (newValue != null) {
                         logger.fine("Selection in loan list panel changed to : '" + newValue + "'");
-                        raise(new PersonPanelSelectionChangedEvent(newValue));
+                        raise(new LoanPanelSelectionChangedEvent(newValue));
                     }
                 });
     }
 
     /**
-     * Scrolls to the {@code PersonCard} at the {@code index} and selects it.
+     * Scrolls to the {@code LoanCard} at the {@code index} and selects it.
      */
     private void scrollTo(int index) {
         Platform.runLater(() -> {
-            personListView.scrollTo(index);
-            personListView.getSelectionModel().clearAndSelect(index);
+            loanListView.scrollTo(index);
+            loanListView.getSelectionModel().clearAndSelect(index);
         });
     }
 
@@ -64,9 +64,9 @@ public class PersonListPanel extends UiPart<Region> {
     }
 
     /**
-     * Custom {@code ListCell} that displays the graphics of a {@code Loan} using a {@code PersonCard}.
+     * Custom {@code ListCell} that displays the graphics of a {@code Loan} using a {@code LoanCard}.
      */
-    class PersonListViewCell extends ListCell<Loan> {
+    class LoanListViewCell extends ListCell<Loan> {
         @Override
         protected void updateItem(Loan loan, boolean empty) {
             super.updateItem(loan, empty);
@@ -75,7 +75,7 @@ public class PersonListPanel extends UiPart<Region> {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(new PersonCard(loan, getIndex() + 1).getRoot());
+                setGraphic(new LoanCard(loan, getIndex() + 1).getRoot());
             }
         }
     }

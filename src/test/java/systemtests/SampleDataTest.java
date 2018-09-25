@@ -45,7 +45,7 @@ public class SampleDataTest extends AddressBookSystemTest {
 
     @Test
     public void addressBook_dataFileDoesNotExist_loadSampleData() {
-        Loan[] expectedList = SampleDataUtil.getSamplePersons();
-        assertListMatching(getPersonListPanel(), expectedList);
+        Loan[] expectedList = SampleDataUtil.getSampleLoans();
+        assertListMatching(getLoanListPanel(), expectedList);
     }
 }

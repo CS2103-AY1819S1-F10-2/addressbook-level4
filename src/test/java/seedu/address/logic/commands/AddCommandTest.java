@@ -32,31 +32,31 @@ public class AddCommandTest {
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
-    public void constructor_nullPerson_throwsNullPointerException() {
+    public void constructor_nullLoan_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
         new AddCommand(null);
     }
 
     @Test
-    public void execute_personAcceptedByModel_addSuccessful() throws Exception {
-        ModelStubAcceptingPersonAdded modelStub = new ModelStubAcceptingPersonAdded();
+    public void execute_loanAcceptedByModel_addSuccessful() throws Exception {
+        ModelStubAcceptingLoanAdded modelStub = new ModelStubAcceptingLoanAdded();
         Loan validLoan = new LoanBuilder().build();
 
         CommandResult commandResult = new AddCommand(validLoan).execute(modelStub, commandHistory);
 
         assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validLoan), commandResult.feedbackToUser);
-        assertEquals(Arrays.asList(validLoan), modelStub.personsAdded);
+        assertEquals(Arrays.asList(validLoan), modelStub.loansAdded);
         assertEquals(EMPTY_COMMAND_HISTORY, commandHistory);
     }
 
     @Test
-    public void execute_duplicatePerson_throwsCommandException() throws Exception {
+    public void execute_duplicateLoan_throwsCommandException() throws Exception {
         Loan validLoan = new LoanBuilder().build();
         AddCommand addCommand = new AddCommand(validLoan);
-        ModelStub modelStub = new ModelStubWithPerson(validLoan);
+        ModelStub modelStub = new ModelStubWithLoan(validLoan);
 
         thrown.expect(CommandException.class);
-        thrown.expectMessage(AddCommand.MESSAGE_DUPLICATE_PERSON);
+        thrown.expectMessage(AddCommand.MESSAGE_DUPLICATE_LOAN);
         addCommand.execute(modelStub, commandHistory);
     }
 
@@ -89,7 +89,7 @@ public class AddCommandTest {
      */
     private class ModelStub implements Model {
         @Override
-        public void addPerson(Loan loan) {
+        public void addLoan(Loan loan) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -104,27 +104,27 @@ public class AddCommandTest {
         }
 
         @Override
-        public boolean hasPerson(Loan loan) {
+        public boolean hasLoan(Loan loan) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void deletePerson(Loan target) {
+        public void deleteLoan(Loan target) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void updatePerson(Loan target, Loan editedLoan) {
+        public void updateLoan(Loan target, Loan editedLoan) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public ObservableList<Loan> getFilteredPersonList() {
+        public ObservableList<Loan> getFilteredLoanList() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void updateFilteredPersonList(Predicate<Loan> predicate) {
+        public void updateFilteredLoanList(Predicate<Loan> predicate) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -157,16 +157,16 @@ public class AddCommandTest {
     /**
      * A Model stub that contains a single loan.
      */
-    private class ModelStubWithPerson extends ModelStub {
+    private class ModelStubWithLoan extends ModelStub {
         private final Loan loan;
 
-        ModelStubWithPerson(Loan loan) {
+        ModelStubWithLoan(Loan loan) {
             requireNonNull(loan);
             this.loan = loan;
         }
 
         @Override
-        public boolean hasPerson(Loan loan) {
+        public boolean hasLoan(Loan loan) {
             requireNonNull(loan);
             return this.loan.isSameLoan(loan);
         }
@@ -175,19 +175,19 @@ public class AddCommandTest {
     /**
      * A Model stub that always accept the loan being added.
      */
-    private class ModelStubAcceptingPersonAdded extends ModelStub {
-        final ArrayList<Loan> personsAdded = new ArrayList<>();
+    private class ModelStubAcceptingLoanAdded extends ModelStub {
+        final ArrayList<Loan> loansAdded = new ArrayList<>();
 
         @Override
-        public boolean hasPerson(Loan loan) {
+        public boolean hasLoan(Loan loan) {
             requireNonNull(loan);
-            return personsAdded.stream().anyMatch(loan::isSameLoan);
+            return loansAdded.stream().anyMatch(loan::isSameLoan);
         }
 
         @Override
-        public void addPerson(Loan loan) {
+        public void addLoan(Loan loan) {
             requireNonNull(loan);
-            personsAdded.add(loan);
+            loansAdded.add(loan);
         }
 
         @Override

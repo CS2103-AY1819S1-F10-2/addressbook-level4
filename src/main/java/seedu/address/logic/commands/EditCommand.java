@@ -6,7 +6,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_LOANS;
 
 import java.util.Collections;
 import java.util.HashSet;
@@ -47,59 +47,59 @@ public class EditCommand extends Command {
             + PREFIX_PHONE + "91234567 "
             + PREFIX_EMAIL + "johndoe@example.com";
 
-    public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Loan: %1$s";
+    public static final String MESSAGE_EDIT_LOAN_SUCCESS = "Edited Loan: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This loan already exists in the address book.";
+    public static final String MESSAGE_DUPLICATE_LOAN = "This loan already exists in the address book.";
 
     private final Index index;
-    private final EditPersonDescriptor editPersonDescriptor;
+    private final EditLoanDescriptor editLoanDescriptor;
 
     /**
      * @param index of the loan in the filtered loan list to edit
-     * @param editPersonDescriptor details to edit the loan with
+     * @param editLoanDescriptor details to edit the loan with
      */
-    public EditCommand(Index index, EditPersonDescriptor editPersonDescriptor) {
+    public EditCommand(Index index, EditLoanDescriptor editLoanDescriptor) {
         requireNonNull(index);
-        requireNonNull(editPersonDescriptor);
+        requireNonNull(editLoanDescriptor);
 
         this.index = index;
-        this.editPersonDescriptor = new EditPersonDescriptor(editPersonDescriptor);
+        this.editLoanDescriptor = new EditLoanDescriptor(editLoanDescriptor);
     }
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
-        List<Loan> lastShownList = model.getFilteredPersonList();
+        List<Loan> lastShownList = model.getFilteredLoanList();
 
         if (index.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+            throw new CommandException(Messages.MESSAGE_INVALID_LOAN_DISPLAYED_INDEX);
         }
 
         Loan loanToEdit = lastShownList.get(index.getZeroBased());
-        Loan editedLoan = createEditedPerson(loanToEdit, editPersonDescriptor);
+        Loan editedLoan = createEditedLoan(loanToEdit, editLoanDescriptor);
 
-        if (!loanToEdit.isSameLoan(editedLoan) && model.hasPerson(editedLoan)) {
-            throw new CommandException(MESSAGE_DUPLICATE_PERSON);
+        if (!loanToEdit.isSameLoan(editedLoan) && model.hasLoan(editedLoan)) {
+            throw new CommandException(MESSAGE_DUPLICATE_LOAN);
         }
 
-        model.updatePerson(loanToEdit, editedLoan);
-        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        model.updateLoan(loanToEdit, editedLoan);
+        model.updateFilteredLoanList(PREDICATE_SHOW_ALL_LOANS);
         model.commitAddressBook();
-        return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, editedLoan));
+        return new CommandResult(String.format(MESSAGE_EDIT_LOAN_SUCCESS, editedLoan));
     }
 
     /**
      * Creates and returns a {@code Loan} with the details of {@code loanToEdit}
-     * edited with {@code editPersonDescriptor}.
+     * edited with {@code editLoanDescriptor}.
      */
-    private static Loan createEditedPerson(Loan loanToEdit, EditPersonDescriptor editPersonDescriptor) {
+    private static Loan createEditedLoan(Loan loanToEdit, EditLoanDescriptor editLoanDescriptor) {
         assert loanToEdit != null;
 
-        Name updatedName = editPersonDescriptor.getName().orElse(loanToEdit.getName());
-        Phone updatedPhone = editPersonDescriptor.getPhone().orElse(loanToEdit.getPhone());
-        Email updatedEmail = editPersonDescriptor.getEmail().orElse(loanToEdit.getEmail());
-        Address updatedAddress = editPersonDescriptor.getAddress().orElse(loanToEdit.getAddress());
-        Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(loanToEdit.getTags());
+        Name updatedName = editLoanDescriptor.getName().orElse(loanToEdit.getName());
+        Phone updatedPhone = editLoanDescriptor.getPhone().orElse(loanToEdit.getPhone());
+        Email updatedEmail = editLoanDescriptor.getEmail().orElse(loanToEdit.getEmail());
+        Address updatedAddress = editLoanDescriptor.getAddress().orElse(loanToEdit.getAddress());
+        Set<Tag> updatedTags = editLoanDescriptor.getTags().orElse(loanToEdit.getTags());
 
         return new Loan(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags);
     }
@@ -119,27 +119,27 @@ public class EditCommand extends Command {
         // state check
         EditCommand e = (EditCommand) other;
         return index.equals(e.index)
-                && editPersonDescriptor.equals(e.editPersonDescriptor);
+                && editLoanDescriptor.equals(e.editLoanDescriptor);
     }
 
     /**
      * Stores the details to edit the loan with. Each non-empty field value will replace the
      * corresponding field value of the loan.
      */
-    public static class EditPersonDescriptor {
+    public static class EditLoanDescriptor {
         private Name name;
         private Phone phone;
         private Email email;
         private Address address;
         private Set<Tag> tags;
 
-        public EditPersonDescriptor() {}
+        public EditLoanDescriptor() {}
 
         /**
          * Copy constructor.
          * A defensive copy of {@code tags} is used internally.
          */
-        public EditPersonDescriptor(EditPersonDescriptor toCopy) {
+        public EditLoanDescriptor(EditLoanDescriptor toCopy) {
             setName(toCopy.name);
             setPhone(toCopy.phone);
             setEmail(toCopy.email);
@@ -211,12 +211,12 @@ public class EditCommand extends Command {
             }
 
             // instanceof handles nulls
-            if (!(other instanceof EditPersonDescriptor)) {
+            if (!(other instanceof EditLoanDescriptor)) {
                 return false;
             }
 
             // state check
-            EditPersonDescriptor e = (EditPersonDescriptor) other;
+            EditLoanDescriptor e = (EditLoanDescriptor) other;
 
             return getName().equals(e.getName())
                     && getPhone().equals(e.getPhone())

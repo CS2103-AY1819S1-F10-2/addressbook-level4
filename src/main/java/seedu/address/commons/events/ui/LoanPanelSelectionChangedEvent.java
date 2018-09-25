@@ -6,12 +6,12 @@ import seedu.address.model.loan.Loan;
 /**
  * Represents a selection change in the Loan List Panel
  */
-public class PersonPanelSelectionChangedEvent extends BaseEvent {
+public class LoanPanelSelectionChangedEvent extends BaseEvent {
 
 
     private final Loan newSelection;
 
-    public PersonPanelSelectionChangedEvent(Loan newSelection) {
+    public LoanPanelSelectionChangedEvent(Loan newSelection) {
         this.newSelection = newSelection;
     }
 

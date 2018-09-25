@@ -36,20 +36,20 @@ public class TestUtil {
      * Returns the middle index of the loan in the {@code model}'s loan list.
      */
     public static Index getMidIndex(Model model) {
-        return Index.fromOneBased(model.getFilteredPersonList().size() / 2);
+        return Index.fromOneBased(model.getFilteredLoanList().size() / 2);
     }
 
     /**
      * Returns the last index of the loan in the {@code model}'s loan list.
      */
     public static Index getLastIndex(Model model) {
-        return Index.fromOneBased(model.getFilteredPersonList().size());
+        return Index.fromOneBased(model.getFilteredLoanList().size());
     }
 
     /**
      * Returns the loan in the {@code model}'s loan list at {@code index}.
      */
-    public static Loan getPerson(Model model, Index index) {
-        return model.getFilteredPersonList().get(index.getZeroBased());
+    public static Loan getLoan(Model model, Index index) {
+        return model.getFilteredLoanList().get(index.getZeroBased());
     }
 }

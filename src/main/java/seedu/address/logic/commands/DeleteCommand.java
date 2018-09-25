@@ -23,7 +23,7 @@ public class DeleteCommand extends Command {
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_DELETE_PERSON_SUCCESS = "Deleted Loan: %1$s";
+    public static final String MESSAGE_DELETE_LOAN_SUCCESS = "Deleted Loan: %1$s";
 
     private final Index targetIndex;
 
@@ -34,16 +34,16 @@ public class DeleteCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
-        List<Loan> lastShownList = model.getFilteredPersonList();
+        List<Loan> lastShownList = model.getFilteredLoanList();
 
         if (targetIndex.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+            throw new CommandException(Messages.MESSAGE_INVALID_LOAN_DISPLAYED_INDEX);
         }
 
         Loan loanToDelete = lastShownList.get(targetIndex.getZeroBased());
-        model.deletePerson(loanToDelete);
+        model.deleteLoan(loanToDelete);
         model.commitAddressBook();
-        return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, loanToDelete));
+        return new CommandResult(String.format(MESSAGE_DELETE_LOAN_SUCCESS, loanToDelete));
     }
 
     @Override
