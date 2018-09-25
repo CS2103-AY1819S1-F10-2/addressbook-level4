@@ -5,14 +5,14 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
-import seedu.address.model.person.Person;
+import seedu.address.model.person.Loan;
 
 /**
- * An UI component that displays information of a {@code Person}.
+ * An UI component that displays information of a {@code Loan}.
  */
-public class PersonCard extends UiPart<Region> {
+public class LoanCard extends UiPart<Region> {
 
-    private static final String FXML = "PersonListCard.fxml";
+    private static final String FXML = "LoanListCard.fxml";
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
@@ -22,7 +22,7 @@ public class PersonCard extends UiPart<Region> {
      * @see <a href="https://github.com/se-edu/addressbook-level4/issues/336">The issue on AddressBook level 4</a>
      */
 
-    public final Person person;
+    public final Loan loan;
 
     @FXML
     private HBox cardPane;
@@ -39,15 +39,15 @@ public class PersonCard extends UiPart<Region> {
     @FXML
     private FlowPane tags;
 
-    public PersonCard(Person person, int displayedIndex) {
+    public LoanCard(Loan loan, int displayedIndex) {
         super(FXML);
-        this.person = person;
+        this.loan = loan;
         id.setText(displayedIndex + ". ");
-        name.setText(person.getName().fullName);
-        phone.setText(person.getPhone().value);
-        address.setText(person.getAddress().value);
-        email.setText(person.getEmail().value);
-        person.getTags().forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+        name.setText(loan.getName().fullName);
+        phone.setText(loan.getPhone().value);
+        address.setText(loan.getAddress().value);
+        email.setText(loan.getEmail().value);
+        loan.getTags().forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
     }
 
     @Override
@@ -58,13 +58,13 @@ public class PersonCard extends UiPart<Region> {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof PersonCard)) {
+        if (!(other instanceof LoanCard)) {
             return false;
         }
 
         // state check
-        PersonCard card = (PersonCard) other;
+        LoanCard card = (LoanCard) other;
         return id.getText().equals(card.id.getText())
-                && person.equals(card.person);
+                && loan.equals(card.loan);
     }
 }
