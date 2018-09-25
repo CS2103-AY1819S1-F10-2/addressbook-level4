@@ -12,17 +12,17 @@ import javax.xml.bind.annotation.XmlElement;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.loan.Address;
 import seedu.address.model.loan.Email;
+import seedu.address.model.loan.Loan;
 import seedu.address.model.loan.Name;
-import seedu.address.model.loan.Person;
 import seedu.address.model.loan.Phone;
 import seedu.address.model.tag.Tag;
 
 /**
- * JAXB-friendly version of the Person.
+ * JAXB-friendly version of the Loan.
  */
 public class XmlAdaptedPerson {
 
-    public static final String MISSING_FIELD_MESSAGE_FORMAT = "Person's %s field is missing!";
+    public static final String MISSING_FIELD_MESSAGE_FORMAT = "Loan's %s field is missing!";
 
     @XmlElement(required = true)
     private String name;
@@ -56,11 +56,11 @@ public class XmlAdaptedPerson {
     }
 
     /**
-     * Converts a given Person into this class for JAXB use.
+     * Converts a given Loan into this class for JAXB use.
      *
      * @param source future changes to this will not affect the created XmlAdaptedPerson
      */
-    public XmlAdaptedPerson(Person source) {
+    public XmlAdaptedPerson(Loan source) {
         name = source.getName().fullName;
         phone = source.getPhone().value;
         email = source.getEmail().value;
@@ -71,11 +71,11 @@ public class XmlAdaptedPerson {
     }
 
     /**
-     * Converts this jaxb-friendly adapted loan object into the model's Person object.
+     * Converts this jaxb-friendly adapted loan object into the model's Loan object.
      *
      * @throws IllegalValueException if there were any data constraints violated in the adapted loan
      */
-    public Person toModelType() throws IllegalValueException {
+    public Loan toModelType() throws IllegalValueException {
         final List<Tag> personTags = new ArrayList<>();
         for (XmlAdaptedTag tag : tagged) {
             personTags.add(tag.toModelType());
@@ -114,7 +114,7 @@ public class XmlAdaptedPerson {
         final Address modelAddress = new Address(address);
 
         final Set<Tag> modelTags = new HashSet<>(personTags);
-        return new Person(modelName, modelPhone, modelEmail, modelAddress, modelTags);
+        return new Loan(modelName, modelPhone, modelEmail, modelAddress, modelTags);
     }
 
     @Override

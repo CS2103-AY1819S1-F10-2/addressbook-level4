@@ -8,7 +8,7 @@ import com.google.common.collect.ImmutableMultiset;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Region;
-import seedu.address.model.loan.Person;
+import seedu.address.model.loan.Loan;
 
 /**
  * Provides a handle to a loan card in the loan list panel.
@@ -75,12 +75,12 @@ public class PersonCardHandle extends NodeHandle<Node> {
     /**
      * Returns true if this handle contains {@code loan}.
      */
-    public boolean equals(Person person) {
-        return getName().equals(person.getName().fullName)
-                && getAddress().equals(person.getAddress().value)
-                && getPhone().equals(person.getPhone().value)
-                && getEmail().equals(person.getEmail().value)
-                && ImmutableMultiset.copyOf(getTags()).equals(ImmutableMultiset.copyOf(person.getTags().stream()
+    public boolean equals(Loan loan) {
+        return getName().equals(loan.getName().fullName)
+                && getAddress().equals(loan.getAddress().value)
+                && getPhone().equals(loan.getPhone().value)
+                && getEmail().equals(loan.getEmail().value)
+                && ImmutableMultiset.copyOf(getTags()).equals(ImmutableMultiset.copyOf(loan.getTags().stream()
                         .map(tag -> tag.tagName)
                         .collect(Collectors.toList())));
     }

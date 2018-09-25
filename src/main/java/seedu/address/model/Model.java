@@ -3,14 +3,14 @@ package seedu.address.model;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
-import seedu.address.model.loan.Person;
+import seedu.address.model.loan.Loan;
 
 /**
  * The API of the Model component.
  */
 public interface Model {
     /** {@code Predicate} that always evaluate to true */
-    Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
+    Predicate<Loan> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
 
     /** Clears existing backing model and replaces with the provided new data. */
     void resetData(ReadOnlyAddressBook newData);
@@ -21,35 +21,35 @@ public interface Model {
     /**
      * Returns true if a loan with the same identity as {@code loan} exists in the address book.
      */
-    boolean hasPerson(Person person);
+    boolean hasPerson(Loan loan);
 
     /**
      * Deletes the given loan.
      * The loan must exist in the address book.
      */
-    void deletePerson(Person target);
+    void deletePerson(Loan target);
 
     /**
      * Adds the given loan.
      * {@code loan} must not already exist in the address book.
      */
-    void addPerson(Person person);
+    void addPerson(Loan loan);
 
     /**
-     * Replaces the given loan {@code target} with {@code editedPerson}.
+     * Replaces the given loan {@code target} with {@code editedLoan}.
      * {@code target} must exist in the address book.
-     * The loan identity of {@code editedPerson} must not be the same as another existing loan in the address book.
+     * The loan identity of {@code editedLoan} must not be the same as another existing loan in the address book.
      */
-    void updatePerson(Person target, Person editedPerson);
+    void updatePerson(Loan target, Loan editedLoan);
 
     /** Returns an unmodifiable view of the filtered loan list */
-    ObservableList<Person> getFilteredPersonList();
+    ObservableList<Loan> getFilteredPersonList();
 
     /**
      * Updates the filter of the filtered loan list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
      */
-    void updateFilteredPersonList(Predicate<Person> predicate);
+    void updateFilteredPersonList(Predicate<Loan> predicate);
 
     /**
      * Returns true if the model has previous address book states to restore.

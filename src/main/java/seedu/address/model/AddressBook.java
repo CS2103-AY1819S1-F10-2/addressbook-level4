@@ -5,7 +5,7 @@ import static java.util.Objects.requireNonNull;
 import java.util.List;
 
 import javafx.collections.ObservableList;
-import seedu.address.model.loan.Person;
+import seedu.address.model.loan.Loan;
 import seedu.address.model.loan.UniquePersonList;
 
 /**
@@ -40,11 +40,11 @@ public class AddressBook implements ReadOnlyAddressBook {
     //// list overwrite operations
 
     /**
-     * Replaces the contents of the loan list with {@code persons}.
-     * {@code persons} must not contain duplicate persons.
+     * Replaces the contents of the loan list with {@code loans}.
+     * {@code loans} must not contain duplicate loans.
      */
-    public void setPersons(List<Person> persons) {
-        this.persons.setPersons(persons);
+    public void setPersons(List<Loan> loans) {
+        this.persons.setPersons(loans);
     }
 
     /**
@@ -61,35 +61,35 @@ public class AddressBook implements ReadOnlyAddressBook {
     /**
      * Returns true if a loan with the same identity as {@code loan} exists in the address book.
      */
-    public boolean hasPerson(Person person) {
-        requireNonNull(person);
-        return persons.contains(person);
+    public boolean hasPerson(Loan loan) {
+        requireNonNull(loan);
+        return persons.contains(loan);
     }
 
     /**
      * Adds a loan to the address book.
      * The loan must not already exist in the address book.
      */
-    public void addPerson(Person p) {
+    public void addPerson(Loan p) {
         persons.add(p);
     }
 
     /**
-     * Replaces the given loan {@code target} in the list with {@code editedPerson}.
+     * Replaces the given loan {@code target} in the list with {@code editedLoan}.
      * {@code target} must exist in the address book.
-     * The loan identity of {@code editedPerson} must not be the same as another existing loan in the address book.
+     * The loan identity of {@code editedLoan} must not be the same as another existing loan in the address book.
      */
-    public void updatePerson(Person target, Person editedPerson) {
-        requireNonNull(editedPerson);
+    public void updatePerson(Loan target, Loan editedLoan) {
+        requireNonNull(editedLoan);
 
-        persons.setPerson(target, editedPerson);
+        persons.setPerson(target, editedLoan);
     }
 
     /**
      * Removes {@code key} from this {@code AddressBook}.
      * {@code key} must exist in the address book.
      */
-    public void removePerson(Person key) {
+    public void removePerson(Loan key) {
         persons.remove(key);
     }
 
@@ -102,7 +102,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     @Override
-    public ObservableList<Person> getPersonList() {
+    public ObservableList<Loan> getPersonList() {
         return persons.asUnmodifiableObservableList();
     }
 

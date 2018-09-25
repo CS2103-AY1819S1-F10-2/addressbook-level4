@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <addressbook>
-    <!-- Person with invalid email field -->
+    <!-- Loan with invalid email field -->
     <persons>
         <name>Hans Muster</name>
         <phone isPrivate="false">9482424</phone>
