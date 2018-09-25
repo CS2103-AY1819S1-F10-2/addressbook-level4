@@ -5,8 +5,8 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_LOAN_DISPLAYED
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.address.logic.commands.DeleteCommand.MESSAGE_DELETE_LOAN_SUCCESS;
 import static seedu.address.testutil.TestUtil.getLastIndex;
-import static seedu.address.testutil.TestUtil.getMidIndex;
 import static seedu.address.testutil.TestUtil.getLoan;
+import static seedu.address.testutil.TestUtil.getMidIndex;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_LOAN;
 import static seedu.address.testutil.TypicalLoans.KEYWORD_MATCHING_MEIER;
 
@@ -17,8 +17,8 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.UndoCommand;
-import seedu.address.model.loan.Loan;
 import seedu.address.model.Model;
+import seedu.address.model.loan.Loan;
 
 public class DeleteCommandSystemTest extends AddressBookSystemTest {
 
