@@ -5,8 +5,8 @@ import static org.junit.Assert.assertEquals;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import guitests.guihandles.LoanListPanelHandle;
 import guitests.guihandles.LoanCardHandle;
+import guitests.guihandles.LoanListPanelHandle;
 import guitests.guihandles.ResultDisplayHandle;
 import seedu.address.model.loan.Loan;
 
