@@ -9,20 +9,20 @@ import org.junit.Test;
 
 import guitests.guihandles.PersonCardHandle;
 import seedu.address.model.loan.Loan;
-import seedu.address.testutil.PersonBuilder;
+import seedu.address.testutil.LoanBuilder;
 
 public class LoanCardTest extends GuiUnitTest {
 
     @Test
     public void display() {
         // no tags
-        Loan loanWithNoTags = new PersonBuilder().withTags(new String[0]).build();
+        Loan loanWithNoTags = new LoanBuilder().withTags(new String[0]).build();
         PersonCard personCard = new PersonCard(loanWithNoTags, 1);
         uiPartRule.setUiPart(personCard);
         assertCardDisplay(personCard, loanWithNoTags, 1);
 
         // with tags
-        Loan loanWithTags = new PersonBuilder().build();
+        Loan loanWithTags = new LoanBuilder().build();
         personCard = new PersonCard(loanWithTags, 2);
         uiPartRule.setUiPart(personCard);
         assertCardDisplay(personCard, loanWithTags, 2);
@@ -30,7 +30,7 @@ public class LoanCardTest extends GuiUnitTest {
 
     @Test
     public void equals() {
-        Loan loan = new PersonBuilder().build();
+        Loan loan = new LoanBuilder().build();
         PersonCard personCard = new PersonCard(loan, 0);
 
         // same loan, same index -> returns true
@@ -47,7 +47,7 @@ public class LoanCardTest extends GuiUnitTest {
         assertFalse(personCard.equals(0));
 
         // different loan, same index -> returns false
-        Loan differentLoan = new PersonBuilder().withName("differentName").build();
+        Loan differentLoan = new LoanBuilder().withName("differentName").build();
         assertFalse(personCard.equals(new PersonCard(differentLoan, 0)));
 
         // same loan, different index -> returns false

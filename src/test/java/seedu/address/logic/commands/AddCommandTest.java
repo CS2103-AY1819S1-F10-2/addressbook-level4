@@ -20,7 +20,7 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.loan.Loan;
-import seedu.address.testutil.PersonBuilder;
+import seedu.address.testutil.LoanBuilder;
 
 public class AddCommandTest {
 
@@ -40,7 +40,7 @@ public class AddCommandTest {
     @Test
     public void execute_personAcceptedByModel_addSuccessful() throws Exception {
         ModelStubAcceptingPersonAdded modelStub = new ModelStubAcceptingPersonAdded();
-        Loan validLoan = new PersonBuilder().build();
+        Loan validLoan = new LoanBuilder().build();
 
         CommandResult commandResult = new AddCommand(validLoan).execute(modelStub, commandHistory);
 
@@ -51,7 +51,7 @@ public class AddCommandTest {
 
     @Test
     public void execute_duplicatePerson_throwsCommandException() throws Exception {
-        Loan validLoan = new PersonBuilder().build();
+        Loan validLoan = new LoanBuilder().build();
         AddCommand addCommand = new AddCommand(validLoan);
         ModelStub modelStub = new ModelStubWithPerson(validLoan);
 
@@ -62,8 +62,8 @@ public class AddCommandTest {
 
     @Test
     public void equals() {
-        Loan alice = new PersonBuilder().withName("Alice").build();
-        Loan bob = new PersonBuilder().withName("Bob").build();
+        Loan alice = new LoanBuilder().withName("Alice").build();
+        Loan bob = new LoanBuilder().withName("Bob").build();
         AddCommand addAliceCommand = new AddCommand(alice);
         AddCommand addBobCommand = new AddCommand(bob);
 

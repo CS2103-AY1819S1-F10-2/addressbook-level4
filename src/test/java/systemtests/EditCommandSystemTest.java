@@ -45,7 +45,7 @@ import seedu.address.model.loan.Loan;
 import seedu.address.model.loan.Name;
 import seedu.address.model.loan.Phone;
 import seedu.address.model.tag.Tag;
-import seedu.address.testutil.PersonBuilder;
+import seedu.address.testutil.LoanBuilder;
 import seedu.address.testutil.PersonUtil;
 
 public class EditCommandSystemTest extends AddressBookSystemTest {
@@ -62,7 +62,7 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
         Index index = INDEX_FIRST_PERSON;
         String command = " " + EditCommand.COMMAND_WORD + "  " + index.getOneBased() + "  " + NAME_DESC_BOB + "  "
                 + PHONE_DESC_BOB + " " + EMAIL_DESC_BOB + "  " + ADDRESS_DESC_BOB + " " + TAG_DESC_HUSBAND + " ";
-        Loan editedLoan = new PersonBuilder(BOB).withTags(VALID_TAG_HUSBAND).build();
+        Loan editedLoan = new LoanBuilder(BOB).withTags(VALID_TAG_HUSBAND).build();
         assertCommandSuccess(command, index, editedLoan);
 
         /* Case: undo editing the last loan in the list -> last loan restored */
@@ -88,7 +88,7 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
         assertNotEquals(getModel().getFilteredPersonList().get(index.getZeroBased()), BOB);
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_AMY + PHONE_DESC_BOB + EMAIL_DESC_BOB
                 + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
-        editedLoan = new PersonBuilder(BOB).withName(VALID_NAME_AMY).build();
+        editedLoan = new LoanBuilder(BOB).withName(VALID_NAME_AMY).build();
         assertCommandSuccess(command, index, editedLoan);
 
         /* Case: edit a loan with new values same as another loan's values but with different phone and email
@@ -97,14 +97,14 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
         index = INDEX_SECOND_PERSON;
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_AMY + EMAIL_DESC_AMY
                 + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
-        editedLoan = new PersonBuilder(BOB).withPhone(VALID_PHONE_AMY).withEmail(VALID_EMAIL_AMY).build();
+        editedLoan = new LoanBuilder(BOB).withPhone(VALID_PHONE_AMY).withEmail(VALID_EMAIL_AMY).build();
         assertCommandSuccess(command, index, editedLoan);
 
         /* Case: clear tags -> cleared */
         index = INDEX_FIRST_PERSON;
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + " " + PREFIX_TAG.getPrefix();
         Loan loanToEdit = getModel().getFilteredPersonList().get(index.getZeroBased());
-        editedLoan = new PersonBuilder(loanToEdit).withTags().build();
+        editedLoan = new LoanBuilder(loanToEdit).withTags().build();
         assertCommandSuccess(command, index, editedLoan);
 
         /* ------------------ Performing edit operation while a filtered list is being shown ------------------------ */
@@ -115,7 +115,7 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
         assertTrue(index.getZeroBased() < getModel().getFilteredPersonList().size());
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + " " + NAME_DESC_BOB;
         loanToEdit = getModel().getFilteredPersonList().get(index.getZeroBased());
-        editedLoan = new PersonBuilder(loanToEdit).withName(VALID_NAME_BOB).build();
+        editedLoan = new LoanBuilder(loanToEdit).withName(VALID_NAME_BOB).build();
         assertCommandSuccess(command, index, editedLoan);
 
         /* Case: filtered loan list, edit index within bounds of address book but out of bounds of loan list

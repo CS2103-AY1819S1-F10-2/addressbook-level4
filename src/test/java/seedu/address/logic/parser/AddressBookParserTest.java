@@ -31,7 +31,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.loan.NameContainsKeywordsPredicate;
 import seedu.address.model.loan.Loan;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
-import seedu.address.testutil.PersonBuilder;
+import seedu.address.testutil.LoanBuilder;
 import seedu.address.testutil.PersonUtil;
 
 public class AddressBookParserTest {
@@ -42,7 +42,7 @@ public class AddressBookParserTest {
 
     @Test
     public void parseCommand_add() throws Exception {
-        Loan loan = new PersonBuilder().build();
+        Loan loan = new LoanBuilder().build();
         AddCommand command = (AddCommand) parser.parseCommand(PersonUtil.getAddCommand(loan));
         assertEquals(new AddCommand(loan), command);
     }
@@ -62,7 +62,7 @@ public class AddressBookParserTest {
 
     @Test
     public void parseCommand_edit() throws Exception {
-        Loan loan = new PersonBuilder().build();
+        Loan loan = new LoanBuilder().build();
         EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(loan).build();
         EditCommand command = (EditCommand) parser.parseCommand(EditCommand.COMMAND_WORD + " "
                 + INDEX_FIRST_PERSON.getOneBased() + " " + PersonUtil.getEditPersonDescriptorDetails(descriptor));
