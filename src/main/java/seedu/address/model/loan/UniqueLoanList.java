@@ -1,4 +1,4 @@
-package seedu.address.model.person;
+package seedu.address.model.loan;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
@@ -8,8 +8,8 @@ import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.address.model.person.exceptions.DuplicateLoanException;
-import seedu.address.model.person.exceptions.LoanNotFoundException;
+import seedu.address.model.loan.exceptions.DuplicateLoanException;
+import seedu.address.model.loan.exceptions.LoanNotFoundException;
 
 /**
  * A list of loans that enforces uniqueness between its elements and does not allow nulls.

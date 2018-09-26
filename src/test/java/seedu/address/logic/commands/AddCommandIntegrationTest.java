@@ -11,7 +11,7 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.person.Loan;
+import seedu.address.model.loan.Loan;
 import seedu.address.testutil.PersonBuilder;
 
 /**

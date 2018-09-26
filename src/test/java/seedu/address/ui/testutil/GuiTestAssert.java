@@ -8,7 +8,7 @@ import java.util.stream.Collectors;
 import guitests.guihandles.LoanCardHandle;
 import guitests.guihandles.LoanListPanelHandle;
 import guitests.guihandles.ResultDisplayHandle;
-import seedu.address.model.person.Loan;
+import seedu.address.model.loan.Loan;
 
 /**
  * A set of assertion methods useful for writing GUI tests.

@@ -18,7 +18,7 @@ import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.model.Model;
-import seedu.address.model.person.Loan;
+import seedu.address.model.loan.Loan;
 
 public class DeleteCommandSystemTest extends AddressBookSystemTest {
 

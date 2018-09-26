@@ -6,7 +6,7 @@ import java.util.Set;
 
 import javafx.scene.Node;
 import javafx.scene.control.ListView;
-import seedu.address.model.person.Loan;
+import seedu.address.model.loan.Loan;
 
 /**
  * Provides a handle for {@code LoanListPanel} containing the list of {@code LoanCard}.

@@ -19,8 +19,8 @@ import org.junit.rules.ExpectedException;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.address.model.person.Loan;
-import seedu.address.model.person.exceptions.DuplicateLoanException;
+import seedu.address.model.loan.Loan;
+import seedu.address.model.loan.exceptions.DuplicateLoanException;
 import seedu.address.testutil.PersonBuilder;
 
 public class AddressBookTest {

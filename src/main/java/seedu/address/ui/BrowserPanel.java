@@ -13,7 +13,7 @@ import javafx.scene.web.WebView;
 import seedu.address.MainApp;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.ui.LoanPanelSelectionChangedEvent;
-import seedu.address.model.person.Loan;
+import seedu.address.model.loan.Loan;
 
 /**
  * The Browser Panel of the App.

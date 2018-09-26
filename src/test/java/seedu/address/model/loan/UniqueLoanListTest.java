@@ -1,4 +1,4 @@
-package seedu.address.model.person;
+package seedu.address.model.loan;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -16,8 +16,8 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import seedu.address.model.person.exceptions.DuplicateLoanException;
-import seedu.address.model.person.exceptions.LoanNotFoundException;
+import seedu.address.model.loan.exceptions.DuplicateLoanException;
+import seedu.address.model.loan.exceptions.LoanNotFoundException;
 import seedu.address.testutil.PersonBuilder;
 
 public class UniqueLoanListTest {

@@ -1,7 +1,7 @@
 package seedu.address.commons.events.ui;
 
 import seedu.address.commons.events.BaseEvent;
-import seedu.address.model.person.Loan;
+import seedu.address.model.loan.Loan;
 
 /**
  * Represents a selection change in the Loan List Panel
