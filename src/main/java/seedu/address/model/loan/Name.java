@@ -1,12 +1,13 @@
 package seedu.address.model.loan;
 
+import java.util.function.Function;
 import java.util.function.Predicate;
 
 /**
  * Represents a Loan's name in the address book.
  * Guarantees: immutable; is valid as declared in {@link #isValid}
  */
-public class Name extends LoanField {
+public class Name extends LoanField<String> {
 
     public static final String MESSAGE_CONSTRAINTS =
             "Names should only contain alphanumeric characters and spaces, and it should not be blank";
@@ -15,20 +16,16 @@ public class Name extends LoanField {
      * The first character of the address must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
-    public static final String VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} ]*";
-
-    /**
-     * Returns true if the given string is a valid name, as specified by the validation regex.
-     */
-    public static final Predicate<String> isValid = test -> test.matches(VALIDATION_REGEX);
+    public static final Predicate<String> isValid = test ->
+        test.matches("[\\p{Alnum}][\\p{Alnum} ]*");
 
     /**
      * Constructs a {@code Name}.
      *
-     * @param name A valid name.
+     * @param value A valid name.
      */
-    public Name(String name) {
-        super(MESSAGE_CONSTRAINTS, isValid, name);
+    public Name(String value) {
+        super(MESSAGE_CONSTRAINTS, isValid, Function.identity(), value);
     }
 
     @Override
