@@ -33,9 +33,9 @@ public class EditLoanDescriptorBuilder {
      */
     public EditLoanDescriptorBuilder(Loan loan) {
         descriptor = new EditCommand.EditLoanDescriptor();
-        descriptor.setName(loan.getName());
-        descriptor.setPhone(loan.getPhone());
-        descriptor.setEmail(loan.getEmail());
+        descriptor.setName(loan.getLoanerName());
+        descriptor.setPhone(loan.getLoanerPhone());
+        descriptor.setEmail(loan.getLoanerEmail());
         descriptor.setAddress(loan.getAddress());
         descriptor.setTags(loan.getTags());
     }

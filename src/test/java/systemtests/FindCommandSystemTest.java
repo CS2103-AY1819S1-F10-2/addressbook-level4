@@ -112,7 +112,7 @@ public class FindCommandSystemTest extends AddressBookSystemTest {
         assertSelectedCardUnchanged();
 
         /* Case: find phone number of loan in address book -> 0 loans found */
-        command = FindCommand.COMMAND_WORD + " " + DANIEL.getPhone().value;
+        command = FindCommand.COMMAND_WORD + " " + DANIEL.getLoanerPhone().value;
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
@@ -122,7 +122,7 @@ public class FindCommandSystemTest extends AddressBookSystemTest {
         assertSelectedCardUnchanged();
 
         /* Case: find email of loan in address book -> 0 loans found */
-        command = FindCommand.COMMAND_WORD + " " + DANIEL.getEmail().value;
+        command = FindCommand.COMMAND_WORD + " " + DANIEL.getLoanerEmail().value;
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
@@ -135,7 +135,7 @@ public class FindCommandSystemTest extends AddressBookSystemTest {
         /* Case: find while a loan is selected -> selected card deselected */
         showAllLoans();
         selectLoan(Index.fromOneBased(1));
-        assertFalse(getLoanListPanel().getHandleToSelectedCard().getName().equals(DANIEL.getName().value));
+        assertFalse(getLoanListPanel().getHandleToSelectedCard().getName().equals(DANIEL.getLoanerName().value));
         command = FindCommand.COMMAND_WORD + " Daniel";
         ModelHelper.setFilteredList(expectedModel, DANIEL);
         assertCommandSuccess(command, expectedModel);

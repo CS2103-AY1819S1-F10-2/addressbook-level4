@@ -95,9 +95,9 @@ public class EditCommand extends Command {
     private static Loan createEditedLoan(Loan loanToEdit, EditLoanDescriptor editLoanDescriptor) {
         assert loanToEdit != null;
 
-        Name updatedName = editLoanDescriptor.getName().orElse(loanToEdit.getName());
-        Phone updatedPhone = editLoanDescriptor.getPhone().orElse(loanToEdit.getPhone());
-        Email updatedEmail = editLoanDescriptor.getEmail().orElse(loanToEdit.getEmail());
+        Name updatedName = editLoanDescriptor.getName().orElse(loanToEdit.getLoanerName());
+        Phone updatedPhone = editLoanDescriptor.getPhone().orElse(loanToEdit.getLoanerPhone());
+        Email updatedEmail = editLoanDescriptor.getEmail().orElse(loanToEdit.getLoanerEmail());
         Address updatedAddress = editLoanDescriptor.getAddress().orElse(loanToEdit.getAddress());
         Set<Tag> updatedTags = editLoanDescriptor.getTags().orElse(loanToEdit.getTags());
 

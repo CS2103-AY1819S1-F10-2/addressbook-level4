@@ -30,9 +30,9 @@ public class LoanUtil {
      */
     public static String getLoanDetails(Loan loan) {
         StringBuilder sb = new StringBuilder();
-        sb.append(PREFIX_NAME + loan.getName().value + " ");
-        sb.append(PREFIX_PHONE + loan.getPhone().value + " ");
-        sb.append(PREFIX_EMAIL + loan.getEmail().value + " ");
+        sb.append(PREFIX_NAME + loan.getLoanerName().value + " ");
+        sb.append(PREFIX_PHONE + loan.getLoanerPhone().value + " ");
+        sb.append(PREFIX_EMAIL + loan.getLoanerEmail().value + " ");
         sb.append(PREFIX_ADDRESS + loan.getAddress().value + " ");
         loan.getTags().stream().forEach(
             s -> sb.append(PREFIX_TAG + s.value + " ")

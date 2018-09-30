@@ -39,9 +39,9 @@ public class LoanBuilder {
      * Initializes the LoanBuilder with the data of {@code loanToCopy}.
      */
     public LoanBuilder(Loan loanToCopy) {
-        name = loanToCopy.getName();
-        phone = loanToCopy.getPhone();
-        email = loanToCopy.getEmail();
+        name = loanToCopy.getLoanerName();
+        phone = loanToCopy.getLoanerPhone();
+        email = loanToCopy.getLoanerEmail();
         address = loanToCopy.getAddress();
         tags = new HashSet<>(loanToCopy.getTags());
     }

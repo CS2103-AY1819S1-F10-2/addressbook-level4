@@ -61,9 +61,9 @@ public class XmlAdaptedLoan {
      * @param source future changes to this will not affect the created XmlAdaptedLoan
      */
     public XmlAdaptedLoan(Loan source) {
-        name = source.getName().value;
-        phone = source.getPhone().value;
-        email = source.getEmail().value;
+        name = source.getLoanerName().value;
+        phone = source.getLoanerPhone().value;
+        email = source.getLoanerEmail().value;
         address = source.getAddress().value;
         tagged = source.getTags().stream()
                 .map(XmlAdaptedTag::new)

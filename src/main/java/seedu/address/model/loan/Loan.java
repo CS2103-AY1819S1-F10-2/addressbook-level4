@@ -15,10 +15,10 @@ import seedu.address.model.tag.Tag;
  */
 public class Loan {
 
-    // Identity fields
-    private final Name name;
-    private final Phone phone;
-    private final Email email;
+    // Loaner identity fields
+    private final Name loanerName;
+    private final Phone loanerPhone;
+    private final Email loanerEmail;
 
     // Data fields
     private final Address address;
@@ -27,25 +27,25 @@ public class Loan {
     /**
      * Every field must be present and not null.
      */
-    public Loan(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
-        requireAllNonNull(name, phone, email, address, tags);
-        this.name = name;
-        this.phone = phone;
-        this.email = email;
+    public Loan(Name loanerName, Phone loanerPhone, Email loanerEmail, Address address, Set<Tag> tags) {
+        requireAllNonNull(loanerName, loanerPhone, loanerEmail, address, tags);
+        this.loanerName = loanerName;
+        this.loanerPhone = loanerPhone;
+        this.loanerEmail = loanerEmail;
         this.address = address;
         this.tags.addAll(tags);
     }
 
-    public Name getName() {
-        return name;
+    public Name getLoanerName() {
+        return loanerName;
     }
 
-    public Phone getPhone() {
-        return phone;
+    public Phone getLoanerPhone() {
+        return loanerPhone;
     }
 
-    public Email getEmail() {
-        return email;
+    public Email getLoanerEmail() {
+        return loanerEmail;
     }
 
     public Address getAddress() {
@@ -61,7 +61,7 @@ public class Loan {
     }
 
     /**
-     * Returns true if both loans of the same name have at least one other identity field that is the same.
+     * Returns true if both loans of the same loanerName have at least one other identity field that is the same.
      * This defines a weaker notion of equality between two loans.
      */
     public boolean isSameLoan(Loan otherLoan) {
@@ -70,8 +70,8 @@ public class Loan {
         }
 
         return otherLoan != null
-                && otherLoan.getName().equals(getName())
-                && (otherLoan.getPhone().equals(getPhone()) || otherLoan.getEmail().equals(getEmail()));
+                && otherLoan.getLoanerName().equals(getLoanerName())
+                && (otherLoan.getLoanerPhone().equals(getLoanerPhone()) || otherLoan.getLoanerEmail().equals(getLoanerEmail()));
     }
 
     /**
@@ -89,9 +89,9 @@ public class Loan {
         }
 
         Loan otherLoan = (Loan) other;
-        return otherLoan.getName().equals(getName())
-                && otherLoan.getPhone().equals(getPhone())
-                && otherLoan.getEmail().equals(getEmail())
+        return otherLoan.getLoanerName().equals(getLoanerName())
+                && otherLoan.getLoanerPhone().equals(getLoanerPhone())
+                && otherLoan.getLoanerEmail().equals(getLoanerEmail())
                 && otherLoan.getAddress().equals(getAddress())
                 && otherLoan.getTags().equals(getTags());
     }
@@ -99,19 +99,16 @@ public class Loan {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, address, tags);
+        return Objects.hash(loanerName, loanerPhone, loanerEmail, address, tags);
     }
 
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append(getName())
-                .append(" Phone: ")
-                .append(getPhone())
-                .append(" Email: ")
-                .append(getEmail())
-                .append(" Address: ")
-                .append(getAddress())
+        builder.append(getLoanerName())
+                .append(" Phone: ").append(getLoanerPhone())
+                .append(" Email: ").append(getLoanerEmail())
+                .append(" Address: ").append(getAddress())
                 .append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();
