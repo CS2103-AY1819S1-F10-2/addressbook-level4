@@ -2,6 +2,7 @@
 <!-- Loan with an invalid phone field -->
 <loan>
     <name>Hans Muster</name>
+    <nric>S9816254G</nric>
     <phone>9482asf424</phone>
     <email>hans@example</email>
     <address>4th street</address>

@@ -17,6 +17,7 @@ public class Loan {
 
     // Loaner identity fields
     private final Name loanerName;
+    private final Nric loanerNric;
     private final Phone loanerPhone;
     private final Email loanerEmail;
 
@@ -27,9 +28,16 @@ public class Loan {
     /**
      * Every field must be present and not null.
      */
-    public Loan(Name loanerName, Phone loanerPhone, Email loanerEmail, Address address, Set<Tag> tags) {
+    public Loan(
+            Name loanerName,
+            Nric loanerNric,
+            Phone loanerPhone,
+            Email loanerEmail,
+            Address address,
+            Set<Tag> tags) {
         requireAllNonNull(loanerName, loanerPhone, loanerEmail, address, tags);
         this.loanerName = loanerName;
+        this.loanerNric = loanerNric;
         this.loanerPhone = loanerPhone;
         this.loanerEmail = loanerEmail;
         this.address = address;
@@ -38,6 +46,10 @@ public class Loan {
 
     public Name getLoanerName() {
         return loanerName;
+    }
+
+    public Nric getLoanerNric() {
+        return loanerNric;
     }
 
     public Phone getLoanerPhone() {
@@ -71,7 +83,9 @@ public class Loan {
 
         return otherLoan != null
                 && otherLoan.getLoanerName().equals(getLoanerName())
-                && (otherLoan.getLoanerPhone().equals(getLoanerPhone()) || otherLoan.getLoanerEmail().equals(getLoanerEmail()));
+                && (otherLoan.getLoanerNric() .equals(getLoanerNric() )
+                 || otherLoan.getLoanerPhone().equals(getLoanerPhone())
+                 || otherLoan.getLoanerEmail().equals(getLoanerEmail()));
     }
 
     /**
@@ -90,6 +104,7 @@ public class Loan {
 
         Loan otherLoan = (Loan) other;
         return otherLoan.getLoanerName().equals(getLoanerName())
+                && otherLoan.getLoanerNric().equals(getLoanerNric())
                 && otherLoan.getLoanerPhone().equals(getLoanerPhone())
                 && otherLoan.getLoanerEmail().equals(getLoanerEmail())
                 && otherLoan.getAddress().equals(getAddress())
@@ -99,13 +114,14 @@ public class Loan {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(loanerName, loanerPhone, loanerEmail, address, tags);
+        return Objects.hash(loanerName, loanerNric, loanerPhone, loanerEmail, address, tags);
     }
 
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getLoanerName())
+                .append(" NRIC: ").append(getLoanerNric())
                 .append(" Phone: ").append(getLoanerPhone())
                 .append(" Email: ").append(getLoanerEmail())
                 .append(" Address: ").append(getAddress())
@@ -113,5 +129,4 @@ public class Loan {
         getTags().forEach(builder::append);
         return builder.toString();
     }
-
 }

@@ -37,6 +37,7 @@ public class XmlUtilTest {
     private static final String INVALID_PHONE = "9482asf424";
 
     private static final String VALID_NAME = "Hans Muster";
+    private static final String VALID_NRIC = "S9816254G";
     private static final String VALID_PHONE = "9482424";
     private static final String VALID_EMAIL = "hans@example";
     private static final String VALID_ADDRESS = "4th street";
@@ -80,7 +81,7 @@ public class XmlUtilTest {
         XmlAdaptedLoan actualLoan = XmlUtil.getDataFromFile(
             MISSING_LOAN_FIELD_FILE, XmlAdaptedLoanWithRootElement.class);
         XmlAdaptedLoan expectedLoan = new XmlAdaptedLoan(
-                null, VALID_PHONE, VALID_EMAIL, VALID_ADDRESS, VALID_TAGS);
+                null, VALID_NRIC, VALID_PHONE, VALID_EMAIL, VALID_ADDRESS, VALID_TAGS);
         assertEquals(expectedLoan, actualLoan);
     }
 
@@ -89,7 +90,7 @@ public class XmlUtilTest {
         XmlAdaptedLoan actualLoan = XmlUtil.getDataFromFile(
             INVALID_LOAN_FIELD_FILE, XmlAdaptedLoanWithRootElement.class);
         XmlAdaptedLoan expectedLoan = new XmlAdaptedLoan(
-                VALID_NAME, INVALID_PHONE, VALID_EMAIL, VALID_ADDRESS, VALID_TAGS);
+                VALID_NAME, VALID_NRIC, INVALID_PHONE, VALID_EMAIL, VALID_ADDRESS, VALID_TAGS);
         assertEquals(expectedLoan, actualLoan);
     }
 
@@ -98,7 +99,7 @@ public class XmlUtilTest {
         XmlAdaptedLoan actualLoan = XmlUtil.getDataFromFile(
             VALID_LOAN_FILE, XmlAdaptedLoanWithRootElement.class);
         XmlAdaptedLoan expectedLoan = new XmlAdaptedLoan(
-                VALID_NAME, VALID_PHONE, VALID_EMAIL, VALID_ADDRESS, VALID_TAGS);
+                VALID_NAME, VALID_NRIC, VALID_PHONE, VALID_EMAIL, VALID_ADDRESS, VALID_TAGS);
         assertEquals(expectedLoan, actualLoan);
     }
 

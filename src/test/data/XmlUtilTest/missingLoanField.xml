@@ -2,6 +2,7 @@
 <!-- Loan with missing name field -->
 <loan>
     <phone>9482424</phone>
+    <nric>S9816254G</nric>
     <email>hans@example</email>
     <address>4th street</address>
     <tagged>friends</tagged>

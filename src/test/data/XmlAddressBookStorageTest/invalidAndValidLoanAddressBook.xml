@@ -3,6 +3,7 @@
     <!-- Valid Loan -->
     <loans>
         <name>Hans Muster</name>
+        <nric>S1234567A</nric>
         <phone isPrivate="false">9482424</phone>
         <email isPrivate="false">hans@example.com</email>
         <address isPrivate="false">4th street</address>
@@ -10,6 +11,7 @@
     <!-- Loan with invalid phone field -->
     <loans>
         <name>Hans Muster</name>
+        <nric>S1234567A</nric>
         <phone isPrivate="false">948asdf2424</phone>
         <email isPrivate="false">hans@example.com</email>
         <address isPrivate="false">4th street</address>

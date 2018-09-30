@@ -14,6 +14,7 @@ import seedu.address.model.loan.Address;
 import seedu.address.model.loan.Email;
 import seedu.address.model.loan.Loan;
 import seedu.address.model.loan.Name;
+import seedu.address.model.loan.Nric;
 import seedu.address.model.loan.Phone;
 import seedu.address.model.tag.Tag;
 
@@ -26,6 +27,8 @@ public class XmlAdaptedLoan {
 
     @XmlElement(required = true)
     private String name;
+    @XmlElement(required = true)
+    private String nric;
     @XmlElement(required = true)
     private String phone;
     @XmlElement(required = true)
@@ -45,8 +48,9 @@ public class XmlAdaptedLoan {
     /**
      * Constructs an {@code XmlAdaptedLoan} with the given loan details.
      */
-    public XmlAdaptedLoan(String name, String phone, String email, String address, List<XmlAdaptedTag> tagged) {
+    public XmlAdaptedLoan(String name, String nric, String phone, String email, String address, List<XmlAdaptedTag> tagged) {
         this.name = name;
+        this.nric = nric;
         this.phone = phone;
         this.email = email;
         this.address = address;
@@ -62,6 +66,7 @@ public class XmlAdaptedLoan {
      */
     public XmlAdaptedLoan(Loan source) {
         name = source.getLoanerName().value;
+        nric = source.getLoanerNric().value;
         phone = source.getLoanerPhone().value;
         email = source.getLoanerEmail().value;
         address = source.getAddress().value;
@@ -89,6 +94,14 @@ public class XmlAdaptedLoan {
         }
         final Name modelName = new Name(name);
 
+        if (nric == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Nric.class.getSimpleName()));
+        }
+        if (!Nric.isValid.test(nric)) {
+            throw new IllegalValueException(Nric.MESSAGE_CONSTRAINTS);
+        }
+        final Nric modelNric = new Nric(nric);
+
         if (phone == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Phone.class.getSimpleName()));
         }
@@ -114,7 +127,7 @@ public class XmlAdaptedLoan {
         final Address modelAddress = new Address(address);
 
         final Set<Tag> modelTags = new HashSet<>(loanTags);
-        return new Loan(modelName, modelPhone, modelEmail, modelAddress, modelTags);
+        return new Loan(modelName, modelNric, modelPhone, modelEmail, modelAddress, modelTags);
     }
 
     @Override
@@ -129,6 +142,7 @@ public class XmlAdaptedLoan {
 
         XmlAdaptedLoan otherLoan = (XmlAdaptedLoan) other;
         return Objects.equals(name, otherLoan.name)
+                && Objects.equals(nric, otherLoan.nric)
                 && Objects.equals(phone, otherLoan.phone)
                 && Objects.equals(email, otherLoan.email)
                 && Objects.equals(address, otherLoan.address)
