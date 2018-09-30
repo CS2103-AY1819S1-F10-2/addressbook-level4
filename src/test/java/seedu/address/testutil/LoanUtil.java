@@ -30,7 +30,7 @@ public class LoanUtil {
      */
     public static String getLoanDetails(Loan loan) {
         StringBuilder sb = new StringBuilder();
-        sb.append(PREFIX_NAME + loan.getName().fullName + " ");
+        sb.append(PREFIX_NAME + loan.getName().value + " ");
         sb.append(PREFIX_PHONE + loan.getPhone().value + " ");
         sb.append(PREFIX_EMAIL + loan.getEmail().value + " ");
         sb.append(PREFIX_ADDRESS + loan.getAddress().value + " ");
@@ -45,7 +45,7 @@ public class LoanUtil {
      */
     public static String getEditLoanDescriptorDetails(EditCommand.EditLoanDescriptor descriptor) {
         StringBuilder sb = new StringBuilder();
-        descriptor.getName().ifPresent(name -> sb.append(PREFIX_NAME).append(name.fullName).append(" "));
+        descriptor.getName().ifPresent(name -> sb.append(PREFIX_NAME).append(name.value).append(" "));
         descriptor.getPhone().ifPresent(phone -> sb.append(PREFIX_PHONE).append(phone.value).append(" "));
         descriptor.getEmail().ifPresent(email -> sb.append(PREFIX_EMAIL).append(email.value).append(" "));
         descriptor.getAddress().ifPresent(address -> sb.append(PREFIX_ADDRESS).append(address.value).append(" "));

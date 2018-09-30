@@ -61,7 +61,7 @@ public class XmlAdaptedLoan {
      * @param source future changes to this will not affect the created XmlAdaptedLoan
      */
     public XmlAdaptedLoan(Loan source) {
-        name = source.getName().fullName;
+        name = source.getName().value;
         phone = source.getPhone().value;
         email = source.getEmail().value;
         address = source.getAddress().value;
@@ -84,8 +84,8 @@ public class XmlAdaptedLoan {
         if (name == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName()));
         }
-        if (!Name.isValidName(name)) {
-            throw new IllegalValueException(Name.MESSAGE_NAME_CONSTRAINTS);
+        if (!Name.isValid.test(name)) {
+            throw new IllegalValueException(Name.MESSAGE_CONSTRAINTS);
         }
         final Name modelName = new Name(name);
 

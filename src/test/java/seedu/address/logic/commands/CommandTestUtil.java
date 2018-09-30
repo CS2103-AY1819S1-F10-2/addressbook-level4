@@ -123,7 +123,7 @@ public class CommandTestUtil {
         assertTrue(targetIndex.getZeroBased() < model.getFilteredLoanList().size());
 
         Loan loan = model.getFilteredLoanList().get(targetIndex.getZeroBased());
-        final String[] splitName = loan.getName().fullName.split("\\s+");
+        final String[] splitName = loan.getName().value.split("\\s+");
         model.updateFilteredLoanList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
 
         assertEquals(1, model.getFilteredLoanList().size());

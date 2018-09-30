@@ -42,7 +42,7 @@ public class XmlAdaptedLoanTest {
     public void toModelType_invalidName_throwsIllegalValueException() {
         XmlAdaptedLoan loan =
                 new XmlAdaptedLoan(INVALID_NAME, VALID_PHONE, VALID_EMAIL, VALID_ADDRESS, VALID_TAGS);
-        String expectedMessage = Name.MESSAGE_NAME_CONSTRAINTS;
+        String expectedMessage = Name.MESSAGE_CONSTRAINTS;
         Assert.assertThrows(IllegalValueException.class, expectedMessage, loan::toModelType);
     }
 
