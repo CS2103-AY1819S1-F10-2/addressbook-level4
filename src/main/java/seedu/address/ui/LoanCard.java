@@ -47,7 +47,7 @@ public class LoanCard extends UiPart<Region> {
         phone.setText(loan.getPhone().value);
         address.setText(loan.getAddress().value);
         email.setText(loan.getEmail().value);
-        loan.getTags().forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+        loan.getTags().forEach(tag -> tags.getChildren().add(new Label(tag.value)));
     }
 
     @Override

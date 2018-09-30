@@ -57,7 +57,7 @@ public class XmlAdaptedLoanTest {
     public void toModelType_invalidPhone_throwsIllegalValueException() {
         XmlAdaptedLoan loan =
                 new XmlAdaptedLoan(VALID_NAME, INVALID_PHONE, VALID_EMAIL, VALID_ADDRESS, VALID_TAGS);
-        String expectedMessage = Phone.MESSAGE_PHONE_CONSTRAINTS;
+        String expectedMessage = Phone.MESSAGE_CONSTRAINTS;
         Assert.assertThrows(IllegalValueException.class, expectedMessage, loan::toModelType);
     }
 
@@ -72,7 +72,7 @@ public class XmlAdaptedLoanTest {
     public void toModelType_invalidEmail_throwsIllegalValueException() {
         XmlAdaptedLoan loan =
                 new XmlAdaptedLoan(VALID_NAME, VALID_PHONE, INVALID_EMAIL, VALID_ADDRESS, VALID_TAGS);
-        String expectedMessage = Email.MESSAGE_EMAIL_CONSTRAINTS;
+        String expectedMessage = Email.MESSAGE_CONSTRAINTS;
         Assert.assertThrows(IllegalValueException.class, expectedMessage, loan::toModelType);
     }
 
@@ -87,7 +87,7 @@ public class XmlAdaptedLoanTest {
     public void toModelType_invalidAddress_throwsIllegalValueException() {
         XmlAdaptedLoan loan =
                 new XmlAdaptedLoan(VALID_NAME, VALID_PHONE, VALID_EMAIL, INVALID_ADDRESS, VALID_TAGS);
-        String expectedMessage = Address.MESSAGE_ADDRESS_CONSTRAINTS;
+        String expectedMessage = Address.MESSAGE_CONSTRAINTS;
         Assert.assertThrows(IllegalValueException.class, expectedMessage, loan::toModelType);
     }
 

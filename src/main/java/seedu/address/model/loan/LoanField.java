@@ -8,6 +8,7 @@ import java.util.function.Predicate;
 
 /**
  * Represents a generic field in the Loan class.
+ * T: The type of the underlying value this LoanField has.
  * Guarantees: immutable; is valid as per the isValid function passed to the constructor.
  */
 public abstract class LoanField<T> {
@@ -29,7 +30,8 @@ public abstract class LoanField<T> {
      *                 || (other instanceof [class-name] // instanceof handles nulls
      *                 && value.equals((([class-name]) other).value)); // state check
      *     }
-     * - toString() may be further overridden as necessary, e.g. converting the value back to a valid objString.
+     * - toString() may be further overridden as necessary, e.g. for display purposes, or for
+     *   converting the value back to a valid objString.
      */
 
     public final T value;

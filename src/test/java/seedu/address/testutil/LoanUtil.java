@@ -35,7 +35,7 @@ public class LoanUtil {
         sb.append(PREFIX_EMAIL + loan.getEmail().value + " ");
         sb.append(PREFIX_ADDRESS + loan.getAddress().value + " ");
         loan.getTags().stream().forEach(
-            s -> sb.append(PREFIX_TAG + s.tagName + " ")
+            s -> sb.append(PREFIX_TAG + s.value + " ")
         );
         return sb.toString();
     }
@@ -54,7 +54,7 @@ public class LoanUtil {
             if (tags.isEmpty()) {
                 sb.append(PREFIX_TAG);
             } else {
-                tags.forEach(s -> sb.append(PREFIX_TAG).append(s.tagName).append(" "));
+                tags.forEach(s -> sb.append(PREFIX_TAG).append(s.value).append(" "));
             }
         }
         return sb.toString();

@@ -32,7 +32,7 @@ public class XmlAdaptedTag {
      * @param source future changes to this will not affect the created
      */
     public XmlAdaptedTag(Tag source) {
-        tagName = source.tagName;
+        tagName = source.value;
     }
 
     /**
@@ -41,8 +41,8 @@ public class XmlAdaptedTag {
      * @throws IllegalValueException if there were any data constraints violated in the adapted loan
      */
     public Tag toModelType() throws IllegalValueException {
-        if (!Tag.isValidTagName(tagName)) {
-            throw new IllegalValueException(Tag.MESSAGE_TAG_CONSTRAINTS);
+        if (!Tag.isValid.test(tagName)) {
+            throw new IllegalValueException(Tag.MESSAGE_CONSTRAINTS);
         }
         return new Tag(tagName);
     }

@@ -22,10 +22,10 @@ public class Name extends LoanField<String> {
     /**
      * Constructs a {@code Name}.
      *
-     * @param value A valid name.
+     * @param objString A valid objString for a name.
      */
-    public Name(String value) {
-        super(MESSAGE_CONSTRAINTS, isValid, Function.identity(), value);
+    public Name(String objString) {
+        super(MESSAGE_CONSTRAINTS, isValid, Function.identity(), objString);
     }
 
     @Override
