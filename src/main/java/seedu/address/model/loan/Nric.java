@@ -10,10 +10,10 @@ import java.util.function.Predicate;
 public class Nric extends LoanField<String> {
 
     public static final String MESSAGE_CONSTRAINTS =
-        "NRIC numbers should start with a S, T, F or G, followed by 7 decimal digits, then end with a capital letter.";
+        "NRIC numbers should start with a S, T, F or G, followed by 7 decimal digits, then end with a letter.";
 
     public static final Predicate<String> isValid = test ->
-        test.matches("[STFG]\\d{7}[A-Z]");
+        test.matches("[STFGstfg]\\d{7}[A-Za-z]");
 
     /**
      * Constructs a {@code Nric}.
@@ -21,13 +21,13 @@ public class Nric extends LoanField<String> {
      * @param objString A valid objString for a NRIC number.
      */
     public Nric(String objString) {
-        super(MESSAGE_CONSTRAINTS, isValid, Function.identity(), objString);
+        super(MESSAGE_CONSTRAINTS, isValid, str -> str.toUpperCase(), objString);
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-            || (other instanceof Nric // instanceof handles nulls
-            && value.equals(((Nric) other).value)); // state check
+                || (other instanceof Nric // instanceof handles nulls
+                && value.equals(((Nric) other).value)); // state check
     }
 }

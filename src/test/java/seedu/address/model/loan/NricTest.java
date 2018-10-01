@@ -36,15 +36,13 @@ public class NricTest {
 
         // invalid parts
         assertFalse(Nric.isValid.test("A2985637G")); // invalid starting letter (must be S, T, F or G)
-        assertFalse(Nric.isValid.test("s2985637G")); // lowercase starting letter
         assertFalse(Nric.isValid.test("SS2985637G")); // extra starting letter
         assertFalse(Nric.isValid.test("82985637G")); // starting character is a digit
         assertFalse(Nric.isValid.test("A123456G")); // insufficient digits
         assertFalse(Nric.isValid.test("A12345678G")); // excess digits
-        assertFalse(Nric.isValid.test("A123456AG")); // letter in the digits (end)
         assertFalse(Nric.isValid.test("AA123456G")); // letter in the digits (beginning)
         assertFalse(Nric.isValid.test("A12A3456G")); // letter in the digits (middle)
-        assertFalse(Nric.isValid.test("S2985637g")); // lowercase checksum letter
+        assertFalse(Nric.isValid.test("A123456AG")); // letter in the digits (end)
         assertFalse(Nric.isValid.test("S2985637GG")); // extra checksum letter
         assertFalse(Nric.isValid.test("S29856375")); // checksum character is a digit
 
@@ -57,6 +55,8 @@ public class NricTest {
 
         // valid NRIC numbers
         assertTrue(Nric.isValid.test("S2985637G"));
+        assertTrue(Nric.isValid.test("s2985637G")); // lowercase starting letter
+        assertTrue(Nric.isValid.test("S2985637g")); // lowercase checksum letter
         assertTrue(Nric.isValid.test("F0000000A"));
         assertTrue(Nric.isValid.test("G9999999Z"));
     }

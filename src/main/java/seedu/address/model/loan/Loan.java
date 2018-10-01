@@ -83,7 +83,7 @@ public class Loan {
 
         return otherLoan != null
                 && otherLoan.getLoanerName().equals(getLoanerName())
-                && (otherLoan.getLoanerNric() .equals(getLoanerNric() )
+                && (otherLoan.getLoanerNric ().equals(getLoanerNric ())
                  || otherLoan.getLoanerPhone().equals(getLoanerPhone())
                  || otherLoan.getLoanerEmail().equals(getLoanerEmail()));
     }
