@@ -45,13 +45,21 @@ public class LoanTest {
         editedAlice = new LoanBuilder(ALICE).withName(VALID_NAME_BOB).build();
         assertFalse(ALICE.isSameLoan(editedAlice));
 
+        // same name, same NRIC, different attributes -> returns true
+        editedAlice = new LoanBuilder(ALICE)
+                .withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB)
+                .withTags(VALID_TAG_HUSBAND).build();
+        assertTrue(ALICE.isSameLoan(editedAlice));
+
         // same name, same phone, different attributes -> returns true
-        editedAlice = new LoanBuilder(ALICE).withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB)
+        editedAlice = new LoanBuilder(ALICE)
+                .withNric(VALID_NRIC_BOB).withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB)
                 .withTags(VALID_TAG_HUSBAND).build();
         assertTrue(ALICE.isSameLoan(editedAlice));
 
         // same name, same email, different attributes -> returns true
-        editedAlice = new LoanBuilder(ALICE).withPhone(VALID_PHONE_BOB).withAddress(VALID_ADDRESS_BOB)
+        editedAlice = new LoanBuilder(ALICE)
+                .withNric(VALID_NRIC_BOB).withPhone(VALID_PHONE_BOB).withAddress(VALID_ADDRESS_BOB)
                 .withTags(VALID_TAG_HUSBAND).build();
         assertTrue(ALICE.isSameLoan(editedAlice));
 
@@ -80,6 +88,10 @@ public class LoanTest {
 
         // different name -> returns false
         Loan editedAlice = new LoanBuilder(ALICE).withName(VALID_NAME_BOB).build();
+        assertFalse(ALICE.equals(editedAlice));
+
+        // different NRIC -> returns false
+        editedAlice = new LoanBuilder(ALICE).withNric(VALID_NRIC_BOB).build();
         assertFalse(ALICE.equals(editedAlice));
 
         // different phone -> returns false

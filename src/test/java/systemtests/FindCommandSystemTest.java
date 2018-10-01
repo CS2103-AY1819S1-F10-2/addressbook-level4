@@ -111,6 +111,11 @@ public class FindCommandSystemTest extends AddressBookSystemTest {
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
+        /* Case: find NRIC of loan in address book -> 0 loans found */
+        command = FindCommand.COMMAND_WORD + " " + DANIEL.getLoanerNric().value;
+        assertCommandSuccess(command, expectedModel);
+        assertSelectedCardUnchanged();
+
         /* Case: find phone number of loan in address book -> 0 loans found */
         command = FindCommand.COMMAND_WORD + " " + DANIEL.getLoanerPhone().value;
         assertCommandSuccess(command, expectedModel);

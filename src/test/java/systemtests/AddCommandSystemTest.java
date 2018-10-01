@@ -124,6 +124,11 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
         command = LoanUtil.getAddCommand(HOON);
         assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_LOAN);
 
+        /* Case: add a duplicate loan except with different NRIC -> rejected */
+        toAdd = new LoanBuilder(HOON).withNric(VALID_NRIC_BOB).build();
+        command = LoanUtil.getAddCommand(toAdd);
+        assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_LOAN);
+
         /* Case: add a duplicate loan except with different phone -> rejected */
         toAdd = new LoanBuilder(HOON).withPhone(VALID_PHONE_BOB).build();
         command = LoanUtil.getAddCommand(toAdd);

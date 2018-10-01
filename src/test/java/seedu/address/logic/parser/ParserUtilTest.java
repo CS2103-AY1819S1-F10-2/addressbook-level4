@@ -19,18 +19,21 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.loan.Address;
 import seedu.address.model.loan.Email;
 import seedu.address.model.loan.Name;
+import seedu.address.model.loan.Nric;
 import seedu.address.model.loan.Phone;
 import seedu.address.model.tag.Tag;
 import seedu.address.testutil.Assert;
 
 public class ParserUtilTest {
     private static final String INVALID_NAME = "R@chel";
+    private static final String INVALID_NRIC = "S2937687ZZZZ";
     private static final String INVALID_PHONE = "+651234";
     private static final String INVALID_ADDRESS = " ";
     private static final String INVALID_EMAIL = "example.com";
     private static final String INVALID_TAG = "#friend";
 
     private static final String VALID_NAME = "Rachel Walker";
+    private static final String VALID_NRIC = "S2937687Z";
     private static final String VALID_PHONE = "123456";
     private static final String VALID_ADDRESS = "123 Main Street #0505";
     private static final String VALID_EMAIL = "rachel@example.com";
@@ -85,6 +88,29 @@ public class ParserUtilTest {
         String nameWithWhitespace = WHITESPACE + VALID_NAME + WHITESPACE;
         Name expectedName = new Name(VALID_NAME);
         assertEquals(expectedName, ParserUtil.parseName(nameWithWhitespace));
+    }
+
+    @Test
+    public void parseNric_null_throwsNullPointerException() {
+        Assert.assertThrows(NullPointerException.class, () -> ParserUtil.parseNric((String) null));
+    }
+
+    @Test
+    public void parseNric_invalidValue_throwsParseException() {
+        Assert.assertThrows(ParseException.class, () -> ParserUtil.parseNric(INVALID_NRIC));
+    }
+
+    @Test
+    public void parseNric_validValueWithoutWhitespace_returnsNric() throws Exception {
+        Nric expectedNric = new Nric(VALID_NRIC);
+        assertEquals(expectedNric, ParserUtil.parseNric(VALID_NRIC));
+    }
+
+    @Test
+    public void parseNric_validValueWithWhitespace_returnsTrimmedNric() throws Exception {
+        String nricWithWhitespace = WHITESPACE + VALID_NRIC + WHITESPACE;
+        Nric expectedNric = new Nric(VALID_NRIC);
+        assertEquals(expectedNric, ParserUtil.parseNric(nricWithWhitespace));
     }
 
     @Test

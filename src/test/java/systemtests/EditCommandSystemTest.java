@@ -65,8 +65,8 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
          * -> edited
          */
         Index index = INDEX_FIRST_LOAN;
-        String command = " " + EditCommand.COMMAND_WORD + "  " + index.getOneBased() + "  " + NRIC_DESC_BOB
-                + "  " + NAME_DESC_BOB + "  "
+        String command = " " + EditCommand.COMMAND_WORD + "  " + index.getOneBased()
+                + "  " + NAME_DESC_BOB + "  " + NRIC_DESC_BOB + "  "
                 + PHONE_DESC_BOB + " " + EMAIL_DESC_BOB + "  " + ADDRESS_DESC_BOB + " " + TAG_DESC_HUSBAND + " ";
         Loan editedLoan = new LoanBuilder(BOB).withTags(VALID_TAG_HUSBAND).build();
         assertCommandSuccess(command, index, editedLoan);

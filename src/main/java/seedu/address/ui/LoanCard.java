@@ -31,6 +31,8 @@ public class LoanCard extends UiPart<Region> {
     @FXML
     private Label id;
     @FXML
+    private Label nric;
+    @FXML
     private Label phone;
     @FXML
     private Label address;
@@ -44,6 +46,7 @@ public class LoanCard extends UiPart<Region> {
         this.loan = loan;
         id.setText(displayedIndex + ". ");
         name.setText(loan.getLoanerName().value);
+        nric.setText(loan.getLoanerNric().value);
         phone.setText(loan.getLoanerPhone().value);
         address.setText(loan.getAddress().value);
         email.setText(loan.getLoanerEmail().value);
