@@ -23,11 +23,4 @@ public class Nric extends LoanField<String> {
     public Nric(String objString) {
         super(MESSAGE_CONSTRAINTS, isValid, str -> str.toUpperCase(), objString);
     }
-
-    @Override
-    public boolean equals(Object other) {
-        return other == this // short circuit if same object
-                || (other instanceof Nric // instanceof handles nulls
-                && value.equals(((Nric) other).value)); // state check
-    }
 }

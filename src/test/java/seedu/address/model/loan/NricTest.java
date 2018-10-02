@@ -60,4 +60,11 @@ public class NricTest {
         assertTrue(Nric.isValid.test("F0000000A"));
         assertTrue(Nric.isValid.test("G9999999Z"));
     }
+
+    @Test
+    public void convertsObjStringToValue() {
+        assertTrue((new Nric("S1234567A")).value.equals("S1234567A"));
+        assertTrue((new Nric("s1234567a")).value.equals("S1234567A")); // converts lowercase to uppercase
+
+    }
 }

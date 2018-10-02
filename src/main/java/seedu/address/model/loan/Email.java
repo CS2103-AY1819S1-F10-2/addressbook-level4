@@ -38,11 +38,4 @@ public class Email extends LoanField<String> {
     public Email(String objString) {
         super(MESSAGE_CONSTRAINTS, isValid, Function.identity(), objString);
     }
-
-    @Override
-    public boolean equals(Object other) {
-        return other == this // short circuit if same object
-                || (other instanceof Email // instanceof handles nulls
-                && value.equals(((Email) other).value)); // state check
-    }
 }

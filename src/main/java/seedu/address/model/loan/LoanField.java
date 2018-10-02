@@ -23,13 +23,6 @@ public abstract class LoanField<T> {
      *     - arguments: String objString
      *     - { super(MESSAGE_CONSTRAINTS, isValid, [specify parser, e.g. Integer.parseInt], objString); }
      *         - The specified parser must be guaranteed to work (i.e. output a valid value) on a valid objString
-     * - An equals() method like this:
-     *     @Override
-     *     public boolean equals(Object other) {
-     *         return other == this // short circuit if same object
-     *                 || (other instanceof [class-name] // instanceof handles nulls
-     *                 && value.equals((([class-name]) other).value)); // state check
-     *     }
      * - toString() may be further overridden as necessary, e.g. for display purposes, or for
      *   converting the value back to a valid objString.
      */
@@ -60,4 +53,16 @@ public abstract class LoanField<T> {
         return value.hashCode();
     }
 
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true; // short circuit if same object
+        }
+        if (other == null) {
+            return false; // null objects are not equal to this object (which is non-null)
+        }
+        // Returns true if both objects are of the same class and holding the same value
+        return other.getClass() == this.getClass()
+                && this.value.equals(((LoanField)other).value);
+    }
 }

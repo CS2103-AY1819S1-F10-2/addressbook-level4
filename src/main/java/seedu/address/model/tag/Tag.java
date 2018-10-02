@@ -25,13 +25,6 @@ public class Tag extends LoanField<String> {
         super(MESSAGE_CONSTRAINTS, isValid, Function.identity(), objString);
     }
 
-    @Override
-    public boolean equals(Object other) {
-        return other == this // short circuit if same object
-                || (other instanceof Tag // instanceof handles nulls
-                && value.equals(((Tag) other).value)); // state check
-    }
-
     /**
      * Format state as text for viewing.
      */

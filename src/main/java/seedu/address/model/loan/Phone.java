@@ -23,11 +23,4 @@ public class Phone extends LoanField<String> {
     public Phone(String objString) {
         super(MESSAGE_CONSTRAINTS, isValid, Function.identity(), objString);
     }
-
-    @Override
-    public boolean equals(Object other) {
-        return other == this // short circuit if same object
-                || (other instanceof Phone // instanceof handles nulls
-                && value.equals(((Phone) other).value)); // state check
-    }
 }
