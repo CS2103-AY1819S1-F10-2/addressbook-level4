@@ -12,37 +12,37 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 == Project Team
 
 === Ang Wei Neng
-image::weineng.jpg[width="150", align="left"]
+image::wn96.png[width="150", align="left"]
 {empty}[https://www.weineng.io[homepage]] [https://github.com/wn96[github]] [<<weineng#, portfolio>>]
 
 Role: Dev Ops + Authentication + UI
 
 '''
 
-=== John Roe
-image::lejolly.jpg[width="150", align="left"]
-{empty}[http://github.com/lejolly[github]] [<<johndoe#, portfolio>>]
-
-Role: Team Lead +
-Responsibilities: UI
-
-'''
-
-=== Johnny Doe
-image::yijinl.jpg[width="150", align="left"]
-{empty}[http://github.com/yijinl[github]] [<<johndoe#, portfolio>>]
+=== Liu Xiaohang
+image::kelly9373.png[width="150", align="left"]
+{empty}[https://github.com/Kelly9373[github]] [<<Xiaohang#, portfolio>>]
 
 Role: Developer +
 Responsibilities: Data
 
 '''
 
-=== Johnny Roe
-image::m133225.jpg[width="150", align="left"]
-{empty}[http://github.com/m133225[github]] [<<johndoe#, portfolio>>]
+=== Lim Fong Yuan
+image::fongyuan.png[width="150", align="left"]
+{empty}[https://github.com/FongYuan[github]] [<<fongyuan#, portfolio>>]
 
 Role: Developer +
-Responsibilities: Dev Ops + Threading
+Responsibilities: Data
+
+'''
+
+=== Muhammad Irham Rasyidi Bin Zainal
+image::xantho09.png[width="150", align="left"]
+{empty}[http://github.com/xantho09[github]] [<<irham#, portfolio>>]
+
+Role: Developer +
+Responsibilities: UI
 
 '''
 

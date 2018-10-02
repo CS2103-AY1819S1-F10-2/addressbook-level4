@@ -1,7 +1,7 @@
-= AddressBook Level 4 - User Guide
+= LoanBook - User Guide
 :site-section: UserGuide
-:toc:
-:toc-title:
+:toc: left
+:toc-title: UserGuide
 :toc-placement: preamble
 :sectnums:
 :imagesDir: images
@@ -12,31 +12,27 @@ ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level4
+:repoURL: https://github.com/CS2103-AY1819S1-F10-2/main
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team F10-2`      Since: `Sep 2018`      Licence: `MIT`
 
 == Introduction
 
-AddressBook Level 4 (AB4) is for those who *prefer to use a desktop app for managing contacts*. More importantly, AB4 is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB4 can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+Ever wanted to start up your business, only to realise that managing your inventories is a clumpy chore. Current available inventories management softwares such as as MYOB is expensive and does not offer useful features to small scale businesses. Introducing WFIDX, the new revolutionary command line application that promises to revolutionise how the SME industry manages inventories. Minimizing the clunky Graphical User Interface (GUI) that hinders fast typist, WFIDX promises to decrease the time taken for businesses to manage their inventories than before by using CLI. Enjoy!
 
 == Quick Start
 
-.  Ensure you have Java version `9` or later installed in your Computer.
-.  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for your Address Book.
-.  Double-click the file to start the app. The GUI should appear in a few seconds.
-+
-image::Ui.png[width="790"]
-+
-.  Type the command in the command box and press kbd:[Enter] to execute it. +
-e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
+.  Ensure you have Java version `9` or later installed in your computer.
+.  Download the latest `LoanBook.jar` link:{repoURL}/releases[here].
+.  Run the .jar file. The GUI should appear in a few seconds.
+.  Type the command in the command box and press kbd:[ENTER] to execute it. +
+e.g. typing *`help`* and pressing kbd:[ENTER] will open the help window.
 .  Some example commands you can try:
 
-* *`list`* : lists all contacts
-* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
-* **`delete`**`3` : deletes the 3rd contact shown in the current list
-* *`exit`* : exits the app
+* *`list`* : List the status of the loanbook
+* **`add`**`p/John hp/12345678 e/john@abc.com r/3 o/Bicycle-007` : Loans Bicycle-007 to John at a rate of $3 per hour
+* **`delete`**`3` : deletes the 3rd loan shown in the current list
+* *`reset`* : Reset the loanbook
 
 .  Refer to <<Features>> for details of each command.
 
@@ -46,113 +42,110 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 ====
 *Command Format*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
-* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
-* Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add o/OBJECT_NAME`, `OBJECT_NAME` is a parameter which can be used as `add o/Bicycle`.
 ====
 
 === Viewing help : `help`
 
+Provides a list of all commands together with a basic description, how-to-use and example usage for each +
 Format: `help`
 
-=== Adding a person: `add`
+=== Adding a loan: `add`
 
-Adds a person to the address book +
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
+Adds a loan to the loan book with the following parameters, and displays the transaction along with a Loan ID to keep track of the loan +
+Format: `add p/PERSON_NAME hp/PERSON_PHONE_NO e/PERSON_EMAIL r/RATE o/OBJECT_IDENTITY`
 
 [TIP]
-A person can have any number of tags (including 0)
+NUMBER_LOANED and LOAN_OUT_PERIOD must be a positive integer
+RATE is in dollars per hour.
+PERSON_PHONE_NO and PERSON_EMAIL should not be blank.
 
 Examples:
 
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+* `add p/John hp/97626753 e/johnw@abc.com r/5 o/Bicycle-007`
+* `add p/James Tan hp/86661352 e/alabaaoe@xyz.com r/144 o/Bicycle-007`
 
-=== Listing all persons : `list`
+=== Listing all loans : `list`
 
-Shows a list of all persons in the address book. +
+Shows a list of all loans in the loan book. +
 Format: `list`
 
-=== Editing a person : `edit`
+=== Editing a loan : `edit`
 
-Edits an existing person in the address book. +
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
+In case a wrong entry is keyed in, or the customer changes their mind, this command allows details of a loan entry to be edited. +
+Format: `edit i/LOAN_ID [p/PERSON_NAME] [hp/PERSON_PHONE_NO] [e/PERSON_EMAIL] [r/RATE] [o/OBJECT_IDENTITY]`
 
 ****
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
+* Edits the person at the specified `LOAN_ID`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
 * When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person's tags by typing `t/` without specifying any tags after it.
 ****
 
 Examples:
 
-* `edit 1 p/91234567 e/johndoe@example.com` +
-Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-* `edit 2 n/Betsy Crower t/` +
-Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+* `edit i/11037 o/Bicycle-017` +
+For the loan with Loan ID 11037, changes the loaned object from whatever it was before to Bicycle-017.
+* `edit i/90210 p/James Tan hp/86661352 e/alabaaoe@xyz.com r/144` +
+For the loan with Loan ID 90210, changes the customer to James Tan, who has the specified contact details, to the rate of $144 per hour.
 
-=== Locating persons by name: `find`
+=== Locating loans by key words: `search`
 
-Finds persons whose names contain any of the given keywords. +
-Format: `find KEYWORD [MORE_KEYWORDS]`
+Returns a loan based on parameters of LOAN_ ID, PERSON_NAME or OBJECT_IDENTITY. +
+Format: `search [i/LOAN_ID] [p/PERSON_NAME] [o/OBJECT_IDENTITY]`
 
 ****
 * The search is case insensitive. e.g `hans` will match `Hans`
 * The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
 * Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
+* Loans matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
 ****
 
 Examples:
 
-* `find John` +
-Returns `john` and `John Doe`
-* `find Betsy Tim John` +
-Returns any person having names `Betsy`, `Tim`, or `John`
+* `search i/11037` +
+Searches for the loan with Loan ID 11037
+* `search p/James Tan` +
+Searches for loans made by James Tan
+* `search p/John Doe o/Bicycle-007` +
+Searches for loans made by John Doe where the item loaned out is Bicycle-007
 
-=== Deleting a person : `delete`
+=== Deleting the chosen loan from the loan book : `delete`
 
-Deletes the specified person from the address book. +
-Format: `delete INDEX`
-
-****
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index *must be a positive integer* 1, 2, 3, ...
-****
-
-Examples:
-
-* `list` +
-`delete 2` +
-Deletes the 2nd person in the address book.
-* `find Betsy` +
-`delete 1` +
-Deletes the 1st person in the results of the `find` command.
-
-=== Selecting a person : `select`
-
-Selects the person identified by the index number used in the displayed person list. +
-Format: `select INDEX`
+Delete the loan from the loan book. If you want to delete one loan, use `delete i/LOAN_ID`. If you want to delete all, use`delete!` +
+Format: `delete i/LOAN_ID` or `delete!`
 
 ****
-* Selects the person and loads the Google search page the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index *must be a positive integer* `1, 2, 3, ...`
+* Deletes the loan at the specified `i/LOAN_ID`.
+* Note that this does not reset the `i/LOAN_ID`.
 ****
 
 Examples:
 
-* `list` +
-`select 2` +
-Selects the 2nd person in the address book.
-* `find Betsy` +
-`select 1` +
-Selects the 1st person in the results of the `find` command.
+* `delete i/11037` +
+Deletes the loan with Loan ID 11037.
+* `delete!` +
+Deletes all loan records.
+
+=== Returning a loan : `return`
+
+Marks a loan as returned based on LOAN_ ID and automatically prints out the amount payable. +
+Format: `return i/LOAN_ID`
+
+Examples:
+
+* `return i/11037` +
+Marks the loan with Loan ID 11037 as returned. Also automatically prints out the amount payable based on loan time and rate.
+
+=== Hard reset the entire loan book : `reset`
+
+Removes all the loans from the loan book and resets the LOAN_ID counter. +
+Format: `reset`
+
+=== Summarize all the transactions : `summary`
+
+Show the total number of loans that are done and in progress. Also summarizes the loan status of each item, the number of times an object was loaned before. +
+Format: `summary`
 
 === Listing entered commands : `history`
 
@@ -164,6 +157,17 @@ Format: `history`
 Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and next input respectively in the command box.
 ====
 
+=== Non-functional features :
+* Aliases to allow users to use the CLI with less keystrokes.
+* Chainable commands. I.e. allow adding and deleting of items asynchronously.
+** `add_items i/bicycle q/5 delete_items motorbike q/7`
+* Auto complete
+** Populate recently loaned items/users, depending on the input. i.e. add i/ should show a dropdown on the last 5 items used. User can type add i/5 to select the 5th LRU item.
+** typing `del` followed by tab auto completes to `delete`
+* Send reminder email to the borrower after a day of borrowing reminding them to return the bike.
+* Login authentication to ensure that some other bugger don't delete the loan stuffs. Require password when deleting.
+
+////
 // tag::undoredo[]
 === Undoing previous command : `undo`
 
@@ -258,3 +262,4 @@ e.g.`select 2`
 * *History* : `history`
 * *Undo* : `undo`
 * *Redo* : `redo`
+////
