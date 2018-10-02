@@ -15,7 +15,8 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 image::wn96.png[width="150", align="left"]
 {empty}[https://www.weineng.io[homepage]] [https://github.com/wn96[github]] [<<weineng#, portfolio>>]
 
-Role: Dev Ops + Authentication + UI
+Role: Team Lead +
+Responsibilities: Integration + Git expert
 
 '''
 
@@ -24,7 +25,7 @@ image::kelly9373.png[width="150", align="left"]
 {empty}[https://github.com/Kelly9373[github]] [<<Xiaohang#, portfolio>>]
 
 Role: Developer +
-Responsibilities: Data
+Responsibilities: Storage + Documentation
 
 '''
 
@@ -33,7 +34,7 @@ image::fongyuan.png[width="150", align="left"]
 {empty}[https://github.com/FongYuan[github]] [<<fongyuan#, portfolio>>]
 
 Role: Developer +
-Responsibilities: Data
+Responsibilities: Testing + Deliverables and deadlines + Scheduling and tracking + Model
 
 '''
 
@@ -46,11 +47,11 @@ Responsibilities: UI
 
 '''
 
-=== Benson Meier
-image::yl_coder.jpg[width="150", align="left"]
-{empty}[http://github.com/yl-coder[github]] [<<johndoe#, portfolio>>]
+=== David Kum
+image::prokarius.png[width="150", align="left"]
+{empty}[http://github.com/prokarius[github]] [<<prokarius#, portfolio>>]
 
 Role: Developer +
-Responsibilities: UI
+Responsibilities: Logic Components
 
 '''
