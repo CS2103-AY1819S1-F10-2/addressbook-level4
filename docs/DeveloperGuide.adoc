@@ -1,4 +1,4 @@
-= AddressBook Level 4 - Developer Guide
+= LoanBook - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -14,7 +14,7 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/se-edu/addressbook-level4/tree/master
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team F10-2`      Since: `Sep 2018`      Licence: `MIT`
 
 == Setting up
 
