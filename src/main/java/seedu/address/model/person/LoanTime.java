@@ -21,6 +21,12 @@ public class LoanTime {
 
     // TODO: Populate parseLoanTime(String inputString)
     // TODO: Create Validation regex string
+
+    /**
+     * Returns a LoanTime object based on the value of the given input string.
+     *
+     * @param inputString String to be parsed to return the LoanTime object.
+     */
     public static LoanTime parseLoanTime(String inputString) {
         // TODO
         return null;
