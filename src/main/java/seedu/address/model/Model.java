@@ -3,14 +3,14 @@ package seedu.address.model;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
-import seedu.address.model.person.Person;
+import seedu.address.model.loan.Loan;
 
 /**
  * The API of the Model component.
  */
 public interface Model {
     /** {@code Predicate} that always evaluate to true */
-    Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
+    Predicate<Loan> PREDICATE_SHOW_ALL_LOANS = unused -> true;
 
     /** Clears existing backing model and replaces with the provided new data. */
     void resetData(ReadOnlyAddressBook newData);
@@ -19,37 +19,37 @@ public interface Model {
     ReadOnlyAddressBook getAddressBook();
 
     /**
-     * Returns true if a person with the same identity as {@code person} exists in the address book.
+     * Returns true if a loan with the same identity as {@code loan} exists in the address book.
      */
-    boolean hasPerson(Person person);
+    boolean hasLoan(Loan loan);
 
     /**
-     * Deletes the given person.
-     * The person must exist in the address book.
+     * Deletes the given loan.
+     * The loan must exist in the address book.
      */
-    void deletePerson(Person target);
+    void deleteLoan(Loan target);
 
     /**
-     * Adds the given person.
-     * {@code person} must not already exist in the address book.
+     * Adds the given loan.
+     * {@code loan} must not already exist in the address book.
      */
-    void addPerson(Person person);
+    void addLoan(Loan loan);
 
     /**
-     * Replaces the given person {@code target} with {@code editedPerson}.
+     * Replaces the given loan {@code target} with {@code editedLoan}.
      * {@code target} must exist in the address book.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
+     * The loan identity of {@code editedLoan} must not be the same as another existing loan in the address book.
      */
-    void updatePerson(Person target, Person editedPerson);
+    void updateLoan(Loan target, Loan editedLoan);
 
-    /** Returns an unmodifiable view of the filtered person list */
-    ObservableList<Person> getFilteredPersonList();
+    /** Returns an unmodifiable view of the filtered loan list */
+    ObservableList<Loan> getFilteredLoanList();
 
     /**
-     * Updates the filter of the filtered person list to filter by the given {@code predicate}.
+     * Updates the filter of the filtered loan list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
      */
-    void updateFilteredPersonList(Predicate<Person> predicate);
+    void updateFilteredLoanList(Predicate<Loan> predicate);
 
     /**
      * Returns true if the model has previous address book states to restore.
