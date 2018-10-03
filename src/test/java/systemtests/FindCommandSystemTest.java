@@ -166,7 +166,7 @@ public class FindCommandSystemTest extends AddressBookSystemTest {
      */
     private void assertCommandSuccess(String command, Model expectedModel) {
         String expectedResultMessage = String.format(
-            MESSAGE_LOANS_LISTED_OVERVIEW, expectedModel.getFilteredLoanList().size());
+                MESSAGE_LOANS_LISTED_OVERVIEW, expectedModel.getFilteredLoanList().size());
 
         executeCommand(command);
         assertApplicationDisplaysExpected("", expectedResultMessage, expectedModel);
