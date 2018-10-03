@@ -9,7 +9,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import java.util.Set;
 
 import seedu.address.logic.commands.AddCommand;
-import seedu.address.logic.commands.EditCommand;
+import seedu.address.logic.commands.EditCommand.EditLoanDescriptor;
 import seedu.address.model.loan.Loan;
 import seedu.address.model.tag.Tag;
 
@@ -43,7 +43,7 @@ public class LoanUtil {
     /**
      * Returns the part of command string for the given {@code EditLoanDescriptor}'s details.
      */
-    public static String getEditLoanDescriptorDetails(EditCommand.EditLoanDescriptor descriptor) {
+    public static String getEditLoanDescriptorDetails(EditLoanDescriptor descriptor) {
         StringBuilder sb = new StringBuilder();
         descriptor.getName().ifPresent(name -> sb.append(PREFIX_NAME).append(name.fullName).append(" "));
         descriptor.getPhone().ifPresent(phone -> sb.append(PREFIX_PHONE).append(phone.value).append(" "));
