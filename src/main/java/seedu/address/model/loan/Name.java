@@ -19,8 +19,6 @@ public class Name extends DataField<String> {
     public static final Predicate<String> VALIDITY_PREDICATE =
         test -> test.matches("[\\p{Alnum}][\\p{Alnum} ]*");
 
-    public final String fullName;
-
     /**
      * Constructs a {@code Name}.
      *

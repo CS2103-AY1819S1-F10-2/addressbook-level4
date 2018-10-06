@@ -61,7 +61,7 @@ public class XmlAdaptedLoan {
      * @param source future changes to this will not affect the created XmlAdaptedLoan
      */
     public XmlAdaptedLoan(Loan source) {
-        name = source.getName().fullName;
+        name = source.getName().value;
         phone = source.getPhone().value;
         email = source.getEmail().value;
         address = source.getAddress().value;

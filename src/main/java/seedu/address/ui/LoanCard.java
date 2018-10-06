@@ -43,7 +43,7 @@ public class LoanCard extends UiPart<Region> {
         super(FXML);
         this.loan = loan;
         id.setText(displayedIndex + ". ");
-        name.setText(loan.getName().fullName);
+        name.setText(loan.getName().value);
         phone.setText(loan.getPhone().value);
         address.setText(loan.getAddress().value);
         email.setText(loan.getEmail().value);

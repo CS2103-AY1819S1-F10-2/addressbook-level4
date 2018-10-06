@@ -76,7 +76,7 @@ public class LoanCardHandle extends NodeHandle<Node> {
      * Returns true if this handle contains {@code loan}.
      */
     public boolean equals(Loan loan) {
-        return getName().equals(loan.getName().fullName)
+        return getName().equals(loan.getName().value)
                 && getAddress().equals(loan.getAddress().value)
                 && getPhone().equals(loan.getPhone().value)
                 && getEmail().equals(loan.getEmail().value)
