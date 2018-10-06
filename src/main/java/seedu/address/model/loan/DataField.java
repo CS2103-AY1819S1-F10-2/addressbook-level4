@@ -15,14 +15,14 @@ public abstract class DataField<T> {
 
     /**
      * Subclasses should have:
-     * - static final String MESSAGE_CONSTRAINTS = [string];
+     * - {@code static final String MESSAGE_CONSTRAINTS = [string];}
      *      A message to the user describing how a valid objString should be formatted.
-     * - static final Predicate<String> VALIDITY_PREDICATE = test -> test.matches([regex-expression]);
+     * - {@code static final Predicate<String> VALIDITY_PREDICATE = test -> test.matches([regex-expression]);}
      *      Returns true iff the given objString is valid.
      * - The constructor only needs to be of this format:
-     *     - arguments: String objString
-     *     - { super(MESSAGE_CONSTRAINTS, VALIDITY_PREDICATE, parser, objString); }
-     *         - The parser converts the given objString into an object of type T, e.g. Integer.parseInt
+     *     - arguments: {@code String objString}
+     *     - {@code { super(MESSAGE_CONSTRAINTS, VALIDITY_PREDICATE, parser, objString); }}
+     *         - The parser converts the given objString into an object of type {@code T}, e.g. {@code Integer.parseInt}
      *         - The parser must be guaranteed to work (i.e. output a valid value) on a valid objString
      */
 
@@ -39,7 +39,7 @@ public abstract class DataField<T> {
     public DataField(
         String msgConstraints,
         Predicate<String> validityPred,
-        Function<String,T> parser,
+        Function<String, T> parser,
         String objString) {
 
         requireNonNull(objString);
@@ -67,6 +67,6 @@ public abstract class DataField<T> {
         }
         // Returns true if both objects are of the same class and holding the same value
         return other.getClass() == this.getClass()
-            && this.value.equals(((DataField)other).value);
+            && this.value.equals(((DataField) other).value);
     }
 }
