@@ -70,6 +70,10 @@ public class XmlAdaptedLoan {
                 .collect(Collectors.toList());
     }
 
+    /**
+     * Throws an {@code IllegalValueException} if {@code name} does not exist or is not valid
+     * @throws IllegalValueException
+     */
     private void checkNameValid() throws IllegalValueException {
         if (name == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName()));
@@ -79,6 +83,10 @@ public class XmlAdaptedLoan {
         }
     }
 
+    /**
+     * Throws an {@code IllegalValueException} if {@code phone} does not exist or is not valid
+     * @throws IllegalValueException
+     */
     private void checkPhoneValid() throws IllegalValueException {
         if (phone == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Phone.class.getSimpleName()));
@@ -88,6 +96,10 @@ public class XmlAdaptedLoan {
         }
     }
 
+    /**
+     * Throws an {@code IllegalValueException} if {@code email} does not exist or is not valid
+     * @throws IllegalValueException
+     */
     private void checkEmailValid() throws IllegalValueException {
         if (email == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Email.class.getSimpleName()));
@@ -97,6 +109,10 @@ public class XmlAdaptedLoan {
         }
     }
 
+    /**
+     * Throws an {@code IllegalValueException} if {@code address} does not exist or is not valid
+     * @throws IllegalValueException
+     */
     private void checkAddressValid() throws IllegalValueException {
         if (address == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Address.class.getSimpleName()));
