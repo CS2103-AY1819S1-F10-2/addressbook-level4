@@ -71,7 +71,8 @@ public class XmlAdaptedLoan {
     }
 
     /**
-     * Throws an {@code IllegalValueException} if {@code name} does not exist or is not valid
+     * Throws an {@code IllegalValueException} if {@code name} does not exist or is not valid.
+     *
      * @throws IllegalValueException
      */
     private void checkNameValid() throws IllegalValueException {
@@ -84,7 +85,8 @@ public class XmlAdaptedLoan {
     }
 
     /**
-     * Throws an {@code IllegalValueException} if {@code phone} does not exist or is not valid
+     * Throws an {@code IllegalValueException} if {@code phone} does not exist or is not valid.
+     *
      * @throws IllegalValueException
      */
     private void checkPhoneValid() throws IllegalValueException {
@@ -97,7 +99,8 @@ public class XmlAdaptedLoan {
     }
 
     /**
-     * Throws an {@code IllegalValueException} if {@code email} does not exist or is not valid
+     * Throws an {@code IllegalValueException} if {@code email} does not exist or is not valid.
+     *
      * @throws IllegalValueException
      */
     private void checkEmailValid() throws IllegalValueException {
@@ -110,7 +113,8 @@ public class XmlAdaptedLoan {
     }
 
     /**
-     * Throws an {@code IllegalValueException} if {@code address} does not exist or is not valid
+     * Throws an {@code IllegalValueException} if {@code address} does not exist or is not valid.
+     *
      * @throws IllegalValueException
      */
     private void checkAddressValid() throws IllegalValueException {
