@@ -33,13 +33,13 @@ public class XmlAdaptedLoanTest {
             .collect(Collectors.toList());
 
     @Test
-    public void toModelType_validLoanDetails_returnsLoan() throws Exception {
+    public void toModelTypeValidLoanDetails_returnsLoan() throws Exception {
         XmlAdaptedLoan loan = new XmlAdaptedLoan(BENSON);
         assertEquals(BENSON, loan.toModelType());
     }
 
     @Test
-    public void toModelType_invalidName_throwsIllegalValueException() {
+    public void toModelTypeInvalidNameThrowsIllegalValueException() {
         XmlAdaptedLoan loan =
                 new XmlAdaptedLoan(INVALID_NAME, VALID_PHONE, VALID_EMAIL, VALID_ADDRESS, VALID_TAGS);
         String expectedMessage = Name.MESSAGE_NAME_CONSTRAINTS;
@@ -47,14 +47,14 @@ public class XmlAdaptedLoanTest {
     }
 
     @Test
-    public void toModelType_nullName_throwsIllegalValueException() {
+    public void toModelTypeNullNameThrowsIllegalValueException() {
         XmlAdaptedLoan loan = new XmlAdaptedLoan(null, VALID_PHONE, VALID_EMAIL, VALID_ADDRESS, VALID_TAGS);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName());
         Assert.assertThrows(IllegalValueException.class, expectedMessage, loan::toModelType);
     }
 
     @Test
-    public void toModelType_invalidPhone_throwsIllegalValueException() {
+    public void toModelTypeInvalidPhoneThrowsIllegalValueException() {
         XmlAdaptedLoan loan =
                 new XmlAdaptedLoan(VALID_NAME, INVALID_PHONE, VALID_EMAIL, VALID_ADDRESS, VALID_TAGS);
         String expectedMessage = Phone.MESSAGE_PHONE_CONSTRAINTS;
@@ -62,14 +62,14 @@ public class XmlAdaptedLoanTest {
     }
 
     @Test
-    public void toModelType_nullPhone_throwsIllegalValueException() {
+    public void toModelTypeNullPhoneThrowsIllegalValueException() {
         XmlAdaptedLoan loan = new XmlAdaptedLoan(VALID_NAME, null, VALID_EMAIL, VALID_ADDRESS, VALID_TAGS);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Phone.class.getSimpleName());
         Assert.assertThrows(IllegalValueException.class, expectedMessage, loan::toModelType);
     }
 
     @Test
-    public void toModelType_invalidEmail_throwsIllegalValueException() {
+    public void toModelTypeInvalidEmailThrowsIllegalValueException() {
         XmlAdaptedLoan loan =
                 new XmlAdaptedLoan(VALID_NAME, VALID_PHONE, INVALID_EMAIL, VALID_ADDRESS, VALID_TAGS);
         String expectedMessage = Email.MESSAGE_EMAIL_CONSTRAINTS;
@@ -77,14 +77,14 @@ public class XmlAdaptedLoanTest {
     }
 
     @Test
-    public void toModelType_nullEmail_throwsIllegalValueException() {
+    public void toModelTypeNullEmailThrowsIllegalValueException() {
         XmlAdaptedLoan loan = new XmlAdaptedLoan(VALID_NAME, VALID_PHONE, null, VALID_ADDRESS, VALID_TAGS);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Email.class.getSimpleName());
         Assert.assertThrows(IllegalValueException.class, expectedMessage, loan::toModelType);
     }
 
     @Test
-    public void toModelType_invalidAddress_throwsIllegalValueException() {
+    public void toModelTypeInvalidAddressThrowsIllegalValueException() {
         XmlAdaptedLoan loan =
                 new XmlAdaptedLoan(VALID_NAME, VALID_PHONE, VALID_EMAIL, INVALID_ADDRESS, VALID_TAGS);
         String expectedMessage = Address.MESSAGE_ADDRESS_CONSTRAINTS;
@@ -92,14 +92,14 @@ public class XmlAdaptedLoanTest {
     }
 
     @Test
-    public void toModelType_nullAddress_throwsIllegalValueException() {
+    public void toModelTypeNullAddressThrowsIllegalValueException() {
         XmlAdaptedLoan loan = new XmlAdaptedLoan(VALID_NAME, VALID_PHONE, VALID_EMAIL, null, VALID_TAGS);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Address.class.getSimpleName());
         Assert.assertThrows(IllegalValueException.class, expectedMessage, loan::toModelType);
     }
 
     @Test
-    public void toModelType_invalidTags_throwsIllegalValueException() {
+    public void toModelTypeInvalidTagsThrowsIllegalValueException() {
         List<XmlAdaptedTag> invalidTags = new ArrayList<>(VALID_TAGS);
         invalidTags.add(new XmlAdaptedTag(INVALID_TAG));
         XmlAdaptedLoan loan =
