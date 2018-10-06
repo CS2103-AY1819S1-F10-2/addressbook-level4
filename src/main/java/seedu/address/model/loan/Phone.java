@@ -13,7 +13,7 @@ public class Phone extends DataField<String> {
             "Phone numbers should only contain numbers, and it should be at least 3 digits long";
 
     public static final Predicate<String> VALIDITY_PREDICATE =
-            test -> test.matches("\\d{3,}");
+        test -> test.matches("\\d{3,}");
 
     /**
      * Constructs a {@code Phone}.

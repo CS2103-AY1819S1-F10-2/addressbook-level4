@@ -27,7 +27,7 @@ public class Email extends DataField<String> {
     private static final String DOMAIN_LAST_CHARACTER_REGEX = "[^\\W_]$";
 
     public static final Predicate<String> VALIDITY_PREDICATE =
-            test -> test.matches(LOCAL_PART_REGEX + "@"
+        test -> test.matches(LOCAL_PART_REGEX + "@"
             + DOMAIN_FIRST_CHARACTER_REGEX + DOMAIN_MIDDLE_REGEX + DOMAIN_LAST_CHARACTER_REGEX);
 
     /**
