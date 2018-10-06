@@ -41,7 +41,7 @@ public class LoanCardTest extends GuiUnitTest {
         assertTrue(loanCard.equals(loanCard));
 
         // null -> returns false
-        assertFalse(loanCard.equals(null));
+        assertFalse(loanCard == null);
 
         // different types -> returns false
         assertFalse(loanCard.equals(0));
