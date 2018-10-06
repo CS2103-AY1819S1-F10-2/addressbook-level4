@@ -81,7 +81,7 @@ public class LoanCardHandle extends NodeHandle<Node> {
                 && getPhone().equals(loan.getPhone().value)
                 && getEmail().equals(loan.getEmail().value)
                 && ImmutableMultiset.copyOf(getTags()).equals(ImmutableMultiset.copyOf(loan.getTags().stream()
-                        .map(tag -> tag.tagName)
+                        .map(tag -> tag.value)
                         .collect(Collectors.toList())));
     }
 }

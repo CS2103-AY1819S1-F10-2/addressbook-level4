@@ -16,8 +16,6 @@ public class Tag extends DataField<String> {
     public static final Predicate<String> VALIDITY_PREDICATE =
         test -> test.matches("\\p{Alnum}+");
 
-    public final String tagName;
-
     /**
      * Constructs a {@code Tag}.
      *
@@ -38,7 +36,7 @@ public class Tag extends DataField<String> {
      * Format state as text for viewing.
      */
     public String toString() {
-        return '[' + tagName + ']';
+        return '[' + value + ']';
     }
 
 }
