@@ -38,16 +38,18 @@ Do not disable them. If you have disabled them, go to `File` > `Settings` > `Plu
 
 . Fork this repo, and clone the fork to your computer
 . Open IntelliJ (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project dialog first)
-. Set up the correct JDK version for Gradle
-.. Click `Configure` > `Project Defaults` > `Project Structure`
-.. Click `New...` and find the directory of the JDK
+. Make sure the correct JDK version is set up for Gradle
+.. Click `Configure` > `Project Defaults` > `Project Structure`. A window titled 'Project Structure for New Projects' will pop up
+.. Under the "Project SDK" heading, select the correct JDK version (JDK 9 or later).
+... If the correct version does not appear in the drop-down list, click `New...` > `JDK`, then select the directory folder of the JDK, then click `OK`. +
+For Windows, the default installation directory would be `C:\Program Files\Java\jdk-[version-number]`
+.. Click `OK` to accept the settings and close the window.
 . Click `Import Project`
-. Locate the `build.gradle` file and select it. Click `OK`
-. Click `Open as Project`
-. Click `OK` to accept the default settings
+. Locate the `build.gradle` file in this project's root directory on your computer and select it. Click `OK`. A window titled 'Import Project from Gradle' will pop up
+. Click `OK` to accept the default settings. Gradle will now start building your project. Wait a short while for it to complete (it will say `main: sync finished` in IntelliJ's Build tab  when it is done)
 . Open a console and run the command `gradlew processResources` (Mac/Linux: `./gradlew processResources`). It should finish with the `BUILD SUCCESSFUL` message. +
 This will generate all resources required by the application and tests.
-. Open link:{repoURL}/src/main/java/seedu/address/storage/XmlAdaptedPerson.java[`XmlAdaptedPerson.java`] and link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow.java`] and check for any code errors
+. Open link:{repoURL}/src/main/java/seedu/address/storage/XmlAdaptedLoan.java[`XmlAdaptedLoan.java`] and link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow.java`] and check for any code errors
 .. Due to an ongoing https://youtrack.jetbrains.com/issue/IDEA-189060[issue] with some of the newer versions of IntelliJ, code errors may be detected even if the project can be built and run successfully
 .. To resolve this, place your cursor over any of the code section highlighted in red. Press kbd:[ALT + ENTER], and select `Add '--add-modules=...' to module compiler options` for each error
 . Repeat this for the test folder as well (e.g. check link:{repoURL}/src/test/java/seedu/address/commons/util/XmlUtilTest.java[`XmlUtilTest.java`] and link:{repoURL}/src/test/java/seedu/address/ui/HelpWindowTest.java[`HelpWindowTest.java`] for code errors, and if so, resolve it the same way)
