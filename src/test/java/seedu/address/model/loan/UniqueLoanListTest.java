@@ -27,24 +27,24 @@ public class UniqueLoanListTest {
     private final UniqueLoanList uniqueLoanList = new UniqueLoanList();
 
     @Test
-    public void contains_nullLoan_throwsNullPointerException() {
+    public void containsNullLoanThrowsNullPointerException() {
         thrown.expect(NullPointerException.class);
         uniqueLoanList.contains(null);
     }
 
     @Test
-    public void contains_loanNotInList_returnsFalse() {
+    public void containsLoanNotInListReturnsFalse() {
         assertFalse(uniqueLoanList.contains(ALICE));
     }
 
     @Test
-    public void contains_loanInList_returnsTrue() {
+    public void containsLoanInListReturnsTrue() {
         uniqueLoanList.add(ALICE);
         assertTrue(uniqueLoanList.contains(ALICE));
     }
 
     @Test
-    public void contains_loanWithSameIdentityFieldsInList_returnsTrue() {
+    public void containsLoanWithSameIdentityFieldsInListReturnsTrue() {
         uniqueLoanList.add(ALICE);
         Loan editedAlice = new LoanBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
@@ -52,38 +52,38 @@ public class UniqueLoanListTest {
     }
 
     @Test
-    public void add_nullLoan_throwsNullPointerException() {
+    public void addNullLoanThrowsNullPointerException() {
         thrown.expect(NullPointerException.class);
         uniqueLoanList.add(null);
     }
 
     @Test
-    public void add_duplicateLoan_throwsDuplicateLoanException() {
+    public void addDuplicateLoanThrowsDuplicateLoanException() {
         uniqueLoanList.add(ALICE);
         thrown.expect(DuplicateLoanException.class);
         uniqueLoanList.add(ALICE);
     }
 
     @Test
-    public void setLoan_nullTargetLoan_throwsNullPointerException() {
+    public void setLoanNullTargetLoanThrowsNullPointerException() {
         thrown.expect(NullPointerException.class);
         uniqueLoanList.setLoan(null, ALICE);
     }
 
     @Test
-    public void setLoan_nullEditedLoan_throwsNullPointerException() {
+    public void setLoanNullEditedLoanThrowsNullPointerException() {
         thrown.expect(NullPointerException.class);
         uniqueLoanList.setLoan(ALICE, null);
     }
 
     @Test
-    public void setLoan_targetLoanNotInList_throwsLoanNotFoundException() {
+    public void setLoanTargetLoanNotInListThrowsLoanNotFoundException() {
         thrown.expect(LoanNotFoundException.class);
         uniqueLoanList.setLoan(ALICE, ALICE);
     }
 
     @Test
-    public void setLoan_editedLoanIsSameLoan_success() {
+    public void setLoanEditedLoanIsSameLoan_success() {
         uniqueLoanList.add(ALICE);
         uniqueLoanList.setLoan(ALICE, ALICE);
         UniqueLoanList expectedUniqueLoanList = new UniqueLoanList();
@@ -92,7 +92,7 @@ public class UniqueLoanListTest {
     }
 
     @Test
-    public void setLoan_editedLoanHasSameIdentity_success() {
+    public void setLoanEditedLoanHasSameIdentity_success() {
         uniqueLoanList.add(ALICE);
         Loan editedAlice = new LoanBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
@@ -103,7 +103,7 @@ public class UniqueLoanListTest {
     }
 
     @Test
-    public void setLoan_editedLoanHasDifferentIdentity_success() {
+    public void setLoanEditedLoanHasDifferentIdentity_success() {
         uniqueLoanList.add(ALICE);
         uniqueLoanList.setLoan(ALICE, BOB);
         UniqueLoanList expectedUniqueLoanList = new UniqueLoanList();
@@ -112,7 +112,7 @@ public class UniqueLoanListTest {
     }
 
     @Test
-    public void setLoan_editedLoanHasNonUniqueIdentity_throwsDuplicateLoanException() {
+    public void setLoanEditedLoanHasNonUniqueIdentityThrowsDuplicateLoanException() {
         uniqueLoanList.add(ALICE);
         uniqueLoanList.add(BOB);
         thrown.expect(DuplicateLoanException.class);
@@ -120,19 +120,19 @@ public class UniqueLoanListTest {
     }
 
     @Test
-    public void remove_nullLoan_throwsNullPointerException() {
+    public void removeNullLoanThrowsNullPointerException() {
         thrown.expect(NullPointerException.class);
         uniqueLoanList.remove(null);
     }
 
     @Test
-    public void remove_loanDoesNotExist_throwsLoanNotFoundException() {
+    public void removeLoanDoesNotExistThrowsLoanNotFoundException() {
         thrown.expect(LoanNotFoundException.class);
         uniqueLoanList.remove(ALICE);
     }
 
     @Test
-    public void remove_existingLoan_removesLoan() {
+    public void remove_existingLoanRemovesLoan() {
         uniqueLoanList.add(ALICE);
         uniqueLoanList.remove(ALICE);
         UniqueLoanList expectedUniqueLoanList = new UniqueLoanList();
@@ -140,13 +140,13 @@ public class UniqueLoanListTest {
     }
 
     @Test
-    public void setLoans_nullUniqueLoanList_throwsNullPointerException() {
+    public void setLoansNullUniqueLoanListThrowsNullPointerException() {
         thrown.expect(NullPointerException.class);
         uniqueLoanList.setLoans((UniqueLoanList) null);
     }
 
     @Test
-    public void setLoans_uniqueLoanList_replacesOwnListWithProvidedUniqueLoanList() {
+    public void setLoansUniqueLoanListReplacesOwnListWithProvidedUniqueLoanList() {
         uniqueLoanList.add(ALICE);
         UniqueLoanList expectedUniqueLoanList = new UniqueLoanList();
         expectedUniqueLoanList.add(BOB);
@@ -155,13 +155,13 @@ public class UniqueLoanListTest {
     }
 
     @Test
-    public void setLoans_nullList_throwsNullPointerException() {
+    public void setLoansNullListThrowsNullPointerException() {
         thrown.expect(NullPointerException.class);
         uniqueLoanList.setLoans((List<Loan>) null);
     }
 
     @Test
-    public void setLoans_list_replacesOwnListWithProvidedList() {
+    public void setLoansListReplacesOwnListWithProvidedList() {
         uniqueLoanList.add(ALICE);
         List<Loan> loanList = Collections.singletonList(BOB);
         uniqueLoanList.setLoans(loanList);
@@ -171,14 +171,14 @@ public class UniqueLoanListTest {
     }
 
     @Test
-    public void setLoans_listWithDuplicateLoans_throwsDuplicateLoanException() {
+    public void setLoansListWithDuplicateLoansThrowsDuplicateLoanException() {
         List<Loan> listWithDuplicateLoans = Arrays.asList(ALICE, ALICE);
         thrown.expect(DuplicateLoanException.class);
         uniqueLoanList.setLoans(listWithDuplicateLoans);
     }
 
     @Test
-    public void asUnmodifiableObservableList_modifyList_throwsUnsupportedOperationException() {
+    public void asUnmodifiableObservableListModifyListThrowsUnsupportedOperationException() {
         thrown.expect(UnsupportedOperationException.class);
         uniqueLoanList.asUnmodifiableObservableList().remove(0);
     }
