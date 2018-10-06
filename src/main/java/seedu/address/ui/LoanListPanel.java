@@ -48,22 +48,6 @@ public class LoanListPanel extends UiPart<Region> {
     }
 
     /**
-     * Scrolls to the {@code LoanCard} at the {@code index} and selects it.
-     */
-    private void scrollTo(int index) {
-        Platform.runLater(() -> {
-            loanListView.scrollTo(index);
-            loanListView.getSelectionModel().clearAndSelect(index);
-        });
-    }
-
-    @Subscribe
-    private void handleJumpToListRequestEvent(JumpToListRequestEvent event) {
-        logger.info(LogsCenter.getEventHandlingLogMessage(event));
-        scrollTo(event.targetIndex);
-    }
-
-    /**
      * Custom {@code ListCell} that displays the graphics of a {@code Loan} using a {@code LoanCard}.
      */
     class LoanListViewCell extends ListCell<Loan> {
