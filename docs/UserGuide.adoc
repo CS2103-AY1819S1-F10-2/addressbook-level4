@@ -76,10 +76,10 @@ In case a wrong entry is keyed in, or the customer changes their mind, this comm
 Format: `edit i/LOAN_ID [p/PERSON_NAME] [hp/PERSON_PHONE_NO] [e/PERSON_EMAIL] [r/RATE] [o/OBJECT_IDENTITY]`
 
 ****
-* Edits the person at the specified `LOAN_ID`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
+* Edits the loan at the specified `LOAN_ID`. The index refers to the index number shown in the displayed loan list. The index *must be a positive integer* 1, 2, 3, ...
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
+* When editing tags, the existing tags of the loan will be removed i.e adding of tags is not cumulative.
 ****
 
 Examples:
