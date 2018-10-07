@@ -1,10 +1,10 @@
 package seedu.address.model.loan;
 
-import org.junit.Test;
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+
+import org.junit.Test;
 
 public class LoanTimeTest {
 
@@ -19,6 +19,9 @@ public class LoanTimeTest {
 
     // Note that this method will not return equals as it is time dependent
     // Tried and Tested though. It works.
+    /**
+     * Tests for LoanTime object creation based on current system date.
+     */
     public void constructorInputCheckCurrentDate() {
         LoanTime loanTime = new LoanTime("00:25");
 
@@ -28,6 +31,10 @@ public class LoanTimeTest {
 
     // Note that this method will not return equals as it is time dependent
     // Tried and Tested though. It works.
+    // TODO: To figure out how to comment out tests
+    /**
+     * Tests for LoanTime object creation given current system time.
+     */
     public void constructorInputCheckCurrentTime() {
         LoanTime loanTime = new LoanTime();
 

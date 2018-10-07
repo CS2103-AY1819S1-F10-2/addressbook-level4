@@ -1,21 +1,19 @@
 package seedu.address.model.loan;
 
+import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.AppUtil.checkArgument;
+
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.util.Date;
 
-import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.util.AppUtil.checkArgument;
-
 /**
  * Represents a timeStamp in the loan book.
  * Guarantees: immutable;
  */
 public class LoanTime {
-
-    public final Instant value;
 
     public static final String MESSAGE_LOANTIME_CONSTRAINTS =
             "LoanTime specified has to be either in the format 'YYYY-MM-DD HH:mm' or 'HH:mm'.";
@@ -36,6 +34,8 @@ public class LoanTime {
      */
     public static final String LONG_LOANTIME_VALIDATION_REGEX = "\\d{4}-\\d{2}-\\d{2} +\\d{2}:\\d{2}";
     public static final String SHORT_LOANTIME_VALIDATION_REGEX = "\\d{2}:\\d{2}";
+
+    public final Instant value;
 
     /**
      * Constructs a {@code LoanTime} that is now.
@@ -64,8 +64,7 @@ public class LoanTime {
             checkArgument(isValidDate(dateData[0]), MESSAGE_DATE_CONSTRAINTS);
             stringBuilder.append(dateData[0]);
             loanTime = dateData[1];
-        }
-        else {
+        } else {
             DateFormat dateFormat = new SimpleDateFormat("YYYY-MM-dd");
             Date date = new Date();
             stringBuilder.append(dateFormat.format(date));
@@ -158,7 +157,7 @@ public class LoanTime {
     @Override
     public String toString() {
         // We create a new date object and return the DDMMYYYY representation of it
-        Date date = new Date(value.getEpochSecond()*1000);
+        Date date = new Date(value.getEpochSecond() * 1000);
 
         // Set the formatting out.
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd',' HH:mm");
