@@ -133,9 +133,9 @@ public class LoanTime {
      *
      * @param otherTime LoanTime object to be compared to.
      */
-    public long loanTimeDifferenceSeconds(LoanTime otherTime) {
-        long timeDifference = (this.value.toEpochMilli() - otherTime.value.toEpochMilli());
-        return (timeDifference > 0) ? timeDifference / 1000 : 0;
+    public long loanTimeDifferenceMinutes(LoanTime otherTime) {
+        long timeDifference = (otherTime.value.toEpochMilli() - this.value.toEpochMilli());
+        return (timeDifference > 0) ? timeDifference / 60000 : 0;
     }
 
     /**
@@ -146,9 +146,9 @@ public class LoanTime {
      * @param currentTime LoanTime object to signify start of time interval.
      * @param otherTime   LoanTime object to signify end of time interval.
      */
-    public static long loanTimeDifferenceSeconds(LoanTime currentTime, LoanTime otherTime) {
-        long timeDifference = (currentTime.value.toEpochMilli() - otherTime.value.toEpochMilli());
-        return (timeDifference > 0) ? timeDifference / 1000 : 0;
+    public static long loanTimeDifferenceMinutes(LoanTime currentTime, LoanTime otherTime) {
+        long timeDifference = (otherTime.value.toEpochMilli() - currentTime.value.toEpochMilli());
+        return (timeDifference > 0) ? timeDifference / 60000 : 0;
     }
 
     /**
@@ -164,12 +164,5 @@ public class LoanTime {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd',' HH:mm");
 
         return simpleDateFormat.format(date);
-    }
-
-    @Override
-    public boolean equals(Object other) {
-        return other == this // short circuit if same object
-                || (other instanceof LoanTime // instanceof handles nulls
-                && this.value.equals(((LoanTime) other).value)); // state check
     }
 }

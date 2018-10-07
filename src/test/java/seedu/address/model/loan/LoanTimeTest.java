@@ -83,4 +83,19 @@ public class LoanTimeTest {
         assertTrue(LoanTime.isValidTime("21:27")); // A correct example
         assertTrue(LoanTime.isValidTime("00:00")); // Midnight
     }
+
+    @Test
+    public void loanTimeDifferences() {
+        LoanTime loanTime1 = new LoanTime("2001-01-01 12:00");
+        LoanTime loanTime2 = new LoanTime("2001-01-01 14:00");
+
+        assertEquals(120, loanTime1.loanTimeDifferenceMinutes(loanTime2)); // Functional use
+        assertEquals(0, loanTime2.loanTimeDifferenceMinutes(loanTime1)); // Time 2 earlier
+
+        assertEquals(120, LoanTime.loanTimeDifferenceMinutes(loanTime1, loanTime2)); // Functional use
+        assertEquals(0, LoanTime.loanTimeDifferenceMinutes(loanTime2, loanTime1)); // Time 2 earlier
+
+        LoanTime loanTime3 = new LoanTime("2001-01-02 12:05");
+        assertEquals(1445, loanTime1.loanTimeDifferenceMinutes(loanTime3)); // Across Day
+    }
 }
