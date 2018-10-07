@@ -1,6 +1,7 @@
 package seedu.address.model.loan;
 
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.util.Date;
@@ -51,15 +52,16 @@ public class LoanTime {
      */
     public LoanTime(String loanTime) {
         requireNonNull(loanTime);
-        checkArgument(isValidLongLoanTime(loanTime) || isValidShortLoanTime(loanTime),
+        checkArgument(isValidLongLoanTimeFormat(loanTime) || isValidShortLoanTimeFormat(loanTime),
                 MESSAGE_LOANTIME_CONSTRAINTS);
 
         // Create the Strings to pass into parse method
         StringBuilder stringBuilder = new StringBuilder();
 
         // Check the date
-        if (isValidLongLoanTime(loanTime)) {
+        if (isValidLongLoanTimeFormat(loanTime)) {
             String[] dateData = loanTime.split(" ");
+            checkArgument(isValidDate(dateData[0]), MESSAGE_DATE_CONSTRAINTS);
             stringBuilder.append(dateData[0]);
             loanTime = dateData[1];
         }
@@ -71,9 +73,12 @@ public class LoanTime {
 
         // Append the "T"
         stringBuilder.append("T");
+
+        // Check and append the time
         checkArgument(isValidTime(loanTime), MESSAGE_TIME_CONSTRAINTS);
         stringBuilder.append(loanTime);
 
+        // Append the "Z" and other padding.
         stringBuilder.append(":00.00Z");
 
         // Find a way to parse the input date correctly...
@@ -84,23 +89,32 @@ public class LoanTime {
     /**
      * Returns if a given string is a valid long LoanTime.
      */
-    public static boolean isValidLongLoanTime(String test) {
+    public static boolean isValidLongLoanTimeFormat(String test) {
         return test.matches(LONG_LOANTIME_VALIDATION_REGEX);
     }
 
     /**
      * Returns if a given string is a valid short LoanTime.
      */
-    public static boolean isValidShortLoanTime(String test) {
-        return test.matches(SHORT_LOANTIME_VALIDATION_REGEX);
+    public static boolean isValidShortLoanTimeFormat(String test) {
+        return test.matches(LONG_LOANTIME_VALIDATION_REGEX);
     }
 
-    // TODO
     /**
      * Returns if a given string is a valid Date.
+     * If there is a better way of doing this without relying on thrown exceptions
      */
     public static boolean isValidDate(String test) {
-        return test.matches(LONG_LOANTIME_VALIDATION_REGEX);
+        DateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+
+        sdf.setLenient(false);
+
+        try {
+            sdf.parse(test);
+        } catch (ParseException e) {
+            return false;
+        }
+        return true;
     }
 
     // TODO
@@ -108,7 +122,8 @@ public class LoanTime {
      * Returns if a given string is a valid Time.
      */
     public static boolean isValidTime(String test) {
-        return test.matches(LONG_LOANTIME_VALIDATION_REGEX);
+        String[] timeData = test.split(":");
+        return (Integer.parseInt(timeData[0]) < 24) && (Integer.parseInt(timeData[1]) < 60);
     }
 
     /**
