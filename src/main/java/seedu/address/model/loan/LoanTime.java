@@ -34,7 +34,7 @@ public class LoanTime {
      * A short version where only the time is specified
      * Format HH:MM
      */
-    public static final String LONG_LOANTIME_VALIDATION_REGEX = "\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}";
+    public static final String LONG_LOANTIME_VALIDATION_REGEX = "\\d{4}-\\d{2}-\\d{2} +\\d{2}:\\d{2}";
     public static final String SHORT_LOANTIME_VALIDATION_REGEX = "\\d{2}:\\d{2}";
 
     /**
@@ -97,7 +97,7 @@ public class LoanTime {
      * Returns if a given string is a valid short LoanTime.
      */
     public static boolean isValidShortLoanTimeFormat(String test) {
-        return test.matches(LONG_LOANTIME_VALIDATION_REGEX);
+        return test.matches(SHORT_LOANTIME_VALIDATION_REGEX);
     }
 
     /**
