@@ -35,19 +35,10 @@ public class Nric {
      */
     public static boolean isValidNric(String test) {
         String ic = test.trim().toUpperCase();
-        return ic.matches(Nric_VALIDATION_REGEX) && correctChecksum(ic);
-    }
-
-    /**
-     * Check if Nric input matches checksum provided by the Singapore Government.
-     * @param ic
-     * @return Boolean if valid Nric.
-     */
-    private static boolean correctChecksum(String ic) {
         String[] validPrefix = {"S", "T", "G", "F"};
         Stream<String> icPrefixStream = Arrays.stream(validPrefix);
 
-        if (ic == null || ic.length() != 9 || icPrefixStream.noneMatch(String.valueOf(ic.charAt(0))::equals)) {
+        if (ic == null || !ic.matches(Nric_VALIDATION_REGEX)) {
             return false;
         }
 
@@ -57,10 +48,6 @@ public class Nric {
 
         int[] weights = {2, 7, 6, 5, 4, 3, 2};
         int sum = 0;
-
-        if (Double.isNaN(Integer.valueOf(digits))) {
-            return false;
-        }
 
         // Generate checksum
         for (int i = 0; i < digits.length(); i++) {

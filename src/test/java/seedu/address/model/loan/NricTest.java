@@ -30,6 +30,11 @@ public class NricTest {
         assertFalse(Nric.isValidNric("^")); // only non-alphanumeric characters
         assertFalse(Nric.isValidNric("")); // contains non-alphanumeric characters
 
+        assertFalse(Nric.isValidNric("S1234567Z")); // Wrong checksum
+        assertFalse(Nric.isValidNric("T1234567Z")); // Wrong checksum
+        assertFalse(Nric.isValidNric("F1234567Z")); // Wrong checksum
+        assertFalse(Nric.isValidNric("G1234567Z")); // Wrong checksum
+
         // valid nric
         assertTrue(Nric.isValidNric("S1234567D")); // IC for citizens born in 20th century
         assertTrue(Nric.isValidNric("T1234567J")); // IC for citizens born in 21th century
