@@ -3,18 +3,15 @@ package seedu.address.model.loan;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
-import java.util.Arrays;
-import java.util.stream.Stream;
-
 /**
  * Class that stores the NRIC of a person.
  */
 public class Nric {
 
-    public static final String MESSAGE_Nric_CONSTRAINTS =
+    public static final String MESSAGE_NRIC_CONSTRAINTS =
             "Nric should be singapore issued. It may be blank. ";
 
-    public static final String Nric_VALIDATION_REGEX = "^[STGF][0-9]{7}[A-Z]$";
+    public static final String NRIC_VALIDATION_REGEX = "^[STGF][0-9]{7}[A-Z]$";
 
     public final String nric;
 
@@ -26,7 +23,7 @@ public class Nric {
     public Nric(String ic) {
         ic = ic.trim().toUpperCase();
         requireNonNull(ic);
-        checkArgument(isValidNric(ic), MESSAGE_Nric_CONSTRAINTS);
+        checkArgument(isValidNric(ic), MESSAGE_NRIC_CONSTRAINTS);
         nric = ic;
     }
 
@@ -35,10 +32,8 @@ public class Nric {
      */
     public static boolean isValidNric(String test) {
         String ic = test.trim().toUpperCase();
-        String[] validPrefix = {"S", "T", "G", "F"};
-        Stream<String> icPrefixStream = Arrays.stream(validPrefix);
 
-        if (ic == null || !ic.matches(Nric_VALIDATION_REGEX)) {
+        if (!ic.matches(NRIC_VALIDATION_REGEX)) {
             return false;
         }
 
