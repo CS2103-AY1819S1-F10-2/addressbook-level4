@@ -32,13 +32,13 @@ public class LoanTime {
      * A short version where only the time is specified
      * Format HH:MM
      */
-    public static final String LONG_LOANTIME_VALIDATION_REGEX = "\\d{4}-\\d{2}-\\d{2} +\\d{2}:\\d{2}";
-    public static final String SHORT_LOANTIME_VALIDATION_REGEX = "\\d{2}:\\d{2}";
+    public static final String LONG_LOANTIME_VALIDATION_REGEX = "^\\d{4}-\\d{2}-\\d{2} +\\d{2}:\\d{2}";
+    public static final String SHORT_LOANTIME_VALIDATION_REGEX = "^\\d{2}:\\d{2}";
 
     public final Instant value;
 
     /**
-     * Constructs a {@code LoanTime} that is now.
+     * Constructs a {@code LoanTime} with value set at current time.
      */
     public LoanTime() {
         value = Instant.now();
@@ -46,7 +46,6 @@ public class LoanTime {
 
     /**
      * Constructs an {@code LoanTime}.
-     * Note this is a private constructor
      *
      * @param loanTime A valid loanTime.
      */
@@ -70,7 +69,6 @@ public class LoanTime {
             stringBuilder.append(dateFormat.format(date));
         }
 
-        // Append the "T"
         stringBuilder.append("T");
 
         // Check and append the time
@@ -82,7 +80,7 @@ public class LoanTime {
 
         // Find a way to parse the input date correctly...
         // I hardcoded in the -8 Hours GMT into here.
-        value = Instant.parse(stringBuilder.toString()).minusSeconds(28800);
+        value = Instant.parse(stringBuilder.toString()).minusSeconds(8 * 60 * 60);
     }
 
     /**
@@ -116,7 +114,6 @@ public class LoanTime {
         return true;
     }
 
-    // TODO
     /**
      * Returns if a given string is a valid Time.
      */
@@ -134,7 +131,7 @@ public class LoanTime {
      */
     public long loanTimeDifferenceMinutes(LoanTime otherTime) {
         long timeDifference = (otherTime.value.toEpochMilli() - this.value.toEpochMilli());
-        return (timeDifference > 0) ? timeDifference / 60000 : 0;
+        return (timeDifference >= 0) ? timeDifference / 60000 : 0;
     }
 
     /**
@@ -147,7 +144,7 @@ public class LoanTime {
      */
     public static long loanTimeDifferenceMinutes(LoanTime currentTime, LoanTime otherTime) {
         long timeDifference = (otherTime.value.toEpochMilli() - currentTime.value.toEpochMilli());
-        return (timeDifference > 0) ? timeDifference / 60000 : 0;
+        return (timeDifference >= 0) ? timeDifference / 60000 : 0;
     }
 
     /**
@@ -156,7 +153,7 @@ public class LoanTime {
      */
     @Override
     public String toString() {
-        // We create a new date object and return the DDMMYYYY representation of it
+        // We create a new Date object and return the DDMMYYYY representation of it
         Date date = new Date(value.getEpochSecond() * 1000);
 
         // Set the formatting out.
