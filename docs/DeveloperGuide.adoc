@@ -856,7 +856,7 @@ _{More to be added}_
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is the `LoanBook` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
 === Use case: Delete loan
@@ -864,9 +864,9 @@ _{More to be added}_
 *MSS*
 
 1.  User requests to list loans
-2.  AddressBook shows a list of loans
+2.  LoanBook shows a list of loans
 3.  User requests to delete a specific loan in the list
-4.  AddressBook deletes the loan
+4.  LoanBook deletes the loan
 +
 Use case ends.
 
@@ -880,15 +880,100 @@ Use case ends.
 * 3a. The given index is invalid.
 +
 [none]
-** 3a1. AddressBook shows an error message.
+** 3a1. LoanBook shows an error message.
 +
 Use case resumes at step 2.
 
-_{More to be added}_
+[discrete]
+=== Use case: Add loan into loan book
+
+*MSS*
+
+1.  User requests to add a loan with the specific parameters into the LoanBook
+2.  LoanBook adds the loan and displays a prompt to the user indicating success.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The user input is not of the correct format
++
+[none]
+** 1a1. LoanBook shows an error message giving the user an example command, as well as correct format of the command.
++
+* 1b. Any one of the inputs fails their respective validation checks
++
+[none]
+** 1b1. LoanBook shows an error message telling the user how to rectify their command
++
+Use case ends.
+
+[discrete]
+=== Use case: Mark a loan as returned in the LoanBook
+
+*MSS*
+
+1.  User requests to search for a loan with a specific name or tag
+2.  LoanBook shows a list of loans that fulfills the condition
+3.  User requests to returns a specific loan from the list
+4.  LoanBook marks the loan as returned, and based on the prevailing rates and rental times in the loan book, prompts the user to charge the customer a certain amount of money.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The list is empty.
++
+Use case ends.
+
+* 3a. The given LoanID is invalid.
++
+[none]
+** 3a1. LoanBook shows an error message.
++
+* 3b. The loan at the given LoanID has been returned.
++
+[none]
+** 3b1. LoanBook shows an error message, stating the time which the loan has been returned.
++
+Use case resumes at step 2.
+
+[discrete]
+=== Use case: Reset the entire loanbook
+
+*MSS*
+
+1.  User requests to reset the loanbook
+2.  LoanBook prompts the user for their password
+3.  User enters the correct password
+4.  LoanBook clears its entire history of loans
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 3a. The user inputs an incorrect password
++
+[none]
+** 3a1. LoanBook shows an error message giving the user an example command, as well as correct format of the command.
++
+Use case ends.
+
+[discrete]
+=== Use case: Give a summary of all transactions
+
+*MSS*
+
+1.  User requests for a summary of all transactions
+2.  LoanBook gives a summary of all the transactions that that had happened.
++
+Use case ends.
 
 [appendix]
 == Non Functional Requirements
-
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `9` or higher installed.
 .  Should be able to hold up to 1000 loans without a noticeable sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
