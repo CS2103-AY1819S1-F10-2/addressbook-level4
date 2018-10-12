@@ -3,6 +3,7 @@ package seedu.address.model;
 /**
  * Represents a Bike in the address book.
  */
+
 public class Bike {
 
     private String name;
