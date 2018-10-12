@@ -5,7 +5,7 @@ package seedu.address.model;
  */
 public class Bike {
 
-   private String name;
+    private String name;
 
     public Bike(String name) {
         this.name = name;
