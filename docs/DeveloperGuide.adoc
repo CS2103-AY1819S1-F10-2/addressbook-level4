@@ -822,13 +822,13 @@ See this https://github.com/se-edu/addressbook-level4/pull/599[PR] for the step-
 
 *Target user profile*:
 
-* has a need to manage a significant number of contacts
+* rents bicycles as a business in Singapore
 * prefer desktop apps over other types
 * can type fast
 * prefers typing over mouse input
 * is reasonably comfortable using CLI apps
 
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+*Value proposition*: manage bicycle loans faster than a typical mouse/GUI driven app
 
 [appendix]
 == User Stories
@@ -838,20 +838,206 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
-|`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
+|`* * *`
+|bicycle rental shop owner who wants to manage my bicycles
+|register my bicycles into the app
+|keep track of my bicycles within the app
 
-|`* * *` |user |add a new loan |
+|`* * *`
+|bicycle rental shop owner who wants to manage my bicycles
+|edit details for my bicycles within the app
+|update the system with the latest bicycle statuses (e.g. got damaged, repaired, changed name or ID)
 
-|`* * *` |user |delete a loan |remove entries that I no longer need
+|`* * *`
+|bicycle rental shop owner who wants to manage my bicycles
+|remove bicycles from the app
+|reflect the decommissioning of bicycles in the app
 
-|`* * *` |user |find a loan by name |locate details of loans without having to go through the entire list
+|`* *`
+|bicycle rental shop owner who wants to manage my bicycles
+|track the features of my bicycles (e.g. wheel size, gears, has a bell)
+|search for particular bicycles or types of bicycles better, especially when serving customers
 
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
+|`*`
+|bicycle rental shop owner who wants to manage my bicycles
+|mark a bicycle with a repair end date
+|I can be reminded by the app on when to collect my bike from the repairman
 
-|`*` |user with many loans in the address book |sort loans by name |locate a loan easily
+|`* * *`
+|bicycle rental shop owner who wants to manage my loans
+|initiate new loans into the app
+|keep track of my loans within the app
+
+|`* *`
+|bicycle rental shop owner who wants to manage my loans
+|edit a loan's details
+|correct a typo or adapt to a customer's change of mind
+
+|`* * *`
+|bicycle rental shop owner who wants to manage my loans
+|register the completion of a loan (i.e. return of the bike) in the system
+|update the system (make the bike available again, receive payment etc.)
+
+|`* * *`
+|bicycle rental shop owner who wants to manage my loans
+|cancel a loan
+|update the system in case the loan is invalidated (e.g. the customer changes their mind)
+
+|`* *`
+|bicycle rental shop owner who wants to manage my loans
+|be automatically notified and given details if the same customer tries to rent two bikes simultaneously
+|not loan out another bicycle to a customer who has not returned their previous bike
+
+|`* *`
+|bicycle rental shop owner who wants to manage my loans
+|be automatically notified and given details if two customers try to loan the same bike simultaneously
+|not loan out an already loaned bike
+
+|`* * *`
+|bicycle rental shop owner who wants to manage my bicycles and loans
+|view a list of all bicycles or loans
+|get a big picture of my current state
+
+|`* * *`
+|bicycle rental shop owner who wants to manage my bicycles and loans
+|choose to view the full details of a particular bicycle or loan
+|get details about a particular bicycle or loan as needed or desired
+
+|`* *`
+|bicycle rental shop owner who wants to manage my bicycle paraphernalia
+|tag loans that loan additional items (e.g. helmets, attachable headlights)
+|keep track of which transactions concern them
+
+|`* *`
+|bicycle rental shop owner who wants to manage my loans
+|tag loans that loan additional items (e.g. helmets, attachable headlights)
+|keep track of which transactions concern my paraphernalia
+
+|`* * *`
+|bicycle rental shop owner who wants to accommodate customer demands
+|register rentals in advance and reserve bicycles
+|be reminded of reservations, and not accidentally loan the bicycle out thus becoming unable to meet the reservation
+
+|`* *`
+|bicycle rental shop owner who wants to manage my loans
+|see at a glance what loans are overdue
+|automatically remind people who are still in possession of my bicycles to return them
+
+|`*`
+|bicycle rental shop owner who wants to manage my loans
+|get an automatic reminder when a loan is overdue
+|contact the customer to tell them that their time is up
+
+|`* * *`
+|bicycle rental shop owner that has to deal with an overdue loan
+|view the contact details of bicycle loaners
+|contact them to check on their (and my bicycle's) status
+
+|`* * *`
+|bicycle rental shop owner
+|view past loans of my bicycles
+|analyze my own history or present records for whatever purpose (accounting, investigation, legal etc.)
+
+|`* *`
+|bicycle rental shop owner
+|view loan activity over a specific period of time (e.g. Jun to Aug 2018)
+|analyze my own history for a focussed period of time
+
+|`*`
+|bicycle rental shop owner who wants to optimize my business
+|see which bicycles are the least popular to be rented
+|investigate them for issues or possibly decommission them
+
+|`* * *`
+|bicycle rental shop owner who is proficient with a CLI
+|use a CLI for all operations within the app
+|give commands faster and with less error
+
+|`* * *`
+|bicycle rental shop owner who wants to meet customer demands promptly
+|readily view a list of available bicycles
+|make recommendations to customers to serve them faster
+
+|`* *`
+|bicycle rental shop owner who wants to manage my bicycles and loans
+|have my list of bicycles or loans sorted (by name, date etc.)
+|search for a particular entry much more easily
+
+|`* *`
+|bicycle rental shop owner who wants to manage my bicycles and loans
+|filter my list of bicycles or loans with a keyword
+|search for a particular entry much more easily
+
+|`* *`
+|bicycle rental shop owner who wants to manage my bicycles and loans
+|view only a subset of my bikes or loans with entries in a particular range (e.g. date, loan rate)
+|search for a particular entry much more easily
+
+|`* *`
+|bicycle rental shop owner who wants to make returning a bike easy
+|automatically calculate the correct amount of money based on the time they loaned the bike for
+|I don't have to calculate the cost manually, and thus be faster with less mistakes
+
+|`* *`
+|bicycle rental shop owner who wants to manage my bicycles
+|add tags to bicycles
+|categorize and later search for them more easily
+
+|`* *`
+|bicycle rental shop owner who wants to manage my bicycles and loans
+|undo and redo recent changes in the app
+|quickly recover in the event of a command mistake
+
+|`*`
+|bicycle rental shop owner who wants to expand my service capabilities
+|access the same data on different machines simultaneously
+|manage multiple service counters efficiently and accurately
+
+|`*`
+|bicycle rental shop owner who wants to expand my service capabilities
+|hook the app up with the national database
+|automatically retrieve some customer details (e.g. name, gender) when I type in their NRIC
+
+|`*`
+|bicycle rental shop owner who wants to expand my service capabilities
+|integrate the app with an NRIC barcode scanner
+|automate entering a customer’s details
+
+|`* *`
+|bicycle rental shop owner who respects my customer's privacy
+|partially or fully hide some of the customers’ <<private-contact-detail,personal data>> (e.g. NRIC, phone)
+|minimize the chance of leaking those details out to third parties
+
+|`*`
+|bicycle rental shop owner who is concerned about the data's security
+|encrypt the app’s data
+|ensure no one can access or modify it with third-party software
+
+|`*`
+|bicycle rental shop owner who is concerned about the data's security
+|set a username and password for accessing the app
+|lock unknown parties out from the app
+
+|`* *`
+|bicycle rental shop owner who is concerned about the data's security
+|prompt the user (myself) for a confirmation or a password before I delete entries
+|prevent accidental or hasty deletions of data
+
+|`*`
+|bicycle rental shop owner who is concerned about the data's security
+|back-up the app's data
+|recover quickly in the case of data corruption or just general data unavailability
+
+|`* * *`
+|new or inexperienced user
+|readily access the Help page for the app
+|have a quick and comprehensive reference on how to get started and do things
+
+|`* * *`
+|new or inexperienced user
+|see command usage instructions whenever I mistype
+|correct myself on the spot
 |=======================================================================
-
-_{More to be added}_
 
 [appendix]
 == Use Cases

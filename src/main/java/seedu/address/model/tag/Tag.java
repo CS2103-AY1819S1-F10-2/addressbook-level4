@@ -1,18 +1,20 @@
 package seedu.address.model.tag;
 
-import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.util.AppUtil.checkArgument;
+import java.util.function.Function;
+import java.util.function.Predicate;
+
+import seedu.address.model.loan.DataField;
 
 /**
  * Represents a Tag in the address book.
  * Guarantees: immutable; name is valid as declared in {@link #isValidTagName(String)}
  */
-public class Tag {
+public class Tag extends DataField<String> {
 
     public static final String MESSAGE_TAG_CONSTRAINTS = "Tags names should be alphanumeric";
-    public static final String TAG_VALIDATION_REGEX = "\\p{Alnum}+";
 
-    public final String tagName;
+    public static final Predicate<String> VALIDITY_PREDICATE =
+        test -> test.matches("\\p{Alnum}+");
 
     /**
      * Constructs a {@code Tag}.
@@ -20,35 +22,21 @@ public class Tag {
      * @param tagName A valid tag name.
      */
     public Tag(String tagName) {
-        requireNonNull(tagName);
-        checkArgument(isValidTagName(tagName), MESSAGE_TAG_CONSTRAINTS);
-        this.tagName = tagName;
+        super(MESSAGE_TAG_CONSTRAINTS, VALIDITY_PREDICATE, Function.identity(), tagName);
     }
 
     /**
      * Returns true if a given string is a valid tag name.
      */
-    public static boolean isValidTagName(String test) {
-        return test.matches(TAG_VALIDATION_REGEX);
-    }
-
-    @Override
-    public boolean equals(Object other) {
-        return other == this // short circuit if same object
-                || (other instanceof Tag // instanceof handles nulls
-                && tagName.equals(((Tag) other).tagName)); // state check
-    }
-
-    @Override
-    public int hashCode() {
-        return tagName.hashCode();
+    public static boolean isValidTagName(String objString) {
+        return VALIDITY_PREDICATE.test(objString);
     }
 
     /**
      * Format state as text for viewing.
      */
     public String toString() {
-        return '[' + tagName + ']';
+        return '[' + value + ']';
     }
 
 }

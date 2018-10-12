@@ -76,12 +76,12 @@ public class LoanCardHandle extends NodeHandle<Node> {
      * Returns true if this handle contains {@code loan}.
      */
     public boolean equals(Loan loan) {
-        return getName().equals(loan.getName().fullName)
+        return getName().equals(loan.getName().value)
                 && getAddress().equals(loan.getAddress().value)
                 && getPhone().equals(loan.getPhone().value)
                 && getEmail().equals(loan.getEmail().value)
                 && ImmutableMultiset.copyOf(getTags()).equals(ImmutableMultiset.copyOf(loan.getTags().stream()
-                        .map(tag -> tag.tagName)
+                        .map(tag -> tag.value)
                         .collect(Collectors.toList())));
     }
 }
