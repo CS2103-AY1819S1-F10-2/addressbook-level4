@@ -23,17 +23,19 @@ public class Loan {
     // Data fields
     private final Address address;
     private final Set<Tag> tags = new HashSet<>();
+    private Bike bike; // add bike
 
     /**
      * Every field must be present and not null.
      */
-    public Loan(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
+    public Loan(Name name, Phone phone, Email email, Address address, Set<Tag> tags, Bike bike) {
         requireAllNonNull(name, phone, email, address, tags);
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.address = address;
         this.tags.addAll(tags);
+        this.bike = bike;
     }
 
     public Name getName() {
