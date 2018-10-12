@@ -23,7 +23,7 @@ public class Loan {
     // Data fields
     private final Address address;
     private final Set<Tag> tags = new HashSet<>();
-    private Bike bike;
+    private Bike bike; // add bike
 
     /**
      * Every field must be present and not null.
