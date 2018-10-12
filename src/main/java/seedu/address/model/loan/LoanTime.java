@@ -119,6 +119,9 @@ public class LoanTime {
      */
     public static boolean isValidTime(String test) {
         String[] timeData = test.split(":");
+        if (timeData.length <= 1) {
+            return false;
+        }
         return (Integer.parseInt(timeData[0]) < 24) && (Integer.parseInt(timeData[1]) < 60);
     }
 
