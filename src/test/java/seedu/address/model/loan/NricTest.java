@@ -28,12 +28,13 @@ public class NricTest {
         assertFalse(Nric.isValidNric("")); // empty string
         assertFalse(Nric.isValidNric(" ")); // spaces only
         assertFalse(Nric.isValidNric("^")); // only non-alphanumeric characters
-        assertFalse(Nric.isValidNric("")); // contains non-alphanumeric characters
+        assertFalse(Nric.isValidNric("njkakjsdnfa")); // contains random alphanumeric characters
 
-        assertFalse(Nric.isValidNric("S1234567Z")); // Wrong checksum
-        assertFalse(Nric.isValidNric("T1234567Z")); // Wrong checksum
-        assertFalse(Nric.isValidNric("F1234567Z")); // Wrong checksum
-        assertFalse(Nric.isValidNric("G1234567Z")); // Wrong checksum
+        // Wrong checksum
+        assertFalse(Nric.isValidNric("S1234567Z"));
+        assertFalse(Nric.isValidNric("T1234567Z"));
+        assertFalse(Nric.isValidNric("F1234567Z"));
+        assertFalse(Nric.isValidNric("G1234567Z"));
 
         // valid nric
         assertTrue(Nric.isValidNric("S1234567D")); // IC for citizens born in 20th century
