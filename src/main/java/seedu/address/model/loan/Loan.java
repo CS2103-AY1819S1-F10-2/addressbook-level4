@@ -10,6 +10,14 @@ import java.util.Set;
 import seedu.address.model.tag.Tag;
 
 /**
+ * Encapsulates the status of the loan.
+ */
+
+enum LoanStatus {
+    ONGOING, RETURNED, DELETED;
+}
+
+/**
  * Represents a Loan in the address book.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
@@ -23,6 +31,7 @@ public class Loan {
     // Data fields
     private final Address address;
     private final Set<Tag> tags = new HashSet<>();
+    private LoanStatus status;
 
     /**
      * Every field must be present and not null.
@@ -34,6 +43,9 @@ public class Loan {
         this.email = email;
         this.address = address;
         this.tags.addAll(tags);
+
+        // Initialize the loan to be ongoing at the start
+        this.status = LoanStatus.ONGOING;
     }
 
     public Name getName() {
