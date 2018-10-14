@@ -9,9 +9,9 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class Nric {
 
     public static final String MESSAGE_NRIC_CONSTRAINTS =
-            "Nric should be singapore issued. It may be blank. ";
+            "NRIC should be Singapore issued. It may be blank. ";
 
-    public static final String NRIC_VALIDATION_REGEX = "^[STGF][0-9]{7}[A-Z]$";
+    public static final String NRIC_VALIDATION_REGEX = "^[ST]\\d{7}[A-JZ]|[FG]\\d{7}[K-NPQRTUWX]$";
 
     public final String nric;
 
@@ -21,14 +21,15 @@ public class Nric {
      * @param ic A valid nric.
      */
     public Nric(String ic) {
-        ic = ic.trim().toUpperCase();
         requireNonNull(ic);
+        ic = ic.trim().toUpperCase();
         checkArgument(isValidNric(ic), MESSAGE_NRIC_CONSTRAINTS);
         nric = ic;
     }
 
     /**
      * Returns true if a given string is a valid nric.
+     * Precondition: test is not null.
      */
     public static boolean isValidNric(String test) {
         String ic = test.trim().toUpperCase();
