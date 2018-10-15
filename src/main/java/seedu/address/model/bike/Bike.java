@@ -40,6 +40,10 @@ public class Bike {
         return status;
     }
 
+    public boolean isAvailable() {
+        return this.getStatus().equals(BikeStatus.AVAILABLE);
+    }
+
     /**
      * Returns true iff both bikes have the same name.
      * This defines a weaker notion of equality between two bikes.
