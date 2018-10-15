@@ -35,7 +35,7 @@ public class BikeTest {
         assertTrue(BIKE1.equals(BIKE1));
 
         // null -> returns false
-        assertFalse(BIKE1.equals(null));
+        assertFalse(BIKE1 == null);
 
         // different type -> returns false
         assertFalse(BIKE1.equals(5));
