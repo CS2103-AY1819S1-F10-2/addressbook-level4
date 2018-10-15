@@ -16,7 +16,7 @@ public class BikeBuilder {
     }
 
     /**
-     * Initializes the LoanBuilder with the data of {@code bikeToCopy}.
+     * Initializes the BikeBuilder with the data of {@code bikeToCopy}.
      */
     public BikeBuilder(Bike bikeToCopy) {
         name = bikeToCopy.getName();

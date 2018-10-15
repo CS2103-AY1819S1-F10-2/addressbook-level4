@@ -14,7 +14,7 @@ public class Bike {
 
     //Identity fields
     /**
-     * The name of the Bike also doubles as its ID.
+     * The name of the Bike also doubles as its ID, i.e. it should be unique as it is used to identify this bike.
      * For now, borrow the Name class from Loan. It can be its own separate class once the difference matters.
      */
     private final Name name;
