@@ -1,5 +1,6 @@
 package seedu.address.model.bike;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
@@ -46,5 +47,10 @@ public class BikeTest {
         // different name -> returns false
         Bike editedBike1 = new BikeBuilder(BIKE1).withName("B002").build();
         assertFalse(BIKE1.equals(editedBike1));
+    }
+
+    @Test
+    public void toStringTest() {
+        assertEquals(BIKE1.toString(), "B001 Status: Available");
     }
 }
