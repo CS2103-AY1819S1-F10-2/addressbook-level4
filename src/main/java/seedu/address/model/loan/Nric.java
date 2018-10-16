@@ -32,7 +32,7 @@ public class Nric {
      * Precondition: test is not null.
      */
     public static boolean isValidNric(String test) {
-        String ic = test.trim().toUpperCase();
+        String ic = test.toUpperCase();
 
         if (!ic.matches(NRIC_VALIDATION_REGEX)) {
             return false;
