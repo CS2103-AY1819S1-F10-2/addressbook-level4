@@ -13,6 +13,8 @@ import seedu.address.model.loan.Loan;
 public class LoanCard extends UiPart<Region> {
 
     private static final String FXML = "LoanListCard.fxml";
+    private static final String[] TAG_COLOR_STYLES =
+        {"teal", "red", "yellow", "blue", "orange", "brown", "green", "pink", "black", "grey"};
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
@@ -47,7 +49,27 @@ public class LoanCard extends UiPart<Region> {
         phone.setText(loan.getPhone().value);
         address.setText(loan.getAddress().value);
         email.setText(loan.getEmail().value);
-        loan.getTags().forEach(tag -> tags.getChildren().add(new Label(tag.value)));
+        initTags(loan);
+    }
+
+    /**
+     * Returns the color style for {@code tagName}'s label.
+     */
+    private String getTagColorStyleFor(String tagName) {
+        // we use the hash code of the tag name to generate a random color, so that the color remain consistent
+        // between different runs of the program while still making it random enough between tags.
+        return TAG_COLOR_STYLES[Math.abs(tagName.hashCode()) % TAG_COLOR_STYLES.length];
+    }
+
+    /**
+     * Creates the tag labels for {@code person}.
+     */
+    private void initTags(Loan loan) {
+        loan.getTags().forEach(tag -> {
+            Label tagLabel = new Label(tag.value);
+            tagLabel.getStyleClass().add(getTagColorStyleFor(tag.value));
+            tags.getChildren().add(tagLabel);
+        });
     }
 
     @Override
