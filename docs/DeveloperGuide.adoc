@@ -333,6 +333,69 @@ _{Explain here how the data encryption feature will be implemented}_
 
 // end::dataencryption[]
 
+=== Return a Loan feature
+==== Proposed Implementation
+
+Returning a loan is done by setting the corresponding status of the loan to `returned`. Other than setting the enum to be returned, the cost of the loan will also be calculated and displayed to the user.
+
+The steps that have to be done by LoanBook is as follows:
+
+* Check the start and end time of the loan to ensure that the loan period is valid.
+* Store the current time as the return time of the loan.
+* Change the enum of `LoanStatus` to become `LoanStatus.RETURNED`.
+* Calculate the cost of the loan and display it in the gui as a suggestion for the user.
+
+These steps would change the given Loan object, and update the properties of the Loan object. The appropriate values stored within the Loan object would therefore change accordingly.
+
+Given below is an example usage scenerio and how the internals of the Loan would behave:
+
+**Step 1.** The user would have to do a search for which loan they would like to return. This will pull up a list of loans from which the user would be able to select the correct loan.
+
+[NOTE]
+Users who are able to remember the loanID would be able to access the loan directly by using the `i/<LOANID>` tag in the command. This would allow them to skip this step, and directly reference the loan which they would like to modify.
+
+image::return-loan-list-of-loans.png[]
+
+The user lists all loans. This is displayed on the GUI.
+
+{nbsp} +
+
+**Step 2.** Using the current system time as the `endTime`, the duration of the loan will be calculated. Should the duration ever be negative, an error message will be thrown. This is because such a scenario would not ever be possible in the LoanBook.
+
+**Step 3.** The user decides to return the current loan (in the case of the above image, the user wants to return loan number 3, as selected). User will therefore key in `return i/3`.
+
+The LoanBook will save the current time into the `Optional<LoanTime> returnTime` field. This would be done by calling the constructor `LoanTime()`. Also, the loanStatus field would also be updated from `ONGOING` to `RETURNED`.
+
+image::return-loan-loan2.png[]
+Note that originally the loan has a `null` value for end time. Note that the `endTime` and `loanStatus` values has been updated.
+
+[TIP]
+If the loan has already been returned or deleted, a corresponding error message will notify you that you cannot return a loan that is not ongoing. The message will also display the current status of the loan for troubleshooting. This check happens during this step.
+
+{nbsp} +
+
+**Step 4.** The function now calculates the cost of the loan. This price would be based on the amount of time the loan was active for, as well as the loanRate that was set, by multiplying the time with the rate.
+
+[NOTE]
+Although the time saved is to the second, the time that is multiplied when we are getting the cost is rounded down to the nearest minute. In a sense, this is "pro-rating" the cost, and making it more discrete.
+
+The result is then displayed into the GUI for the user as the cost price of the loan.
+
+[NOTE]
+It is possible for the LoanBook to have a loan that lasts for 0 minutes. This is because there may be some weird edge case where an object is loaned for less than a minute, which gets prorated down.
+
+{nbsp} +
+
+==== Design considerations:
+===== Aspect: Using an enum vs changing the location of the loan
+* **Alternative 1 (current choice):** To create an enum that will store the status of the linked list.
+** Pros: Easy to implement the return a loan feature, and do not need to create new data storage features.
+** Cons: When using the `summary` function, it will take a longer amount of time, as the LoanBook would have to do a check at every step to ensure the correct data is appended to the correct place.
+
+* Alternative 2: Create new ArrayLists of loans for each possible status of the loan.
+** Pros: Computing the `summary` of the LoanBook would be much easier, and quicker.
+** Cons: `return` functionality would run much slower, as there will be empty slots in the ArrayList after shifting the Loan objects around. Searching for loans would also be much more difficult, as the results from the various Loan ArrayLists has to be appended together.
+
 === Logging
 
 We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.

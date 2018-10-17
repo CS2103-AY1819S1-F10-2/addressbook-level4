@@ -69,7 +69,7 @@ public class HelpCommandSystemTest extends AddressBookSystemTest {
 
         // assert that the status bar too is updated correctly while the help window is open
         // note: the select command tested above does not update the status bar
-        executeCommand(DeleteCommand.COMMAND_WORD + " " + INDEX_FIRST_LOAN.getOneBased());
+        executeCommand(DeleteCommand.COMMAND_WORD + " i/" + INDEX_FIRST_LOAN.getOneBased() + " x/a12345");
         assertNotEquals(StatusBarFooter.SYNC_STATUS_INITIAL, getStatusBarFooter().getSyncStatus());
     }
 
