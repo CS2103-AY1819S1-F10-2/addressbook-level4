@@ -1,0 +1,30 @@
+{
+  "authors":
+  [
+    {
+      "githubId": "FongYuan",
+      "displayName": "Lim Fong Yuan",
+      "authorNames": ["Fong Yuan", "FongYuan"]
+    },
+    {
+      "githubId": "Kelly9373",
+      "displayName": "Liu Xiaohang",
+      "authorNames": ["Liu Xiaohang", "Kelly9373"]
+    },
+    {
+      "githubId": "prokarius",
+      "displayName": "David Kum",
+      "authorNames": ["David Kum", "prokarius"]
+    },
+    {
+      "githubId": "wn96",
+      "displayName": "Ang Wei Neng",
+      "authorNames": ["Ang Wei Neng", "wn96", "weineng"]
+    },
+    {
+      "githubId": "xantho09",
+      "displayName": "Muhammad Irham Rasyidi Bin Zainal",
+      "authorNames": ["xantho09", "Muhammad Irham Rasyidi Bin Zainal"]
+    }
+  ]
+}
