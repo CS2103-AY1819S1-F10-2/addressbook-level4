@@ -22,7 +22,7 @@ public class DeleteCommandParserTest {
 
     @Test
     public void parse_validArgs_returnsDeleteCommand() {
-        assertParseSuccess(parser, "1", new DeleteCommand(INDEX_FIRST_LOAN));
+        assertParseSuccess(parser, " i/1 x/a12345", new DeleteCommand(INDEX_FIRST_LOAN));
     }
 
     @Test

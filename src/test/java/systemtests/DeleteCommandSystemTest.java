@@ -31,7 +31,12 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
 
         /* Case: delete the first loan in the list, command with leading spaces and trailing spaces -> deleted */
         Model expectedModel = getModel();
-        String command = "     " + DeleteCommand.COMMAND_WORD + "      " + INDEX_FIRST_LOAN.getOneBased() + "       ";
+        String command = "     "
+                + DeleteCommand.COMMAND_WORD
+                + " i/"
+                + INDEX_FIRST_LOAN.getOneBased()
+                + " x/a12345"
+                + "       ";
         Loan deletedLoan = removeLoan(expectedModel, INDEX_FIRST_LOAN);
         String expectedResultMessage = String.format(MESSAGE_DELETE_LOAN_SUCCESS, deletedLoan);
         assertCommandSuccess(command, expectedModel, expectedResultMessage);
@@ -69,7 +74,7 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
          */
         showLoansWithName(KEYWORD_MATCHING_MEIER);
         int invalidIndex = getModel().getAddressBook().getLoanList().size();
-        command = DeleteCommand.COMMAND_WORD + " " + invalidIndex;
+        command = DeleteCommand.COMMAND_WORD + " i/" + invalidIndex + " x/a12345";
         assertCommandFailure(command, MESSAGE_INVALID_LOAN_DISPLAYED_INDEX);
 
         /* --------------------- Performing delete operation while a loan card is selected ------------------------ */
@@ -80,7 +85,7 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
         Index selectedIndex = getLastIndex(expectedModel);
         Index expectedIndex = Index.fromZeroBased(selectedIndex.getZeroBased() - 1);
         selectLoan(selectedIndex);
-        command = DeleteCommand.COMMAND_WORD + " " + selectedIndex.getOneBased();
+        command = DeleteCommand.COMMAND_WORD + " i/" + selectedIndex.getOneBased() + " x/a12345";
         deletedLoan = removeLoan(expectedModel, selectedIndex);
         expectedResultMessage = String.format(MESSAGE_DELETE_LOAN_SUCCESS, deletedLoan);
         assertCommandSuccess(command, expectedModel, expectedResultMessage, expectedIndex);
@@ -88,24 +93,24 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
         /* --------------------------------- Performing invalid delete operation ------------------------------------ */
 
         /* Case: invalid index (0) -> rejected */
-        command = DeleteCommand.COMMAND_WORD + " 0";
+        command = DeleteCommand.COMMAND_WORD + " i/0";
         assertCommandFailure(command, MESSAGE_INVALID_DELETE_COMMAND_FORMAT);
 
         /* Case: invalid index (-1) -> rejected */
-        command = DeleteCommand.COMMAND_WORD + " -1";
+        command = DeleteCommand.COMMAND_WORD + " i/-1";
         assertCommandFailure(command, MESSAGE_INVALID_DELETE_COMMAND_FORMAT);
 
         /* Case: invalid index (size + 1) -> rejected */
         Index outOfBoundsIndex = Index.fromOneBased(
                 getModel().getAddressBook().getLoanList().size() + 1);
-        command = DeleteCommand.COMMAND_WORD + " " + outOfBoundsIndex.getOneBased();
+        command = DeleteCommand.COMMAND_WORD + " i/" + outOfBoundsIndex.getOneBased() + " x/a12345";
         assertCommandFailure(command, MESSAGE_INVALID_LOAN_DISPLAYED_INDEX);
 
         /* Case: invalid arguments (alphabets) -> rejected */
-        assertCommandFailure(DeleteCommand.COMMAND_WORD + " abc", MESSAGE_INVALID_DELETE_COMMAND_FORMAT);
+        assertCommandFailure(DeleteCommand.COMMAND_WORD + " i/abc", MESSAGE_INVALID_DELETE_COMMAND_FORMAT);
 
         /* Case: invalid arguments (extra argument) -> rejected */
-        assertCommandFailure(DeleteCommand.COMMAND_WORD + " 1 abc", MESSAGE_INVALID_DELETE_COMMAND_FORMAT);
+        assertCommandFailure(DeleteCommand.COMMAND_WORD + " i/1 abc", MESSAGE_INVALID_DELETE_COMMAND_FORMAT);
 
         /* Case: mixed case command word -> rejected */
         assertCommandFailure("DelETE 1", MESSAGE_UNKNOWN_COMMAND);
@@ -131,8 +136,9 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
         Loan deletedLoan = removeLoan(expectedModel, toDelete);
         String expectedResultMessage = String.format(MESSAGE_DELETE_LOAN_SUCCESS, deletedLoan);
 
-        assertCommandSuccess(
-                DeleteCommand.COMMAND_WORD + " " + toDelete.getOneBased(), expectedModel, expectedResultMessage);
+        assertCommandSuccess(DeleteCommand.COMMAND_WORD
+                 + " i/" + toDelete.getOneBased()
+                 + " x/a12345", expectedModel, expectedResultMessage);
     }
 
     /**
