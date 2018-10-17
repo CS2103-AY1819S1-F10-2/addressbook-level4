@@ -9,6 +9,9 @@ import org.junit.Test;
 import seedu.address.testutil.Assert;
 
 public class LoanIdTest {
+
+    private static final int EXPECTED_MAXIMUM_LOANID = 999999999;
+
     @Test
     public void isValidLoanIdTest() {
         assertTrue(LoanId.isValidLoanId("0")); // Zero
@@ -57,6 +60,15 @@ public class LoanIdTest {
 
     @Test
     public void invalidLoanIdConstructionException() {
-        Assert.assertThrows(IllegalArgumentException.class, () -> new LoanId("badId"));
+        Assert.assertThrows(IllegalArgumentException.class, () -> new LoanId("badId")); // An invalid
+    }
+
+    @Test
+    public void maximumLoanIdTest() {
+        LoanId maxLoanId = new LoanId(Integer.toString(EXPECTED_MAXIMUM_LOANID)); // The expected maximum
+        LoanId normalLoanId = new LoanId("4858"); // A standard Loan ID
+
+        assertTrue(maxLoanId.isMaximumId());
+        assertFalse(normalLoanId.isMaximumId());
     }
 }
