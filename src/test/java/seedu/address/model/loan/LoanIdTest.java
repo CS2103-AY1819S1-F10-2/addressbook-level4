@@ -61,7 +61,8 @@ public class LoanIdTest {
 
     @Test
     public void invalidLoanIdConstructionException() {
-        Assert.assertThrows(IllegalArgumentException.class, () -> new LoanId("badId")); // An invalid
+        // Trying to construct a new Loan ID with an invalid string should throw an IllegalArgumentException.
+        Assert.assertThrows(IllegalArgumentException.class, () -> new LoanId("badId"));
     }
 
     @Test
