@@ -22,7 +22,7 @@ public class Nric {
      */
     public Nric(String ic) {
         requireNonNull(ic);
-        ic = ic.trim().toUpperCase();
+        ic = ic.toUpperCase();
         checkArgument(isValidNric(ic), MESSAGE_NRIC_CONSTRAINTS);
         nric = ic;
     }
