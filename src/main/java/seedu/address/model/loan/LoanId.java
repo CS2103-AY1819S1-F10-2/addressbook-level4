@@ -2,6 +2,10 @@ package seedu.address.model.loan;
 
 import java.util.function.Predicate;
 
+/**
+ * Represents a Loan's ID in the address book.
+ * Guarantees: immutable; is valid as declared in {@link #isValidLoanId(String)}
+ */
 public class LoanId extends DataField<Integer> {
     public static final String MESSAGE_LOANID_CONSTRAINTS = "Loan ID must be a non-negative integer with at least 1 "
             + "digit and no more than 9 digits.";
