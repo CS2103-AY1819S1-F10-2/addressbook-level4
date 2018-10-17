@@ -47,7 +47,7 @@ public class LoanTime extends DataField<Instant> {
             .withResolverStyle(ResolverStyle.STRICT);
 
     // Default pattern for DateTime
-    private static final String DEFAULT_DATETIME_PATTERN = "uuuu-MM-dd',' HH:mm";
+    private static final String DEFAULT_DATETIME_PATTERN = "uuuu-MM-dd HH:mm";
 
     /**
      * Constructs a {@code LoanTime} with value set at current time.
@@ -62,7 +62,7 @@ public class LoanTime extends DataField<Instant> {
      * @param loanTime A string to be parsed into a LoanTime
      */
     public LoanTime(String loanTime) {
-        super(MESSAGE_LOANTIME_CONSTRAINTS, VALIDITY_PREDICATE, LoanTime::parseLoanTime, loanTime);
+        super(MESSAGE_LOANTIME_CONSTRAINTS, VALIDITY_PREDICATE, LoanTime::parseInstant, loanTime);
     }
 
     /**
@@ -175,7 +175,7 @@ public class LoanTime extends DataField<Instant> {
      * @param objString The string to parse
      * @return The parsed {@link Instant}
      */
-    private static Instant parseLoanTime(String objString) {
+    private static Instant parseInstant(String objString) {
         // If the string is not valid, throw an exception.
         if (!isValidLoanTime(objString)) {
             throw new IllegalArgumentException(MESSAGE_LOANTIME_CONSTRAINTS);
