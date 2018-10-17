@@ -31,8 +31,9 @@
 <ul class="sectlevel2">
 <li><a href="#undo-redo-feature">3.1. Undo/Redo feature</a></li>
 <li><a href="#proposed-data-encryption">3.2. [Proposed] Data Encryption</a></li>
-<li><a href="#logging">3.3. Logging</a></li>
-<li><a href="#Implementation-Configuration">3.4. Configuration</a></li>
+<li><a href="#return-a-loan-feature">3.3. Return a Loan feature</a></li>
+<li><a href="#logging">3.4. Logging</a></li>
+<li><a href="#Implementation-Configuration">3.5. Configuration</a></li>
 </ul>
 </li>
 <li><a href="#documentation">4. Documentation</a>
@@ -818,14 +819,175 @@ If the <code>currentStatePointer</code> is at index <code>addressBookStateList.s
 </div>
 </div>
 <div class="sect2">
-<h3 id="logging"><a class="link" href="#logging">3.3. Logging</a></h3>
+<h3 id="return-a-loan-feature"><a class="link" href="#return-a-loan-feature">3.3. Return a Loan feature</a></h3>
+<div class="sect3">
+<h4 id="proposed-implementation"><a class="link" href="#proposed-implementation">3.3.1. Proposed Implementation</a></h4>
+<div class="paragraph">
+<p>Returning a loan is done by setting the corresponding status of the loan to <code>returned</code>. Other than setting the enum to be returned, the cost of the loan will also be calculated and displayed to the user.</p>
+</div>
+<div class="paragraph">
+<p>The steps that have to be done by LoanBook is as follows:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Check the start and end time of the loan to ensure that the loan period is valid.</p>
+</li>
+<li>
+<p>Store the current time as the return time of the loan.</p>
+</li>
+<li>
+<p>Change the enum of <code>LoanStatus</code> to become <code>LoanStatus.RETURNED</code>.</p>
+</li>
+<li>
+<p>Calculate the cost of the loan and display it in the gui as a suggestion for the user.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>These steps would change the given Loan object, and update the properties of the Loan object. The appropriate values stored within the Loan object would therefore change accordingly.</p>
+</div>
+<div class="paragraph">
+<p>Given below is an example usage scenerio and how the internals of the Loan would behave:</p>
+</div>
+<div class="paragraph">
+<p><strong>Step 1.</strong> The user would have to do a search for which loan they would like to return. This will pull up a list of loans from which the user would be able to select the correct loan.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Users who are able to remember the loanID would be able to access the loan directly by using the <code>i/&lt;LOANID&gt;</code> tag in the command. This would allow them to skip this step, and directly reference the loan which they would like to modify.
+</td>
+</tr>
+</table>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/return-loan-list-of-loans.png" alt="return loan list of loans">
+</div>
+</div>
+<div class="paragraph">
+<p>The user lists all loans. This is displayed on the GUI.</p>
+</div>
+<div class="paragraph">
+<p>&#160;<br></p>
+</div>
+<div class="paragraph">
+<p><strong>Step 2.</strong> Using the current system time as the <code>endTime</code>, the duration of the loan will be calculated. Should the duration ever be negative, an error message will be thrown. This is because such a scenario would not ever be possible in the LoanBook.</p>
+</div>
+<div class="paragraph">
+<p><strong>Step 3.</strong> The user decides to return the current loan (in the case of the above image, the user wants to return loan number 3, as selected). User will therefore key in <code>return i/3</code>.</p>
+</div>
+<div class="paragraph">
+<p>The LoanBook will save the current time into the <code>Optional&lt;LoanTime&gt; returnTime</code> field. This would be done by calling the constructor <code>LoanTime()</code>. Also, the loanStatus field would also be updated from <code>ONGOING</code> to <code>RETURNED</code>.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/return-loan-loan2.png" alt="return loan loan2">
+</div>
+</div>
+<div class="paragraph">
+<p>Note that originally the loan has a <code>null</code> value for end time. Note that the <code>endTime</code> and <code>loanStatus</code> values has been updated.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+If the loan has already been returned or deleted, a corresponding error message will notify you that you cannot return a loan that is not ongoing. The message will also display the current status of the loan for troubleshooting. This check happens during this step.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>&#160;<br></p>
+</div>
+<div class="paragraph">
+<p><strong>Step 4.</strong> The function now calculates the cost of the loan. This price would be based on the amount of time the loan was active for, as well as the loanRate that was set, by multiplying the time with the rate.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Although the time saved is to the second, the time that is multiplied when we are getting the cost is rounded down to the nearest minute. In a sense, this is "pro-rating" the cost, and making it more discrete.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The result is then displayed into the GUI for the user as the cost price of the loan.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+It is possible for the LoanBook to have a loan that lasts for 0 minutes. This is because there may be some weird edge case where an object is loaned for less than a minute, which gets prorated down.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>&#160;<br></p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="design-considerations-2"><a class="link" href="#design-considerations-2">3.3.2. Design considerations:</a></h4>
+<div class="sect4">
+<h5 id="aspect-using-an-enum-vs-changing-the-location-of-the-loan"><a class="link" href="#aspect-using-an-enum-vs-changing-the-location-of-the-loan">Aspect: Using an enum vs changing the location of the loan</a></h5>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Alternative 1 (current choice):</strong> To create an enum that will store the status of the linked list.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: Easy to implement the return a loan feature, and do not need to create new data storage features.</p>
+</li>
+<li>
+<p>Cons: When using the <code>summary</code> function, it will take a longer amount of time, as the LoanBook would have to do a check at every step to ensure the correct data is appended to the correct place.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Alternative 2: Create new ArrayLists of loans for each possible status of the loan.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: Computing the <code>summary</code> of the LoanBook would be much easier, and quicker.</p>
+</li>
+<li>
+<p>Cons: <code>return</code> functionality would run much slower, as there will be empty slots in the ArrayList after shifting the Loan objects around. Searching for loans would also be much more difficult, as the results from the various Loan ArrayLists has to be appended together.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="logging"><a class="link" href="#logging">3.4. Logging</a></h3>
 <div class="paragraph">
 <p>We are using <code>java.util.logging</code> package for logging. The <code>LogsCenter</code> class is used to manage the logging levels and logging destinations.</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>The logging level can be controlled using the <code>logLevel</code> setting in the configuration file (See <a href="#Implementation-Configuration">Section 3.4, &#8220;Configuration&#8221;</a>)</p>
+<p>The logging level can be controlled using the <code>logLevel</code> setting in the configuration file (See <a href="#Implementation-Configuration">Section 3.5, &#8220;Configuration&#8221;</a>)</p>
 </li>
 <li>
 <p>The <code>Logger</code> for a class can be obtained using <code>LogsCenter.getLogger(Class)</code> which will log messages according to the specified logging level</p>
@@ -856,7 +1018,7 @@ If the <code>currentStatePointer</code> is at index <code>addressBookStateList.s
 </div>
 </div>
 <div class="sect2">
-<h3 id="Implementation-Configuration"><a class="link" href="#Implementation-Configuration">3.4. Configuration</a></h3>
+<h3 id="Implementation-Configuration"><a class="link" href="#Implementation-Configuration">3.5. Configuration</a></h3>
 <div class="paragraph">
 <p>Certain properties of the application can be controlled (e.g App name, logging level) through the configuration file (default: <code>config.json</code>).</p>
 </div>
@@ -2673,4 +2835,4 @@ Expected: Similar to previous.</p>
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-10-17 17:10:14 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-10-17 17:50:11 UTC</div></div></div></body></html>
