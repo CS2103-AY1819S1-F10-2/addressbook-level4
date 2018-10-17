@@ -347,7 +347,7 @@ These steps would change the given loan object, and update the properties of the
 
 Given below is an example usage scenerio and how the internals of the Loan would behave:
 
-**Step 1.** The user would have to do a search for which loan his would like to return. This will pull up a list of Loans from which the user would be able to select the correct loan.
+**Step 1.** The user would have to do a search for which loan they would like to return. This will pull up a list of Loans from which the user would be able to select the correct loan.
 
 [NOTE]
 Users who are able to remember the loanID would be able to access the loan directly by using the `i/<LOANID>` tag in the command. This would allow them to skip this step, and directly reference the loan which they would like to modify.
@@ -363,7 +363,7 @@ The user lists all loans. This is displayed on the GUI.
 The LoanBook will save the current time into the `Optional<LoanTime> returnTime` field. This would be done by calling the constructor `LoanTime()`. Also, the loanStatus field would also be updated from `ONGOING` to `RETURNED`
 
 image::return-loan-loan2.png[]
-Note that originally the loan has a `null` value for end time. Note that `endTime` and `loanStatus` values has been updated.
+Note that originally the loan has a `null` value for end time. Note that the `endTime` and `loanStatus` values has been updated.
 
 {nbsp} +
 
