@@ -22,6 +22,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     private final VersionedAddressBook versionedAddressBook;
     private final FilteredList<Loan> filteredLoans;
+    private final UserPrefs preference;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -34,6 +35,7 @@ public class ModelManager extends ComponentManager implements Model {
 
         versionedAddressBook = new VersionedAddressBook(addressBook);
         filteredLoans = new FilteredList<>(versionedAddressBook.getLoanList());
+        preference = userPrefs;
     }
 
     public ModelManager() {
@@ -73,6 +75,16 @@ public class ModelManager extends ComponentManager implements Model {
         versionedAddressBook.addLoan(loan);
         updateFilteredLoanList(PREDICATE_SHOW_ALL_LOANS);
         indicateAddressBookChanged();
+    }
+
+    @Override
+    public void setPass(Password pass) {
+        preference.setPass(pass);
+    }
+
+    @Override
+    public String getPass() {
+        return preference.getPass();
     }
 
     @Override

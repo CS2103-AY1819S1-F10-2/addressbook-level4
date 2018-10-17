@@ -13,9 +13,11 @@ public class UserPrefs {
 
     private GuiSettings guiSettings;
     private Path addressBookFilePath = Paths.get("data" , "addressbook.xml");
+    private String password;
 
     public UserPrefs() {
         setGuiSettings(500, 500, 0, 0);
+        password = "a12345";
     }
 
     public GuiSettings getGuiSettings() {
@@ -38,6 +40,14 @@ public class UserPrefs {
         this.addressBookFilePath = addressBookFilePath;
     }
 
+    public void setPass(Password pass) {
+        password = pass.toString();
+    }
+
+    public String getPass() {
+        return password;
+    }
+
     @Override
     public boolean equals(Object other) {
         if (other == this) {
@@ -50,6 +60,7 @@ public class UserPrefs {
         UserPrefs o = (UserPrefs) other;
 
         return Objects.equals(guiSettings, o.guiSettings)
+                && Objects.equals(password, o.password)
                 && Objects.equals(addressBookFilePath, o.addressBookFilePath);
     }
 
@@ -62,6 +73,7 @@ public class UserPrefs {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Gui Settings : " + guiSettings.toString());
+        sb.append("Password : " + password);
         sb.append("\nLocal data file location : " + addressBookFilePath);
         return sb.toString();
     }

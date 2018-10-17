@@ -30,6 +30,16 @@ public interface Model {
     void deleteLoan(Loan target);
 
     /**
+     * Set password for the App
+     */
+    void setPass(Password pass);
+
+    /**
+     * Get password for the App
+     */
+    String getPass();
+
+    /**
      * Adds the given loan.
      * {@code loan} must not already exist in the address book.
      */
