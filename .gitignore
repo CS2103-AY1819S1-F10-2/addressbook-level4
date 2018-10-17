@@ -19,3 +19,4 @@ src/main/resources/docs/
 out/
 *.un~
 *.swp
+./config.json
