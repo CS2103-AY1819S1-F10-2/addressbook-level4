@@ -81,7 +81,7 @@ public class FindCommandSystemTest extends AddressBookSystemTest {
         assertCommandFailure(command, expectedResultMessage);
 
         /* Case: find same loans in address book after deleting 1 of them -> 1 loan found */
-        executeCommand(DeleteCommand.COMMAND_WORD + " 1");
+        executeCommand(DeleteCommand.COMMAND_WORD + " i/1 x/a12345");
         assertFalse(getModel().getAddressBook().getLoanList().contains(BENSON));
         command = FindCommand.COMMAND_WORD + " " + KEYWORD_MATCHING_MEIER;
         expectedModel = getModel();

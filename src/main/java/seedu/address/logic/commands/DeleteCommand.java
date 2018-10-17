@@ -20,8 +20,8 @@ public class DeleteCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Deletes the loan identified by the index number used in the displayed loan list.\n"
-            + "Parameters: INDEX (must be a positive integer)\n"
-            + "Example: " + COMMAND_WORD + " 1";
+            + "Parameters: INDEX (must be a positive integer) and PASSWORD\n"
+            + "Example: " + COMMAND_WORD + " i/1 x/12345";
 
     public static final String MESSAGE_DELETE_LOAN_SUCCESS = "Deleted Loan: %1$s";
 
