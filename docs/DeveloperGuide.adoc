@@ -339,7 +339,7 @@ _{Explain here how the data encryption feature will be implemented}_
 Returning a loan is done by setting the corresponding status of the loan to returned.
 
 The steps that have to be done by LoanBook is as follows:
-* Store the current time as the return time of the loan  
+* Store the current time as the return time of the loan
 * Change the enum of `LoanStatus` to become `Status.RETURNED`
 * Calculate the cost of the loan and display it in the gui as a suggestion for the user.
 
@@ -379,7 +379,7 @@ The loan book is set up so that if the `endTime` is before `startTime`, the cost
 
 [TIP]
 ====
-If the cost reported when returning a loan is 0, these are the potential causes for this error. 
+If the cost reported when returning a loan is 0, these are the potential causes for this error.
 
 1) Your `loanRate` is not 0. +
 2) Your `startTime` is correct. +
