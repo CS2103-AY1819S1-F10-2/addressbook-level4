@@ -12,6 +12,8 @@ public class LoanId extends DataField<Integer> {
     /** A predicate that tests if a string is a valid Loan ID. */
     public static final Predicate<String> VALIDITY_PREDICATE = LoanId::isValidLoanId;
 
+    private static final int MAXIMUM_ID = 999999999;
+
     /**
      * Constructs a {@code LoanId}.
      *
@@ -30,5 +32,14 @@ public class LoanId extends DataField<Integer> {
      */
     public static boolean isValidLoanId(String objString) {
         return objString.matches(VALIDATION_REGEX);
+    }
+
+    /**
+     * Checks if this Loan ID is the maximum possible Loan ID.
+     *
+     * @return true if this Loan ID is the maximum possible Loan ID.
+     */
+    public boolean isMaximumId() {
+        return value == MAXIMUM_ID;
     }
 }
