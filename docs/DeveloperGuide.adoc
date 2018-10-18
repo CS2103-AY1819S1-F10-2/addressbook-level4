@@ -327,9 +327,48 @@ image::UndoRedoActivityDiagram.png[width="650"]
 // end::undoredo[]
 
 // tag::dataencryption[]
-=== [Proposed] Data Encryption
+=== User Confirmation
+Before a loan entry can be deleted, user confirmation should be required. This ensures that only authorized users are able to delete loans. This is done through the Password class validating any attempts to delete loans or change password.
 
-_{Explain here how the data encryption feature will be implemented}_
+==== Implementation details
+There are three stages in this implementation
+
+===== Allowing the `delete` command to accept a password
+1. To allow `delete` command to accept a password, we set a stub password of `a12345` and require all `delete` command to take in a password argument.
+* When password is wrong, we do not perform the deletion of the loans.
+* Only when password matches with stub password will the loan be deleted.
+3. Tests were edited to include and check for a valid password before deletion.
+
+//TODO <Insert implementation UML diagram>
+
+===== Allow changing of master password
+
+This is done in the following steps:
+
+1. Create a password class to store the password string.
+2. Create a `setpass` command that takes in the old password and new password.
+* We reject the command if the given old password is not equal to password that is stored in the database. This is to ensure only the user who has the password would be allowed to change the password.
+* Set password in UserPref to new password if old password corresponds to current password.
+3. Write test to ensure no regression.
+
+//TODO <Insert implementation UML diagram>
+
+===== Encrypt password for security
+To ensure that others are unable to retrieve the app's password from the preference.json, we encrypt the password before storing. Decryption of password can only be done by Password.java.
+
+//TODO <Insert implementation UML diagram>
+
+==== Design considerations:
+===== Aspect: Using an string to store password vs creating a password class with encryption.
+
+1. Storing the current password as a Password versus as a string.
+
+** Pros: While password is basically a string, we do not want to expose this in the database.
+However, given the current design of the AddressBook that we morph from, we are required to store user settings in UserPref.
+Hence, we store it as a Password object for encryption and decryption.
+
+** Cons: This increases the complexity of the code base as preference.json can only be stored as a string.
+
 
 // end::dataencryption[]
 
