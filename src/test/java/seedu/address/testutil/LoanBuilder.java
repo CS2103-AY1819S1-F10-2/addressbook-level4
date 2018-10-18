@@ -91,8 +91,15 @@ public class LoanBuilder {
         return this;
     }
 
-    public Loan build() {
-        return new Loan(name, phone, email, address, tags);
+    /**
+     * Sets the {@code loanStatus} of the {@code Loan} that we are building.
+     */
+    public LoanBuilder withLoanStatus(String loanStatus) {
+        this.loanStatus = LoanStatus.valueOf(loanStatus);
+        return this;
     }
 
+    public Loan build() {
+        return new Loan(name, phone, email, address, tags, loanStatus);
+    }
 }

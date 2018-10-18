@@ -42,6 +42,20 @@ public class Loan {
         this.loanStatus = LoanStatus.ONGOING;
     }
 
+    /**
+     * Every field must be present and not null.
+     * This constructor takes into account the loanStatus
+     */
+    public Loan(Name name, Phone phone, Email email, Address address, Set<Tag> tags, LoanStatus loanStatus) {
+        requireAllNonNull(name, phone, email, address, tags, loanStatus);
+        this.name = name;
+        this.phone = phone;
+        this.email = email;
+        this.address = address;
+        this.tags.addAll(tags);
+        this.loanStatus = loanStatus;
+    }
+
     public Name getName() {
         return name;
     }

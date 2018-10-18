@@ -1,12 +1,13 @@
 package seedu.address.model.loan;
 
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
 import org.junit.Test;
+
 import seedu.address.model.loan.exceptions.SameLoanStatusException;
 import seedu.address.testutil.Assert;
 import seedu.address.testutil.LoanBuilder;
-
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
 
 public class LoanStatusTest {
     @Test
@@ -22,7 +23,7 @@ public class LoanStatusTest {
     }
 
     @Test
-    public void change_LoanStatus_differentLoanStatus_statusChangedSuccessfully() {
+    public void changeLoanStatus_differentLoanStatus_statusChangedSuccessfully() {
         Loan loan = new LoanBuilder().build();
         assertTrue(loan.getLoanStatus().equals(LoanStatus.ONGOING));
         assertFalse(loan.getLoanStatus().equals(LoanStatus.RETURNED));
