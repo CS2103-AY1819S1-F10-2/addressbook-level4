@@ -6,6 +6,7 @@ import java.util.Set;
 import seedu.address.model.loan.Address;
 import seedu.address.model.loan.Email;
 import seedu.address.model.loan.Loan;
+import seedu.address.model.loan.LoanStatus;
 import seedu.address.model.loan.Name;
 import seedu.address.model.loan.Phone;
 import seedu.address.model.tag.Tag;
@@ -20,12 +21,14 @@ public class LoanBuilder {
     public static final String DEFAULT_PHONE = "85355255";
     public static final String DEFAULT_EMAIL = "alice@gmail.com";
     public static final String DEFAULT_ADDRESS = "123, Jurong West Ave 6, #08-111";
+    public static final String DEFAULT_LOANSTATUS = "ONGOING";
 
     private Name name;
     private Phone phone;
     private Email email;
     private Address address;
     private Set<Tag> tags;
+    private LoanStatus loanStatus;
 
     public LoanBuilder() {
         name = new Name(DEFAULT_NAME);
@@ -33,6 +36,7 @@ public class LoanBuilder {
         email = new Email(DEFAULT_EMAIL);
         address = new Address(DEFAULT_ADDRESS);
         tags = new HashSet<>();
+        loanStatus = LoanStatus.valueOf(DEFAULT_LOANSTATUS);
     }
 
     /**
@@ -44,6 +48,7 @@ public class LoanBuilder {
         email = loanToCopy.getEmail();
         address = loanToCopy.getAddress();
         tags = new HashSet<>(loanToCopy.getTags());
+        loanStatus = loanToCopy.getLoanStatus();
     }
 
     /**

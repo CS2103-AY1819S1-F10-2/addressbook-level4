@@ -7,6 +7,7 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+import seedu.address.model.loan.exceptions.SameLoanStatusException;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -23,9 +24,11 @@ public class Loan {
     // Data fields
     private final Address address;
     private final Set<Tag> tags = new HashSet<>();
+    private LoanStatus loanStatus;
 
     /**
      * Every field must be present and not null.
+     * Old constructor that does not take into account the LoanStatus.
      */
     public Loan(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
         requireAllNonNull(name, phone, email, address, tags);
@@ -34,6 +37,9 @@ public class Loan {
         this.email = email;
         this.address = address;
         this.tags.addAll(tags);
+
+        // Initialise the loan to be ongoing.
+        this.loanStatus = LoanStatus.ONGOING;
     }
 
     public Name getName() {
@@ -52,12 +58,33 @@ public class Loan {
         return address;
     }
 
+    public LoanStatus getLoanStatus() {
+        return loanStatus;
+    }
+
     /**
      * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
      * if modification is attempted.
      */
     public Set<Tag> getTags() {
         return Collections.unmodifiableSet(tags);
+    }
+
+    /**
+     * Change the loan status to the newStatus as provided.
+     * Throws SameLoanStatusException if the newStatus is the same as the previous status.
+     * @param newStatus
+     * @return true if the function managed to complete.
+     * @throws SameLoanStatusException
+     */
+    public boolean changeLoanStatus(LoanStatus newStatus) throws SameLoanStatusException {
+        if (loanStatus.equals(newStatus)) {
+            throw new SameLoanStatusException();
+        }
+        else {
+            loanStatus = newStatus;
+            return true;
+        }
     }
 
     /**
@@ -93,13 +120,14 @@ public class Loan {
                 && otherLoan.getPhone().equals(getPhone())
                 && otherLoan.getEmail().equals(getEmail())
                 && otherLoan.getAddress().equals(getAddress())
+                && otherLoan.getLoanStatus().equals(getLoanStatus())
                 && otherLoan.getTags().equals(getTags());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, address, tags);
+        return Objects.hash(name, phone, email, address, tags, loanStatus);
     }
 
     @Override
@@ -112,6 +140,8 @@ public class Loan {
                 .append(getEmail())
                 .append(" Address: ")
                 .append(getAddress())
+                .append(" Status: ")
+                .append(getLoanStatus())
                 .append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();
