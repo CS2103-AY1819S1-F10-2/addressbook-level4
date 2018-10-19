@@ -328,16 +328,16 @@ image::UndoRedoActivityDiagram.png[width="650"]
 
 // tag::userconfirmation[]
 === User Confirmation
-Before a loan entry can be deleted, user confirmation should be required. This ensures that only authorized users are able to delete loans. This is done through the Password class validating any attempts to delete loans or change password.
+Before a loan entry can be deleted, user confirmation should be required. This ensures that only authorized users are able to delete loans. This is done through the `Password` class validating any attempts to delete loans or change password.
 
 ==== Implementation details
-There are three stages in this implementation
+There are three stages in this implementation:
 
 ===== Allowing the `delete` command to accept a password
 1. To allow `delete` command to accept a password, we set a stub password of `a12345` and require all `delete` command to take in a password argument.
 * When password is wrong, we do not perform the deletion of the loans.
 * Only when password matches with stub password will the loan be deleted.
-3. Tests were edited to include and check for a valid password before deletion.
+2. Tests were edited to include and check for a valid password before deletion.
 
 //TODO <Insert implementation UML diagram>
 
@@ -345,10 +345,10 @@ There are three stages in this implementation
 
 This is done in the following steps:
 
-1. Create a password class to store the password string.
+1. Create a `Password` class to store the password string.
 2. Create a `setpass` command that takes in the old password and new password.
-* We reject the command if the given old password is not equal to password that is stored in the database. This is to ensure only the user who has the password would be allowed to change the password.
-* Set password in UserPref to new password if old password corresponds to current password.
+* We reject the command if the given old password is not equal to password that is stored in the database. This is to ensure only the user who has the password would be allowed to change it.
+* Set password in `UserPref` to new password if old password corresponds to current password.
 3. Write test to ensure no regression.
 
 //TODO <Insert implementation UML diagram>
@@ -361,15 +361,21 @@ To ensure that others are unable to retrieve the app's password from the prefere
 ==== Design considerations:
 ===== Aspect: Using an string to store password vs creating a password class with encryption.
 
-1. Storing the current password as a Password versus as a string.
-
 ** Pros: While password is basically a string, we do not want to expose this in the database.
-However, given the current design of the AddressBook that we morph from, we are required to store user settings in UserPref.
-Hence, we store it as a Password object for encryption and decryption.
+However, given the current design of the AddressBook that we morph from, we are required to store user settings in `UserPref`.
+Hence, we store it as a `Password` object for encryption and decryption.
 
 ** Cons: This increases the complexity of the code base as preference.json can only be stored as a string.
 
 
+* **Alternative 1 (current choice):** Storing the current password as a Password.
+** Pros: While password is basically a string, we do not want to expose this in the database.
+         However, given the current design of the AddressBook that we morph from, we are required to store user settings in `UserPref`.
+         Hence, we store it as a `Password` object for encryption and decryption.
+** Cons: This increases the complexity of the code base as preference.json can only be stored as a string. Will still need to store the password as a string ultimately.
+* **Alternative 2:** Storing the current password as a String
+** Pros: Storing the current password as it should be. Implementation is straightforward
+** Cons: Password is not encrypted. While we can create a static class to encrypt and decrypt strings, only `Password` objects will require encryption.
 // end::userconfirmation[]
 
 === Return a Loan feature
