@@ -34,6 +34,7 @@
 <li><a href="#return-a-loan-feature">3.3. Return a Loan feature</a></li>
 <li><a href="#logging">3.4. Logging</a></li>
 <li><a href="#Implementation-Configuration">3.5. Configuration</a></li>
+<li><a href="#hide-private-information">3.6. Hide private information</a></li>
 </ul>
 </li>
 <li><a href="#documentation">4. Documentation</a>
@@ -1021,6 +1022,111 @@ It is possible for the LoanBook to have a loan that lasts for 0 minutes. This is
 <h3 id="Implementation-Configuration"><a class="link" href="#Implementation-Configuration">3.5. Configuration</a></h3>
 <div class="paragraph">
 <p>Certain properties of the application can be controlled (e.g App name, logging level) through the configuration file (default: <code>config.json</code>).</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="hide-private-information"><a class="link" href="#hide-private-information">3.6. Hide private information</a></h3>
+<div class="paragraph">
+<p>User must provide some important and personal information when adding a loan, e.g. <code>Nric</code>, so it is our responsibility to protect their privacy.</p>
+</div>
+<div class="paragraph">
+<p>As a result, we have added a new feature to hide the private information from the Window.<br>
+Example: The customer&#8217;s <code>Nric</code> stored in the database is <code>Nric: G1234567U</code>, but our <code>LoanCard</code> will only show <code>Nric: Gxxxxx67U</code>.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/LoanListPanelView.png" alt="LoanListPanelView">
+</div>
+</div>
+<div class="sect3">
+<h4 id="current-implementation-2"><a class="link" href="#current-implementation-2">3.6.1. Current implementation</a></h4>
+<div class="paragraph">
+<p>Hidden private information is facilitated by an interface called <code>Censor</code>. It is implemented by classes <code>Nric</code>, <code>Phone</code> and <code>Email</code>.</p>
+</div>
+<div class="paragraph">
+<p>When showing a new loan, it will do the following operations:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>LoanCard#LoanCard()</code>&#8201;&#8212;&#8201;the constructor will assign values to each of the labels shown in the LoanCard.</p>
+</li>
+<li>
+<p><code>Nric#getCensored()</code>&#8201;&#8212;&#8201;censor the Nric value and hide the first five digital numbers. Then it returns the censored String.</p>
+</li>
+<li>
+<p><code>Phone#getCensored()</code>&#8201;&#8212;&#8201;censor the phone number and hide the first five digital numbers. Then it returns the censored String.</p>
+</li>
+<li>
+<p><code>Email#getCensored()</code>&#8201;&#8212;&#8201;censor the email address and hide every characters except the last two characters in the local-part and the domain.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Given below is an example usage scenario and how this mechanism behaves at each step.</p>
+</div>
+<div class="paragraph">
+<p><strong>Step1.</strong> The user adds a new loan to the LoanBook. A new <code>LoanCard</code> object will be created.<br>
+The <code>LoanCard</code> object will contain information on the loan: <code>LoanID</code>, <code>BikeID</code>, <code>Name</code>, <code>Nric</code>, <code>Phone</code>, <code>Email</code>, <code>LoanRate</code> and <code>LoanTime</code>.</p>
+</div>
+<div class="paragraph">
+<p><strong>Step2.</strong> Assign the value of each of the components to their corresponding labels.<br>
+For example: <code>name.setText(loan.getName().value);</code> will directly assign the name String of this loan to the <code>name</code> label.<br></p>
+</div>
+<div class="paragraph">
+<p>However, the values of <code>Nric</code>, <code>Phone</code> and <code>Email</code> need censoring before assigning their values, so they will call their own <code>getCensored()</code> method in their class.<br>
+For example: <code>phone.setText(loan.getPhone().getCensored().value);</code> will censor the value of the phone String of this loan and then assign the censored value to the <code>phone</code> label.</p>
+</div>
+<div class="paragraph">
+<p>The following sequence diagram shows how this operation works:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/HideInfoSequenceDiagrams.png" alt="HideInfoSequenceDiagrams">
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="design-considerations-3"><a class="link" href="#design-considerations-3">3.6.2. Design Considerations</a></h4>
+<div class="paragraph">
+<p><strong>Aspect: How to execute getCensored()</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Alternative 1 (current choice)</strong>: each class implements from <code>Censor</code> interface.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: Easy to implement.</p>
+</li>
+<li>
+<p>Cons:</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Alternative 2</strong>: <code>Loan</code> class implements from <code>Censor</code> interface.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: Maybe easy to understand.</p>
+</li>
+<li>
+<p>Cons: The method might be bulky.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="how-to-see-the-hidden-information"><a class="link" href="#how-to-see-the-hidden-information">3.6.3. How to see the hidden information</a></h4>
+<div class="paragraph">
+<p>The censored data are only hidden from the window, not changed in the database. The <code>BrowserPanel</code> on the bottom right of the window will still show all the information including the hidden information.</p>
+</div>
 </div>
 </div>
 </div>
@@ -2835,4 +2941,4 @@ Expected: Similar to previous.</p>
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-10-18 07:31:08 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-10-19 01:23:05 UTC</div></div></div></body></html>
