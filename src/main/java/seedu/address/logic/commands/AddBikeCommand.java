@@ -13,7 +13,7 @@ import seedu.address.model.bike.Bike;
  */
 public class AddBikeCommand extends Command {
 
-    public static final String COMMAND_WORD = "add";
+    public static final String COMMAND_WORD = "addbike";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a bike to the address book. "
         + "Parameters: "
