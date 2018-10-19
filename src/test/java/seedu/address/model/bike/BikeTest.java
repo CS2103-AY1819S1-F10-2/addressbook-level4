@@ -50,6 +50,6 @@ public class BikeTest {
 
     @Test
     public void toStringTest() {
-        assertEquals(BIKE1.toString(), "BIKE001 Status: Available");
+        assertEquals(BIKE1.toString(), "BiCyClE001 Status: Available");
     }
 }
