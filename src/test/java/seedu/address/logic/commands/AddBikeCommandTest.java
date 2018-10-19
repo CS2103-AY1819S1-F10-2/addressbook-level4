@@ -60,26 +60,26 @@ public class AddBikeCommandTest {
 
     @Test
     public void equals() {
-        Bike alice = new BikeBuilder().withName("Bike001").build();
-        Bike bob = new BikeBuilder().withName("Bike002").build();
-        AddBikeCommand addAliceCommand = new AddBikeCommand(alice);
-        AddBikeCommand addBobCommand = new AddBikeCommand(bob);
-
-        // same object -> returns true
-        assertTrue(addAliceCommand.equals(addAliceCommand));
-
-        // same values -> returns true
-        AddBikeCommand addAliceCommandCopy = new AddBikeCommand(alice);
-        assertTrue(addAliceCommand.equals(addAliceCommandCopy));
-
-        // different types -> returns false
-        assertFalse(addAliceCommand.equals(1));
+        Bike bike1 = new BikeBuilder().withName("Bike001").build();
+        Bike bike2 = new BikeBuilder().withName("Bike002").build();
+        AddBikeCommand addBike1Command = new AddBikeCommand(bike1);
+        AddBikeCommand addBike2Command = new AddBikeCommand(bike2);
 
         // null -> returns false
-        assertFalse(addAliceCommand.equals(null));
+        assertFalse(addBike1Command == null);
+
+        // different types -> returns false
+        assertFalse(addBike1Command.equals(1));
 
         // different bike -> returns false
-        assertFalse(addAliceCommand.equals(addBobCommand));
+        assertFalse(addBike1Command.equals(addBike2Command));
+
+        // same object -> returns true
+        assertTrue(addBike1Command.equals(addBike1Command));
+
+        // same values -> returns true
+        AddBikeCommand addAliceCommandCopy = new AddBikeCommand(bike1);
+        assertTrue(addBike1Command.equals(addAliceCommandCopy));
     }
 
     /**
@@ -104,7 +104,7 @@ public class AddBikeCommandTest {
      * A Model stub that always accept the bike being added.
      */
     private class ModelStubAcceptingBikeAdded extends ModelStub {
-        final ArrayList<Bike> bikesAdded = new ArrayList<>();
+        private final ArrayList<Bike> bikesAdded = new ArrayList<>();
 
         @Override
         public boolean hasBike(Bike bike) {
