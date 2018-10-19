@@ -128,5 +128,4 @@ public class AddBikeCommandTest {
             return new AddressBook();
         }
     }
-    
 }
