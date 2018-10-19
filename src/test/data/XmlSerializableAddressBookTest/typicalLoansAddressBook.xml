@@ -6,6 +6,7 @@
         <phone>94351253</phone>
         <email>alice@example.com</email>
         <address>123, Jurong West Ave 6, #08-111</address>
+        <loanStatus>ONGOING</loanStatus>
         <tagged>friends</tagged>
     </loans>
     <loans>
@@ -13,6 +14,7 @@
         <phone>98765432</phone>
         <email>johnd@example.com</email>
         <address>311, Clementi Ave 2, #02-25</address>
+        <loanStatus>ONGOING</loanStatus>
         <tagged>owesMoney</tagged>
         <tagged>friends</tagged>
     </loans>
@@ -21,11 +23,13 @@
         <phone>95352563</phone>
         <email>heinz@example.com</email>
         <address>wall street</address>
+        <loanStatus>ONGOING</loanStatus>
     </loans>
     <loans>
         <name>Daniel Meier</name>
         <phone>87652533</phone>
         <email>cornelia@example.com</email>
+        <loanStatus>ONGOING</loanStatus>
         <address>10th street</address>
         <tagged>friends</tagged>
     </loans>
@@ -33,18 +37,21 @@
         <name>Elle Meyer</name>
         <phone>9482224</phone>
         <email>werner@example.com</email>
+        <loanStatus>ONGOING</loanStatus>
         <address>michegan ave</address>
     </loans>
     <loans>
         <name>Fiona Kunz</name>
         <phone>9482427</phone>
         <email>lydia@example.com</email>
+        <loanStatus>ONGOING</loanStatus>
         <address>little tokyo</address>
     </loans>
     <loans>
         <name>George Best</name>
         <phone>9482442</phone>
         <email>anna@example.com</email>
+        <loanStatus>ONGOING</loanStatus>
         <address>4th street</address>
     </loans>
 </addressbook>

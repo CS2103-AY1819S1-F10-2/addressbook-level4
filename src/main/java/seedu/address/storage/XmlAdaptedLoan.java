@@ -10,11 +10,7 @@ import java.util.stream.Collectors;
 import javax.xml.bind.annotation.XmlElement;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.loan.Address;
-import seedu.address.model.loan.Email;
-import seedu.address.model.loan.Loan;
-import seedu.address.model.loan.Name;
-import seedu.address.model.loan.Phone;
+import seedu.address.model.loan.*;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -32,6 +28,8 @@ public class XmlAdaptedLoan {
     private String email;
     @XmlElement(required = true)
     private String address;
+    @XmlElement(required = true)
+    private String loanStatus;
 
     @XmlElement
     private List<XmlAdaptedTag> tagged = new ArrayList<>();
@@ -44,6 +42,7 @@ public class XmlAdaptedLoan {
 
     /**
      * Constructs an {@code XmlAdaptedLoan} with the given loan details.
+     * This is the original function that does not take into account the loanStatus.
      */
     public XmlAdaptedLoan(String name, String phone, String email, String address, List<XmlAdaptedTag> tagged) {
         this.name = name;
@@ -53,6 +52,22 @@ public class XmlAdaptedLoan {
         if (tagged != null) {
             this.tagged = new ArrayList<>(tagged);
         }
+        // Default the loan to Ongoing
+        this.loanStatus = "ONGOING";
+    }
+
+    /**
+     * Constructs an {@code XmlAdaptedLoan} with the given loan details.
+     */
+    public XmlAdaptedLoan(String name, String phone, String email, String address, List<XmlAdaptedTag> tagged, String loanStatus) {
+        this.name = name;
+        this.phone = phone;
+        this.email = email;
+        this.address = address;
+        if (tagged != null) {
+            this.tagged = new ArrayList<>(tagged);
+        }
+        this.loanStatus = loanStatus;
     }
 
     /**
@@ -68,6 +83,7 @@ public class XmlAdaptedLoan {
         tagged = source.getTags().stream()
                 .map(XmlAdaptedTag::new)
                 .collect(Collectors.toList());
+        loanStatus = source.getLoanStatus().name();
     }
 
     /**
@@ -127,6 +143,20 @@ public class XmlAdaptedLoan {
     }
 
     /**
+     * Throws an {@code IllegalValueException} if {@code address} does not exist or is not valid.
+     *
+     * @throws IllegalValueException
+     */
+    private void checkLoanStatusValid() throws IllegalValueException {
+        if (loanStatus == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, LoanStatus.class.getSimpleName()));
+        }
+        if (!LoanStatus.isValidLoanStatus(loanStatus)) {
+            throw new IllegalValueException(LoanStatus.MESSAGE_LOANSTATUS_CONSTRAINTS);
+        }
+    }
+
+    /**
      * Converts this jaxb-friendly adapted loan object into the model's Loan object.
      *
      * @throws IllegalValueException if there were any data constraints violated in the adapted loan
@@ -149,8 +179,11 @@ public class XmlAdaptedLoan {
         checkAddressValid();
         final Address modelAddress = new Address(address);
 
+        checkLoanStatusValid();
+        final LoanStatus modelLoanStatus = LoanStatus.valueOf(loanStatus);
+
         final Set<Tag> modelTags = new HashSet<>(loanTags);
-        return new Loan(modelName, modelPhone, modelEmail, modelAddress, modelTags);
+        return new Loan(modelName, modelPhone, modelEmail, modelAddress, modelTags, modelLoanStatus);
     }
 
     @Override
