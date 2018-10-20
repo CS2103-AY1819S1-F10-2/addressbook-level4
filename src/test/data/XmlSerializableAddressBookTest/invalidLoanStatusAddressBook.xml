@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<addressbook>
+
+    <loans>
+        <name>Alice Pauline</name>
+        <phone>94351253</phone>
+        <email>alice@example.com</email>
+        <address>123, Jurong West Ave 6, #08-111</address>
+        <loanStatus>OFFGOING</loanStatus>
+        <tagged>friends</tagged>
+    </loans>
+
+</addressbook>

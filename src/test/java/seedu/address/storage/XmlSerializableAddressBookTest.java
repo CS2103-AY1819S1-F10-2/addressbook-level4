@@ -20,6 +20,7 @@ public class XmlSerializableAddressBookTest {
     private static final Path TYPICAL_LOANS_FILE = TEST_DATA_FOLDER.resolve("typicalLoansAddressBook.xml");
     private static final Path INVALID_LOAN_FILE = TEST_DATA_FOLDER.resolve("invalidLoanAddressBook.xml");
     private static final Path DUPLICATE_LOAN_FILE = TEST_DATA_FOLDER.resolve("duplicateLoanAddressBook.xml");
+    private static final Path INVALID_LOANSTATUS_FILE = TEST_DATA_FOLDER.resolve("invalidLoanStatusAddressBook.xml");
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
@@ -36,6 +37,14 @@ public class XmlSerializableAddressBookTest {
     @Test
     public void toModelType_invalidLoanFile_throwsIllegalValueException() throws Exception {
         XmlSerializableAddressBook dataFromFile = XmlUtil.getDataFromFile(INVALID_LOAN_FILE,
+                XmlSerializableAddressBook.class);
+        thrown.expect(IllegalValueException.class);
+        dataFromFile.toModelType();
+    }
+
+    @Test
+    public void toModelType_invalidLoanStatusFile_throwsIllegalValueException() throws Exception {
+        XmlSerializableAddressBook dataFromFile = XmlUtil.getDataFromFile(INVALID_LOANSTATUS_FILE,
                 XmlSerializableAddressBook.class);
         thrown.expect(IllegalValueException.class);
         dataFromFile.toModelType();
