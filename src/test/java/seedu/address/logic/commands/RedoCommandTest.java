@@ -3,7 +3,7 @@ package seedu.address.logic.commands;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.deleteFirstLoan;
-import static seedu.address.testutil.TypicalLoans.getTypicalLoanBook;
+import static seedu.address.testutil.TypicalLoanBook.getTypicalLoanBook;
 
 import org.junit.Before;
 import org.junit.Test;

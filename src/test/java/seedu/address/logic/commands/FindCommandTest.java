@@ -8,7 +8,7 @@ import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalLoans.CARL;
 import static seedu.address.testutil.TypicalLoans.ELLE;
 import static seedu.address.testutil.TypicalLoans.FIONA;
-import static seedu.address.testutil.TypicalLoans.getTypicalLoanBook;
+import static seedu.address.testutil.TypicalLoanBook.getTypicalLoanBook;
 
 import java.util.Arrays;
 import java.util.Collections;

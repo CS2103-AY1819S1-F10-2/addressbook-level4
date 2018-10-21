@@ -5,7 +5,7 @@ import static org.junit.Assert.assertFalse;
 import static seedu.address.testutil.TypicalLoans.ALICE;
 import static seedu.address.testutil.TypicalLoans.HOON;
 import static seedu.address.testutil.TypicalLoans.IDA;
-import static seedu.address.testutil.TypicalLoans.getTypicalLoanBook;
+import static seedu.address.testutil.TypicalLoanBook.getTypicalLoanBook;
 
 import java.io.IOException;
 import java.nio.file.Path;

@@ -7,7 +7,7 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.testutil.TypicalBikes.BIKE1;
 import static seedu.address.testutil.TypicalLoans.ALICE;
-import static seedu.address.testutil.TypicalLoans.getTypicalLoanBook;
+import static seedu.address.testutil.TypicalLoanBook.getTypicalLoanBook;
 
 import java.util.Arrays;
 import java.util.Collection;

@@ -12,7 +12,7 @@ import org.junit.rules.ExpectedException;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.XmlUtil;
 import seedu.address.model.LoanBook;
-import seedu.address.testutil.TypicalLoans;
+import seedu.address.testutil.TypicalLoanBook;
 
 public class XmlSerializableLoanBookTest {
 
@@ -31,7 +31,7 @@ public class XmlSerializableLoanBookTest {
         XmlSerializableLoanBook dataFromFile = XmlUtil.getDataFromFile(TYPICAL_LOANS_FILE,
             XmlSerializableLoanBook.class);
         LoanBook loanBookFromFile = dataFromFile.toModelType();
-        LoanBook typicalLoansLoanBook = TypicalLoans.getTypicalLoanBook();
+        LoanBook typicalLoansLoanBook = TypicalLoanBook.getTypicalLoanBook();
         assertEquals(loanBookFromFile, typicalLoansLoanBook);
     }
 
