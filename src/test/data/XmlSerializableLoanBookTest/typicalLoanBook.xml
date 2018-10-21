@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<!-- LoanBook save file which contains the same Loan values as in TypicalLoans#getTypicalLoanBook() -->
+<!-- LoanBook save file which contains the same Loan values as in TypicalLoanBook#getTypicalLoanBook() -->
 <loanbook>
     <bikes>
         <name>BIKE001</name>
