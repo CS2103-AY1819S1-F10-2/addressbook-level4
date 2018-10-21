@@ -416,12 +416,67 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 
 Certain properties of the application can be controlled (e.g App name, logging level) through the configuration file (default: `config.json`).
 
+=== Bicycle Management
+
+As bicycles have a lot of properties, statuses and actions associated with them, they are represented in the code base as a dedicated `Bike` class.
+
+Each `AddressBook` will have its own list of `Bike`s, representing all the bicycles that a bicycle shop owner has at their disposal. For the most part, the list of bicycles will be maintained in the same way as the list of loans.
+
+Every bicycle will have the following members:
+
+* `name`: A name that uniquely identifies the bicycle, e.g. the bicycle's serial number.
+* `status`: The bicycle's current status that represents where it is or what it is doing, e.g. `Available`, `Loaned Out`, `On Display`, `Under Repair`.
+* `loanHistory`: A list of past loans associated with this bicycle, sorted chronologically.
+* `loanReserves`: A list of future loans (i.e. reservations) associated with this bicycle, sorted chronologically.
+* Traits that characterize the bicycle, such as `brand`, `model`, `top speed`, `wheel size`, `weight`, `material` etc.
+
+[NOTE]
+Why does the bicycle track loans using two lists, instead of collating them into one big list? Because each list has a specific category of loans and it is more common to encounter situations that deal with only one of the lists (e.g. checking transaction history, or checking for clashes with reservations), rather than both.
+
+Every `Loan` will have a reference to exactly one `Bike`: the bicycle that is loaned out. Conversely, every `Bike` has a reference to a list of `Loan`s, which tracks the bicycle's loan history and future reservations.
+
+[NOTE]
+This makes the `AddressBook`'s list of loans a little harder to manage, due to the extra references. However, we have chosen to implement it anyway as referencing a bicycle's history is a very useful and frequently used operation. To manage the deletion of loans, the loan will be dereferenced from the Bike it references before it gets deleted. The sequence diagram below demonstrates this process:
+image::DeleteLoanSequenceDiagram.png[width="800"]
+
+[NOTE]
+Due to the dependency of `Loan`s on `Bike`s, any bicycle that has been loaned out at least once will never be deleted from the system, merely archived and labelled `Out of Service`. The `Bike` can still be deleted completely if all of the `Loan`s associated with it are deleted (i.e. invalidated) first.
+
+Using this framework, it is now more efficient to implement and use a set of mini-features and operations to facilitate bicycle management, as detailed in the following sections:
+
+==== Visible bicycle statuses
+The current availability of bicycles are tracked by LoanBook. Bicycles can thus be filtered by whether they are available or not, and the available ones are readily visible in the UI.
+
+==== Invalid loans
+Loaning out a particular bicycle during the time which it is unavailable or has already been reserved will be denied. This prevents accidents in loaning out bicycles.
+
+* When attempting to loan out a bicycle, the associated bicycle is retrieved from the system.
+[NOTE]
+The loan will be rejected if no bicycle is found that matches the bicycle name provided.
+
+* If the loan will take effect immediately, the bicycle's status is checked. If the bicycle is unavailable, the loan is rejected, and the bicycle's status is reported to the user.
+* If the loan is a reservation, i.e. it schedules a loan for the future, the bicycle's future reservations are checked. LoanBook will attempt to insert the reservation into the list of existing reservations. If the reservation clashes with the one directly before or after it, the loan is rejected, and the clash is reported to the user.
+
+==== Bicycles for particular needs
+The list of bicycles can be filtered using the same algorithm to filter the list of loans in order to find bicycles with particular properties, to suit particular customer's needs or activities.
+
+==== Design Considerations
+
+===== Aspect: Internal representation of bicycles
+
+* **Alternative 1 (current choice):** Have a dedicated `Bike` class.
+** Pros: OO design. Easier to track status of bicycles. Bicycles can support more properties and features.
+** Cons: Complex internal representation. Additional memory used for tracking Bikes.
+* **Alternative 2:** Identify bikes by their names used in the Loans.
+** Pros: Simpler internal representation. Less data to manage internally or in storage.
+** Cons: Data on bikes have to be algorithmically searched for. Bicycles are assumed to exist and there is no verification for mistyped bicycle names.
+
 === Hide private information
 
-User must provide some important and personal information when adding a loan, e.g. `Nric`, so it is our responsibility to protect their privacy.
+Users must provide some important and personal information when adding a loan, e.g. `Nric`, so it is our responsibility to protect their privacy.
 
 As a result, we have added a new feature to hide the private information from the Window. +
-Example: The customer's `Nric` stored in the database is `Nric: G1234567U`, but our `LoanCard` will only show `Nric: Gxxxxx67U`.
+Example: The customer's `Nric` as stored in the database is `Nric: G1234567U`, but our `LoanCard` will only show `Nric: Gxxxxx67U`.
 
 image::LoanListPanelView.png[]
 

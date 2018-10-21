@@ -15,7 +15,7 @@ import java.util.List;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.AddressBook;
+import seedu.address.model.LoanBook;
 import seedu.address.model.Model;
 import seedu.address.model.loan.Loan;
 import seedu.address.model.loan.NameContainsKeywordsPredicate;
@@ -92,14 +92,14 @@ public class CommandTestUtil {
      * Executes the given {@code command}, confirms that <br>
      * - a {@code CommandException} is thrown <br>
      * - the CommandException message matches {@code expectedMessage} <br>
-     * - the address book and the filtered loan list in the {@code actualModel} remain unchanged <br>
+     * - the loan book and the filtered loan list in the {@code actualModel} remain unchanged <br>
      * - {@code actualCommandHistory} remains unchanged.
      */
     public static void assertCommandFailure(Command command, Model actualModel, CommandHistory actualCommandHistory,
             String expectedMessage) {
         // we are unable to defensively copy the model for comparison later, so we can
         // only do so by copying its components.
-        AddressBook expectedAddressBook = new AddressBook(actualModel.getAddressBook());
+        LoanBook expectedLoanBook = new LoanBook(actualModel.getLoanBook());
         List<Loan> expectedFilteredList = new ArrayList<>(actualModel.getFilteredLoanList());
 
         CommandHistory expectedCommandHistory = new CommandHistory(actualCommandHistory);
@@ -109,7 +109,7 @@ public class CommandTestUtil {
             throw new AssertionError("The expected CommandException was not thrown.");
         } catch (CommandException e) {
             assertEquals(expectedMessage, e.getMessage());
-            assertEquals(expectedAddressBook, actualModel.getAddressBook());
+            assertEquals(expectedLoanBook, actualModel.getLoanBook());
             assertEquals(expectedFilteredList, actualModel.getFilteredLoanList());
             assertEquals(expectedCommandHistory, actualCommandHistory);
         }
@@ -117,7 +117,7 @@ public class CommandTestUtil {
 
     /**
      * Updates {@code model}'s filtered list to show only the loan at the given {@code targetIndex} in the
-     * {@code model}'s address book.
+     * {@code model}'s loan book.
      */
     public static void showLoanAtIndex(Model model, Index targetIndex) {
         assertTrue(targetIndex.getZeroBased() < model.getFilteredLoanList().size());
@@ -130,12 +130,12 @@ public class CommandTestUtil {
     }
 
     /**
-     * Deletes the first loan in {@code model}'s filtered list from {@code model}'s address book.
+     * Deletes the first loan in {@code model}'s filtered list from {@code model}'s loan book.
      */
     public static void deleteFirstLoan(Model model) {
         Loan firstLoan = model.getFilteredLoanList().get(0);
         model.deleteLoan(firstLoan);
-        model.commitAddressBook();
+        model.commitLoanBook();
     }
 
 }

@@ -9,7 +9,7 @@ import static seedu.address.logic.commands.CommandTestUtil.showLoanAtIndex;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_LOAN;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_LOAN;
 import static seedu.address.testutil.TypicalIndexes.INDEX_THIRD_LOAN;
-import static seedu.address.testutil.TypicalLoans.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalLoans.getTypicalLoanBook;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -30,8 +30,8 @@ public class SelectCommandTest {
     @Rule
     public final EventsCollectorRule eventsCollectorRule = new EventsCollectorRule();
 
-    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-    private Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalLoanBook(), new UserPrefs());
+    private Model expectedModel = new ModelManager(getTypicalLoanBook(), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
@@ -64,8 +64,8 @@ public class SelectCommandTest {
         showLoanAtIndex(expectedModel, INDEX_FIRST_LOAN);
 
         Index outOfBoundsIndex = INDEX_SECOND_LOAN;
-        // ensures that outOfBoundIndex is still in bounds of address book list
-        assertTrue(outOfBoundsIndex.getZeroBased() < model.getAddressBook().getLoanList().size());
+        // ensures that outOfBoundIndex is still in bounds of loan book list
+        assertTrue(outOfBoundsIndex.getZeroBased() < model.getLoanBook().getLoanList().size());
 
         assertExecutionFailure(outOfBoundsIndex, Messages.MESSAGE_INVALID_LOAN_DISPLAYED_INDEX);
     }

@@ -17,7 +17,7 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import seedu.address.model.loan.NameContainsKeywordsPredicate;
-import seedu.address.testutil.AddressBookBuilder;
+import seedu.address.testutil.LoanBookBuilder;
 
 public class ModelManagerTest {
     @Rule
@@ -38,23 +38,23 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void hasBike_bikeNotInAddressBook_returnsFalse() {
+    public void hasBike_bikeNotInLoanBook_returnsFalse() {
         assertFalse(modelManager.hasBike(BIKE1));
     }
 
     @Test
-    public void hasLoan_loanNotInAddressBook_returnsFalse() {
+    public void hasLoan_loanNotInLoanBook_returnsFalse() {
         assertFalse(modelManager.hasLoan(ALICE));
     }
 
     @Test
-    public void hasBike_bikeInAddressBook_returnsTrue() {
+    public void hasBike_bikeInLoanBook_returnsTrue() {
         modelManager.addBike(BIKE1);
         assertTrue(modelManager.hasBike(BIKE1));
     }
 
     @Test
-    public void hasLoan_loanInAddressBook_returnsTrue() {
+    public void hasLoan_loanInLoanBook_returnsTrue() {
         modelManager.addLoan(ALICE);
         assertTrue(modelManager.hasLoan(ALICE));
     }
@@ -73,15 +73,15 @@ public class ModelManagerTest {
 
     @Test
     public void equals() {
-        AddressBook addressBook = new AddressBookBuilder()
+        LoanBook loanBook = new LoanBookBuilder()
                 .withLoan(ALICE).withLoan(BENSON)
                 .withBike(BIKE1).withBike(BIKE2).build();
-        AddressBook differentAddressBook = new AddressBook();
+        LoanBook differentLoanBook = new LoanBook();
         UserPrefs userPrefs = new UserPrefs();
 
         // same values -> returns true
-        modelManager = new ModelManager(addressBook, userPrefs);
-        ModelManager modelManagerCopy = new ModelManager(addressBook, userPrefs);
+        modelManager = new ModelManager(loanBook, userPrefs);
+        ModelManager modelManagerCopy = new ModelManager(loanBook, userPrefs);
         assertTrue(modelManager.equals(modelManagerCopy));
 
         // same object -> returns true
@@ -93,13 +93,13 @@ public class ModelManagerTest {
         // different types -> returns false
         assertFalse(modelManager.equals(5));
 
-        // different addressBook -> returns false
-        assertFalse(modelManager.equals(new ModelManager(differentAddressBook, userPrefs)));
+        // different loanBook -> returns false
+        assertFalse(modelManager.equals(new ModelManager(differentLoanBook, userPrefs)));
 
         // different filteredList -> returns false
         String[] keywords = ALICE.getName().value.split("\\s+");
         modelManager.updateFilteredLoanList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
-        assertFalse(modelManager.equals(new ModelManager(addressBook, userPrefs)));
+        assertFalse(modelManager.equals(new ModelManager(loanBook, userPrefs)));
 
         // resets modelManager to initial state for upcoming tests
         modelManager.updateFilteredBikeList(PREDICATE_SHOW_ALL_BIKES);
@@ -107,7 +107,7 @@ public class ModelManagerTest {
 
         // different userPrefs -> returns true
         UserPrefs differentUserPrefs = new UserPrefs();
-        differentUserPrefs.setAddressBookFilePath(Paths.get("differentFilePath"));
-        assertTrue(modelManager.equals(new ModelManager(addressBook, differentUserPrefs)));
+        differentUserPrefs.setLoanBookFilePath(Paths.get("differentFilePath"));
+        assertTrue(modelManager.equals(new ModelManager(loanBook, differentUserPrefs)));
     }
 }

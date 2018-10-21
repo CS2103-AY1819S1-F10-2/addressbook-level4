@@ -8,7 +8,7 @@ import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showLoanAtIndex;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_LOAN;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_LOAN;
-import static seedu.address.testutil.TypicalLoans.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalLoans.getTypicalLoanBook;
 
 import org.junit.Test;
 
@@ -26,7 +26,7 @@ import seedu.address.model.loan.Loan;
  */
 public class DeleteCommandTest {
 
-    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalLoanBook(), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
@@ -36,9 +36,9 @@ public class DeleteCommandTest {
 
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_LOAN_SUCCESS, loanToDelete);
 
-        ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        ModelManager expectedModel = new ModelManager(model.getLoanBook(), new UserPrefs());
         expectedModel.deleteLoan(loanToDelete);
-        expectedModel.commitAddressBook();
+        expectedModel.commitLoanBook();
 
         assertCommandSuccess(deleteCommand, model, commandHistory, expectedMessage, expectedModel);
     }
@@ -60,9 +60,9 @@ public class DeleteCommandTest {
 
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_LOAN_SUCCESS, loanToDelete);
 
-        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getLoanBook(), new UserPrefs());
         expectedModel.deleteLoan(loanToDelete);
-        expectedModel.commitAddressBook();
+        expectedModel.commitLoanBook();
         showNoLoan(expectedModel);
 
         assertCommandSuccess(deleteCommand, model, commandHistory, expectedMessage, expectedModel);
@@ -73,8 +73,8 @@ public class DeleteCommandTest {
         showLoanAtIndex(model, INDEX_FIRST_LOAN);
 
         Index outOfBoundIndex = INDEX_SECOND_LOAN;
-        // ensures that outOfBoundIndex is still in bounds of address book list
-        assertTrue(outOfBoundIndex.getZeroBased() < model.getAddressBook().getLoanList().size());
+        // ensures that outOfBoundIndex is still in bounds of loan book list
+        assertTrue(outOfBoundIndex.getZeroBased() < model.getLoanBook().getLoanList().size());
 
         DeleteCommand deleteCommand = new DeleteCommand(outOfBoundIndex);
 
@@ -85,19 +85,19 @@ public class DeleteCommandTest {
     public void executeUndoRedo_validIndexUnfilteredList_success() throws Exception {
         Loan loanToDelete = model.getFilteredLoanList().get(INDEX_FIRST_LOAN.getZeroBased());
         DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_LOAN);
-        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getLoanBook(), new UserPrefs());
         expectedModel.deleteLoan(loanToDelete);
-        expectedModel.commitAddressBook();
+        expectedModel.commitLoanBook();
 
         // delete -> first loan deleted
         deleteCommand.execute(model, commandHistory);
 
-        // undo -> reverts addressbook back to previous state and filtered loan list to show all loans
-        expectedModel.undoAddressBook();
+        // undo -> reverts loanbook back to previous state and filtered loan list to show all loans
+        expectedModel.undoLoanBook();
         assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
 
         // redo -> same first loan deleted again
-        expectedModel.redoAddressBook();
+        expectedModel.redoLoanBook();
         assertCommandSuccess(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModel);
     }
 
@@ -106,10 +106,10 @@ public class DeleteCommandTest {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredLoanList().size() + 1);
         DeleteCommand deleteCommand = new DeleteCommand(outOfBoundIndex);
 
-        // execution failed -> address book state not added into model
+        // execution failed -> loan book state not added into model
         assertCommandFailure(deleteCommand, model, commandHistory, Messages.MESSAGE_INVALID_LOAN_DISPLAYED_INDEX);
 
-        // single address book state in model -> undoCommand and redoCommand fail
+        // single loan book state in model -> undoCommand and redoCommand fail
         assertCommandFailure(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_FAILURE);
         assertCommandFailure(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_FAILURE);
     }
@@ -124,23 +124,23 @@ public class DeleteCommandTest {
     @Test
     public void executeUndoRedo_validIndexFilteredList_sameLoanDeleted() throws Exception {
         DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_LOAN);
-        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getLoanBook(), new UserPrefs());
 
         showLoanAtIndex(model, INDEX_SECOND_LOAN);
         Loan loanToDelete = model.getFilteredLoanList().get(INDEX_FIRST_LOAN.getZeroBased());
         expectedModel.deleteLoan(loanToDelete);
-        expectedModel.commitAddressBook();
+        expectedModel.commitLoanBook();
 
         // delete -> deletes second loan in unfiltered loan list / first loan in filtered loan list
         deleteCommand.execute(model, commandHistory);
 
-        // undo -> reverts addressbook back to previous state and filtered loan list to show all loans
-        expectedModel.undoAddressBook();
+        // undo -> reverts loanbook back to previous state and filtered loan list to show all loans
+        expectedModel.undoLoanBook();
         assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
 
         assertNotEquals(loanToDelete, model.getFilteredLoanList().get(INDEX_FIRST_LOAN.getZeroBased()));
         // redo -> deletes same second loan in unfiltered loan list
-        expectedModel.redoAddressBook();
+        expectedModel.redoLoanBook();
         assertCommandSuccess(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModel);
     }
 

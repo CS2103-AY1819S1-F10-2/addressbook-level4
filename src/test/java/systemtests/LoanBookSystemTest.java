@@ -38,17 +38,17 @@ import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.SelectCommand;
-import seedu.address.model.AddressBook;
+import seedu.address.model.LoanBook;
 import seedu.address.model.Model;
 import seedu.address.testutil.TypicalLoans;
 import seedu.address.ui.BrowserPanel;
 import seedu.address.ui.CommandBox;
 
 /**
- * A system test class for AddressBook, which provides access to handles of GUI components and helper methods
+ * A system test class for LoanBook, which provides access to handles of GUI components and helper methods
  * for test verification.
  */
-public abstract class AddressBookSystemTest {
+public abstract class LoanBookSystemTest {
     @ClassRule
     public static ClockRule clockRule = new ClockRule();
 
@@ -84,8 +84,8 @@ public abstract class AddressBookSystemTest {
     /**
      * Returns the data to be loaded into the file in {@link #getDataFileLocation()}.
      */
-    protected AddressBook getInitialData() {
-        return TypicalLoans.getTypicalAddressBook();
+    protected LoanBook getInitialData() {
+        return TypicalLoans.getTypicalLoanBook();
     }
 
     /**
@@ -139,11 +139,11 @@ public abstract class AddressBookSystemTest {
     }
 
     /**
-     * Displays all loans in the address book.
+     * Displays all loans in the loan book.
      */
     protected void showAllLoans() {
         executeCommand(ListCommand.COMMAND_WORD);
-        assertEquals(getModel().getAddressBook().getLoanList().size(), getModel().getFilteredLoanList().size());
+        assertEquals(getModel().getLoanBook().getLoanList().size(), getModel().getFilteredLoanList().size());
     }
 
     /**
@@ -151,7 +151,7 @@ public abstract class AddressBookSystemTest {
      */
     protected void showLoansWithName(String keyword) {
         executeCommand(FindCommand.COMMAND_WORD + " " + keyword);
-        assertTrue(getModel().getFilteredLoanList().size() < getModel().getAddressBook().getLoanList().size());
+        assertTrue(getModel().getFilteredLoanList().size() < getModel().getLoanBook().getLoanList().size());
     }
 
     /**
@@ -163,11 +163,11 @@ public abstract class AddressBookSystemTest {
     }
 
     /**
-     * Deletes all loans in the address book.
+     * Deletes all loans in the loan book.
      */
     protected void deleteAllLoans() {
         executeCommand(ClearCommand.COMMAND_WORD);
-        assertEquals(0, getModel().getAddressBook().getLoanList().size());
+        assertEquals(0, getModel().getLoanBook().getLoanList().size());
     }
 
     /**
@@ -179,7 +179,7 @@ public abstract class AddressBookSystemTest {
             Model expectedModel) {
         assertEquals(expectedCommandInput, getCommandBox().getInput());
         assertEquals(expectedResultMessage, getResultDisplay().getText());
-        assertEquals(new AddressBook(expectedModel.getAddressBook()), testApp.readStorageAddressBook());
+        assertEquals(new LoanBook(expectedModel.getLoanBook()), testApp.readStorageLoanBook());
         assertListMatching(getLoanListPanel(), expectedModel.getFilteredLoanList());
     }
 

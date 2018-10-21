@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<loanbook>
+    <!-- Loan with invalid name field -->
+    <loans>
+        <name>@uh%oh$</name>
+    </loans>
+</loanbook>

@@ -14,7 +14,7 @@ import seedu.address.model.Model;
 import seedu.address.model.loan.Loan;
 
 /**
- * Deletes a loan identified using it's displayed index from the address book.
+ * Deletes a loan identified using it's displayed index from the loan book.
  */
 public class DeleteCommand extends Command {
 
@@ -45,7 +45,7 @@ public class DeleteCommand extends Command {
 
         Loan loanToDelete = lastShownList.get(targetIndex.getZeroBased());
         model.deleteLoan(loanToDelete);
-        model.commitAddressBook();
+        model.commitLoanBook();
         return new CommandResult(String.format(MESSAGE_DELETE_LOAN_SUCCESS, loanToDelete));
     }
 
