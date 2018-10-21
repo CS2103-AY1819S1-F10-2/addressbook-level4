@@ -3,15 +3,14 @@ package seedu.address.model.bike;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static seedu.address.testutil.TypicalBikes.BIKE1;
+import static seedu.address.testutil.TypicalBikes.BIKE2;
 
 import org.junit.Test;
 
 import seedu.address.testutil.BikeBuilder;
 
 public class BikeTest {
-
-    private static final Bike BIKE1 = new BikeBuilder().withName("B001").build();
-    private static final Bike BIKE2 = new BikeBuilder().withName("B002").build();
 
     @Test
     public void isSameBike() {
@@ -51,6 +50,6 @@ public class BikeTest {
 
     @Test
     public void toStringTest() {
-        assertEquals(BIKE1.toString(), "B001 Status: Available");
+        assertEquals(BIKE1.toString(), "BIKE001 Status: Available");
     }
 }

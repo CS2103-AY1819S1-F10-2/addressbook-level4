@@ -13,13 +13,13 @@ import seedu.address.model.Model;
 import seedu.address.model.loan.Loan;
 
 /**
- * Adds a loan to the address book.
+ * Adds a loan to the loan book.
  */
 public class AddCommand extends Command {
 
     public static final String COMMAND_WORD = "add";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a loan to the address book. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a loan to the loan book. "
             + "Parameters: "
             + PREFIX_NAME + "NAME "
             + PREFIX_PHONE + "PHONE "
@@ -35,7 +35,7 @@ public class AddCommand extends Command {
             + PREFIX_TAG + "owesMoney";
 
     public static final String MESSAGE_SUCCESS = "New loan added: %1$s";
-    public static final String MESSAGE_DUPLICATE_LOAN = "This loan already exists in the address book";
+    public static final String MESSAGE_DUPLICATE_LOAN = "This loan already exists in the loan book";
 
     private final Loan toAdd;
 
@@ -56,7 +56,7 @@ public class AddCommand extends Command {
         }
 
         model.addLoan(toAdd);
-        model.commitAddressBook();
+        model.commitLoanBook();
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 

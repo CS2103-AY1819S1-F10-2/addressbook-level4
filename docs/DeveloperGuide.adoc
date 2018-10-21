@@ -416,6 +416,60 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 
 Certain properties of the application can be controlled (e.g App name, logging level) through the configuration file (default: `config.json`).
 
+=== Hide private information
+
+User must provide some important and personal information when adding a loan, e.g. `Nric`, so it is our responsibility to protect their privacy.
+
+As a result, we have added a new feature to hide the private information from the Window. +
+Example: The customer's `Nric` stored in the database is `Nric: G1234567U`, but our `LoanCard` will only show `Nric: Gxxxxx67U`.
+
+image::LoanListPanelView.png[]
+
+==== Current implementation
+
+Hidden private information is facilitated by an interface called `Censor`. It is implemented by classes `Nric`, `Phone` and `Email`.
+
+When showing a new loan, it will do the following operations:
+
+* `LoanCard#LoanCard()` -- the constructor will assign values to each of the labels shown in the LoanCard.
+
+* `Nric#getCensored()` -- censor the Nric value and hide the first five digital numbers. Then it returns the censored String.
+
+* `Phone#getCensored()` -- censor the phone number and hide the first five digital numbers. Then it returns the censored String.
+
+* `Email#getCensored()` -- censor the email address and hide every characters except the last two characters in the local-part and the domain.
+
+Given below is an example usage scenario and how this mechanism behaves at each step.
+
+**Step1.** The user adds a new loan to the LoanBook. A new `LoanCard` object will be created. +
+The `LoanCard` object will contain information on the loan: `LoanID`, `BikeID`, `Name`, `Nric`, `Phone`, `Email`, `LoanRate` and `LoanTime`.
+
+**Step2.** Assign the value of each of the components to their corresponding labels. +
+For example: `name.setText(loan.getName().value);` will directly assign the name String of this loan to the `name` label. +
+
+However, the values of `Nric`, `Phone` and `Email` need censoring before assigning their values, so they will call their own `getCensored()` method in their class. +
+For example: `phone.setText(loan.getPhone().getCensored().value);` will censor the value of the phone String of this loan and then assign the censored value to the `phone` label.
+
+The following sequence diagram shows how this operation works:
+
+image::HideInfoSequenceDiagrams.png[]
+
+==== Design Considerations
+
+**Aspect: How to execute getCensored()**
+
+* **Alternative 1 (current choice)**: each class implements from `Censor` interface.
+** Pros: Easy to implement.
+** Cons:
+
+* **Alternative 2**: `Loan` class implements from `Censor` interface.
+** Pros: Maybe easy to understand.
+** Cons: The method might be bulky.
+
+==== How to see the hidden information
+
+The censored data are only hidden from the window, not changed in the database. The `BrowserPanel` on the bottom right of the window will still show all the information including the hidden information.
+
 == Documentation
 
 We use asciidoc for writing documentation.

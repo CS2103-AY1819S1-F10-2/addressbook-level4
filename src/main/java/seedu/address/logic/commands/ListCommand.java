@@ -7,7 +7,7 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 
 /**
- * Lists all loans in the address book to the user.
+ * Lists all loans in the loan book to the user.
  */
 public class ListCommand extends Command {
 

@@ -34,11 +34,11 @@ import seedu.address.testutil.EditLoanDescriptorBuilder;
 import seedu.address.testutil.LoanBuilder;
 import seedu.address.testutil.LoanUtil;
 
-public class AddressBookParserTest {
+public class LoanBookParserTest {
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
-    private final AddressBookParser parser = new AddressBookParser();
+    private final LoanBookParser parser = new LoanBookParser();
 
     @Test
     public void parseCommand_add() throws Exception {

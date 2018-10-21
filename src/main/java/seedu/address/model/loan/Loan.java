@@ -11,7 +11,7 @@ import seedu.address.model.loan.exceptions.SameLoanStatusException;
 import seedu.address.model.tag.Tag;
 
 /**
- * Represents a Loan in the address book.
+ * Represents a Loan in the loan book.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Loan {
