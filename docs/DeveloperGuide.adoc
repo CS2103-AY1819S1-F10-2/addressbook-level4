@@ -933,10 +933,13 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 *MSS*
 
-1.  User requests to list loans
-2.  LoanBook shows a list of loans
-3.  User requests to delete a specific loan in the list
-4.  LoanBook deletes the loan
+1.  User requests to list loans.
+2.  LoanBook shows a list of loans.
+3.  User requests to delete a loan in the list by specifying a list index.
+4.  LoanBook prompts user for a password.
+5.  User enters their password.
+6.  LoanBook deletes the loan.
+7.	LoanBook displays a prompt to the user indicating success.
 +
 Use case ends.
 
@@ -959,23 +962,24 @@ Use case resumes at step 2.
 
 *MSS*
 
-1.  User requests to add a loan with the specific parameters into the LoanBook
-2.  LoanBook adds the loan and displays a prompt to the user indicating success.
+1.  User requests to add a loan with the specific parameters into the LoanBook.
+2.  LoanBook adds the loan.
+3.	LoanBook displays a prompt to the user indicating success.
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 1a. The user input is not of the correct format
+* 1a. The user input is not of the correct format.
 +
 [none]
 ** 1a1. LoanBook shows an error message giving the user an example command, as well as correct format of the command.
 +
-* 1b. Any one of the inputs fails their respective validation checks
+* 1b. Any one of the inputs fails their respective validation checks.
 +
 [none]
-** 1b1. LoanBook shows an error message telling the user how to rectify their command
+** 1b1. LoanBook shows an error message telling the user how to rectify their command.
 +
 Use case ends.
 
@@ -984,10 +988,11 @@ Use case ends.
 
 *MSS*
 
-1.  User requests to search for a loan with a specific name or tag
-2.  LoanBook shows a list of loans that fulfills the condition
-3.  User requests to returns a specific loan from the list
-4.  LoanBook marks the loan as returned, and based on the prevailing rates and rental times in the loan book, prompts the user to charge the customer a certain amount of money.
+1.  User requests to search for a loan with a specific name or tag.
+2.  LoanBook shows a list of loans that fulfills the condition.
+3.  User requests to return a specific loan from the list by specifying a `LoanID`.
+4.  LoanBook marks the loan as returned.
+5.	LoanBook prompts the user to charge the customer a certain amount of money, based on the prevailing rates and rental times in the loan book.
 +
 Use case ends.
 
@@ -995,6 +1000,7 @@ Use case ends.
 
 [none]
 * 2a. The list is empty.
+* 2a1. LoanBook feedbacks to the user that no loans fulfilling the condition were found.
 +
 Use case ends.
 
@@ -1015,20 +1021,20 @@ Use case resumes at step 2.
 
 *MSS*
 
-1.  User requests to reset the loanbook
-2.  LoanBook prompts the user for their password
-3.  User enters the correct password
-4.  LoanBook clears its entire history of loans
+1.  User requests to reset the loanbook.
+2.  LoanBook prompts the user for their password.
+3.  User enters the correct password.
+4.  LoanBook clears its entire history of loans.
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 3a. The user inputs an incorrect password
+* 3a. The user inputs an incorrect password.
 +
 [none]
-** 3a1. LoanBook shows an error message giving the user an example command, as well as correct format of the command.
+** 3a1. LoanBook shows an error message telling the user that the password that they entered is incorrect.
 +
 Use case ends.
 
@@ -1037,7 +1043,7 @@ Use case ends.
 
 *MSS*
 
-1.  User requests for a summary of all transactions
+1.  User requests for a summary of all transactions.
 2.  LoanBook gives a summary of all the transactions that that had happened.
 +
 Use case ends.
