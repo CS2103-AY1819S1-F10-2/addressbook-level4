@@ -7,7 +7,7 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.testutil.TypicalBikes.BIKE1;
 import static seedu.address.testutil.TypicalLoans.ALICE;
-import static seedu.address.testutil.TypicalLoans.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalLoans.getTypicalLoanBook;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -25,30 +25,30 @@ import seedu.address.model.loan.Loan;
 import seedu.address.model.loan.exceptions.DuplicateLoanException;
 import seedu.address.testutil.LoanBuilder;
 
-public class AddressBookTest {
+public class LoanBookTest {
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
-    private final AddressBook addressBook = new AddressBook();
+    private final LoanBook loanBook = new LoanBook();
 
     @Test
     public void constructor() {
-        assertEquals(Collections.emptyList(), addressBook.getLoanList());
-        assertEquals(Collections.emptyList(), addressBook.getBikeList());
+        assertEquals(Collections.emptyList(), loanBook.getLoanList());
+        assertEquals(Collections.emptyList(), loanBook.getBikeList());
     }
 
     @Test
     public void resetData_null_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        addressBook.resetData(null);
+        loanBook.resetData(null);
     }
 
     @Test
-    public void resetData_withValidReadOnlyAddressBook_replacesData() {
-        AddressBook newData = getTypicalAddressBook();
-        addressBook.resetData(newData);
-        assertEquals(newData, addressBook);
+    public void resetData_withValidReadOnlyLoanBook_replacesData() {
+        LoanBook newData = getTypicalLoanBook();
+        loanBook.resetData(newData);
+        assertEquals(newData, loanBook);
     }
 
     @Test
@@ -58,74 +58,74 @@ public class AddressBookTest {
                 .build();
         List<Bike> newBikes = Arrays.asList();
         List<Loan> newLoans = Arrays.asList(ALICE, editedAlice);
-        AddressBookStub newData = new AddressBookStub(newBikes, newLoans);
+        LoanBookStub newData = new LoanBookStub(newBikes, newLoans);
 
         thrown.expect(DuplicateLoanException.class);
-        addressBook.resetData(newData);
+        loanBook.resetData(newData);
     }
 
     @Test
     public void hasBike_nullBike_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        addressBook.hasBike(null);
+        loanBook.hasBike(null);
     }
 
     @Test
     public void hasLoan_nullLoan_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        addressBook.hasLoan(null);
+        loanBook.hasLoan(null);
     }
 
     @Test
-    public void hasBike_bikeNotInAddressBook_returnsFalse() {
-        assertFalse(addressBook.hasBike(BIKE1));
+    public void hasBike_bikeNotInLoanBook_returnsFalse() {
+        assertFalse(loanBook.hasBike(BIKE1));
     }
 
     @Test
-    public void hasLoan_loanNotInAddressBook_returnsFalse() {
-        assertFalse(addressBook.hasLoan(ALICE));
+    public void hasLoan_loanNotInLoanBook_returnsFalse() {
+        assertFalse(loanBook.hasLoan(ALICE));
     }
 
     @Test
-    public void hasBike_bikeInAddressBook_returnsTrue() {
-        addressBook.addBike(BIKE1);
-        assertTrue(addressBook.hasBike(BIKE1));
+    public void hasBike_bikeInLoanBook_returnsTrue() {
+        loanBook.addBike(BIKE1);
+        assertTrue(loanBook.hasBike(BIKE1));
     }
 
     @Test
-    public void hasLoan_loanInAddressBook_returnsTrue() {
-        addressBook.addLoan(ALICE);
-        assertTrue(addressBook.hasLoan(ALICE));
+    public void hasLoan_loanInLoanBook_returnsTrue() {
+        loanBook.addLoan(ALICE);
+        assertTrue(loanBook.hasLoan(ALICE));
     }
 
     @Test
-    public void hasLoan_loanWithSameIdentityFieldsInAddressBook_returnsTrue() {
-        addressBook.addLoan(ALICE);
+    public void hasLoan_loanWithSameIdentityFieldsInLoanBook_returnsTrue() {
+        loanBook.addLoan(ALICE);
         Loan editedAlice = new LoanBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
-        assertTrue(addressBook.hasLoan(editedAlice));
+        assertTrue(loanBook.hasLoan(editedAlice));
     }
 
     @Test
     public void getBikeList_modifyList_throwsUnsupportedOperationException() {
         thrown.expect(UnsupportedOperationException.class);
-        addressBook.getBikeList().remove(0);
+        loanBook.getBikeList().remove(0);
     }
 
     @Test
     public void getLoanList_modifyList_throwsUnsupportedOperationException() {
         thrown.expect(UnsupportedOperationException.class);
-        addressBook.getLoanList().remove(0);
+        loanBook.getLoanList().remove(0);
     }
 
     /**
-     * A stub ReadOnlyAddressBook whose loans list can violate interface constraints.
+     * A stub ReadOnlyLoanBook whose loans list can violate interface constraints.
      */
-    private static class AddressBookStub implements ReadOnlyAddressBook {
+    private static class LoanBookStub implements ReadOnlyLoanBook {
         private final ObservableList<Bike> bikes = FXCollections.observableArrayList();
         private final ObservableList<Loan> loans = FXCollections.observableArrayList();
 
-        AddressBookStub(Collection<Bike> bikes, Collection<Loan> loans) {
+        LoanBookStub(Collection<Bike> bikes, Collection<Loan> loans) {
             this.bikes.setAll(bikes);
             this.loans.setAll(loans);
         }

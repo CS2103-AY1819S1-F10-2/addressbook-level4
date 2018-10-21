@@ -6,7 +6,7 @@ import java.util.function.Predicate;
 import seedu.address.model.loan.DataField;
 
 /**
- * Represents a Tag in the address book.
+ * Represents a Tag in the loan book.
  * Guarantees: immutable; name is valid as declared in {@link #isValidTagName(String)}
  */
 public class Tag extends DataField<String> {

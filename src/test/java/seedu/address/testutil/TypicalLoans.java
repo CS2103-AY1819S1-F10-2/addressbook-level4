@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import seedu.address.model.AddressBook;
+import seedu.address.model.LoanBook;
 import seedu.address.model.loan.Loan;
 
 /**
@@ -60,10 +60,10 @@ public class TypicalLoans {
     private TypicalLoans() {} // prevents instantiation
 
     /**
-     * Returns an {@code AddressBook} with all the typical loans.
+     * Returns an {@code LoanBook} with all the typical loans.
      */
-    public static AddressBook getTypicalAddressBook() {
-        AddressBook ab = new AddressBook();
+    public static LoanBook getTypicalLoanBook() {
+        LoanBook ab = new LoanBook();
         for (Loan loan : getTypicalLoans()) {
             ab.addLoan(loan);
         }

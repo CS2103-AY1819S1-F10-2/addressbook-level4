@@ -3,7 +3,7 @@ package seedu.address.model.loan;
 import java.util.function.Function;
 
 /**
- * Represents a Loan's email in the address book.
+ * Represents a Loan's email in the loan book.
  * Guarantees: immutable; is valid as declared in {@link #isValidEmail(String)}
  */
 public class Email extends DataField<String> {

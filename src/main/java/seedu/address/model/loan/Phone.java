@@ -3,7 +3,7 @@ package seedu.address.model.loan;
 import java.util.function.Function;
 
 /**
- * Represents a Loan's phone number in the address book.
+ * Represents a Loan's phone number in the loan book.
  * Guarantees: immutable; is valid as declared in {@link #isValidPhone(String)}
  */
 public class Phone extends DataField<String> {

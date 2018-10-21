@@ -3,7 +3,7 @@ package seedu.address.model.loan;
 import java.util.function.Function;
 
 /**
- * Represents a Loan's name in the address book.
+ * Represents a Loan's name in the loan book.
  * Guarantees: immutable; is valid as declared in {@link #isValidName(String)}
  */
 public class Name extends DataField<String> {
@@ -25,7 +25,7 @@ public class Name extends DataField<String> {
      */
     public static boolean isValidName(String objString) {
         /*
-         * The first character of the address must not be a whitespace,
+         * The first character of the name must not be a whitespace,
          * otherwise " " (a blank string) becomes a valid input.
          */
         return objString.matches("[\\p{Alnum}][\\p{Alnum} ]*");

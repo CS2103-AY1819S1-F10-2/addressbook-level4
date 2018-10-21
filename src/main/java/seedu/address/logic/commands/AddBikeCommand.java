@@ -43,7 +43,7 @@ public class AddBikeCommand extends Command {
         }
 
         model.addBike(toAdd);
-        model.commitAddressBook();
+        model.commitLoanBook();
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 
