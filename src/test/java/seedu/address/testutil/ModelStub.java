@@ -4,7 +4,7 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.model.Model;
-import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyLoanBook;
 import seedu.address.model.bike.Bike;
 import seedu.address.model.loan.Loan;
 
@@ -13,12 +13,12 @@ import seedu.address.model.loan.Loan;
  */
 public class ModelStub implements Model {
     @Override
-    public void resetData(ReadOnlyAddressBook newData) {
+    public void resetData(ReadOnlyLoanBook newData) {
         throw new AssertionError("This method should not be called.");
     }
 
     @Override
-    public ReadOnlyAddressBook getAddressBook() {
+    public ReadOnlyLoanBook getLoanBook() {
         throw new AssertionError("This method should not be called.");
     }
 
@@ -83,27 +83,27 @@ public class ModelStub implements Model {
     }
 
     @Override
-    public boolean canUndoAddressBook() {
+    public boolean canUndoLoanBook() {
         throw new AssertionError("This method should not be called.");
     }
 
     @Override
-    public boolean canRedoAddressBook() {
+    public boolean canRedoLoanBook() {
         throw new AssertionError("This method should not be called.");
     }
 
     @Override
-    public void undoAddressBook() {
+    public void undoLoanBook() {
         throw new AssertionError("This method should not be called.");
     }
 
     @Override
-    public void redoAddressBook() {
+    public void redoLoanBook() {
         throw new AssertionError("This method should not be called.");
     }
 
     @Override
-    public void commitAddressBook() {
+    public void commitLoanBook() {
         throw new AssertionError("This method should not be called.");
     }
 }

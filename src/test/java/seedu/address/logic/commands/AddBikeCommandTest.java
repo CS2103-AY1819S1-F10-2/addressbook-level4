@@ -14,8 +14,8 @@ import org.junit.rules.ExpectedException;
 
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.AddressBook;
-import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.LoanBook;
+import seedu.address.model.ReadOnlyLoanBook;
 import seedu.address.model.bike.Bike;
 import seedu.address.testutil.BikeBuilder;
 import seedu.address.testutil.ModelStub;
@@ -119,13 +119,13 @@ public class AddBikeCommandTest {
         }
 
         @Override
-        public void commitAddressBook() {
+        public void commitLoanBook() {
             // called by {@code AddBikeCommand#execute()}
         }
 
         @Override
-        public ReadOnlyAddressBook getAddressBook() {
-            return new AddressBook();
+        public ReadOnlyLoanBook getLoanBook() {
+            return new LoanBook();
         }
     }
 }
