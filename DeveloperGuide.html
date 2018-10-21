@@ -34,7 +34,8 @@
 <li><a href="#return-a-loan-feature">3.3. Return a Loan feature</a></li>
 <li><a href="#logging">3.4. Logging</a></li>
 <li><a href="#Implementation-Configuration">3.5. Configuration</a></li>
-<li><a href="#hide-private-information">3.6. Hide private information</a></li>
+<li><a href="#bicycle-management">3.6. Bicycle Management</a></li>
+<li><a href="#hide-private-information">3.7. Hide private information</a></li>
 </ul>
 </li>
 <li><a href="#documentation">4. Documentation</a>
@@ -1025,13 +1026,166 @@ It is possible for the LoanBook to have a loan that lasts for 0 minutes. This is
 </div>
 </div>
 <div class="sect2">
-<h3 id="hide-private-information"><a class="link" href="#hide-private-information">3.6. Hide private information</a></h3>
+<h3 id="bicycle-management"><a class="link" href="#bicycle-management">3.6. Bicycle Management</a></h3>
 <div class="paragraph">
-<p>User must provide some important and personal information when adding a loan, e.g. <code>Nric</code>, so it is our responsibility to protect their privacy.</p>
+<p>As bicycles have a lot of properties, statuses and actions associated with them, they are represented in the code base as a dedicated <code>Bike</code> class.</p>
+</div>
+<div class="paragraph">
+<p>Each <code>AddressBook</code> will have its own list of `Bike`s, representing all the bicycles that a bicycle shop owner has at their disposal. For the most part, the list of bicycles will be maintained in the same way as the list of loans.</p>
+</div>
+<div class="paragraph">
+<p>Every bicycle will have the following members:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>name</code>: A name that uniquely identifies the bicycle, e.g. the bicycle&#8217;s serial number.</p>
+</li>
+<li>
+<p><code>status</code>: The bicycle&#8217;s current status that represents where it is or what it is doing, e.g. <code>Available</code>, <code>Loaned Out</code>, <code>On Display</code>, <code>Under Repair</code>.</p>
+</li>
+<li>
+<p><code>loanHistory</code>: A list of past loans associated with this bicycle, sorted chronologically.</p>
+</li>
+<li>
+<p><code>loanReserves</code>: A list of future loans (i.e. reservations) associated with this bicycle, sorted chronologically.</p>
+</li>
+<li>
+<p>Traits that characterize the bicycle, such as <code>brand</code>, <code>model</code>, <code>top speed</code>, <code>wheel size</code>, <code>weight</code>, <code>material</code> etc.</p>
+</li>
+</ul>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Why does the bicycle track loans using two lists, instead of collating them into one big list? Because each list has a specific category of loans and it is more common to encounter situations that deal with only one of the lists (e.g. checking transaction history, or checking for clashes with reservations), rather than both.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Every <code>Loan</code> will have a reference to exactly one <code>Bike</code>: the bicycle that is loaned out. Conversely, every <code>Bike</code> has a reference to a list of `Loan`s, which tracks the bicycle&#8217;s loan history and future reservations.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+This makes the `AddressBook&#8217;s list of loans a little harder to manage, due to the extra references. However, we have chosen to implement it anyway as referencing a bicycle&#8217;s history is a very useful and frequently used operation. To manage the deletion of loans, the loan will be dereferenced from the Bike it references before it gets deleted. The sequence diagram below demonstrates this process:
+image::DeleteLoanSequenceDiagram.png[width="800"]
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Due to the dependency of <code>Loan`s on `Bike`s, any bicycle that has been loaned out at least once will never be deleted from the system, merely archived and labelled `Out of Service</code>. The <code>Bike</code> can still be deleted completely if all of the `Loan`s associated with it are deleted (i.e. invalidated) first.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Using this framework, it is now more efficient to implement and use a set of mini-features and operations to facilitate bicycle management, as detailed in the following sections:</p>
+</div>
+<div class="sect3">
+<h4 id="visible-bicycle-statuses"><a class="link" href="#visible-bicycle-statuses">3.6.1. Visible bicycle statuses</a></h4>
+<div class="paragraph">
+<p>The current availability of bicycles are tracked by LoanBook. Bicycles can thus be filtered by whether they are available or not, and the available ones are readily visible in the UI.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="invalid-loans"><a class="link" href="#invalid-loans">3.6.2. Invalid loans</a></h4>
+<div class="paragraph">
+<p>Loaning out a particular bicycle during the time which it is unavailable or has already been reserved will be denied. This prevents accidents in loaning out bicycles.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>When attempting to loan out a bicycle, the associated bicycle is retrieved from the system.</p>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The loan will be rejected if no bicycle is found that matches the bicycle name provided.
+</td>
+</tr>
+</table>
+</div>
+</li>
+<li>
+<p>If the loan will take effect immediately, the bicycle&#8217;s status is checked. If the bicycle is unavailable, the loan is rejected, and the bicycle&#8217;s status is reported to the user.</p>
+</li>
+<li>
+<p>If the loan is a reservation, i.e. it schedules a loan for the future, the bicycle&#8217;s future reservations are checked. LoanBook will attempt to insert the reservation into the list of existing reservations. If the reservation clashes with the one directly before or after it, the loan is rejected, and the clash is reported to the user.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="bicycles-for-particular-needs"><a class="link" href="#bicycles-for-particular-needs">3.6.3. Bicycles for particular needs</a></h4>
+<div class="paragraph">
+<p>The list of bicycles can be filtered using the same algorithm to filter the list of loans in order to find bicycles with particular properties, to suit particular customer&#8217;s needs or activities.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="design-considerations-3"><a class="link" href="#design-considerations-3">3.6.4. Design Considerations</a></h4>
+<div class="sect4">
+<h5 id="aspect-internal-representation-of-bicycles"><a class="link" href="#aspect-internal-representation-of-bicycles">Aspect: Internal representation of bicycles</a></h5>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Alternative 1 (current choice):</strong> Have a dedicated <code>Bike</code> class.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: OO design. Easier to track status of bicycles. Bicycles can support more properties and features.</p>
+</li>
+<li>
+<p>Cons: Complex internal representation. Additional memory used for tracking Bikes.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Alternative 2:</strong> Identify bikes by their names used in the Loans.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: Simpler internal representation. Less data to manage internally or in storage.</p>
+</li>
+<li>
+<p>Cons: Data on bikes have to be algorithmically searched for. Bicycles are assumed to exist and there is no verification for mistyped bicycle names.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="hide-private-information"><a class="link" href="#hide-private-information">3.7. Hide private information</a></h3>
+<div class="paragraph">
+<p>Users must provide some important and personal information when adding a loan, e.g. <code>Nric</code>, so it is our responsibility to protect their privacy.</p>
 </div>
 <div class="paragraph">
 <p>As a result, we have added a new feature to hide the private information from the Window.<br>
-Example: The customer&#8217;s <code>Nric</code> stored in the database is <code>Nric: G1234567U</code>, but our <code>LoanCard</code> will only show <code>Nric: Gxxxxx67U</code>.</p>
+Example: The customer&#8217;s <code>Nric</code> as stored in the database is <code>Nric: G1234567U</code>, but our <code>LoanCard</code> will only show <code>Nric: Gxxxxx67U</code>.</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -1039,7 +1193,7 @@ Example: The customer&#8217;s <code>Nric</code> stored in the database is <code>
 </div>
 </div>
 <div class="sect3">
-<h4 id="current-implementation-2"><a class="link" href="#current-implementation-2">3.6.1. Current implementation</a></h4>
+<h4 id="current-implementation-2"><a class="link" href="#current-implementation-2">3.7.1. Current implementation</a></h4>
 <div class="paragraph">
 <p>Hidden private information is facilitated by an interface called <code>Censor</code>. It is implemented by classes <code>Nric</code>, <code>Phone</code> and <code>Email</code>.</p>
 </div>
@@ -1087,7 +1241,7 @@ For example: <code>phone.setText(loan.getPhone().getCensored().value);</code> wi
 </div>
 </div>
 <div class="sect3">
-<h4 id="design-considerations-3"><a class="link" href="#design-considerations-3">3.6.2. Design Considerations</a></h4>
+<h4 id="design-considerations-4"><a class="link" href="#design-considerations-4">3.7.2. Design Considerations</a></h4>
 <div class="paragraph">
 <p><strong>Aspect: How to execute getCensored()</strong></p>
 </div>
@@ -1123,7 +1277,7 @@ For example: <code>phone.setText(loan.getPhone().getCensored().value);</code> wi
 </div>
 </div>
 <div class="sect3">
-<h4 id="how-to-see-the-hidden-information"><a class="link" href="#how-to-see-the-hidden-information">3.6.3. How to see the hidden information</a></h4>
+<h4 id="how-to-see-the-hidden-information"><a class="link" href="#how-to-see-the-hidden-information">3.7.3. How to see the hidden information</a></h4>
 <div class="paragraph">
 <p>The censored data are only hidden from the window, not changed in the database. The <code>BrowserPanel</code> on the bottom right of the window will still show all the information including the hidden information.</p>
 </div>
@@ -2941,4 +3095,4 @@ Expected: Similar to previous.</p>
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-10-20 11:47:04 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-10-21 06:28:59 UTC</div></div></div></body></html>
