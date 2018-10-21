@@ -5,9 +5,9 @@ import seedu.address.model.bike.Bike;
 import seedu.address.model.loan.Loan;
 
 /**
- * Unmodifiable view of an address book
+ * Unmodifiable view of an loan book
  */
-public interface ReadOnlyAddressBook {
+public interface ReadOnlyLoanBook {
 
     /**
      * Returns an unmodifiable view of the bikes list.

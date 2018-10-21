@@ -21,11 +21,11 @@ import seedu.address.logic.commands.UndoCommand;
 import seedu.address.model.Model;
 import seedu.address.model.tag.Tag;
 
-public class FindCommandSystemTest extends AddressBookSystemTest {
+public class FindCommandSystemTest extends LoanBookSystemTest {
 
     @Test
     public void find() {
-        /* Case: find multiple loans in address book, command with leading spaces and trailing spaces
+        /* Case: find multiple loans in loan book, command with leading spaces and trailing spaces
          * -> 2 loans found
          */
         String command = "   " + FindCommand.COMMAND_WORD + " " + KEYWORD_MATCHING_MEIER + "   ";
@@ -47,23 +47,23 @@ public class FindCommandSystemTest extends AddressBookSystemTest {
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: find multiple loans in address book, 2 keywords -> 2 loans found */
+        /* Case: find multiple loans in loan book, 2 keywords -> 2 loans found */
         command = FindCommand.COMMAND_WORD + " Benson Daniel";
         ModelHelper.setFilteredList(expectedModel, BENSON, DANIEL);
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: find multiple loans in address book, 2 keywords in reversed order -> 2 loans found */
+        /* Case: find multiple loans in loan book, 2 keywords in reversed order -> 2 loans found */
         command = FindCommand.COMMAND_WORD + " Daniel Benson";
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: find multiple loans in address book, 2 keywords with 1 repeat -> 2 loans found */
+        /* Case: find multiple loans in loan book, 2 keywords with 1 repeat -> 2 loans found */
         command = FindCommand.COMMAND_WORD + " Daniel Benson Daniel";
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: find multiple loans in address book, 2 matching keywords and 1 non-matching keyword
+        /* Case: find multiple loans in loan book, 2 matching keywords and 1 non-matching keyword
          * -> 2 loans found
          */
         command = FindCommand.COMMAND_WORD + " Daniel Benson NonMatchingKeyWord";
@@ -80,53 +80,53 @@ public class FindCommandSystemTest extends AddressBookSystemTest {
         expectedResultMessage = RedoCommand.MESSAGE_FAILURE;
         assertCommandFailure(command, expectedResultMessage);
 
-        /* Case: find same loans in address book after deleting 1 of them -> 1 loan found */
+        /* Case: find same loans in loan book after deleting 1 of them -> 1 loan found */
         executeCommand(DeleteCommand.COMMAND_WORD + " i/1 x/a12345");
-        assertFalse(getModel().getAddressBook().getLoanList().contains(BENSON));
+        assertFalse(getModel().getLoanBook().getLoanList().contains(BENSON));
         command = FindCommand.COMMAND_WORD + " " + KEYWORD_MATCHING_MEIER;
         expectedModel = getModel();
         ModelHelper.setFilteredList(expectedModel, DANIEL);
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: find loan in address book, keyword is same as name but of different case -> 1 loan found */
+        /* Case: find loan in loan book, keyword is same as name but of different case -> 1 loan found */
         command = FindCommand.COMMAND_WORD + " MeIeR";
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: find loan in address book, keyword is substring of name -> 0 loans found */
+        /* Case: find loan in loan book, keyword is substring of name -> 0 loans found */
         command = FindCommand.COMMAND_WORD + " Mei";
         ModelHelper.setFilteredList(expectedModel);
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: find loan in address book, name is substring of keyword -> 0 loans found */
+        /* Case: find loan in loan book, name is substring of keyword -> 0 loans found */
         command = FindCommand.COMMAND_WORD + " Meiers";
         ModelHelper.setFilteredList(expectedModel);
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: find loan not in address book -> 0 loans found */
+        /* Case: find loan not in loan book -> 0 loans found */
         command = FindCommand.COMMAND_WORD + " Mark";
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: find phone number of loan in address book -> 0 loans found */
+        /* Case: find phone number of loan in loan book -> 0 loans found */
         command = FindCommand.COMMAND_WORD + " " + DANIEL.getPhone().value;
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: find address of loan in address book -> 0 loans found */
+        /* Case: find address of loan in loan book -> 0 loans found */
         command = FindCommand.COMMAND_WORD + " " + DANIEL.getAddress().value;
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: find email of loan in address book -> 0 loans found */
+        /* Case: find email of loan in loan book -> 0 loans found */
         command = FindCommand.COMMAND_WORD + " " + DANIEL.getEmail().value;
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: find tags of loan in address book -> 0 loans found */
+        /* Case: find tags of loan in loan book -> 0 loans found */
         List<Tag> tags = new ArrayList<>(DANIEL.getTags());
         command = FindCommand.COMMAND_WORD + " " + tags.get(0).value;
         assertCommandSuccess(command, expectedModel);
@@ -141,7 +141,7 @@ public class FindCommandSystemTest extends AddressBookSystemTest {
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardDeselected();
 
-        /* Case: find loan in empty address book -> 0 loans found */
+        /* Case: find loan in empty loan book -> 0 loans found */
         deleteAllLoans();
         command = FindCommand.COMMAND_WORD + " " + KEYWORD_MATCHING_MEIER;
         expectedModel = getModel();
@@ -159,10 +159,10 @@ public class FindCommandSystemTest extends AddressBookSystemTest {
      * box displays {@code Messages#MESSAGE_LOANS_LISTED_OVERVIEW} with the number of loans in the filtered list,
      * and the model related components equal to {@code expectedModel}.
      * These verifications are done by
-     * {@code AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
+     * {@code LoanBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
      * Also verifies that the status bar remains unchanged, and the command box has the default style class, and the
      * selected card updated accordingly, depending on {@code cardStatus}.
-     * @see AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)
+     * @see LoanBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)
      */
     private void assertCommandSuccess(String command, Model expectedModel) {
         String expectedResultMessage = String.format(
@@ -178,10 +178,10 @@ public class FindCommandSystemTest extends AddressBookSystemTest {
      * Executes {@code command} and verifies that the command box displays {@code command}, the result display
      * box displays {@code expectedResultMessage} and the model related components equal to the current model.
      * These verifications are done by
-     * {@code AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
+     * {@code LoanBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
      * Also verifies that the browser url, selected card and status bar remain unchanged, and the command box has the
      * error style.
-     * @see AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)
+     * @see LoanBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)
      */
     private void assertCommandFailure(String command, String expectedResultMessage) {
         Model expectedModel = getModel();

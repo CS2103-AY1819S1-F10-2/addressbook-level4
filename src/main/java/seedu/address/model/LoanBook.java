@@ -12,10 +12,10 @@ import seedu.address.model.loan.Loan;
 import seedu.address.model.loan.UniqueLoanList;
 
 /**
- * Wraps all data (bikes and loans) at the address-book level
+ * Wraps all data (bikes and loans) at the loan-book level
  * Duplicates are not allowed (by .isSameBike and .isSameLoan comparison)
  */
-public class AddressBook implements ReadOnlyAddressBook {
+public class LoanBook implements ReadOnlyLoanBook {
 
     private final UniqueBikeList bikes;
     private final UniqueLoanList loans;
@@ -32,12 +32,12 @@ public class AddressBook implements ReadOnlyAddressBook {
         loans = new UniqueLoanList();
     }
 
-    public AddressBook() {}
+    public LoanBook() {}
 
     /**
-     * Creates an AddressBook using the Bikes and Loans in the {@code toBeCopied}
+     * Creates an LoanBook using the Bikes and Loans in the {@code toBeCopied}
      */
-    public AddressBook(ReadOnlyAddressBook toBeCopied) {
+    public LoanBook(ReadOnlyLoanBook toBeCopied) {
         this();
         resetData(toBeCopied);
     }
@@ -61,9 +61,9 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Resets the existing data of this {@code AddressBook} with {@code newData}.
+     * Resets the existing data of this {@code LoanBook} with {@code newData}.
      */
-    public void resetData(ReadOnlyAddressBook newData) {
+    public void resetData(ReadOnlyLoanBook newData) {
         requireNonNull(newData);
 
         setBikes(newData.getBikeList());
@@ -73,7 +73,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     //// bike-level operations
 
     /**
-     * Returns true if a bike with the same identity as {@code bike} exists in the address book.
+     * Returns true if a bike with the same identity as {@code bike} exists in the loan book.
      */
     public boolean hasBike(Bike bike) {
         requireNonNull(bike);
@@ -81,8 +81,8 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Adds a bike to the address book.
-     * The bike must not already exist in the address book.
+     * Adds a bike to the loan book.
+     * The bike must not already exist in the loan book.
      */
     public void addBike(Bike p) {
         bikes.add(p);
@@ -90,8 +90,8 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     /**
      * Replaces the given bike {@code target} in the list with {@code editedBike}.
-     * {@code target} must exist in the address book.
-     * The bike identity of {@code editedBike} must not be the same as another existing bike in the address book.
+     * {@code target} must exist in the loan book.
+     * The bike identity of {@code editedBike} must not be the same as another existing bike in the loan book.
      */
     public void updateBike(Bike target, Bike editedBike) {
         requireNonNull(editedBike);
@@ -100,8 +100,8 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Removes {@code key} from this {@code AddressBook}.
-     * {@code key} must exist in the address book.
+     * Removes {@code key} from this {@code LoanBook}.
+     * {@code key} must exist in the loan book.
      */
     public void removeBike(Bike key) {
         bikes.remove(key);
@@ -110,7 +110,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     //// loan-level operations
 
     /**
-     * Returns true if a loan with the same identity as {@code loan} exists in the address book.
+     * Returns true if a loan with the same identity as {@code loan} exists in the loan book.
      */
     public boolean hasLoan(Loan loan) {
         requireNonNull(loan);
@@ -118,8 +118,8 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Adds a loan to the address book.
-     * The loan must not already exist in the address book.
+     * Adds a loan to the loan book.
+     * The loan must not already exist in the loan book.
      */
     public void addLoan(Loan p) {
         loans.add(p);
@@ -127,8 +127,8 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     /**
      * Replaces the given loan {@code target} in the list with {@code editedLoan}.
-     * {@code target} must exist in the address book.
-     * The loan identity of {@code editedLoan} must not be the same as another existing loan in the address book.
+     * {@code target} must exist in the loan book.
+     * The loan identity of {@code editedLoan} must not be the same as another existing loan in the loan book.
      */
     public void updateLoan(Loan target, Loan editedLoan) {
         requireNonNull(editedLoan);
@@ -137,8 +137,8 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Removes {@code key} from this {@code AddressBook}.
-     * {@code key} must exist in the address book.
+     * Removes {@code key} from this {@code LoanBook}.
+     * {@code key} must exist in the loan book.
      */
     public void removeLoan(Loan key) {
         loans.remove(key);
@@ -166,9 +166,9 @@ public class AddressBook implements ReadOnlyAddressBook {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof AddressBook // instanceof handles nulls
-                && loans.equals(((AddressBook) other).loans)
-                && bikes.equals(((AddressBook) other).bikes));
+                || (other instanceof LoanBook // instanceof handles nulls
+                && loans.equals(((LoanBook) other).loans)
+                && bikes.equals(((LoanBook) other).bikes));
     }
 
     @Override

@@ -20,7 +20,7 @@ import seedu.address.logic.commands.UndoCommand;
 import seedu.address.model.Model;
 import seedu.address.model.loan.Loan;
 
-public class DeleteCommandSystemTest extends AddressBookSystemTest {
+public class DeleteCommandSystemTest extends LoanBookSystemTest {
 
     private static final String MESSAGE_INVALID_DELETE_COMMAND_FORMAT =
             String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE);
@@ -63,17 +63,17 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
 
         /* ------------------ Performing delete operation while a filtered list is being shown ---------------------- */
 
-        /* Case: filtered loan list, delete index within bounds of address book and loan list -> deleted */
+        /* Case: filtered loan list, delete index within bounds of loan book and loan list -> deleted */
         showLoansWithName(KEYWORD_MATCHING_MEIER);
         Index index = INDEX_FIRST_LOAN;
         assertTrue(index.getZeroBased() < getModel().getFilteredLoanList().size());
         assertCommandSuccess(index);
 
-        /* Case: filtered loan list, delete index within bounds of address book but out of bounds of loan list
+        /* Case: filtered loan list, delete index within bounds of loan book but out of bounds of loan list
          * -> rejected
          */
         showLoansWithName(KEYWORD_MATCHING_MEIER);
-        int invalidIndex = getModel().getAddressBook().getLoanList().size();
+        int invalidIndex = getModel().getLoanBook().getLoanList().size();
         command = DeleteCommand.COMMAND_WORD + " i/" + invalidIndex + " x/a12345";
         assertCommandFailure(command, MESSAGE_INVALID_LOAN_DISPLAYED_INDEX);
 
@@ -102,7 +102,7 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
 
         /* Case: invalid index (size + 1) -> rejected */
         Index outOfBoundsIndex = Index.fromOneBased(
-                getModel().getAddressBook().getLoanList().size() + 1);
+                getModel().getLoanBook().getLoanList().size() + 1);
         command = DeleteCommand.COMMAND_WORD + " i/" + outOfBoundsIndex.getOneBased() + " x/a12345";
         assertCommandFailure(command, MESSAGE_INVALID_LOAN_DISPLAYED_INDEX);
 
@@ -117,7 +117,7 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
     }
 
     /**
-     * Removes the {@code Loan} at the specified {@code index} in {@code model}'s address book.
+     * Removes the {@code Loan} at the specified {@code index} in {@code model}'s loan book.
      * @return the removed loan
      */
     private Loan removeLoan(Model model, Index index) {
@@ -149,8 +149,8 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
      * 4. Asserts that the status bar's sync status changes.<br>
      * 5. Asserts that the command box has the default style class.<br>
      * Verifications 1 and 2 are performed by
-     * {@code AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.
-     * @see AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)
+     * {@code LoanBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.
+     * @see LoanBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)
      */
     private void assertCommandSuccess(String command, Model expectedModel, String expectedResultMessage) {
         assertCommandSuccess(command, expectedModel, expectedResultMessage, null);
@@ -160,7 +160,7 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
      * Performs the same verification as {@code assertCommandSuccess(String, Model, String)} except that the browser url
      * and selected card are expected to update accordingly depending on the card at {@code expectedSelectedCardIndex}.
      * @see DeleteCommandSystemTest#assertCommandSuccess(String, Model, String)
-     * @see AddressBookSystemTest#assertSelectedCardChanged(Index)
+     * @see LoanBookSystemTest#assertSelectedCardChanged(Index)
      */
     private void assertCommandSuccess(String command, Model expectedModel, String expectedResultMessage,
             Index expectedSelectedCardIndex) {
@@ -184,8 +184,8 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
      * 3. Asserts that the browser url, selected card and status bar remain unchanged.<br>
      * 4. Asserts that the command box has the error style.<br>
      * Verifications 1 and 2 are performed by
-     * {@code AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
-     * @see AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)
+     * {@code LoanBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
+     * @see LoanBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)
      */
     private void assertCommandFailure(String command, String expectedResultMessage) {
         Model expectedModel = getModel();
