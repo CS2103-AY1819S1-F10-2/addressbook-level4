@@ -422,10 +422,11 @@ Every `Loan` will have a reference to exactly one `Bike`: the bicycle that is lo
 
 [NOTE]
 This makes the `AddressBook`'s list of loans a little harder to manage, due to the extra references. However, we have chosen to implement it anyway as referencing a bicycle's history is a very useful and frequently used operation. To manage the deletion of loans, the loan will be dereferenced from the Bike it references before it gets deleted. The sequence diagram below demonstrates this process:
+
 image::DeleteLoanSequenceDiagram.png[width="800"]
 
 [NOTE]
-Due to the dependency of `Loan`s on `Bike`s, any bicycle that has been loaned out at least once will never be deleted from the system, merely archived and labelled `Out of Service`. The `Bike` can still be deleted completely if all of the `Loan`s associated with it are deleted (i.e. invalidated) first.
+Due to the dependency of `Loan` s on `Bike` s, any bicycle that has been loaned out at least once will never be deleted from the system, merely archived and labelled `Out of Service`. The `Bike` can still be deleted completely if all of the `Loan` s associated with it are deleted (i.e. invalidated) first.
 
 Using this framework, it is now more efficient to implement and use a set of mini-features and operations to facilitate bicycle management, as detailed in the following sections:
 
