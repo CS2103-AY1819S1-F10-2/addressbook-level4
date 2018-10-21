@@ -415,6 +415,10 @@ Every bicycle will have the following members:
 * `loanReserves`: A list of future loans (i.e. reservations) associated with this bicycle, sorted chronologically.
 * Traits that characterize the bicycle, such as `brand`, `model`, `top speed`, `wheel size`, `weight`, `material` etc.
 
+The new structure of the Loan Book is demonstrated in the class diagram below:
+
+image::BicycleManagementClassDiagram.png[width="800"]
+
 [NOTE]
 Why does the bicycle track loans using two lists, instead of collating them into one big list? Because each list has a specific category of loans and it is more common to encounter situations that deal with only one of the lists (e.g. checking transaction history, or checking for clashes with reservations), rather than both.
 
