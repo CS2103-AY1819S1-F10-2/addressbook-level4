@@ -57,7 +57,7 @@ public class LoanBook implements ReadOnlyLoanBook {
      * {@code loans} must not contain duplicate loans.
      */
     public void setLoans(List<Loan> loans) {
-        this.loans.setLoans(loans);
+        this.loans.set(loans);
     }
 
     /**
@@ -133,7 +133,7 @@ public class LoanBook implements ReadOnlyLoanBook {
     public void updateLoan(Loan target, Loan editedLoan) {
         requireNonNull(editedLoan);
 
-        loans.setLoan(target, editedLoan);
+        loans.set(target, editedLoan);
     }
 
     /**
