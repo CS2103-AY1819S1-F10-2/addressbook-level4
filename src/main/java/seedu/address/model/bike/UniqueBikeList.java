@@ -13,14 +13,14 @@ import seedu.address.model.bike.exceptions.DuplicateBikeException;
 
 /**
  * A list of bikes that enforces uniqueness between its elements and does not allow nulls.
- * A bike is considered unique by comparing using {@code Bike#isSameBike(Bike)}. As such, adding and updating of
- * bikes uses Bike#isSameBike(Bike) for equality so as to ensure that the bike being added or updated is
+ * A bike is considered unique by comparing using {@code Bike#isSame(Bike)}. As such, adding and updating of
+ * bikes uses Bike#isSame(Bike) for equality so as to ensure that the bike being added or updated is
  * unique in terms of identity in the UniqueBikeList. However, the removal of a bike uses Bike#equals(Object) so
  * as to ensure that the bike with exactly the same fields will be removed.
  *
  * Supports a minimal set of list operations.
  *
- * @see Bike#isSameBike(Bike)
+ * @see Bike#isSame(Bike)
  */
 public class UniqueBikeList implements Iterable<Bike> {
 
@@ -31,7 +31,7 @@ public class UniqueBikeList implements Iterable<Bike> {
      */
     public boolean contains(Bike toCheck) {
         requireNonNull(toCheck);
-        return internalList.stream().anyMatch(toCheck::isSameBike);
+        return internalList.stream().anyMatch(toCheck::isSame);
     }
 
     /**
@@ -59,7 +59,7 @@ public class UniqueBikeList implements Iterable<Bike> {
             throw new BikeNotFoundException();
         }
 
-        if (!target.isSameBike(editedBike) && contains(editedBike)) {
+        if (!target.isSame(editedBike) && contains(editedBike)) {
             throw new DuplicateBikeException();
         }
 
@@ -125,7 +125,7 @@ public class UniqueBikeList implements Iterable<Bike> {
     private boolean bikesAreUnique(List<Bike> bikes) {
         for (int i = 0; i < bikes.size() - 1; i++) {
             for (int j = i + 1; j < bikes.size(); j++) {
-                if (bikes.get(i).isSameBike(bikes.get(j))) {
+                if (bikes.get(i).isSame(bikes.get(j))) {
                     return false;
                 }
             }

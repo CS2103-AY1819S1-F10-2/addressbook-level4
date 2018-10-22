@@ -4,13 +4,14 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Objects;
 
+import seedu.address.model.UniqueListItem;
 import seedu.address.model.loan.Name;
 
 /**
  * Represents a Bike in the loan book.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
-public class Bike {
+public class Bike implements UniqueListItem<Bike> {
 
     //Identity fields
     /**
@@ -46,15 +47,15 @@ public class Bike {
 
     /**
      * Returns true iff both bikes have the same name.
-     * This defines a weaker notion of equality between two bikes.
      */
-    public boolean isSameBike(Bike otherBike) {
-        if (otherBike == this) {
+    @Override
+    public boolean isSame(Bike other) {
+        if (other == this) {
             return true;
         }
 
-        return otherBike != null
-            && otherBike.getName().equals(this.getName());
+        return other != null
+            && other.getName().equals(this.getName());
     }
 
     /**
