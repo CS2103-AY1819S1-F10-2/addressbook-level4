@@ -993,7 +993,7 @@ Use case ends.
 2.  LoanBook shows a list of loans that fulfills the condition.
 3.  User requests to return a specific loan from the list by specifying a `LoanID`.
 4.  LoanBook marks the loan as returned.
-5.	LoanBook prompts the user to charge the customer a certain amount of money, based on the prevailing rates and rental times in the loan book.
+5.  LoanBook prompts the user to charge the customer a certain amount of money, based on the prevailing rates and rental times in the loan book.
 +
 Use case ends.
 
