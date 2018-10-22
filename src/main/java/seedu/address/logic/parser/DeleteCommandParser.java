@@ -26,7 +26,8 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
         }
-        return new DeleteCommand(ParserUtil.parseIndex(argMultimap.getValue(PREFIX_INDEX).get()), ParserUtil.parsePass(argMultimap.getValue(PREFIX_PASSWORD).get()));
+        return new DeleteCommand(ParserUtil.parseIndex(argMultimap.getValue(PREFIX_INDEX).get()),
+                ParserUtil.parsePass(argMultimap.getValue(PREFIX_PASSWORD).get()));
     }
 
     /**

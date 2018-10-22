@@ -35,7 +35,7 @@ public interface Model {
     void setPass(Password pass);
 
     /**
-     * Get password for the App
+     * Get hashed password for the App
      */
     String getPass();
 

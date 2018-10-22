@@ -11,5 +11,5 @@ public class Messages {
     public static final String MESSAGE_LOANS_LISTED_OVERVIEW = "%1$d loans listed!";
     public static final String MESSAGE_INVALID_PASSWORD = "The password provided is incorrect!";
     public static final String MESSAGE_INVALID_OLD_PASS = "The old password entered is incorrect!";
-    public static final String MESSAGE_SAME_PASSWORD = "The password provided is same as before!";
+    public static final String MESSAGE_SAME_AS_CURRENT_PASSWORD = "The password provided is same as before!";
 }

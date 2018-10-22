@@ -39,7 +39,7 @@ public class SetPasswordCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_OLD_PASS);
         }
         if (Password.isSamePassword(model.getPass(), newPassInput)) {
-            throw new CommandException(Messages.MESSAGE_SAME_PASSWORD);
+            throw new CommandException(Messages.MESSAGE_SAME_AS_CURRENT_PASSWORD);
         }
         model.setPass(newPassInput);
         return new CommandResult(MESSAGE_CHANGE_PASSWORD_SUCCESS);

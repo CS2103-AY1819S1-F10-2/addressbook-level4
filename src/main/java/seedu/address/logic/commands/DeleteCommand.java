@@ -39,6 +39,7 @@ public class DeleteCommand extends Command {
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
+
         requireNonNull(model);
         List<Loan> lastShownList = model.getFilteredLoanList();
 
@@ -46,7 +47,7 @@ public class DeleteCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_LOAN_DISPLAYED_INDEX);
         }
 
-        if (!model.getPass().equals(targetPassword.password)) {
+        if (!Password.isSamePassword(model.getPass(), targetPassword)) {
             throw new CommandException(Messages.MESSAGE_INVALID_PASSWORD);
         }
 

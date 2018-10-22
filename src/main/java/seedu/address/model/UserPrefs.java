@@ -17,7 +17,7 @@ public class UserPrefs {
 
     public UserPrefs() {
         setGuiSettings(500, 500, 0, 0);
-        password = "a12345"; // Default password is set to a12345
+        password = (new Password("a12345")).hashedPassword(); // Default password is set to a12345
     }
 
     public GuiSettings getGuiSettings() {
@@ -41,7 +41,7 @@ public class UserPrefs {
     }
 
     public void setPass(Password pass) {
-        password = pass.toString();
+        password = pass.hashedPassword();
     }
 
     public String getPass() {

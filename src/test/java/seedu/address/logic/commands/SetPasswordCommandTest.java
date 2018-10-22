@@ -67,7 +67,7 @@ public class SetPasswordCommandTest {
 
     @Test
     public void execute_newPasswordAcceptedByModel_setPassSuccessful() throws Exception {
-        Password currentPass = new Password("12345678");
+        Password currentPass = new Password("a12345");
         Password newPass = new Password("abcdefgh");
         SetPasswordCommandTest.ModelStub modelStub = new SetPasswordCommandTest.ModelStub();
 
@@ -93,10 +93,13 @@ public class SetPasswordCommandTest {
     @Test
     public void execute_sameCurrentPassword_throwsCommandException() throws Exception {
         SetPasswordCommandTest.ModelStub modelStub = new SetPasswordCommandTest.ModelStub();
-        SetPasswordCommand setPasswordCommand = new SetPasswordCommand(new Password(modelStub.getPass()), new Password(modelStub.getPass()));
+        String pass = "a12345";
+
+        SetPasswordCommand setPasswordCommand =
+                new SetPasswordCommand(new Password(pass), new Password(pass));
 
         thrown.expect(CommandException.class);
-        thrown.expectMessage(Messages.MESSAGE_SAME_PASSWORD);
+        thrown.expectMessage(Messages.MESSAGE_SAME_AS_CURRENT_PASSWORD);
         setPasswordCommand.execute(modelStub, commandHistory);
     }
 
@@ -104,6 +107,7 @@ public class SetPasswordCommandTest {
      * A default model stub that have all of the methods failing.
      */
     private class ModelStub implements Model {
+        private Password currPass = new Password("a12345");
         @Override
         public void addLoan(Loan loan) {
             throw new AssertionError("This method should not be called.");
@@ -171,12 +175,12 @@ public class SetPasswordCommandTest {
 
         @Override
         public void setPass(Password pass) {
-
+            currPass = pass;
         }
 
         @Override
         public String getPass() {
-            return "12345678";
+            return currPass.hashedPassword();
         }
     }
 }
