@@ -1,11 +1,7 @@
 package seedu.address.logic.commands;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
-import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.logic.commands.CommandTestUtil.showLoanAtIndex;
+import static org.junit.Assert.*;
+import static seedu.address.logic.commands.CommandTestUtil.*;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_LOAN;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_LOAN;
 import static seedu.address.testutil.TypicalLoans.getTypicalAddressBook;
@@ -17,6 +13,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
+import seedu.address.model.Password;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.loan.Loan;
 
@@ -32,7 +29,7 @@ public class DeleteCommandTest {
     @Test
     public void execute_validIndexUnfilteredList_success() {
         Loan loanToDelete = model.getFilteredLoanList().get(INDEX_FIRST_LOAN.getZeroBased());
-        DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_LOAN);
+        DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_LOAN, new Password(model.getPass()));
 
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_LOAN_SUCCESS, loanToDelete);
 
@@ -46,7 +43,7 @@ public class DeleteCommandTest {
     @Test
     public void execute_invalidIndexUnfilteredList_throwsCommandException() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredLoanList().size() + 1);
-        DeleteCommand deleteCommand = new DeleteCommand(outOfBoundIndex);
+        DeleteCommand deleteCommand = new DeleteCommand(outOfBoundIndex, new Password(model.getPass()));
 
         assertCommandFailure(deleteCommand, model, commandHistory, Messages.MESSAGE_INVALID_LOAN_DISPLAYED_INDEX);
     }
@@ -56,7 +53,7 @@ public class DeleteCommandTest {
         showLoanAtIndex(model, INDEX_FIRST_LOAN);
 
         Loan loanToDelete = model.getFilteredLoanList().get(INDEX_FIRST_LOAN.getZeroBased());
-        DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_LOAN);
+        DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_LOAN, new Password(model.getPass()));
 
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_LOAN_SUCCESS, loanToDelete);
 
@@ -76,7 +73,7 @@ public class DeleteCommandTest {
         // ensures that outOfBoundIndex is still in bounds of address book list
         assertTrue(outOfBoundIndex.getZeroBased() < model.getAddressBook().getLoanList().size());
 
-        DeleteCommand deleteCommand = new DeleteCommand(outOfBoundIndex);
+        DeleteCommand deleteCommand = new DeleteCommand(outOfBoundIndex, new Password(model.getPass()));
 
         assertCommandFailure(deleteCommand, model, commandHistory, Messages.MESSAGE_INVALID_LOAN_DISPLAYED_INDEX);
     }
@@ -84,7 +81,7 @@ public class DeleteCommandTest {
     @Test
     public void executeUndoRedo_validIndexUnfilteredList_success() throws Exception {
         Loan loanToDelete = model.getFilteredLoanList().get(INDEX_FIRST_LOAN.getZeroBased());
-        DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_LOAN);
+        DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_LOAN, new Password(model.getPass()));
         Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
         expectedModel.deleteLoan(loanToDelete);
         expectedModel.commitAddressBook();
@@ -104,7 +101,7 @@ public class DeleteCommandTest {
     @Test
     public void executeUndoRedo_invalidIndexUnfilteredList_failure() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredLoanList().size() + 1);
-        DeleteCommand deleteCommand = new DeleteCommand(outOfBoundIndex);
+        DeleteCommand deleteCommand = new DeleteCommand(outOfBoundIndex, new Password(model.getPass()));
 
         // execution failed -> address book state not added into model
         assertCommandFailure(deleteCommand, model, commandHistory, Messages.MESSAGE_INVALID_LOAN_DISPLAYED_INDEX);
@@ -123,7 +120,7 @@ public class DeleteCommandTest {
      */
     @Test
     public void executeUndoRedo_validIndexFilteredList_sameLoanDeleted() throws Exception {
-        DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_LOAN);
+        DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_LOAN, new Password(model.getPass()));
         Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
 
         showLoanAtIndex(model, INDEX_SECOND_LOAN);
@@ -146,14 +143,14 @@ public class DeleteCommandTest {
 
     @Test
     public void equals() {
-        DeleteCommand deleteFirstCommand = new DeleteCommand(INDEX_FIRST_LOAN);
-        DeleteCommand deleteSecondCommand = new DeleteCommand(INDEX_SECOND_LOAN);
+        DeleteCommand deleteFirstCommand = new DeleteCommand(INDEX_FIRST_LOAN, new Password(model.getPass()));
+        DeleteCommand deleteSecondCommand = new DeleteCommand(INDEX_SECOND_LOAN, new Password(model.getPass()));
 
         // same object -> returns true
         assertTrue(deleteFirstCommand.equals(deleteFirstCommand));
 
         // same values -> returns true
-        DeleteCommand deleteFirstCommandCopy = new DeleteCommand(INDEX_FIRST_LOAN);
+        DeleteCommand deleteFirstCommandCopy = new DeleteCommand(INDEX_FIRST_LOAN, new Password(model.getPass()));
         assertTrue(deleteFirstCommand.equals(deleteFirstCommandCopy));
 
         // different types -> returns false

@@ -19,11 +19,18 @@ public class SetPasswordCommandParser {
     public SetPasswordCommand parse(String args) throws ParseException {
         String[] parts = args.trim().split(" ");
         if (parts.length != 2) {
-            System.out.println(parts[0] + " | " + parts[1] + " | " + parts[2]);
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SetPasswordCommand.MESSAGE_USAGE));
         }
-        Password oldPassInput = new Password(parts[0]);
-        Password newPassInput = new Password(parts[1]);
+
+        String oldPass = parts[0];
+        String newPass = parts[1];
+
+        if (!Password.isValidPass(newPass)) {
+            throw new ParseException(Password.MESSAGE_PASSWORD_CONSTRAINTS);
+        }
+        Password oldPassInput = new Password(oldPass);
+        Password newPassInput = new Password(newPass);
+
         return new SetPasswordCommand(oldPassInput, newPassInput);
     }
 }

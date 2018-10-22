@@ -20,7 +20,7 @@ public class SetPasswordCommand extends Command {
             + "Parameters: OLDPASS NEWPASS\n"
             + "Example: " + COMMAND_WORD + " a12345 12345678";
 
-    public static final String MESSAGE_SELECT_CHANGE_PASSWORD_SUCCESS = "Password successfully changed!";
+    public static final String MESSAGE_CHANGE_PASSWORD_SUCCESS = "Password successfully changed!";
 
     private Password oldPassInput;
     private Password newPassInput;
@@ -38,8 +38,11 @@ public class SetPasswordCommand extends Command {
         if (!Password.isSamePassword(model.getPass(), oldPassInput)) {
             throw new CommandException(Messages.MESSAGE_INVALID_OLD_PASS);
         }
+        if (Password.isSamePassword(model.getPass(), newPassInput)) {
+            throw new CommandException(Messages.MESSAGE_SAME_PASSWORD);
+        }
         model.setPass(newPassInput);
-        return new CommandResult(MESSAGE_SELECT_CHANGE_PASSWORD_SUCCESS);
+        return new CommandResult(MESSAGE_CHANGE_PASSWORD_SUCCESS);
     }
 
     @Override
