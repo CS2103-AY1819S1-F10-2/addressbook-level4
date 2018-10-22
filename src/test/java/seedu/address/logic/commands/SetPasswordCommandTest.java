@@ -1,6 +1,8 @@
 package seedu.address.logic.commands;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import java.util.function.Predicate;
 
@@ -71,7 +73,8 @@ public class SetPasswordCommandTest {
 
         CommandResult commandResult = new SetPasswordCommand(currentPass, newPass).execute(modelStub, commandHistory);
 
-        assertEquals(String.format(SetPasswordCommand.MESSAGE_SELECT_CHANGE_PASSWORD_SUCCESS), commandResult.feedbackToUser);
+        assertEquals(String.format(SetPasswordCommand.MESSAGE_SELECT_CHANGE_PASSWORD_SUCCESS),
+                 commandResult.feedbackToUser);
         assertEquals(EMPTY_COMMAND_HISTORY, commandHistory);
     }
 
