@@ -49,7 +49,7 @@ public class LoanBook implements ReadOnlyLoanBook {
      * {@code bikes} must not contain duplicate bikes.
      */
     public void setBikes(List<Bike> bikes) {
-        this.bikes.setBikes(bikes);
+        this.bikes.set(bikes);
     }
 
     /**
@@ -96,7 +96,7 @@ public class LoanBook implements ReadOnlyLoanBook {
     public void updateBike(Bike target, Bike editedBike) {
         requireNonNull(editedBike);
 
-        bikes.setBike(target, editedBike);
+        bikes.set(target, editedBike);
     }
 
     /**
