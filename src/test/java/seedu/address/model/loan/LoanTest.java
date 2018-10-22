@@ -30,32 +30,32 @@ public class LoanTest {
     @Test
     public void isSameLoan() {
         // same object -> returns true
-        assertTrue(ALICE.isSameLoan(ALICE));
+        assertTrue(ALICE.isSame(ALICE));
 
         // null -> returns false
-        assertFalse(ALICE.isSameLoan(null));
+        assertFalse(ALICE.isSame(null));
 
         // different phone and email -> returns false
         Loan editedAlice = new LoanBuilder(ALICE).withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).build();
-        assertFalse(ALICE.isSameLoan(editedAlice));
+        assertFalse(ALICE.isSame(editedAlice));
 
         // different name -> returns false
         editedAlice = new LoanBuilder(ALICE).withName(VALID_NAME_BOB).build();
-        assertFalse(ALICE.isSameLoan(editedAlice));
+        assertFalse(ALICE.isSame(editedAlice));
 
         // same name, same phone, different attributes -> returns true
         editedAlice = new LoanBuilder(ALICE).withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB)
                 .withTags(VALID_TAG_HUSBAND).build();
-        assertTrue(ALICE.isSameLoan(editedAlice));
+        assertTrue(ALICE.isSame(editedAlice));
 
         // same name, same email, different attributes -> returns true
         editedAlice = new LoanBuilder(ALICE).withPhone(VALID_PHONE_BOB).withAddress(VALID_ADDRESS_BOB)
                 .withTags(VALID_TAG_HUSBAND).build();
-        assertTrue(ALICE.isSameLoan(editedAlice));
+        assertTrue(ALICE.isSame(editedAlice));
 
         // same name, same phone, same email, different attributes -> returns true
         editedAlice = new LoanBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND).build();
-        assertTrue(ALICE.isSameLoan(editedAlice));
+        assertTrue(ALICE.isSame(editedAlice));
     }
 
     @Test

@@ -13,14 +13,14 @@ import seedu.address.model.loan.exceptions.LoanNotFoundException;
 
 /**
  * A list of loans that enforces uniqueness between its elements and does not allow nulls.
- * A loan is considered unique by comparing using {@code Loan#isSameLoan(Loan)}. As such, adding and updating of
- * loans uses Loan#isSameLoan(Loan) for equality so as to ensure that the loan being added or updated is
+ * A loan is considered unique by comparing using {@code Loan#isSame(Loan)}. As such, adding and updating of
+ * loans uses Loan#isSame(Loan) for equality so as to ensure that the loan being added or updated is
  * unique in terms of identity in the UniqueLoanList. However, the removal of a loan uses Loan#equals(Object) so
  * as to ensure that the loan with exactly the same fields will be removed.
  *
  * Supports a minimal set of list operations.
  *
- * @see Loan#isSameLoan(Loan)
+ * @see Loan#isSame(Loan)
  */
 public class UniqueLoanList implements Iterable<Loan> {
 
@@ -31,7 +31,7 @@ public class UniqueLoanList implements Iterable<Loan> {
      */
     public boolean contains(Loan toCheck) {
         requireNonNull(toCheck);
-        return internalList.stream().anyMatch(toCheck::isSameLoan);
+        return internalList.stream().anyMatch(toCheck::isSame);
     }
 
     /**
@@ -59,7 +59,7 @@ public class UniqueLoanList implements Iterable<Loan> {
             throw new LoanNotFoundException();
         }
 
-        if (!target.isSameLoan(editedLoan) && contains(editedLoan)) {
+        if (!target.isSame(editedLoan) && contains(editedLoan)) {
             throw new DuplicateLoanException();
         }
 
@@ -125,7 +125,7 @@ public class UniqueLoanList implements Iterable<Loan> {
     private boolean loansAreUnique(List<Loan> loans) {
         for (int i = 0; i < loans.size() - 1; i++) {
             for (int j = i + 1; j < loans.size(); j++) {
-                if (loans.get(i).isSameLoan(loans.get(j))) {
+                if (loans.get(i).isSame(loans.get(j))) {
                     return false;
                 }
             }

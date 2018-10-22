@@ -7,13 +7,14 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+import seedu.address.model.UniqueListItem;
 import seedu.address.model.tag.Tag;
 
 /**
  * Represents a Loan in the loan book.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
-public class Loan {
+public class Loan implements UniqueListItem<Loan> {
 
     // Identity fields
     private final Name name;
@@ -62,16 +63,16 @@ public class Loan {
 
     /**
      * Returns true if both loans of the same name have at least one other identity field that is the same.
-     * This defines a weaker notion of equality between two loans.
      */
-    public boolean isSameLoan(Loan otherLoan) {
-        if (otherLoan == this) {
+    @Override
+    public boolean isSame(Loan other) {
+        if (other == this) {
             return true;
         }
 
-        return otherLoan != null
-                && otherLoan.getName().equals(getName())
-                && (otherLoan.getPhone().equals(getPhone()) || otherLoan.getEmail().equals(getEmail()));
+        return other != null
+                && other.getName().equals(getName())
+                && (other.getPhone().equals(getPhone()) || other.getEmail().equals(getEmail()));
     }
 
     /**
