@@ -17,7 +17,7 @@ public class UserPrefs {
 
     public UserPrefs() {
         setGuiSettings(500, 500, 0, 0);
-        password = "a12345";
+        password = "a12345"; // Default password is set to a12345
     }
 
     public GuiSettings getGuiSettings() {

@@ -8,6 +8,9 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.Password;
 
+/**
+ * Set password to loan book.
+ */
 public class SetPasswordCommand extends Command {
 
     public static final String COMMAND_WORD = "setpass";
@@ -43,6 +46,7 @@ public class SetPasswordCommand extends Command {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof SetPasswordCommand // instanceof handles nulls
+                && newPassInput.equals(((SetPasswordCommand) other).newPassInput)
                 && oldPassInput.equals(((SetPasswordCommand) other).oldPassInput)); // state check
     }
 }

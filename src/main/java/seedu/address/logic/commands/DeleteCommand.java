@@ -1,6 +1,8 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_INDEX;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PASSWORD;
 
 import java.util.List;
 
@@ -21,7 +23,7 @@ public class DeleteCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Deletes the loan identified by the index number used in the displayed loan list.\n"
             + "Requires a password for verification.\n"
-            + "Parameters:  PREFIX_INDEX + INDEX(must be a positive integer) + PREFIX_PASSWORD + PASSWORD\n"
+            + "Parameters: " + PREFIX_INDEX + "INDEX (must be a positive integer) " + PREFIX_PASSWORD + "PASSWORD\n"
             + "Example: " + COMMAND_WORD + " i/1 x/a12345";
 
     public static final String MESSAGE_DELETE_LOAN_SUCCESS = "Deleted Loan: %1$s";
