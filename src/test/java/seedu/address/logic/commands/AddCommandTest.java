@@ -20,8 +20,6 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.Password;
 import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.bike.Bike;
-import seedu.address.model.Password;
 import seedu.address.model.loan.Loan;
 import seedu.address.testutil.LoanBuilder;
 
@@ -153,16 +151,6 @@ public class AddCommandTest {
 
         @Override
         public void commitAddressBook() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void setPass(Password pass) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public String getPass() {
             throw new AssertionError("This method should not be called.");
         }
 

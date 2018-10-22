@@ -88,36 +88,6 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public void setPass(Password pass) {
-        preference.setPass(pass);
-    }
-
-    @Override
-    public String getPass() {
-        return preference.getPass();
-    }
-
-    @Override
-    public void setPass(Password pass) {
-        preference.setPass(pass);
-    }
-
-    @Override
-    public String getPass() {
-        return preference.getPass();
-    }
-
-    @Override
-    public void setPass(Password pass) {
-        preference.setPass(pass);
-    }
-
-    @Override
-    public String getPass() {
-        return preference.getPass();
-    }
-
-    @Override
     public void updateLoan(Loan target, Loan editedLoan) {
         requireAllNonNull(target, editedLoan);
 
