@@ -12,5 +12,4 @@ public class Messages {
     public static final String MESSAGE_INVALID_PASSWORD = "The password provided is incorrect!";
     public static final String MESSAGE_INVALID_OLD_PASS = "The old password entered is incorrect!";
     public static final String MESSAGE_SAME_PASSWORD = "The password provided is same as before!";
-
 }

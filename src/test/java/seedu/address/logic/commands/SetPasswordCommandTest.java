@@ -73,7 +73,7 @@ public class SetPasswordCommandTest {
 
         CommandResult commandResult = new SetPasswordCommand(currentPass, newPass).execute(modelStub, commandHistory);
 
-        assertEquals(String.format(SetPasswordCommand.MESSAGE_SELECT_CHANGE_PASSWORD_SUCCESS),
+        assertEquals(String.format(SetPasswordCommand.MESSAGE_CHANGE_PASSWORD_SUCCESS),
                  commandResult.feedbackToUser);
         assertEquals(EMPTY_COMMAND_HISTORY, commandHistory);
     }
@@ -87,6 +87,16 @@ public class SetPasswordCommandTest {
 
         thrown.expect(CommandException.class);
         thrown.expectMessage(Messages.MESSAGE_INVALID_OLD_PASS);
+        setPasswordCommand.execute(modelStub, commandHistory);
+    }
+
+    @Test
+    public void execute_sameCurrentPassword_throwsCommandException() throws Exception {
+        SetPasswordCommandTest.ModelStub modelStub = new SetPasswordCommandTest.ModelStub();
+        SetPasswordCommand setPasswordCommand = new SetPasswordCommand(new Password(modelStub.getPass()), new Password(modelStub.getPass()));
+
+        thrown.expect(CommandException.class);
+        thrown.expectMessage(Messages.MESSAGE_SAME_PASSWORD);
         setPasswordCommand.execute(modelStub, commandHistory);
     }
 
