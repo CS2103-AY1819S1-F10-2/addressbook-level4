@@ -29,6 +29,7 @@ import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.Password;
 import seedu.address.model.bike.Bike;
 import seedu.address.model.loan.Loan;
 import seedu.address.model.loan.NameContainsKeywordsPredicate;
@@ -67,8 +68,9 @@ public class LoanBookParserTest {
     @Test
     public void parseCommand_delete() throws Exception {
         DeleteCommand command = (DeleteCommand) parser.parseCommand(
-                DeleteCommand.COMMAND_WORD + " i/" + INDEX_FIRST_LOAN.getOneBased() + " x/a12345");
-        assertEquals(new DeleteCommand(INDEX_FIRST_LOAN), command);
+                DeleteCommand.COMMAND_WORD + " i/" + INDEX_FIRST_LOAN.getOneBased() + " x/" + "a12345");
+        Password pass = new Password("a12345");
+        assertEquals(new DeleteCommand(INDEX_FIRST_LOAN, pass), command);
     }
 
     @Test

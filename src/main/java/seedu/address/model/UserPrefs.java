@@ -12,10 +12,12 @@ import seedu.address.commons.core.GuiSettings;
 public class UserPrefs {
 
     private GuiSettings guiSettings;
+    private String password;
     private Path loanBookFilePath = Paths.get("data" , "loanbook.xml");
 
     public UserPrefs() {
         setGuiSettings(500, 500, 0, 0);
+        password = (new Password("a12345")).hashedPassword(); // Default password is set to a12345
     }
 
     public GuiSettings getGuiSettings() {
@@ -38,6 +40,14 @@ public class UserPrefs {
         this.loanBookFilePath = loanBookFilePath;
     }
 
+    public void setPass(Password pass) {
+        password = pass.hashedPassword();
+    }
+
+    public String getPass() {
+        return password;
+    }
+
     @Override
     public boolean equals(Object other) {
         if (other == this) {
@@ -50,6 +60,7 @@ public class UserPrefs {
         UserPrefs o = (UserPrefs) other;
 
         return Objects.equals(guiSettings, o.guiSettings)
+                && Objects.equals(password, o.password)
                 && Objects.equals(loanBookFilePath, o.loanBookFilePath);
     }
 
@@ -62,6 +73,7 @@ public class UserPrefs {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Gui Settings : " + guiSettings.toString());
+        sb.append("Password : " + password);
         sb.append("\nLocal data file location : " + loanBookFilePath);
         return sb.toString();
     }

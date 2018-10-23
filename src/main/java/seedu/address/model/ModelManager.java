@@ -24,6 +24,7 @@ public class ModelManager extends ComponentManager implements Model {
     private final VersionedLoanBook versionedLoanBook;
     private final FilteredList<Bike> filteredBikes;
     private final FilteredList<Loan> filteredLoans;
+    private final UserPrefs preference;
 
     /**
      * Initializes a ModelManager with the given loanBook and userPrefs.
@@ -37,6 +38,7 @@ public class ModelManager extends ComponentManager implements Model {
         versionedLoanBook = new VersionedLoanBook(loanBook);
         filteredBikes = new FilteredList<>(versionedLoanBook.getBikeList());
         filteredLoans = new FilteredList<>(versionedLoanBook.getLoanList());
+        preference = userPrefs;
     }
 
     public ModelManager() {
@@ -123,6 +125,16 @@ public class ModelManager extends ComponentManager implements Model {
     public void deleteLoan(Loan target) {
         versionedLoanBook.removeLoan(target);
         indicateLoanBookChanged();
+    }
+
+    @Override
+    public void setPass(Password pass) {
+        preference.setPass(pass);
+    }
+
+    @Override
+    public String getPass() {
+        return preference.getPass();
     }
 
     @Override
