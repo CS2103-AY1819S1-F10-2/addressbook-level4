@@ -14,6 +14,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
+import seedu.address.logic.commands.AddBikeCommand;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.DeleteCommand;
@@ -28,8 +29,11 @@ import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.bike.Bike;
 import seedu.address.model.loan.Loan;
 import seedu.address.model.loan.NameContainsKeywordsPredicate;
+import seedu.address.testutil.BikeBuilder;
+import seedu.address.testutil.BikeUtil;
 import seedu.address.testutil.EditLoanDescriptorBuilder;
 import seedu.address.testutil.LoanBuilder;
 import seedu.address.testutil.LoanUtil;
@@ -39,6 +43,13 @@ public class LoanBookParserTest {
     public ExpectedException thrown = ExpectedException.none();
 
     private final LoanBookParser parser = new LoanBookParser();
+
+    @Test
+    public void parseCommand_addbike() throws Exception {
+        Bike bike = new BikeBuilder().build();
+        AddBikeCommand command = (AddBikeCommand) parser.parseCommand(BikeUtil.getAddBikeCommand(bike));
+        assertEquals(new AddBikeCommand(bike), command);
+    }
 
     @Test
     public void parseCommand_add() throws Exception {
