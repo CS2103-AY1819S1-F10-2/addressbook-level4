@@ -5,10 +5,10 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_LOANS_LISTED_OVERVIEW;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.address.testutil.TypicalLoanBook.getTypicalLoanBook;
 import static seedu.address.testutil.TypicalLoans.CARL;
 import static seedu.address.testutil.TypicalLoans.ELLE;
 import static seedu.address.testutil.TypicalLoans.FIONA;
-import static seedu.address.testutil.TypicalLoans.getTypicalLoanBook;
 
 import java.util.Arrays;
 import java.util.Collections;
