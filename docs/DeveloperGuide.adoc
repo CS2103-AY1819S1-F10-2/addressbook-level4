@@ -367,7 +367,6 @@ Hence, we store it as a `Password` object for encryption and decryption.
 
 ** Cons: This increases the complexity of the code base as preference.json can only be stored as a string.
 
-
 * **Alternative 1 (current choice):** Storing the current password as a Password.
 ** Pros: While password is basically a string, we do not want to expose this in the database.
          However, given the current design of the AddressBook that we morph from, we are required to store user settings in `UserPref`.
