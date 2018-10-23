@@ -4,7 +4,7 @@
 :stylesDir: ../stylesheets
 
 == PROJECT: LoanBook
-This portfolio page serves to showcases my contributions to the project, [https://github.com/CS2103-AY1819S1-F10-2/main[LoanBook]].
+This portfolio page serves to showcases my contributions to the project, [https://github.com/CS2103-AY1819S1-F10-2/main[LoanBook]]. My resume and full portfolio can be found [https://weineng.io[here].
 
 == Overview
 
@@ -44,9 +44,9 @@ AddressBook - Level 4 is a desktop address book application used for teaching So
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-include::../UserGuide.adoc[tag=undoredo]
-
-include::../UserGuide.adoc[tag=dataencryption]
+//include::../UserGuide.adoc[tag=undoredo]
+//
+//include::../UserGuide.adoc[tag=dataencryption]
 
 == Contributions to the Developer Guide
 
@@ -54,13 +54,6 @@ include::../UserGuide.adoc[tag=dataencryption]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=undoredo]
-
-include::../DeveloperGuide.adoc[tag=dataencryption]
-
-
-== PROJECT: PowerPointLabs
-
----
-
-_{Optionally, you may include other projects in your portfolio.}_
+//include::../DeveloperGuide.adoc[tag=undoredo]
+//
+//include::../DeveloperGuide.adoc[tag=dataencryption]
