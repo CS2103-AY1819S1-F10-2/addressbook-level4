@@ -72,6 +72,20 @@ public class ModelManagerTest {
     }
 
     @Test
+    public void getPass_returnsTrue() {
+        String currPass = modelManager.getPass();
+        assertTrue(Password.isSamePassword(currPass, new Password("a12345")));
+    }
+
+    @Test
+    public void setPass_returnsTrue() {
+        Password newPass = new Password("newpassword");
+        modelManager.setPass(newPass);
+        String currPass = modelManager.getPass();
+        assertTrue(Password.isSamePassword(currPass, newPass));
+    }
+
+    @Test
     public void equals() {
         LoanBook loanBook = new LoanBookBuilder()
                 .withLoan(ALICE).withLoan(BENSON)
