@@ -4,6 +4,7 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.model.Model;
+import seedu.address.model.Password;
 import seedu.address.model.ReadOnlyLoanBook;
 import seedu.address.model.bike.Bike;
 import seedu.address.model.loan.Loan;
@@ -104,6 +105,16 @@ public class ModelStub implements Model {
 
     @Override
     public void commitLoanBook() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public String getPass() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void setPass(Password pass) {
         throw new AssertionError("This method should not be called.");
     }
 }
