@@ -147,7 +147,8 @@ public class XmlAdaptedLoan {
      */
     private void checkLoanStatusValid() throws IllegalValueException {
         if (loanStatus == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, LoanStatus.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    LoanStatus.class.getSimpleName()));
         }
         if (!LoanStatus.isValidLoanStatus(loanStatus)) {
             throw new IllegalValueException(LoanStatus.MESSAGE_LOANSTATUS_CONSTRAINTS);
