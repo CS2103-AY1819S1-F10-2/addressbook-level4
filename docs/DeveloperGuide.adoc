@@ -365,7 +365,7 @@ image::setPasswordLogic.png[width="1000"]
 image::setPasswordModel.png[width="1000"]
 
 ===== Encrypt current password for security
-To ensure that others are unable to retrieve the app's password from the preference.json, we encrypt the password before storing. Decryption of password can only be done by Password.java.
+To ensure that others are unable to retrieve the app's password from the preference.json, we encrypt the password before storing. Decryption of password can only be done by the `Password` class.
 
 This is currently done by appending `-encrypt` to the password, and removing it when
 decrypting. For version 2.0, we plan to utilise existing libraries to encrypt and
