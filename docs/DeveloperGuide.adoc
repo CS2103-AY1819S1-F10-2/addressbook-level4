@@ -318,9 +318,11 @@ image::UndoRedoActivityDiagram.png[width="650"]
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
 
-// tag::userconfirmation[]
-=== User Confirmation
-Before a loan entry can be deleted, user confirmation should be required. This ensures that only authorized users are able to delete loans. This is done through the `Password` class validating any attempts to delete loans or change password.
+// tag::adminauthentication[]
+=== Admin Authentication
+Before critical actions such as deleting a loan can be performed, admin authentication
+should be required. This ensures that only authorized users are able to perform critical actions.
+This is done by requiring a password before performing a critical action.
 
 * Current Implementation *
 There are three stages in this implementation:
@@ -329,7 +331,10 @@ There are three stages in this implementation:
 1. To allow `delete` command to accept a password, we set a stub password of `a12345` and require all `delete` command to take in a password argument.
 * When password is wrong, we do not perform the deletion of the loans.
 * Only when password matches with stub password will the loan be deleted.
-2. Tests were edited to include and check for a valid password before deletion.
+2. Existing tests were edited to include and check for a valid password before deletion.
+
+[NOTE]
+The default password for a new app is `a12345`.
 
 The following sequence diagram shows how the new `delete` operation works.
 
@@ -337,14 +342,21 @@ image::deleteLoanWithPass.png[width="1000"]
 
 ===== Allow changing of master password
 
-This is done in the following steps:
+Given below is an example usage scenario and how the `setpass` mechanism behaves at each step.
 
-1. Create a `Password` class to store the password string.
-2. Create a `setpass` command that takes in the old password and new password.
-* We reject the command if the given old password is not equal to password
-that is stored in the database. This is to ensure only the user who has the password would be allowed to change it.
-* Set password in `UserPref` to new password if old password corresponds to current password.
-3. Write test to ensure no regression.
+Step 1. The user launches the application for the first time. `UserPref` file will initialise the password as `a12345`.
+
+Step 2. The user executes `setpass a12345 newP4sS` command to change the password to `newP4sS`.
+
+Step 3. `Password` class will encrypt the password, and call Model#setPass, that changes the password of the application in `UserPref`.
+
+[NOTE]
+If the current password input is wrong, it will not call Model#setPass, so the UserPref state will not be saved.
+
+[NOTE]
+If the current password input the same as the new password input, it will not call Model#setPass, so the UserPref state will not be saved.
+
+Step 4. Password in `UserPref` is set to new password input.
 
 The following sequence diagram shows how the `setpass` operation works:
 
