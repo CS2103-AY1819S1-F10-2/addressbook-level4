@@ -23,18 +23,18 @@ public enum LoanStatus {
         }
     };
 
-    private final static Set<String> values = new HashSet<String>(LoanStatus.values().length);
+    private static final Set<String> values = new HashSet<String>(LoanStatus.values().length);
 
     public static final String MESSAGE_LOANSTATUS_CONSTRAINTS =
             "LoanStatuses can only take values 'ONGOING', 'RETURNED', or 'DELETED'";
 
     static {
-        for (LoanStatus ls : LoanStatus.values()){
+        for (LoanStatus ls : LoanStatus.values()) {
             values.add(ls.name());
         }
     }
 
-    public static boolean isValidLoanStatus(String string){
+    public static boolean isValidLoanStatus(String string) {
         return values.contains(string);
     }
 }

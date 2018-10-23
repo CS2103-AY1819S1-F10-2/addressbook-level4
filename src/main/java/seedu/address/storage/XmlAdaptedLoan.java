@@ -10,7 +10,12 @@ import java.util.stream.Collectors;
 import javax.xml.bind.annotation.XmlElement;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.loan.*;
+import seedu.address.model.loan.Address;
+import seedu.address.model.loan.Email;
+import seedu.address.model.loan.Loan;
+import seedu.address.model.loan.LoanStatus;
+import seedu.address.model.loan.Name;
+import seedu.address.model.loan.Phone;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -45,21 +50,14 @@ public class XmlAdaptedLoan {
      * This is the original function that does not take into account the loanStatus.
      */
     public XmlAdaptedLoan(String name, String phone, String email, String address, List<XmlAdaptedTag> tagged) {
-        this.name = name;
-        this.phone = phone;
-        this.email = email;
-        this.address = address;
-        if (tagged != null) {
-            this.tagged = new ArrayList<>(tagged);
-        }
-        // Default the loan to Ongoing
-        this.loanStatus = "ONGOING";
+        this(name, phone, email, address, tagged, "ONGOING");
     }
 
     /**
      * Constructs an {@code XmlAdaptedLoan} with the given loan details.
      */
-    public XmlAdaptedLoan(String name, String phone, String email, String address, List<XmlAdaptedTag> tagged, String loanStatus) {
+    public XmlAdaptedLoan(String name, String phone, String email, String address,
+                          List<XmlAdaptedTag> tagged, String loanStatus) {
         this.name = name;
         this.phone = phone;
         this.email = email;
