@@ -333,7 +333,7 @@ There are three stages in this implementation:
 
 The following sequence diagram shows how the new `delete` operation works.
 
-image::deleteLoanWithPass.png[width="600"]
+image::deleteLoanWithPass.png[width="1000"]
 
 ===== Allow changing of master password
 
@@ -348,9 +348,9 @@ that is stored in the database. This is to ensure only the user who has the pass
 
 The following sequence diagram shows how the `setpass` operation works:
 
-image::setPasswordLogic.png[width="600"]
+image::setPasswordLogic.png[width="1000"]
 
-image::setPasswordModel.png[width="600"]
+image::setPasswordModel.png[width="1000"]
 
 ===== Encrypt current password for security
 To ensure that others are unable to retrieve the app's password from the preference.json, we encrypt the password before storing. Decryption of password can only be done by Password.java.
