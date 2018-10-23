@@ -142,7 +142,7 @@ public class UniqueLoanListTest {
     @Test
     public void setNullUniqueLoanListThrowsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        uniqueLoanList.set((UniqueLoanList) null);
+        uniqueLoanList.setAll((UniqueLoanList) null);
     }
 
     @Test
@@ -150,21 +150,21 @@ public class UniqueLoanListTest {
         uniqueLoanList.add(ALICE);
         UniqueLoanList expectedUniqueLoanList = new UniqueLoanList();
         expectedUniqueLoanList.add(BOB);
-        uniqueLoanList.set(expectedUniqueLoanList);
+        uniqueLoanList.setAll(expectedUniqueLoanList);
         assertEquals(expectedUniqueLoanList, uniqueLoanList);
     }
 
     @Test
     public void setNullListThrowsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        uniqueLoanList.set((List<Loan>) null);
+        uniqueLoanList.setAll((List<Loan>) null);
     }
 
     @Test
     public void setListReplacesOwnListWithProvidedList() {
         uniqueLoanList.add(ALICE);
         List<Loan> loanList = Collections.singletonList(BOB);
-        uniqueLoanList.set(loanList);
+        uniqueLoanList.setAll(loanList);
         UniqueLoanList expectedUniqueLoanList = new UniqueLoanList();
         expectedUniqueLoanList.add(BOB);
         assertEquals(expectedUniqueLoanList, uniqueLoanList);
@@ -174,7 +174,7 @@ public class UniqueLoanListTest {
     public void setListWithDuplicateLoansThrowsDuplicateLoanException() {
         List<Loan> listWithDuplicateLoans = Arrays.asList(ALICE, ALICE);
         thrown.expect(DuplicateLoanException.class);
-        uniqueLoanList.set(listWithDuplicateLoans);
+        uniqueLoanList.setAll(listWithDuplicateLoans);
     }
 
     @Test

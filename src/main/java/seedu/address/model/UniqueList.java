@@ -90,7 +90,7 @@ public abstract class UniqueList<T extends UniqueListItem<T>> implements Iterabl
      * Replaces the current list of items with the replacement.
      * @param replacement A new list of items.
      */
-    public void set(UniqueList<T> replacement) {
+    public void setAll(UniqueList<T> replacement) {
         requireNonNull(replacement);
         internalList.setAll(replacement.internalList);
     }
@@ -99,7 +99,7 @@ public abstract class UniqueList<T extends UniqueListItem<T>> implements Iterabl
      * Replaces the contents of this list with {@code items}.
      * {@code items} must not contain duplicate items.
      */
-    public void set(List<T> items) {
+    public void setAll(List<T> items) {
         requireAllNonNull(items);
         if (!itemsAreUnique(items)) {
             throwDuplicateException();
