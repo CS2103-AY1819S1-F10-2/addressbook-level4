@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<loanbook>
+
+    <bikes>
+        <name>BAcKStREET</name>
+    </bikes>
+
+    <!-- Loan with same identity as BAcKStREET -->
+    <bikes>
+        <name>BAcKStREET</name>
+    </bikes>
+
+</loanbook>

@@ -37,8 +37,10 @@ public class CommandTestUtil {
     public static final String VALID_TAG_HUSBAND = "husband";
     public static final String VALID_TAG_FRIEND = "friend";
 
-    public static final String VALID_NAME_BIKE1 = "BiCyClE001";
-    public static final String VALID_NAME_BIKE2 = "B002MountainClimber";
+    public static final String VALID_NAME_BIKE1 = "BIKE001";
+    public static final String VALID_NAME_BIKE2 = "BIKE002";
+    public static final String VALID_NAME_BIKE3 = "Silver Surfer";
+    public static final String VALID_NAME_BIKE4 = "Blue Ocean";
 
     public static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_AMY;
     public static final String NAME_DESC_BOB = " " + PREFIX_NAME + VALID_NAME_BOB;
@@ -53,6 +55,8 @@ public class CommandTestUtil {
 
     public static final String NAME_DESC_BIKE1 = " " + PREFIX_NAME + VALID_NAME_BIKE1;
     public static final String NAME_DESC_BIKE2 = " " + PREFIX_NAME + VALID_NAME_BIKE2;
+    public static final String NAME_DESC_BIKE3 = " " + PREFIX_NAME + VALID_NAME_BIKE3;
+    public static final String NAME_DESC_BIKE4 = " " + PREFIX_NAME + VALID_NAME_BIKE4;
 
     public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in names
     public static final String INVALID_PHONE_DESC = " " + PREFIX_PHONE + "911a"; // 'a' not allowed in phones
