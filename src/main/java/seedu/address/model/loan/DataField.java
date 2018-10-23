@@ -17,11 +17,11 @@ public abstract class DataField<T> {
      * Subclasses should have:
      * - {@code static final String MESSAGE_CONSTRAINTS = [string];}
      *      A message to the user describing how a valid objString should be formatted.
-     * - {@code static final Predicate<String> VALIDITY_PREDICATE = test -> test.matches([regex-expression]);}
+     * - {@code public static boolean isValid(String objString) {...}}
      *      Returns true iff the given objString is valid.
      * - The constructor only needs to be of this format:
      *     - arguments: {@code String objString}
-     *     - {@code { super(MESSAGE_CONSTRAINTS, VALIDITY_PREDICATE, parser, objString); }}
+     *     - {@code { super(MESSAGE_CONSTRAINTS, [CLASS-NAME]::isValid, parser, objString); }}
      *         - The parser converts the given objString into an object of type {@code T}, e.g. {@code Integer.parseInt}
      *         - The parser must be guaranteed to work (i.e. output a valid value) on a valid objString
      */
@@ -33,6 +33,7 @@ public abstract class DataField<T> {
      *
      * @param msgConstraints A message to the user describing how a valid objString should be formatted.
      * @param validityPred A predicate to check if the given objString is valid.
+     *                     Should typically be {@code [CLASS-NAME]::isValid}.
      * @param parser A function to convert the given objString to a value of type T.
      * @param objString A non-null and valid string describing the value.
      */

@@ -2,7 +2,7 @@ package seedu.address.logic.commands;
 
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.testutil.TypicalLoans.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalLoanBook.getTypicalLoanBook;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -24,16 +24,16 @@ public class AddCommandIntegrationTest {
 
     @Before
     public void setUp() {
-        model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+        model = new ModelManager(getTypicalLoanBook(), new UserPrefs());
     }
 
     @Test
     public void execute_newLoan_success() {
         Loan validLoan = new LoanBuilder().build();
 
-        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getLoanBook(), new UserPrefs());
         expectedModel.addLoan(validLoan);
-        expectedModel.commitAddressBook();
+        expectedModel.commitLoanBook();
 
         assertCommandSuccess(new AddCommand(validLoan), model, commandHistory,
                 String.format(AddCommand.MESSAGE_SUCCESS, validLoan), expectedModel);
@@ -41,7 +41,7 @@ public class AddCommandIntegrationTest {
 
     @Test
     public void execute_duplicateLoan_throwsCommandException() {
-        Loan loanInList = model.getAddressBook().getLoanList().get(0);
+        Loan loanInList = model.getLoanBook().getLoanList().get(0);
         assertCommandFailure(new AddCommand(loanInList), model, commandHistory,
                 AddCommand.MESSAGE_DUPLICATE_LOAN);
     }

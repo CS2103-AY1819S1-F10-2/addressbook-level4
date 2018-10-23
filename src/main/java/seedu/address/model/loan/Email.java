@@ -1,10 +1,9 @@
 package seedu.address.model.loan;
 
 import java.util.function.Function;
-import java.util.function.Predicate;
 
 /**
- * Represents a Loan's email in the address book.
+ * Represents a Loan's email in the loan book.
  * Guarantees: immutable; is valid as declared in {@link #isValidEmail(String)}
  */
 public class Email extends DataField<String> {
@@ -26,24 +25,21 @@ public class Email extends DataField<String> {
     private static final String DOMAIN_MIDDLE_REGEX = "[a-zA-Z0-9.-]*"; // alphanumeric, period and hyphen
     private static final String DOMAIN_LAST_CHARACTER_REGEX = "[^\\W_]$";
 
-    public static final Predicate<String> VALIDITY_PREDICATE =
-        test -> test.matches(LOCAL_PART_REGEX + "@"
-            + DOMAIN_FIRST_CHARACTER_REGEX + DOMAIN_MIDDLE_REGEX + DOMAIN_LAST_CHARACTER_REGEX);
-
     /**
      * Constructs an {@code Email}.
      *
      * @param email A valid email address.
      */
     public Email(String email) {
-        super(MESSAGE_EMAIL_CONSTRAINTS, VALIDITY_PREDICATE, Function.identity(), email);
+        super(MESSAGE_EMAIL_CONSTRAINTS, Email::isValidEmail, Function.identity(), email);
     }
 
     /**
      * Returns if a given string is a valid email.
      */
     public static boolean isValidEmail(String objString) {
-        return VALIDITY_PREDICATE.test(objString);
+        return objString.matches(LOCAL_PART_REGEX + "@"
+            + DOMAIN_FIRST_CHARACTER_REGEX + DOMAIN_MIDDLE_REGEX + DOMAIN_LAST_CHARACTER_REGEX);
     }
 
 }

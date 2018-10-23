@@ -3,7 +3,7 @@ package seedu.address.storage;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.testutil.TypicalLoans.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalLoanBook.getTypicalLoanBook;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -14,10 +14,10 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 
-import seedu.address.commons.events.model.AddressBookChangedEvent;
+import seedu.address.commons.events.model.LoanBookChangedEvent;
 import seedu.address.commons.events.storage.DataSavingExceptionEvent;
-import seedu.address.model.AddressBook;
-import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.LoanBook;
+import seedu.address.model.ReadOnlyLoanBook;
 import seedu.address.model.UserPrefs;
 import seedu.address.ui.testutil.EventsCollectorRule;
 
@@ -32,9 +32,9 @@ public class StorageManagerTest {
 
     @Before
     public void setUp() {
-        XmlAddressBookStorage addressBookStorage = new XmlAddressBookStorage(getTempFilePath("ab"));
+        XmlLoanBookStorage loanBookStorage = new XmlLoanBookStorage(getTempFilePath("ab"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(getTempFilePath("prefs"));
-        storageManager = new StorageManager(addressBookStorage, userPrefsStorage);
+        storageManager = new StorageManager(loanBookStorage, userPrefsStorage);
     }
 
     private Path getTempFilePath(String fileName) {
@@ -57,29 +57,29 @@ public class StorageManagerTest {
     }
 
     @Test
-    public void addressBookReadSave() throws Exception {
+    public void loanBookReadSave() throws Exception {
         /*
          * Note: This is an integration test that verifies the StorageManager is properly wired to the
-         * {@link XmlAddressBookStorage} class.
-         * More extensive testing of UserPref saving/reading is done in {@link XmlAddressBookStorageTest} class.
+         * {@link XmlLoanBookStorage} class.
+         * More extensive testing of UserPref saving/reading is done in {@link XmlLoanBookStorageTest} class.
          */
-        AddressBook original = getTypicalAddressBook();
-        storageManager.saveAddressBook(original);
-        ReadOnlyAddressBook retrieved = storageManager.readAddressBook().get();
-        assertEquals(original, new AddressBook(retrieved));
+        LoanBook original = getTypicalLoanBook();
+        storageManager.saveLoanBook(original);
+        ReadOnlyLoanBook retrieved = storageManager.readLoanBook().get();
+        assertEquals(original, new LoanBook(retrieved));
     }
 
     @Test
-    public void getAddressBookFilePath() {
-        assertNotNull(storageManager.getAddressBookFilePath());
+    public void getLoanBookFilePath() {
+        assertNotNull(storageManager.getLoanBookFilePath());
     }
 
     @Test
-    public void handleAddressBookChangedEvent_exceptionThrown_eventRaised() {
+    public void handleLoanBookChangedEvent_exceptionThrown_eventRaised() {
         // Create a StorageManager while injecting a stub that  throws an exception when the save method is called
-        Storage storage = new StorageManager(new XmlAddressBookStorageExceptionThrowingStub(Paths.get("dummy")),
+        Storage storage = new StorageManager(new XmlLoanBookStorageExceptionThrowingStub(Paths.get("dummy")),
                                              new JsonUserPrefsStorage(Paths.get("dummy")));
-        storage.handleAddressBookChangedEvent(new AddressBookChangedEvent(new AddressBook()));
+        storage.handleLoanBookChangedEvent(new LoanBookChangedEvent(new LoanBook()));
         assertTrue(eventsCollectorRule.eventsCollector.getMostRecent() instanceof DataSavingExceptionEvent);
     }
 
@@ -87,14 +87,14 @@ public class StorageManagerTest {
     /**
      * A Stub class to throw an exception when the save method is called
      */
-    class XmlAddressBookStorageExceptionThrowingStub extends XmlAddressBookStorage {
+    class XmlLoanBookStorageExceptionThrowingStub extends XmlLoanBookStorage {
 
-        public XmlAddressBookStorageExceptionThrowingStub(Path filePath) {
+        public XmlLoanBookStorageExceptionThrowingStub(Path filePath) {
             super(filePath);
         }
 
         @Override
-        public void saveAddressBook(ReadOnlyAddressBook addressBook, Path filePath) throws IOException {
+        public void saveLoanBook(ReadOnlyLoanBook loanBook, Path filePath) throws IOException {
             throw new IOException("dummy exception");
         }
     }
