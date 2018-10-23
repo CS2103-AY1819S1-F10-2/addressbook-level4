@@ -9,7 +9,7 @@ import static seedu.address.logic.commands.CommandTestUtil.showLoanAtIndex;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_LOAN;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_LOAN;
 import static seedu.address.testutil.TypicalIndexes.INDEX_THIRD_LOAN;
-import static seedu.address.testutil.TypicalLoans.getTypicalLoanBook;
+import static seedu.address.testutil.TypicalLoanBook.getTypicalLoanBook;
 
 import org.junit.Rule;
 import org.junit.Test;

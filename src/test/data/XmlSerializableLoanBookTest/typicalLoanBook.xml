@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<!-- LoanBook save file which contains the same Loan values as in TypicalLoans#getTypicalLoanBook() -->
+<!-- LoanBook save file which contains the same Loan values as in TypicalLoanBook#getTypicalLoanBook() -->
 <loanbook>
+    <bikes>
+        <name>BIKE001</name>
+    </bikes>
+    <bikes>
+        <name>BIKE002</name>
+    </bikes>
+    <bikes>
+        <name>Silver Surfer</name>
+    </bikes>
+    <bikes>
+        <name>Blue Ocean</name>
+    </bikes>
     <loans>
         <name>Alice Pauline</name>
         <phone>94351253</phone>

@@ -40,7 +40,7 @@ import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.model.LoanBook;
 import seedu.address.model.Model;
-import seedu.address.testutil.TypicalLoans;
+import seedu.address.testutil.TypicalLoanBook;
 import seedu.address.ui.BrowserPanel;
 import seedu.address.ui.CommandBox;
 
@@ -85,7 +85,7 @@ public abstract class LoanBookSystemTest {
      * Returns the data to be loaded into the file in {@link #getDataFileLocation()}.
      */
     protected LoanBook getInitialData() {
-        return TypicalLoans.getTypicalLoanBook();
+        return TypicalLoanBook.getTypicalLoanBook();
     }
 
     /**
