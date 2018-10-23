@@ -9,7 +9,6 @@ import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.time.format.ResolverStyle;
-import java.util.function.Predicate;
 
 /**
  * Represents a timeStamp in the loan book.
@@ -31,8 +30,6 @@ public class LoanTime extends DataField<Instant> {
      */
     public static final String LONG_LOANTIME_VALIDATION_REGEX = "^\\d{4}-\\d{2}-\\d{2} +\\d{2}:\\d{2}";
     public static final String SHORT_LOANTIME_VALIDATION_REGEX = "^\\d{2}:\\d{2}";
-
-    public static final Predicate<String> VALIDITY_PREDICATE = LoanTime::isValidLoanTime;
 
     // Default patterns for Date and Time
     private static final String DEFAULT_DATE_PATTERN = "uuuu-MM-dd";
@@ -62,7 +59,7 @@ public class LoanTime extends DataField<Instant> {
      * @param loanTime A string to be parsed into a LoanTime
      */
     public LoanTime(String loanTime) {
-        super(MESSAGE_LOANTIME_CONSTRAINTS, VALIDITY_PREDICATE, LoanTime::parseInstant, loanTime);
+        super(MESSAGE_LOANTIME_CONSTRAINTS, LoanTime::isValidLoanTime, LoanTime::parseInstant, loanTime);
     }
 
     /**

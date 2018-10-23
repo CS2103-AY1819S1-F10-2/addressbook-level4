@@ -8,7 +8,7 @@ import seedu.address.model.Model;
 import seedu.address.model.loan.NameContainsKeywordsPredicate;
 
 /**
- * Finds and lists all loans in address book whose name contains any of the argument keywords.
+ * Finds and lists all loans in loan book whose name contains any of the argument keywords.
  * Keyword matching is case insensitive.
  */
 public class FindCommand extends Command {

@@ -3,7 +3,7 @@ package seedu.address.logic.commands;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showLoanAtIndex;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_LOAN;
-import static seedu.address.testutil.TypicalLoans.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalLoanBook.getTypicalLoanBook;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -24,8 +24,8 @@ public class ListCommandTest {
 
     @Before
     public void setUp() {
-        model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-        expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        model = new ModelManager(getTypicalLoanBook(), new UserPrefs());
+        expectedModel = new ModelManager(model.getLoanBook(), new UserPrefs());
     }
 
     @Test

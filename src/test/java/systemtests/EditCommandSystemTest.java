@@ -48,7 +48,7 @@ import seedu.address.model.tag.Tag;
 import seedu.address.testutil.LoanBuilder;
 import seedu.address.testutil.LoanUtil;
 
-public class EditCommandSystemTest extends AddressBookSystemTest {
+public class EditCommandSystemTest extends LoanBookSystemTest {
 
     @Test
     public void edit() {
@@ -83,7 +83,7 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
         assertCommandSuccess(command, index, BOB);
 
         /* Case: edit a loan with new values same as another loan's values but with different name -> edited */
-        assertTrue(getModel().getAddressBook().getLoanList().contains(BOB));
+        assertTrue(getModel().getLoanBook().getLoanList().contains(BOB));
         index = INDEX_SECOND_LOAN;
         assertNotEquals(getModel().getFilteredLoanList().get(index.getZeroBased()), BOB);
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_AMY + PHONE_DESC_BOB + EMAIL_DESC_BOB
@@ -109,7 +109,7 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
 
         /* ------------------ Performing edit operation while a filtered list is being shown ------------------------ */
 
-        /* Case: filtered loan list, edit index within bounds of address book and loan list -> edited */
+        /* Case: filtered loan list, edit index within bounds of loan book and loan list -> edited */
         showLoansWithName(KEYWORD_MATCHING_MEIER);
         index = INDEX_FIRST_LOAN;
         assertTrue(index.getZeroBased() < getModel().getFilteredLoanList().size());
@@ -118,11 +118,11 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
         editedLoan = new LoanBuilder(loanToEdit).withName(VALID_NAME_BOB).build();
         assertCommandSuccess(command, index, editedLoan);
 
-        /* Case: filtered loan list, edit index within bounds of address book but out of bounds of loan list
+        /* Case: filtered loan list, edit index within bounds of loan book but out of bounds of loan list
          * -> rejected
          */
         showLoansWithName(KEYWORD_MATCHING_MEIER);
-        int invalidIndex = getModel().getAddressBook().getLoanList().size();
+        int invalidIndex = getModel().getLoanBook().getLoanList().size();
         assertCommandFailure(EditCommand.COMMAND_WORD + " " + invalidIndex + NAME_DESC_BOB,
                 Messages.MESSAGE_INVALID_LOAN_DISPLAYED_INDEX);
 
@@ -185,7 +185,7 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
 
         /* Case: edit a loan with new values same as another loan's values -> rejected */
         executeCommand(LoanUtil.getAddCommand(BOB));
-        assertTrue(getModel().getAddressBook().getLoanList().contains(BOB));
+        assertTrue(getModel().getLoanBook().getLoanList().contains(BOB));
         index = INDEX_FIRST_LOAN;
         assertFalse(getModel().getFilteredLoanList().get(index.getZeroBased()).equals(BOB));
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
@@ -259,9 +259,9 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
      * 4. Asserts that the status bar's sync status changes.<br>
      * 5. Asserts that the command box has the default style class.<br>
      * Verifications 1 and 2 are performed by
-     * {@code AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
-     * @see AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)
-     * @see AddressBookSystemTest#assertSelectedCardChanged(Index)
+     * {@code LoanBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
+     * @see LoanBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)
+     * @see LoanBookSystemTest#assertSelectedCardChanged(Index)
      */
     private void assertCommandSuccess(String command, Model expectedModel, String expectedResultMessage,
             Index expectedSelectedCardIndex) {
@@ -284,8 +284,8 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
      * 3. Asserts that the browser url, selected card and status bar remain unchanged.<br>
      * 4. Asserts that the command box has the error style.<br>
      * Verifications 1 and 2 are performed by
-     * {@code AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
-     * @see AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)
+     * {@code LoanBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
+     * @see LoanBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)
      */
     private void assertCommandFailure(String command, String expectedResultMessage) {
         Model expectedModel = getModel();

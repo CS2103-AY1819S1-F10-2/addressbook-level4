@@ -28,7 +28,7 @@ import seedu.address.model.loan.Phone;
 import seedu.address.model.tag.Tag;
 
 /**
- * Edits the details of an existing loan in the address book.
+ * Edits the details of an existing loan in the loan book.
  */
 public class EditCommand extends Command {
 
@@ -49,7 +49,7 @@ public class EditCommand extends Command {
 
     public static final String MESSAGE_EDIT_LOAN_SUCCESS = "Edited Loan: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_LOAN = "This loan already exists in the address book.";
+    public static final String MESSAGE_DUPLICATE_LOAN = "This loan already exists in the loan book.";
 
     private final Index index;
     private final EditLoanDescriptor editLoanDescriptor;
@@ -84,7 +84,7 @@ public class EditCommand extends Command {
 
         model.updateLoan(loanToEdit, editedLoan);
         model.updateFilteredLoanList(PREDICATE_SHOW_ALL_LOANS);
-        model.commitAddressBook();
+        model.commitLoanBook();
         return new CommandResult(String.format(MESSAGE_EDIT_LOAN_SUCCESS, editedLoan));
     }
 

@@ -14,7 +14,7 @@ import seedu.address.model.Model;
 import seedu.address.model.loan.Loan;
 
 /**
- * Selects a loan identified using it's displayed index from the address book.
+ * Selects a loan identified using it's displayed index from the loan book.
  */
 public class SelectCommand extends Command {
 
