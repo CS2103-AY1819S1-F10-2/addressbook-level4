@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addressbook>
-
+<loanbook>
+    <!-- loan with an invalid loanStatus-->
     <loans>
         <name>Alice Pauline</name>
         <phone>94351253</phone>
@@ -9,5 +9,4 @@
         <loanStatus>OFFGOING</loanStatus>
         <tagged>friends</tagged>
     </loans>
-
-</addressbook>
+</loanbook>
