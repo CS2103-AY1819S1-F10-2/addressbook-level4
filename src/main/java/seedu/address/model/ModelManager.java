@@ -38,6 +38,7 @@ public class ModelManager extends ComponentManager implements Model {
         versionedLoanBook = new VersionedLoanBook(loanBook);
         filteredBikes = new FilteredList<>(versionedLoanBook.getBikeList());
         filteredLoans = new FilteredList<>(versionedLoanBook.getLoanList());
+        preference = userPrefs;
     }
 
     public ModelManager() {
