@@ -5,7 +5,7 @@ package seedu.address.model;
  */
 public class Password {
     public static final String MESSAGE_PASSWORD_CONSTRAINTS =
-            "TO ADD CONSTRAINS";
+            "Password should be alphanumeric of at least 6 characters and up to 10 characters.\n";
 
     private String password;
 
@@ -15,21 +15,21 @@ public class Password {
 
     /**
      * Check if hashed currentPassword and hashed oldPassInput is same when decrypted.
-     * @param currentPass
-     * @param oldPassInput
-     * @return boolean of whether input matches with current password.
+     * @param currentPass The current password that was previously set.
+     * @param oldPassInput Input to check if it is same as current password.
+     * @return Boolean of whether input matches with current password.
      */
     public static boolean isSamePassword(String currentPass, Password oldPassInput) {
-        Password.decrypt(currentPass);
-        oldPassInput.decrypt();
-        return Password.decrypt(currentPass).equals(oldPassInput.decrypt());
+        String curr = Password.decrypt(currentPass);
+        String toCheck = oldPassInput.decrypt();
+        return curr.equals(toCheck);
     }
 
     /**
      * Returns true if a given string is a valid password
      */
     public static boolean isValidPass(String objString) {
-        return true;
+        return objString.matches("^[a-zA-Z0-9]{6,10}$");
     }
 
     private static String decrypt(String pass) {
@@ -37,10 +37,12 @@ public class Password {
     }
 
     private String decrypt() {
+
         return password.substring(0, password.length() - "-encrypt".length());
     }
 
     private static String encrypt(String pass) {
+
         return pass + "-encrypt";
     }
 
