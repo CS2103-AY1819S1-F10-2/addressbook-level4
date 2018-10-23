@@ -12,12 +12,12 @@ import org.junit.rules.ExpectedException;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.XmlUtil;
 import seedu.address.model.LoanBook;
-import seedu.address.testutil.TypicalLoans;
+import seedu.address.testutil.TypicalLoanBook;
 
 public class XmlSerializableLoanBookTest {
 
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "XmlSerializableLoanBookTest");
-    private static final Path TYPICAL_LOANS_FILE = TEST_DATA_FOLDER.resolve("typicalLoansLoanBook.xml");
+    private static final Path TYPICAL_LOANBOOK_FILE = TEST_DATA_FOLDER.resolve("typicalLoanBook.xml");
     private static final Path INVALID_BIKE_FILE = TEST_DATA_FOLDER.resolve("invalidBikeLoanBook.xml");
     private static final Path INVALID_LOAN_FILE = TEST_DATA_FOLDER.resolve("invalidLoanLoanBook.xml");
     private static final Path DUPLICATE_BIKE_FILE = TEST_DATA_FOLDER.resolve("duplicateBikeLoanBook.xml");
@@ -28,10 +28,10 @@ public class XmlSerializableLoanBookTest {
 
     @Test
     public void toModelType_typicalLoansFile_success() throws Exception {
-        XmlSerializableLoanBook dataFromFile = XmlUtil.getDataFromFile(TYPICAL_LOANS_FILE,
+        XmlSerializableLoanBook dataFromFile = XmlUtil.getDataFromFile(TYPICAL_LOANBOOK_FILE,
             XmlSerializableLoanBook.class);
         LoanBook loanBookFromFile = dataFromFile.toModelType();
-        LoanBook typicalLoansLoanBook = TypicalLoans.getTypicalLoanBook();
+        LoanBook typicalLoansLoanBook = TypicalLoanBook.getTypicalLoanBook();
         assertEquals(loanBookFromFile, typicalLoansLoanBook);
     }
 

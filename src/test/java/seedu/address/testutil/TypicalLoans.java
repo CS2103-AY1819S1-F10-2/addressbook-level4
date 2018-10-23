@@ -15,7 +15,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import seedu.address.model.LoanBook;
 import seedu.address.model.loan.Loan;
 
 /**
@@ -58,17 +57,6 @@ public class TypicalLoans {
     public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
 
     private TypicalLoans() {} // prevents instantiation
-
-    /**
-     * Returns an {@code LoanBook} with all the typical loans.
-     */
-    public static LoanBook getTypicalLoanBook() {
-        LoanBook ab = new LoanBook();
-        for (Loan loan : getTypicalLoans()) {
-            ab.addLoan(loan);
-        }
-        return ab;
-    }
 
     public static List<Loan> getTypicalLoans() {
         return new ArrayList<>(Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE));
