@@ -60,6 +60,16 @@ public interface Model {
     boolean hasLoan(Loan loan);
 
     /**
+     * Set password for the App
+     */
+    void setPass(Password pass);
+
+    /**
+     * Get hashed password for the App
+     */
+    String getPass();
+
+    /**
      * Adds the given loan.
      * {@code loan} must not already exist in the loan book.
      */
