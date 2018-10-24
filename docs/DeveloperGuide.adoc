@@ -407,7 +407,7 @@ Given below is an example usage scenerio and how the internals of the Loan would
 ===== Aspect: Getting the summary
 * **Alternative 1 (current choice):** Looping through the entire list of loans to get the summary of the content
 ** Pros: Easy to implement, and do not need to create new data storage features.
-** Cons: Looping through all loans will take more time, as the LoanBook would have to check every loan and recalculate. 
+** Cons: Looping through all loans will take more time, as the LoanBook would have to check every loan and recalculate.
 
 * Alternative 2: Use a cache to store previously calculated values of the summaries.
 ** Pros: Quicker response time to the users.
