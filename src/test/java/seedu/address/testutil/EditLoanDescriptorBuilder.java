@@ -6,10 +6,14 @@ import java.util.stream.Stream;
 
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EditCommand.EditLoanDescriptor;
+import seedu.address.model.bike.Bike;
 import seedu.address.model.loan.Address;
 import seedu.address.model.loan.Email;
 import seedu.address.model.loan.Loan;
+import seedu.address.model.loan.LoanRate;
+import seedu.address.model.loan.LoanTime;
 import seedu.address.model.loan.Name;
+import seedu.address.model.loan.Nric;
 import seedu.address.model.loan.Phone;
 import seedu.address.model.tag.Tag;
 
@@ -34,9 +38,13 @@ public class EditLoanDescriptorBuilder {
     public EditLoanDescriptorBuilder(Loan loan) {
         descriptor = new EditCommand.EditLoanDescriptor();
         descriptor.setName(loan.getName());
+        descriptor.setNric(loan.getNric());
         descriptor.setPhone(loan.getPhone());
         descriptor.setEmail(loan.getEmail());
         descriptor.setAddress(loan.getAddress());
+        descriptor.setBike(loan.getBike());
+        descriptor.setLoanRate(loan.getLoanRate());
+        descriptor.setLoanTime(loan.getLoanTime());
         descriptor.setTags(loan.getTags());
     }
 
@@ -45,6 +53,14 @@ public class EditLoanDescriptorBuilder {
      */
     public EditLoanDescriptorBuilder withName(String name) {
         descriptor.setName(new Name(name));
+        return this;
+    }
+
+    /**
+     * Sets the {@code Nric} of the {@code EditLoanDescriptor} that we are building.
+     */
+    public EditLoanDescriptorBuilder withNric(String nric) {
+        descriptor.setNric(new Nric(nric));
         return this;
     }
 
@@ -69,6 +85,30 @@ public class EditLoanDescriptorBuilder {
      */
     public EditLoanDescriptorBuilder withAddress(String address) {
         descriptor.setAddress(new Address(address));
+        return this;
+    }
+
+    /**
+     * Sets the {@code Bike} of the {@code EditLoanDescriptor} that we are building.
+     */
+    public EditLoanDescriptorBuilder withBike(String bike) {
+        descriptor.setBike(new Bike(new Name(bike)));
+        return this;
+    }
+
+    /**
+     * Sets the {@code LoanRate} of the {@code EditLoanDescriptor} that we are building.
+     */
+    public EditLoanDescriptorBuilder withLoanRate(String rate) {
+        descriptor.setLoanRate(new LoanRate(rate));
+        return this;
+    }
+
+    /**
+     * Sets the {@code LoanTime} of the {@code EditLoanDescriptor} that we are building.
+     */
+    public EditLoanDescriptorBuilder withLoanTime(String time) {
+        descriptor.setLoanTime(new LoanTime(time));
         return this;
     }
 

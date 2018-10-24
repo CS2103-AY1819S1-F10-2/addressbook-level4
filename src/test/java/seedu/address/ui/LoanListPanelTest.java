@@ -96,9 +96,13 @@ public class LoanListPanelTest extends GuiUnitTest {
         for (int i = 0; i < loanCount; i++) {
             builder.append("<loans>\n");
             builder.append("<name>").append(i).append("a</name>\n");
+            builder.append("<nric>S9249123D</nric>\n");
             builder.append("<phone>000</phone>\n");
             builder.append("<email>a@aa</email>\n");
             builder.append("<address>a</address>\n");
+            builder.append("<bike>b</bike>\n");
+            builder.append("<rate>1</rate>\n");
+            builder.append("<time>12:00</time>\n");
             builder.append("</loans>\n");
         }
         builder.append("</loanbook>\n");

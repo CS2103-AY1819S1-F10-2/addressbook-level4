@@ -7,6 +7,7 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+import seedu.address.model.bike.Bike;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -16,23 +17,41 @@ import seedu.address.model.tag.Tag;
 public class Loan {
 
     // Identity fields
+    private final Bike bike;
     private final Name name;
-    private final Phone phone;
-    private final Email email;
+    private final Nric nric;
+    //TODO: add LoanId filed
+    //private final LoanId id;
 
     // Data fields
+    private final LoanRate rate;
+    private final LoanTime time;
+    private final Phone phone;
+    private final Email email;
     private final Address address;
     private final Set<Tag> tags = new HashSet<>();
 
     /**
      * Every field must be present and not null.
      */
-    public Loan(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
-        requireAllNonNull(name, phone, email, address, tags);
+    public Loan(Name name,
+                Nric nric,
+                Phone phone,
+                Email email,
+                Address address,
+                Bike bike,
+                LoanRate rate,
+                LoanTime time,
+                Set<Tag> tags) {
+        requireAllNonNull(name, nric, phone, email, address, bike, rate, time, tags);
         this.name = name;
+        this.nric = nric;
         this.phone = phone;
         this.email = email;
         this.address = address;
+        this.bike = bike;
+        this.rate = rate;
+        this.time = time;
         this.tags.addAll(tags);
     }
 
@@ -50,6 +69,22 @@ public class Loan {
 
     public Address getAddress() {
         return address;
+    }
+
+    public Nric getNric() {
+        return nric;
+    }
+
+    public Bike getBike() {
+        return bike;
+    }
+
+    public LoanRate getLoanRate() {
+        return rate;
+    }
+
+    public LoanTime getLoanTime() {
+        return time;
     }
 
     /**
@@ -71,7 +106,10 @@ public class Loan {
 
         return otherLoan != null
                 && otherLoan.getName().equals(getName())
-                && (otherLoan.getPhone().equals(getPhone()) || otherLoan.getEmail().equals(getEmail()));
+                && otherLoan.getNric().equals(getNric())
+                && otherLoan.getBike().equals(getBike())
+                && (otherLoan.getEmail().equals(getEmail()) || otherLoan.getPhone().equals(getPhone())
+                || otherLoan.getLoanRate().equals(getLoanRate()) || otherLoan.getLoanTime().equals(getLoanTime()));
     }
 
     /**
@@ -90,28 +128,40 @@ public class Loan {
 
         Loan otherLoan = (Loan) other;
         return otherLoan.getName().equals(getName())
+                && otherLoan.getNric().equals(getNric())
                 && otherLoan.getPhone().equals(getPhone())
                 && otherLoan.getEmail().equals(getEmail())
                 && otherLoan.getAddress().equals(getAddress())
+                && otherLoan.getBike().equals(getBike())
+                && otherLoan.getLoanRate().equals(getLoanRate())
+                && otherLoan.getLoanTime().equals(getLoanTime())
                 && otherLoan.getTags().equals(getTags());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, address, tags);
+        return Objects.hash(name, nric, phone, email, address, bike, rate, time, tags);
     }
 
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
+                .append(" Nric: ")
+                .append(getNric())
                 .append(" Phone: ")
                 .append(getPhone())
                 .append(" Email: ")
                 .append(getEmail())
                 .append(" Address: ")
                 .append(getAddress())
+                .append(" Bike: ")
+                .append(getBike())
+                .append(" LoanRate: ")
+                .append(getLoanRate())
+                .append(" LoanTime: ")
+                .append(getLoanTime())
                 .append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();

@@ -15,48 +15,76 @@
     </bikes>
     <loans>
         <name>Alice Pauline</name>
+        <nric>S0848937H</nric>
         <phone>94351253</phone>
         <email>alice@example.com</email>
         <address>123, Jurong West Ave 6, #08-111</address>
+        <bike>Bike001</bike>
+        <rate>1.1</rate>
+        <time>12:33</time>
         <tagged>friends</tagged>
     </loans>
     <loans>
         <name>Benson Meier</name>
+        <nric>F1342714M</nric>
         <phone>98765432</phone>
         <email>johnd@example.com</email>
         <address>311, Clementi Ave 2, #02-25</address>
+        <bike>Bike002</bike>
+        <rate>0.15</rate>
+        <time>2017-10-12 06:08</time>
         <tagged>owesMoney</tagged>
         <tagged>friends</tagged>
     </loans>
     <loans>
         <name>Carl Kurz</name>
+        <nric>T0238282I</nric>
         <phone>95352563</phone>
         <email>heinz@example.com</email>
         <address>wall street</address>
+        <bike>Bike003</bike>
+        <rate>23.9</rate>
+        <time>14:20</time>
     </loans>
     <loans>
         <name>Daniel Meier</name>
+        <nric>S9335895C</nric>
         <phone>87652533</phone>
         <email>cornelia@example.com</email>
         <address>10th street</address>
+        <bike>Bike004</bike>
+        <rate>9.0</rate>
+        <time>17:56</time>
         <tagged>friends</tagged>
     </loans>
     <loans>
         <name>Elle Meyer</name>
+        <nric>G9112925L</nric>
         <phone>9482224</phone>
         <email>werner@example.com</email>
         <address>michegan ave</address>
+        <bike>Bike005</bike>
+        <rate>5.55</rate>
+        <time>2010-12-30 10:30</time>
     </loans>
     <loans>
         <name>Fiona Kunz</name>
+        <nric>G9400645M</nric>
         <phone>9482427</phone>
         <email>lydia@example.com</email>
         <address>little tokyo</address>
+        <bike>Bike006</bike>
+        <rate>33.3</rate>
+        <time>01:01</time>
     </loans>
     <loans>
         <name>George Best</name>
+        <nric>S8313623E</nric>
         <phone>9482442</phone>
         <email>anna@example.com</email>
         <address>4th street</address>
+        <bike>Bike007</bike>
+        <rate>5.05</rate>
+        <time>2013-03-13 12:08</time>
     </loans>
 </loanbook>
