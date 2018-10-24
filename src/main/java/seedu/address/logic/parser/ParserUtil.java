@@ -10,9 +10,13 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Password;
+import seedu.address.model.bike.Bike;
 import seedu.address.model.loan.Address;
 import seedu.address.model.loan.Email;
+import seedu.address.model.loan.LoanRate;
+import seedu.address.model.loan.LoanTime;
 import seedu.address.model.loan.Name;
+import seedu.address.model.loan.Nric;
 import seedu.address.model.loan.Phone;
 import seedu.address.model.tag.Tag;
 
@@ -49,6 +53,21 @@ public class ParserUtil {
             throw new ParseException(Name.MESSAGE_NAME_CONSTRAINTS);
         }
         return new Name(trimmedName);
+    }
+
+    /**
+     * Parses a {@code String nric} into a {@code Nric}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code nric} is invalid.
+     */
+    public static Nric parseNric(String nric) throws ParseException {
+        requireNonNull(nric);
+        String trimmedNric = nric.trim();
+        if (!Name.isValidName(trimmedNric)) {
+            throw new ParseException(Nric.MESSAGE_NRIC_CONSTRAINTS);
+        }
+        return new Nric(trimmedNric);
     }
 
     /**
@@ -109,6 +128,51 @@ public class ParserUtil {
             throw new ParseException(Email.MESSAGE_EMAIL_CONSTRAINTS);
         }
         return new Email(trimmedEmail);
+    }
+
+    /**
+     * Parses a {@code String bike} into a {@code Bike}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code bike} is invalid.
+     */
+    public static Bike parseBike(String bike) throws ParseException {
+        requireNonNull(bike);
+        String trimmedBike = bike.trim();
+        if (!Name.isValidName(trimmedBike)) {
+            throw new ParseException(Name.MESSAGE_NAME_CONSTRAINTS);
+        }
+        return new Bike(new Name(trimmedBike));
+    }
+
+    /**
+     * Parses a {@code String rate} into a {@code LoanRate}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code rate} is invalid.
+     */
+    public static LoanRate parseLoanRate(String rate) throws ParseException {
+        requireNonNull(rate);
+        String trimmedLoanRate = rate.trim();
+        if (!LoanRate.isValidRate(trimmedLoanRate)) {
+            throw new ParseException(LoanRate.MESSAGE_LOANRATE_CONSTRAINTS);
+        }
+        return new LoanRate(trimmedLoanRate);
+    }
+
+    /**
+     * Parses a {@code String time} into a {@code LoanTime}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code time} is invalid.
+     */
+    public static LoanTime parseLoanTime(String time) throws ParseException {
+        requireNonNull(time);
+        String trimmedLoanTime = time.trim();
+        if (!LoanTime.isValidLoanTime(trimmedLoanTime)) {
+            throw new ParseException(LoanTime.MESSAGE_LOANTIME_CONSTRAINTS);
+        }
+        return new LoanTime(trimmedLoanTime);
     }
 
     /**
