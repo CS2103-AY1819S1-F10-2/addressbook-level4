@@ -33,22 +33,31 @@ public class LoanCard extends UiPart<Region> {
     @FXML
     private Label id;
     @FXML
+    private Label nric;
+    @FXML
     private Label phone;
     @FXML
-    private Label address;
-    @FXML
     private Label email;
+    @FXML
+    private Label bike;
+    @FXML
+    private Label rate;
+    @FXML
+    private Label time;
     @FXML
     private FlowPane tags;
 
     public LoanCard(Loan loan, int displayedIndex) {
         super(FXML);
         this.loan = loan;
-        id.setText(displayedIndex + ". ");
+        id.setText(Integer.toString(displayedIndex));
         name.setText(loan.getName().value);
-        phone.setText(loan.getPhone().value);
-        address.setText(loan.getAddress().value);
-        email.setText(loan.getEmail().value);
+        nric.setText(loan.getNric().getCensored());
+        phone.setText(loan.getPhone().getCensored());
+        email.setText(loan.getEmail().getCensored());
+        bike.setText(loan.getBike().getName().value);
+        rate.setText(loan.getLoanRate().toString());
+        time.setText(loan.getLoanTime().toString());
         initTags(loan);
     }
 

@@ -12,8 +12,8 @@ import seedu.address.model.loan.Loan;
 import seedu.address.model.loan.UniqueLoanList;
 
 /**
- * Wraps all data (bikes and loans) at the loan-book level
- * Duplicates are not allowed (by .isSameBike and .isSameLoan comparison)
+ * Wraps all data (bikes and loans) at the loanbook level.
+ * Duplicates are not allowed.
  */
 public class LoanBook implements ReadOnlyLoanBook {
 
@@ -49,7 +49,7 @@ public class LoanBook implements ReadOnlyLoanBook {
      * {@code bikes} must not contain duplicate bikes.
      */
     public void setBikes(List<Bike> bikes) {
-        this.bikes.setBikes(bikes);
+        this.bikes.setAll(bikes);
     }
 
     /**
@@ -57,7 +57,7 @@ public class LoanBook implements ReadOnlyLoanBook {
      * {@code loans} must not contain duplicate loans.
      */
     public void setLoans(List<Loan> loans) {
-        this.loans.setLoans(loans);
+        this.loans.setAll(loans);
     }
 
     /**
@@ -96,7 +96,7 @@ public class LoanBook implements ReadOnlyLoanBook {
     public void updateBike(Bike target, Bike editedBike) {
         requireNonNull(editedBike);
 
-        bikes.setBike(target, editedBike);
+        bikes.set(target, editedBike);
     }
 
     /**
@@ -133,7 +133,7 @@ public class LoanBook implements ReadOnlyLoanBook {
     public void updateLoan(Loan target, Loan editedLoan) {
         requireNonNull(editedLoan);
 
-        loans.setLoan(target, editedLoan);
+        loans.set(target, editedLoan);
     }
 
     /**

@@ -1,5 +1,6 @@
 package seedu.address.model.loan;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
@@ -47,5 +48,25 @@ public class NricTest {
         assertTrue(Nric.isValidNric("t1234567j"));
         assertTrue(Nric.isValidNric("f1234567N"));
         assertTrue(Nric.isValidNric("G1234567x"));
+    }
+
+    @Test
+    public void censor() {
+        Nric nric1 = new Nric("S1234567D");
+        Nric nric2 = new Nric("T1234567J");
+        Nric nric3 = new Nric("F1234567N");
+        Nric nric4 = new Nric("G1234567X");
+        Nric nric5 = new Nric("s1234567d");
+        assertEquals("Sxxxxx67D", nric1.getCensored());
+        assertEquals("Txxxxx67J", nric2.getCensored());
+        assertEquals("Fxxxxx67N", nric3.getCensored());
+        assertEquals("Gxxxxx67X", nric4.getCensored());
+        assertEquals("Sxxxxx67D", nric5.getCensored());
+    }
+
+    @Test
+    public void censorPartLengthCheck() {
+        Nric testNric = new Nric("G1234567X");
+        assertEquals("xxxxx", testNric.doCensoring(testNric.toString().length() - 4));
     }
 }

@@ -56,25 +56,25 @@ public class UniqueBikeListTest {
     @Test
     public void setBikeNullTargetBikeThrowsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        uniqueBikeList.setBike(null, BIKE1);
+        uniqueBikeList.set(null, BIKE1);
     }
 
     @Test
     public void setBikeNullEditedBikeThrowsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        uniqueBikeList.setBike(BIKE1, null);
+        uniqueBikeList.set(BIKE1, null);
     }
 
     @Test
     public void setBikeTargetBikeNotInListThrowsBikeNotFoundException() {
         thrown.expect(BikeNotFoundException.class);
-        uniqueBikeList.setBike(BIKE1, BIKE1);
+        uniqueBikeList.set(BIKE1, BIKE1);
     }
 
     @Test
     public void setBikeEditedBikeIsSameBike_success() {
         uniqueBikeList.add(BIKE1);
-        uniqueBikeList.setBike(BIKE1, BIKE1);
+        uniqueBikeList.set(BIKE1, BIKE1);
         UniqueBikeList expectedUniqueBikeList = new UniqueBikeList();
         expectedUniqueBikeList.add(BIKE1);
         assertEquals(expectedUniqueBikeList, uniqueBikeList);
@@ -83,7 +83,7 @@ public class UniqueBikeListTest {
     @Test
     public void setBikeEditedBikeHasDifferentIdentity_success() {
         uniqueBikeList.add(BIKE1);
-        uniqueBikeList.setBike(BIKE1, BIKE2);
+        uniqueBikeList.set(BIKE1, BIKE2);
         UniqueBikeList expectedUniqueBikeList = new UniqueBikeList();
         expectedUniqueBikeList.add(BIKE2);
         assertEquals(expectedUniqueBikeList, uniqueBikeList);
@@ -94,7 +94,7 @@ public class UniqueBikeListTest {
         uniqueBikeList.add(BIKE1);
         uniqueBikeList.add(BIKE2);
         thrown.expect(DuplicateBikeException.class);
-        uniqueBikeList.setBike(BIKE1, BIKE2);
+        uniqueBikeList.set(BIKE1, BIKE2);
     }
 
     @Test
@@ -118,41 +118,41 @@ public class UniqueBikeListTest {
     }
 
     @Test
-    public void setBikesNullUniqueBikeListThrowsNullPointerException() {
+    public void setNullUniqueBikeListThrowsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        uniqueBikeList.setBikes((UniqueBikeList) null);
+        uniqueBikeList.setAll((UniqueBikeList) null);
     }
 
     @Test
-    public void setBikesUniqueBikeListReplacesOwnListWithProvidedUniqueBikeList() {
+    public void setUniqueBikeListReplacesOwnListWithProvidedUniqueBikeList() {
         uniqueBikeList.add(BIKE1);
         UniqueBikeList expectedUniqueBikeList = new UniqueBikeList();
         expectedUniqueBikeList.add(BIKE2);
-        uniqueBikeList.setBikes(expectedUniqueBikeList);
+        uniqueBikeList.setAll(expectedUniqueBikeList);
         assertEquals(expectedUniqueBikeList, uniqueBikeList);
     }
 
     @Test
-    public void setBikesNullListThrowsNullPointerException() {
+    public void setNullListThrowsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        uniqueBikeList.setBikes((List<Bike>) null);
+        uniqueBikeList.setAll((List<Bike>) null);
     }
 
     @Test
-    public void setBikesListReplacesOwnListWithProvidedList() {
+    public void setListReplacesOwnListWithProvidedList() {
         uniqueBikeList.add(BIKE1);
         List<Bike> bikeList = Collections.singletonList(BIKE2);
-        uniqueBikeList.setBikes(bikeList);
+        uniqueBikeList.setAll(bikeList);
         UniqueBikeList expectedUniqueBikeList = new UniqueBikeList();
         expectedUniqueBikeList.add(BIKE2);
         assertEquals(expectedUniqueBikeList, uniqueBikeList);
     }
 
     @Test
-    public void setBikesListWithDuplicateBikesThrowsDuplicateBikeException() {
+    public void setListWithDuplicateBikesThrowsDuplicateBikeException() {
         List<Bike> listWithDuplicateBikes = Arrays.asList(BIKE1, BIKE1);
         thrown.expect(DuplicateBikeException.class);
-        uniqueBikeList.setBikes(listWithDuplicateBikes);
+        uniqueBikeList.setAll(listWithDuplicateBikes);
     }
 
     @Test

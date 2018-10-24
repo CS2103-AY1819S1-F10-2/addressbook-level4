@@ -381,6 +381,49 @@ It is possible for the LoanBook to have a loan that lasts for 0 minutes. This is
 ** Pros: Computing the `summary` of the LoanBook would be much easier, and quicker.
 ** Cons: `return` functionality would run much slower, as there will be empty slots in the ArrayList after shifting the Loan objects around. Searching for loans would also be much more difficult, as the results from the various Loan ArrayLists has to be appended together.
 
+=== Summary Feature
+==== Proposed Implementation
+
+Getting the summary of all the loans is simply done by looping through all the stored loans before and aggregating the statistics of all the loans.
+
+Currently, the `summary` command would display to the user the following statistics:
+
+* Total number of ongoing loans
+* Total number of loans ever taken out
+* Total amount of time all bikes have been loaned for
+* Total revenue from the loan service
+
+This would give a very handy summary page as well as an audit page for the bicycle shop owners.
+
+Given below is an example usage scenerio and how the internals of the Loan would behave:
+
+**Step 1.** The user simply has to type the `summary` keyword into the CLI.
+
+**Step 2.** The LoanBook will proceed to loop through all the loans and aggregate the statistics of the loans. Simple statistics to be counted include the total time of loan and the total revenue gained from the loans.
+
+**Step 3.** The LoanBook will update the display with the aggregated statistics, and this can be screenshotted by the user as an audit page.
+
+==== Design considerations:
+===== Aspect: Getting the summary
+* **Alternative 1 (current choice):** Looping through the entire list of loans to get the summary of the content
+** Pros: Easy to implement, and do not need to create new data storage features.
+** Cons: Looping through all loans will take more time, as the LoanBook would have to check every loan and recalculate.
+
+* Alternative 2: Use a cache to store previously calculated values of the summaries.
+** Pros: Quicker response time to the users.
+** Cons: Much hearder to implement, cache might break if user edits past loans.
+
+==== Future features
+We plan to include a feature which allows users to summarize the loanbook based on certain parameters. For example, in future implementations, the user will be able to filter the statistics based on the identity of a bicycle.
+
+These are the proposed features you would be able to search based on:
+
+* Bicycle
+* Time period
+* Person who took out the loan
+
+As well, having to recalculate all the loans would be a bad idea when the LoanBook contains many loans. A proposed solution would be to cache the results of the main summary method, so that the LoanBook would only have to recalculate the numbers based on loans that have not been added to the final tally.
+
 === Logging
 
 We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.

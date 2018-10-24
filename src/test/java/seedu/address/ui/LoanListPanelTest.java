@@ -46,7 +46,7 @@ public class LoanListPanelTest extends GuiUnitTest {
             LoanCardHandle actualCard = loanListPanelHandle.getLoanCardHandle(i);
 
             assertCardDisplaysLoan(expectedLoan, actualCard);
-            assertEquals(Integer.toString(i + 1) + ". ", actualCard.getId());
+            assertEquals(Integer.toString(i + 1), actualCard.getId());
         }
     }
 

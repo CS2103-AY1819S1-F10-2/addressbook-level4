@@ -210,7 +210,7 @@ public class AddCommandTest {
         @Override
         public boolean hasLoan(Loan loan) {
             requireNonNull(loan);
-            return this.loan.isSameLoan(loan);
+            return this.loan.isSame(loan);
         }
     }
 
@@ -223,7 +223,7 @@ public class AddCommandTest {
         @Override
         public boolean hasLoan(Loan loan) {
             requireNonNull(loan);
-            return loansAdded.stream().anyMatch(loan::isSameLoan);
+            return loansAdded.stream().anyMatch(loan::isSame);
         }
 
         @Override
