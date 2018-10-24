@@ -3,6 +3,7 @@ package seedu.address.model.bike;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BIKE1;
 import static seedu.address.testutil.TypicalBikes.BIKE1;
 import static seedu.address.testutil.TypicalBikes.BIKE2;
 
@@ -50,6 +51,6 @@ public class BikeTest {
 
     @Test
     public void toStringTest() {
-        assertEquals(BIKE1.toString(), "BIKE001 Status: Available");
+        assertEquals(BIKE1.toString(), VALID_NAME_BIKE1 + " Status: Available");
     }
 }

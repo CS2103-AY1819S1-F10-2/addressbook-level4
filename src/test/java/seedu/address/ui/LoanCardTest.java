@@ -64,7 +64,7 @@ public class LoanCardTest extends GuiUnitTest {
         LoanCardHandle loanCardHandle = new LoanCardHandle(loanCard.getRoot());
 
         // verify id is displayed correctly
-        assertEquals(Integer.toString(expectedId) + ". ", loanCardHandle.getId());
+        assertEquals(Integer.toString(expectedId), loanCardHandle.getId());
 
         // verify loan details are displayed correctly
         assertCardDisplaysLoan(expectedLoan, loanCardHandle);

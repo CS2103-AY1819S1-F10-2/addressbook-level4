@@ -1,7 +1,6 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_PASSWORD;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_INDEX;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PASSWORD;
 
@@ -14,7 +13,6 @@ import seedu.address.logic.parser.exceptions.ParseException;
  * Parses input arguments and creates a new DeleteCommand object
  */
 public class DeleteCommandParser implements Parser<DeleteCommand> {
-    private static String PASSWORD = "a12345"; // Currently hard-coded. To add command that allows setting of password.
 
     /**
      * Parses the given {@code String} of arguments in the context of the DeleteCommand
@@ -28,10 +26,8 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
         }
-        if (!PASSWORD.equals(argMultimap.getValue(PREFIX_PASSWORD).get())) {
-            throw new ParseException(String.format(MESSAGE_INVALID_PASSWORD, DeleteCommand.MESSAGE_USAGE));
-        }
-        return new DeleteCommand(ParserUtil.parseIndex(argMultimap.getValue(PREFIX_INDEX).get()));
+        return new DeleteCommand(ParserUtil.parseIndex(argMultimap.getValue(PREFIX_INDEX).get()),
+                ParserUtil.parsePass(argMultimap.getValue(PREFIX_PASSWORD).get()));
     }
 
     /**

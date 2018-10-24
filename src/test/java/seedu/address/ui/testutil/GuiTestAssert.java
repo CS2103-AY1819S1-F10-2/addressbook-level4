@@ -22,10 +22,13 @@ public class GuiTestAssert {
      */
     public static void assertCardEquals(LoanCardHandle expectedCard, LoanCardHandle actualCard) {
         assertEquals(expectedCard.getId(), actualCard.getId());
-        assertEquals(expectedCard.getAddress(), actualCard.getAddress());
         assertEquals(expectedCard.getEmail(), actualCard.getEmail());
         assertEquals(expectedCard.getName(), actualCard.getName());
+        assertEquals(expectedCard.getNric(), actualCard.getNric());
+        assertEquals(expectedCard.getBike(), actualCard.getBike());
         assertEquals(expectedCard.getPhone(), actualCard.getPhone());
+        assertEquals(expectedCard.getLoanRate(), actualCard.getLoanRate());
+        assertEquals(expectedCard.getLoanTime(), actualCard.getLoanTime());
         assertEquals(expectedCard.getTags(), actualCard.getTags());
 
         expectedCard
@@ -39,9 +42,12 @@ public class GuiTestAssert {
      */
     public static void assertCardDisplaysLoan(Loan expectedLoan, LoanCardHandle actualCard) {
         assertEquals(expectedLoan.getName().value, actualCard.getName());
-        assertEquals(expectedLoan.getPhone().value, actualCard.getPhone());
-        assertEquals(expectedLoan.getEmail().value, actualCard.getEmail());
-        assertEquals(expectedLoan.getAddress().value, actualCard.getAddress());
+        assertEquals(expectedLoan.getNric().getCensored(), actualCard.getNric());
+        assertEquals(expectedLoan.getPhone().getCensored(), actualCard.getPhone());
+        assertEquals(expectedLoan.getEmail().getCensored(), actualCard.getEmail());
+        assertEquals(expectedLoan.getBike().getName().value, actualCard.getBike());
+        assertEquals(expectedLoan.getLoanRate().toString(), actualCard.getLoanRate());
+        assertEquals(expectedLoan.getLoanTime().toString(), actualCard.getLoanTime());
         assertTagsEqual(expectedLoan, actualCard);
     }
 

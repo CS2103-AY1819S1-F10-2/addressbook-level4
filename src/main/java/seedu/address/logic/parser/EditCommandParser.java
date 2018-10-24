@@ -3,8 +3,12 @@ package seedu.address.logic.parser;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_BIKE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_LOANRATE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_LOANTIME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NRIC;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
@@ -32,7 +36,8 @@ public class EditCommandParser implements Parser<EditCommand> {
     public EditCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_TAG);
+                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_NRIC, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS,
+                        PREFIX_BIKE, PREFIX_LOANRATE, PREFIX_LOANTIME, PREFIX_TAG);
 
         Index index;
 
@@ -46,6 +51,9 @@ public class EditCommandParser implements Parser<EditCommand> {
         if (argMultimap.getValue(PREFIX_NAME).isPresent()) {
             editLoanDescriptor.setName(ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get()));
         }
+        if (argMultimap.getValue(PREFIX_NRIC).isPresent()) {
+            editLoanDescriptor.setNric(ParserUtil.parseNric(argMultimap.getValue(PREFIX_NRIC).get()));
+        }
         if (argMultimap.getValue(PREFIX_PHONE).isPresent()) {
             editLoanDescriptor.setPhone(ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get()));
         }
@@ -54,6 +62,15 @@ public class EditCommandParser implements Parser<EditCommand> {
         }
         if (argMultimap.getValue(PREFIX_ADDRESS).isPresent()) {
             editLoanDescriptor.setAddress(ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get()));
+        }
+        if (argMultimap.getValue(PREFIX_BIKE).isPresent()) {
+            editLoanDescriptor.setBike(ParserUtil.parseBike(argMultimap.getValue(PREFIX_BIKE).get()));
+        }
+        if (argMultimap.getValue(PREFIX_LOANRATE).isPresent()) {
+            editLoanDescriptor.setLoanRate(ParserUtil.parseLoanRate(argMultimap.getValue(PREFIX_LOANRATE).get()));
+        }
+        if (argMultimap.getValue(PREFIX_LOANTIME).isPresent()) {
+            editLoanDescriptor.setLoanTime(ParserUtil.parseLoanTime(argMultimap.getValue(PREFIX_LOANTIME).get()));
         }
         parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(editLoanDescriptor::setTags);
 

@@ -1,5 +1,10 @@
 package seedu.address.testutil;
 
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BIKE1;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BIKE2;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BIKE3;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BIKE4;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -11,10 +16,10 @@ import seedu.address.model.bike.Bike;
  */
 public class TypicalBikes {
 
-    public static final Bike BIKE1 = new BikeBuilder().withName("BIKE001").build();
-    public static final Bike BIKE2 = new BikeBuilder().withName("BIKE002").build();
-    public static final Bike BIKE3 = new BikeBuilder().withName("Silver Surfer").build();
-    public static final Bike BIKE4 = new BikeBuilder().withName("Blue Ocean").build();
+    public static final Bike BIKE1 = new BikeBuilder().withName(VALID_NAME_BIKE1).build();
+    public static final Bike BIKE2 = new BikeBuilder().withName(VALID_NAME_BIKE2).build();
+    public static final Bike BIKE3 = new BikeBuilder().withName(VALID_NAME_BIKE3).build();
+    public static final Bike BIKE4 = new BikeBuilder().withName(VALID_NAME_BIKE4).build();
 
     public static List<Bike> getTypicalBikes() {
         return new ArrayList<>(Arrays.asList(BIKE1, BIKE2, BIKE3, BIKE4));

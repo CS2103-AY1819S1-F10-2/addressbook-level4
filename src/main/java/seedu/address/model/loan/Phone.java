@@ -6,7 +6,7 @@ import java.util.function.Function;
  * Represents a Loan's phone number in the loan book.
  * Guarantees: immutable; is valid as declared in {@link #isValidPhone(String)}
  */
-public class Phone extends DataField<String> {
+public class Phone extends DataField<String> implements Censor {
 
     public static final String MESSAGE_PHONE_CONSTRAINTS =
             "Phone numbers should only contain numbers, and it should be at least 3 digits long";
@@ -27,4 +27,26 @@ public class Phone extends DataField<String> {
         return objString.matches("\\d{3,}");
     }
 
+    @Override
+    public String getCensored() {
+        String censorPart = doCensoring(this.value.length());
+        if (censorPart.length() == 0) {
+            return this.value;
+        } else {
+            return this.value.charAt(0) + censorPart + this.value.substring(this.value.length() - 2);
+        }
+    }
+
+    @Override
+    public String doCensoring(int length) {
+        if (length == 3) {
+            return "";
+        } else {
+            StringBuffer sb = new StringBuffer();
+            for (int i = 0; i < length - 3; i++) {
+                sb.append('x');
+            }
+            return sb.toString();
+        }
+    }
 }

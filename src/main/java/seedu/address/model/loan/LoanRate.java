@@ -14,7 +14,7 @@ public class LoanRate extends DataField<Double> {
      *
      * @param rate A valid rate.
      */
-    LoanRate(String rate) {
+    public LoanRate(String rate) {
         super(MESSAGE_LOANRATE_CONSTRAINTS, LoanRate::isValidRate, Double::parseDouble, rate);
     }
 
