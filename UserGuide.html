@@ -101,14 +101,14 @@ e.g. typing <strong><code>help</code></strong> and pressing <kbd>ENTER</kbd> wil
 <div class="sect2">
 <h3 id="viewing-help-code-help-code"><a class="link" href="#viewing-help-code-help-code">3.1. Viewing help : <code>help</code></a></h3>
 <div class="paragraph">
-<p>Provides a list of all commands together with a basic description, how-to-use and example usage for each<br>
+<p>Provides a list of all commands together with a basic description, how-to-use and example usage for each command.<br>
 Format: <code>help</code></p>
 </div>
 </div>
 <div class="sect2">
 <h3 id="adding-a-loan-code-add-code"><a class="link" href="#adding-a-loan-code-add-code">3.2. Adding a loan: <code>add</code></a></h3>
 <div class="paragraph">
-<p>Adds a loan to the loan book with the following parameters, and displays the transaction along with a Loan ID to keep track of the loan<br>
+<p>Adds a loan to the loan book with the following parameters, and displays the transaction along with a LOAN_ID to keep track of the loan.<br>
 Format: <code>add p/PERSON_NAME hp/PERSON_PHONE_NO e/PERSON_EMAIL r/RATE o/OBJECT_IDENTITY</code></p>
 </div>
 <div class="admonitionblock tip">
@@ -142,7 +142,7 @@ PERSON_PHONE_NO and PERSON_EMAIL should not be blank.
 <div class="sect2">
 <h3 id="listing-all-loans-code-list-code"><a class="link" href="#listing-all-loans-code-list-code">3.3. Listing all loans : <code>list</code></a></h3>
 <div class="paragraph">
-<p>Shows a list of all loans in the loan book.<br>
+<p>Shows a list of all loans in the LoanBook.<br>
 Format: <code>list</code></p>
 </div>
 </div>
@@ -157,7 +157,7 @@ Format: <code>edit i/LOAN_ID [p/PERSON_NAME] [hp/PERSON_PHONE_NO] [e/PERSON_EMAI
 <div class="ulist">
 <ul>
 <li>
-<p>Edits the loan at the specified <code>LOAN_ID</code>. The index refers to the index number shown in the displayed loan list. The index <strong>must be a positive integer</strong> 1, 2, 3, &#8230;&#8203;</p>
+<p>Edits the loan at the specified <code>LOAN_ID</code>. This LOAN_ID refers to the LOAN_ID number shown in the displayed loan list. The LOAN_ID <strong>must be a positive integer</strong> 1, 2, 3, &#8230;&#8203;</p>
 </li>
 <li>
 <p>At least one of the optional fields must be provided.</p>
@@ -191,7 +191,7 @@ For the loan with Loan ID 90210, changes the customer to James Tan, who has the 
 <div class="sect2">
 <h3 id="locating-loans-by-key-words-code-search-code"><a class="link" href="#locating-loans-by-key-words-code-search-code">3.5. Locating loans by key words: <code>search</code></a></h3>
 <div class="paragraph">
-<p>Returns a loan based on parameters of LOAN_ ID, PERSON_NAME or OBJECT_IDENTITY.<br>
+<p>Returns a loan based on parameters of LOAN_ID, PERSON_NAME or OBJECT_IDENTITY.<br>
 Format: <code>search [i/LOAN_ID] [p/PERSON_NAME] [o/OBJECT_IDENTITY]</code></p>
 </div>
 <div class="sidebarblock">
@@ -221,7 +221,7 @@ Format: <code>search [i/LOAN_ID] [p/PERSON_NAME] [o/OBJECT_IDENTITY]</code></p>
 <ul>
 <li>
 <p><code>search i/11037</code><br>
-Searches for the loan with Loan ID 11037</p>
+Searches for the loan with LOAN_ID 11037</p>
 </li>
 <li>
 <p><code>search p/James Tan</code><br>
@@ -261,7 +261,7 @@ Format: <code>delete i/LOAN_ID</code> or <code>delete!</code></p>
 <ul>
 <li>
 <p><code>delete i/11037</code><br>
-Deletes the loan with Loan ID 11037.</p>
+Deletes the loan with LOAN_ID 11037.</p>
 </li>
 <li>
 <p><code>delete!</code><br>
@@ -273,7 +273,7 @@ Deletes all loan records.</p>
 <div class="sect2">
 <h3 id="returning-a-loan-code-return-code"><a class="link" href="#returning-a-loan-code-return-code">3.7. Returning a loan : <code>return</code></a></h3>
 <div class="paragraph">
-<p>Marks a loan as returned based on LOAN_ ID and automatically prints out the amount payable.<br>
+<p>Marks a loan as returned based on LOAN_ID and automatically prints out the amount payable.<br>
 Format: <code>return i/LOAN_ID</code></p>
 </div>
 <div class="paragraph">
@@ -283,7 +283,7 @@ Format: <code>return i/LOAN_ID</code></p>
 <ul>
 <li>
 <p><code>return i/11037</code><br>
-Marks the loan with Loan ID 11037 as returned. Also automatically prints out the amount payable based on loan time and rate.</p>
+Marks the loan with LOAN_ID 11037 as returned. Also automatically prints out the amount payable based on loan time and rate.</p>
 </li>
 </ul>
 </div>
@@ -294,12 +294,75 @@ Marks the loan with Loan ID 11037 as returned. Also automatically prints out the
 <p>Removes all the loans from the loan book and resets the LOAN_ID counter.<br>
 Format: <code>reset</code></p>
 </div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>The difference between deleting all the loans and hard resetting the LoanBook is that when a loan is delete, you will still be able to search for it. However, the statistics of deleted loans do not appear in the <code>summary</code> command.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p><strong>Hard resetting the LoanBook will remove ALL loans! Do this ar your own peril.</strong></p>
+</div>
+</td>
+</tr>
+</table>
+</div>
 </div>
 <div class="sect2">
 <h3 id="summarize-all-the-transactions-code-summary-code"><a class="link" href="#summarize-all-the-transactions-code-summary-code">3.9. Summarize all the transactions : <code>summary</code></a></h3>
 <div class="paragraph">
-<p>Show the total number of loans that are done and in progress. Also summarizes the loan status of each item, the number of times an object was loaned before.<br>
-Format: <code>summary</code></p>
+<p>Show the total number of loans that are done and in progress. Also summarizes the loan status of each item, the number of times an object was loaned before.</p>
+</div>
+<div class="paragraph">
+<p>The <code>summary</code> function would display the statistics of all your loans in the display box on the right of the application. There, you will find the following statistics:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Total number of ongoing loans</p>
+</li>
+<li>
+<p>Total number of loans ever taken out</p>
+</li>
+<li>
+<p>Total amount of time all bikes have been loaned for</p>
+</li>
+<li>
+<p>Total revenue from the loan service</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Format: <code>summary</code></p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>The summary feature may take a while to run, especially when you have many loans that you have made in the past. Please allow about a second for it to process.</p>
+</div>
+</td>
+</tr>
+</table>
 </div>
 </div>
 <div class="sect2">
@@ -357,10 +420,10 @@ Format: <code>history</code></p>
 <p>Send reminder email to the borrower after a day of borrowing reminding them to return the bike.</p>
 </li>
 <li>
-<p>Login authentication to ensure that some other bugger don&#8217;t delete the loan stuffs. Require password when deleting.</p>
+<p>Login authentication to ensure that unauthorised people do not delete the loans which they are not supposed to. Require password when deleting.</p>
 </li>
 </ul>
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-10-24 08:09:10 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-10-24 14:55:34 UTC</div></div></div></body></html>

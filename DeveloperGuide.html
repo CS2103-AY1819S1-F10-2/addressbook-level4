@@ -31,10 +31,11 @@
 <ul class="sectlevel2">
 <li><a href="#undo-redo-feature">3.1. Undo/Redo feature</a></li>
 <li><a href="#return-a-loan-feature">3.2. Return a Loan feature</a></li>
-<li><a href="#logging">3.3. Logging</a></li>
-<li><a href="#Implementation-Configuration">3.4. Configuration</a></li>
-<li><a href="#bicycle-management">3.5. Bicycle Management</a></li>
-<li><a href="#hide-private-information">3.6. Hide private information</a></li>
+<li><a href="#summary-feature">3.3. Summary Feature</a></li>
+<li><a href="#logging">3.4. Logging</a></li>
+<li><a href="#Implementation-Configuration">3.5. Configuration</a></li>
+<li><a href="#bicycle-management">3.6. Bicycle Management</a></li>
+<li><a href="#hide-private-information">3.7. Hide private information</a></li>
 </ul>
 </li>
 <li><a href="#documentation">4. Documentation</a>
@@ -945,14 +946,118 @@ It is possible for the LoanBook to have a loan that lasts for 0 minutes. This is
 </div>
 </div>
 <div class="sect2">
-<h3 id="logging"><a class="link" href="#logging">3.3. Logging</a></h3>
+<h3 id="summary-feature"><a class="link" href="#summary-feature">3.3. Summary Feature</a></h3>
+<div class="sect3">
+<h4 id="proposed-implementation-2"><a class="link" href="#proposed-implementation-2">3.3.1. Proposed Implementation</a></h4>
+<div class="paragraph">
+<p>Getting the summary of all the loans is simply done by looping through all the stored loans before and aggregating the statistics of all the loans.</p>
+</div>
+<div class="paragraph">
+<p>Currently, the <code>summary</code> command would display to the user the following statistics:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Total number of ongoing loans</p>
+</li>
+<li>
+<p>Total number of loans ever taken out</p>
+</li>
+<li>
+<p>Total amount of time all bikes have been loaned for</p>
+</li>
+<li>
+<p>Total revenue from the loan service</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>This would give a very handy summary page as well as an audit page for the bicycle shop owners.</p>
+</div>
+<div class="paragraph">
+<p>Given below is an example usage scenerio and how the internals of the Loan would behave:</p>
+</div>
+<div class="paragraph">
+<p><strong>Step 1.</strong> The user simply has to type the <code>summary</code> keyword into the CLI.</p>
+</div>
+<div class="paragraph">
+<p><strong>Step 2.</strong> The LoanBook will proceed to loop through all the loans and aggregate the statistics of the loans. Simple statistics to be counted include the total time of loan and the total revenue gained from the loans.</p>
+</div>
+<div class="paragraph">
+<p><strong>Step 3.</strong> The LoanBook will update the display with the aggregated statistics, and this can be screenshotted by the user as an audit page.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="design-considerations-3"><a class="link" href="#design-considerations-3">3.3.2. Design considerations:</a></h4>
+<div class="sect4">
+<h5 id="aspect-getting-the-summary"><a class="link" href="#aspect-getting-the-summary">Aspect: Getting the summary</a></h5>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Alternative 1 (current choice):</strong> Looping through the entire list of loans to get the summary of the content</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: Easy to implement, and do not need to create new data storage features.</p>
+</li>
+<li>
+<p>Cons: Looping through all loans will take more time, as the LoanBook would have to check every loan and recalculate.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Alternative 2: Use a cache to store previously calculated values of the summaries.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: Quicker response time to the users.</p>
+</li>
+<li>
+<p>Cons: Much hearder to implement, cache might break if user edits past loans.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="future-features"><a class="link" href="#future-features">3.3.3. Future features</a></h4>
+<div class="paragraph">
+<p>We plan to include a feature which allows users to summarize the loanbook based on certain parameters. For example, in future implementations, the user will be able to filter the statistics based on the identity of a bicycle.</p>
+</div>
+<div class="paragraph">
+<p>These are the proposed features you would be able to search based on:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Bicycle</p>
+</li>
+<li>
+<p>Time period</p>
+</li>
+<li>
+<p>Person who took out the loan</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>As well, having to recalculate all the loans would be a bad idea when the LoanBook contains many loans. A proposed solution would be to cache the results of the main summary method, so that the LoanBook would only have to recalculate the numbers based on loans that have not been added to the final tally.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="logging"><a class="link" href="#logging">3.4. Logging</a></h3>
 <div class="paragraph">
 <p>We are using <code>java.util.logging</code> package for logging. The <code>LogsCenter</code> class is used to manage the logging levels and logging destinations.</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>The logging level can be controlled using the <code>logLevel</code> setting in the configuration file (See <a href="#Implementation-Configuration">Section 3.4, &#8220;Configuration&#8221;</a>)</p>
+<p>The logging level can be controlled using the <code>logLevel</code> setting in the configuration file (See <a href="#Implementation-Configuration">Section 3.5, &#8220;Configuration&#8221;</a>)</p>
 </li>
 <li>
 <p>The <code>Logger</code> for a class can be obtained using <code>LogsCenter.getLogger(Class)</code> which will log messages according to the specified logging level</p>
@@ -983,13 +1088,13 @@ It is possible for the LoanBook to have a loan that lasts for 0 minutes. This is
 </div>
 </div>
 <div class="sect2">
-<h3 id="Implementation-Configuration"><a class="link" href="#Implementation-Configuration">3.4. Configuration</a></h3>
+<h3 id="Implementation-Configuration"><a class="link" href="#Implementation-Configuration">3.5. Configuration</a></h3>
 <div class="paragraph">
 <p>Certain properties of the application can be controlled (e.g App name, logging level) through the configuration file (default: <code>config.json</code>).</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="bicycle-management"><a class="link" href="#bicycle-management">3.5. Bicycle Management</a></h3>
+<h3 id="bicycle-management"><a class="link" href="#bicycle-management">3.6. Bicycle Management</a></h3>
 <div class="paragraph">
 <p>As bicycles have a lot of properties, statuses and actions associated with them, they are represented in the code base as a dedicated <code>Bike</code> class.</p>
 </div>
@@ -1074,13 +1179,13 @@ Due to the dependency of <code>Loan</code> s on <code>Bike</code> s, any bicycle
 <p>Using this framework, it is now more efficient to implement and use a set of mini-features and operations to facilitate bicycle management, as detailed in the following sections:</p>
 </div>
 <div class="sect3">
-<h4 id="visible-bicycle-statuses"><a class="link" href="#visible-bicycle-statuses">3.5.1. Visible bicycle statuses</a></h4>
+<h4 id="visible-bicycle-statuses"><a class="link" href="#visible-bicycle-statuses">3.6.1. Visible bicycle statuses</a></h4>
 <div class="paragraph">
 <p>The current availability of bicycles are tracked by LoanBook. Bicycles can thus be filtered by whether they are available or not, and the available ones are readily visible in the UI.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="invalid-loans"><a class="link" href="#invalid-loans">3.5.2. Invalid loans</a></h4>
+<h4 id="invalid-loans"><a class="link" href="#invalid-loans">3.6.2. Invalid loans</a></h4>
 <div class="paragraph">
 <p>Loaning out a particular bicycle during the time which it is unavailable or has already been reserved will be denied. This prevents accidents in loaning out bicycles.</p>
 </div>
@@ -1111,13 +1216,13 @@ The loan will be rejected if no bicycle is found that matches the bicycle name p
 </div>
 </div>
 <div class="sect3">
-<h4 id="bicycles-for-particular-needs"><a class="link" href="#bicycles-for-particular-needs">3.5.3. Bicycles for particular needs</a></h4>
+<h4 id="bicycles-for-particular-needs"><a class="link" href="#bicycles-for-particular-needs">3.6.3. Bicycles for particular needs</a></h4>
 <div class="paragraph">
 <p>The list of bicycles can be filtered using the same algorithm to filter the list of loans in order to find bicycles with particular properties, to suit particular customer&#8217;s needs or activities.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="design-considerations-3"><a class="link" href="#design-considerations-3">3.5.4. Design Considerations</a></h4>
+<h4 id="design-considerations-4"><a class="link" href="#design-considerations-4">3.6.4. Design Considerations</a></h4>
 <div class="sect4">
 <h5 id="aspect-internal-representation-of-bicycles"><a class="link" href="#aspect-internal-representation-of-bicycles">Aspect: Internal representation of bicycles</a></h5>
 <div class="ulist">
@@ -1154,7 +1259,7 @@ The loan will be rejected if no bicycle is found that matches the bicycle name p
 </div>
 </div>
 <div class="sect2">
-<h3 id="hide-private-information"><a class="link" href="#hide-private-information">3.6. Hide private information</a></h3>
+<h3 id="hide-private-information"><a class="link" href="#hide-private-information">3.7. Hide private information</a></h3>
 <div class="paragraph">
 <p>Users must provide some important and personal information when adding a loan, e.g. <code>Nric</code>, so it is our responsibility to protect their privacy.</p>
 </div>
@@ -1168,7 +1273,7 @@ Example: The customer&#8217;s <code>Nric</code> as stored in the database is <co
 </div>
 </div>
 <div class="sect3">
-<h4 id="current-implementation-2"><a class="link" href="#current-implementation-2">3.6.1. Current implementation</a></h4>
+<h4 id="current-implementation-2"><a class="link" href="#current-implementation-2">3.7.1. Current implementation</a></h4>
 <div class="paragraph">
 <p>Hidden private information is facilitated by an interface called <code>Censor</code>. It is implemented by classes <code>Nric</code>, <code>Phone</code> and <code>Email</code>.</p>
 </div>
@@ -1216,7 +1321,7 @@ For example: <code>phone.setText(loan.getPhone().getCensored().value);</code> wi
 </div>
 </div>
 <div class="sect3">
-<h4 id="design-considerations-4"><a class="link" href="#design-considerations-4">3.6.2. Design Considerations</a></h4>
+<h4 id="design-considerations-5"><a class="link" href="#design-considerations-5">3.7.2. Design Considerations</a></h4>
 <div class="paragraph">
 <p><strong>Aspect: How to execute getCensored()</strong></p>
 </div>
@@ -1252,7 +1357,7 @@ For example: <code>phone.setText(loan.getPhone().getCensored().value);</code> wi
 </div>
 </div>
 <div class="sect3">
-<h4 id="how-to-see-the-hidden-information"><a class="link" href="#how-to-see-the-hidden-information">3.6.3. How to see the hidden information</a></h4>
+<h4 id="how-to-see-the-hidden-information"><a class="link" href="#how-to-see-the-hidden-information">3.7.3. How to see the hidden information</a></h4>
 <div class="paragraph">
 <p>The censored data are only hidden from the window, not changed in the database. The <code>BrowserPanel</code> on the bottom right of the window will still show all the information including the hidden information.</p>
 </div>
@@ -2372,4 +2477,4 @@ Expected: Similar to previous.</p>
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-10-24 08:09:10 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-10-24 14:55:34 UTC</div></div></div></body></html>
