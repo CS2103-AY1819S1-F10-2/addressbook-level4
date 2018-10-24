@@ -2,56 +2,92 @@
 <loanbook>
     <loans>
         <name>Hans Muster</name>
+        <nric isPrivate ="false">T0331476B</nric>
         <phone isPrivate="false">9482424</phone>
         <email isPrivate="false">hans@example.com</email>
         <address isPrivate="false">4th street</address>
+        <bike isPrivate ="false">BIKE001</bike>
+        <rate isPrivate ="false">30.6</rate>
+        <time isPrivate ="false">2018-01-01 10:10</time>
     </loans>
     <loans>
         <name>Ruth Mueller</name>
+        <nric isPrivate ="false">T0331476B</nric>
         <phone isPrivate="false">87249245</phone>
         <email isPrivate="false">ruth@example.com</email>
         <address isPrivate="false">81th street</address>
+        <bike isPrivate ="false">Bike01</bike>
+        <rate isPrivate ="false">12</rate>
+        <time isPrivate ="false">10:10</time>
     </loans>
     <loans>
         <name>Heinz Kurz</name>
+        <nric isPrivate ="false">T0331476B</nric>
         <phone isPrivate="false">95352563</phone>
         <email isPrivate="false">heinz@example.com</email>
         <address isPrivate="false">wall street</address>
+        <bike isPrivate ="false">Bike01</bike>
+        <rate isPrivate ="false">12.0</rate>
+        <time isPrivate ="false">2018-01-01 10:10</time>
     </loans>
     <loans>
         <name>Cornelia Meier</name>
+        <nric isPrivate ="false">T0331476B</nric>
         <phone isPrivate="false">87652533</phone>
         <email isPrivate="false">cornelia@example.com</email>
         <address isPrivate="false">10th street</address>
+        <bike isPrivate ="false">Bike01</bike>
+        <rate isPrivate ="false">12.0</rate>
+        <time isPrivate ="false">2018-01-01 10:10</time>
     </loans>
     <loans>
         <name>Werner Meyer</name>
+        <nric isPrivate ="false">T0331476B</nric>
         <phone isPrivate="false">9482224</phone>
         <email isPrivate="false">werner@example.com</email>
         <address isPrivate="false">michegan ave</address>
+        <bike isPrivate ="false">Bike01</bike>
+        <rate isPrivate ="false">12.0</rate>
+        <time isPrivate ="false">2018-01-01 10:10</time>
     </loans>
     <loans>
         <name>Lydia Kunz</name>
+        <nric isPrivate ="false">T0331476B</nric>
         <phone isPrivate="false">9482427</phone>
         <email isPrivate="false">lydia@example.com</email>
         <address isPrivate="false">little tokyo</address>
+        <bike isPrivate ="false">Bike01</bike>
+        <rate isPrivate ="false">12.0</rate>
+        <time isPrivate ="false">2018-01-01 10:10</time>
     </loans>
     <loans>
         <name>Anna Best</name>
+        <nric isPrivate ="false">T0331476B</nric>
         <phone isPrivate="false">9482442</phone>
         <email isPrivate="false">anna@example.com</email>
         <address isPrivate="false">4th street</address>
+        <bike isPrivate ="false">Bike01</bike>
+        <rate isPrivate ="false">12.0</rate>
+        <time isPrivate ="false">2018-01-01 10:10</time>
     </loans>
     <loans>
         <name>Stefan Meier</name>
+        <nric isPrivate ="false">T0331476B</nric>
         <phone isPrivate="false">8482424</phone>
         <email isPrivate="false">stefan@example.com</email>
         <address isPrivate="false">little india</address>
+        <bike isPrivate ="false">Bike01</bike>
+        <rate isPrivate ="false">12.0</rate>
+        <time isPrivate ="false">2018-01-01 10:10</time>
     </loans>
     <loans>
         <name>Martin Mueller</name>
+        <nric isPrivate ="false">T0331476B</nric>
         <phone isPrivate="false">8482131</phone>
         <email isPrivate="false">hans@example.com</email>
         <address isPrivate="false">chicago ave</address>
+        <bike isPrivate ="false">Bike01</bike>
+        <rate isPrivate ="false">12.0</rate>
+        <time isPrivate ="false">2018-01-01 10:10</time>
     </loans>
 </loanbook>

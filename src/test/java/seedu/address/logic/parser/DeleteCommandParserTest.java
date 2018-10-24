@@ -8,6 +8,7 @@ import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_LOAN;
 import org.junit.Test;
 
 import seedu.address.logic.commands.DeleteCommand;
+import seedu.address.model.Password;
 
 /**
  * As we are only doing white-box testing, our test cases do not cover path variations
@@ -22,7 +23,7 @@ public class DeleteCommandParserTest {
 
     @Test
     public void parse_validArgs_returnsDeleteCommand() {
-        assertParseSuccess(parser, " i/1 x/a12345", new DeleteCommand(INDEX_FIRST_LOAN));
+        assertParseSuccess(parser, " i/1 x/a12345", new DeleteCommand(INDEX_FIRST_LOAN, new Password("a12345")));
     }
 
     @Test

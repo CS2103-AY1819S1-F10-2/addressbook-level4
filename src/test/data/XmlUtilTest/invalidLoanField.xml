@@ -2,8 +2,12 @@
 <!-- Loan with an invalid phone field -->
 <loan>
     <name>Hans Muster</name>
+    <nric>T0331476B</nric>
     <phone>9482asf424</phone>
     <email>hans@example</email>
     <address>4th street</address>
+    <bike>BIKE001</bike>
+    <rate>30.6</rate>
+    <time>2018-01-01 10:10</time>
     <tagged>friends</tagged>
 </loan>
