@@ -7,8 +7,8 @@ import seedu.address.model.bike.Bike;
 import seedu.address.model.loan.Address;
 import seedu.address.model.loan.Email;
 import seedu.address.model.loan.Loan;
-import seedu.address.model.loan.LoanStatus;
 import seedu.address.model.loan.LoanRate;
+import seedu.address.model.loan.LoanStatus;
 import seedu.address.model.loan.LoanTime;
 import seedu.address.model.loan.Name;
 import seedu.address.model.loan.Nric;
@@ -26,10 +26,10 @@ public class LoanBuilder {
     public static final String DEFAULT_PHONE = "85355255";
     public static final String DEFAULT_EMAIL = "alice@gmail.com";
     public static final String DEFAULT_ADDRESS = "123, Jurong West Ave 6, #08-111";
-    public static final String DEFAULT_LOANSTATUS = "ONGOING";
     public static final String DEFAULT_BIKE = "BIKE999";
     public static final String DEFAULT_LOANRATE = "12.3";
     public static final String DEFAULT_LOANTIME = "12:45";
+    public static final String DEFAULT_LOANSTATUS = "ONGOING";
 
     private Name name;
     private Nric nric;
@@ -51,8 +51,8 @@ public class LoanBuilder {
         bike = new Bike(new Name(DEFAULT_BIKE));
         rate = new LoanRate(DEFAULT_LOANRATE);
         time = new LoanTime(DEFAULT_LOANTIME);
-        tags = new HashSet<>();
         loanStatus = LoanStatus.valueOf(DEFAULT_LOANSTATUS);
+        tags = new HashSet<>();
     }
 
     /**
@@ -67,8 +67,8 @@ public class LoanBuilder {
         bike = loanToCopy.getBike();
         rate = loanToCopy.getLoanRate();
         time = loanToCopy.getLoanTime();
-        tags = new HashSet<>(loanToCopy.getTags());
         loanStatus = loanToCopy.getLoanStatus();
+        tags = new HashSet<>(loanToCopy.getTags());
     }
 
     /**
@@ -152,6 +152,6 @@ public class LoanBuilder {
     }
 
     public Loan build() {
-        return new Loan(name, nric, phone, email, address, bike, rate, time, tags, loanStatus);
+        return new Loan(name, nric, phone, email, address, bike, rate, time, loanStatus, tags);
     }
 }

@@ -14,8 +14,8 @@ import seedu.address.model.bike.Bike;
 import seedu.address.model.loan.Address;
 import seedu.address.model.loan.Email;
 import seedu.address.model.loan.Loan;
-import seedu.address.model.loan.LoanStatus;
 import seedu.address.model.loan.LoanRate;
+import seedu.address.model.loan.LoanStatus;
 import seedu.address.model.loan.LoanTime;
 import seedu.address.model.loan.Name;
 import seedu.address.model.loan.Nric;
@@ -82,6 +82,22 @@ public class XmlAdaptedLoan {
             this.tagged = new ArrayList<>(tagged);
         }
         this.loanStatus = loanStatus;
+    }
+
+    /**
+     * Constructs an {@code XmlAdaptedLoan} with the given loan details.
+     * This constructor is called if no loanStatus is given
+     */
+    public XmlAdaptedLoan(String name,
+                          String nric,
+                          String phone,
+                          String email,
+                          String address,
+                          String bike,
+                          String rate,
+                          String time,
+                          List<XmlAdaptedTag> tagged) {
+        this(name, nric, phone, email, address, bike, rate, time, "ONGOING", tagged);
     }
 
     /**
@@ -280,8 +296,8 @@ public class XmlAdaptedLoan {
                 modelBike,
                 modelRate,
                 modelTime,
-                modelTags,
-                modelLoanStatus);
+                modelLoanStatus, modelTags
+        );
 
     }
 

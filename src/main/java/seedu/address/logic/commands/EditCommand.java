@@ -25,7 +25,15 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.bike.Bike;
-import seedu.address.model.loan.*;
+import seedu.address.model.loan.Address;
+import seedu.address.model.loan.Email;
+import seedu.address.model.loan.Loan;
+import seedu.address.model.loan.LoanRate;
+import seedu.address.model.loan.LoanStatus;
+import seedu.address.model.loan.LoanTime;
+import seedu.address.model.loan.Name;
+import seedu.address.model.loan.Nric;
+import seedu.address.model.loan.Phone;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -119,8 +127,8 @@ public class EditCommand extends Command {
                 updatedBike,
                 updatedRate,
                 updatedTime,
-                updatedTags,
-                updatedLoanStatus);
+                updatedLoanStatus, updatedTags
+        );
     }
 
     @Override

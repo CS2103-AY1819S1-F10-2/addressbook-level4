@@ -7,8 +7,8 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
-import seedu.address.model.loan.exceptions.SameLoanStatusException;
 import seedu.address.model.bike.Bike;
+import seedu.address.model.loan.exceptions.SameLoanStatusException;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -46,7 +46,7 @@ public class Loan {
                 LoanRate rate,
                 LoanTime time,
                 Set<Tag> tags) {
-        this(name, nric, phone, email, address, bike, rate, time, tags, LoanStatus.ONGOING);
+        this(name, nric, phone, email, address, bike, rate, time, LoanStatus.ONGOING, tags);
     }
 
     /**
@@ -60,8 +60,7 @@ public class Loan {
                 Bike bike,
                 LoanRate rate,
                 LoanTime time,
-                Set<Tag> tags,
-                LoanStatus loanStatus) {
+                LoanStatus loanStatus, Set<Tag> tags) {
         requireAllNonNull(name, nric, phone, email, address, bike, rate, time, tags, loanStatus);
         this.name = name;
         this.nric = nric;
@@ -131,8 +130,7 @@ public class Loan {
     public boolean changeLoanStatus(LoanStatus newStatus) throws SameLoanStatusException {
         if (loanStatus.equals(newStatus)) {
             throw new SameLoanStatusException();
-        }
-        else {
+        } else {
             loanStatus = newStatus;
             return true;
         }
