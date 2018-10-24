@@ -12,8 +12,8 @@ import seedu.address.model.loan.Loan;
 import seedu.address.model.loan.UniqueLoanList;
 
 /**
- * Wraps all data (bikes and loans) at the loan-book level
- * Duplicates are not allowed
+ * Wraps all data (bikes and loans) at the loanbook level.
+ * Duplicates are not allowed.
  */
 public class LoanBook implements ReadOnlyLoanBook {
 
