@@ -47,7 +47,7 @@ public class GuiTestAssert {
         assertEquals(expectedLoan.getEmail().getCensored(), actualCard.getEmail());
         assertEquals(expectedLoan.getBike().getName().value, actualCard.getBike());
         assertEquals(expectedLoan.getLoanRate().toString(), actualCard.getLoanRate());
-        assertEquals(expectedLoan.getLoanTime().toString(), actualCard.getLoanTime());
+        assertEquals(expectedLoan.getLoanStartTime().toString(), actualCard.getLoanTime());
         assertTagsEqual(expectedLoan, actualCard);
     }
 

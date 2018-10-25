@@ -41,7 +41,7 @@ public class LoanUtil {
         sb.append(PREFIX_ADDRESS + loan.getAddress().value + " ");
         sb.append(PREFIX_BIKE + loan.getBike().getName().value + " ");
         sb.append(PREFIX_LOANRATE + loan.getLoanRate().toString() + " ");
-        sb.append(PREFIX_LOANTIME + loan.getLoanTime().toString() + " ");
+        sb.append(PREFIX_LOANTIME + loan.getLoanStartTime().toString() + " ");
         loan.getTags().stream().forEach(
             s -> sb.append(PREFIX_TAG + s.value + " ")
         );
@@ -60,7 +60,7 @@ public class LoanUtil {
         descriptor.getAddress().ifPresent(address -> sb.append(PREFIX_ADDRESS).append(address.value).append(" "));
         descriptor.getBike().ifPresent(bike -> sb.append(PREFIX_BIKE).append(bike.getName().value).append(" "));
         descriptor.getLoanRate().ifPresent(rate -> sb.append(PREFIX_LOANRATE).append(rate.value).append(" "));
-        descriptor.getLoanTime().ifPresent(time -> sb.append(PREFIX_LOANTIME).append(time.toString()).append(" "));
+        descriptor.getLoanStartTime().ifPresent(time -> sb.append(PREFIX_LOANTIME).append(time.toString()).append(" "));
         if (descriptor.getTags().isPresent()) {
             Set<Tag> tags = descriptor.getTags().get();
             if (tags.isEmpty()) {

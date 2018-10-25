@@ -36,7 +36,7 @@ public class TypicalLoans {
             .withPhone("94351253")
             .withBike("Bike001")
             .withLoanRate("1.1")
-            .withLoanTime("12:33")
+            .withLoanStartTime("12:33")
             .withTags("friends").build();
     public static final Loan BENSON = new LoanBuilder().withName("Benson Meier")
             .withNric("F1342714M")
@@ -44,7 +44,7 @@ public class TypicalLoans {
             .withEmail("johnd@example.com").withPhone("98765432")
             .withBike("Bike002")
             .withLoanRate("0.15")
-            .withLoanTime("2017-10-12 06:08")
+            .withLoanStartTime("2017-10-12 06:08")
             .withTags("owesMoney", "friends").build();
     public static final Loan CARL = new LoanBuilder().withName("Carl Kurz")
             .withNric("T0238282I")
@@ -53,7 +53,7 @@ public class TypicalLoans {
             .withAddress("wall street")
             .withBike("Bike003")
             .withLoanRate("23.9")
-            .withLoanTime("14:20")
+            .withLoanStartTime("14:20")
             .build();
     public static final Loan DANIEL = new LoanBuilder().withName("Daniel Meier")
             .withNric("S9335895C")
@@ -62,7 +62,7 @@ public class TypicalLoans {
             .withAddress("10th street")
             .withBike("Bike004")
             .withLoanRate("9.0")
-            .withLoanTime("17:56")
+            .withLoanStartTime("17:56")
             .withTags("friends").build();
     public static final Loan ELLE = new LoanBuilder().withName("Elle Meyer")
             .withNric("G9112925L")
@@ -71,7 +71,7 @@ public class TypicalLoans {
             .withAddress("michegan ave")
             .withBike("Bike005")
             .withLoanRate("5.55")
-            .withLoanTime("2010-12-30 10:30")
+            .withLoanStartTime("2010-12-30 10:30")
             .build();
     public static final Loan FIONA = new LoanBuilder().withName("Fiona Kunz")
             .withNric("G9400645M")
@@ -80,7 +80,7 @@ public class TypicalLoans {
             .withAddress("little tokyo")
             .withBike("Bike006")
             .withLoanRate("33.3")
-            .withLoanTime("01:01")
+            .withLoanStartTime("01:01")
             .build();
     public static final Loan GEORGE = new LoanBuilder().withName("George Best")
             .withNric("S8313623E")
@@ -89,7 +89,7 @@ public class TypicalLoans {
             .withAddress("4th street")
             .withBike("Bike007")
             .withLoanRate("5.05")
-            .withLoanTime("2013-03-13 12:08")
+            .withLoanStartTime("2013-03-13 12:08")
             .build();
 
     // Manually added
@@ -100,7 +100,7 @@ public class TypicalLoans {
             .withAddress("little india")
             .withBike("Bike008")
             .withLoanRate("8.9")
-            .withLoanTime("16:45")
+            .withLoanStartTime("16:45")
             .build();
     public static final Loan IDA = new LoanBuilder().withName("Ida Mueller")
             .withNric("S9739813E")
@@ -109,7 +109,7 @@ public class TypicalLoans {
             .withAddress("chicago ave")
             .withBike("Bike009")
             .withLoanRate("7.65")
-            .withLoanTime("2017-09-08 18:08")
+            .withLoanStartTime("2017-09-08 18:08")
             .build();
 
     // Manually added - Loan's details found in {@code CommandTestUtil}
@@ -121,7 +121,7 @@ public class TypicalLoans {
             .withTags(VALID_TAG_FRIEND)
             .withBike(VALID_BIKE_AMY)
             .withLoanRate(VALID_LOANRATE_AMY)
-            .withLoanTime(VALID_LOANTIME_AMY)
+            .withLoanStartTime(VALID_LOANTIME_AMY)
             .build();
     public static final Loan BOB = new LoanBuilder().withName(VALID_NAME_BOB)
             .withNric(VALID_NRIC_BOB)
@@ -130,7 +130,7 @@ public class TypicalLoans {
             .withAddress(VALID_ADDRESS_BOB)
             .withBike(VALID_BIKE_BOB)
             .withLoanRate(VALID_LOANRATE_BOB)
-            .withLoanTime(VALID_LOANTIME_BOB)
+            .withLoanStartTime(VALID_LOANTIME_BOB)
             .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND)
             .build();
 

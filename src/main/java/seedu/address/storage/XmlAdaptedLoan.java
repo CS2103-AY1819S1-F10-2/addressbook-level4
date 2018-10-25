@@ -43,7 +43,9 @@ public class XmlAdaptedLoan {
     @XmlElement(required = true)
     private String rate;
     @XmlElement(required = true)
-    private String time;
+    private String startTime;
+    @XmlElement(required = true)
+    private String endTime;
 
     @XmlElement
     private List<XmlAdaptedTag> tagged = new ArrayList<>();
@@ -64,7 +66,8 @@ public class XmlAdaptedLoan {
                           String address,
                           String bike,
                           String rate,
-                          String time,
+                          String startTime,
+                          String endTime,
                           List<XmlAdaptedTag> tagged) {
         this.name = name;
         this.nric = nric;
@@ -73,7 +76,8 @@ public class XmlAdaptedLoan {
         this.address = address;
         this.bike = bike;
         this.rate = rate;
-        this.time = time;
+        this.startTime = startTime;
+        this.endTime = endTime;
         if (tagged != null) {
             this.tagged = new ArrayList<>(tagged);
         }
@@ -92,7 +96,8 @@ public class XmlAdaptedLoan {
         address = source.getAddress().value;
         bike = source.getBike().getName().value;
         rate = source.getLoanRate().toString();
-        time = source.getLoanTime().toString();
+        startTime = source.getLoanStartTime().toString();
+        endTime = source.getLoanStartTime().toString();
         tagged = source.getTags().stream()
                 .map(XmlAdaptedTag::new)
                 .collect(Collectors.toList());
@@ -198,16 +203,31 @@ public class XmlAdaptedLoan {
     }
 
     /**
-     * Throws an {@code IllegalValueException} if {@code time} does not exist or is not valid.
+     * Throws an {@code IllegalValueException} if {@code startTime} does not exist or is not valid.
      *
      * @throws IllegalValueException
      */
-    private void checkLoanTimeValid() throws IllegalValueException {
-        if (time == null) {
+    private void checkLoanStartTimeValid() throws IllegalValueException {
+        if (startTime == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
                     LoanTime.class.getSimpleName()));
         }
-        if (!LoanTime.isValidLoanTime(time)) {
+        if (!LoanTime.isValidLoanTime(startTime)) {
+            throw new IllegalValueException(LoanTime.MESSAGE_LOANTIME_CONSTRAINTS);
+        }
+    }
+
+    /**
+     * Throws an {@code IllegalValueException} if {@code endTime} does not exist or is not valid.
+     *
+     * @throws IllegalValueException
+     */
+    private void checkLoanEndTimeValid() throws IllegalValueException {
+        if (endTime == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    LoanTime.class.getSimpleName()));
+        }
+        if (!LoanTime.isValidLoanTime(endTime)) {
             throw new IllegalValueException(LoanTime.MESSAGE_LOANTIME_CONSTRAINTS);
         }
     }
@@ -244,8 +264,12 @@ public class XmlAdaptedLoan {
         checkLoanRateValid();
         final LoanRate modelRate = new LoanRate(rate);
 
-        checkLoanTimeValid();
-        final LoanTime modelTime = new LoanTime(time);
+        checkLoanStartTimeValid();
+        final LoanTime modelStartTime = new LoanTime(startTime);
+
+        checkLoanEndTimeValid();
+        final LoanTime modelEndTime = new LoanTime(endTime);
+
 
         final Set<Tag> modelTags = new HashSet<>(loanTags);
         return new Loan(modelName,
@@ -255,7 +279,8 @@ public class XmlAdaptedLoan {
                 modelAddress,
                 modelBike,
                 modelRate,
-                modelTime,
+                modelStartTime,
+                modelEndTime,
                 modelTags);
     }
 
@@ -277,7 +302,8 @@ public class XmlAdaptedLoan {
                 && Objects.equals(address, otherLoan.address)
                 && Objects.equals(bike, otherLoan.bike)
                 && Objects.equals(rate, otherLoan.rate)
-                && Objects.equals(time, otherLoan.time)
+                && Objects.equals(startTime, otherLoan.startTime)
+                && Objects.equals(endTime, otherLoan.endTime)
                 && tagged.equals(otherLoan.tagged);
     }
 }

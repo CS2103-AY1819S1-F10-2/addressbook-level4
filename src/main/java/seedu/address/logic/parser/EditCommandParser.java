@@ -70,7 +70,7 @@ public class EditCommandParser implements Parser<EditCommand> {
             editLoanDescriptor.setLoanRate(ParserUtil.parseLoanRate(argMultimap.getValue(PREFIX_LOANRATE).get()));
         }
         if (argMultimap.getValue(PREFIX_LOANTIME).isPresent()) {
-            editLoanDescriptor.setLoanTime(ParserUtil.parseLoanTime(argMultimap.getValue(PREFIX_LOANTIME).get()));
+            editLoanDescriptor.setLoanStartTime(ParserUtil.parseLoanTime(argMultimap.getValue(PREFIX_LOANTIME).get()));
         }
         parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(editLoanDescriptor::setTags);
 

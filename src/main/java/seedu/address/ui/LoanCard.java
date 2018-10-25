@@ -57,7 +57,7 @@ public class LoanCard extends UiPart<Region> {
         email.setText(loan.getEmail().getCensored());
         bike.setText(loan.getBike().getName().value);
         rate.setText(loan.getLoanRate().toString());
-        time.setText(loan.getLoanTime().toString());
+        time.setText(loan.getLoanStartTime().toString());
         initTags(loan);
     }
 

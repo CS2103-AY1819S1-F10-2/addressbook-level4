@@ -44,7 +44,7 @@ public class EditLoanDescriptorBuilder {
         descriptor.setAddress(loan.getAddress());
         descriptor.setBike(loan.getBike());
         descriptor.setLoanRate(loan.getLoanRate());
-        descriptor.setLoanTime(loan.getLoanTime());
+        descriptor.setLoanStartTime(loan.getLoanStartTime());
         descriptor.setTags(loan.getTags());
     }
 
@@ -108,7 +108,7 @@ public class EditLoanDescriptorBuilder {
      * Sets the {@code LoanTime} of the {@code EditLoanDescriptor} that we are building.
      */
     public EditLoanDescriptorBuilder withLoanTime(String time) {
-        descriptor.setLoanTime(new LoanTime(time));
+        descriptor.setLoanStartTime(new LoanTime(time));
         return this;
     }
 

@@ -27,7 +27,8 @@ public class LoanBuilder {
     public static final String DEFAULT_ADDRESS = "123, Jurong West Ave 6, #08-111";
     public static final String DEFAULT_BIKE = "BIKE999";
     public static final String DEFAULT_LOANRATE = "12.3";
-    public static final String DEFAULT_LOANTIME = "12:45";
+    public static final String DEFAULT_LOANSTARTTIME = "11:45";
+    public static final String DEFAULT_LOANENDTIME = "12:45";
 
     private Name name;
     private Nric nric;
@@ -36,7 +37,8 @@ public class LoanBuilder {
     private Address address;
     private Bike bike;
     private LoanRate rate;
-    private LoanTime time;
+    private LoanTime startTime;
+    private LoanTime endTime;
     private Set<Tag> tags;
 
     public LoanBuilder() {
@@ -47,7 +49,8 @@ public class LoanBuilder {
         address = new Address(DEFAULT_ADDRESS);
         bike = new Bike(new Name(DEFAULT_BIKE));
         rate = new LoanRate(DEFAULT_LOANRATE);
-        time = new LoanTime(DEFAULT_LOANTIME);
+        startTime = new LoanTime(DEFAULT_LOANSTARTTIME);
+        endTime = new LoanTime(DEFAULT_LOANENDTIME);
         tags = new HashSet<>();
     }
 
@@ -62,7 +65,8 @@ public class LoanBuilder {
         address = loanToCopy.getAddress();
         bike = loanToCopy.getBike();
         rate = loanToCopy.getLoanRate();
-        time = loanToCopy.getLoanTime();
+        startTime = loanToCopy.getLoanStartTime();
+        endTime = loanToCopy.getLoanStartTime();
         tags = new HashSet<>(loanToCopy.getTags());
     }
 
@@ -132,14 +136,24 @@ public class LoanBuilder {
 
     /**
      * Sets the {@code LoanTime} of the {@code Loan} that we are building.
+     * This method affects the start time of the loan
      */
-    public LoanBuilder withLoanTime(String time) {
-        this.time = new LoanTime(time);
+    public LoanBuilder withLoanStartTime(String time) {
+        this.startTime = new LoanTime(time);
+        return this;
+    }
+
+    /**
+     * Sets the {@code LoanTime} of the {@code Loan} that we are building.
+     * This method affects the end time of the loan
+     */
+    public LoanBuilder withLoanEndTime(String time) {
+        this.endTime = new LoanTime(time);
         return this;
     }
 
     public Loan build() {
-        return new Loan(name, nric, phone, email, address, bike, rate, time, tags);
+        return new Loan(name, nric, phone, email, address, bike, rate, startTime, endTime, tags);
     }
 
 }

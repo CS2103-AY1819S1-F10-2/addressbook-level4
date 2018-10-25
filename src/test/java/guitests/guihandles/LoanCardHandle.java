@@ -112,7 +112,7 @@ public class LoanCardHandle extends NodeHandle<Node> {
                 && getEmail().equals(loan.getEmail().getCensored())
                 && getBike().equals(loan.getBike().getName().value)
                 && getLoanRate().equals(loan.getLoanRate().toString())
-                && getLoanTime().equals(loan.getLoanTime().toString())
+                && getLoanTime().equals(loan.getLoanStartTime().toString())
                 && ImmutableMultiset.copyOf(getTags()).equals(ImmutableMultiset.copyOf(loan.getTags().stream()
                         .map(tag -> tag.value)
                         .collect(Collectors.toList())));

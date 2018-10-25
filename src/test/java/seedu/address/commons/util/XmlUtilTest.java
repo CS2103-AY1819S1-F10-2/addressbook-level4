@@ -43,7 +43,8 @@ public class XmlUtilTest {
     private static final String VALID_ADDRESS = "4th street";
     private static final String VALID_BIKE = "BIKE001";
     private static final String VALID_LOANRATE = "30.6";
-    private static final String VALID_LOANTIME = "2018-01-01 10:10";
+    private static final String VALID_LOANTIMEA = "2018-01-01 10:10";
+    private static final String VALID_LOANTIMEB = "2018-01-01 17:10";
     private static final List<XmlAdaptedTag> VALID_TAGS = Collections.singletonList(new XmlAdaptedTag("friends"));
 
     @Rule
@@ -90,7 +91,8 @@ public class XmlUtilTest {
                 VALID_ADDRESS,
                 VALID_BIKE,
                 VALID_LOANRATE,
-                VALID_LOANTIME,
+                VALID_LOANTIMEA,
+                VALID_LOANTIMEB,
                 VALID_TAGS);
         assertEquals(expectedLoan, actualLoan);
     }
@@ -106,7 +108,8 @@ public class XmlUtilTest {
                 VALID_ADDRESS,
                 VALID_BIKE,
                 VALID_LOANRATE,
-                VALID_LOANTIME,
+                VALID_LOANTIMEA,
+                VALID_LOANTIMEB,
                 VALID_TAGS);
         assertEquals(expectedLoan, actualLoan);
     }
@@ -122,7 +125,8 @@ public class XmlUtilTest {
                 VALID_ADDRESS,
                 VALID_BIKE,
                 VALID_LOANRATE,
-                VALID_LOANTIME,
+                VALID_LOANTIMEA,
+                VALID_LOANTIMEB,
                 VALID_TAGS);
         assertEquals(expectedLoan, actualLoan);
     }

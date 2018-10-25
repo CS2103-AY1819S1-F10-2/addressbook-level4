@@ -155,7 +155,7 @@ public class AddCommandSystemTest extends LoanBookSystemTest {
         assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_LOAN);
 
         /* Case: add a duplicate loan except with different loantime -> rejected */
-        toAdd = new LoanBuilder(HOON).withLoanTime(VALID_LOANTIME_BOB).build();
+        toAdd = new LoanBuilder(HOON).withLoanStartTime(VALID_LOANTIME_BOB).build();
         command = LoanUtil.getAddCommand(toAdd);
         assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_LOAN);
 

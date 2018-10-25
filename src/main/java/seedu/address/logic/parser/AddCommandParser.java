@@ -70,10 +70,9 @@ public class AddCommandParser implements Parser<AddCommand> {
         Address address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get());
         Bike bike = ParserUtil.parseBike(argMultimap.getValue(PREFIX_BIKE).get());
         LoanRate rate = ParserUtil.parseLoanRate(argMultimap.getValue(PREFIX_LOANRATE).get());
-        LoanTime time = ParserUtil.parseLoanTime(argMultimap.getValue(PREFIX_LOANTIME).get());
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
-        Loan loan = new Loan(name, nric, phone, email, address, bike, rate, time, tagList);
+        Loan loan = new Loan(name, nric, phone, email, address, bike, rate, tagList);
 
         return new AddCommand(loan);
     }

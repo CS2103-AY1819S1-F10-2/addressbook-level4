@@ -141,7 +141,7 @@ public class EditCommandSystemTest extends LoanBookSystemTest {
                 + BIKE_DESC_BOB + LOANRATE_DESC_AMY + LOANTIME_DESC_AMY
                 + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
         editedLoan = new LoanBuilder(BOB).withPhone(VALID_PHONE_AMY).withEmail(VALID_EMAIL_AMY)
-                .withLoanRate(VALID_LOANRATE_AMY).withLoanTime(VALID_LOANTIME_AMY).build();
+                .withLoanRate(VALID_LOANRATE_AMY).withLoanStartTime(VALID_LOANTIME_AMY).build();
         assertCommandSuccess(command, index, editedLoan);
 
         /* Case: clear tags -> cleared */
