@@ -21,19 +21,13 @@ public class LoanBook implements ReadOnlyLoanBook {
     private final UniqueBikeList bikes;
     private final UniqueLoanList loans;
 
-    /*
-     * The 'unusual' code block below is an non-static initialization block, sometimes used to avoid duplication
-     * between constructors. See https://docs.oracle.com/javase/tutorial/java/javaOO/initial.html
-     *
-     * Note that non-static init blocks are not recommended to use. There are other ways to avoid duplication
-     *   among constructors.
+    /**
+     * Default constructor.
      */
-    {
+    public LoanBook() {
         bikes = new UniqueBikeList();
         loans = new UniqueLoanList();
     }
-
-    public LoanBook() {}
 
     /**
      * Creates an LoanBook using the Bikes and Loans in the {@code toBeCopied}
