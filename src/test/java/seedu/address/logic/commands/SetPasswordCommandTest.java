@@ -64,7 +64,7 @@ public class SetPasswordCommandTest {
     public void execute_newPasswordAcceptedByModel_setPassSuccessful() throws Exception {
         Password currentPass = new Password("a12345");
         Password newPass = new Password("abcdefgh");
-        ModelStub modelStub = new ModelStub();
+        ModelStubWithPassword modelStub = new ModelStubWithPassword();
 
         CommandResult commandResult = new SetPasswordCommand(currentPass, newPass).execute(modelStub, commandHistory);
 
@@ -78,7 +78,7 @@ public class SetPasswordCommandTest {
         Password wrongPass = new Password("xxxxxxxx");
         Password newPass = new Password("abcdefgh");
         SetPasswordCommand setPasswordCommand = new SetPasswordCommand(wrongPass, newPass);
-        ModelStub modelStub = new ModelStub();
+        ModelStubWithPassword modelStub = new ModelStubWithPassword();
 
         thrown.expect(CommandException.class);
         thrown.expectMessage(Messages.MESSAGE_INVALID_OLD_PASS);
@@ -87,7 +87,7 @@ public class SetPasswordCommandTest {
 
     @Test
     public void execute_sameCurrentPassword_throwsCommandException() throws Exception {
-        ModelStub modelStub = new ModelStub();
+        ModelStubWithPassword modelStub = new ModelStubWithPassword();
         String pass = "a12345";
 
         SetPasswordCommand setPasswordCommand =
@@ -96,5 +96,22 @@ public class SetPasswordCommandTest {
         thrown.expect(CommandException.class);
         thrown.expectMessage(Messages.MESSAGE_SAME_AS_CURRENT_PASSWORD);
         setPasswordCommand.execute(modelStub, commandHistory);
+    }
+
+    /**
+     * A Model stub with a functional setPass() and getPass().
+     */
+    private class ModelStubWithPassword extends ModelStub {
+        private Password currPass = new Password("a12345");
+
+        @Override
+        public void setPass(Password pass) {
+            currPass = pass;
+        }
+
+        @Override
+        public String getPass() {
+            return currPass.hashedPassword();
+        }
     }
 }
