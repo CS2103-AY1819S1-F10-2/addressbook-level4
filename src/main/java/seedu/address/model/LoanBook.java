@@ -4,6 +4,7 @@ import static java.util.Objects.hash;
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;
+import java.util.Optional;
 
 import javafx.collections.ObservableList;
 import seedu.address.model.bike.Bike;
@@ -78,6 +79,13 @@ public class LoanBook implements ReadOnlyLoanBook {
     public boolean hasBike(Bike bike) {
         requireNonNull(bike);
         return bikes.contains(bike);
+    }
+
+    /**
+     * Returns a bike in the list whose name matches {@code bikeName}.
+     */
+    public Optional<Bike> getBike(String bikeName) {
+        return bikes.getBike(bikeName);
     }
 
     /**
