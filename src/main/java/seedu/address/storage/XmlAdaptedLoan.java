@@ -122,135 +122,6 @@ public class XmlAdaptedLoan {
     }
 
     /**
-     * Throws an {@code IllegalValueException} if {@code name} does not exist or is not valid.
-     *
-     * @throws IllegalValueException
-     */
-    private void checkNameValid() throws IllegalValueException {
-        if (name == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName()));
-        }
-        if (!Name.isValidName(name)) {
-            throw new IllegalValueException(Name.MESSAGE_NAME_CONSTRAINTS);
-        }
-    }
-
-    /**
-     * Throws an {@code IllegalValueException} if {@code nric} does not exist or is not valid.
-     *
-     * @throws IllegalValueException
-     */
-    private void checkNricValid() throws IllegalValueException {
-        if (nric == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Nric.class.getSimpleName()));
-        }
-        if (!Nric.isValidNric(nric)) {
-            throw new IllegalValueException(Nric.MESSAGE_NRIC_CONSTRAINTS);
-        }
-    }
-
-    /**
-     * Throws an {@code IllegalValueException} if {@code phone} does not exist or is not valid.
-     *
-     * @throws IllegalValueException
-     */
-    private void checkPhoneValid() throws IllegalValueException {
-        if (phone == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Phone.class.getSimpleName()));
-        }
-        if (!Phone.isValidPhone(phone)) {
-            throw new IllegalValueException(Phone.MESSAGE_PHONE_CONSTRAINTS);
-        }
-    }
-
-    /**
-     * Throws an {@code IllegalValueException} if {@code email} does not exist or is not valid.
-     *
-     * @throws IllegalValueException
-     */
-    private void checkEmailValid() throws IllegalValueException {
-        if (email == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Email.class.getSimpleName()));
-        }
-        if (!Email.isValidEmail(email)) {
-            throw new IllegalValueException(Email.MESSAGE_EMAIL_CONSTRAINTS);
-        }
-    }
-
-    /**
-     * Throws an {@code IllegalValueException} if {@code address} does not exist or is not valid.
-     *
-     * @throws IllegalValueException
-     */
-    private void checkAddressValid() throws IllegalValueException {
-        if (address == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Address.class.getSimpleName()));
-        }
-        if (!Address.isValidAddress(address)) {
-            throw new IllegalValueException(Address.MESSAGE_ADDRESS_CONSTRAINTS);
-        }
-    }
-
-    /**
-     * Throws an {@code IllegalValueException} if {@code loanStatus} does not exist or is not valid.
-     *
-     * @throws IllegalValueException
-     */
-    private void checkLoanStatusValid() throws IllegalValueException {
-        if (loanStatus == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
-                    LoanStatus.class.getSimpleName()));
-        }
-        if (!LoanStatus.isValidLoanStatus(loanStatus)) {
-            throw new IllegalValueException(LoanStatus.MESSAGE_LOANSTATUS_CONSTRAINTS);
-        }
-    }
-
-    /**
-     * Throws an {@code IllegalValueException} if {@code bike} does not exist or is not valid.
-     *
-     * @throws IllegalValueException
-     */
-    private void checkBikeValid() throws IllegalValueException {
-        if (bike == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Bike.class.getSimpleName()));
-        }
-        if (!Name.isValidName(bike)) {
-            throw new IllegalValueException(Name.MESSAGE_NAME_CONSTRAINTS);
-        }
-    }
-
-    /**
-     * Throws an {@code IllegalValueException} if {@code rate} does not exist or is not valid.
-     *
-     * @throws IllegalValueException
-     */
-    private void checkLoanRateValid() throws IllegalValueException {
-        if (rate == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
-                    LoanRate.class.getSimpleName()));
-        }
-        if (!LoanRate.isValidRate(rate)) {
-            throw new IllegalValueException(LoanRate.MESSAGE_LOANRATE_CONSTRAINTS);
-        }
-    }
-
-    /**
-     * Throws an {@code IllegalValueException} if {@code time} does not exist or is not valid.
-     *
-     * @throws IllegalValueException
-     */
-    private void checkLoanTimeValid() throws IllegalValueException {
-        if (time == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
-                    LoanTime.class.getSimpleName()));
-        }
-        if (!LoanTime.isValidLoanTime(time)) {
-            throw new IllegalValueException(LoanTime.MESSAGE_LOANTIME_CONSTRAINTS);
-        }
-    }
-
-    /**
      * Throws an {@code IllegalValueException} if {@code field} does not exist or is not valid.
      *
      * @param field The data field of the Loan class to check for.
@@ -266,8 +137,7 @@ public class XmlAdaptedLoan {
             String msgConstraints) throws IllegalValueException {
 
         if (field == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
-                fieldClass.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, fieldClass.getSimpleName()));
         }
         if (!isValid.test(field)) {
             throw new IllegalValueException(msgConstraints);
@@ -322,7 +192,8 @@ public class XmlAdaptedLoan {
                 modelBike,
                 modelRate,
                 modelTime,
-                modelLoanStatus, modelTags
+                modelLoanStatus,
+                modelTags
         );
 
     }
