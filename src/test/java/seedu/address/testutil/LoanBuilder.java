@@ -8,6 +8,7 @@ import seedu.address.model.loan.Address;
 import seedu.address.model.loan.Email;
 import seedu.address.model.loan.Loan;
 import seedu.address.model.loan.LoanRate;
+import seedu.address.model.loan.LoanStatus;
 import seedu.address.model.loan.LoanTime;
 import seedu.address.model.loan.Name;
 import seedu.address.model.loan.Nric;
@@ -28,6 +29,7 @@ public class LoanBuilder {
     public static final String DEFAULT_BIKE = "BIKE999";
     public static final String DEFAULT_LOANRATE = "12.3";
     public static final String DEFAULT_LOANTIME = "12:45";
+    public static final String DEFAULT_LOANSTATUS = "ONGOING";
 
     private Name name;
     private Nric nric;
@@ -38,6 +40,7 @@ public class LoanBuilder {
     private LoanRate rate;
     private LoanTime time;
     private Set<Tag> tags;
+    private LoanStatus loanStatus;
 
     public LoanBuilder() {
         name = new Name(DEFAULT_NAME);
@@ -48,6 +51,7 @@ public class LoanBuilder {
         bike = new Bike(new Name(DEFAULT_BIKE));
         rate = new LoanRate(DEFAULT_LOANRATE);
         time = new LoanTime(DEFAULT_LOANTIME);
+        loanStatus = LoanStatus.valueOf(DEFAULT_LOANSTATUS);
         tags = new HashSet<>();
     }
 
@@ -63,6 +67,7 @@ public class LoanBuilder {
         bike = loanToCopy.getBike();
         rate = loanToCopy.getLoanRate();
         time = loanToCopy.getLoanTime();
+        loanStatus = loanToCopy.getLoanStatus();
         tags = new HashSet<>(loanToCopy.getTags());
     }
 
@@ -138,8 +143,15 @@ public class LoanBuilder {
         return this;
     }
 
-    public Loan build() {
-        return new Loan(name, nric, phone, email, address, bike, rate, time, tags);
+    /**
+     * Sets the {@code loanStatus} of the {@code Loan} that we are building.
+     */
+    public LoanBuilder withLoanStatus(String loanStatus) {
+        this.loanStatus = LoanStatus.valueOf(loanStatus);
+        return this;
     }
 
+    public Loan build() {
+        return new Loan(name, nric, phone, email, address, bike, rate, time, loanStatus, tags);
+    }
 }

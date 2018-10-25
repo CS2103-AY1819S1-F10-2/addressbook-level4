@@ -65,58 +65,58 @@ public class UniqueLoanListTest {
     }
 
     @Test
-    public void setLoanNullTargetLoanThrowsNullPointerException() {
+    public void setNullTargetLoanThrowsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        uniqueLoanList.setLoan(null, ALICE);
+        uniqueLoanList.set(null, ALICE);
     }
 
     @Test
-    public void setLoanNullEditedLoanThrowsNullPointerException() {
+    public void setNullEditedLoanThrowsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        uniqueLoanList.setLoan(ALICE, null);
+        uniqueLoanList.set(ALICE, null);
     }
 
     @Test
-    public void setLoanTargetLoanNotInListThrowsLoanNotFoundException() {
+    public void setTargetLoanNotInListThrowsLoanNotFoundException() {
         thrown.expect(LoanNotFoundException.class);
-        uniqueLoanList.setLoan(ALICE, ALICE);
+        uniqueLoanList.set(ALICE, ALICE);
     }
 
     @Test
-    public void setLoanEditedLoanIsSameLoan_success() {
+    public void setEditedLoanIsSameLoan_success() {
         uniqueLoanList.add(ALICE);
-        uniqueLoanList.setLoan(ALICE, ALICE);
+        uniqueLoanList.set(ALICE, ALICE);
         UniqueLoanList expectedUniqueLoanList = new UniqueLoanList();
         expectedUniqueLoanList.add(ALICE);
         assertEquals(expectedUniqueLoanList, uniqueLoanList);
     }
 
     @Test
-    public void setLoanEditedLoanHasSameIdentity_success() {
+    public void setEditedLoanHasSameIdentity_success() {
         uniqueLoanList.add(ALICE);
         Loan editedAlice = new LoanBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
-        uniqueLoanList.setLoan(ALICE, editedAlice);
+        uniqueLoanList.set(ALICE, editedAlice);
         UniqueLoanList expectedUniqueLoanList = new UniqueLoanList();
         expectedUniqueLoanList.add(editedAlice);
         assertEquals(expectedUniqueLoanList, uniqueLoanList);
     }
 
     @Test
-    public void setLoanEditedLoanHasDifferentIdentity_success() {
+    public void setEditedLoanHasDifferentIdentity_success() {
         uniqueLoanList.add(ALICE);
-        uniqueLoanList.setLoan(ALICE, BOB);
+        uniqueLoanList.set(ALICE, BOB);
         UniqueLoanList expectedUniqueLoanList = new UniqueLoanList();
         expectedUniqueLoanList.add(BOB);
         assertEquals(expectedUniqueLoanList, uniqueLoanList);
     }
 
     @Test
-    public void setLoanEditedLoanHasNonUniqueIdentityThrowsDuplicateLoanException() {
+    public void setEditedLoanHasNonUniqueIdentityThrowsDuplicateLoanException() {
         uniqueLoanList.add(ALICE);
         uniqueLoanList.add(BOB);
         thrown.expect(DuplicateLoanException.class);
-        uniqueLoanList.setLoan(ALICE, BOB);
+        uniqueLoanList.set(ALICE, BOB);
     }
 
     @Test
@@ -140,41 +140,41 @@ public class UniqueLoanListTest {
     }
 
     @Test
-    public void setLoansNullUniqueLoanListThrowsNullPointerException() {
+    public void setNullUniqueLoanListThrowsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        uniqueLoanList.setLoans((UniqueLoanList) null);
+        uniqueLoanList.setAll((UniqueLoanList) null);
     }
 
     @Test
-    public void setLoansUniqueLoanListReplacesOwnListWithProvidedUniqueLoanList() {
+    public void setUniqueLoanListReplacesOwnListWithProvidedUniqueLoanList() {
         uniqueLoanList.add(ALICE);
         UniqueLoanList expectedUniqueLoanList = new UniqueLoanList();
         expectedUniqueLoanList.add(BOB);
-        uniqueLoanList.setLoans(expectedUniqueLoanList);
+        uniqueLoanList.setAll(expectedUniqueLoanList);
         assertEquals(expectedUniqueLoanList, uniqueLoanList);
     }
 
     @Test
-    public void setLoansNullListThrowsNullPointerException() {
+    public void setNullListThrowsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        uniqueLoanList.setLoans((List<Loan>) null);
+        uniqueLoanList.setAll((List<Loan>) null);
     }
 
     @Test
-    public void setLoansListReplacesOwnListWithProvidedList() {
+    public void setListReplacesOwnListWithProvidedList() {
         uniqueLoanList.add(ALICE);
         List<Loan> loanList = Collections.singletonList(BOB);
-        uniqueLoanList.setLoans(loanList);
+        uniqueLoanList.setAll(loanList);
         UniqueLoanList expectedUniqueLoanList = new UniqueLoanList();
         expectedUniqueLoanList.add(BOB);
         assertEquals(expectedUniqueLoanList, uniqueLoanList);
     }
 
     @Test
-    public void setLoansListWithDuplicateLoansThrowsDuplicateLoanException() {
+    public void setListWithDuplicateLoansThrowsDuplicateLoanException() {
         List<Loan> listWithDuplicateLoans = Arrays.asList(ALICE, ALICE);
         thrown.expect(DuplicateLoanException.class);
-        uniqueLoanList.setLoans(listWithDuplicateLoans);
+        uniqueLoanList.setAll(listWithDuplicateLoans);
     }
 
     @Test

@@ -16,14 +16,14 @@ public class BikeTest {
     @Test
     public void isSameBike() {
         // same object -> returns true
-        assertTrue(BIKE1.isSameBike(BIKE1));
+        assertTrue(BIKE1.isSame(BIKE1));
 
         // null -> returns false
-        assertFalse(BIKE1.isSameBike(null));
+        assertFalse(BIKE1.isSame(null));
 
         // different name -> returns false
         Bike editedBike1 = new BikeBuilder(BIKE1).withName("B002").build();
-        assertFalse(BIKE1.isSameBike(editedBike1));
+        assertFalse(BIKE1.isSame(editedBike1));
     }
 
     @Test

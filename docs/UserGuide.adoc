@@ -47,12 +47,12 @@ e.g. typing *`help`* and pressing kbd:[ENTER] will open the help window.
 
 === Viewing help : `help`
 
-Provides a list of all commands together with a basic description, how-to-use and example usage for each +
+Provides a list of all commands together with a basic description, how-to-use and example usage for each command. +
 Format: `help`
 
 === Adding a loan: `add`
 
-Adds a loan to the loan book with the following parameters, and displays the transaction along with a Loan ID to keep track of the loan +
+Adds a loan to the loan book with the following parameters, and displays the transaction along with a LOAN_ID to keep track of the loan. +
 Format: `add p/PERSON_NAME hp/PERSON_PHONE_NO e/PERSON_EMAIL r/RATE o/OBJECT_IDENTITY`
 
 [TIP]
@@ -67,7 +67,7 @@ Examples:
 
 === Listing all loans : `list`
 
-Shows a list of all loans in the loan book. +
+Shows a list of all loans in the LoanBook. +
 Format: `list`
 
 === Editing a loan : `edit`
@@ -76,7 +76,7 @@ In case a wrong entry is keyed in, or the customer changes their mind, this comm
 Format: `edit i/LOAN_ID [p/PERSON_NAME] [hp/PERSON_PHONE_NO] [e/PERSON_EMAIL] [r/RATE] [o/OBJECT_IDENTITY]`
 
 ****
-* Edits the loan at the specified `LOAN_ID`. The index refers to the index number shown in the displayed loan list. The index *must be a positive integer* 1, 2, 3, ...
+* Edits the loan at the specified `LOAN_ID`. This LOAN_ID refers to the LOAN_ID number shown in the displayed loan list. The LOAN_ID *must be a positive integer* 1, 2, 3, ...
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
 * When editing tags, the existing tags of the loan will be removed i.e adding of tags is not cumulative.
@@ -91,7 +91,7 @@ For the loan with Loan ID 90210, changes the customer to James Tan, who has the 
 
 === Locating loans by key words: `search`
 
-Returns a loan based on parameters of LOAN_ ID, PERSON_NAME or OBJECT_IDENTITY. +
+Returns a loan based on parameters of LOAN_ID, PERSON_NAME or OBJECT_IDENTITY. +
 Format: `search [i/LOAN_ID] [p/PERSON_NAME] [o/OBJECT_IDENTITY]`
 
 ****
@@ -104,7 +104,7 @@ Format: `search [i/LOAN_ID] [p/PERSON_NAME] [o/OBJECT_IDENTITY]`
 Examples:
 
 * `search i/11037` +
-Searches for the loan with Loan ID 11037
+Searches for the loan with LOAN_ID 11037
 * `search p/James Tan` +
 Searches for loans made by James Tan
 * `search p/John Doe o/Bicycle-007` +
@@ -123,29 +123,52 @@ Format: `delete i/LOAN_ID` or `delete!`
 Examples:
 
 * `delete i/11037` +
-Deletes the loan with Loan ID 11037.
+Deletes the loan with LOAN_ID 11037.
 * `delete!` +
 Deletes all loan records.
 
 === Returning a loan : `return`
 
-Marks a loan as returned based on LOAN_ ID and automatically prints out the amount payable. +
+Marks a loan as returned based on LOAN_ID and automatically prints out the amount payable. +
 Format: `return i/LOAN_ID`
 
 Examples:
 
 * `return i/11037` +
-Marks the loan with Loan ID 11037 as returned. Also automatically prints out the amount payable based on loan time and rate.
+Marks the loan with LOAN_ID 11037 as returned. Also automatically prints out the amount payable based on loan time and rate.
 
 === Hard reset the entire loan book : `reset`
 
 Removes all the loans from the loan book and resets the LOAN_ID counter. +
 Format: `reset`
 
+[NOTE]
+====
+The difference between deleting all the loans and hard resetting the LoanBook is that when a loan is delete, you will still be able to search for it. However, the statistics of deleted loans do not appear in the `summary` command.
+====
+
+[WARNING]
+====
+**Hard resetting the LoanBook will remove ALL loans! Do this ar your own peril.**
+====
+
 === Summarize all the transactions : `summary`
 
-Show the total number of loans that are done and in progress. Also summarizes the loan status of each item, the number of times an object was loaned before. +
+Show the total number of loans that are done and in progress. Also summarizes the loan status of each item, the number of times an object was loaned before.
+
+The `summary` function would display the statistics of all your loans in the display box on the right of the application. There, you will find the following statistics:
+
+* Total number of ongoing loans
+* Total number of loans ever taken out
+* Total amount of time all bikes have been loaned for
+* Total revenue from the loan service
+
 Format: `summary`
+
+[NOTE]
+====
+The summary feature may take a while to run, especially when you have many loans that you have made in the past. Please allow about a second for it to process.
+====
 
 === Listing entered commands : `history`
 
@@ -165,7 +188,7 @@ Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and 
 ** Populate recently loaned items/users, depending on the input. i.e. add i/ should show a dropdown on the last 5 items used. User can type add i/5 to select the 5th LRU item.
 ** typing `del` followed by tab auto completes to `delete`
 * Send reminder email to the borrower after a day of borrowing reminding them to return the bike.
-* Login authentication to ensure that some other bugger don't delete the loan stuffs. Require password when deleting.
+* Login authentication to ensure that unauthorised people do not delete the loans which they are not supposed to. Require password when deleting.
 
 ////
 // tag::undoredo[]

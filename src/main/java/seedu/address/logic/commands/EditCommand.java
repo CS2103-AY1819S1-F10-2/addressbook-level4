@@ -29,6 +29,7 @@ import seedu.address.model.loan.Address;
 import seedu.address.model.loan.Email;
 import seedu.address.model.loan.Loan;
 import seedu.address.model.loan.LoanRate;
+import seedu.address.model.loan.LoanStatus;
 import seedu.address.model.loan.LoanTime;
 import seedu.address.model.loan.Name;
 import seedu.address.model.loan.Nric;
@@ -90,7 +91,7 @@ public class EditCommand extends Command {
         Loan loanToEdit = lastShownList.get(index.getZeroBased());
         Loan editedLoan = createEditedLoan(loanToEdit, editLoanDescriptor);
 
-        if (!loanToEdit.isSameLoan(editedLoan) && model.hasLoan(editedLoan)) {
+        if (!loanToEdit.isSame(editedLoan) && model.hasLoan(editedLoan)) {
             throw new CommandException(MESSAGE_DUPLICATE_LOAN);
         }
 
@@ -116,6 +117,7 @@ public class EditCommand extends Command {
         LoanRate updatedRate = editLoanDescriptor.getLoanRate().orElse(loanToEdit.getLoanRate());
         LoanTime updatedTime = editLoanDescriptor.getLoanTime().orElse(loanToEdit.getLoanTime());
         Set<Tag> updatedTags = editLoanDescriptor.getTags().orElse(loanToEdit.getTags());
+        LoanStatus updatedLoanStatus = editLoanDescriptor.getLoanStatus().orElse(loanToEdit.getLoanStatus());
 
         return new Loan(updatedName,
                 updatedNric,
@@ -125,7 +127,8 @@ public class EditCommand extends Command {
                 updatedBike,
                 updatedRate,
                 updatedTime,
-                updatedTags);
+                updatedLoanStatus, updatedTags
+        );
     }
 
     @Override
@@ -160,6 +163,7 @@ public class EditCommand extends Command {
         private LoanRate rate;
         private LoanTime time;
         private Set<Tag> tags;
+        private LoanStatus loanStatus;
 
         public EditLoanDescriptor() {}
 
@@ -177,6 +181,7 @@ public class EditCommand extends Command {
             setLoanRate(toCopy.rate);
             setLoanTime(toCopy.time);
             setTags(toCopy.tags);
+            setLoanStatus(toCopy.loanStatus);
         }
 
         /**
@@ -265,6 +270,14 @@ public class EditCommand extends Command {
          */
         public Optional<Set<Tag>> getTags() {
             return (tags != null) ? Optional.of(Collections.unmodifiableSet(tags)) : Optional.empty();
+        }
+
+        public void setLoanStatus(LoanStatus loanStatus) {
+            this.loanStatus = loanStatus;
+        }
+
+        public Optional<LoanStatus> getLoanStatus() {
+            return Optional.ofNullable(loanStatus);
         }
 
         @Override

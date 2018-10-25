@@ -16,16 +16,22 @@ import seedu.address.model.loan.Loan;
 public class LoanCardHandle extends NodeHandle<Node> {
     private static final String ID_FIELD_ID = "#id";
     private static final String NAME_FIELD_ID = "#name";
-    private static final String ADDRESS_FIELD_ID = "#address";
+    private static final String NRIC_FIELD_ID = "#nric";
     private static final String PHONE_FIELD_ID = "#phone";
     private static final String EMAIL_FIELD_ID = "#email";
+    private static final String BIKE_FIELD_ID = "#bike";
+    private static final String LOANRATE_FIELD_ID = "#rate";
+    private static final String LOANTIME_FIELD_ID = "#time";
     private static final String TAGS_FIELD_ID = "#tags";
 
     private final Label idLabel;
     private final Label nameLabel;
-    private final Label addressLabel;
+    private final Label nricLabel;
     private final Label phoneLabel;
     private final Label emailLabel;
+    private final Label bikeLabel;
+    private final Label rateLabel;
+    private final Label timeLabel;
     private final List<Label> tagLabels;
 
     public LoanCardHandle(Node cardNode) {
@@ -33,9 +39,12 @@ public class LoanCardHandle extends NodeHandle<Node> {
 
         idLabel = getChildNode(ID_FIELD_ID);
         nameLabel = getChildNode(NAME_FIELD_ID);
-        addressLabel = getChildNode(ADDRESS_FIELD_ID);
+        nricLabel = getChildNode(NRIC_FIELD_ID);
         phoneLabel = getChildNode(PHONE_FIELD_ID);
         emailLabel = getChildNode(EMAIL_FIELD_ID);
+        bikeLabel = getChildNode(BIKE_FIELD_ID);
+        rateLabel = getChildNode(LOANRATE_FIELD_ID);
+        timeLabel = getChildNode(LOANTIME_FIELD_ID);
 
         Region tagsContainer = getChildNode(TAGS_FIELD_ID);
         tagLabels = tagsContainer
@@ -53,8 +62,8 @@ public class LoanCardHandle extends NodeHandle<Node> {
         return nameLabel.getText();
     }
 
-    public String getAddress() {
-        return addressLabel.getText();
+    public String getNric() {
+        return nricLabel.getText();
     }
 
     public String getPhone() {
@@ -63,6 +72,18 @@ public class LoanCardHandle extends NodeHandle<Node> {
 
     public String getEmail() {
         return emailLabel.getText();
+    }
+
+    public String getBike() {
+        return bikeLabel.getText();
+    }
+
+    public String getLoanRate() {
+        return rateLabel.getText();
+    }
+
+    public String getLoanTime() {
+        return timeLabel.getText();
     }
 
     public List<String> getTags() {
@@ -86,9 +107,12 @@ public class LoanCardHandle extends NodeHandle<Node> {
      */
     public boolean equals(Loan loan) {
         return getName().equals(loan.getName().value)
-                && getAddress().equals(loan.getAddress().value)
-                && getPhone().equals(loan.getPhone().value)
-                && getEmail().equals(loan.getEmail().value)
+                && getNric().equals(loan.getNric().getCensored())
+                && getPhone().equals(loan.getPhone().getCensored())
+                && getEmail().equals(loan.getEmail().getCensored())
+                && getBike().equals(loan.getBike().getName().value)
+                && getLoanRate().equals(loan.getLoanRate().toString())
+                && getLoanTime().equals(loan.getLoanTime().toString())
                 && ImmutableMultiset.copyOf(getTags()).equals(ImmutableMultiset.copyOf(loan.getTags().stream()
                         .map(tag -> tag.value)
                         .collect(Collectors.toList())));
