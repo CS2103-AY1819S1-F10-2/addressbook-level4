@@ -7,7 +7,7 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_BIKE_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_LOANRATE_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_LOANTIME_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_LOANSTARTTIME_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NRIC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
@@ -54,7 +54,7 @@ public class LoanTest {
 
         // different phone, email, rate and time -> returns false
         editedAlice = new LoanBuilder(ALICE).withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB)
-                .withLoanRate(VALID_LOANRATE_BOB).withLoanStartTime(VALID_LOANTIME_BOB).build();
+                .withLoanRate(VALID_LOANRATE_BOB).withLoanStartTime(VALID_LOANSTARTTIME_BOB).build();
         assertFalse(ALICE.isSame(editedAlice));
 
         // same identity fields, same phone, different attributes -> returns true
@@ -76,20 +76,20 @@ public class LoanTest {
         assertTrue(ALICE.isSame(editedAlice));
 
         // same identity fields, different startTime -> returns true
-        editedAlice = new LoanBuilder(ALICE).withLoanStartTime(VALID_LOANTIME_BOB).withTags(VALID_TAG_HUSBAND).build();
+        editedAlice = new LoanBuilder(ALICE).withLoanStartTime(VALID_LOANSTARTTIME_BOB).withTags(VALID_TAG_HUSBAND).build();
         assertTrue(ALICE.isSame(editedAlice));
 
         // same identity fields, different endtime -> returns true
-        editedAlice = new LoanBuilder(ALICE).withLoanEndTime(VALID_LOANTIME_BOB).withTags(VALID_TAG_HUSBAND).build();
+        editedAlice = new LoanBuilder(ALICE).withLoanEndTime(VALID_LOANSTARTTIME_BOB).withTags(VALID_TAG_HUSBAND).build();
         assertTrue(ALICE.isSame(editedAlice));
 
         // same identity fields, different rate and startTime -> returns true
-        editedAlice = new LoanBuilder(ALICE).withLoanRate(VALID_LOANRATE_BOB).withLoanStartTime(VALID_LOANTIME_BOB)
+        editedAlice = new LoanBuilder(ALICE).withLoanRate(VALID_LOANRATE_BOB).withLoanStartTime(VALID_LOANSTARTTIME_BOB)
                 .withTags(VALID_TAG_HUSBAND).build();
         assertTrue(ALICE.isSame(editedAlice));
 
         // same identity fields, different rate and endTime -> returns true
-        editedAlice = new LoanBuilder(ALICE).withLoanRate(VALID_LOANRATE_BOB).withLoanEndTime(VALID_LOANTIME_BOB)
+        editedAlice = new LoanBuilder(ALICE).withLoanRate(VALID_LOANRATE_BOB).withLoanEndTime(VALID_LOANSTARTTIME_BOB)
                 .withTags(VALID_TAG_HUSBAND).build();
         assertTrue(ALICE.isSame(editedAlice));
     }

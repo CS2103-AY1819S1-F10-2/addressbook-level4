@@ -8,8 +8,10 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_LOANRATE_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_LOANRATE_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_LOANTIME_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_LOANTIME_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_LOANSTARTTIME_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_LOANSTARTTIME_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_LOANENDTIME_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_LOANENDTIME_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NRIC_AMY;
@@ -37,6 +39,7 @@ public class TypicalLoans {
             .withBike("Bike001")
             .withLoanRate("1.1")
             .withLoanStartTime("12:33")
+            .withLoanEndTime("23:54")
             .withTags("friends").build();
     public static final Loan BENSON = new LoanBuilder().withName("Benson Meier")
             .withNric("F1342714M")
@@ -45,6 +48,7 @@ public class TypicalLoans {
             .withBike("Bike002")
             .withLoanRate("0.15")
             .withLoanStartTime("2017-10-12 06:08")
+            .withLoanEndTime("2017-10-12 23:54")
             .withTags("owesMoney", "friends").build();
     public static final Loan CARL = new LoanBuilder().withName("Carl Kurz")
             .withNric("T0238282I")
@@ -54,6 +58,7 @@ public class TypicalLoans {
             .withBike("Bike003")
             .withLoanRate("23.9")
             .withLoanStartTime("14:20")
+            .withLoanEndTime("23:54")
             .build();
     public static final Loan DANIEL = new LoanBuilder().withName("Daniel Meier")
             .withNric("S9335895C")
@@ -63,6 +68,7 @@ public class TypicalLoans {
             .withBike("Bike004")
             .withLoanRate("9.0")
             .withLoanStartTime("17:56")
+            .withLoanEndTime("23:54")
             .withTags("friends").build();
     public static final Loan ELLE = new LoanBuilder().withName("Elle Meyer")
             .withNric("G9112925L")
@@ -72,6 +78,7 @@ public class TypicalLoans {
             .withBike("Bike005")
             .withLoanRate("5.55")
             .withLoanStartTime("2010-12-30 10:30")
+            .withLoanEndTime("2010-12-30 23:54")
             .build();
     public static final Loan FIONA = new LoanBuilder().withName("Fiona Kunz")
             .withNric("G9400645M")
@@ -81,6 +88,7 @@ public class TypicalLoans {
             .withBike("Bike006")
             .withLoanRate("33.3")
             .withLoanStartTime("01:01")
+            .withLoanEndTime("23:54")
             .build();
     public static final Loan GEORGE = new LoanBuilder().withName("George Best")
             .withNric("S8313623E")
@@ -90,6 +98,7 @@ public class TypicalLoans {
             .withBike("Bike007")
             .withLoanRate("5.05")
             .withLoanStartTime("2013-03-13 12:08")
+            .withLoanEndTime("2013-03-13 23:54")
             .build();
 
     // Manually added
@@ -101,6 +110,7 @@ public class TypicalLoans {
             .withBike("Bike008")
             .withLoanRate("8.9")
             .withLoanStartTime("16:45")
+            .withLoanEndTime("23:54")
             .build();
     public static final Loan IDA = new LoanBuilder().withName("Ida Mueller")
             .withNric("S9739813E")
@@ -110,6 +120,7 @@ public class TypicalLoans {
             .withBike("Bike009")
             .withLoanRate("7.65")
             .withLoanStartTime("2017-09-08 18:08")
+            .withLoanEndTime("2017-09-08 23:54")
             .build();
 
     // Manually added - Loan's details found in {@code CommandTestUtil}
@@ -121,7 +132,8 @@ public class TypicalLoans {
             .withTags(VALID_TAG_FRIEND)
             .withBike(VALID_BIKE_AMY)
             .withLoanRate(VALID_LOANRATE_AMY)
-            .withLoanStartTime(VALID_LOANTIME_AMY)
+            .withLoanStartTime(VALID_LOANSTARTTIME_AMY)
+            .withLoanEndTime(VALID_LOANENDTIME_AMY)
             .build();
     public static final Loan BOB = new LoanBuilder().withName(VALID_NAME_BOB)
             .withNric(VALID_NRIC_BOB)
@@ -130,7 +142,8 @@ public class TypicalLoans {
             .withAddress(VALID_ADDRESS_BOB)
             .withBike(VALID_BIKE_BOB)
             .withLoanRate(VALID_LOANRATE_BOB)
-            .withLoanStartTime(VALID_LOANTIME_BOB)
+            .withLoanStartTime(VALID_LOANSTARTTIME_BOB)
+            .withLoanEndTime(VALID_LOANENDTIME_BOB)
             .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND)
             .build();
 

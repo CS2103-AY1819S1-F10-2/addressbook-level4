@@ -70,7 +70,7 @@ public class LoanBuilder {
         bike = loanToCopy.getBike();
         rate = loanToCopy.getLoanRate();
         startTime = loanToCopy.getLoanStartTime();
-        endTime = loanToCopy.getLoanStartTime();
+        endTime = loanToCopy.getLoanEndTime();
         loanStatus = loanToCopy.getLoanStatus();
         tags = new HashSet<>(loanToCopy.getTags());
     }

@@ -206,7 +206,6 @@ public class Loan implements UniqueListItem<Loan> {
                 && otherLoan.getLoanStatus().equals(getLoanStatus())
                 && otherLoan.getBike().equals(getBike())
                 && otherLoan.getLoanRate().equals(getLoanRate())
-                && otherLoan.getLoanStartTime().equals(getLoanStartTime())
                 && otherLoan.getTags().equals(getTags());
     }
 

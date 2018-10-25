@@ -30,7 +30,7 @@ import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_HUSBAND;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_BIKE_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_LOANRATE_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_LOANTIME_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_LOANSTARTTIME_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NRIC_AMY;
@@ -56,7 +56,6 @@ import seedu.address.model.loan.Address;
 import seedu.address.model.loan.Email;
 import seedu.address.model.loan.Loan;
 import seedu.address.model.loan.LoanRate;
-import seedu.address.model.loan.LoanTime;
 import seedu.address.model.loan.Name;
 import seedu.address.model.loan.Nric;
 import seedu.address.model.loan.Phone;
@@ -138,7 +137,7 @@ public class EditCommandSystemTest extends LoanBookSystemTest {
                 + BIKE_DESC_BOB + LOANRATE_DESC_AMY
                 + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
         editedLoan = new LoanBuilder(BOB).withPhone(VALID_PHONE_AMY).withEmail(VALID_EMAIL_AMY)
-                .withLoanRate(VALID_LOANRATE_AMY).withLoanStartTime(VALID_LOANTIME_AMY).build();
+                .withLoanRate(VALID_LOANRATE_AMY).withLoanStartTime(VALID_LOANSTARTTIME_AMY).build();
         assertCommandSuccess(command, index, editedLoan);
 
         /* Case: clear tags -> cleared */

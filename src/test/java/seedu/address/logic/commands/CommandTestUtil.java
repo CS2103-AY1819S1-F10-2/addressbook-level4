@@ -43,8 +43,10 @@ public class CommandTestUtil {
     public static final String VALID_BIKE_BOB = "BIKE02";
     public static final String VALID_LOANRATE_AMY = "0.15";
     public static final String VALID_LOANRATE_BOB = "12.5";
-    public static final String VALID_LOANTIME_AMY = "12:32";
-    public static final String VALID_LOANTIME_BOB = "2018-10-10 12:30";
+    public static final String VALID_LOANSTARTTIME_AMY = "12:32";
+    public static final String VALID_LOANSTARTTIME_BOB = "2018-10-10 12:30";
+    public static final String VALID_LOANENDTIME_AMY = "14:58";
+    public static final String VALID_LOANENDTIME_BOB = "2018-10-10 14:59";
     public static final String VALID_TAG_HUSBAND = "husband";
     public static final String VALID_TAG_FRIEND = "friend";
 
@@ -96,14 +98,14 @@ public class CommandTestUtil {
                 .withPhone(VALID_PHONE_AMY).withEmail(VALID_EMAIL_AMY).withAddress(VALID_ADDRESS_AMY)
                 .withBike(VALID_BIKE_AMY)
                 .withLoanRate(VALID_LOANRATE_AMY)
-                .withLoanTime(VALID_LOANTIME_AMY)
+                .withLoanStartTime(VALID_LOANSTARTTIME_AMY)
                 .withTags(VALID_TAG_FRIEND).build();
         DESC_BOB = new EditLoanDescriptorBuilder().withName(VALID_NAME_BOB)
                 .withNric(VALID_NRIC_BOB)
                 .withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB)
                 .withBike(VALID_BIKE_BOB)
                 .withLoanRate(VALID_LOANRATE_BOB)
-                .withLoanTime(VALID_LOANTIME_BOB)
+                .withLoanStartTime(VALID_LOANSTARTTIME_BOB)
                 .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
     }
 

@@ -119,7 +119,7 @@ public class XmlAdaptedLoan {
         bike = source.getBike().getName().value;
         rate = source.getLoanRate().toString();
         startTime = source.getLoanStartTime().toString();
-        endTime = source.getLoanStartTime().toString();
+        endTime = source.getLoanEndTime().toString();
         tagged = source.getTags().stream()
                 .map(XmlAdaptedTag::new)
                 .collect(Collectors.toList());

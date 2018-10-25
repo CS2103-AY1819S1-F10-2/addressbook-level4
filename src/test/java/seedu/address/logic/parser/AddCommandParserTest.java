@@ -177,11 +177,6 @@ public class AddCommandParserTest {
                 + ADDRESS_DESC_BOB + BIKE_DESC_BOB + INVALID_LOANRATE_DESC
                 + TAG_DESC_HUSBAND + TAG_DESC_FRIEND, LoanRate.MESSAGE_LOANRATE_CONSTRAINTS);
 
-        // invalid time
-        assertParseFailure(parser, NAME_DESC_BOB + NRIC_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
-                + ADDRESS_DESC_BOB + BIKE_DESC_BOB + LOANRATE_DESC_BOB
-                + TAG_DESC_HUSBAND + TAG_DESC_FRIEND, LoanTime.MESSAGE_LOANTIME_CONSTRAINTS);
-
         // invalid tag
         assertParseFailure(parser, NAME_DESC_BOB + NRIC_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
                 + ADDRESS_DESC_BOB + BIKE_DESC_BOB + LOANRATE_DESC_BOB

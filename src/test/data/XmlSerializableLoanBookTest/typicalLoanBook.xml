@@ -36,7 +36,7 @@
         <bike>Bike002</bike>
         <rate>0.15</rate>
         <startTime>2017-10-12 12:08</startTime>
-        <endtime>2017-10-12 06:08</endtime>
+        <endTime>2017-10-12 06:08</endTime>
         <tagged>owesMoney</tagged>
         <tagged>friends</tagged>
     </loans>
@@ -61,7 +61,7 @@
         <address>10th street</address>
         <bike>Bike004</bike>
         <rate>9.0</rate>
-        <time>17:56</time>
+        <startTime>17:56</startTime>
         <endTime>18:22</endTime>
         <tagged>friends</tagged>
     </loans>

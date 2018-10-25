@@ -114,7 +114,7 @@ public class EditCommand extends Command {
         Bike updatedBike = editLoanDescriptor.getBike().orElse(loanToEdit.getBike());
         LoanRate updatedRate = editLoanDescriptor.getLoanRate().orElse(loanToEdit.getLoanRate());
         LoanTime updatedStartTime = editLoanDescriptor.getLoanStartTime().orElse(loanToEdit.getLoanStartTime());
-        LoanTime updatedEndTime = editLoanDescriptor.getLoanStartTime().orElse(loanToEdit.getLoanEndTime());
+        LoanTime updatedEndTime = editLoanDescriptor.getLoanEndTime().orElse(loanToEdit.getLoanEndTime());
         Set<Tag> updatedTags = editLoanDescriptor.getTags().orElse(loanToEdit.getTags());
         LoanStatus updatedLoanStatus = editLoanDescriptor.getLoanStatus().orElse(loanToEdit.getLoanStatus());
 
@@ -182,7 +182,7 @@ public class EditCommand extends Command {
             setBike(toCopy.bike);
             setLoanRate(toCopy.rate);
             setLoanStartTime(toCopy.startTime);
-            setLoanStartTime(toCopy.endTime);
+            setLoanEndTime(toCopy.endTime);
             setTags(toCopy.tags);
             setLoanStatus(toCopy.loanStatus);
         }
@@ -313,8 +313,6 @@ public class EditCommand extends Command {
                     && getAddress().equals(e.getAddress())
                     && getBike().equals(e.getBike())
                     && getLoanRate().equals(e.getLoanRate())
-                    && getLoanStartTime().equals(e.getLoanStartTime())
-                    && getLoanEndTime().equals(e.getLoanEndTime())
                     && getTags().equals(e.getTags());
         }
     }

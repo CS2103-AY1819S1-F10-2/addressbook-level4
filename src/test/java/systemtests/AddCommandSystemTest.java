@@ -27,7 +27,7 @@ import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_HUSBAND;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_BIKE_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_LOANRATE_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_LOANTIME_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_LOANSTARTTIME_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NRIC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
@@ -51,7 +51,6 @@ import seedu.address.model.Model;
 import seedu.address.model.loan.Email;
 import seedu.address.model.loan.Loan;
 import seedu.address.model.loan.LoanRate;
-import seedu.address.model.loan.LoanTime;
 import seedu.address.model.loan.Name;
 import seedu.address.model.loan.Nric;
 import seedu.address.model.loan.Phone;
@@ -152,7 +151,7 @@ public class AddCommandSystemTest extends LoanBookSystemTest {
         assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_LOAN);
 
         /* Case: add a duplicate loan except with different loantime -> rejected */
-        toAdd = new LoanBuilder(HOON).withLoanStartTime(VALID_LOANTIME_BOB).build();
+        toAdd = new LoanBuilder(HOON).withLoanStartTime(VALID_LOANSTARTTIME_BOB).build();
         command = LoanUtil.getAddCommand(toAdd);
         assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_LOAN);
 
