@@ -5,7 +5,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_BIKE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_LOANRATE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_LOANTIME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NRIC;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
@@ -53,7 +52,6 @@ public class EditCommand extends Command {
             + "[" + PREFIX_ADDRESS + "ADDRESS] "
             + "[" + PREFIX_BIKE + "BIKE] "
             + "[" + PREFIX_LOANRATE + "LOANRATE] "
-            + "[" + PREFIX_LOANTIME + "LOANTIME] "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_PHONE + "91234567 "
@@ -302,6 +300,7 @@ public class EditCommand extends Command {
                     && getBike().equals(e.getBike())
                     && getLoanRate().equals(e.getLoanRate())
                     && getLoanStartTime().equals(e.getLoanStartTime())
+                    && getLoanEndTime().equals(e.getLoanEndTime())
                     && getTags().equals(e.getTags());
         }
     }

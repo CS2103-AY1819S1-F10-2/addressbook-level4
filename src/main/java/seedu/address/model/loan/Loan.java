@@ -27,7 +27,7 @@ public class Loan implements UniqueListItem<Loan> {
     // Data fields
     private final LoanRate rate;
     private final LoanTime startTime;
-    private LoanTime endTime;
+    private final LoanTime endTime; // Note that endTime can be null
     private final Phone phone;
     private final Email email;
     private final Address address;
@@ -46,7 +46,8 @@ public class Loan implements UniqueListItem<Loan> {
                 LoanTime startTime,
                 LoanTime endTime,
                 Set<Tag> tags) {
-        requireAllNonNull(name, nric, phone, email, address, bike, rate, startTime, endTime, tags);
+        // Note that endTime can be null. This loans in progress do not have an endTime.
+        requireAllNonNull(name, nric, phone, email, address, bike, rate, startTime, tags);
         this.name = name;
         this.nric = nric;
         this.phone = phone;
