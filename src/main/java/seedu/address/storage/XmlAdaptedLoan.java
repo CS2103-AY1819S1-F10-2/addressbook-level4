@@ -15,6 +15,7 @@ import seedu.address.model.loan.Address;
 import seedu.address.model.loan.Email;
 import seedu.address.model.loan.Loan;
 import seedu.address.model.loan.LoanRate;
+import seedu.address.model.loan.LoanStatus;
 import seedu.address.model.loan.LoanTime;
 import seedu.address.model.loan.Name;
 import seedu.address.model.loan.Nric;
@@ -38,6 +39,8 @@ public class XmlAdaptedLoan {
     private String email;
     @XmlElement(required = true)
     private String address;
+    @XmlElement(required = true)
+    private String loanStatus;
     @XmlElement(required = true)
     private String bike;
     @XmlElement(required = true)
@@ -68,6 +71,7 @@ public class XmlAdaptedLoan {
                           String rate,
                           String startTime,
                           String endTime,
+                          String loanStatus,
                           List<XmlAdaptedTag> tagged) {
         this.name = name;
         this.nric = nric;
@@ -78,9 +82,27 @@ public class XmlAdaptedLoan {
         this.rate = rate;
         this.startTime = startTime;
         this.endTime = endTime;
+        this.loanStatus = loanStatus;
         if (tagged != null) {
             this.tagged = new ArrayList<>(tagged);
         }
+    }
+
+    /**
+     * Constructs an {@code XmlAdaptedLoan} with the given loan details.
+     * This constructor is called if no loanStatus is given
+     */
+    public XmlAdaptedLoan(String name,
+                          String nric,
+                          String phone,
+                          String email,
+                          String address,
+                          String bike,
+                          String rate,
+                          String startTime,
+                          String endTime,
+                          List<XmlAdaptedTag> tagged) {
+        this(name, nric, phone, email, address, bike, rate, startTime, endTime, "ONGOING", tagged);
     }
 
     /**
@@ -101,6 +123,7 @@ public class XmlAdaptedLoan {
         tagged = source.getTags().stream()
                 .map(XmlAdaptedTag::new)
                 .collect(Collectors.toList());
+        loanStatus = source.getLoanStatus().name();
     }
 
     /**
@@ -170,6 +193,21 @@ public class XmlAdaptedLoan {
         }
         if (!Address.isValidAddress(address)) {
             throw new IllegalValueException(Address.MESSAGE_ADDRESS_CONSTRAINTS);
+        }
+    }
+
+    /**
+     * Throws an {@code IllegalValueException} if {@code loanStatus} does not exist or is not valid.
+     *
+     * @throws IllegalValueException
+     */
+    private void checkLoanStatusValid() throws IllegalValueException {
+        if (loanStatus == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    LoanStatus.class.getSimpleName()));
+        }
+        if (!LoanStatus.isValidLoanStatus(loanStatus)) {
+            throw new IllegalValueException(LoanStatus.MESSAGE_LOANSTATUS_CONSTRAINTS);
         }
     }
 
@@ -258,6 +296,9 @@ public class XmlAdaptedLoan {
         checkAddressValid();
         final Address modelAddress = new Address(address);
 
+        checkLoanStatusValid();
+        final LoanStatus modelLoanStatus = LoanStatus.valueOf(loanStatus);
+
         checkBikeValid();
         final Bike modelBike = new Bike(new Name(bike));
 
@@ -281,7 +322,9 @@ public class XmlAdaptedLoan {
                 modelRate,
                 modelStartTime,
                 modelEndTime,
-                modelTags);
+                modelLoanStatus,
+                modelTags
+        );
     }
 
     @Override

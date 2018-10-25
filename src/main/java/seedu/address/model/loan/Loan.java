@@ -9,6 +9,7 @@ import java.util.Set;
 
 import seedu.address.model.UniqueListItem;
 import seedu.address.model.bike.Bike;
+import seedu.address.model.loan.exceptions.SameLoanStatusException;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -32,9 +33,11 @@ public class Loan implements UniqueListItem<Loan> {
     private final Email email;
     private final Address address;
     private final Set<Tag> tags = new HashSet<>();
+    private LoanStatus loanStatus;
 
     /**
      * Every field must be present and not null.
+     * Old constructor that does not take into account the LoanStatus.
      */
     public Loan(Name name,
                 Nric nric,
@@ -45,6 +48,7 @@ public class Loan implements UniqueListItem<Loan> {
                 LoanRate rate,
                 LoanTime startTime,
                 LoanTime endTime,
+                LoanStatus loanStatus,
                 Set<Tag> tags) {
         // Note that endTime can be null. This loans in progress do not have an endTime.
         requireAllNonNull(name, nric, phone, email, address, bike, rate, startTime, tags);
@@ -58,6 +62,9 @@ public class Loan implements UniqueListItem<Loan> {
         this.startTime = startTime;
         this.endTime = endTime;
         this.tags.addAll(tags);
+
+        // Initialise the loan to be ongoing.
+        this.loanStatus = loanStatus;
     }
 
     /**
@@ -72,7 +79,27 @@ public class Loan implements UniqueListItem<Loan> {
                 Bike bike,
                 LoanRate rate,
                 Set<Tag> tags) {
-        this(name, nric, phone, email, address, bike, rate, new LoanTime(), null, tags);
+        this(name, nric, phone, email, address, bike, rate,
+                new LoanTime(), null, LoanStatus.ONGOING, tags);
+    }
+
+    /**
+     * Every field must be present and not null.
+     * This constructor is used when you know the start and end times.
+     * If you know the end time, then the loan would be returned.
+     */
+    public Loan(Name name,
+                Nric nric,
+                Phone phone,
+                Email email,
+                Address address,
+                Bike bike,
+                LoanRate rate,
+                LoanTime startTime,
+                LoanTime endTime,
+                Set<Tag> tags) {
+        this(name, nric, phone, email, address, bike, rate,
+                startTime, endTime, LoanStatus.RETURNED, tags);
     }
 
     public Name getName() {
@@ -89,6 +116,10 @@ public class Loan implements UniqueListItem<Loan> {
 
     public Address getAddress() {
         return address;
+    }
+
+    public LoanStatus getLoanStatus() {
+        return loanStatus;
     }
 
     public Nric getNric() {
@@ -117,6 +148,22 @@ public class Loan implements UniqueListItem<Loan> {
      */
     public Set<Tag> getTags() {
         return Collections.unmodifiableSet(tags);
+    }
+
+    /**
+     * Change the loan status to the newStatus as provided.
+     * Throws SameLoanStatusException if the newStatus is the same as the previous status.
+     * @param newStatus
+     * @return true if the function managed to complete.
+     * @throws SameLoanStatusException
+     */
+    public boolean changeLoanStatus(LoanStatus newStatus) throws SameLoanStatusException {
+        if (loanStatus.equals(newStatus)) {
+            throw new SameLoanStatusException();
+        } else {
+            loanStatus = newStatus;
+            return true;
+        }
     }
 
     /**
@@ -156,6 +203,7 @@ public class Loan implements UniqueListItem<Loan> {
                 && otherLoan.getPhone().equals(getPhone())
                 && otherLoan.getEmail().equals(getEmail())
                 && otherLoan.getAddress().equals(getAddress())
+                && otherLoan.getLoanStatus().equals(getLoanStatus())
                 && otherLoan.getBike().equals(getBike())
                 && otherLoan.getLoanRate().equals(getLoanRate())
                 && otherLoan.getLoanStartTime().equals(getLoanStartTime())
@@ -165,7 +213,7 @@ public class Loan implements UniqueListItem<Loan> {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, nric, phone, email, address, bike, rate, startTime, endTime, tags);
+        return Objects.hash(name, nric, phone, email, address, bike, rate, startTime, endTime, loanStatus, tags);
     }
 
     @Override
@@ -180,6 +228,8 @@ public class Loan implements UniqueListItem<Loan> {
                 .append(getEmail())
                 .append(" Address: ")
                 .append(getAddress())
+                .append(" Status: ")
+                .append(getLoanStatus())
                 .append(" Bike: ")
                 .append(getBike())
                 .append(" LoanRate: ")

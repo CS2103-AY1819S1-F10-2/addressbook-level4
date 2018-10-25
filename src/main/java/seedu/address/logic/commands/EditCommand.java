@@ -28,6 +28,7 @@ import seedu.address.model.loan.Address;
 import seedu.address.model.loan.Email;
 import seedu.address.model.loan.Loan;
 import seedu.address.model.loan.LoanRate;
+import seedu.address.model.loan.LoanStatus;
 import seedu.address.model.loan.LoanTime;
 import seedu.address.model.loan.Name;
 import seedu.address.model.loan.Nric;
@@ -115,6 +116,7 @@ public class EditCommand extends Command {
         LoanTime updatedStartTime = editLoanDescriptor.getLoanStartTime().orElse(loanToEdit.getLoanStartTime());
         LoanTime updatedEndTime = editLoanDescriptor.getLoanStartTime().orElse(loanToEdit.getLoanEndTime());
         Set<Tag> updatedTags = editLoanDescriptor.getTags().orElse(loanToEdit.getTags());
+        LoanStatus updatedLoanStatus = editLoanDescriptor.getLoanStatus().orElse(loanToEdit.getLoanStatus());
 
         return new Loan(updatedName,
                 updatedNric,
@@ -125,7 +127,9 @@ public class EditCommand extends Command {
                 updatedRate,
                 updatedStartTime,
                 updatedEndTime,
-                updatedTags);
+                updatedLoanStatus,
+                updatedTags
+        );
     }
 
     @Override
@@ -161,6 +165,7 @@ public class EditCommand extends Command {
         private LoanTime startTime;
         private LoanTime endTime;
         private Set<Tag> tags;
+        private LoanStatus loanStatus;
 
         public EditLoanDescriptor() {}
 
@@ -179,6 +184,7 @@ public class EditCommand extends Command {
             setLoanStartTime(toCopy.startTime);
             setLoanStartTime(toCopy.endTime);
             setTags(toCopy.tags);
+            setLoanStatus(toCopy.loanStatus);
         }
 
         /**
@@ -275,6 +281,14 @@ public class EditCommand extends Command {
          */
         public Optional<Set<Tag>> getTags() {
             return (tags != null) ? Optional.of(Collections.unmodifiableSet(tags)) : Optional.empty();
+        }
+
+        public void setLoanStatus(LoanStatus loanStatus) {
+            this.loanStatus = loanStatus;
+        }
+
+        public Optional<LoanStatus> getLoanStatus() {
+            return Optional.ofNullable(loanStatus);
         }
 
         @Override

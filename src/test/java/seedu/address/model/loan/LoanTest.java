@@ -2,6 +2,7 @@ package seedu.address.model.loan;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_BIKE_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
@@ -121,5 +122,11 @@ public class LoanTest {
         // different tags -> returns false
         editedAlice = new LoanBuilder(ALICE).withTags(VALID_TAG_HUSBAND).build();
         assertFalse(ALICE.equals(editedAlice));
+    }
+
+    @Test
+    public void loanBuilderWithStatusConstructor() {
+        Loan loan = new LoanBuilder().withLoanStatus("RETURNED").build();
+        assertTrue(loan.getLoanStatus().equals(LoanStatus.RETURNED));
     }
 }
