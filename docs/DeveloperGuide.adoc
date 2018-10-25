@@ -579,9 +579,15 @@ When showing a new loan, it will do the following operations:
 
 * `Nric#getCensored()` -- censor the Nric value and hide the first five digital numbers. Then it returns the censored String.
 
+* `Nric#doCensoring(int length)` -- Take in the length of the Nric String and return the censored part ("x" part) according to the length.
+
 * `Phone#getCensored()` -- censor the phone number and hide the first five digital numbers. Then it returns the censored String.
 
+* `Phone#doCensoring(int length)` -- Take in the length of the Phone String and return the censored part ("x" part) according to the length.
+
 * `Email#getCensored()` -- censor the email address and hide every characters except the last two characters in the local-part and the domain.
+
+* `Email#doCensoring(int length)` -- Take in the length of the Email String and return the censored part ("x" part) according to the length.
 
 Given below is an example usage scenario and how this mechanism behaves at each step.
 
@@ -592,6 +598,7 @@ The `LoanCard` object will contain information on the loan: `LoanID`, `BikeID`, 
 For example: `name.setText(loan.getName().value);` will directly assign the name String of this loan to the `name` label. +
 
 However, the values of `Nric`, `Phone` and `Email` need censoring before assigning their values, so they will call their own `getCensored()` method in their class. +
+`getCensored()` in each of these class will call their corresponding `doCensoring(int)` method. Then combine the censored part and remain part and return. +
 For example: `phone.setText(loan.getPhone().getCensored().value);` will censor the value of the phone String of this loan and then assign the censored value to the `phone` label.
 
 The following sequence diagram shows how this operation works:
@@ -600,7 +607,7 @@ image::HideInfoSequenceDiagrams.png[]
 
 ==== Design Considerations
 
-**Aspect: How to execute getCensored()**
+**Aspect: How to execute getCensored() and doCensoring(int)**
 
 * **Alternative 1 (current choice)**: each class implements from `Censor` interface.
 ** Pros: Easy to implement.
