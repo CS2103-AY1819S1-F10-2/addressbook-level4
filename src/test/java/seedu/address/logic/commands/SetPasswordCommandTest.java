@@ -4,21 +4,15 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-import java.util.function.Predicate;
-
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import javafx.collections.ObservableList;
 import seedu.address.commons.core.Messages;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.Model;
 import seedu.address.model.Password;
-import seedu.address.model.ReadOnlyLoanBook;
-import seedu.address.model.bike.Bike;
-import seedu.address.model.loan.Loan;
+import seedu.address.testutil.ModelStub;
 
 public class SetPasswordCommandTest {
 
@@ -70,7 +64,7 @@ public class SetPasswordCommandTest {
     public void execute_newPasswordAcceptedByModel_setPassSuccessful() throws Exception {
         Password currentPass = new Password("a12345");
         Password newPass = new Password("abcdefgh");
-        SetPasswordCommandTest.ModelStub modelStub = new SetPasswordCommandTest.ModelStub();
+        ModelStub modelStub = new ModelStub();
 
         CommandResult commandResult = new SetPasswordCommand(currentPass, newPass).execute(modelStub, commandHistory);
 
@@ -84,7 +78,7 @@ public class SetPasswordCommandTest {
         Password wrongPass = new Password("xxxxxxxx");
         Password newPass = new Password("abcdefgh");
         SetPasswordCommand setPasswordCommand = new SetPasswordCommand(wrongPass, newPass);
-        SetPasswordCommandTest.ModelStub modelStub = new SetPasswordCommandTest.ModelStub();
+        ModelStub modelStub = new ModelStub();
 
         thrown.expect(CommandException.class);
         thrown.expectMessage(Messages.MESSAGE_INVALID_OLD_PASS);
@@ -93,7 +87,7 @@ public class SetPasswordCommandTest {
 
     @Test
     public void execute_sameCurrentPassword_throwsCommandException() throws Exception {
-        SetPasswordCommandTest.ModelStub modelStub = new SetPasswordCommandTest.ModelStub();
+        ModelStub modelStub = new ModelStub();
         String pass = "a12345";
 
         SetPasswordCommand setPasswordCommand =
@@ -102,117 +96,5 @@ public class SetPasswordCommandTest {
         thrown.expect(CommandException.class);
         thrown.expectMessage(Messages.MESSAGE_SAME_AS_CURRENT_PASSWORD);
         setPasswordCommand.execute(modelStub, commandHistory);
-    }
-
-    /**
-     * A default model stub that have all of the methods failing.
-     */
-    private class ModelStub implements Model {
-        private Password currPass = new Password("a12345");
-
-        @Override
-        public void resetData(ReadOnlyLoanBook newData) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public ReadOnlyLoanBook getLoanBook() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public boolean hasBike(Bike bike) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void addBike(Bike bike) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void deleteBike(Bike target) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void updateBike(Bike target, Bike editedBike) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public ObservableList<Bike> getFilteredBikeList() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void updateFilteredBikeList(Predicate<Bike> predicate) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public boolean hasLoan(Loan loan) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void addLoan(Loan loan) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void deleteLoan(Loan target) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void updateLoan(Loan target, Loan editedLoan) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public ObservableList<Loan> getFilteredLoanList() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void updateFilteredLoanList(Predicate<Loan> predicate) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public boolean canUndoLoanBook() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public boolean canRedoLoanBook() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void undoLoanBook() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void redoLoanBook() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void commitLoanBook() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void setPass(Password pass) {
-            currPass = pass;
-        }
-
-        @Override
-        public String getPass() {
-            return currPass.hashedPassword();
-        }
     }
 }
