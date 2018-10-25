@@ -30,12 +30,13 @@
 <li><a href="#implementation">3. Implementation</a>
 <ul class="sectlevel2">
 <li><a href="#undo-redo-feature">3.1. Undo/Redo feature</a></li>
-<li><a href="#return-a-loan-feature">3.2. Return a Loan feature</a></li>
-<li><a href="#summary-feature">3.3. Summary Feature</a></li>
-<li><a href="#logging">3.4. Logging</a></li>
-<li><a href="#Implementation-Configuration">3.5. Configuration</a></li>
-<li><a href="#bicycle-management">3.6. Bicycle Management</a></li>
-<li><a href="#hide-private-information">3.7. Hide private information</a></li>
+<li><a href="#admin-authentication">3.2. Admin Authentication</a></li>
+<li><a href="#return-a-loan-feature">3.3. Return a Loan feature</a></li>
+<li><a href="#summary-feature">3.4. Summary Feature</a></li>
+<li><a href="#logging">3.5. Logging</a></li>
+<li><a href="#Implementation-Configuration">3.6. Configuration</a></li>
+<li><a href="#bicycle-management">3.7. Bicycle Management</a></li>
+<li><a href="#hide-private-information">3.8. Hide private information</a></li>
 </ul>
 </li>
 <li><a href="#documentation">4. Documentation</a>
@@ -785,9 +786,134 @@ If the <code>currentStatePointer</code> is at index <code>loanBookStateList.size
 </div>
 </div>
 <div class="sect2">
-<h3 id="return-a-loan-feature"><a class="link" href="#return-a-loan-feature">3.2. Return a Loan feature</a></h3>
+<h3 id="admin-authentication"><a class="link" href="#admin-authentication">3.2. Admin Authentication</a></h3>
+<div class="paragraph">
+<p>Before critical actions such as deleting a loan can be performed, admin authentication
+should be required. This ensures that only authorized users are able to perform critical actions.
+This is done by requiring a password before performing a critical action.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Current Implementation *
+There are three stages in this implementation:</p>
+</li>
+</ul>
+</div>
+<div class="sect4">
+<h5 id="allowing-the-code-delete-code-command-to-accept-a-password"><a class="link" href="#allowing-the-code-delete-code-command-to-accept-a-password">Allowing the <code>delete</code> command to accept a password</a></h5>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>To allow <code>delete</code> command to accept a password, we set a stub password of <code>a12345</code> and require all <code>delete</code> command to take in a password argument.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>When password is wrong, we do not perform the deletion of the loans.</p>
+</li>
+<li>
+<p>Only when password matches with stub password will the loan be deleted.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Existing tests were edited to include and check for a valid password before deletion.</p>
+</li>
+</ol>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The default password for a new app is <code>a12345</code>.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The following sequence diagram shows how the new <code>delete</code> operation works.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/deleteLoanWithPass.png" alt="deleteLoanWithPass" width="1000">
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="allow-changing-of-master-password"><a class="link" href="#allow-changing-of-master-password">Allow changing of master password</a></h5>
+<div class="paragraph">
+<p>Given below is an example usage scenario and how the <code>setpass</code> mechanism behaves at each step.</p>
+</div>
+<div class="paragraph">
+<p>Step 1. The user launches the application for the first time. <code>UserPref</code> file will initialise the password as <code>a12345</code>.</p>
+</div>
+<div class="paragraph">
+<p>Step 2. The user executes <code>setpass a12345 newP4sS</code> command to change the password to <code>newP4sS</code>.</p>
+</div>
+<div class="paragraph">
+<p>Step 3. <code>Password</code> class will encrypt the password, and call Model#setPass, that changes the password of the application in <code>UserPref</code>.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+If the current password input is wrong, it will not call Model#setPass, so the UserPref state will not be saved.
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+If the current password input the same as the new password input, it will not call Model#setPass, so the UserPref state will not be saved.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Step 4. Password in <code>UserPref</code> is set to new password input.</p>
+</div>
+<div class="paragraph">
+<p>The following sequence diagram shows how the <code>setpass</code> operation works:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/setPasswordLogic.png" alt="setPasswordLogic" width="1000">
+</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/setPasswordModel.png" alt="setPasswordModel" width="1000">
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="encrypt-current-password-for-security"><a class="link" href="#encrypt-current-password-for-security">Encrypt current password for security</a></h5>
+<div class="paragraph">
+<p>To ensure that others are unable to retrieve the app&#8217;s password from the preference.json, we encrypt the password before storing. Decryption of password can only be done by the <code>Password</code> class.</p>
+</div>
+<div class="paragraph">
+<p>This is currently done by appending <code>-encrypt</code> to the password, and removing it when
+decrypting. For version 2.0, we plan to utilise existing libraries to encrypt and
+decrypt our stored password.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="return-a-loan-feature"><a class="link" href="#return-a-loan-feature">3.3. Return a Loan feature</a></h3>
 <div class="sect3">
-<h4 id="proposed-implementation"><a class="link" href="#proposed-implementation">3.2.1. Proposed Implementation</a></h4>
+<h4 id="proposed-implementation"><a class="link" href="#proposed-implementation">3.3.1. Proposed Implementation</a></h4>
 <div class="paragraph">
 <p>Returning a loan is done by setting the corresponding status of the loan to <code>returned</code>. Other than setting the enum to be returned, the cost of the loan will also be calculated and displayed to the user.</p>
 </div>
@@ -909,7 +1035,7 @@ It is possible for the LoanBook to have a loan that lasts for 0 minutes. This is
 </div>
 </div>
 <div class="sect3">
-<h4 id="design-considerations-2"><a class="link" href="#design-considerations-2">3.2.2. Design considerations:</a></h4>
+<h4 id="design-considerations-2"><a class="link" href="#design-considerations-2">3.3.2. Design considerations:</a></h4>
 <div class="sect4">
 <h5 id="aspect-using-an-enum-vs-changing-the-location-of-the-loan"><a class="link" href="#aspect-using-an-enum-vs-changing-the-location-of-the-loan">Aspect: Using an enum vs changing the location of the loan</a></h5>
 <div class="ulist">
@@ -946,9 +1072,9 @@ It is possible for the LoanBook to have a loan that lasts for 0 minutes. This is
 </div>
 </div>
 <div class="sect2">
-<h3 id="summary-feature"><a class="link" href="#summary-feature">3.3. Summary Feature</a></h3>
+<h3 id="summary-feature"><a class="link" href="#summary-feature">3.4. Summary Feature</a></h3>
 <div class="sect3">
-<h4 id="proposed-implementation-2"><a class="link" href="#proposed-implementation-2">3.3.1. Proposed Implementation</a></h4>
+<h4 id="proposed-implementation-2"><a class="link" href="#proposed-implementation-2">3.4.1. Proposed Implementation</a></h4>
 <div class="paragraph">
 <p>Getting the summary of all the loans is simply done by looping through all the stored loans before and aggregating the statistics of all the loans.</p>
 </div>
@@ -988,7 +1114,7 @@ It is possible for the LoanBook to have a loan that lasts for 0 minutes. This is
 </div>
 </div>
 <div class="sect3">
-<h4 id="design-considerations-3"><a class="link" href="#design-considerations-3">3.3.2. Design considerations:</a></h4>
+<h4 id="design-considerations-3"><a class="link" href="#design-considerations-3">3.4.2. Design considerations:</a></h4>
 <div class="sect4">
 <h5 id="aspect-getting-the-summary"><a class="link" href="#aspect-getting-the-summary">Aspect: Getting the summary</a></h5>
 <div class="ulist">
@@ -1024,7 +1150,7 @@ It is possible for the LoanBook to have a loan that lasts for 0 minutes. This is
 </div>
 </div>
 <div class="sect3">
-<h4 id="future-features"><a class="link" href="#future-features">3.3.3. Future features</a></h4>
+<h4 id="future-features"><a class="link" href="#future-features">3.4.3. Future features</a></h4>
 <div class="paragraph">
 <p>We plan to include a feature which allows users to summarize the loanbook based on certain parameters. For example, in future implementations, the user will be able to filter the statistics based on the identity of a bicycle.</p>
 </div>
@@ -1050,14 +1176,14 @@ It is possible for the LoanBook to have a loan that lasts for 0 minutes. This is
 </div>
 </div>
 <div class="sect2">
-<h3 id="logging"><a class="link" href="#logging">3.4. Logging</a></h3>
+<h3 id="logging"><a class="link" href="#logging">3.5. Logging</a></h3>
 <div class="paragraph">
 <p>We are using <code>java.util.logging</code> package for logging. The <code>LogsCenter</code> class is used to manage the logging levels and logging destinations.</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>The logging level can be controlled using the <code>logLevel</code> setting in the configuration file (See <a href="#Implementation-Configuration">Section 3.5, &#8220;Configuration&#8221;</a>)</p>
+<p>The logging level can be controlled using the <code>logLevel</code> setting in the configuration file (See <a href="#Implementation-Configuration">Section 3.6, &#8220;Configuration&#8221;</a>)</p>
 </li>
 <li>
 <p>The <code>Logger</code> for a class can be obtained using <code>LogsCenter.getLogger(Class)</code> which will log messages according to the specified logging level</p>
@@ -1088,13 +1214,13 @@ It is possible for the LoanBook to have a loan that lasts for 0 minutes. This is
 </div>
 </div>
 <div class="sect2">
-<h3 id="Implementation-Configuration"><a class="link" href="#Implementation-Configuration">3.5. Configuration</a></h3>
+<h3 id="Implementation-Configuration"><a class="link" href="#Implementation-Configuration">3.6. Configuration</a></h3>
 <div class="paragraph">
 <p>Certain properties of the application can be controlled (e.g App name, logging level) through the configuration file (default: <code>config.json</code>).</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="bicycle-management"><a class="link" href="#bicycle-management">3.6. Bicycle Management</a></h3>
+<h3 id="bicycle-management"><a class="link" href="#bicycle-management">3.7. Bicycle Management</a></h3>
 <div class="paragraph">
 <p>As bicycles have a lot of properties, statuses and actions associated with them, they are represented in the code base as a dedicated <code>Bike</code> class.</p>
 </div>
@@ -1179,13 +1305,13 @@ Due to the dependency of <code>Loan</code> s on <code>Bike</code> s, any bicycle
 <p>Using this framework, it is now more efficient to implement and use a set of mini-features and operations to facilitate bicycle management, as detailed in the following sections:</p>
 </div>
 <div class="sect3">
-<h4 id="visible-bicycle-statuses"><a class="link" href="#visible-bicycle-statuses">3.6.1. Visible bicycle statuses</a></h4>
+<h4 id="visible-bicycle-statuses"><a class="link" href="#visible-bicycle-statuses">3.7.1. Visible bicycle statuses</a></h4>
 <div class="paragraph">
 <p>The current availability of bicycles are tracked by LoanBook. Bicycles can thus be filtered by whether they are available or not, and the available ones are readily visible in the UI.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="invalid-loans"><a class="link" href="#invalid-loans">3.6.2. Invalid loans</a></h4>
+<h4 id="invalid-loans"><a class="link" href="#invalid-loans">3.7.2. Invalid loans</a></h4>
 <div class="paragraph">
 <p>Loaning out a particular bicycle during the time which it is unavailable or has already been reserved will be denied. This prevents accidents in loaning out bicycles.</p>
 </div>
@@ -1216,13 +1342,13 @@ The loan will be rejected if no bicycle is found that matches the bicycle name p
 </div>
 </div>
 <div class="sect3">
-<h4 id="bicycles-for-particular-needs"><a class="link" href="#bicycles-for-particular-needs">3.6.3. Bicycles for particular needs</a></h4>
+<h4 id="bicycles-for-particular-needs"><a class="link" href="#bicycles-for-particular-needs">3.7.3. Bicycles for particular needs</a></h4>
 <div class="paragraph">
 <p>The list of bicycles can be filtered using the same algorithm to filter the list of loans in order to find bicycles with particular properties, to suit particular customer&#8217;s needs or activities.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="design-considerations-4"><a class="link" href="#design-considerations-4">3.6.4. Design Considerations</a></h4>
+<h4 id="design-considerations-4"><a class="link" href="#design-considerations-4">3.7.4. Design Considerations</a></h4>
 <div class="sect4">
 <h5 id="aspect-internal-representation-of-bicycles"><a class="link" href="#aspect-internal-representation-of-bicycles">Aspect: Internal representation of bicycles</a></h5>
 <div class="ulist">
@@ -1259,7 +1385,7 @@ The loan will be rejected if no bicycle is found that matches the bicycle name p
 </div>
 </div>
 <div class="sect2">
-<h3 id="hide-private-information"><a class="link" href="#hide-private-information">3.7. Hide private information</a></h3>
+<h3 id="hide-private-information"><a class="link" href="#hide-private-information">3.8. Hide private information</a></h3>
 <div class="paragraph">
 <p>Users must provide some important and personal information when adding a loan, e.g. <code>Nric</code>, so it is our responsibility to protect their privacy.</p>
 </div>
@@ -1273,7 +1399,7 @@ Example: The customer&#8217;s <code>Nric</code> as stored in the database is <co
 </div>
 </div>
 <div class="sect3">
-<h4 id="current-implementation-2"><a class="link" href="#current-implementation-2">3.7.1. Current implementation</a></h4>
+<h4 id="current-implementation-2"><a class="link" href="#current-implementation-2">3.8.1. Current implementation</a></h4>
 <div class="paragraph">
 <p>Hidden private information is facilitated by an interface called <code>Censor</code>. It is implemented by classes <code>Nric</code>, <code>Phone</code> and <code>Email</code>.</p>
 </div>
@@ -1321,7 +1447,7 @@ For example: <code>phone.setText(loan.getPhone().getCensored().value);</code> wi
 </div>
 </div>
 <div class="sect3">
-<h4 id="design-considerations-5"><a class="link" href="#design-considerations-5">3.7.2. Design Considerations</a></h4>
+<h4 id="design-considerations-5"><a class="link" href="#design-considerations-5">3.8.2. Design Considerations</a></h4>
 <div class="paragraph">
 <p><strong>Aspect: How to execute getCensored()</strong></p>
 </div>
@@ -1357,7 +1483,7 @@ For example: <code>phone.setText(loan.getPhone().getCensored().value);</code> wi
 </div>
 </div>
 <div class="sect3">
-<h4 id="how-to-see-the-hidden-information"><a class="link" href="#how-to-see-the-hidden-information">3.7.3. How to see the hidden information</a></h4>
+<h4 id="how-to-see-the-hidden-information"><a class="link" href="#how-to-see-the-hidden-information">3.8.3. How to see the hidden information</a></h4>
 <div class="paragraph">
 <p>The censored data are only hidden from the window, not changed in the database. The <code>BrowserPanel</code> on the bottom right of the window will still show all the information including the hidden information.</p>
 </div>
@@ -2477,4 +2603,4 @@ Expected: Similar to previous.</p>
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-10-25 04:35:38 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-10-25 10:19:09 UTC</div></div></div></body></html>
