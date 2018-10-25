@@ -3,12 +3,15 @@ package seedu.address.model.bike;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BIKE1;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BIKE2;
 import static seedu.address.testutil.TypicalBikes.BIKE1;
 import static seedu.address.testutil.TypicalBikes.BIKE2;
 
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -159,5 +162,17 @@ public class UniqueBikeListTest {
     public void asUnmodifiableObservableListModifyListThrowsUnsupportedOperationException() {
         thrown.expect(UnsupportedOperationException.class);
         uniqueBikeList.asUnmodifiableObservableList().remove(0);
+    }
+
+    @Test
+    public void getBikeInListReturnsBike() {
+        uniqueBikeList.add(BIKE1);
+        assertEquals(Optional.of(BIKE1), uniqueBikeList.getBike(VALID_NAME_BIKE1));
+    }
+
+    @Test
+    public void getBikeNotInListReturnsEmpty() {
+        uniqueBikeList.add(BIKE1);
+        assertEquals(Optional.empty(), uniqueBikeList.getBike(VALID_NAME_BIKE2));
     }
 }
