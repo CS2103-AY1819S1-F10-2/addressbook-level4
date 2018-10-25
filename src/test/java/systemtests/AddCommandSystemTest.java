@@ -10,15 +10,12 @@ import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_BIKE_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_EMAIL_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_LOANRATE_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_LOANTIME_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_NRIC_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_PHONE_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.LOANRATE_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.LOANRATE_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.LOANTIME_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.LOANTIME_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.NRIC_DESC_AMY;
@@ -76,7 +73,7 @@ public class AddCommandSystemTest extends LoanBookSystemTest {
         Loan toAdd = AMY;
         String command = "   " + AddCommand.COMMAND_WORD + "  " + NAME_DESC_AMY + "  " + NRIC_DESC_AMY + " "
                 + PHONE_DESC_AMY + " " + EMAIL_DESC_AMY + "   " + ADDRESS_DESC_AMY + "   "
-                + BIKE_DESC_AMY + "   " + LOANRATE_DESC_AMY + " " + LOANTIME_DESC_AMY + "  "
+                + BIKE_DESC_AMY + "   " + LOANRATE_DESC_AMY + " "
                 + TAG_DESC_FRIEND + " ";
         assertCommandSuccess(command, toAdd);
 
@@ -94,7 +91,7 @@ public class AddCommandSystemTest extends LoanBookSystemTest {
         /* Case: add a loan with all fields same as another loan in the loan book except name -> added */
         toAdd = new LoanBuilder(AMY).withName(VALID_NAME_BOB).build();
         command = AddCommand.COMMAND_WORD + NAME_DESC_BOB + NRIC_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY
-                + ADDRESS_DESC_AMY + BIKE_DESC_AMY + LOANRATE_DESC_AMY + LOANTIME_DESC_AMY + TAG_DESC_FRIEND;
+                + ADDRESS_DESC_AMY + BIKE_DESC_AMY + LOANRATE_DESC_AMY + TAG_DESC_FRIEND;
         assertCommandSuccess(command, toAdd);
 
         /* Case: add a loan with all fields same as another loan in the loan book except nric -> added */
@@ -114,7 +111,7 @@ public class AddCommandSystemTest extends LoanBookSystemTest {
         /* Case: add a loan with tags, command with parameters in random order -> added */
         toAdd = BOB;
         command = AddCommand.COMMAND_WORD + TAG_DESC_FRIEND + PHONE_DESC_BOB + ADDRESS_DESC_BOB + NAME_DESC_BOB
-                + TAG_DESC_HUSBAND + EMAIL_DESC_BOB + LOANTIME_DESC_BOB + BIKE_DESC_BOB + NRIC_DESC_BOB
+                + TAG_DESC_HUSBAND + EMAIL_DESC_BOB + BIKE_DESC_BOB + NRIC_DESC_BOB
                 + LOANRATE_DESC_BOB;
         assertCommandSuccess(command, toAdd);
 
@@ -165,32 +162,32 @@ public class AddCommandSystemTest extends LoanBookSystemTest {
 
         /* Case: missing name -> rejected */
         command = AddCommand.COMMAND_WORD + NRIC_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY
-                + BIKE_DESC_AMY + LOANRATE_DESC_AMY + LOANTIME_DESC_AMY;
+                + BIKE_DESC_AMY + LOANRATE_DESC_AMY;
         assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
 
         /* Case: missing phone -> rejected */
         command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + NRIC_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY
-                + BIKE_DESC_AMY + LOANRATE_DESC_AMY + LOANTIME_DESC_AMY;
+                + BIKE_DESC_AMY + LOANRATE_DESC_AMY;
         assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
 
         /* Case: missing email -> rejected */
         command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + NRIC_DESC_AMY + PHONE_DESC_AMY + ADDRESS_DESC_AMY
-                + BIKE_DESC_AMY + LOANRATE_DESC_AMY + LOANTIME_DESC_AMY;
+                + BIKE_DESC_AMY + LOANRATE_DESC_AMY;
         assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
 
         /* Case: missing nric -> rejected */
         command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY
-                + BIKE_DESC_AMY + LOANRATE_DESC_AMY + LOANTIME_DESC_AMY;
+                + BIKE_DESC_AMY + LOANRATE_DESC_AMY;
         assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
 
         /* Case: missing bike -> rejected */
         command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + NRIC_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY
-                + ADDRESS_DESC_AMY + LOANRATE_DESC_AMY + LOANTIME_DESC_AMY;
+                + ADDRESS_DESC_AMY + LOANRATE_DESC_AMY;
         assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
 
         /* Case: missing loan rate -> rejected */
         command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + NRIC_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY
-                + ADDRESS_DESC_AMY + BIKE_DESC_AMY + LOANTIME_DESC_AMY;
+                + ADDRESS_DESC_AMY + BIKE_DESC_AMY;
         assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
 
         /* Case: missing loan time -> rejected */
@@ -204,42 +201,37 @@ public class AddCommandSystemTest extends LoanBookSystemTest {
 
         /* Case: invalid name -> rejected */
         command = AddCommand.COMMAND_WORD + INVALID_NAME_DESC + NRIC_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY
-                + ADDRESS_DESC_AMY + BIKE_DESC_AMY + LOANRATE_DESC_AMY + LOANTIME_DESC_AMY;
+                + ADDRESS_DESC_AMY + BIKE_DESC_AMY + LOANRATE_DESC_AMY;
         assertCommandFailure(command, Name.MESSAGE_NAME_CONSTRAINTS);
 
         /* Case: invalid nric -> rejected */
         command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + INVALID_NRIC_DESC + PHONE_DESC_AMY + EMAIL_DESC_AMY
-                + ADDRESS_DESC_AMY + BIKE_DESC_AMY + LOANRATE_DESC_AMY + LOANTIME_DESC_AMY;
+                + ADDRESS_DESC_AMY + BIKE_DESC_AMY + LOANRATE_DESC_AMY;
         assertCommandFailure(command, Nric.MESSAGE_NRIC_CONSTRAINTS);
 
         /* Case: invalid phone -> rejected */
         command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + NRIC_DESC_AMY + INVALID_PHONE_DESC + EMAIL_DESC_AMY
-                + ADDRESS_DESC_AMY + BIKE_DESC_AMY + LOANRATE_DESC_AMY + LOANTIME_DESC_AMY;
+                + ADDRESS_DESC_AMY + BIKE_DESC_AMY + LOANRATE_DESC_AMY;
         assertCommandFailure(command, Phone.MESSAGE_PHONE_CONSTRAINTS);
 
         /* Case: invalid email -> rejected */
         command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + NRIC_DESC_AMY + PHONE_DESC_AMY + INVALID_EMAIL_DESC
-                + ADDRESS_DESC_AMY + BIKE_DESC_AMY + LOANRATE_DESC_AMY + LOANTIME_DESC_AMY;
+                + ADDRESS_DESC_AMY + BIKE_DESC_AMY + LOANRATE_DESC_AMY;
         assertCommandFailure(command, Email.MESSAGE_EMAIL_CONSTRAINTS);
 
         /* Case: invalid bike -> rejected */
         command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + NRIC_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY
-                + ADDRESS_DESC_AMY + INVALID_BIKE_DESC + LOANRATE_DESC_AMY + LOANTIME_DESC_AMY;
+                + ADDRESS_DESC_AMY + INVALID_BIKE_DESC + LOANRATE_DESC_AMY;
         assertCommandFailure(command, Name.MESSAGE_NAME_CONSTRAINTS);
 
         /* Case: invalid rate -> rejected */
         command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + NRIC_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY
-                + ADDRESS_DESC_AMY + BIKE_DESC_AMY + INVALID_LOANRATE_DESC + LOANTIME_DESC_AMY;
+                + ADDRESS_DESC_AMY + BIKE_DESC_AMY + INVALID_LOANRATE_DESC;
         assertCommandFailure(command, LoanRate.MESSAGE_LOANRATE_CONSTRAINTS);
-
-        /* Case: invalid time -> rejected */
-        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + NRIC_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY
-                + ADDRESS_DESC_AMY + BIKE_DESC_AMY + LOANRATE_DESC_AMY + INVALID_LOANTIME_DESC;
-        assertCommandFailure(command, LoanTime.MESSAGE_LOANTIME_CONSTRAINTS);
 
         /* Case: invalid tag -> rejected */
         command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + NRIC_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY
-                + ADDRESS_DESC_AMY + BIKE_DESC_AMY + LOANRATE_DESC_AMY + LOANTIME_DESC_AMY + INVALID_TAG_DESC;
+                + ADDRESS_DESC_AMY + BIKE_DESC_AMY + LOANRATE_DESC_AMY + INVALID_TAG_DESC;
         assertCommandFailure(command, Tag.MESSAGE_TAG_CONSTRAINTS);
     }
 

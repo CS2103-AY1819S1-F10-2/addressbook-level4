@@ -6,7 +6,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_BIKE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_LOANRATE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_LOANTIME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NRIC;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
@@ -68,8 +67,6 @@ public class CommandTestUtil {
     public static final String BIKE_DESC_BOB = " " + PREFIX_BIKE + VALID_BIKE_BOB;
     public static final String LOANRATE_DESC_AMY = " " + PREFIX_LOANRATE + VALID_LOANRATE_AMY;
     public static final String LOANRATE_DESC_BOB = " " + PREFIX_LOANRATE + VALID_LOANRATE_BOB;
-    public static final String LOANTIME_DESC_AMY = " " + PREFIX_LOANTIME + VALID_LOANTIME_AMY;
-    public static final String LOANTIME_DESC_BOB = " " + PREFIX_LOANTIME + VALID_LOANTIME_BOB;
     public static final String TAG_DESC_FRIEND = " " + PREFIX_TAG + VALID_TAG_FRIEND;
     public static final String TAG_DESC_HUSBAND = " " + PREFIX_TAG + VALID_TAG_HUSBAND;
 
@@ -85,7 +82,6 @@ public class CommandTestUtil {
     public static final String INVALID_ADDRESS_DESC = " " + PREFIX_ADDRESS; // empty string not allowed for addresses
     public static final String INVALID_BIKE_DESC = " " + PREFIX_BIKE + "***BIKE"; // '*' not allowed in bike names
     public static final String INVALID_LOANRATE_DESC = " " + PREFIX_LOANRATE + "1.4444"; // 'no more than 2 decimals
-    public static final String INVALID_LOANTIME_DESC = " " + PREFIX_LOANTIME + "1232"; // missing ':' symbol
     public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
