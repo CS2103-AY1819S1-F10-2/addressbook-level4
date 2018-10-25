@@ -253,6 +253,10 @@ public class XmlAdaptedLoan {
     /**
      * Throws an {@code IllegalValueException} if {@code field} does not exist or is not valid.
      *
+     * @param field The data field of the Loan class to check for.
+     * @param fieldClass The class which the data field should belong to.
+     * @param isValid A predicate to check if {@code field} is valid.
+     * @param msgConstraints A message to display to the user if {@code field} is not valid.
      * @throws IllegalValueException
      */
     private void checkFieldValid(
@@ -281,31 +285,32 @@ public class XmlAdaptedLoan {
             loanTags.add(tag.toModelType());
         }
 
-        checkNameValid();
+        checkFieldValid(name, Name.class, Name::isValidName, Name.MESSAGE_NAME_CONSTRAINTS);
         final Name modelName = new Name(name);
 
-        checkNricValid();
+        checkFieldValid(nric, Nric.class, Nric::isValidNric, Nric.MESSAGE_NRIC_CONSTRAINTS);
         final Nric modelNric = new Nric(nric);
 
-        checkPhoneValid();
+        checkFieldValid(phone, Phone.class, Phone::isValidPhone, Phone.MESSAGE_PHONE_CONSTRAINTS);
         final Phone modelPhone = new Phone(phone);
 
-        checkEmailValid();
+        checkFieldValid(email, Email.class, Email::isValidEmail, Email.MESSAGE_EMAIL_CONSTRAINTS);
         final Email modelEmail = new Email(email);
 
-        checkAddressValid();
+        checkFieldValid(address, Address.class, Address::isValidAddress, Address.MESSAGE_ADDRESS_CONSTRAINTS);
         final Address modelAddress = new Address(address);
 
-        checkLoanStatusValid();
+        checkFieldValid(loanStatus, LoanStatus.class, LoanStatus::isValidLoanStatus,
+            LoanStatus.MESSAGE_LOANSTATUS_CONSTRAINTS);
         final LoanStatus modelLoanStatus = LoanStatus.valueOf(loanStatus);
 
-        checkBikeValid();
+        checkFieldValid(bike, Bike.class, Name::isValidName, Name.MESSAGE_NAME_CONSTRAINTS);
         final Bike modelBike = new Bike(new Name(bike));
 
-        checkLoanRateValid();
+        checkFieldValid(rate, LoanRate.class, LoanRate::isValidRate, LoanRate.MESSAGE_LOANRATE_CONSTRAINTS);
         final LoanRate modelRate = new LoanRate(rate);
 
-        checkLoanTimeValid();
+        checkFieldValid(time, LoanTime.class, LoanTime::isValidLoanTime, LoanTime.MESSAGE_LOANTIME_CONSTRAINTS);
         final LoanTime modelTime = new LoanTime(time);
 
         final Set<Tag> modelTags = new HashSet<>(loanTags);
