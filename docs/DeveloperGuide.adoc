@@ -318,6 +318,61 @@ image::UndoRedoActivityDiagram.png[width="650"]
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
 
+// tag::adminauthentication[]
+=== Admin Authentication
+Before critical actions such as deleting a loan can be performed, admin authentication
+should be required. This ensures that only authorized users are able to perform critical actions.
+This is done by requiring a password before performing a critical action.
+
+* Current Implementation *
+There are three stages in this implementation:
+
+===== Allowing the `delete` command to accept a password
+1. To allow `delete` command to accept a password, we set a stub password of `a12345` and require all `delete` command to take in a password argument.
+* When password is wrong, we do not perform the deletion of the loans.
+* Only when password matches with stub password will the loan be deleted.
+2. Existing tests were edited to include and check for a valid password before deletion.
+
+[NOTE]
+The default password for a new app is `a12345`.
+
+The following sequence diagram shows how the new `delete` operation works.
+
+image::deleteLoanWithPass.png[width="1000"]
+
+===== Allow changing of master password
+
+Given below is an example usage scenario and how the `setpass` mechanism behaves at each step.
+
+Step 1. The user launches the application for the first time. `UserPref` file will initialise the password as `a12345`.
+
+Step 2. The user executes `setpass a12345 newP4sS` command to change the password to `newP4sS`.
+
+Step 3. `Password` class will encrypt the password, and call Model#setPass, that changes the password of the application in `UserPref`.
+
+[NOTE]
+If the current password input is wrong, it will not call Model#setPass, so the UserPref state will not be saved.
+
+[NOTE]
+If the current password input the same as the new password input, it will not call Model#setPass, so the UserPref state will not be saved.
+
+Step 4. Password in `UserPref` is set to new password input.
+
+The following sequence diagram shows how the `setpass` operation works:
+
+image::setPasswordLogic.png[width="1000"]
+
+image::setPasswordModel.png[width="1000"]
+
+===== Encrypt current password for security
+To ensure that others are unable to retrieve the app's password from the preference.json, we encrypt the password before storing. Decryption of password can only be done by the `Password` class.
+
+This is currently done by appending `-encrypt` to the password, and removing it when
+decrypting. For version 2.0, we plan to utilise existing libraries to encrypt and
+decrypt our stored password.
+
+// end::userconfirmation[]
+
 === Return a Loan feature
 ==== Proposed Implementation
 
