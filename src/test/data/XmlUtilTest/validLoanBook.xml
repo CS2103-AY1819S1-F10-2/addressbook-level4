@@ -9,7 +9,8 @@
         <loanStatus>ONGOING</loanStatus>
         <bike isPrivate ="false">BIKE001</bike>
         <rate isPrivate ="false">30.6</rate>
-        <time isPrivate ="false">2018-01-01 10:10</time>
+        <startTime isPrivate ="false">2018-01-01 10:10</startTime>
+        <endTime isPrivate ="false">2018-01-01 17:10</endTime>
     </loans>
     <loans>
         <name>Ruth Mueller</name>
@@ -20,7 +21,8 @@
         <loanStatus>ONGOING</loanStatus>
         <bike isPrivate ="false">Bike01</bike>
         <rate isPrivate ="false">12</rate>
-        <time isPrivate ="false">10:10</time>
+        <startTime isPrivate ="false">2018-01-01 10:10</startTime>
+        <endTime isPrivate ="false">2018-01-01 17:10</endTime>
     </loans>
     <loans>
         <name>Heinz Kurz</name>
@@ -31,7 +33,8 @@
         <loanStatus>ONGOING</loanStatus>
         <bike isPrivate ="false">Bike01</bike>
         <rate isPrivate ="false">12.0</rate>
-        <time isPrivate ="false">2018-01-01 10:10</time>
+        <startTime isPrivate ="false">2018-01-01 10:10</startTime>
+        <endTime isPrivate ="false">2018-01-01 17:10</endTime>
     </loans>
     <loans>
         <name>Cornelia Meier</name>
@@ -42,7 +45,8 @@
         <loanStatus>ONGOING</loanStatus>
         <bike isPrivate ="false">Bike01</bike>
         <rate isPrivate ="false">12.0</rate>
-        <time isPrivate ="false">2018-01-01 10:10</time>
+        <startTime isPrivate ="false">2018-01-01 10:10</startTime>
+        <endTime isPrivate ="false">2018-01-01 17:10</endTime>
     </loans>
     <loans>
         <name>Werner Meyer</name>
@@ -53,7 +57,8 @@
         <loanStatus>ONGOING</loanStatus>
         <bike isPrivate ="false">Bike01</bike>
         <rate isPrivate ="false">12.0</rate>
-        <time isPrivate ="false">2018-01-01 10:10</time>
+        <startTime isPrivate ="false">2018-01-01 10:10</startTime>
+        <endTime isPrivate ="false">2018-01-01 17:10</endTime>
     </loans>
     <loans>
         <name>Lydia Kunz</name>
@@ -64,7 +69,8 @@
         <loanStatus>ONGOING</loanStatus>
         <bike isPrivate ="false">Bike01</bike>
         <rate isPrivate ="false">12.0</rate>
-        <time isPrivate ="false">2018-01-01 10:10</time>
+        <startTime isPrivate ="false">2018-01-01 10:10</startTime>
+        <endTime isPrivate ="false">2018-01-01 17:10</endTime>
     </loans>
     <loans>
         <name>Anna Best</name>
@@ -75,7 +81,8 @@
         <loanStatus>ONGOING</loanStatus>
         <bike isPrivate ="false">Bike01</bike>
         <rate isPrivate ="false">12.0</rate>
-        <time isPrivate ="false">2018-01-01 10:10</time>
+        <startTime isPrivate ="false">2018-01-01 10:10</startTime>
+        <endTime isPrivate ="false">2018-01-01 17:10</endTime>
     </loans>
     <loans>
         <name>Stefan Meier</name>
@@ -86,7 +93,8 @@
         <loanStatus>ONGOING</loanStatus>
         <bike isPrivate ="false">Bike01</bike>
         <rate isPrivate ="false">12.0</rate>
-        <time isPrivate ="false">2018-01-01 10:10</time>
+        <startTime isPrivate ="false">2018-01-01 10:10</startTime>
+        <endTime isPrivate ="false">2018-01-01 17:10</endTime>
     </loans>
     <loans>
         <name>Martin Mueller</name>
@@ -97,6 +105,7 @@
         <loanStatus>ONGOING</loanStatus>
         <bike isPrivate ="false">Bike01</bike>
         <rate isPrivate ="false">12.0</rate>
-        <time isPrivate ="false">2018-01-01 10:10</time>
+        <startTime isPrivate ="false">2018-01-01 10:10</startTime>
+        <endTime isPrivate ="false">2018-01-01 17:10</endTime>
     </loans>
 </loanbook>

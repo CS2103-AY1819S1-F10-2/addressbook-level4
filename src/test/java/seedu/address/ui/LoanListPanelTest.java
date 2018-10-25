@@ -103,7 +103,8 @@ public class LoanListPanelTest extends GuiUnitTest {
             builder.append("<loanStatus>ONGOING</loanStatus>");
             builder.append("<bike>b</bike>\n");
             builder.append("<rate>1</rate>\n");
-            builder.append("<time>12:00</time>\n");
+            builder.append("<startTime>12:00</startTime>\n");
+            builder.append("<endTime>12:00</endTime>\n");
             builder.append("</loans>\n");
         }
         builder.append("</loanbook>\n");
