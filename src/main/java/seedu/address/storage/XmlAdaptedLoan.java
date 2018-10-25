@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 import javax.xml.bind.annotation.XmlElement;
@@ -246,6 +247,26 @@ public class XmlAdaptedLoan {
         }
         if (!LoanTime.isValidLoanTime(time)) {
             throw new IllegalValueException(LoanTime.MESSAGE_LOANTIME_CONSTRAINTS);
+        }
+    }
+
+    /**
+     * Throws an {@code IllegalValueException} if {@code field} does not exist or is not valid.
+     *
+     * @throws IllegalValueException
+     */
+    private void checkFieldValid(
+            String field,
+            Class fieldClass,
+            Predicate<String> isValid,
+            String msgConstraints) throws IllegalValueException {
+
+        if (field == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                fieldClass.getSimpleName()));
+        }
+        if (!isValid.test(field)) {
+            throw new IllegalValueException(msgConstraints);
         }
     }
 
