@@ -69,11 +69,13 @@ public class AddCommandSystemTest extends LoanBookSystemTest {
         /* Case: add a loan without tags to a non-empty loan book, command with leading spaces and trailing spaces
          * -> added
          */
+        // Creates a new A
         Loan toAdd = AMY;
         String command = "   " + AddCommand.COMMAND_WORD + "  " + NAME_DESC_AMY + "  " + NRIC_DESC_AMY + " "
                 + PHONE_DESC_AMY + " " + EMAIL_DESC_AMY + "   " + ADDRESS_DESC_AMY + "   "
                 + BIKE_DESC_AMY + "   " + LOANRATE_DESC_AMY + " "
                 + TAG_DESC_FRIEND + " ";
+        System.out.println("command = " + command);
         assertCommandSuccess(command, toAdd);
 
         /* Case: undo adding Amy to the list -> Amy deleted */
@@ -187,11 +189,6 @@ public class AddCommandSystemTest extends LoanBookSystemTest {
         /* Case: missing loan rate -> rejected */
         command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + NRIC_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY
                 + ADDRESS_DESC_AMY + BIKE_DESC_AMY;
-        assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
-
-        /* Case: missing loan time -> rejected */
-        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + NRIC_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY
-                + ADDRESS_DESC_AMY + BIKE_DESC_AMY + LOANRATE_DESC_AMY;
         assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
 
         /* Case: invalid keyword -> rejected */

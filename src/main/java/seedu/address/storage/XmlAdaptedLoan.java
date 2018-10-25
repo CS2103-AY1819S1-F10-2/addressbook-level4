@@ -47,7 +47,7 @@ public class XmlAdaptedLoan {
     private String rate;
     @XmlElement(required = true)
     private String startTime;
-    @XmlElement(required = true)
+    @XmlElement
     private String endTime;
 
     @XmlElement
@@ -119,7 +119,7 @@ public class XmlAdaptedLoan {
         bike = source.getBike().getName().value;
         rate = source.getLoanRate().toString();
         startTime = source.getLoanStartTime().toString();
-        endTime = source.getLoanEndTime().toString();
+        endTime = source.getLoanEndTime() == null ? null : source.getLoanEndTime().toString();
         tagged = source.getTags().stream()
                 .map(XmlAdaptedTag::new)
                 .collect(Collectors.toList());
@@ -262,8 +262,7 @@ public class XmlAdaptedLoan {
      */
     private void checkLoanEndTimeValid() throws IllegalValueException {
         if (endTime == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
-                    LoanTime.class.getSimpleName()));
+            return; // Because endTime can be null
         }
         if (!LoanTime.isValidLoanTime(endTime)) {
             throw new IllegalValueException(LoanTime.MESSAGE_LOANTIME_CONSTRAINTS);
@@ -309,7 +308,7 @@ public class XmlAdaptedLoan {
         final LoanTime modelStartTime = new LoanTime(startTime);
 
         checkLoanEndTimeValid();
-        final LoanTime modelEndTime = new LoanTime(endTime);
+        final LoanTime modelEndTime = endTime == null ? null : new LoanTime(endTime);
 
 
         final Set<Tag> modelTags = new HashSet<>(loanTags);
