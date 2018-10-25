@@ -1,5 +1,6 @@
 package seedu.address.testutil;
 
+import java.util.Optional;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
@@ -25,6 +26,12 @@ public class ModelStub implements Model {
 
     @Override
     public boolean hasBike(Bike bike) {
+        throw new AssertionError(
+            "This method should not be called.");
+    }
+
+    @Override
+    public Optional<Bike> getBike(String bikeName) {
         throw new AssertionError("This method should not be called.");
     }
 

@@ -3,6 +3,7 @@ package seedu.address.model;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -61,12 +62,17 @@ public class ModelManager extends ComponentManager implements Model {
         raise(new LoanBookChangedEvent(versionedLoanBook));
     }
 
-    //=========== Bike List Mutators =============================================================
+    //=========== Bike List Accessors and Mutators =============================================================
 
     @Override
     public boolean hasBike(Bike bike) {
         requireNonNull(bike);
         return versionedLoanBook.hasBike(bike);
+    }
+
+    @Override
+    public Optional<Bike> getBike(String bikeName) {
+        return versionedLoanBook.getBike(bikeName);
     }
 
     @Override
@@ -106,7 +112,7 @@ public class ModelManager extends ComponentManager implements Model {
         filteredBikes.setPredicate(predicate);
     }
 
-    //=========== Loan List Mutators =============================================================
+    //=========== Loan List Accessors and Mutators =============================================================
 
     @Override
     public boolean hasLoan(Loan loan) {

@@ -1,5 +1,6 @@
 package seedu.address.model;
 
+import java.util.Optional;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
@@ -25,6 +26,11 @@ public interface Model {
      * Returns true if a bike with the same identity as {@code bike} exists in the loan book.
      */
     boolean hasBike(Bike bike);
+
+    /**
+     * Returns a bike in the list whose name matches {@code bikeName}.
+     */
+    Optional<Bike> getBike(String bikeName);
 
     /**
      * Adds the given bike.

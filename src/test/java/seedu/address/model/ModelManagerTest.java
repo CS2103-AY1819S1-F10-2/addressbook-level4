@@ -1,7 +1,9 @@
 package seedu.address.model;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BIKE1;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_BIKES;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_LOANS;
 import static seedu.address.testutil.TypicalBikes.BIKE1;
@@ -11,6 +13,7 @@ import static seedu.address.testutil.TypicalLoans.BENSON;
 
 import java.nio.file.Paths;
 import java.util.Arrays;
+import java.util.Optional;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -57,6 +60,17 @@ public class ModelManagerTest {
     public void hasLoan_loanInLoanBook_returnsTrue() {
         modelManager.addLoan(ALICE);
         assertTrue(modelManager.hasLoan(ALICE));
+    }
+
+    @Test
+    public void getBike_bikeNotInLoanBook_returnsEmpty() {
+        assertEquals(Optional.empty(), modelManager.getBike(VALID_NAME_BIKE1));
+    }
+
+    @Test
+    public void getBike_bikeInLoanBook_returnsBike() {
+        modelManager.addBike(BIKE1);
+        assertEquals(Optional.of(BIKE1), modelManager.getBike(VALID_NAME_BIKE1));
     }
 
     @Test
