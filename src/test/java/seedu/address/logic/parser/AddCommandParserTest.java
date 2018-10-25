@@ -44,7 +44,6 @@ import seedu.address.logic.commands.AddCommand;
 import seedu.address.model.loan.Email;
 import seedu.address.model.loan.Loan;
 import seedu.address.model.loan.LoanRate;
-import seedu.address.model.loan.LoanTime;
 import seedu.address.model.loan.Name;
 import seedu.address.model.loan.Nric;
 import seedu.address.model.loan.Phone;
