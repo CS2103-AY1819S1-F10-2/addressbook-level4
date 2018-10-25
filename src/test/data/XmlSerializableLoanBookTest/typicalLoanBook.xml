@@ -20,7 +20,7 @@
         <email>alice@example.com</email>
         <address>123, Jurong West Ave 6, #08-111</address>
         <loanStatus>ONGOING</loanStatus>
-        <bike>Bike001</bike>
+        <bike>BIKE001</bike>
         <rate>1.1</rate>
         <time>12:33</time>
         <tagged>friends</tagged>
@@ -32,7 +32,7 @@
         <email>johnd@example.com</email>
         <address>311, Clementi Ave 2, #02-25</address>
         <loanStatus>ONGOING</loanStatus>
-        <bike>Bike002</bike>
+        <bike>BIKE001</bike>
         <rate>0.15</rate>
         <time>2017-10-12 06:08</time>
         <tagged>owesMoney</tagged>
@@ -45,7 +45,7 @@
         <email>heinz@example.com</email>
         <address>wall street</address>
         <loanStatus>ONGOING</loanStatus>
-        <bike>Bike003</bike>
+        <bike>BIKE001</bike>
         <rate>23.9</rate>
         <time>14:20</time>
     </loans>
@@ -56,7 +56,7 @@
         <email>cornelia@example.com</email>
         <loanStatus>ONGOING</loanStatus>
         <address>10th street</address>
-        <bike>Bike004</bike>
+        <bike>BIKE002</bike>
         <rate>9.0</rate>
         <time>17:56</time>
         <tagged>friends</tagged>
@@ -68,7 +68,7 @@
         <email>werner@example.com</email>
         <loanStatus>ONGOING</loanStatus>
         <address>michegan ave</address>
-        <bike>Bike005</bike>
+        <bike>BIKE002</bike>
         <rate>5.55</rate>
         <time>2010-12-30 10:30</time>
     </loans>
@@ -79,7 +79,7 @@
         <email>lydia@example.com</email>
         <loanStatus>ONGOING</loanStatus>
         <address>little tokyo</address>
-        <bike>Bike006</bike>
+        <bike>BIKE002</bike>
         <rate>33.3</rate>
         <time>01:01</time>
     </loans>
@@ -90,7 +90,7 @@
         <email>anna@example.com</email>
         <loanStatus>ONGOING</loanStatus>
         <address>4th street</address>
-        <bike>Bike007</bike>
+        <bike>BIKE002</bike>
         <rate>5.05</rate>
         <time>2013-03-13 12:08</time>
     </loans>

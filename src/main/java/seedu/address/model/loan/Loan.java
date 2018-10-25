@@ -47,6 +47,8 @@ public class Loan implements UniqueListItem<Loan> {
                 LoanRate rate,
                 LoanTime time,
                 Set<Tag> tags) {
+
+        // Initialise the loan to be ongoing.
         this(name, nric, phone, email, address, bike, rate, time, LoanStatus.ONGOING, tags);
     }
 
@@ -61,7 +63,9 @@ public class Loan implements UniqueListItem<Loan> {
                 Bike bike,
                 LoanRate rate,
                 LoanTime time,
-                LoanStatus loanStatus, Set<Tag> tags) {
+                LoanStatus loanStatus,
+                Set<Tag> tags) {
+
         requireAllNonNull(name, nric, phone, email, address, bike, rate, time, tags, loanStatus);
         this.name = name;
         this.nric = nric;
@@ -71,10 +75,25 @@ public class Loan implements UniqueListItem<Loan> {
         this.bike = bike;
         this.rate = rate;
         this.time = time;
-        this.tags.addAll(tags);
-
-        // Initialise the loan to be ongoing.
         this.loanStatus = loanStatus;
+        this.tags.addAll(tags);
+    }
+
+    /**
+     * Copies over an existing Loan and edits the Bike, for AddCommand.
+     */
+    public Loan(Loan other, Bike bike) {
+
+        this(other.name,
+            other.nric,
+            other.phone,
+            other.email,
+            other.address,
+            bike,
+            other.rate,
+            other.time,
+            other.loanStatus,
+            other.tags);
     }
 
     public Name getName() {

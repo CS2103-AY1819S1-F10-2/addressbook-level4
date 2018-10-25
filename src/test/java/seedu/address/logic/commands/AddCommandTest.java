@@ -7,6 +7,7 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Optional;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -16,7 +17,9 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.LoanBook;
 import seedu.address.model.ReadOnlyLoanBook;
+import seedu.address.model.bike.Bike;
 import seedu.address.model.loan.Loan;
+import seedu.address.model.loan.Name;
 import seedu.address.testutil.LoanBuilder;
 import seedu.address.testutil.ModelStub;
 
@@ -110,6 +113,12 @@ public class AddCommandTest {
         public boolean hasLoan(Loan loan) {
             requireNonNull(loan);
             return loansAdded.stream().anyMatch(loan::isSame);
+        }
+
+        @Override
+        public Optional<Bike> getBike(String bikeName) {
+            Bike bike = new Bike(new Name(bikeName));
+            return Optional.of(bike);
         }
 
         @Override

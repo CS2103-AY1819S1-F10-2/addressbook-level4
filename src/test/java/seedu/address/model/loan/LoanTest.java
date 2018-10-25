@@ -4,7 +4,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_BIKE_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BIKE2;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_LOANRATE_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_LOANTIME_BOB;
@@ -49,7 +49,7 @@ public class LoanTest {
         assertFalse(ALICE.isSame(editedAlice));
 
         // different bike -> returns false
-        editedAlice = new LoanBuilder(ALICE).withBike(VALID_BIKE_BOB).build();
+        editedAlice = new LoanBuilder(ALICE).withBike(VALID_NAME_BIKE2).build();
         assertFalse(ALICE.isSame(editedAlice));
 
         // different phone, email, rate and time -> returns false
