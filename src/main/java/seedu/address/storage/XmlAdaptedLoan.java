@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 import javax.xml.bind.annotation.XmlElement;
@@ -86,6 +87,23 @@ public class XmlAdaptedLoan {
         if (tagged != null) {
             this.tagged = new ArrayList<>(tagged);
         }
+        this.loanStatus = loanStatus;
+    }
+
+    /**
+     * Constructs an {@code XmlAdaptedLoan} with the given loan details.
+     * This constructor is called if no loanStatus is given
+     */
+    public XmlAdaptedLoan(String name,
+                          String nric,
+                          String phone,
+                          String email,
+                          String address,
+                          String bike,
+                          String rate,
+                          String time,
+                          List<XmlAdaptedTag> tagged) {
+        this(name, nric, phone, email, address, bike, rate, time, "ONGOING", tagged);
     }
 
     /**
@@ -127,119 +145,27 @@ public class XmlAdaptedLoan {
     }
 
     /**
-     * Throws an {@code IllegalValueException} if {@code name} does not exist or is not valid.
+     * Throws an {@code IllegalValueException} if {@code field} does not exist or is not valid.
      *
+     * @param field The data field of the Loan class to check for.
+     * @param fieldClass The class which the data field should belong to.
+     * @param isValid A predicate to check if {@code field} is valid.
+     * @param msgConstraints A message to display to the user if {@code field} is not valid.
      * @throws IllegalValueException
      */
-    private void checkNameValid() throws IllegalValueException {
-        if (name == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName()));
+    private void checkFieldValid(
+            String field,
+            Class fieldClass,
+            Predicate<String> isValid,
+            String msgConstraints) throws IllegalValueException {
+
+        if (field == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, fieldClass.getSimpleName()));
         }
-        if (!Name.isValidName(name)) {
-            throw new IllegalValueException(Name.MESSAGE_NAME_CONSTRAINTS);
+        if (!isValid.test(field)) {
+            throw new IllegalValueException(msgConstraints);
         }
     }
-
-    /**
-     * Throws an {@code IllegalValueException} if {@code nric} does not exist or is not valid.
-     *
-     * @throws IllegalValueException
-     */
-    private void checkNricValid() throws IllegalValueException {
-        if (nric == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Nric.class.getSimpleName()));
-        }
-        if (!Nric.isValidNric(nric)) {
-            throw new IllegalValueException(Nric.MESSAGE_NRIC_CONSTRAINTS);
-        }
-    }
-
-    /**
-     * Throws an {@code IllegalValueException} if {@code phone} does not exist or is not valid.
-     *
-     * @throws IllegalValueException
-     */
-    private void checkPhoneValid() throws IllegalValueException {
-        if (phone == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Phone.class.getSimpleName()));
-        }
-        if (!Phone.isValidPhone(phone)) {
-            throw new IllegalValueException(Phone.MESSAGE_PHONE_CONSTRAINTS);
-        }
-    }
-
-    /**
-     * Throws an {@code IllegalValueException} if {@code email} does not exist or is not valid.
-     *
-     * @throws IllegalValueException
-     */
-    private void checkEmailValid() throws IllegalValueException {
-        if (email == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Email.class.getSimpleName()));
-        }
-        if (!Email.isValidEmail(email)) {
-            throw new IllegalValueException(Email.MESSAGE_EMAIL_CONSTRAINTS);
-        }
-    }
-
-    /**
-     * Throws an {@code IllegalValueException} if {@code address} does not exist or is not valid.
-     *
-     * @throws IllegalValueException
-     */
-    private void checkAddressValid() throws IllegalValueException {
-        if (address == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Address.class.getSimpleName()));
-        }
-        if (!Address.isValidAddress(address)) {
-            throw new IllegalValueException(Address.MESSAGE_ADDRESS_CONSTRAINTS);
-        }
-    }
-
-    /**
-     * Throws an {@code IllegalValueException} if {@code loanStatus} does not exist or is not valid.
-     *
-     * @throws IllegalValueException
-     */
-    private void checkLoanStatusValid() throws IllegalValueException {
-        if (loanStatus == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
-                    LoanStatus.class.getSimpleName()));
-        }
-        if (!LoanStatus.isValidLoanStatus(loanStatus)) {
-            throw new IllegalValueException(LoanStatus.MESSAGE_LOANSTATUS_CONSTRAINTS);
-        }
-    }
-
-    /**
-     * Throws an {@code IllegalValueException} if {@code bike} does not exist or is not valid.
-     *
-     * @throws IllegalValueException
-     */
-    private void checkBikeValid() throws IllegalValueException {
-        if (bike == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Bike.class.getSimpleName()));
-        }
-        if (!Name.isValidName(bike)) {
-            throw new IllegalValueException(Name.MESSAGE_NAME_CONSTRAINTS);
-        }
-    }
-
-    /**
-     * Throws an {@code IllegalValueException} if {@code rate} does not exist or is not valid.
-     *
-     * @throws IllegalValueException
-     */
-    private void checkLoanRateValid() throws IllegalValueException {
-        if (rate == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
-                    LoanRate.class.getSimpleName()));
-        }
-        if (!LoanRate.isValidRate(rate)) {
-            throw new IllegalValueException(LoanRate.MESSAGE_LOANRATE_CONSTRAINTS);
-        }
-    }
-
     /**
      * Throws an {@code IllegalValueException} if {@code startTime} does not exist or is not valid.
      *
@@ -280,28 +206,29 @@ public class XmlAdaptedLoan {
             loanTags.add(tag.toModelType());
         }
 
-        checkNameValid();
+        checkFieldValid(name, Name.class, Name::isValidName, Name.MESSAGE_NAME_CONSTRAINTS);
         final Name modelName = new Name(name);
 
-        checkNricValid();
+        checkFieldValid(nric, Nric.class, Nric::isValidNric, Nric.MESSAGE_NRIC_CONSTRAINTS);
         final Nric modelNric = new Nric(nric);
 
-        checkPhoneValid();
+        checkFieldValid(phone, Phone.class, Phone::isValidPhone, Phone.MESSAGE_PHONE_CONSTRAINTS);
         final Phone modelPhone = new Phone(phone);
 
-        checkEmailValid();
+        checkFieldValid(email, Email.class, Email::isValidEmail, Email.MESSAGE_EMAIL_CONSTRAINTS);
         final Email modelEmail = new Email(email);
 
-        checkAddressValid();
+        checkFieldValid(address, Address.class, Address::isValidAddress, Address.MESSAGE_ADDRESS_CONSTRAINTS);
         final Address modelAddress = new Address(address);
 
-        checkLoanStatusValid();
+        checkFieldValid(loanStatus, LoanStatus.class, LoanStatus::isValidLoanStatus,
+            LoanStatus.MESSAGE_LOANSTATUS_CONSTRAINTS);
         final LoanStatus modelLoanStatus = LoanStatus.valueOf(loanStatus);
 
-        checkBikeValid();
+        checkFieldValid(bike, Bike.class, Name::isValidName, Name.MESSAGE_NAME_CONSTRAINTS);
         final Bike modelBike = new Bike(new Name(bike));
 
-        checkLoanRateValid();
+        checkFieldValid(rate, LoanRate.class, LoanRate::isValidRate, LoanRate.MESSAGE_LOANRATE_CONSTRAINTS);
         final LoanRate modelRate = new LoanRate(rate);
 
         checkLoanStartTimeValid();
@@ -309,7 +236,6 @@ public class XmlAdaptedLoan {
 
         checkLoanEndTimeValid();
         final LoanTime modelEndTime = endTime == null ? null : new LoanTime(endTime);
-
 
         final Set<Tag> modelTags = new HashSet<>(loanTags);
         return new Loan(modelName,
