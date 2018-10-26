@@ -143,6 +143,11 @@ public class ModelStub implements Model {
     }
 
     @Override
+    public void resetId() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
     public void setPass(Password pass) {
         throw new AssertionError("This method should not be called.");
     }

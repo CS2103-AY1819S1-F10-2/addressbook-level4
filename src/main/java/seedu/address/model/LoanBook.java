@@ -74,7 +74,7 @@ public class LoanBook implements ReadOnlyLoanBook {
 
         setBikes(newData.getBikeList());
         setLoans(newData.getLoanList());
-        setLoanIdManager(newData.getLoanIdManager());
+        resetId();
     }
 
     //// bike-level operations
@@ -174,6 +174,13 @@ public class LoanBook implements ReadOnlyLoanBook {
      */
     public boolean hasNextAvailableLoanId() {
         return loanIdManager.hasNextAvailableLoanId();
+    }
+
+    /**
+     * Resets the Loan ID Manager.
+     */
+    public void resetId() {
+        this.loanIdManager.reset();
     }
 
     //// util methods

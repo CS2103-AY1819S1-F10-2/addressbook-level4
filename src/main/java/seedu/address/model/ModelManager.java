@@ -187,6 +187,12 @@ public class ModelManager extends ComponentManager implements Model {
         return versionedLoanBook.hasNextAvailableLoanId();
     }
 
+    @Override
+
+    public void resetId() {
+        versionedLoanBook.resetId();
+    }
+
     //=========== Undo/Redo =================================================================================
 
     @Override

@@ -15,11 +15,10 @@ public class LoanIdManager {
     private LoanId lastUsedLoanId;
 
     /**
-     * Constructs a {@code LoanIdManager} that provides running Loan IDs starting from 0.
+     * Constructs a {@code LoanIdManager} that provides running Loan IDs starting from {@code INITIAL_ID_VALUE}.
      */
     public LoanIdManager() {
-        lastUsedIdValue = NO_LAST_USED_ID_VALUE;
-        lastUsedLoanId = null;
+        this.reset();
     }
 
     /**
@@ -30,6 +29,14 @@ public class LoanIdManager {
      */
     public LoanIdManager(LoanId lastUsedLoanId) {
         setFromLoanId(lastUsedLoanId);
+    }
+
+    /**
+     * Resets the Loan ID Manager.
+     */
+    public void reset() {
+        lastUsedIdValue = NO_LAST_USED_ID_VALUE;
+        lastUsedLoanId = null;
     }
 
     /**
@@ -101,9 +108,7 @@ public class LoanIdManager {
      */
     private void setFromLoanId(LoanId lastUsedLoanId) {
         if (lastUsedLoanId == null) {
-            this.lastUsedLoanId = null;
-            lastUsedIdValue = NO_LAST_USED_ID_VALUE;
-
+            this.reset();
             return;
         } else if (lastUsedLoanId.isMaximumId()) {
             this.lastUsedLoanId = lastUsedLoanId;

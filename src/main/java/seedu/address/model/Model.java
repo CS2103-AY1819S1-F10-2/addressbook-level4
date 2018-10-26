@@ -94,6 +94,11 @@ public interface Model {
     boolean hasNextAvailableId();
 
     /**
+     * Resets the Loan ID Manager.
+     */
+    void resetId();
+
+    /**
      * Adds the given loan.
      * {@code loan} must not already exist in the loan book.
      */
