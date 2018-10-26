@@ -1,10 +1,9 @@
 package loanbook.logic.parser;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-
 import static loanbook.logic.parser.ParserUtil.MESSAGE_INVALID_INDEX;
 import static loanbook.testutil.TypicalIndexes.INDEX_FIRST_LOAN;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.util.Arrays;
 import java.util.Collections;

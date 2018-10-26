@@ -1,8 +1,5 @@
 package loanbook.model.loan;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-
 import static loanbook.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static loanbook.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
 import static loanbook.logic.commands.CommandTestUtil.VALID_LOANRATE_BOB;
@@ -14,6 +11,8 @@ import static loanbook.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 import static loanbook.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static loanbook.testutil.TypicalLoans.ALICE;
 import static loanbook.testutil.TypicalLoans.BOB;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Rule;
 import org.junit.Test;

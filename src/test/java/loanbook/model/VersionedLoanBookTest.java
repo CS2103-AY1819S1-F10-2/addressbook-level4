@@ -1,12 +1,12 @@
 package loanbook.model;
 
+import static loanbook.testutil.TypicalLoans.AMY;
+import static loanbook.testutil.TypicalLoans.BOB;
+import static loanbook.testutil.TypicalLoans.CARL;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static loanbook.testutil.TypicalLoans.AMY;
-import static loanbook.testutil.TypicalLoans.BOB;
-import static loanbook.testutil.TypicalLoans.CARL;
 
 import java.util.Arrays;
 import java.util.Collections;

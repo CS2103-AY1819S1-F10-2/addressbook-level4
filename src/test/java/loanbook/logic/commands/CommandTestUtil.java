@@ -1,7 +1,5 @@
 package loanbook.logic.commands;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 import static loanbook.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static loanbook.logic.parser.CliSyntax.PREFIX_BIKE;
 import static loanbook.logic.parser.CliSyntax.PREFIX_EMAIL;
@@ -10,6 +8,8 @@ import static loanbook.logic.parser.CliSyntax.PREFIX_NAME;
 import static loanbook.logic.parser.CliSyntax.PREFIX_NRIC;
 import static loanbook.logic.parser.CliSyntax.PREFIX_PHONE;
 import static loanbook.logic.parser.CliSyntax.PREFIX_TAG;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 import java.util.Arrays;

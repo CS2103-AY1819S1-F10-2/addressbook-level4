@@ -1,9 +1,9 @@
 package loanbook.ui;
 
-import static org.junit.Assert.assertEquals;
 import static loanbook.testutil.EventsUtil.postNow;
 import static loanbook.ui.StatusBarFooter.SYNC_STATUS_INITIAL;
 import static loanbook.ui.StatusBarFooter.SYNC_STATUS_UPDATED;
+import static org.junit.Assert.assertEquals;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;

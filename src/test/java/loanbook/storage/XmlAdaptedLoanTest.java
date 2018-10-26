@@ -1,8 +1,8 @@
 package loanbook.storage;
 
-import static org.junit.Assert.assertEquals;
 import static loanbook.storage.XmlAdaptedLoan.MISSING_FIELD_MESSAGE_FORMAT;
 import static loanbook.testutil.TypicalLoans.BENSON;
+import static org.junit.Assert.assertEquals;
 
 import java.util.ArrayList;
 import java.util.List;

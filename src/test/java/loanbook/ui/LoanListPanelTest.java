@@ -1,13 +1,13 @@
 package loanbook.ui;
 
 import static java.time.Duration.ofMillis;
-import static org.junit.Assert.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTimeoutPreemptively;
 import static loanbook.testutil.EventsUtil.postNow;
 import static loanbook.testutil.TypicalIndexes.INDEX_SECOND_LOAN;
 import static loanbook.testutil.TypicalLoans.getTypicalLoans;
 import static loanbook.ui.testutil.GuiTestAssert.assertCardDisplaysLoan;
 import static loanbook.ui.testutil.GuiTestAssert.assertCardEquals;
+import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTimeoutPreemptively;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;

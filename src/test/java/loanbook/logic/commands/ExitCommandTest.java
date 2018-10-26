@@ -1,8 +1,8 @@
 package loanbook.logic.commands;
 
+import static loanbook.logic.commands.ExitCommand.MESSAGE_EXIT_ACKNOWLEDGEMENT;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-import static loanbook.logic.commands.ExitCommand.MESSAGE_EXIT_ACKNOWLEDGEMENT;
 
 import org.junit.Rule;
 import org.junit.Test;

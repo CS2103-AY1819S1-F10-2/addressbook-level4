@@ -1,14 +1,14 @@
 package systemtests;
 
 import static guitests.guihandles.WebViewUtil.waitUntilBrowserLoaded;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
 import static loanbook.ui.BrowserPanel.DEFAULT_PAGE;
 import static loanbook.ui.StatusBarFooter.SYNC_STATUS_INITIAL;
 import static loanbook.ui.StatusBarFooter.SYNC_STATUS_UPDATED;
 import static loanbook.ui.UiPart.FXML_FILE_FOLDER;
 import static loanbook.ui.testutil.GuiTestAssert.assertListMatching;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import java.net.MalformedURLException;
 import java.net.URL;

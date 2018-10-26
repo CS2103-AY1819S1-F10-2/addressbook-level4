@@ -1,10 +1,10 @@
 package loanbook.ui;
 
+import static loanbook.ui.HelpWindow.USERGUIDE_FILE_PATH;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assume.assumeFalse;
-import static loanbook.ui.HelpWindow.USERGUIDE_FILE_PATH;
 
 import java.net.URL;
 

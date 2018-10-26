@@ -1,11 +1,11 @@
 package loanbook.ui;
 
 import static guitests.guihandles.WebViewUtil.waitUntilBrowserLoaded;
-import static org.junit.Assert.assertEquals;
 import static loanbook.testutil.EventsUtil.postNow;
 import static loanbook.testutil.TypicalLoans.ALICE;
 import static loanbook.ui.BrowserPanel.DEFAULT_PAGE;
 import static loanbook.ui.UiPart.FXML_FILE_FOLDER;
+import static org.junit.Assert.assertEquals;
 
 import java.net.URL;
 

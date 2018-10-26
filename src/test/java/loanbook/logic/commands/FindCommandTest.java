@@ -1,14 +1,14 @@
 package loanbook.logic.commands;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
 import static loanbook.commons.core.Messages.MESSAGE_LOANS_LISTED_OVERVIEW;
 import static loanbook.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static loanbook.testutil.TypicalLoanBook.getTypicalLoanBook;
 import static loanbook.testutil.TypicalLoans.CARL;
 import static loanbook.testutil.TypicalLoans.ELLE;
 import static loanbook.testutil.TypicalLoans.FIONA;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import java.util.Arrays;
 import java.util.Collections;

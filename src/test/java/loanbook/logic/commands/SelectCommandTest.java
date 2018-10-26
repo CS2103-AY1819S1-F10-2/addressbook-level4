@@ -1,8 +1,5 @@
 package loanbook.logic.commands;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
 import static loanbook.logic.commands.CommandTestUtil.assertCommandFailure;
 import static loanbook.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static loanbook.logic.commands.CommandTestUtil.showLoanAtIndex;
@@ -10,6 +7,9 @@ import static loanbook.testutil.TypicalIndexes.INDEX_FIRST_LOAN;
 import static loanbook.testutil.TypicalIndexes.INDEX_SECOND_LOAN;
 import static loanbook.testutil.TypicalIndexes.INDEX_THIRD_LOAN;
 import static loanbook.testutil.TypicalLoanBook.getTypicalLoanBook;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Rule;
 import org.junit.Test;

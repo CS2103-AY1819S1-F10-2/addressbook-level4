@@ -1,8 +1,8 @@
 package loanbook.logic.commands;
 
-import static org.junit.Assert.assertTrue;
 import static loanbook.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static loanbook.logic.commands.HelpCommand.SHOWING_HELP_MESSAGE;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Rule;
 import org.junit.Test;

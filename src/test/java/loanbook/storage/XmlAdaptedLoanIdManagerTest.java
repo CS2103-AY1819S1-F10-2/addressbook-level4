@@ -1,8 +1,8 @@
 package loanbook.storage;
 
+import static loanbook.testutil.Assert.assertThrows;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
-import static loanbook.testutil.Assert.assertThrows;
 
 import org.junit.Test;
 

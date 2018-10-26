@@ -1,8 +1,8 @@
 package loanbook.storage;
 
-import static org.junit.Assert.assertEquals;
 import static loanbook.storage.XmlAdaptedBike.MISSING_FIELD_MESSAGE_FORMAT;
 import static loanbook.testutil.TypicalBikes.BIKE1;
+import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 

@@ -1,10 +1,10 @@
 package loanbook.logic.parser;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 import static loanbook.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static loanbook.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static loanbook.testutil.TypicalIndexes.INDEX_FIRST_LOAN;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.util.Arrays;
 import java.util.List;

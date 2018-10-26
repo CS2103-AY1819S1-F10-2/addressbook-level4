@@ -1,8 +1,8 @@
 package loanbook.logic;
 
-import static org.junit.Assert.assertEquals;
 import static loanbook.commons.core.Messages.MESSAGE_INVALID_LOAN_DISPLAYED_INDEX;
 import static loanbook.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static org.junit.Assert.assertEquals;
 
 import org.junit.Rule;
 import org.junit.Test;

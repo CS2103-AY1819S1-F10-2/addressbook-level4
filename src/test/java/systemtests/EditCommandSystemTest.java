@@ -1,8 +1,5 @@
 package systemtests;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertTrue;
 import static loanbook.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
 import static loanbook.logic.commands.CommandTestUtil.ADDRESS_DESC_BOB;
 import static loanbook.logic.commands.CommandTestUtil.BIKE_DESC_AMY;
@@ -43,6 +40,9 @@ import static loanbook.testutil.TypicalIndexes.INDEX_SECOND_LOAN;
 import static loanbook.testutil.TypicalLoans.AMY;
 import static loanbook.testutil.TypicalLoans.BOB;
 import static loanbook.testutil.TypicalLoans.KEYWORD_MATCHING_MEIER;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 

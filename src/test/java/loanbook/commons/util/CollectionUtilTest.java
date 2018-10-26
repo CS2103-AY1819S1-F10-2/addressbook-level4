@@ -1,8 +1,8 @@
 package loanbook.commons.util;
 
+import static loanbook.commons.util.CollectionUtil.requireAllNonNull;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static loanbook.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Arrays;
 import java.util.Collection;

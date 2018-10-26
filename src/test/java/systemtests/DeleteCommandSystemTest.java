@@ -1,6 +1,5 @@
 package systemtests;
 
-import static org.junit.Assert.assertTrue;
 import static loanbook.commons.core.Messages.MESSAGE_INVALID_LOAN_DISPLAYED_INDEX;
 import static loanbook.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static loanbook.logic.commands.DeleteCommand.MESSAGE_DELETE_LOAN_SUCCESS;
@@ -9,6 +8,7 @@ import static loanbook.testutil.TestUtil.getLoan;
 import static loanbook.testutil.TestUtil.getMidIndex;
 import static loanbook.testutil.TypicalIndexes.INDEX_FIRST_LOAN;
 import static loanbook.testutil.TypicalLoans.KEYWORD_MATCHING_MEIER;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 

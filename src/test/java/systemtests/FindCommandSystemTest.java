@@ -1,12 +1,12 @@
 package systemtests;
 
-import static org.junit.Assert.assertFalse;
 import static loanbook.commons.core.Messages.MESSAGE_LOANS_LISTED_OVERVIEW;
 import static loanbook.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static loanbook.testutil.TypicalLoans.BENSON;
 import static loanbook.testutil.TypicalLoans.CARL;
 import static loanbook.testutil.TypicalLoans.DANIEL;
 import static loanbook.testutil.TypicalLoans.KEYWORD_MATCHING_MEIER;
+import static org.junit.Assert.assertFalse;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,11 +1,11 @@
 package loanbook.storage;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 import static loanbook.testutil.TypicalLoanBook.getTypicalLoanBook;
 import static loanbook.testutil.TypicalLoans.ALICE;
 import static loanbook.testutil.TypicalLoans.HOON;
 import static loanbook.testutil.TypicalLoans.IDA;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 
 import java.io.IOException;
 import java.nio.file.Path;

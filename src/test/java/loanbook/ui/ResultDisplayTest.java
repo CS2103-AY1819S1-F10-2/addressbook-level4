@@ -1,7 +1,7 @@
 package loanbook.ui;
 
-import static org.junit.Assert.assertEquals;
 import static loanbook.testutil.EventsUtil.postNow;
+import static org.junit.Assert.assertEquals;
 
 import org.junit.Before;
 import org.junit.Test;

@@ -1,13 +1,13 @@
 package loanbook.model;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
 import static loanbook.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static loanbook.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static loanbook.testutil.TypicalBikes.BIKE1;
 import static loanbook.testutil.TypicalLoanBook.getTypicalLoanBook;
 import static loanbook.testutil.TypicalLoans.ALICE;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import java.util.Arrays;
 import java.util.Collection;

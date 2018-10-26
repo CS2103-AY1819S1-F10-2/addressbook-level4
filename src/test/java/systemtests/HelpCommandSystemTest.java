@@ -1,11 +1,11 @@
 package systemtests;
 
+import static loanbook.testutil.TypicalIndexes.INDEX_FIRST_LOAN;
+import static loanbook.ui.testutil.GuiTestAssert.assertListMatching;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
-import static loanbook.testutil.TypicalIndexes.INDEX_FIRST_LOAN;
-import static loanbook.ui.testutil.GuiTestAssert.assertListMatching;
 
 import org.junit.Test;
 
