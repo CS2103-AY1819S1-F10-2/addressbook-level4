@@ -1,17 +1,17 @@
 package systemtests;
 
-import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-import static seedu.address.testutil.TypicalBikes.getTypicalBikes;
-import static seedu.address.testutil.TypicalLoans.KEYWORD_MATCHING_MEIER;
+import static loanbook.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static loanbook.testutil.TypicalBikes.getTypicalBikes;
+import static loanbook.testutil.TypicalLoans.KEYWORD_MATCHING_MEIER;
 
 import org.junit.Test;
 
-import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.ClearCommand;
-import seedu.address.logic.commands.RedoCommand;
-import seedu.address.logic.commands.UndoCommand;
-import seedu.address.model.Model;
-import seedu.address.model.ModelManager;
+import loanbook.commons.core.index.Index;
+import loanbook.logic.commands.ClearCommand;
+import loanbook.logic.commands.RedoCommand;
+import loanbook.logic.commands.UndoCommand;
+import loanbook.model.Model;
+import loanbook.model.ModelManager;
 
 public class ClearCommandSystemTest extends LoanBookSystemTest {
 
