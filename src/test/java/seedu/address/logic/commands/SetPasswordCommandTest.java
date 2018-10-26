@@ -12,8 +12,8 @@ import seedu.address.commons.core.Messages;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Password;
-import seedu.address.testutil.ModelStub;
 import seedu.address.model.loan.LoanId;
+import seedu.address.testutil.ModelStub;
 
 public class SetPasswordCommandTest {
 
