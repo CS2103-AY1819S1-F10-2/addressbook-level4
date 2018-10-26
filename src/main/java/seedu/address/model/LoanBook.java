@@ -10,6 +10,8 @@ import javafx.collections.ObservableList;
 import seedu.address.model.bike.Bike;
 import seedu.address.model.bike.UniqueBikeList;
 import seedu.address.model.loan.Loan;
+import seedu.address.model.loan.LoanId;
+import seedu.address.model.loan.LoanIdManager;
 import seedu.address.model.loan.UniqueLoanList;
 
 /**
@@ -20,6 +22,7 @@ public class LoanBook implements ReadOnlyLoanBook {
 
     private final UniqueBikeList bikes;
     private final UniqueLoanList loans;
+    private final LoanIdManager loanIdManager;
 
     /**
      * Default constructor.
@@ -27,6 +30,7 @@ public class LoanBook implements ReadOnlyLoanBook {
     public LoanBook() {
         bikes = new UniqueBikeList();
         loans = new UniqueLoanList();
+        loanIdManager = new LoanIdManager();
     }
 
     /**
@@ -56,6 +60,13 @@ public class LoanBook implements ReadOnlyLoanBook {
     }
 
     /**
+     * Replaces the state of this LoanBooks's Loan ID Manager with the specified manager.
+     */
+    public void setLoanIdManager(LoanIdManager loanIdManager) {
+        this.loanIdManager.setFromExistingManager(loanIdManager);
+    }
+
+    /**
      * Resets the existing data of this {@code LoanBook} with {@code newData}.
      */
     public void resetData(ReadOnlyLoanBook newData) {
@@ -63,6 +74,7 @@ public class LoanBook implements ReadOnlyLoanBook {
 
         setBikes(newData.getBikeList());
         setLoans(newData.getLoanList());
+        setLoanIdManager(newData.getLoanIdManager());
     }
 
     //// bike-level operations
@@ -146,6 +158,24 @@ public class LoanBook implements ReadOnlyLoanBook {
         loans.remove(key);
     }
 
+    //// Loan ID methods
+
+    /**
+     * Gets the next available Loan ID.
+     */
+    public LoanId getNextAvailableLoanId() {
+        return loanIdManager.getNextAvailableLoanId();
+    }
+
+    /**
+     * Checks if there is a next available Loan ID.
+     *
+     * @return true if there exists a next available loan ID.
+     */
+    public boolean hasNextAvailableLoanId() {
+        return loanIdManager.hasNextAvailableLoanId();
+    }
+
     //// util methods
 
     @Override
@@ -166,11 +196,17 @@ public class LoanBook implements ReadOnlyLoanBook {
     }
 
     @Override
+    public LoanIdManager getLoanIdManager() {
+        return new LoanIdManager(loanIdManager.getLastUsedLoanId());
+    }
+
+    @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof LoanBook // instanceof handles nulls
                 && loans.equals(((LoanBook) other).loans)
-                && bikes.equals(((LoanBook) other).bikes));
+                && bikes.equals(((LoanBook) other).bikes))
+                && loanIdManager.equals(((LoanBook) other).loanIdManager);
     }
 
     @Override

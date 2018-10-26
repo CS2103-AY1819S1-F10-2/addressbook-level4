@@ -6,6 +6,7 @@ import java.util.Set;
 
 import javafx.scene.Node;
 import javafx.scene.control.ListView;
+
 import seedu.address.model.loan.Loan;
 
 /**
@@ -102,6 +103,7 @@ public class LoanListPanelHandle extends NodeHandle<ListView<Loan>> {
      * @throws IllegalStateException if the selected card is currently not in the scene graph.
      */
     public LoanCardHandle getLoanCardHandle(int index) {
+        Object[] s = getAllCardNodes().stream().map(LoanCardHandle::new).toArray();
         return getAllCardNodes().stream()
                 .map(LoanCardHandle::new)
                 .filter(handle -> handle.equals(getLoan(index)))

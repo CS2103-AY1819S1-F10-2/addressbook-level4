@@ -10,6 +10,7 @@ import seedu.address.model.Password;
 import seedu.address.model.ReadOnlyLoanBook;
 import seedu.address.model.bike.Bike;
 import seedu.address.model.loan.Loan;
+import seedu.address.model.loan.LoanId;
 
 /**
  * A default model stub that have all of the methods failing.
@@ -128,6 +129,16 @@ public class ModelStub implements Model {
 
     @Override
     public String getPass() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public LoanId getNextAvailableId() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public boolean hasNextAvailableId() {
         throw new AssertionError("This method should not be called.");
     }
 

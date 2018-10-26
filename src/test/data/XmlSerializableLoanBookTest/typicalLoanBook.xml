@@ -101,4 +101,7 @@
         <startTime>2013-03-13 12:08</startTime>
         <endTime>2013-05-14 12:18</endTime>
     </loans>
+    <loanIdManager>
+        <lastUsedLoanId>765</lastUsedLoanId>
+    </loanIdManager>
 </loanbook>

@@ -60,13 +60,13 @@
          <TextFlow>
             <children>
                <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="  &gt; Phone: " />
-               <Label fx:id="phone" text="\$phone" />
+               <Label fx:id="phone" styleClass="cell_small_label" text="\$phone" />
             </children>
          </TextFlow>
          <TextFlow>
             <children>
                <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="  &gt; Email: " />
-               <Label fx:id="email" text="\$email" />
+               <Label fx:id="email" styleClass="cell_small_label" text="\$email" />
             </children>
          </TextFlow>
          <TextFlow>

@@ -22,6 +22,8 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.bike.Bike;
 import seedu.address.model.loan.Loan;
+import seedu.address.model.loan.LoanId;
+import seedu.address.model.loan.LoanIdManager;
 import seedu.address.model.loan.exceptions.DuplicateLoanException;
 import seedu.address.testutil.LoanBuilder;
 
@@ -118,12 +120,50 @@ public class LoanBookTest {
         loanBook.getLoanList().remove(0);
     }
 
+    @Test
+    public void getNextAvailableLoanId_fromDefault_success() {
+        // Test from default Loan ID Manager (i.e. from 0)
+        for (int i = 0; i < 10; ++i) {
+            LoanId expectedId = LoanId.fromInt(i);
+            LoanId actualId = loanBook.getNextAvailableLoanId();
+
+            assertEquals(expectedId, actualId);
+        }
+    }
+
+    @Test
+    public void getNextAvailableLoanId_fromExistingManager_success() {
+        // Test from existing manager starting at 7528
+        int lastUsedLoanIdValue = 7528;
+        LoanIdManager existingManager = new LoanIdManager(LoanId.fromInt(lastUsedLoanIdValue));
+
+        loanBook.setLoanIdManager(existingManager);
+        for (int i = 1; i <= 10; ++i) {
+            LoanId expectedId = LoanId.fromInt(lastUsedLoanIdValue + i);
+            LoanId actualId = loanBook.getNextAvailableLoanId();
+
+            assertEquals(expectedId, actualId);
+        }
+    }
+
+    @Test
+    public void hasNextAvailableLoanId_fromMaximumLoanId_returnsFalse() {
+        LoanId expectedMaximumId = LoanId.fromInt(999999999);
+        assertTrue(expectedMaximumId.isMaximumId());
+
+        LoanIdManager existingManager = new LoanIdManager(expectedMaximumId);
+        loanBook.setLoanIdManager(existingManager);
+
+        assertFalse(loanBook.hasNextAvailableLoanId());
+    }
+
     /**
      * A stub ReadOnlyLoanBook whose loans list can violate interface constraints.
      */
     private static class LoanBookStub implements ReadOnlyLoanBook {
         private final ObservableList<Bike> bikes = FXCollections.observableArrayList();
         private final ObservableList<Loan> loans = FXCollections.observableArrayList();
+        private final LoanIdManager loanIdManager = new LoanIdManager();
 
         LoanBookStub(Collection<Bike> bikes, Collection<Loan> loans) {
             this.bikes.setAll(bikes);
@@ -138,6 +178,11 @@ public class LoanBookTest {
         @Override
         public ObservableList<Loan> getLoanList() {
             return loans;
+        }
+
+        @Override
+        public LoanIdManager getLoanIdManager() {
+            return loanIdManager;
         }
     }
 

@@ -23,6 +23,8 @@ public class XmlSerializableLoanBookTest {
     private static final Path INVALID_LOANSTATUS_FILE = TEST_DATA_FOLDER.resolve("invalidLoanStatusLoanBook.xml");
     private static final Path DUPLICATE_BIKE_FILE = TEST_DATA_FOLDER.resolve("duplicateBikeLoanBook.xml");
     private static final Path DUPLICATE_LOAN_FILE = TEST_DATA_FOLDER.resolve("duplicateLoanLoanBook.xml");
+    private static final Path INVALID_LOAN_ID_MANAGER_FILE =
+            TEST_DATA_FOLDER.resolve("invalidLoanIdManagerLoanBook.xml");
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
@@ -75,6 +77,14 @@ public class XmlSerializableLoanBookTest {
             XmlSerializableLoanBook.class);
         thrown.expect(IllegalValueException.class);
         thrown.expectMessage(XmlSerializableLoanBook.MESSAGE_DUPLICATE_LOAN);
+        dataFromFile.toModelType();
+    }
+
+    @Test
+    public void toModelType_invalidLoanIdManager_throwsIllegalValueException() throws Exception {
+        XmlSerializableLoanBook dataFromFile = XmlUtil.getDataFromFile(INVALID_LOAN_ID_MANAGER_FILE,
+                XmlSerializableLoanBook.class);
+        thrown.expect(IllegalValueException.class);
         dataFromFile.toModelType();
     }
 
