@@ -87,33 +87,6 @@ public class LoanIdManager {
         return lastUsedLoanId;
     }
 
-    @Override
-    public boolean equals(Object other) {
-        if (this == other) {
-            return true;
-        }
-
-        if (!(other instanceof LoanIdManager)) {
-            return false;
-        }
-
-        LoanIdManager otherManager = (LoanIdManager) other;
-
-        if (this.lastUsedIdValue != otherManager.lastUsedIdValue) {
-            return false;
-        }
-
-        // If the lastUsedIdValue is equal, all the fields should be equal.
-        if (this.lastUsedLoanId == null) {
-            assert otherManager.lastUsedLoanId == null;
-        } else {
-            assert this.lastUsedLoanId.equals(otherManager.lastUsedLoanId);
-        }
-        assert this.isMaximumReached == otherManager.isMaximumReached;
-
-        return true;
-    }
-
     /**
      * Increment the last used ID value.
      */
@@ -154,5 +127,37 @@ public class LoanIdManager {
         isMaximumReached = false;
         this.lastUsedLoanId = lastUsedLoanId;
         lastUsedIdValue = lastUsedLoanId.value;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (this == other) {
+            return true;
+        }
+
+        if (!(other instanceof LoanIdManager)) {
+            return false;
+        }
+
+        LoanIdManager otherManager = (LoanIdManager) other;
+
+        if (this.lastUsedIdValue != otherManager.lastUsedIdValue) {
+            return false;
+        }
+
+        // If the lastUsedIdValue is equal, all the fields should be equal.
+        if (this.lastUsedLoanId == null) {
+            assert otherManager.lastUsedLoanId == null;
+        } else {
+            assert this.lastUsedLoanId.equals(otherManager.lastUsedLoanId);
+        }
+        assert this.isMaximumReached == otherManager.isMaximumReached;
+
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "(LastID: " + lastUsedIdValue + ")";
     }
 }

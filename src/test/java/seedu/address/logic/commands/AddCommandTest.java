@@ -20,7 +20,6 @@ import seedu.address.model.ReadOnlyLoanBook;
 import seedu.address.model.bike.Bike;
 import seedu.address.model.loan.Loan;
 import seedu.address.model.loan.Name;
-import seedu.address.model.loan.LoanId;
 import seedu.address.testutil.LoanBuilder;
 import seedu.address.testutil.ModelStub;
 

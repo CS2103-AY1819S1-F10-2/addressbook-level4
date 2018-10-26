@@ -11,7 +11,7 @@ import seedu.address.model.loan.LoanIdManager;
  */
 public class TypicalLoanBook {
 
-    public static final LoanId LAST_USED_LOAN_ID = LoanId.fromInt(765);
+    public static final LoanId LAST_USED_LOAN_ID = null;
 
     /**
      * Returns an {@code LoanBook} with all the typical bikes and loans.

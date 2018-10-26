@@ -13,9 +13,6 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Password;
 import seedu.address.testutil.ModelStub;
-import seedu.address.model.ReadOnlyLoanBook;
-import seedu.address.model.bike.Bike;
-import seedu.address.model.loan.Loan;
 import seedu.address.model.loan.LoanId;
 
 public class SetPasswordCommandTest {
