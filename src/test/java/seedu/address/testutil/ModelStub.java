@@ -1,5 +1,6 @@
 package seedu.address.testutil;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
 
@@ -51,6 +52,11 @@ public class ModelStub implements Model {
     }
 
     @Override
+    public void setBikes(List<Bike> bikes) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
     public ObservableList<Bike> getFilteredBikeList() {
         throw new AssertionError("This method should not be called.");
     }
@@ -77,6 +83,11 @@ public class ModelStub implements Model {
 
     @Override
     public void updateLoan(Loan target, Loan editedLoan) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void setLoans(List<Loan> loans) {
         throw new AssertionError("This method should not be called.");
     }
 

@@ -2,12 +2,14 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.Collections;
+
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.LoanBook;
 import seedu.address.model.Model;
 
 /**
- * Clears the loan book.
+ * Clears the loans in the loan book.
  */
 public class ClearCommand extends Command {
 
@@ -18,7 +20,7 @@ public class ClearCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
-        model.resetData(new LoanBook());
+        model.setLoans(Collections.emptyList());
         model.commitLoanBook();
         return new CommandResult(MESSAGE_SUCCESS);
     }

@@ -3,6 +3,7 @@ package seedu.address.model;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
@@ -95,6 +96,12 @@ public class ModelManager extends ComponentManager implements Model {
         indicateLoanBookChanged();
     }
 
+    @Override
+    public void setBikes(List<Bike> bikes) {
+        versionedLoanBook.setBikes(bikes);
+        indicateLoanBookChanged();
+    }
+
     //=========== Filtered Bike List Accessors =============================================================
 
     /**
@@ -134,13 +141,9 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public void setPass(Password pass) {
-        preference.setPass(pass);
-    }
-
-    @Override
-    public String getPass() {
-        return preference.getPass();
+    public void setLoans(List<Loan> loans) {
+        versionedLoanBook.setLoans(loans);
+        indicateLoanBookChanged();
     }
 
     @Override
@@ -195,6 +198,18 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void commitLoanBook() {
         versionedLoanBook.commit();
+    }
+
+    //=========== Password =================================================================================
+
+    @Override
+    public void setPass(Password pass) {
+        preference.setPass(pass);
+    }
+
+    @Override
+    public String getPass() {
+        return preference.getPass();
     }
 
     @Override

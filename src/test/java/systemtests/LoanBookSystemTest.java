@@ -163,7 +163,7 @@ public abstract class LoanBookSystemTest {
     }
 
     /**
-     * Deletes all loans in the loan book.
+     * Deletes everything in the loan book.
      */
     protected void deleteAllLoans() {
         executeCommand(ClearCommand.COMMAND_WORD);

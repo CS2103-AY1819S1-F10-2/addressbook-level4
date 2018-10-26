@@ -1,5 +1,6 @@
 package seedu.address.model;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
 
@@ -55,6 +56,12 @@ public interface Model {
     ObservableList<Bike> getFilteredBikeList();
 
     /**
+     * Replaces the contents of the bike list with {@code bikes}.
+     * {@code bikes} must not contain duplicate bikes.
+     */
+    void setBikes(List<Bike> bikes);
+
+    /**
      * Updates the filter of the filtered bike list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
      */
@@ -93,6 +100,12 @@ public interface Model {
      * The loan identity of {@code editedLoan} must not be the same as another existing loan in the loan book.
      */
     void updateLoan(Loan target, Loan editedLoan);
+
+    /**
+     * Replaces the contents of the loan list with {@code loans}.
+     * {@code loans} must not contain duplicate loans.
+     */
+    void setLoans(List<Loan> loans);
 
     /** Returns an unmodifiable view of the filtered loan list */
     ObservableList<Loan> getFilteredLoanList();
