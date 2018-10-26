@@ -41,20 +41,20 @@ public class LoanBookTest {
     }
 
     @Test
-    public void resetData_null_throwsNullPointerException() {
+    public void replaceData_null_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
         loanBook.replaceData(null);
     }
 
     @Test
-    public void resetData_withValidReadOnlyLoanBook_replacesData() {
+    public void replaceData_withValidReadOnlyLoanBook_replacesData() {
         LoanBook newData = getTypicalLoanBook();
         loanBook.replaceData(newData);
         assertEquals(newData, loanBook);
     }
 
     @Test
-    public void resetData_withDuplicateLoans_throwsDuplicateLoanException() {
+    public void replaceData_withDuplicateLoans_throwsDuplicateLoanException() {
         // Two loans with the same identity fields
         Loan editedAlice = new LoanBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
