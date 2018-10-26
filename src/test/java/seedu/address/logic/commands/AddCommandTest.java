@@ -85,7 +85,7 @@ public class AddCommandTest {
         // different loan -> returns false
         assertFalse(addAliceCommand.equals(addBobCommand));
     }
-    
+
     /**
      * A Model stub that contains a single loan.
      */
