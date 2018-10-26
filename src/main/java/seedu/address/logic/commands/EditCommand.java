@@ -5,7 +5,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_BIKE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_LOANRATE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_LOANTIME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NRIC;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
@@ -54,7 +53,6 @@ public class EditCommand extends Command {
             + "[" + PREFIX_ADDRESS + "ADDRESS] "
             + "[" + PREFIX_BIKE + "BIKE] "
             + "[" + PREFIX_LOANRATE + "LOANRATE] "
-            + "[" + PREFIX_LOANTIME + "LOANTIME] "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_PHONE + "91234567 "
@@ -115,7 +113,8 @@ public class EditCommand extends Command {
         Address updatedAddress = editLoanDescriptor.getAddress().orElse(loanToEdit.getAddress());
         Bike updatedBike = editLoanDescriptor.getBike().orElse(loanToEdit.getBike());
         LoanRate updatedRate = editLoanDescriptor.getLoanRate().orElse(loanToEdit.getLoanRate());
-        LoanTime updatedTime = editLoanDescriptor.getLoanTime().orElse(loanToEdit.getLoanTime());
+        LoanTime updatedStartTime = editLoanDescriptor.getLoanStartTime().orElse(loanToEdit.getLoanStartTime());
+        LoanTime updatedEndTime = editLoanDescriptor.getLoanEndTime().orElse(loanToEdit.getLoanEndTime());
         Set<Tag> updatedTags = editLoanDescriptor.getTags().orElse(loanToEdit.getTags());
         LoanStatus updatedLoanStatus = editLoanDescriptor.getLoanStatus().orElse(loanToEdit.getLoanStatus());
 
@@ -126,8 +125,10 @@ public class EditCommand extends Command {
                 updatedAddress,
                 updatedBike,
                 updatedRate,
-                updatedTime,
-                updatedLoanStatus, updatedTags
+                updatedStartTime,
+                updatedEndTime,
+                updatedLoanStatus,
+                updatedTags
         );
     }
 
@@ -161,7 +162,8 @@ public class EditCommand extends Command {
         private Address address;
         private Bike bike;
         private LoanRate rate;
-        private LoanTime time;
+        private LoanTime startTime;
+        private LoanTime endTime;
         private Set<Tag> tags;
         private LoanStatus loanStatus;
 
@@ -179,7 +181,8 @@ public class EditCommand extends Command {
             setAddress(toCopy.address);
             setBike(toCopy.bike);
             setLoanRate(toCopy.rate);
-            setLoanTime(toCopy.time);
+            setLoanStartTime(toCopy.startTime);
+            setLoanEndTime(toCopy.endTime);
             setTags(toCopy.tags);
             setLoanStatus(toCopy.loanStatus);
         }
@@ -247,12 +250,20 @@ public class EditCommand extends Command {
             return Optional.ofNullable(rate);
         }
 
-        public void setLoanTime(LoanTime time) {
-            this.time = time;
+        public void setLoanStartTime(LoanTime time) {
+            this.startTime = time;
         }
 
-        public Optional<LoanTime> getLoanTime() {
-            return Optional.ofNullable(time);
+        public Optional<LoanTime> getLoanStartTime() {
+            return Optional.ofNullable(startTime);
+        }
+
+        public void setLoanEndTime(LoanTime time) {
+            this.endTime = time;
+        }
+
+        public Optional<LoanTime> getLoanEndTime() {
+            return Optional.ofNullable(endTime);
         }
 
         /**
@@ -302,7 +313,6 @@ public class EditCommand extends Command {
                     && getAddress().equals(e.getAddress())
                     && getBike().equals(e.getBike())
                     && getLoanRate().equals(e.getLoanRate())
-                    && getLoanTime().equals(e.getLoanTime())
                     && getTags().equals(e.getTags());
         }
     }

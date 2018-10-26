@@ -227,4 +227,18 @@ public class LoanTime extends DataField<Instant> {
 
         return dateTimeFormatter.format(value);
     }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof LoanTime)) {
+            return false;
+        }
+
+        return this.value.getEpochSecond() == ((LoanTime) other).value.getEpochSecond();
+
+    }
 }

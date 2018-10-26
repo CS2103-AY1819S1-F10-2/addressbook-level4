@@ -22,7 +22,8 @@
         <loanStatus>ONGOING</loanStatus>
         <bike>BIKE001</bike>
         <rate>1.1</rate>
-        <time>12:33</time>
+        <startTime>12:33</startTime>
+        <endTime>14:13</endTime>
         <tagged>friends</tagged>
     </loans>
     <loans>
@@ -34,7 +35,8 @@
         <loanStatus>ONGOING</loanStatus>
         <bike>BIKE001</bike>
         <rate>0.15</rate>
-        <time>2017-10-12 06:08</time>
+        <startTime>2017-10-12 12:08</startTime>
+        <endTime>2017-10-12 06:08</endTime>
         <tagged>owesMoney</tagged>
         <tagged>friends</tagged>
     </loans>
@@ -47,7 +49,8 @@
         <loanStatus>ONGOING</loanStatus>
         <bike>BIKE001</bike>
         <rate>23.9</rate>
-        <time>14:20</time>
+        <startTime>14:20</startTime>
+        <endTime>18:22</endTime>
     </loans>
     <loans>
         <name>Daniel Meier</name>
@@ -58,7 +61,8 @@
         <address>10th street</address>
         <bike>BIKE002</bike>
         <rate>9.0</rate>
-        <time>17:56</time>
+        <startTime>17:56</startTime>
+        <endTime>18:22</endTime>
         <tagged>friends</tagged>
     </loans>
     <loans>
@@ -70,7 +74,8 @@
         <address>michegan ave</address>
         <bike>BIKE002</bike>
         <rate>5.55</rate>
-        <time>2010-12-30 10:30</time>
+        <startTime>2010-12-30 10:30</startTime>
+        <endTime>2011-12-30 12:30</endTime>
     </loans>
     <loans>
         <name>Fiona Kunz</name>
@@ -81,7 +86,8 @@
         <address>little tokyo</address>
         <bike>BIKE002</bike>
         <rate>33.3</rate>
-        <time>01:01</time>
+        <startTime>01:01</startTime>
+        <endTime>21:01</endTime>
     </loans>
     <loans>
         <name>George Best</name>
@@ -92,6 +98,7 @@
         <address>4th street</address>
         <bike>BIKE002</bike>
         <rate>5.05</rate>
-        <time>2013-03-13 12:08</time>
+        <startTime>2013-03-13 12:08</startTime>
+        <endTime>2013-05-14 12:18</endTime>
     </loans>
 </loanbook>

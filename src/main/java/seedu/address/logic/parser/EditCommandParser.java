@@ -6,7 +6,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_BIKE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_LOANRATE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_LOANTIME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NRIC;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
@@ -37,7 +36,7 @@ public class EditCommandParser implements Parser<EditCommand> {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_NRIC, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS,
-                        PREFIX_BIKE, PREFIX_LOANRATE, PREFIX_LOANTIME, PREFIX_TAG);
+                        PREFIX_BIKE, PREFIX_LOANRATE, PREFIX_TAG);
 
         Index index;
 
@@ -68,9 +67,6 @@ public class EditCommandParser implements Parser<EditCommand> {
         }
         if (argMultimap.getValue(PREFIX_LOANRATE).isPresent()) {
             editLoanDescriptor.setLoanRate(ParserUtil.parseLoanRate(argMultimap.getValue(PREFIX_LOANRATE).get()));
-        }
-        if (argMultimap.getValue(PREFIX_LOANTIME).isPresent()) {
-            editLoanDescriptor.setLoanTime(ParserUtil.parseLoanTime(argMultimap.getValue(PREFIX_LOANTIME).get()));
         }
         parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(editLoanDescriptor::setTags);
 

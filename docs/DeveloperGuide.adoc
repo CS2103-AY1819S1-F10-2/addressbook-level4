@@ -318,6 +318,61 @@ image::UndoRedoActivityDiagram.png[width="650"]
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
 
+// tag::adminauthentication[]
+=== Admin Authentication
+Before critical actions such as deleting a loan can be performed, admin authentication
+should be required. This ensures that only authorized users are able to perform critical actions.
+This is done by requiring a password before performing a critical action.
+
+* Current Implementation *
+There are three stages in this implementation:
+
+===== Allowing the `delete` command to accept a password
+1. To allow `delete` command to accept a password, we set a stub password of `a12345` and require all `delete` command to take in a password argument.
+* When password is wrong, we do not perform the deletion of the loans.
+* Only when password matches with stub password will the loan be deleted.
+2. Existing tests were edited to include and check for a valid password before deletion.
+
+[NOTE]
+The default password for a new app is `a12345`.
+
+The following sequence diagram shows how the new `delete` operation works.
+
+image::deleteLoanWithPass.png[width="1000"]
+
+===== Allow changing of master password
+
+Given below is an example usage scenario and how the `setpass` mechanism behaves at each step.
+
+Step 1. The user launches the application for the first time. `UserPref` file will initialise the password as `a12345`.
+
+Step 2. The user executes `setpass a12345 newP4sS` command to change the password to `newP4sS`.
+
+Step 3. `Password` class will encrypt the password, and call Model#setPass, that changes the password of the application in `UserPref`.
+
+[NOTE]
+If the current password input is wrong, it will not call Model#setPass, so the UserPref state will not be saved.
+
+[NOTE]
+If the current password input the same as the new password input, it will not call Model#setPass, so the UserPref state will not be saved.
+
+Step 4. Password in `UserPref` is set to new password input.
+
+The following sequence diagram shows how the `setpass` operation works:
+
+image::setPasswordLogic.png[width="1000"]
+
+image::setPasswordModel.png[width="1000"]
+
+===== Encrypt current password for security
+To ensure that others are unable to retrieve the app's password from the preference.json, we encrypt the password before storing. Decryption of password can only be done by the `Password` class.
+
+This is currently done by appending `-encrypt` to the password, and removing it when
+decrypting. For version 2.0, we plan to utilise existing libraries to encrypt and
+decrypt our stored password.
+
+// end::userconfirmation[]
+
 === Return a Loan feature
 ==== Proposed Implementation
 
@@ -524,9 +579,15 @@ When showing a new loan, it will do the following operations:
 
 * `Nric#getCensored()` -- censor the Nric value and hide the first five digital numbers. Then it returns the censored String.
 
+* `Nric#doCensoring(int length)` -- Take in the length of the Nric String and return the censored part ("x" part) according to the length.
+
 * `Phone#getCensored()` -- censor the phone number and hide the first five digital numbers. Then it returns the censored String.
 
+* `Phone#doCensoring(int length)` -- Take in the length of the Phone String and return the censored part ("x" part) according to the length.
+
 * `Email#getCensored()` -- censor the email address and hide every characters except the last two characters in the local-part and the domain.
+
+* `Email#doCensoring(int length)` -- Take in the length of the Email String and return the censored part ("x" part) according to the length.
 
 Given below is an example usage scenario and how this mechanism behaves at each step.
 
@@ -537,6 +598,7 @@ The `LoanCard` object will contain information on the loan: `LoanID`, `BikeID`, 
 For example: `name.setText(loan.getName().value);` will directly assign the name String of this loan to the `name` label. +
 
 However, the values of `Nric`, `Phone` and `Email` need censoring before assigning their values, so they will call their own `getCensored()` method in their class. +
+`getCensored()` in each of these class will call their corresponding `doCensoring(int)` method. Then combine the censored part and remain part and return. +
 For example: `phone.setText(loan.getPhone().getCensored().value);` will censor the value of the phone String of this loan and then assign the censored value to the `phone` label.
 
 The following sequence diagram shows how this operation works:
@@ -545,7 +607,7 @@ image::HideInfoSequenceDiagrams.png[]
 
 ==== Design Considerations
 
-**Aspect: How to execute getCensored()**
+**Aspect: How to execute getCensored() and doCensoring(int)**
 
 * **Alternative 1 (current choice)**: each class implements from `Censor` interface.
 ** Pros: Easy to implement.

@@ -11,15 +11,12 @@ import static seedu.address.logic.commands.CommandTestUtil.INVALID_ADDRESS_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_BIKE_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_EMAIL_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_LOANRATE_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_LOANTIME_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_NRIC_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_PHONE_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.LOANRATE_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.LOANRATE_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.LOANTIME_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.LOANTIME_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.NRIC_DESC_AMY;
@@ -47,7 +44,6 @@ import seedu.address.logic.commands.AddCommand;
 import seedu.address.model.loan.Email;
 import seedu.address.model.loan.Loan;
 import seedu.address.model.loan.LoanRate;
-import seedu.address.model.loan.LoanTime;
 import seedu.address.model.loan.Name;
 import seedu.address.model.loan.Nric;
 import seedu.address.model.loan.Phone;
@@ -64,53 +60,53 @@ public class AddCommandParserTest {
         // whitespace only preamble
         assertParseSuccess(parser, PREAMBLE_WHITESPACE + NAME_DESC_BOB + NRIC_DESC_BOB + PHONE_DESC_BOB
                 + EMAIL_DESC_BOB + ADDRESS_DESC_BOB
-                + BIKE_DESC_BOB + LOANRATE_DESC_BOB + LOANTIME_DESC_BOB
+                + BIKE_DESC_BOB + LOANRATE_DESC_BOB
                 + TAG_DESC_FRIEND, new AddCommand(expectedLoan));
 
         // multiple names - last name accepted
         assertParseSuccess(parser, NAME_DESC_AMY + NAME_DESC_BOB + NRIC_DESC_BOB + PHONE_DESC_BOB
                 + EMAIL_DESC_BOB + ADDRESS_DESC_BOB
-                + BIKE_DESC_BOB + LOANRATE_DESC_BOB + LOANTIME_DESC_BOB
+                + BIKE_DESC_BOB + LOANRATE_DESC_BOB
                 + TAG_DESC_FRIEND, new AddCommand(expectedLoan));
 
         // multiple nrics - last nric accepted
         assertParseSuccess(parser, NAME_DESC_BOB + NRIC_DESC_AMY + NRIC_DESC_BOB + PHONE_DESC_BOB
                 + EMAIL_DESC_BOB + ADDRESS_DESC_BOB
-                + BIKE_DESC_BOB + LOANRATE_DESC_BOB + LOANTIME_DESC_BOB
+                + BIKE_DESC_BOB + LOANRATE_DESC_BOB
                 + TAG_DESC_FRIEND, new AddCommand(expectedLoan));
 
         // multiple phones - last phone accepted
         assertParseSuccess(parser, NAME_DESC_BOB + NRIC_DESC_BOB + PHONE_DESC_AMY + PHONE_DESC_BOB
                 + EMAIL_DESC_BOB + ADDRESS_DESC_BOB
-                + BIKE_DESC_BOB + LOANRATE_DESC_BOB + LOANTIME_DESC_BOB
+                + BIKE_DESC_BOB + LOANRATE_DESC_BOB
                 + TAG_DESC_FRIEND, new AddCommand(expectedLoan));
 
         // multiple emails - last email accepted
         assertParseSuccess(parser, NAME_DESC_BOB + NRIC_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_AMY
                 + EMAIL_DESC_BOB + ADDRESS_DESC_BOB
-                + BIKE_DESC_BOB + LOANRATE_DESC_BOB + LOANTIME_DESC_BOB
+                + BIKE_DESC_BOB + LOANRATE_DESC_BOB
                 + TAG_DESC_FRIEND, new AddCommand(expectedLoan));
 
         // multiple bikes - last bike accepted
         assertParseSuccess(parser, NAME_DESC_BOB + NRIC_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
-                + ADDRESS_DESC_BOB + BIKE_DESC_AMY + BIKE_DESC_BOB + LOANRATE_DESC_BOB + LOANTIME_DESC_BOB
+                + ADDRESS_DESC_BOB + BIKE_DESC_AMY + BIKE_DESC_BOB + LOANRATE_DESC_BOB
                 + TAG_DESC_FRIEND, new AddCommand(expectedLoan));
 
         // multiple rates - last rate accepted
         assertParseSuccess(parser, NAME_DESC_BOB + NRIC_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
-                + ADDRESS_DESC_BOB + BIKE_DESC_BOB + LOANRATE_DESC_AMY + LOANRATE_DESC_BOB + LOANTIME_DESC_BOB
+                + ADDRESS_DESC_BOB + BIKE_DESC_BOB + LOANRATE_DESC_AMY + LOANRATE_DESC_BOB
                 + TAG_DESC_FRIEND, new AddCommand(expectedLoan));
 
         // multiple times - last time accepted
         assertParseSuccess(parser, NAME_DESC_BOB + NRIC_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
-                + ADDRESS_DESC_BOB + BIKE_DESC_BOB + LOANRATE_DESC_BOB + LOANTIME_DESC_AMY + LOANTIME_DESC_BOB
+                + ADDRESS_DESC_BOB + BIKE_DESC_BOB + LOANRATE_DESC_BOB
                 + TAG_DESC_FRIEND, new AddCommand(expectedLoan));
 
         // multiple tags - all accepted
         Loan expectedLoanMultipleTags = new LoanBuilder(BOB).withTags(VALID_TAG_FRIEND, VALID_TAG_HUSBAND)
                 .build();
         assertParseSuccess(parser, NAME_DESC_BOB + NRIC_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
-                + ADDRESS_DESC_BOB + BIKE_DESC_BOB + LOANRATE_DESC_BOB + LOANTIME_DESC_BOB
+                + ADDRESS_DESC_BOB + BIKE_DESC_BOB + LOANRATE_DESC_BOB
                 + TAG_DESC_HUSBAND + TAG_DESC_FRIEND, new AddCommand(expectedLoanMultipleTags));
     }
 
@@ -119,7 +115,7 @@ public class AddCommandParserTest {
         // zero tags
         Loan expectedLoan = new LoanBuilder(AMY).withTags().build();
         assertParseSuccess(parser, NAME_DESC_AMY + NRIC_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY
-                        + ADDRESS_DESC_AMY + BIKE_DESC_AMY + LOANRATE_DESC_AMY + LOANTIME_DESC_AMY,
+                        + ADDRESS_DESC_AMY + BIKE_DESC_AMY + LOANRATE_DESC_AMY,
                 new AddCommand(expectedLoan));
     }
 
@@ -152,52 +148,47 @@ public class AddCommandParserTest {
     public void parse_invalidValue_failure() {
         // invalid name
         assertParseFailure(parser, INVALID_NAME_DESC + NRIC_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
-                + ADDRESS_DESC_BOB + BIKE_DESC_BOB + LOANRATE_DESC_BOB + LOANTIME_DESC_BOB
+                + ADDRESS_DESC_BOB + BIKE_DESC_BOB + LOANRATE_DESC_BOB
                 + TAG_DESC_HUSBAND + TAG_DESC_FRIEND, Name.MESSAGE_NAME_CONSTRAINTS);
 
         // invalid nric
         assertParseFailure(parser, NAME_DESC_BOB + INVALID_NRIC_DESC + PHONE_DESC_BOB + EMAIL_DESC_BOB
-                + ADDRESS_DESC_BOB + BIKE_DESC_BOB + LOANRATE_DESC_BOB + LOANTIME_DESC_BOB
+                + ADDRESS_DESC_BOB + BIKE_DESC_BOB + LOANRATE_DESC_BOB
                 + TAG_DESC_HUSBAND + TAG_DESC_FRIEND, Nric.MESSAGE_NRIC_CONSTRAINTS);
 
         // invalid phone
         assertParseFailure(parser, NAME_DESC_BOB + NRIC_DESC_BOB + INVALID_PHONE_DESC + EMAIL_DESC_BOB
-                + ADDRESS_DESC_BOB + BIKE_DESC_BOB + LOANRATE_DESC_BOB + LOANTIME_DESC_BOB
+                + ADDRESS_DESC_BOB + BIKE_DESC_BOB + LOANRATE_DESC_BOB
                 + TAG_DESC_HUSBAND + TAG_DESC_FRIEND, Phone.MESSAGE_PHONE_CONSTRAINTS);
 
         // invalid email
         assertParseFailure(parser, NAME_DESC_BOB + NRIC_DESC_BOB + PHONE_DESC_BOB + INVALID_EMAIL_DESC
-                + ADDRESS_DESC_BOB + BIKE_DESC_BOB + LOANRATE_DESC_BOB + LOANTIME_DESC_BOB
+                + ADDRESS_DESC_BOB + BIKE_DESC_BOB + LOANRATE_DESC_BOB
                 + TAG_DESC_HUSBAND + TAG_DESC_FRIEND, Email.MESSAGE_EMAIL_CONSTRAINTS);
 
         // invalid bike
         assertParseFailure(parser, NAME_DESC_BOB + NRIC_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
-                + ADDRESS_DESC_BOB + INVALID_BIKE_DESC + LOANRATE_DESC_BOB + LOANTIME_DESC_BOB
+                + ADDRESS_DESC_BOB + INVALID_BIKE_DESC + LOANRATE_DESC_BOB
                 + TAG_DESC_HUSBAND + TAG_DESC_FRIEND, Name.MESSAGE_NAME_CONSTRAINTS);
 
         // invalid rate
         assertParseFailure(parser, NAME_DESC_BOB + NRIC_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
-                + ADDRESS_DESC_BOB + BIKE_DESC_BOB + INVALID_LOANRATE_DESC + LOANTIME_DESC_BOB
+                + ADDRESS_DESC_BOB + BIKE_DESC_BOB + INVALID_LOANRATE_DESC
                 + TAG_DESC_HUSBAND + TAG_DESC_FRIEND, LoanRate.MESSAGE_LOANRATE_CONSTRAINTS);
-
-        // invalid time
-        assertParseFailure(parser, NAME_DESC_BOB + NRIC_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
-                + ADDRESS_DESC_BOB + BIKE_DESC_BOB + LOANRATE_DESC_BOB + INVALID_LOANTIME_DESC
-                + TAG_DESC_HUSBAND + TAG_DESC_FRIEND, LoanTime.MESSAGE_LOANTIME_CONSTRAINTS);
 
         // invalid tag
         assertParseFailure(parser, NAME_DESC_BOB + NRIC_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
-                + ADDRESS_DESC_BOB + BIKE_DESC_BOB + LOANRATE_DESC_BOB + LOANTIME_DESC_BOB
+                + ADDRESS_DESC_BOB + BIKE_DESC_BOB + LOANRATE_DESC_BOB
                 + INVALID_TAG_DESC + VALID_TAG_FRIEND, Tag.MESSAGE_TAG_CONSTRAINTS);
 
         // two invalid values, only first invalid value reported
         assertParseFailure(parser, INVALID_NAME_DESC + NRIC_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
-                + INVALID_ADDRESS_DESC + INVALID_BIKE_DESC + LOANRATE_DESC_BOB + LOANTIME_DESC_BOB,
+                + INVALID_ADDRESS_DESC + INVALID_BIKE_DESC + LOANRATE_DESC_BOB,
                 Name.MESSAGE_NAME_CONSTRAINTS);
 
         // non-empty preamble
         assertParseFailure(parser, PREAMBLE_NON_EMPTY + NAME_DESC_BOB + NRIC_DESC_BOB + PHONE_DESC_BOB
-                + EMAIL_DESC_BOB + ADDRESS_DESC_BOB + BIKE_DESC_BOB + LOANRATE_DESC_BOB + LOANTIME_DESC_BOB
+                + EMAIL_DESC_BOB + ADDRESS_DESC_BOB + BIKE_DESC_BOB + LOANRATE_DESC_BOB
                 + TAG_DESC_HUSBAND + TAG_DESC_FRIEND,
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
     }

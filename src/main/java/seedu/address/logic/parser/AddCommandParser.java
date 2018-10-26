@@ -5,7 +5,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_BIKE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_LOANRATE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_LOANTIME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NRIC;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
@@ -21,7 +20,6 @@ import seedu.address.model.loan.Address;
 import seedu.address.model.loan.Email;
 import seedu.address.model.loan.Loan;
 import seedu.address.model.loan.LoanRate;
-import seedu.address.model.loan.LoanTime;
 import seedu.address.model.loan.Name;
 import seedu.address.model.loan.Nric;
 import seedu.address.model.loan.Phone;
@@ -47,7 +45,6 @@ public class AddCommandParser implements Parser<AddCommand> {
                         PREFIX_ADDRESS,
                         PREFIX_BIKE,
                         PREFIX_LOANRATE,
-                        PREFIX_LOANTIME,
                         PREFIX_TAG);
 
         if (!arePrefixesPresent(argMultimap,
@@ -57,8 +54,7 @@ public class AddCommandParser implements Parser<AddCommand> {
                 PREFIX_EMAIL,
                 PREFIX_ADDRESS,
                 PREFIX_BIKE,
-                PREFIX_LOANRATE,
-                PREFIX_LOANTIME)
+                PREFIX_LOANRATE)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
@@ -70,10 +66,9 @@ public class AddCommandParser implements Parser<AddCommand> {
         Address address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get());
         Bike bike = ParserUtil.parseBike(argMultimap.getValue(PREFIX_BIKE).get());
         LoanRate rate = ParserUtil.parseLoanRate(argMultimap.getValue(PREFIX_LOANRATE).get());
-        LoanTime time = ParserUtil.parseLoanTime(argMultimap.getValue(PREFIX_LOANTIME).get());
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
-        Loan loan = new Loan(name, nric, phone, email, address, bike, rate, time, tagList);
+        Loan loan = new Loan(name, nric, phone, email, address, bike, rate, tagList);
 
         return new AddCommand(loan);
     }

@@ -43,7 +43,9 @@ public class LoanCard extends UiPart<Region> {
     @FXML
     private Label rate;
     @FXML
-    private Label time;
+    private Label startTime;
+    @FXML
+    private Label endTime;
     @FXML
     private FlowPane tags;
 
@@ -57,7 +59,9 @@ public class LoanCard extends UiPart<Region> {
         email.setText(loan.getEmail().getCensored());
         bike.setText(loan.getBike().getName().value);
         rate.setText(loan.getLoanRate().toString());
-        time.setText(loan.getLoanTime().toString());
+        startTime.setText(loan.getLoanStartTime().toString());
+        // TODO Set the endtime to display correctly here
+        endTime.setText("PLACEHOLDER");
         initTags(loan);
     }
 

@@ -21,7 +21,8 @@ public class LoanCardHandle extends NodeHandle<Node> {
     private static final String EMAIL_FIELD_ID = "#email";
     private static final String BIKE_FIELD_ID = "#bike";
     private static final String LOANRATE_FIELD_ID = "#rate";
-    private static final String LOANTIME_FIELD_ID = "#time";
+    private static final String LOANSTARTTIME_FIELD_ID = "#startTime";
+    private static final String LOANENDTIME_FIELD_ID = "#endTime";
     private static final String TAGS_FIELD_ID = "#tags";
 
     private final Label idLabel;
@@ -31,7 +32,8 @@ public class LoanCardHandle extends NodeHandle<Node> {
     private final Label emailLabel;
     private final Label bikeLabel;
     private final Label rateLabel;
-    private final Label timeLabel;
+    private final Label startTimeLabel;
+    private final Label endTimeLabel;
     private final List<Label> tagLabels;
 
     public LoanCardHandle(Node cardNode) {
@@ -44,7 +46,8 @@ public class LoanCardHandle extends NodeHandle<Node> {
         emailLabel = getChildNode(EMAIL_FIELD_ID);
         bikeLabel = getChildNode(BIKE_FIELD_ID);
         rateLabel = getChildNode(LOANRATE_FIELD_ID);
-        timeLabel = getChildNode(LOANTIME_FIELD_ID);
+        startTimeLabel = getChildNode(LOANSTARTTIME_FIELD_ID);
+        endTimeLabel = getChildNode(LOANENDTIME_FIELD_ID);
 
         Region tagsContainer = getChildNode(TAGS_FIELD_ID);
         tagLabels = tagsContainer
@@ -82,8 +85,12 @@ public class LoanCardHandle extends NodeHandle<Node> {
         return rateLabel.getText();
     }
 
-    public String getLoanTime() {
-        return timeLabel.getText();
+    public String getLoanStartTime() {
+        return startTimeLabel.getText();
+    }
+
+    public String getLoanEndTime() {
+        return endTimeLabel.getText();
     }
 
     public List<String> getTags() {
@@ -112,7 +119,7 @@ public class LoanCardHandle extends NodeHandle<Node> {
                 && getEmail().equals(loan.getEmail().getCensored())
                 && getBike().equals(loan.getBike().getName().value)
                 && getLoanRate().equals(loan.getLoanRate().toString())
-                && getLoanTime().equals(loan.getLoanTime().toString())
+                && getLoanStartTime().equals(loan.getLoanStartTime().toString())
                 && ImmutableMultiset.copyOf(getTags()).equals(ImmutableMultiset.copyOf(loan.getTags().stream()
                         .map(tag -> tag.value)
                         .collect(Collectors.toList())));
