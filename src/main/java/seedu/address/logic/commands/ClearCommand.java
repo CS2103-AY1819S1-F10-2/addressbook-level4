@@ -5,7 +5,6 @@ import static java.util.Objects.requireNonNull;
 import java.util.Collections;
 
 import seedu.address.logic.CommandHistory;
-import seedu.address.model.LoanBook;
 import seedu.address.model.Model;
 
 /**
