@@ -1,5 +1,7 @@
 package seedu.address.model;
 
+import java.util.List;
+import java.util.Optional;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
@@ -17,7 +19,7 @@ public interface Model {
     Predicate<Loan> PREDICATE_SHOW_ALL_LOANS = unused -> true;
 
     /** Clears existing backing model and replaces with the provided new data. */
-    void resetData(ReadOnlyLoanBook newData);
+    void replaceData(ReadOnlyLoanBook newData);
 
     /** Returns the LoanBook */
     ReadOnlyLoanBook getLoanBook();
@@ -26,6 +28,11 @@ public interface Model {
      * Returns true if a bike with the same identity as {@code bike} exists in the loan book.
      */
     boolean hasBike(Bike bike);
+
+    /**
+     * Returns a bike in the list whose name matches {@code bikeName}.
+     */
+    Optional<Bike> getBike(String bikeName);
 
     /**
      * Adds the given bike.
@@ -48,6 +55,12 @@ public interface Model {
 
     /** Returns an unmodifiable view of the filtered bike list */
     ObservableList<Bike> getFilteredBikeList();
+
+    /**
+     * Replaces the contents of the bike list with {@code bikes}.
+     * {@code bikes} must not contain duplicate bikes.
+     */
+    void setBikes(List<Bike> bikes);
 
     /**
      * Updates the filter of the filtered bike list to filter by the given {@code predicate}.
@@ -81,6 +94,11 @@ public interface Model {
     boolean hasNextAvailableId();
 
     /**
+     * Resets the Loan ID Manager.
+     */
+    void resetId();
+
+    /**
      * Adds the given loan.
      * {@code loan} must not already exist in the loan book.
      */
@@ -98,6 +116,17 @@ public interface Model {
      * The loan identity of {@code editedLoan} must not be the same as another existing loan in the loan book.
      */
     void updateLoan(Loan target, Loan editedLoan);
+
+    /**
+     * Replaces the contents of the loan list with {@code loans}.
+     * {@code loans} must not contain duplicate loans.
+     */
+    void setLoans(List<Loan> loans);
+
+    /**
+     * Clears the loan list and resets the loan ID.
+     */
+    void resetLoans();
 
     /** Returns an unmodifiable view of the filtered loan list */
     ObservableList<Loan> getFilteredLoanList();

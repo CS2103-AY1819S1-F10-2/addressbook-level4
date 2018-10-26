@@ -1,5 +1,7 @@
 package seedu.address.testutil;
 
+import java.util.List;
+import java.util.Optional;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
@@ -15,7 +17,7 @@ import seedu.address.model.loan.LoanId;
  */
 public class ModelStub implements Model {
     @Override
-    public void resetData(ReadOnlyLoanBook newData) {
+    public void replaceData(ReadOnlyLoanBook newData) {
         throw new AssertionError("This method should not be called.");
     }
 
@@ -26,6 +28,12 @@ public class ModelStub implements Model {
 
     @Override
     public boolean hasBike(Bike bike) {
+        throw new AssertionError(
+            "This method should not be called.");
+    }
+
+    @Override
+    public Optional<Bike> getBike(String bikeName) {
         throw new AssertionError("This method should not be called.");
     }
 
@@ -41,6 +49,11 @@ public class ModelStub implements Model {
 
     @Override
     public void updateBike(Bike target, Bike editedBike) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void setBikes(List<Bike> bikes) {
         throw new AssertionError("This method should not be called.");
     }
 
@@ -71,6 +84,16 @@ public class ModelStub implements Model {
 
     @Override
     public void updateLoan(Loan target, Loan editedLoan) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void setLoans(List<Loan> loans) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void resetLoans() {
         throw new AssertionError("This method should not be called.");
     }
 
@@ -121,6 +144,11 @@ public class ModelStub implements Model {
 
     @Override
     public boolean hasNextAvailableId() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void resetId() {
         throw new AssertionError("This method should not be called.");
     }
 

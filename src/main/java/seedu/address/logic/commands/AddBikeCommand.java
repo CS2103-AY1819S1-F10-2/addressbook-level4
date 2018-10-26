@@ -15,14 +15,14 @@ public class AddBikeCommand extends Command {
 
     public static final String COMMAND_WORD = "addbike";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a bike to the address book. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a bike to the loan book. "
         + "Parameters: "
         + PREFIX_NAME + "NAME\n"
         + "Example: " + COMMAND_WORD + " "
         + PREFIX_NAME + "Bike001";
 
     public static final String MESSAGE_SUCCESS = "New bike added: %1$s";
-    public static final String MESSAGE_DUPLICATE_BIKE = "A bike with the same name already exists in the address book";
+    public static final String MESSAGE_DUPLICATE_BIKE = "A bike with the same name already exists in the loan book";
 
     private final Bike toAdd;
 

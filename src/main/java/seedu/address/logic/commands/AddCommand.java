@@ -10,9 +10,12 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NRIC;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
+import java.util.Optional;
+
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.bike.Bike;
 import seedu.address.model.loan.Loan;
 
 /**
@@ -45,6 +48,7 @@ public class AddCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "New loan added: %1$s";
     public static final String MESSAGE_DUPLICATE_LOAN = "This loan already exists in the loan book";
+    public static final String MESSAGE_BIKE_NOT_FOUND = "No bike with that name exists within the loan book";
 
     private final Loan toAdd;
 
@@ -64,9 +68,15 @@ public class AddCommand extends Command {
             throw new CommandException(MESSAGE_DUPLICATE_LOAN);
         }
 
-        model.addLoan(toAdd);
+        Optional<Bike> actualBike = model.getBike(toAdd.getBike().getName().value);
+        if (!actualBike.isPresent()) {
+            throw new CommandException(MESSAGE_BIKE_NOT_FOUND);
+        }
+        Loan actualLoan = new Loan(toAdd, actualBike.get());
+
+        model.addLoan(actualLoan);
         model.commitLoanBook();
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, actualLoan));
     }
 
     @Override

@@ -34,8 +34,8 @@ public class XmlSerializableLoanBookTest {
         XmlSerializableLoanBook dataFromFile = XmlUtil.getDataFromFile(TYPICAL_LOANBOOK_FILE,
             XmlSerializableLoanBook.class);
         LoanBook loanBookFromFile = dataFromFile.toModelType();
-        LoanBook typicalLoansLoanBook = TypicalLoanBook.getTypicalLoanBook();
-        assertEquals(loanBookFromFile, typicalLoansLoanBook);
+        LoanBook typicalLoanBook = TypicalLoanBook.getTypicalLoanBook();
+        assertEquals(loanBookFromFile, typicalLoanBook);
     }
 
     @Test

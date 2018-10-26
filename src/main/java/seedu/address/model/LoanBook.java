@@ -4,6 +4,7 @@ import static java.util.Objects.hash;
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;
+import java.util.Optional;
 
 import javafx.collections.ObservableList;
 import seedu.address.model.bike.Bike;
@@ -23,27 +24,21 @@ public class LoanBook implements ReadOnlyLoanBook {
     private final UniqueLoanList loans;
     private final LoanIdManager loanIdManager;
 
-    /*
-     * The 'unusual' code block below is an non-static initialization block, sometimes used to avoid duplication
-     * between constructors. See https://docs.oracle.com/javase/tutorial/java/javaOO/initial.html
-     *
-     * Note that non-static init blocks are not recommended to use. There are other ways to avoid duplication
-     *   among constructors.
+    /**
+     * Default constructor.
      */
-    {
+    public LoanBook() {
         bikes = new UniqueBikeList();
         loans = new UniqueLoanList();
         loanIdManager = new LoanIdManager();
     }
-
-    public LoanBook() {}
 
     /**
      * Creates an LoanBook using the Bikes and Loans in the {@code toBeCopied}
      */
     public LoanBook(ReadOnlyLoanBook toBeCopied) {
         this();
-        resetData(toBeCopied);
+        replaceData(toBeCopied);
     }
 
     //// list overwrite operations
@@ -72,9 +67,9 @@ public class LoanBook implements ReadOnlyLoanBook {
     }
 
     /**
-     * Resets the existing data of this {@code LoanBook} with {@code newData}.
+     * Replaces the existing data of this {@code LoanBook} with {@code newData}.
      */
-    public void resetData(ReadOnlyLoanBook newData) {
+    public void replaceData(ReadOnlyLoanBook newData) {
         requireNonNull(newData);
 
         setBikes(newData.getBikeList());
@@ -90,6 +85,13 @@ public class LoanBook implements ReadOnlyLoanBook {
     public boolean hasBike(Bike bike) {
         requireNonNull(bike);
         return bikes.contains(bike);
+    }
+
+    /**
+     * Returns a bike in the list whose name matches {@code bikeName}.
+     */
+    public Optional<Bike> getBike(String bikeName) {
+        return bikes.getBike(bikeName);
     }
 
     /**
@@ -174,12 +176,20 @@ public class LoanBook implements ReadOnlyLoanBook {
         return loanIdManager.hasNextAvailableLoanId();
     }
 
+    /**
+     * Resets the Loan ID Manager.
+     */
+    public void resetId() {
+        this.loanIdManager.reset();
+    }
+
     //// util methods
 
     @Override
     public String toString() {
-        return loans.asUnmodifiableObservableList().size() + " loans"
-             + bikes.asUnmodifiableObservableList().size() + " bikes";
+        return loans.asUnmodifiableObservableList().size() + " loans, "
+             + bikes.asUnmodifiableObservableList().size() + " bikes, "
+             + "LoanIdManager: " + loanIdManager.toString();
         // TODO: refine later
     }
 
@@ -200,16 +210,22 @@ public class LoanBook implements ReadOnlyLoanBook {
 
     @Override
     public boolean equals(Object other) {
-        return other == this // short circuit if same object
-                || (other instanceof LoanBook // instanceof handles nulls
-                && loans.equals(((LoanBook) other).loans)
-                && bikes.equals(((LoanBook) other).bikes))
-                && loanIdManager.equals(((LoanBook) other).loanIdManager);
+        if (other == this) {
+            return true; // short circuit if same object
+        }
+        if (!(other instanceof LoanBook)) { // instanceof handles nulls
+            return false;
+        }
+        LoanBook otherLoanBook = (LoanBook) other;
+
+        return loans.equals(otherLoanBook.loans)
+                && bikes.equals(otherLoanBook.bikes)
+                && loanIdManager.equals(otherLoanBook.loanIdManager);
     }
 
     @Override
     public int hashCode() {
         // Use Objects.hash()
-        return hash(bikes, loans);
+        return hash(bikes, loans, loanIdManager);
     }
 }

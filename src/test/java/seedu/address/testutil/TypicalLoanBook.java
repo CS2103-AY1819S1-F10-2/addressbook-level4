@@ -11,8 +11,6 @@ import seedu.address.model.loan.LoanIdManager;
  */
 public class TypicalLoanBook {
 
-    public static final LoanId LAST_USED_LOAN_ID = LoanId.fromInt(765);
-
     /**
      * Returns an {@code LoanBook} with all the typical bikes and loans.
      */
@@ -25,7 +23,10 @@ public class TypicalLoanBook {
             lb.addLoan(loan);
         }
 
-        lb.setLoanIdManager(new LoanIdManager(LAST_USED_LOAN_ID));
+        int lastUsedId = lb.getLoanList().size() + LoanId.MINIMUM_ID - 1;
+        LoanId lastUsedLoanId = LoanId.isValidLoanId(lastUsedId) ? LoanId.fromInt(lastUsedId) : null;
+        lb.setLoanIdManager(new LoanIdManager(lastUsedLoanId));
+
         return lb;
     }
 }

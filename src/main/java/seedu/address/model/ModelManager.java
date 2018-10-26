@@ -3,6 +3,9 @@ package seedu.address.model;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.Collections;
+import java.util.List;
+import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -47,8 +50,8 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public void resetData(ReadOnlyLoanBook newData) {
-        versionedLoanBook.resetData(newData);
+    public void replaceData(ReadOnlyLoanBook newData) {
+        versionedLoanBook.replaceData(newData);
         indicateLoanBookChanged();
     }
 
@@ -62,12 +65,17 @@ public class ModelManager extends ComponentManager implements Model {
         raise(new LoanBookChangedEvent(versionedLoanBook));
     }
 
-    //=========== Bike List Mutators =============================================================
+    //=========== Bike List Accessors and Mutators =============================================================
 
     @Override
     public boolean hasBike(Bike bike) {
         requireNonNull(bike);
         return versionedLoanBook.hasBike(bike);
+    }
+
+    @Override
+    public Optional<Bike> getBike(String bikeName) {
+        return versionedLoanBook.getBike(bikeName);
     }
 
     @Override
@@ -90,6 +98,12 @@ public class ModelManager extends ComponentManager implements Model {
         indicateLoanBookChanged();
     }
 
+    @Override
+    public void setBikes(List<Bike> bikes) {
+        versionedLoanBook.setBikes(bikes);
+        indicateLoanBookChanged();
+    }
+
     //=========== Filtered Bike List Accessors =============================================================
 
     /**
@@ -107,7 +121,7 @@ public class ModelManager extends ComponentManager implements Model {
         filteredBikes.setPredicate(predicate);
     }
 
-    //=========== Loan List Mutators =============================================================
+    //=========== Loan List Accessors and Mutators =============================================================
 
     @Override
     public boolean hasLoan(Loan loan) {
@@ -129,13 +143,19 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public void setPass(Password pass) {
-        preference.setPass(pass);
+    public void setLoans(List<Loan> loans) {
+        versionedLoanBook.setLoans(loans);
+        indicateLoanBookChanged();
     }
 
+    /**
+     * Clears the loan list and resets the loan ID.
+     */
     @Override
-    public String getPass() {
-        return preference.getPass();
+    public void resetLoans() {
+        setLoans(Collections.emptyList());
+        resetId();
+        // Change has already been indicated in the above commands
     }
 
     @Override
@@ -178,6 +198,13 @@ public class ModelManager extends ComponentManager implements Model {
         return versionedLoanBook.hasNextAvailableLoanId();
     }
 
+    @Override
+
+    public void resetId() {
+        versionedLoanBook.resetId();
+        indicateLoanBookChanged();
+    }
+
     //=========== Undo/Redo =================================================================================
 
     @Override
@@ -205,6 +232,18 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void commitLoanBook() {
         versionedLoanBook.commit();
+    }
+
+    //=========== Password =================================================================================
+
+    @Override
+    public void setPass(Password pass) {
+        preference.setPass(pass);
+    }
+
+    @Override
+    public String getPass() {
+        return preference.getPass();
     }
 
     @Override

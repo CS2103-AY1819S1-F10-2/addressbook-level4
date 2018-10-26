@@ -20,7 +20,7 @@
         <email>alice@example.com</email>
         <address>123, Jurong West Ave 6, #08-111</address>
         <loanStatus>ONGOING</loanStatus>
-        <bike>Bike001</bike>
+        <bike>BIKE001</bike>
         <rate>1.1</rate>
         <startTime>12:33</startTime>
         <endTime>14:13</endTime>
@@ -33,7 +33,7 @@
         <email>johnd@example.com</email>
         <address>311, Clementi Ave 2, #02-25</address>
         <loanStatus>ONGOING</loanStatus>
-        <bike>Bike002</bike>
+        <bike>BIKE001</bike>
         <rate>0.15</rate>
         <startTime>2017-10-12 12:08</startTime>
         <endTime>2017-10-12 06:08</endTime>
@@ -47,7 +47,7 @@
         <email>heinz@example.com</email>
         <address>wall street</address>
         <loanStatus>ONGOING</loanStatus>
-        <bike>Bike003</bike>
+        <bike>BIKE001</bike>
         <rate>23.9</rate>
         <startTime>14:20</startTime>
         <endTime>18:22</endTime>
@@ -59,7 +59,7 @@
         <email>cornelia@example.com</email>
         <loanStatus>ONGOING</loanStatus>
         <address>10th street</address>
-        <bike>Bike004</bike>
+        <bike>BIKE002</bike>
         <rate>9.0</rate>
         <startTime>17:56</startTime>
         <endTime>18:22</endTime>
@@ -72,7 +72,7 @@
         <email>werner@example.com</email>
         <loanStatus>ONGOING</loanStatus>
         <address>michegan ave</address>
-        <bike>Bike005</bike>
+        <bike>BIKE002</bike>
         <rate>5.55</rate>
         <startTime>2010-12-30 10:30</startTime>
         <endTime>2011-12-30 12:30</endTime>
@@ -84,7 +84,7 @@
         <email>lydia@example.com</email>
         <loanStatus>ONGOING</loanStatus>
         <address>little tokyo</address>
-        <bike>Bike006</bike>
+        <bike>BIKE002</bike>
         <rate>33.3</rate>
         <startTime>01:01</startTime>
         <endTime>21:01</endTime>
@@ -96,12 +96,12 @@
         <email>anna@example.com</email>
         <loanStatus>ONGOING</loanStatus>
         <address>4th street</address>
-        <bike>Bike007</bike>
+        <bike>BIKE002</bike>
         <rate>5.05</rate>
         <startTime>2013-03-13 12:08</startTime>
         <endTime>2013-05-14 12:18</endTime>
     </loans>
     <loanIdManager>
-        <lastUsedLoanId>765</lastUsedLoanId>
+        <lastUsedLoanId>6</lastUsedLoanId>
     </loanIdManager>
 </loanbook>

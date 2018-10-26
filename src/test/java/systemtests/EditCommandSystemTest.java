@@ -27,11 +27,11 @@ import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_FRIEND;
 import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_HUSBAND;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_BIKE_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_LOANRATE_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_LOANSTARTTIME_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BIKE1;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NRIC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
@@ -126,7 +126,7 @@ public class EditCommandSystemTest extends LoanBookSystemTest {
                 + EMAIL_DESC_BOB + ADDRESS_DESC_BOB
                 + BIKE_DESC_AMY + LOANRATE_DESC_BOB
                 + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
-        editedLoan = new LoanBuilder(BOB).withBike(VALID_BIKE_AMY).build();
+        editedLoan = new LoanBuilder(BOB).withBike(VALID_NAME_BIKE1).build();
         assertCommandSuccess(command, index, editedLoan);
 
         /* Case: edit a loan with new values same as another loan's values but with different phone number, email,

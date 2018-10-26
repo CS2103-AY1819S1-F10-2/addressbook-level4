@@ -24,10 +24,10 @@ import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_FRIEND;
 import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_HUSBAND;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_BIKE_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_LOANRATE_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_LOANSTARTTIME_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BIKE2;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NRIC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
@@ -101,7 +101,7 @@ public class AddCommandSystemTest extends LoanBookSystemTest {
         assertCommandSuccess(command, toAdd);
 
         /* Case: add a loan with all fields same as another loan in the loan book except bike -> added */
-        toAdd = new LoanBuilder(AMY).withBike(VALID_BIKE_BOB).build();
+        toAdd = new LoanBuilder(AMY).withBike(VALID_NAME_BIKE2).build();
         command = LoanUtil.getAddCommand(toAdd);
         assertCommandSuccess(command, toAdd);
 

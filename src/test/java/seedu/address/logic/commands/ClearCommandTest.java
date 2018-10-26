@@ -6,7 +6,6 @@ import static seedu.address.testutil.TypicalLoanBook.getTypicalLoanBook;
 import org.junit.Test;
 
 import seedu.address.logic.CommandHistory;
-import seedu.address.model.LoanBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
@@ -28,7 +27,7 @@ public class ClearCommandTest {
     public void execute_nonEmptyLoanBook_success() {
         Model model = new ModelManager(getTypicalLoanBook(), new UserPrefs());
         Model expectedModel = new ModelManager(getTypicalLoanBook(), new UserPrefs());
-        expectedModel.resetData(new LoanBook());
+        expectedModel.resetLoans();
         expectedModel.commitLoanBook();
 
         assertCommandSuccess(new ClearCommand(), model, commandHistory, ClearCommand.MESSAGE_SUCCESS, expectedModel);

@@ -39,8 +39,6 @@ public class CommandTestUtil {
     public static final String VALID_EMAIL_BOB = "bob@example.com";
     public static final String VALID_ADDRESS_AMY = "Block 312, Amy Street 1";
     public static final String VALID_ADDRESS_BOB = "Block 123, Bobby Street 3";
-    public static final String VALID_BIKE_AMY = "BIKE01";
-    public static final String VALID_BIKE_BOB = "BIKE02";
     public static final String VALID_LOANRATE_AMY = "0.15";
     public static final String VALID_LOANRATE_BOB = "12.5";
     public static final String VALID_LOANSTARTTIME_AMY = "12:32";
@@ -65,8 +63,8 @@ public class CommandTestUtil {
     public static final String EMAIL_DESC_BOB = " " + PREFIX_EMAIL + VALID_EMAIL_BOB;
     public static final String ADDRESS_DESC_AMY = " " + PREFIX_ADDRESS + VALID_ADDRESS_AMY;
     public static final String ADDRESS_DESC_BOB = " " + PREFIX_ADDRESS + VALID_ADDRESS_BOB;
-    public static final String BIKE_DESC_AMY = " " + PREFIX_BIKE + VALID_BIKE_AMY;
-    public static final String BIKE_DESC_BOB = " " + PREFIX_BIKE + VALID_BIKE_BOB;
+    public static final String BIKE_DESC_AMY = " " + PREFIX_BIKE + VALID_NAME_BIKE1;
+    public static final String BIKE_DESC_BOB = " " + PREFIX_BIKE + VALID_NAME_BIKE2;
     public static final String LOANRATE_DESC_AMY = " " + PREFIX_LOANRATE + VALID_LOANRATE_AMY;
     public static final String LOANRATE_DESC_BOB = " " + PREFIX_LOANRATE + VALID_LOANRATE_BOB;
     public static final String TAG_DESC_FRIEND = " " + PREFIX_TAG + VALID_TAG_FRIEND;
@@ -96,14 +94,14 @@ public class CommandTestUtil {
         DESC_AMY = new EditLoanDescriptorBuilder().withName(VALID_NAME_AMY)
                 .withNric(VALID_NRIC_AMY)
                 .withPhone(VALID_PHONE_AMY).withEmail(VALID_EMAIL_AMY).withAddress(VALID_ADDRESS_AMY)
-                .withBike(VALID_BIKE_AMY)
+                .withBike(VALID_NAME_BIKE1)
                 .withLoanRate(VALID_LOANRATE_AMY)
                 .withLoanStartTime(VALID_LOANSTARTTIME_AMY)
                 .withTags(VALID_TAG_FRIEND).build();
         DESC_BOB = new EditLoanDescriptorBuilder().withName(VALID_NAME_BOB)
                 .withNric(VALID_NRIC_BOB)
                 .withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB)
-                .withBike(VALID_BIKE_BOB)
+                .withBike(VALID_NAME_BIKE2)
                 .withLoanRate(VALID_LOANRATE_BOB)
                 .withLoanStartTime(VALID_LOANSTARTTIME_BOB)
                 .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();

@@ -85,8 +85,9 @@ public class XmlSerializableLoanBook {
             return false;
         }
 
-        return bikes.equals(((XmlSerializableLoanBook) other).bikes)
-            && loans.equals(((XmlSerializableLoanBook) other).loans)
-            && loanIdManager.equals(((XmlSerializableLoanBook) other).loanIdManager);
+        XmlSerializableLoanBook otherXmlLoanBook = (XmlSerializableLoanBook) other;
+        return bikes.equals(otherXmlLoanBook.bikes)
+            && loans.equals(otherXmlLoanBook.loans)
+            && loanIdManager.equals(otherXmlLoanBook.loanIdManager);
     }
 }

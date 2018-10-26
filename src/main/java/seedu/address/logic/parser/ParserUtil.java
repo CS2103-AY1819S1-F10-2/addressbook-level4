@@ -142,6 +142,8 @@ public class ParserUtil {
         if (!Name.isValidName(trimmedBike)) {
             throw new ParseException(Name.MESSAGE_NAME_CONSTRAINTS);
         }
+        // return a dummy Bike object that contains the real bike's name. This will be converted to an actual
+        // existing Bike in AddCommand.execute().
         return new Bike(new Name(trimmedBike));
     }
 

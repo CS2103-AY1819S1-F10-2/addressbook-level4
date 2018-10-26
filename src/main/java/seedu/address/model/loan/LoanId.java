@@ -1,7 +1,5 @@
 package seedu.address.model.loan;
 
-import java.util.function.Predicate;
-
 /**
  * Represents a Loan's ID in the loan book.
  * Guarantees: immutable; is valid as declared in {@link #isValidLoanId(String)}
@@ -13,11 +11,8 @@ public class LoanId extends DataField<Integer> {
     /** A pattern that specifies "between 1 to 9 digits". */
     public static final String VALIDATION_REGEX = "^[0-9]{1,9}";
 
-    /** A predicate that tests if a string is a valid Loan ID. */
-    public static final Predicate<String> VALIDITY_PREDICATE = LoanId::isValidLoanId;
-
-    private static final int MINIMUM_ID = 0;
-    private static final int MAXIMUM_ID = 999999999;
+    public static final int MINIMUM_ID = 0;
+    public static final int MAXIMUM_ID = 999999999;
 
     /**
      * Constructs a {@code LoanId}.
@@ -25,7 +20,7 @@ public class LoanId extends DataField<Integer> {
      * @param loanId A valid Loan ID.
      */
     public LoanId(String loanId) {
-        super(MESSAGE_LOANID_CONSTRAINTS, VALIDITY_PREDICATE, Integer::parseInt, loanId);
+        super(MESSAGE_LOANID_CONSTRAINTS, LoanId::isValidLoanId, Integer::parseInt, loanId);
     }
 
     /**

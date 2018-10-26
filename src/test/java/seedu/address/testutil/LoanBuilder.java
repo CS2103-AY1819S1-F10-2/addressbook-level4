@@ -1,5 +1,7 @@
 package seedu.address.testutil;
 
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BIKE1;
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -26,7 +28,7 @@ public class LoanBuilder {
     public static final String DEFAULT_PHONE = "85355255";
     public static final String DEFAULT_EMAIL = "alice@gmail.com";
     public static final String DEFAULT_ADDRESS = "123, Jurong West Ave 6, #08-111";
-    public static final String DEFAULT_BIKE = "BIKE999";
+    public static final String DEFAULT_BIKE = VALID_NAME_BIKE1;
     public static final String DEFAULT_LOANRATE = "12.3";
     public static final String DEFAULT_LOANSTARTTIME = "11:45";
     public static final String DEFAULT_LOANENDTIME = "12:45";
@@ -126,8 +128,8 @@ public class LoanBuilder {
     /**
      * Sets the {@code Bike} of the {@code Loan} that we are building.
      */
-    public LoanBuilder withBike(String bike) {
-        this.bike = new Bike(new Name(bike));
+    public LoanBuilder withBike(String bikeName) {
+        this.bike = new Bike(new Name(bikeName));
         return this;
     }
 

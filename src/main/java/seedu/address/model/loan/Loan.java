@@ -36,8 +36,8 @@ public class Loan implements UniqueListItem<Loan> {
     private LoanStatus loanStatus;
 
     /**
-     * Every field must be present and not null.
-     * Old constructor that does not take into account the LoanStatus.
+     * Default constructor.
+     * Every field except endTime must be present and not null.
      */
     public Loan(Name name,
                 Nric nric,
@@ -50,8 +50,8 @@ public class Loan implements UniqueListItem<Loan> {
                 LoanTime endTime,
                 LoanStatus loanStatus,
                 Set<Tag> tags) {
-        // Note that endTime can be null. This loans in progress do not have an endTime.
-        requireAllNonNull(name, nric, phone, email, address, bike, rate, startTime, tags);
+
+        requireAllNonNull(name, nric, phone, email, address, bike, rate, startTime, loanStatus, tags);
         this.name = name;
         this.nric = nric;
         this.phone = phone;
@@ -61,15 +61,13 @@ public class Loan implements UniqueListItem<Loan> {
         this.rate = rate;
         this.startTime = startTime;
         this.endTime = endTime;
-        this.tags.addAll(tags);
-
-        // Initialise the loan to be ongoing.
         this.loanStatus = loanStatus;
+        this.tags.addAll(tags);
     }
 
     /**
+     * Constructor for adding a loan on the spot.
      * Every field must be present and not null.
-     * This constructor is used for the add command
      */
     public Loan(Name name,
                 Nric nric,
@@ -79,14 +77,16 @@ public class Loan implements UniqueListItem<Loan> {
                 Bike bike,
                 LoanRate rate,
                 Set<Tag> tags) {
+
+        // Initialise the loan to be ongoing.
         this(name, nric, phone, email, address, bike, rate,
                 new LoanTime(), null, LoanStatus.ONGOING, tags);
     }
 
     /**
-     * Every field must be present and not null.
-     * This constructor is used when you know the start and end times.
+     * Constructor when you know the start and end times.
      * If you know the end time, then the loan would be returned.
+     * Every field except endTime must be present and not null.
      */
     public Loan(Name name,
                 Nric nric,
@@ -98,8 +98,27 @@ public class Loan implements UniqueListItem<Loan> {
                 LoanTime startTime,
                 LoanTime endTime,
                 Set<Tag> tags) {
+
         this(name, nric, phone, email, address, bike, rate,
                 startTime, endTime, LoanStatus.RETURNED, tags);
+    }
+
+    /**
+     * Copies over an existing Loan and edits the Bike, for AddCommand.
+     */
+    public Loan(Loan other, Bike bike) {
+
+        this(other.name,
+            other.nric,
+            other.phone,
+            other.email,
+            other.address,
+            bike,
+            other.rate,
+            other.startTime,
+            other.endTime,
+            other.loanStatus,
+            other.tags);
     }
 
     public Name getName() {
