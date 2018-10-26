@@ -19,6 +19,7 @@ import seedu.address.model.Password;
 import seedu.address.model.ReadOnlyLoanBook;
 import seedu.address.model.bike.Bike;
 import seedu.address.model.loan.Loan;
+import seedu.address.model.loan.LoanId;
 
 public class SetPasswordCommandTest {
 
@@ -213,6 +214,16 @@ public class SetPasswordCommandTest {
         @Override
         public String getPass() {
             return currPass.hashedPassword();
+        }
+
+        @Override
+        public LoanId getNextAvailableId() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasNextAvailableId() {
+            throw new AssertionError("This method should not be called.");
         }
     }
 }

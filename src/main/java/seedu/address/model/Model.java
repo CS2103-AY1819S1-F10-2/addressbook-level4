@@ -5,6 +5,7 @@ import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 import seedu.address.model.bike.Bike;
 import seedu.address.model.loan.Loan;
+import seedu.address.model.loan.LoanId;
 
 /**
  * The API of the Model component.
@@ -68,6 +69,16 @@ public interface Model {
      * Get hashed password for the App
      */
     String getPass();
+
+    /**
+     * Get next available Loan ID.
+     */
+    LoanId getNextAvailableId();
+
+    /**
+     * Checks if there exists a next available Loan ID.
+     */
+    boolean hasNextAvailableId();
 
     /**
      * Adds the given loan.

@@ -6,7 +6,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_BIKE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_LOANRATE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_LOANTIME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NRIC;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
@@ -44,8 +43,10 @@ public class CommandTestUtil {
     public static final String VALID_BIKE_BOB = "BIKE02";
     public static final String VALID_LOANRATE_AMY = "0.15";
     public static final String VALID_LOANRATE_BOB = "12.5";
-    public static final String VALID_LOANTIME_AMY = "12:32";
-    public static final String VALID_LOANTIME_BOB = "2018-10-10 12:30";
+    public static final String VALID_LOANSTARTTIME_AMY = "12:32";
+    public static final String VALID_LOANSTARTTIME_BOB = "2018-10-10 12:30";
+    public static final String VALID_LOANENDTIME_AMY = "14:58";
+    public static final String VALID_LOANENDTIME_BOB = "2018-10-10 14:59";
     public static final String VALID_TAG_HUSBAND = "husband";
     public static final String VALID_TAG_FRIEND = "friend";
 
@@ -68,8 +69,6 @@ public class CommandTestUtil {
     public static final String BIKE_DESC_BOB = " " + PREFIX_BIKE + VALID_BIKE_BOB;
     public static final String LOANRATE_DESC_AMY = " " + PREFIX_LOANRATE + VALID_LOANRATE_AMY;
     public static final String LOANRATE_DESC_BOB = " " + PREFIX_LOANRATE + VALID_LOANRATE_BOB;
-    public static final String LOANTIME_DESC_AMY = " " + PREFIX_LOANTIME + VALID_LOANTIME_AMY;
-    public static final String LOANTIME_DESC_BOB = " " + PREFIX_LOANTIME + VALID_LOANTIME_BOB;
     public static final String TAG_DESC_FRIEND = " " + PREFIX_TAG + VALID_TAG_FRIEND;
     public static final String TAG_DESC_HUSBAND = " " + PREFIX_TAG + VALID_TAG_HUSBAND;
 
@@ -85,7 +84,6 @@ public class CommandTestUtil {
     public static final String INVALID_ADDRESS_DESC = " " + PREFIX_ADDRESS; // empty string not allowed for addresses
     public static final String INVALID_BIKE_DESC = " " + PREFIX_BIKE + "***BIKE"; // '*' not allowed in bike names
     public static final String INVALID_LOANRATE_DESC = " " + PREFIX_LOANRATE + "1.4444"; // 'no more than 2 decimals
-    public static final String INVALID_LOANTIME_DESC = " " + PREFIX_LOANTIME + "1232"; // missing ':' symbol
     public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
@@ -100,14 +98,14 @@ public class CommandTestUtil {
                 .withPhone(VALID_PHONE_AMY).withEmail(VALID_EMAIL_AMY).withAddress(VALID_ADDRESS_AMY)
                 .withBike(VALID_BIKE_AMY)
                 .withLoanRate(VALID_LOANRATE_AMY)
-                .withLoanTime(VALID_LOANTIME_AMY)
+                .withLoanStartTime(VALID_LOANSTARTTIME_AMY)
                 .withTags(VALID_TAG_FRIEND).build();
         DESC_BOB = new EditLoanDescriptorBuilder().withName(VALID_NAME_BOB)
                 .withNric(VALID_NRIC_BOB)
                 .withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB)
                 .withBike(VALID_BIKE_BOB)
                 .withLoanRate(VALID_LOANRATE_BOB)
-                .withLoanTime(VALID_LOANTIME_BOB)
+                .withLoanStartTime(VALID_LOANSTARTTIME_BOB)
                 .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
     }
 

@@ -26,6 +26,8 @@ public class XmlSerializableLoanBook {
     private List<XmlAdaptedBike> bikes;
     @XmlElement
     private List<XmlAdaptedLoan> loans;
+    @XmlElement(required = true)
+    private XmlAdaptedLoanIdManager loanIdManager;
 
     /**
      * Creates an empty XmlSerializableLoanBook.
@@ -34,6 +36,7 @@ public class XmlSerializableLoanBook {
     public XmlSerializableLoanBook() {
         bikes = new ArrayList<>();
         loans = new ArrayList<>();
+        loanIdManager = new XmlAdaptedLoanIdManager();
     }
 
     /**
@@ -43,6 +46,7 @@ public class XmlSerializableLoanBook {
         this();
         bikes.addAll(src.getBikeList().stream().map(XmlAdaptedBike::new).collect(Collectors.toList()));
         loans.addAll(src.getLoanList().stream().map(XmlAdaptedLoan::new).collect(Collectors.toList()));
+        loanIdManager = new XmlAdaptedLoanIdManager(src.getLoanIdManager());
     }
 
     /**
@@ -67,6 +71,8 @@ public class XmlSerializableLoanBook {
             }
             loanBook.addLoan(loan);
         }
+        loanBook.setLoanIdManager(loanIdManager.toModelType());
+
         return loanBook;
     }
 
@@ -80,6 +86,7 @@ public class XmlSerializableLoanBook {
         }
 
         return bikes.equals(((XmlSerializableLoanBook) other).bikes)
-            && loans.equals(((XmlSerializableLoanBook) other).loans);
+            && loans.equals(((XmlSerializableLoanBook) other).loans)
+            && loanIdManager.equals(((XmlSerializableLoanBook) other).loanIdManager);
     }
 }

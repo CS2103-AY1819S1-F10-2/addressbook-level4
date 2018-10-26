@@ -9,16 +9,19 @@ import javafx.collections.ObservableList;
 import seedu.address.model.bike.Bike;
 import seedu.address.model.bike.UniqueBikeList;
 import seedu.address.model.loan.Loan;
+import seedu.address.model.loan.LoanId;
+import seedu.address.model.loan.LoanIdManager;
 import seedu.address.model.loan.UniqueLoanList;
 
 /**
- * Wraps all data (bikes and loans) at the loan-book level
- * Duplicates are not allowed (by .isSameBike and .isSameLoan comparison)
+ * Wraps all data (bikes and loans) at the loanbook level.
+ * Duplicates are not allowed.
  */
 public class LoanBook implements ReadOnlyLoanBook {
 
     private final UniqueBikeList bikes;
     private final UniqueLoanList loans;
+    private final LoanIdManager loanIdManager;
 
     /*
      * The 'unusual' code block below is an non-static initialization block, sometimes used to avoid duplication
@@ -30,6 +33,7 @@ public class LoanBook implements ReadOnlyLoanBook {
     {
         bikes = new UniqueBikeList();
         loans = new UniqueLoanList();
+        loanIdManager = new LoanIdManager();
     }
 
     public LoanBook() {}
@@ -49,7 +53,7 @@ public class LoanBook implements ReadOnlyLoanBook {
      * {@code bikes} must not contain duplicate bikes.
      */
     public void setBikes(List<Bike> bikes) {
-        this.bikes.setBikes(bikes);
+        this.bikes.setAll(bikes);
     }
 
     /**
@@ -57,7 +61,14 @@ public class LoanBook implements ReadOnlyLoanBook {
      * {@code loans} must not contain duplicate loans.
      */
     public void setLoans(List<Loan> loans) {
-        this.loans.setLoans(loans);
+        this.loans.setAll(loans);
+    }
+
+    /**
+     * Replaces the state of this LoanBooks's Loan ID Manager with the specified manager.
+     */
+    public void setLoanIdManager(LoanIdManager loanIdManager) {
+        this.loanIdManager.setFromExistingManager(loanIdManager);
     }
 
     /**
@@ -68,6 +79,7 @@ public class LoanBook implements ReadOnlyLoanBook {
 
         setBikes(newData.getBikeList());
         setLoans(newData.getLoanList());
+        setLoanIdManager(newData.getLoanIdManager());
     }
 
     //// bike-level operations
@@ -96,7 +108,7 @@ public class LoanBook implements ReadOnlyLoanBook {
     public void updateBike(Bike target, Bike editedBike) {
         requireNonNull(editedBike);
 
-        bikes.setBike(target, editedBike);
+        bikes.set(target, editedBike);
     }
 
     /**
@@ -133,7 +145,7 @@ public class LoanBook implements ReadOnlyLoanBook {
     public void updateLoan(Loan target, Loan editedLoan) {
         requireNonNull(editedLoan);
 
-        loans.setLoan(target, editedLoan);
+        loans.set(target, editedLoan);
     }
 
     /**
@@ -142,6 +154,24 @@ public class LoanBook implements ReadOnlyLoanBook {
      */
     public void removeLoan(Loan key) {
         loans.remove(key);
+    }
+
+    //// Loan ID methods
+
+    /**
+     * Gets the next available Loan ID.
+     */
+    public LoanId getNextAvailableLoanId() {
+        return loanIdManager.getNextAvailableLoanId();
+    }
+
+    /**
+     * Checks if there is a next available Loan ID.
+     *
+     * @return true if there exists a next available loan ID.
+     */
+    public boolean hasNextAvailableLoanId() {
+        return loanIdManager.hasNextAvailableLoanId();
     }
 
     //// util methods
@@ -164,11 +194,17 @@ public class LoanBook implements ReadOnlyLoanBook {
     }
 
     @Override
+    public LoanIdManager getLoanIdManager() {
+        return new LoanIdManager(loanIdManager.getLastUsedLoanId());
+    }
+
+    @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof LoanBook // instanceof handles nulls
                 && loans.equals(((LoanBook) other).loans)
-                && bikes.equals(((LoanBook) other).bikes));
+                && bikes.equals(((LoanBook) other).bikes))
+                && loanIdManager.equals(((LoanBook) other).loanIdManager);
     }
 
     @Override

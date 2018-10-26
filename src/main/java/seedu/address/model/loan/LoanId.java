@@ -16,6 +16,7 @@ public class LoanId extends DataField<Integer> {
     /** A predicate that tests if a string is a valid Loan ID. */
     public static final Predicate<String> VALIDITY_PREDICATE = LoanId::isValidLoanId;
 
+    private static final int MINIMUM_ID = 0;
     private static final int MAXIMUM_ID = 999999999;
 
     /**
@@ -28,6 +29,16 @@ public class LoanId extends DataField<Integer> {
     }
 
     /**
+     * Creates a new Loan ID from an integer.
+     *
+     * @param value The value of the Loan ID.
+     * @return A LoanID object with the specified integer as the value.
+     */
+    public static LoanId fromInt(int value) {
+        return new LoanId(Integer.toString(value));
+    }
+
+    /**
      * Checks if a given string is a valid Loan ID.
      * A valid Loan ID is a non-negative integer with between 1 to 9 digits inclusive.
      *
@@ -36,6 +47,17 @@ public class LoanId extends DataField<Integer> {
      */
     public static boolean isValidLoanId(String objString) {
         return objString.matches(VALIDATION_REGEX);
+    }
+
+    /**
+     * Checks if a given integer is a valid Loan ID.
+     * A valid Loan ID is a non-negative integer with between 1 to 9 digits inclusive.
+     *
+     * @param value The integer to test.
+     * @return true if the specified integer is a valid Loan ID.
+     */
+    public static boolean isValidLoanId(int value) {
+        return MINIMUM_ID <= value && value <= MAXIMUM_ID;
     }
 
     /**

@@ -14,6 +14,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.LoanBookChangedEvent;
 import seedu.address.model.bike.Bike;
 import seedu.address.model.loan.Loan;
+import seedu.address.model.loan.LoanId;
 
 /**
  * Represents the in-memory model of the loan book data.
@@ -160,6 +161,21 @@ public class ModelManager extends ComponentManager implements Model {
     public void updateFilteredLoanList(Predicate<Loan> predicate) {
         requireNonNull(predicate);
         filteredLoans.setPredicate(predicate);
+    }
+
+    //=========== Loan ID Methods ===========================================================================
+
+    @Override
+    public LoanId getNextAvailableId() {
+        LoanId output = versionedLoanBook.getNextAvailableLoanId();
+        indicateLoanBookChanged();
+
+        return output;
+    }
+
+    @Override
+    public boolean hasNextAvailableId() {
+        return versionedLoanBook.hasNextAvailableLoanId();
     }
 
     //=========== Undo/Redo =================================================================================

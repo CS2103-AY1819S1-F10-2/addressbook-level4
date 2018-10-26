@@ -96,7 +96,7 @@ public class AddBikeCommandTest {
         @Override
         public boolean hasBike(Bike bike) {
             requireNonNull(bike);
-            return this.bike.isSameBike(bike);
+            return this.bike.isSame(bike);
         }
     }
 
@@ -109,7 +109,7 @@ public class AddBikeCommandTest {
         @Override
         public boolean hasBike(Bike bike) {
             requireNonNull(bike);
-            return bikesAdded.stream().anyMatch(bike::isSameBike);
+            return bikesAdded.stream().anyMatch(bike::isSame);
         }
 
         @Override

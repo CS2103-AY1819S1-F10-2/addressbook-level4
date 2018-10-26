@@ -22,6 +22,7 @@ import seedu.address.model.Password;
 import seedu.address.model.ReadOnlyLoanBook;
 import seedu.address.model.bike.Bike;
 import seedu.address.model.loan.Loan;
+import seedu.address.model.loan.LoanId;
 import seedu.address.testutil.LoanBuilder;
 
 public class AddCommandTest {
@@ -194,6 +195,16 @@ public class AddCommandTest {
         public String getPass() {
             throw new AssertionError("This method should not be called.");
         }
+
+        @Override
+        public LoanId getNextAvailableId() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasNextAvailableId() {
+            throw new AssertionError("This method should not be called.");
+        }
     }
 
     /**
@@ -210,7 +221,7 @@ public class AddCommandTest {
         @Override
         public boolean hasLoan(Loan loan) {
             requireNonNull(loan);
-            return this.loan.isSameLoan(loan);
+            return this.loan.isSame(loan);
         }
     }
 
@@ -223,7 +234,7 @@ public class AddCommandTest {
         @Override
         public boolean hasLoan(Loan loan) {
             requireNonNull(loan);
-            return loansAdded.stream().anyMatch(loan::isSameLoan);
+            return loansAdded.stream().anyMatch(loan::isSame);
         }
 
         @Override
