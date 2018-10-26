@@ -80,7 +80,7 @@ public class Loan implements UniqueListItem<Loan> {
 
         // Initialise the loan to be ongoing.
         this(name, nric, phone, email, address, bike, rate,
-            new LoanTime(), null, LoanStatus.ONGOING, tags);
+                new LoanTime(), null, LoanStatus.ONGOING, tags);
     }
 
     /**
@@ -100,7 +100,7 @@ public class Loan implements UniqueListItem<Loan> {
                 Set<Tag> tags) {
 
         this(name, nric, phone, email, address, bike, rate,
-            startTime, endTime, LoanStatus.RETURNED, tags);
+                startTime, endTime, LoanStatus.RETURNED, tags);
     }
 
     /**
