@@ -1,7 +1,10 @@
 package systemtests;
 
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static seedu.address.testutil.TypicalBikes.getTypicalBikes;
 import static seedu.address.testutil.TypicalLoans.KEYWORD_MATCHING_MEIER;
+
+import java.util.Collections;
 
 import org.junit.Test;
 
@@ -13,6 +16,12 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 
 public class ClearCommandSystemTest extends LoanBookSystemTest {
+
+    private static final Model clearedModel;
+    static {
+        clearedModel = new ModelManager();
+        clearedModel.setBikes(getTypicalBikes());
+    }
 
     @Test
     public void clear() {
@@ -33,7 +42,7 @@ public class ClearCommandSystemTest extends LoanBookSystemTest {
         /* Case: redo clearing loan book -> cleared */
         command = RedoCommand.COMMAND_WORD;
         expectedResultMessage = RedoCommand.MESSAGE_SUCCESS;
-        assertCommandSuccess(command, expectedResultMessage, new ModelManager());
+        assertCommandSuccess(command, expectedResultMessage, clearedModel);
         assertSelectedCardUnchanged();
 
         /* Case: selects first card in loan list and clears loan book -> cleared and no card selected */
@@ -65,7 +74,7 @@ public class ClearCommandSystemTest extends LoanBookSystemTest {
      * @see LoanBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)
      */
     private void assertCommandSuccess(String command) {
-        assertCommandSuccess(command, ClearCommand.MESSAGE_SUCCESS, new ModelManager());
+        assertCommandSuccess(command, ClearCommand.MESSAGE_SUCCESS, clearedModel);
     }
 
     /**
