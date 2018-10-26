@@ -1,7 +1,5 @@
 package seedu.address.model.loan;
 
-import java.util.function.Predicate;
-
 /**
  * Represents a Loan's ID in the loan book.
  * Guarantees: immutable; is valid as declared in {@link #isValidLoanId(String)}
