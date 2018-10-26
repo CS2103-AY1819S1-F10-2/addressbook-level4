@@ -10,12 +10,9 @@ public class LoanIdManager {
     private static final int NO_LAST_USED_ID_VALUE = -1;
     /** The first Loan ID to create. */
     private static final int INITIAL_ID_VALUE = 0;
-    /** Represents when an ID Manager has no next available Loan ID. */
-    private static final int MAXIMUM_ID_VALUE_REACHED = 999999999;
 
     private int lastUsedIdValue;
     private LoanId lastUsedLoanId;
-    private boolean isMaximumReached;
 
     /**
      * Constructs a {@code LoanIdManager} that provides running Loan IDs starting from 0.
@@ -23,7 +20,6 @@ public class LoanIdManager {
     public LoanIdManager() {
         lastUsedIdValue = NO_LAST_USED_ID_VALUE;
         lastUsedLoanId = null;
-        isMaximumReached = false;
     }
 
     /**
@@ -49,7 +45,7 @@ public class LoanIdManager {
      * @return true if this Loan ID Manager has a next available Loan ID.
      */
     public boolean hasNextAvailableLoanId() {
-        return !isMaximumReached;
+        return lastUsedIdValue < LoanId.MAXIMUM_ID;
     }
 
     /**
@@ -58,7 +54,7 @@ public class LoanIdManager {
      * @return The next available Loan ID.
      */
     public LoanId getNextAvailableLoanId() {
-        if (isMaximumReached) {
+        if (!hasNextAvailableLoanId()) {
             throw new IllegalStateException("No more available Loan IDs");
         }
 
@@ -68,12 +64,6 @@ public class LoanIdManager {
         // Create the output Loan ID
         LoanId output = LoanId.fromInt(lastUsedIdValue);
         lastUsedLoanId = output;
-
-        // Update isMaximumReached if applicable
-        if (output.isMaximumId()) {
-            isMaximumReached = true;
-            lastUsedIdValue = MAXIMUM_ID_VALUE_REACHED;
-        }
 
         return output;
     }
@@ -96,7 +86,7 @@ public class LoanIdManager {
             // Set the value to the first possible Loan ID value.
             lastUsedIdValue = INITIAL_ID_VALUE;
             return;
-        case MAXIMUM_ID_VALUE_REACHED:
+        case LoanId.MAXIMUM_ID:
             throw new IllegalStateException("Attempt to increment the last used ID value when it has reached the "
                     + "maximum possible value");
         default:
@@ -111,20 +101,17 @@ public class LoanIdManager {
      */
     private void setFromLoanId(LoanId lastUsedLoanId) {
         if (lastUsedLoanId == null) {
-            isMaximumReached = false;
             this.lastUsedLoanId = null;
             lastUsedIdValue = NO_LAST_USED_ID_VALUE;
 
             return;
         } else if (lastUsedLoanId.isMaximumId()) {
-            isMaximumReached = true;
             this.lastUsedLoanId = lastUsedLoanId;
-            lastUsedIdValue = MAXIMUM_ID_VALUE_REACHED;
+            lastUsedIdValue = LoanId.MAXIMUM_ID;
 
             return;
         }
 
-        isMaximumReached = false;
         this.lastUsedLoanId = lastUsedLoanId;
         lastUsedIdValue = lastUsedLoanId.value;
     }
@@ -151,7 +138,6 @@ public class LoanIdManager {
         } else {
             assert this.lastUsedLoanId.equals(otherManager.lastUsedLoanId);
         }
-        assert this.isMaximumReached == otherManager.isMaximumReached;
 
         return true;
     }
