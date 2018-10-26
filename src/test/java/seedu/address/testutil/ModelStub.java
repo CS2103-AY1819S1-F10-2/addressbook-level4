@@ -17,7 +17,7 @@ import seedu.address.model.loan.LoanId;
  */
 public class ModelStub implements Model {
     @Override
-    public void resetData(ReadOnlyLoanBook newData) {
+    public void replaceData(ReadOnlyLoanBook newData) {
         throw new AssertionError("This method should not be called.");
     }
 
@@ -89,6 +89,11 @@ public class ModelStub implements Model {
 
     @Override
     public void setLoans(List<Loan> loans) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void resetLoans() {
         throw new AssertionError("This method should not be called.");
     }
 

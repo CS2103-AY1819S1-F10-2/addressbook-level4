@@ -3,8 +3,6 @@ package seedu.address.logic.commands;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalLoanBook.getTypicalLoanBook;
 
-import java.util.Collections;
-
 import org.junit.Test;
 
 import seedu.address.logic.CommandHistory;
@@ -29,7 +27,7 @@ public class ClearCommandTest {
     public void execute_nonEmptyLoanBook_success() {
         Model model = new ModelManager(getTypicalLoanBook(), new UserPrefs());
         Model expectedModel = new ModelManager(getTypicalLoanBook(), new UserPrefs());
-        expectedModel.setLoans(Collections.emptyList());
+        expectedModel.resetLoans();
         expectedModel.commitLoanBook();
 
         assertCommandSuccess(new ClearCommand(), model, commandHistory, ClearCommand.MESSAGE_SUCCESS, expectedModel);

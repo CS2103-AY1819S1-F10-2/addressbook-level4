@@ -41,7 +41,7 @@ public class VersionedLoanBook extends LoanBook {
             throw new NoUndoableStateException();
         }
         currentStatePointer--;
-        resetData(loanBookStateList.get(currentStatePointer));
+        replaceData(loanBookStateList.get(currentStatePointer));
     }
 
     /**
@@ -52,7 +52,7 @@ public class VersionedLoanBook extends LoanBook {
             throw new NoRedoableStateException();
         }
         currentStatePointer++;
-        resetData(loanBookStateList.get(currentStatePointer));
+        replaceData(loanBookStateList.get(currentStatePointer));
     }
 
     /**

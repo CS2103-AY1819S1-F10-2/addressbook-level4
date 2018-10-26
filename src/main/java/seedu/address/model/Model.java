@@ -19,7 +19,7 @@ public interface Model {
     Predicate<Loan> PREDICATE_SHOW_ALL_LOANS = unused -> true;
 
     /** Clears existing backing model and replaces with the provided new data. */
-    void resetData(ReadOnlyLoanBook newData);
+    void replaceData(ReadOnlyLoanBook newData);
 
     /** Returns the LoanBook */
     ReadOnlyLoanBook getLoanBook();
@@ -122,6 +122,11 @@ public interface Model {
      * {@code loans} must not contain duplicate loans.
      */
     void setLoans(List<Loan> loans);
+
+    /**
+     * Clears the loan list and resets the loan ID.
+     */
+    void resetLoans();
 
     /** Returns an unmodifiable view of the filtered loan list */
     ObservableList<Loan> getFilteredLoanList();

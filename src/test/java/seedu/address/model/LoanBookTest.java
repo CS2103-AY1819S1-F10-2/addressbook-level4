@@ -43,13 +43,13 @@ public class LoanBookTest {
     @Test
     public void resetData_null_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        loanBook.resetData(null);
+        loanBook.replaceData(null);
     }
 
     @Test
     public void resetData_withValidReadOnlyLoanBook_replacesData() {
         LoanBook newData = getTypicalLoanBook();
-        loanBook.resetData(newData);
+        loanBook.replaceData(newData);
         assertEquals(newData, loanBook);
     }
 
@@ -63,7 +63,7 @@ public class LoanBookTest {
         LoanBookStub newData = new LoanBookStub(newBikes, newLoans);
 
         thrown.expect(DuplicateLoanException.class);
-        loanBook.resetData(newData);
+        loanBook.replaceData(newData);
     }
 
     @Test

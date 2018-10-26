@@ -3,6 +3,7 @@ package seedu.address.model;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
@@ -49,8 +50,8 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public void resetData(ReadOnlyLoanBook newData) {
-        versionedLoanBook.resetData(newData);
+    public void replaceData(ReadOnlyLoanBook newData) {
+        versionedLoanBook.replaceData(newData);
         indicateLoanBookChanged();
     }
 
@@ -147,6 +148,16 @@ public class ModelManager extends ComponentManager implements Model {
         indicateLoanBookChanged();
     }
 
+    /**
+     * Clears the loan list and resets the loan ID.
+     */
+    @Override
+    public void resetLoans() {
+        setLoans(Collections.emptyList());
+        resetId();
+        // Change has already been indicated in the above commands
+    }
+
     @Override
     public void updateLoan(Loan target, Loan editedLoan) {
         requireAllNonNull(target, editedLoan);
@@ -191,6 +202,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     public void resetId() {
         versionedLoanBook.resetId();
+        indicateLoanBookChanged();
     }
 
     //=========== Undo/Redo =================================================================================

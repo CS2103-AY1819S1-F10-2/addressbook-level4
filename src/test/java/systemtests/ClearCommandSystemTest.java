@@ -15,6 +15,10 @@ import seedu.address.model.ModelManager;
 
 public class ClearCommandSystemTest extends LoanBookSystemTest {
 
+    /**
+     * The clear command resets the loans and loan ID only.
+     * So this model should have 0 Loans, a LastID of {@code NO_LAST_USED_ID_VALUE} and the typical Bikes.
+     */
     private static final Model clearedModel;
     static {
         clearedModel = new ModelManager();

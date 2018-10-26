@@ -280,7 +280,7 @@ public class VersionedLoanBookTest {
 
         VersionedLoanBook versionedLoanBook = new VersionedLoanBook(loanBookStates[0]);
         for (int i = 1; i < loanBookStates.length; i++) {
-            versionedLoanBook.resetData(loanBookStates[i]);
+            versionedLoanBook.replaceData(loanBookStates[i]);
             versionedLoanBook.commit();
         }
 

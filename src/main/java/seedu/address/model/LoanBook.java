@@ -38,7 +38,7 @@ public class LoanBook implements ReadOnlyLoanBook {
      */
     public LoanBook(ReadOnlyLoanBook toBeCopied) {
         this();
-        resetData(toBeCopied);
+        replaceData(toBeCopied);
     }
 
     //// list overwrite operations
@@ -67,14 +67,14 @@ public class LoanBook implements ReadOnlyLoanBook {
     }
 
     /**
-     * Resets the existing data of this {@code LoanBook} with {@code newData}.
+     * Replaces the existing data of this {@code LoanBook} with {@code newData}.
      */
-    public void resetData(ReadOnlyLoanBook newData) {
+    public void replaceData(ReadOnlyLoanBook newData) {
         requireNonNull(newData);
 
         setBikes(newData.getBikeList());
         setLoans(newData.getLoanList());
-        resetId();
+        setLoanIdManager(newData.getLoanIdManager());
     }
 
     //// bike-level operations
