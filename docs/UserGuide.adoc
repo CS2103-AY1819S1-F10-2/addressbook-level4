@@ -112,20 +112,40 @@ Searches for loans made by John Doe where the item loaned out is Bicycle-007
 
 === Deleting the chosen loan from the loan book : `delete`
 
-Delete the loan from the loan book. If you want to delete one loan, use `delete i/LOAN_ID`. If you want to delete all, use`delete!` +
-Format: `delete i/LOAN_ID` or `delete!`
+Delete the loan from the loan book. If you want to delete one loan, use `delete i/LOAN_ID x/CURRENT_PASSWORD`.
+Due to `delete` modifying transectional summery, it is a critical command and hence elevation is required hence the password field. +
+Format: `delete i/LOAN_ID x/CURRENT_PASSWORD`
 
 ****
 * Deletes the loan at the specified `i/LOAN_ID`.
-* Note that this does not reset the `i/LOAN_ID`.
+* Note that this does not reset `LOAN_ID`.
+* Deletion will not occur if `CURRENT_PASSWORD` is incorrect.
+****
+
+[NOTE]
+====
+The default password for the app is `a12345`.
+====
+
+Examples:
+
+* `delete i/11037 x/a12345` +
+Deletes the loan with LOAN_ID 11037.
+
+=== Changing the password of the app: `setpass`
+
+Change the current password of the app to `NEW_PASSWORD`. This ensures that critical commands such as `delete` and `reset` may be performed by authorized personnels only. +
+Format: `setpass CURRENT_PASSWORD NEW_PASSWORD`
+
+****
+* Set the password of the app to `NEW_PASSWORD`
+* Password change will not occur if `CURRENT_PASSWORD` is incorrect.
 ****
 
 Examples:
 
-* `delete i/11037` +
-Deletes the loan with LOAN_ID 11037.
-* `delete!` +
-Deletes all loan records.
+* `setpass a12345 n3wP4sS` +
+Set the password of the app to `n3wP4sS`.
 
 === Returning a loan : `return`
 
