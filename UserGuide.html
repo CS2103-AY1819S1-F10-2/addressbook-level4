@@ -19,11 +19,12 @@
 <li><a href="#editing-a-loan-code-edit-code">3.4. Editing a loan : <code>edit</code></a></li>
 <li><a href="#locating-loans-by-key-words-code-search-code">3.5. Locating loans by key words: <code>search</code></a></li>
 <li><a href="#deleting-the-chosen-loan-from-the-loan-book-code-delete-code">3.6. Deleting the chosen loan from the loan book : <code>delete</code></a></li>
-<li><a href="#returning-a-loan-code-return-code">3.7. Returning a loan : <code>return</code></a></li>
-<li><a href="#hard-reset-the-entire-loan-book-code-reset-code">3.8. Hard reset the entire loan book : <code>reset</code></a></li>
-<li><a href="#summarize-all-the-transactions-code-summary-code">3.9. Summarize all the transactions : <code>summary</code></a></li>
-<li><a href="#listing-entered-commands-code-history-code">3.10. Listing entered commands : <code>history</code></a></li>
-<li><a href="#non-functional-features">3.11. Non-functional features :</a></li>
+<li><a href="#changing-the-password-of-the-app-code-setpass-code">3.7. Changing the password of the app: <code>setpass</code></a></li>
+<li><a href="#returning-a-loan-code-return-code">3.8. Returning a loan : <code>return</code></a></li>
+<li><a href="#hard-reset-the-entire-loan-book-code-reset-code">3.9. Hard reset the entire loan book : <code>reset</code></a></li>
+<li><a href="#summarize-all-the-transactions-code-summary-code">3.10. Summarize all the transactions : <code>summary</code></a></li>
+<li><a href="#listing-entered-commands-code-history-code">3.11. Listing entered commands : <code>history</code></a></li>
+<li><a href="#non-functional-features">3.12. Non-functional features :</a></li>
 </ul>
 </li>
 </ul>
@@ -237,8 +238,9 @@ Searches for loans made by John Doe where the item loaned out is Bicycle-007</p>
 <div class="sect2">
 <h3 id="deleting-the-chosen-loan-from-the-loan-book-code-delete-code"><a class="link" href="#deleting-the-chosen-loan-from-the-loan-book-code-delete-code">3.6. Deleting the chosen loan from the loan book : <code>delete</code></a></h3>
 <div class="paragraph">
-<p>Delete the loan from the loan book. If you want to delete one loan, use <code>delete i/LOAN_ID</code>. If you want to delete all, use`delete!`<br>
-Format: <code>delete i/LOAN_ID</code> or <code>delete!</code></p>
+<p>Delete the loan from the loan book. If you want to delete one loan, use <code>delete i/LOAN_ID x/CURRENT_PASSWORD</code>.
+Due to <code>delete</code> modifying transectional summery, it is a critical command and hence elevation is required hence the password field.<br>
+Format: <code>delete i/LOAN_ID x/CURRENT_PASSWORD</code></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
@@ -248,7 +250,56 @@ Format: <code>delete i/LOAN_ID</code> or <code>delete!</code></p>
 <p>Deletes the loan at the specified <code>i/LOAN_ID</code>.</p>
 </li>
 <li>
-<p>Note that this does not reset the <code>i/LOAN_ID</code>.</p>
+<p>Note that this does not reset <code>LOAN_ID</code>.</p>
+</li>
+<li>
+<p>Deletion will not occur if <code>CURRENT_PASSWORD</code> is incorrect.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>The default password for the app is <code>a12345</code>.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>delete i/11037 x/a12345</code><br>
+Deletes the loan with LOAN_ID 11037.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="changing-the-password-of-the-app-code-setpass-code"><a class="link" href="#changing-the-password-of-the-app-code-setpass-code">3.7. Changing the password of the app: <code>setpass</code></a></h3>
+<div class="paragraph">
+<p>Change the current password of the app to <code>NEW_PASSWORD</code>. This ensures that critical commands such as <code>delete</code> and <code>reset</code> may be performed by authorized personnels only.<br>
+Format: <code>setpass CURRENT_PASSWORD NEW_PASSWORD</code></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>Set the password of the app to <code>NEW_PASSWORD</code></p>
+</li>
+<li>
+<p>Password change will not occur if <code>CURRENT_PASSWORD</code> is incorrect.</p>
 </li>
 </ul>
 </div>
@@ -260,18 +311,14 @@ Format: <code>delete i/LOAN_ID</code> or <code>delete!</code></p>
 <div class="ulist">
 <ul>
 <li>
-<p><code>delete i/11037</code><br>
-Deletes the loan with LOAN_ID 11037.</p>
-</li>
-<li>
-<p><code>delete!</code><br>
-Deletes all loan records.</p>
+<p><code>setpass a12345 n3wP4sS</code><br>
+Set the password of the app to <code>n3wP4sS</code>.</p>
 </li>
 </ul>
 </div>
 </div>
 <div class="sect2">
-<h3 id="returning-a-loan-code-return-code"><a class="link" href="#returning-a-loan-code-return-code">3.7. Returning a loan : <code>return</code></a></h3>
+<h3 id="returning-a-loan-code-return-code"><a class="link" href="#returning-a-loan-code-return-code">3.8. Returning a loan : <code>return</code></a></h3>
 <div class="paragraph">
 <p>Marks a loan as returned based on LOAN_ID and automatically prints out the amount payable.<br>
 Format: <code>return i/LOAN_ID</code></p>
@@ -289,7 +336,7 @@ Marks the loan with LOAN_ID 11037 as returned. Also automatically prints out the
 </div>
 </div>
 <div class="sect2">
-<h3 id="hard-reset-the-entire-loan-book-code-reset-code"><a class="link" href="#hard-reset-the-entire-loan-book-code-reset-code">3.8. Hard reset the entire loan book : <code>reset</code></a></h3>
+<h3 id="hard-reset-the-entire-loan-book-code-reset-code"><a class="link" href="#hard-reset-the-entire-loan-book-code-reset-code">3.9. Hard reset the entire loan book : <code>reset</code></a></h3>
 <div class="paragraph">
 <p>Removes all the loans from the loan book and resets the LOAN_ID counter.<br>
 Format: <code>reset</code></p>
@@ -324,7 +371,7 @@ Format: <code>reset</code></p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="summarize-all-the-transactions-code-summary-code"><a class="link" href="#summarize-all-the-transactions-code-summary-code">3.9. Summarize all the transactions : <code>summary</code></a></h3>
+<h3 id="summarize-all-the-transactions-code-summary-code"><a class="link" href="#summarize-all-the-transactions-code-summary-code">3.10. Summarize all the transactions : <code>summary</code></a></h3>
 <div class="paragraph">
 <p>Show the total number of loans that are done and in progress. Also summarizes the loan status of each item, the number of times an object was loaned before.</p>
 </div>
@@ -366,7 +413,7 @@ Format: <code>reset</code></p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="listing-entered-commands-code-history-code"><a class="link" href="#listing-entered-commands-code-history-code">3.10. Listing entered commands : <code>history</code></a></h3>
+<h3 id="listing-entered-commands-code-history-code"><a class="link" href="#listing-entered-commands-code-history-code">3.11. Listing entered commands : <code>history</code></a></h3>
 <div class="paragraph">
 <p>Lists all the commands that you have entered in reverse chronological order.<br>
 Format: <code>history</code></p>
@@ -387,7 +434,7 @@ Format: <code>history</code></p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="non-functional-features"><a class="link" href="#non-functional-features">3.11. Non-functional features :</a></h3>
+<h3 id="non-functional-features"><a class="link" href="#non-functional-features">3.12. Non-functional features :</a></h3>
 <div class="ulist">
 <ul>
 <li>
@@ -426,4 +473,4 @@ Format: <code>history</code></p>
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-10-26 17:24:37 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-10-27 06:21:11 UTC</div></div></div></body></html>
