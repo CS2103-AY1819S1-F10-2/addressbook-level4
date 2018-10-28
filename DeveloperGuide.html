@@ -172,7 +172,7 @@ For Windows, the default installation directory would be <code>C:\Program Files\
 This will generate all resources required by the application and tests.</p>
 </li>
 <li>
-<p>Open <a href="https://github.com/CS2103-AY1819S1-F10-2/main/tree/master/src/main/java/seedu/address/storage/XmlAdaptedLoan.java"><code>XmlAdaptedLoan.java</code></a> and <a href="https://github.com/CS2103-AY1819S1-F10-2/main/tree/master/src/main/java/seedu/address/ui/MainWindow.java"><code>MainWindow.java</code></a> and check for any code errors</p>
+<p>Open <a href="https://github.com/CS2103-AY1819S1-F10-2/main/tree/master/src/main/java/loanbook/storage/XmlAdaptedLoan.java"><code>XmlAdaptedLoan.java</code></a> and <a href="https://github.com/CS2103-AY1819S1-F10-2/main/tree/master/src/main/java/loanbook/ui/MainWindow.java"><code>MainWindow.java</code></a> and check for any code errors</p>
 <div class="olist loweralpha">
 <ol class="loweralpha" type="a">
 <li>
@@ -185,7 +185,7 @@ This will generate all resources required by the application and tests.</p>
 </div>
 </li>
 <li>
-<p>Repeat this for the test folder as well (e.g. check <a href="https://github.com/CS2103-AY1819S1-F10-2/main/tree/master/src/test/java/seedu/address/commons/util/XmlUtilTest.java"><code>XmlUtilTest.java</code></a> and <a href="https://github.com/CS2103-AY1819S1-F10-2/main/tree/master/src/test/java/seedu/address/ui/HelpWindowTest.java"><code>HelpWindowTest.java</code></a> for code errors, and if so, resolve it the same way)</p>
+<p>Repeat this for the test folder as well (e.g. check <a href="https://github.com/CS2103-AY1819S1-F10-2/main/tree/master/src/test/java/loanbook/commons/util/XmlUtilTest.java"><code>XmlUtilTest.java</code></a> and <a href="https://github.com/CS2103-AY1819S1-F10-2/main/tree/master/src/test/java/loanbook/ui/HelpWindowTest.java"><code>HelpWindowTest.java</code></a> for code errors, and if so, resolve it the same way)</p>
 </li>
 </ol>
 </div>
@@ -195,7 +195,7 @@ This will generate all resources required by the application and tests.</p>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Run the <code>seedu.address.MainApp</code> and try a few commands</p>
+<p>Run the <code>loanbook.MainApp</code> and try a few commands</p>
 </li>
 <li>
 <p><a href="#Testing">Run the tests</a> to ensure they all pass.</p>
@@ -328,7 +328,7 @@ The <code>.pptx</code> files used to create diagrams in this document can be fou
 </table>
 </div>
 <div class="paragraph">
-<p><code>Main</code> has only one class called <a href="https://github.com/CS2103-AY1819S1-F10-2/main/tree/master/src/main/java/seedu/address/MainApp.java"><code>MainApp</code></a>. It is responsible for,</p>
+<p><code>Main</code> has only one class called <a href="https://github.com/CS2103-AY1819S1-F10-2/main/tree/master/src/main/java/loanbook/MainApp.java"><code>MainApp</code></a>. It is responsible for,</p>
 </div>
 <div class="ulist">
 <ul>
@@ -450,13 +450,13 @@ Note how the event is propagated through the <code>EventsCenter</code> to the <c
 <div class="title">Figure 5. Structure of the UI Component</div>
 </div>
 <div class="paragraph">
-<p><strong>API</strong> : <a href="https://github.com/CS2103-AY1819S1-F10-2/main/tree/master/src/main/java/seedu/address/ui/Ui.java"><code>Ui.java</code></a></p>
+<p><strong>API</strong> : <a href="https://github.com/CS2103-AY1819S1-F10-2/main/tree/master/src/main/java/loanbook/ui/Ui.java"><code>Ui.java</code></a></p>
 </div>
 <div class="paragraph">
 <p>The UI consists of a <code>MainWindow</code> that is made up of parts e.g.<code>CommandBox</code>, <code>ResultDisplay</code>, <code>LoanListPanel</code>, <code>StatusBarFooter</code>, <code>BrowserPanel</code> etc. All these, including the <code>MainWindow</code>, inherit from the abstract <code>UiPart</code> class.</p>
 </div>
 <div class="paragraph">
-<p>The <code>UI</code> component uses JavaFx UI framework. The layout of these UI parts are defined in matching <code>.fxml</code> files that are in the <code>src/main/resources/view</code> folder. For example, the layout of the <a href="https://github.com/CS2103-AY1819S1-F10-2/main/tree/master/src/main/java/seedu/address/ui/MainWindow.java"><code>MainWindow</code></a> is specified in <a href="https://github.com/CS2103-AY1819S1-F10-2/main/tree/master/src/main/resources/view/MainWindow.fxml"><code>MainWindow.fxml</code></a></p>
+<p>The <code>UI</code> component uses JavaFx UI framework. The layout of these UI parts are defined in matching <code>.fxml</code> files that are in the <code>src/main/resources/view</code> folder. For example, the layout of the <a href="https://github.com/CS2103-AY1819S1-F10-2/main/tree/master/src/main/java/loanbook/ui/MainWindow.java"><code>MainWindow</code></a> is specified in <a href="https://github.com/CS2103-AY1819S1-F10-2/main/tree/master/src/main/resources/view/MainWindow.fxml"><code>MainWindow.fxml</code></a></p>
 </div>
 <div class="paragraph">
 <p>The <code>UI</code> component,</p>
@@ -485,7 +485,7 @@ Note how the event is propagated through the <code>EventsCenter</code> to the <c
 </div>
 <div class="paragraph">
 <p><strong>API</strong> :
-<a href="https://github.com/CS2103-AY1819S1-F10-2/main/tree/master/src/main/java/seedu/address/logic/Logic.java"><code>Logic.java</code></a></p>
+<a href="https://github.com/CS2103-AY1819S1-F10-2/main/tree/master/src/main/java/loanbook/logic/Logic.java"><code>Logic.java</code></a></p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
@@ -522,7 +522,7 @@ Note how the event is propagated through the <code>EventsCenter</code> to the <c
 <div class="title">Figure 8. Structure of the Model Component</div>
 </div>
 <div class="paragraph">
-<p><strong>API</strong> : <a href="https://github.com/CS2103-AY1819S1-F10-2/main/tree/master/src/main/java/seedu/address/model/Model.java"><code>Model.java</code></a></p>
+<p><strong>API</strong> : <a href="https://github.com/CS2103-AY1819S1-F10-2/main/tree/master/src/main/java/loanbook/model/Model.java"><code>Model.java</code></a></p>
 </div>
 <div class="paragraph">
 <p>The <code>Model</code>,</p>
@@ -553,7 +553,7 @@ Note how the event is propagated through the <code>EventsCenter</code> to the <c
 <div class="title">Figure 9. Structure of the Storage Component</div>
 </div>
 <div class="paragraph">
-<p><strong>API</strong> : <a href="https://github.com/CS2103-AY1819S1-F10-2/main/tree/master/src/main/java/seedu/address/storage/Storage.java"><code>Storage.java</code></a></p>
+<p><strong>API</strong> : <a href="https://github.com/CS2103-AY1819S1-F10-2/main/tree/master/src/main/java/loanbook/storage/Storage.java"><code>Storage.java</code></a></p>
 </div>
 <div class="paragraph">
 <p>The <code>Storage</code> component,</p>
@@ -572,7 +572,7 @@ Note how the event is propagated through the <code>EventsCenter</code> to the <c
 <div class="sect2">
 <h3 id="Design-Commons"><a class="link" href="#Design-Commons">2.6. Common classes</a></h3>
 <div class="paragraph">
-<p>Classes used by multiple components are in the <code>seedu.addressbook.commons</code> package.</p>
+<p>Classes used by multiple components are in the <code>loanbook.commons</code> package.</p>
 </div>
 </div>
 </div>
@@ -800,8 +800,8 @@ There are three stages in this implementation:</p>
 </li>
 </ul>
 </div>
-<div class="sect4">
-<h5 id="allowing-the-code-delete-code-command-to-accept-a-password"><a class="link" href="#allowing-the-code-delete-code-command-to-accept-a-password">Allowing the <code>delete</code> command to accept a password</a></h5>
+<div class="sect3">
+<h4 id="allowing-the-code-delete-code-command-to-accept-a-password"><a class="link" href="#allowing-the-code-delete-code-command-to-accept-a-password">3.2.1. Allowing the <code>delete</code> command to accept a password</a></h4>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -843,8 +843,8 @@ The default password for a new app is <code>a12345</code>.
 </div>
 </div>
 </div>
-<div class="sect4">
-<h5 id="allow-changing-of-master-password"><a class="link" href="#allow-changing-of-master-password">Allow changing of master password</a></h5>
+<div class="sect3">
+<h4 id="allow-changing-of-master-password"><a class="link" href="#allow-changing-of-master-password">3.2.2. Allow changing of master password</a></h4>
 <div class="paragraph">
 <p>Given below is an example usage scenario and how the <code>setpass</code> mechanism behaves at each step.</p>
 </div>
@@ -898,8 +898,8 @@ If the current password input the same as the new password input, it will not ca
 </div>
 </div>
 </div>
-<div class="sect4">
-<h5 id="encrypt-current-password-for-security"><a class="link" href="#encrypt-current-password-for-security">Encrypt current password for security</a></h5>
+<div class="sect3">
+<h4 id="encrypt-current-password-for-security"><a class="link" href="#encrypt-current-password-for-security">3.2.3. Encrypt current password for security</a></h4>
 <div class="paragraph">
 <p>To ensure that others are unable to retrieve the app&#8217;s password from the preference.json, we encrypt the password before storing. Decryption of password can only be done by the <code>Password</code> class.</p>
 </div>
@@ -1788,7 +1788,7 @@ See <a href="UsingGradle.html">UsingGradle.adoc</a> for more info on how to run 
 <p><em>System Tests</em> that test the entire App by simulating user actions on the GUI. These are in the <code>systemtests</code> package.</p>
 </li>
 <li>
-<p><em>Unit tests</em> that test the individual components. These are in <code>seedu.address.ui</code> package.</p>
+<p><em>Unit tests</em> that test the individual components. These are in <code>loanbook.ui</code> package.</p>
 </li>
 </ol>
 </div>
@@ -1799,15 +1799,15 @@ See <a href="UsingGradle.html">UsingGradle.adoc</a> for more info on how to run 
 <ol class="loweralpha" type="a">
 <li>
 <p><em>Unit tests</em> targeting the lowest level methods/classes.<br>
-e.g. <code>seedu.address.commons.StringUtilTest</code></p>
+e.g. <code>loanbook.commons.StringUtilTest</code></p>
 </li>
 <li>
 <p><em>Integration tests</em> that are checking the integration of multiple code units (those code units are assumed to be working).<br>
-e.g. <code>seedu.address.storage.StorageManagerTest</code></p>
+e.g. <code>loanbook.storage.StorageManagerTest</code></p>
 </li>
 <li>
 <p>Hybrids of unit and integration tests. These test are checking multiple code units as well as how the are connected together.<br>
-e.g. <code>seedu.address.logic.LogicManagerTest</code></p>
+e.g. <code>loanbook.logic.LogicManagerTest</code></p>
 </li>
 </ol>
 </div>
@@ -1868,7 +1868,7 @@ e.g. <code>seedu.address.logic.LogicManagerTest</code></p>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Update the version number in <a href="https://github.com/CS2103-AY1819S1-F10-2/main/tree/master/src/main/java/seedu/address/MainApp.java"><code>MainApp.java</code></a>.</p>
+<p>Update the version number in <a href="https://github.com/CS2103-AY1819S1-F10-2/main/tree/master/src/main/java/loanbook/MainApp.java"><code>MainApp.java</code></a>.</p>
 </li>
 <li>
 <p>Generate a JAR file <a href="UsingGradle.html#creating-the-jar-file">using Gradle</a>.</p>
@@ -2613,4 +2613,4 @@ Expected: Similar to previous.</p>
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-10-27 06:21:11 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-10-28 06:03:43 UTC</div></div></div></body></html>
