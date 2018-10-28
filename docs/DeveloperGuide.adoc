@@ -628,7 +628,7 @@ When the user deletes a loan from the LoanBook, it deletes the correct loan, the
 ==== Proposed implementation:
 From above, there is already a `LoanStatus` that has been implemented. What this does is that it allows the loan to be marked as deleted by setting the enum to the appropriate value. This would result in the LoanBook not needing to recommit every change.
 
-From here, when the user decides to close the LoanBook, it will then loop through all the loans and filter out the ones which have not been delete. These are the loans that would be kept and saved in the LoanBook.
+From here, when the user decides to close the LoanBook, it will then loop through all the loans and filter out the ones which have not been deleted. These are the loans that would be kept and saved in the LoanBook.
 
 ==== Design Considerations
 **Aspect: Deleting a loan**
