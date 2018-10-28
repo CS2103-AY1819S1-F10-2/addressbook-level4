@@ -37,6 +37,7 @@
 <li><a href="#Implementation-Configuration">3.6. Configuration</a></li>
 <li><a href="#bicycle-management">3.7. Bicycle Management</a></li>
 <li><a href="#hide-private-information">3.8. Hide private information</a></li>
+<li><a href="#proposed-improved-code-delete-code-functionality">3.9. [Proposed] Improved <code>delete</code> functionality</a></li>
 </ul>
 </li>
 <li><a href="#documentation">4. Documentation</a>
@@ -76,7 +77,9 @@
 <ul class="sectlevel2">
 <li><a href="#launch-and-shutdown">G.1. Launch and Shutdown</a></li>
 <li><a href="#deleting-a-loan">G.2. Deleting a loan</a></li>
-<li><a href="#saving-data">G.3. Saving data</a></li>
+<li><a href="#return-a-loan-functionality">G.3. Return a loan functionality</a></li>
+<li><a href="#summary-functionality">G.4. Summary functionality</a></li>
+<li><a href="#saving-data">G.5. Saving data</a></li>
 </ul>
 </li>
 </ul>
@@ -912,10 +915,13 @@ decrypt our stored password.</p>
 </div>
 <div class="sect2">
 <h3 id="return-a-loan-feature"><a class="link" href="#return-a-loan-feature">3.3. Return a Loan feature</a></h3>
+<div class="paragraph">
+<p>A LoanBook application that only allows users to do loans without being able to return them would not serve its purpose. When you take out a loan, it should automatically come with the feature of being returnable. This is the functionality for that.</p>
+</div>
 <div class="sect3">
 <h4 id="proposed-implementation"><a class="link" href="#proposed-implementation">3.3.1. Proposed Implementation</a></h4>
 <div class="paragraph">
-<p>Returning a loan is done by setting the corresponding status of the loan to <code>returned</code>. Other than setting the enum to be returned, the cost of the loan will also be calculated and displayed to the user.</p>
+<p>Returning a loan is done by setting the corresponding status of the loan to <code>LoanStatus.RETURNED</code>. Other than setting the enum to be returned, the cost of the loan will also be calculated and displayed to the user.</p>
 </div>
 <div class="paragraph">
 <p>The steps that have to be done by LoanBook is as follows:</p>
@@ -932,12 +938,12 @@ decrypt our stored password.</p>
 <p>Change the enum of <code>LoanStatus</code> to become <code>LoanStatus.RETURNED</code>.</p>
 </li>
 <li>
-<p>Calculate the cost of the loan and display it in the gui as a suggestion for the user.</p>
+<p>Calculate the cost of the loan and display it in the GUI as a suggestion for the user.</p>
 </li>
 </ul>
 </div>
 <div class="paragraph">
-<p>These steps would change the given Loan object, and update the properties of the Loan object. The appropriate values stored within the Loan object would therefore change accordingly.</p>
+<p>These steps would change the given <code>Loan</code> object, and update the properties of the <code>Loan</code> object. The appropriate values stored within the <code>Loan</code> object would therefore change accordingly.</p>
 </div>
 <div class="paragraph">
 <p>Given below is an example usage scenerio and how the internals of the Loan would behave:</p>
@@ -945,37 +951,14 @@ decrypt our stored password.</p>
 <div class="paragraph">
 <p><strong>Step 1.</strong> The user would have to do a search for which loan they would like to return. This will pull up a list of loans from which the user would be able to select the correct loan.</p>
 </div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-Users who are able to remember the loanID would be able to access the loan directly by using the <code>i/&lt;LOANID&gt;</code> tag in the command. This would allow them to skip this step, and directly reference the loan which they would like to modify.
-</td>
-</tr>
-</table>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="images/return-loan-list-of-loans.png" alt="return loan list of loans">
-</div>
-</div>
-<div class="paragraph">
-<p>The user lists all loans. This is displayed on the GUI.</p>
-</div>
-<div class="paragraph">
-<p>&#160;<br></p>
-</div>
 <div class="paragraph">
 <p><strong>Step 2.</strong> Using the current system time as the <code>endTime</code>, the duration of the loan will be calculated. Should the duration ever be negative, an error message will be thrown. This is because such a scenario would not ever be possible in the LoanBook.</p>
 </div>
 <div class="paragraph">
-<p><strong>Step 3.</strong> The user decides to return the current loan (in the case of the above image, the user wants to return loan number 3, as selected). User will therefore key in <code>return i/3</code>.</p>
+<p><strong>Step 3.</strong> The user decides to return the current loan (in the case of the above image, the user wants to return loan at index 3, as selected). User will therefore key in <code>return i/3</code>.</p>
 </div>
 <div class="paragraph">
-<p>The LoanBook will save the current time into the <code>Optional&lt;LoanTime&gt; returnTime</code> field. This would be done by calling the constructor <code>LoanTime()</code>. Also, the loanStatus field would also be updated from <code>ONGOING</code> to <code>RETURNED</code>.</p>
+<p>The LoanBook will save the current time into the <code>LoanTime endTime</code> field. This would be done by calling the constructor <code>LoanTime()</code>. Also, the loanStatus field would also be updated from <code>ONGOING</code> to <code>RETURNED</code>.</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -1010,7 +993,7 @@ If the loan has already been returned or deleted, a corresponding error message 
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-Although the time saved is to the second, the time that is multiplied when we are getting the cost is rounded down to the nearest minute. In a sense, this is "pro-rating" the cost, and making it more discrete.
+Although the time saved is to the millisecond, the time that is multiplied when we are getting the cost is rounded down to the nearest minute. In a sense, this is "pro-rating" the cost, and making it more discrete.
 </td>
 </tr>
 </table>
@@ -1054,7 +1037,7 @@ It is possible for the LoanBook to have a loan that lasts for 0 minutes. This is
 </div>
 </li>
 <li>
-<p>Alternative 2: Create new ArrayLists of loans for each possible status of the loan.</p>
+<p>Alternative 2: Create new ArrayLists of <code>Loans</code> for each possible status of the <code>Loan</code> objects.</p>
 <div class="ulist">
 <ul>
 <li>
@@ -1073,13 +1056,16 @@ It is possible for the LoanBook to have a loan that lasts for 0 minutes. This is
 </div>
 <div class="sect2">
 <h3 id="summary-feature"><a class="link" href="#summary-feature">3.4. Summary Feature</a></h3>
+<div class="paragraph">
+<p>In order to allow the user to use the LoanBook effectively as an auditing tool, they must be able to get a summary of all the loans that they have made. This summary should ideally give them an idea of the statistics of each of their transactions at a glance.</p>
+</div>
 <div class="sect3">
 <h4 id="proposed-implementation-2"><a class="link" href="#proposed-implementation-2">3.4.1. Proposed Implementation</a></h4>
 <div class="paragraph">
 <p>Getting the summary of all the loans is simply done by looping through all the stored loans before and aggregating the statistics of all the loans.</p>
 </div>
 <div class="paragraph">
-<p>Currently, the <code>summary</code> command would display to the user the following statistics:</p>
+<p>Currently, the <code>summary</code> command displays to the user the following statistics:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -1098,19 +1084,19 @@ It is possible for the LoanBook to have a loan that lasts for 0 minutes. This is
 </ul>
 </div>
 <div class="paragraph">
-<p>This would give a very handy summary page as well as an audit page for the bicycle shop owners.</p>
+<p>This would give a very handy summary page as well as a printable audit page for the bicycle shop owners.</p>
 </div>
 <div class="paragraph">
-<p>Given below is an example usage scenerio and how the internals of the Loan would behave:</p>
+<p>Given below is an example usage scenario and how the internals of the LoanBook behaves:</p>
 </div>
 <div class="paragraph">
 <p><strong>Step 1.</strong> The user simply has to type the <code>summary</code> keyword into the CLI.</p>
 </div>
 <div class="paragraph">
-<p><strong>Step 2.</strong> The LoanBook will proceed to loop through all the loans and aggregate the statistics of the loans. Simple statistics to be counted include the total time of loan and the total revenue gained from the loans.</p>
+<p><strong>Step 2.</strong> The LoanBook proceeds to loop through all the loans and aggregate the statistics of the loans.</p>
 </div>
 <div class="paragraph">
-<p><strong>Step 3.</strong> The LoanBook will update the display with the aggregated statistics, and this can be screenshotted by the user as an audit page.</p>
+<p><strong>Step 3.</strong> The LoanBook updates the display with the aggregated statistics, and this can be screenshotted by the user as a summary page.</p>
 </div>
 </div>
 <div class="sect3">
@@ -1140,7 +1126,7 @@ It is possible for the LoanBook to have a loan that lasts for 0 minutes. This is
 <p>Pros: Quicker response time to the users.</p>
 </li>
 <li>
-<p>Cons: Much hearder to implement, cache might break if user edits past loans.</p>
+<p>Cons: Much harder to implement, cache might break if user edits past loans.</p>
 </li>
 </ul>
 </div>
@@ -1152,7 +1138,7 @@ It is possible for the LoanBook to have a loan that lasts for 0 minutes. This is
 <div class="sect3">
 <h4 id="future-features"><a class="link" href="#future-features">3.4.3. Future features</a></h4>
 <div class="paragraph">
-<p>We plan to include a feature which allows users to summarize the loanbook based on certain parameters. For example, in future implementations, the user will be able to filter the statistics based on the identity of a bicycle.</p>
+<p>We plan to include a feature which allows users to summarize the LoanBook based on certain parameters. For example, in future implementations, the user will be able to filter the statistics based on the identity of a bicycle.</p>
 </div>
 <div class="paragraph">
 <p>These are the proposed features you would be able to search based on:</p>
@@ -1172,6 +1158,9 @@ It is possible for the LoanBook to have a loan that lasts for 0 minutes. This is
 </div>
 <div class="paragraph">
 <p>As well, having to recalculate all the loans would be a bad idea when the LoanBook contains many loans. A proposed solution would be to cache the results of the main summary method, so that the LoanBook would only have to recalculate the numbers based on loans that have not been added to the final tally.</p>
+</div>
+<div class="paragraph">
+<p>Another idea would be to display all the loans in a printable table, when the summary feature is called. Perhaps this would generate a pdf file which shows all the list of loans that the LoanBook is keeping track of. Users can then take use this as a more stringent auditing tool.</p>
 </div>
 </div>
 </div>
@@ -1499,6 +1488,73 @@ For example: <code>phone.setText(loan.getPhone().getCensored().value);</code> wi
 </div>
 </div>
 </div>
+<div class="sect2">
+<h3 id="proposed-improved-code-delete-code-functionality"><a class="link" href="#proposed-improved-code-delete-code-functionality">3.9. [Proposed] Improved <code>delete</code> functionality</a></h3>
+<div class="sect3">
+<h4 id="current-implementation-3"><a class="link" href="#current-implementation-3">3.9.1. Current Implementation</a></h4>
+<div class="paragraph">
+<p>When the user deletes a loan from the LoanBook, it deletes the correct loan, then commits the result into memory. What this entails is that the entire XML file gets overwritten when each delete command is being called.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="proposed-implementation-3"><a class="link" href="#proposed-implementation-3">3.9.2. Proposed implementation:</a></h4>
+<div class="paragraph">
+<p>From above, there is already a <code>LoanStatus</code> that has been implemented. What this does is that it allows the loan to be marked as deleted by setting the enum to the appropriate value. This would result in the LoanBook not needing to recommit every change.</p>
+</div>
+<div class="paragraph">
+<p>From here, when the user decides to close the LoanBook, it will then loop through all the loans and filter out the ones which have not been deleted. These are the loans that would be kept and saved in the LoanBook.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="design-considerations-6"><a class="link" href="#design-considerations-6">3.9.3. Design Considerations</a></h4>
+<div class="paragraph">
+<p><strong>Aspect: Deleting a loan</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Alternative 1 (current choice)</strong>: Remove each loan as they are deleted</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: Easy to implement</p>
+</li>
+<li>
+<p>Cons: Large time taken for memory operations as reading and writing to the data is required.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Alternative 2 (proposed implementation): Use an enum to implement lazy deletion.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: Much more time efficient due to lazy deletion</p>
+</li>
+<li>
+<p>Cons: Implementation is harder, and changing to this implementation would affect the undo and redo features.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Alternative 3: Fix the LoanBook storage manager so that it does not rewrite the entire XML file after each delete operation.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: All operations are now lazy. Much better performance of the application because commit operations do not need to change the large XML file.</p>
+</li>
+<li>
+<p>Cons: Large refactoring work required. May potentially affect the timeline of development of the other functions.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
 </div>
 </div>
 <div class="sect1">
@@ -1813,6 +1869,40 @@ e.g. <code>loanbook.logic.LogicManagerTest</code></p>
 </div>
 </li>
 </ol>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>The tests within the <code>add</code> command parsers do not take into account the feedback string from within the display. This is because of the time sensitive nature of the <code>add</code> command. It does not take in a specific <code>LoanTime</code> when the loan is created and populates the current system time into the <code>Loan</code>. Therefore, the strings that is returned for each command is time dependant. Hence it is impossible to do a string matching on the returned display string and a hard coded value.</p>
+</div>
+<div class="paragraph">
+<p>In this case, we commented out the check for equality of the string from the <code>add</code> command in the GUI against the expected hard coded string.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>However we do not need to test the equality of the displayed strings to ensure that the <code>add</code> command is working properly. We can simply check that the size of the list of <code>Loans</code> in the LoanBook has increased by 1, as well as to ensure that the <code>Loan</code> that was added into the LoanBook has the same base property as the default <code>Loan</code> that was added.</p>
+</div>
+<div class="paragraph">
+<p>An alternative would be to use a regex to do string pattern matching on the added <code>Loan</code>. This can be combined with getting the current system time of the tests to check that the display strings match, and the saved <code>Loans</code> are correctly added. However, this modification would take time to develop and to ensure that it is correct. As such, such developments would be left to be completed in future releases of LoanBook.</p>
+</div>
+</td>
+</tr>
+</table>
 </div>
 </div>
 <div class="sect2">
@@ -2593,7 +2683,187 @@ Expected: Similar to previous.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="saving-data"><a class="link" href="#saving-data">G.3. Saving data</a></h3>
+<h3 id="return-a-loan-functionality"><a class="link" href="#return-a-loan-functionality">G.3. Return a loan functionality</a></h3>
+<div class="paragraph">
+<p>Prerequisites: List all loans using the list command. Ensure there are multiple loans in the list.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Returning a valid loan</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Choose a loan that has not been returned. These loans are marked with the ONGOING tag. Find the index number of it and run <code>return i/&lt;INDEX&gt;</code>.<br>
+Expected: The loan is returned successfully. The display message details that the loan has been deleted, and gives a suggestion for the cost price of the duration of the loan.</p>
+</li>
+<li>
+<p>Choose another ongoing loan from the list and run <code>return i/&lt;INDEX&gt;</code>.<br>
+Expected: The loan is returned successfully as well. The display message details that the loan has been deleted, and gives a suggestion for the cost price of the duration of the loan.</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>Negative tests:</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Test case: <code>return i/0</code><br>
+Expected: No loan is returned. Error details shown in the status message, the message should say "the specified index is invalid" in this case. Status bar remains the same.</p>
+</li>
+<li>
+<p>Other incorrect <code>return</code> commands to try:</p>
+<div class="olist lowerroman">
+<ol class="lowerroman" type="i">
+<li>
+<p><code>return</code></p>
+</li>
+<li>
+<p><code>return i/x</code> (where <code>x</code> is larger than the list size)</p>
+</li>
+<li>
+<p><code>return i/aaa</code> (Where <code>aaa</code> is a string)</p>
+</li>
+<li>
+<p><code>return i/y</code> (where <code>y</code> is the index of a loan that is not <code>ONGOING</code>).<br></p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="summary-functionality"><a class="link" href="#summary-functionality">G.4. Summary functionality</a></h3>
+<div class="paragraph">
+<p>Use the <code>summary</code> command on various sizes of the LoanBook to test this functionality</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Create an empty LoanBook and run the <code>summary</code> command.<br>
+Expected: The summary should report the following:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Total loans: 0</p>
+</li>
+<li>
+<p>Loans in progress: 0</p>
+</li>
+<li>
+<p>Returned loans: 0</p>
+</li>
+<li>
+<p>Total product loan time: 0 minutes</p>
+</li>
+<li>
+<p>Total revenue: $0.00</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Add 1 loan with a rate of $30/hr. Run the <code>summary</code> command.<br>
+Expected: The displayed page should report the following:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Total loans: 1</p>
+</li>
+<li>
+<p>Loans in progress: 1</p>
+</li>
+<li>
+<p>Returned loans: 0</p>
+</li>
+<li>
+<p>Total product loan time: 0 minutes</p>
+</li>
+<li>
+<p>Total revenue: $0.00</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Add 3 more loans with rates $120/hr. Run the <code>summary</code> command.<br>
+Expected: The displayed page should report the following:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Total loans: 4</p>
+</li>
+<li>
+<p>Loans in progress: 4</p>
+</li>
+<li>
+<p>Returned loans: 0</p>
+</li>
+<li>
+<p>Total product loan time: 0 minutes</p>
+</li>
+<li>
+<p>Total revenue: $0.00</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Return the first loan that you have added from above after exactly 1 minute, and run the <code>summary</code> command.<br>
+Expected: The displayed page should report the following:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Total loans: 4</p>
+</li>
+<li>
+<p>Loans in progress: 3</p>
+</li>
+<li>
+<p>Returned loans: 1</p>
+</li>
+<li>
+<p>Total product loan time: 1 minutes</p>
+</li>
+<li>
+<p>Total revenue: $0.50</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Return 2 of the 3 loans that you have added from above after exactly 1 and 2 minutes from when you added them, respectively. Run the <code>summary</code> command.<br>
+Expected: The displayed page should report the following:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Total loans: 4</p>
+</li>
+<li>
+<p>Loans in progress: 1</p>
+</li>
+<li>
+<p>Returned loans: 3</p>
+</li>
+<li>
+<p>Total product loan time: 4 minutes</p>
+</li>
+<li>
+<p>Total revenue: $6.50</p>
+</li>
+</ul>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="saving-data"><a class="link" href="#saving-data">G.5. Saving data</a></h3>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -2613,4 +2883,4 @@ Expected: Similar to previous.</p>
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-10-28 11:44:19 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-10-28 12:18:58 UTC</div></div></div></body></html>

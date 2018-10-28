@@ -102,8 +102,34 @@ e.g. typing <strong><code>help</code></strong> and pressing <kbd>ENTER</kbd> wil
 <div class="sect2">
 <h3 id="viewing-help-code-help-code"><a class="link" href="#viewing-help-code-help-code">3.1. Viewing help : <code>help</code></a></h3>
 <div class="paragraph">
-<p>Provides a list of all commands together with a basic description, how-to-use and example usage for each command.<br>
-Format: <code>help</code></p>
+<p>Provides a list of all commands together with a basic description, how-to-use and example usage for each command.<br></p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+This will cause a pop up window to appear, containing a copy of this User Guide.
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+This is not the only way to get help! If you key in the commands with the wrong format, you will get a prompt in the display box which will give you a brief description of the command. It will also tell you how to use the command correctly.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Format: <code>help</code></p>
 </div>
 </div>
 <div class="sect2">
@@ -112,11 +138,11 @@ Format: <code>help</code></p>
 <p>Adds a loan to the loan book with the following parameters, and displays the transaction along with a LOAN_ID to keep track of the loan.<br>
 Format: <code>add p/PERSON_NAME hp/PERSON_PHONE_NO e/PERSON_EMAIL r/RATE o/OBJECT_IDENTITY</code></p>
 </div>
-<div class="admonitionblock tip">
+<div class="admonitionblock note">
 <table>
 <tr>
 <td class="icon">
-<i class="fa icon-tip" title="Tip"></i>
+<i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
 NUMBER_LOANED and LOAN_OUT_PERIOD must be a positive integer
@@ -139,6 +165,20 @@ PERSON_PHONE_NO and PERSON_EMAIL should not be blank.
 </li>
 </ul>
 </div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>The best part about this is you do not even need to key in the time that you created this loan! LoanBook does the timing for you! Simple isn&#8217;t it?</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
 </div>
 <div class="sect2">
 <h3 id="listing-all-loans-code-list-code"><a class="link" href="#listing-all-loans-code-list-code">3.3. Listing all loans : <code>list</code></a></h3>
@@ -151,14 +191,14 @@ Format: <code>list</code></p>
 <h3 id="editing-a-loan-code-edit-code"><a class="link" href="#editing-a-loan-code-edit-code">3.4. Editing a loan : <code>edit</code></a></h3>
 <div class="paragraph">
 <p>In case a wrong entry is keyed in, or the customer changes their mind, this command allows details of a loan entry to be edited.<br>
-Format: <code>edit i/LOAN_ID [p/PERSON_NAME] [hp/PERSON_PHONE_NO] [e/PERSON_EMAIL] [r/RATE] [o/OBJECT_IDENTITY]</code></p>
+Format: <code>edit i/LOAN_INDEX [p/PERSON_NAME] [hp/PERSON_PHONE_NO] [e/PERSON_EMAIL] [r/RATE] [o/OBJECT_IDENTITY]</code></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="ulist">
 <ul>
 <li>
-<p>Edits the loan at the specified <code>LOAN_ID</code>. This LOAN_ID refers to the LOAN_ID number shown in the displayed loan list. The LOAN_ID <strong>must be a positive integer</strong> 1, 2, 3, &#8230;&#8203;</p>
+<p>Edits the loan at the specified <code>LOAN_INDEX</code>. This LOAN_INDEX refers to the LOAN_INDEX number shown in the displayed loan list. The LOAN_INDEX <strong>must be a positive integer</strong> 1, 2, 3, &#8230;&#8203;</p>
 </li>
 <li>
 <p>At least one of the optional fields must be provided.</p>
@@ -179,21 +219,35 @@ Format: <code>edit i/LOAN_ID [p/PERSON_NAME] [hp/PERSON_PHONE_NO] [e/PERSON_EMAI
 <div class="ulist">
 <ul>
 <li>
-<p><code>edit i/11037 o/Bicycle-017</code><br>
-For the loan with Loan ID 11037, changes the loaned object from whatever it was before to Bicycle-017.</p>
+<p><code>edit i/11 o/Bicycle-017</code><br>
+For the loan at index 11, changes the loaned object from whatever it was before to Bicycle-017.</p>
 </li>
 <li>
-<p><code>edit i/90210 p/James Tan hp/86661352 e/alabaaoe@xyz.com r/144</code><br>
-For the loan with Loan ID 90210, changes the customer to James Tan, who has the specified contact details, to the rate of $144 per hour.</p>
+<p><code>edit i/9 p/James Tan hp/86661352 e/alabaaoe@xyz.com r/144</code><br>
+For the loan at index 9, changes the customer to James Tan, who has the specified contact details, to the rate of $144 per hour.</p>
 </li>
 </ul>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>We do not allow editing of the loan&#8217;s start time or the return time because we want you to be able to use our application as an auditing tool. We hope that this can then simplify the management of your business.</p>
+</div>
+</td>
+</tr>
+</table>
 </div>
 </div>
 <div class="sect2">
 <h3 id="locating-loans-by-key-words-code-search-code"><a class="link" href="#locating-loans-by-key-words-code-search-code">3.5. Locating loans by key words: <code>search</code></a></h3>
 <div class="paragraph">
-<p>Returns a loan based on parameters of LOAN_ID, PERSON_NAME or OBJECT_IDENTITY.<br>
-Format: <code>search [i/LOAN_ID] [p/PERSON_NAME] [o/OBJECT_IDENTITY]</code></p>
+<p>Returns a loan based on parameters of LOAN_INDEX, PERSON_NAME or OBJECT_IDENTITY.<br>
+Format: <code>search [i/LOAN_INDEX] [p/PERSON_NAME] [o/OBJECT_IDENTITY]</code></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
@@ -222,7 +276,7 @@ Format: <code>search [i/LOAN_ID] [p/PERSON_NAME] [o/OBJECT_IDENTITY]</code></p>
 <ul>
 <li>
 <p><code>search i/11037</code><br>
-Searches for the loan with LOAN_ID 11037</p>
+Searches for the loan with LOAN_INDEX 11037</p>
 </li>
 <li>
 <p><code>search p/James Tan</code><br>
@@ -238,16 +292,16 @@ Searches for loans made by John Doe where the item loaned out is Bicycle-007</p>
 <div class="sect2">
 <h3 id="deleting-the-chosen-loan-from-the-loan-book-code-delete-code"><a class="link" href="#deleting-the-chosen-loan-from-the-loan-book-code-delete-code">3.6. Deleting the chosen loan from the loan book : <code>delete</code></a></h3>
 <div class="paragraph">
-<p>Delete the loan from the loan book. If you want to delete one loan, use <code>delete i/LOAN_ID x/CURRENT_PASSWORD</code>.
+<p>Delete the loan from the loan book. If you want to delete one loan, use <code>delete i/LOAN_INDEX x/CURRENT_PASSWORD</code>.
 Due to <code>delete</code> modifying transectional summery, it is a critical command and hence elevation is required hence the password field.<br>
-Format: <code>delete i/LOAN_ID x/CURRENT_PASSWORD</code></p>
+Format: <code>delete i/LOAN_INDEX x/CURRENT_PASSWORD</code></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="ulist">
 <ul>
 <li>
-<p>Deletes the loan at the specified <code>i/LOAN_ID</code>.</p>
+<p>Deletes the loan at the specified <code>i/LOAN_INDEX</code>.</p>
 </li>
 <li>
 <p>Note that this does not reset <code>LOAN_ID</code>.</p>
@@ -280,7 +334,7 @@ Format: <code>delete i/LOAN_ID x/CURRENT_PASSWORD</code></p>
 <ul>
 <li>
 <p><code>delete i/11037 x/a12345</code><br>
-Deletes the loan with LOAN_ID 11037.</p>
+Deletes the loan with that has been indexed at position 11037.</p>
 </li>
 </ul>
 </div>
@@ -320,8 +374,62 @@ Set the password of the app to <code>n3wP4sS</code>.</p>
 <div class="sect2">
 <h3 id="returning-a-loan-code-return-code"><a class="link" href="#returning-a-loan-code-return-code">3.8. Returning a loan : <code>return</code></a></h3>
 <div class="paragraph">
-<p>Marks a loan as returned based on LOAN_ID and automatically prints out the amount payable.<br>
-Format: <code>return i/LOAN_ID</code></p>
+<p>What&#8217;s the use of a LoanBook if you are unable to return the loans that you have? This is how you can do that! In fact, we see your pains trying to calculate the amount payable on a calculator, so we decided to help you out by doing all the number crunching for you.</p>
+</div>
+<div class="paragraph">
+<p>This command marks a loan as returned based on LOAN_INDEX and automatically prints out the amount payable. The amount payable will be prorated and rounded down to the nearest minute.<br></p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>We choose to do this because when we get down to seconds, the difference in the earnings you will get is going to be on the order of fraction of cents. We hope that by doing this, your business would not seem to be very petty about the money.</p>
+</div>
+<div class="paragraph">
+<p>Also, this would be good for your business, as customers will not feel that they have been ripped off the cost of renting a bike for an extra minute just because you took 5 seconds to log their return details! :)</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Do note that you will have to list out all the loans in order, or search for a particular loan that you would like to return. From there, you need to key in the index number of the loan as a parameter into this command.</p>
+</div>
+<div class="paragraph">
+<p>Format: <code>return i/LOAN_INDEX</code></p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Do be careful to note that it is the loan INDEX that you are keying into the program. Please do not key in the LoanID instead!
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>This command is currently not undoable. Please be careful to double check.</p>
+</div>
+<div class="paragraph">
+<p>We are working on fixing this issue! Do look forward to seeing this new functionality in the next release of LoanBook, version 2.0!</p>
+</div>
+</td>
+</tr>
+</table>
 </div>
 <div class="paragraph">
 <p>Examples:</p>
@@ -330,7 +438,7 @@ Format: <code>return i/LOAN_ID</code></p>
 <ul>
 <li>
 <p><code>return i/11037</code><br>
-Marks the loan with LOAN_ID 11037 as returned. Also automatically prints out the amount payable based on loan time and rate.</p>
+Marks the loan with LOAN_INDEX 11037 as returned. Also automatically prints out the amount payable based on loan time and rate.</p>
 </li>
 </ul>
 </div>
@@ -373,7 +481,10 @@ Format: <code>reset</code></p>
 <div class="sect2">
 <h3 id="summarize-all-the-transactions-code-summary-code"><a class="link" href="#summarize-all-the-transactions-code-summary-code">3.10. Summarize all the transactions : <code>summary</code></a></h3>
 <div class="paragraph">
-<p>Show the total number of loans that are done and in progress. Also summarizes the loan status of each item, the number of times an object was loaned before.</p>
+<p>Do you want to find out at a glance how much money your business has collected? Or maybe out of all the bicycles you have, how many are currently loaned out? Here&#8217;s the command for you.</p>
+</div>
+<div class="paragraph">
+<p>This feature shows the total number of loans that are done and in progress. It also summarizes the loan status of each item, the number of times an object was loaned before.</p>
 </div>
 <div class="paragraph">
 <p>The <code>summary</code> function would display the statistics of all your loans in the display box on the right of the application. There, you will find the following statistics:</p>
@@ -473,4 +584,4 @@ Format: <code>history</code></p>
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-10-28 11:44:19 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-10-28 12:18:58 UTC</div></div></div></body></html>
