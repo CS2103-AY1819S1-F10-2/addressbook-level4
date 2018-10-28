@@ -31,8 +31,11 @@ e.g. typing *`help`* and pressing kbd:[ENTER] will open the help window.
 
 * *`list`* : List the status of the loanbook
 * **`add`**`p/John hp/12345678 e/john@abc.com r/3 o/Bicycle-007` : Loans Bicycle-007 to John at a rate of $3 per hour
-* **`delete`**`3` : deletes the 3rd loan shown in the current list
+* **`delete`**`i/3 x/a12345` : deletes the 3rd loan shown in the current list
 * *`reset`* : Reset the loanbook
+
+[NOTE]
+The default password for the app is `a12345`. This is required for some commands such as `reset` and `delete`.
 
 .  Refer to <<Features>> for details of each command.
 
@@ -113,7 +116,7 @@ Searches for loans made by John Doe where the item loaned out is Bicycle-007
 === Deleting the chosen loan from the loan book : `delete`
 
 Delete the loan from the loan book. If you want to delete one loan, use `delete i/LOAN_ID x/CURRENT_PASSWORD`.
-Due to `delete` modifying transectional summery, it is a critical command and hence elevation is required hence the password field. +
+Due to `delete` modifying transactional summery, it is a critical command. Elevation is required hence the password prompt. +
 Format: `delete i/LOAN_ID x/CURRENT_PASSWORD`
 
 ****
