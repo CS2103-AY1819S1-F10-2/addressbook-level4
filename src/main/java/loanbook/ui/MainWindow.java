@@ -19,6 +19,7 @@ import loanbook.commons.events.ui.ExitAppRequestEvent;
 import loanbook.commons.events.ui.ShowHelpRequestEvent;
 import loanbook.logic.Logic;
 import loanbook.model.UserPrefs;
+import loanbook.model.loan.Loan;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -35,7 +36,7 @@ public class MainWindow extends UiPart<Stage> {
 
     // Independent Ui parts residing in this Ui container
     private BrowserPanel browserPanel;
-    private LoanListPanel loanListPanel;
+    private ListPanel listPanel;
     private Config config;
     private UserPrefs prefs;
     private HelpWindow helpWindow;
@@ -50,7 +51,7 @@ public class MainWindow extends UiPart<Stage> {
     private MenuItem helpMenuItem;
 
     @FXML
-    private StackPane loanListPanelPlaceholder;
+    private StackPane listPanelPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
@@ -122,8 +123,8 @@ public class MainWindow extends UiPart<Stage> {
         browserPanel = new BrowserPanel();
         browserPlaceholder.getChildren().add(browserPanel.getRoot());
 
-        loanListPanel = new LoanListPanel(logic.getFilteredLoanList());
-        loanListPanelPlaceholder.getChildren().add(loanListPanel.getRoot());
+        listPanel = new LoanListPanel(logic.getFilteredLoanList());
+        listPanelPlaceholder.getChildren().add(((LoanListPanel)listPanel).getRoot());
 
         ResultDisplay resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -187,8 +188,8 @@ public class MainWindow extends UiPart<Stage> {
         raise(new ExitAppRequestEvent());
     }
 
-    public LoanListPanel getLoanListPanel() {
-        return loanListPanel;
+    public ListPanel getListPanel() {
+        return listPanel;
     }
 
     void releaseResources() {
