@@ -51,6 +51,9 @@ public class Loan implements UniqueListItem<Loan> {
                 LoanStatus loanStatus,
                 Set<Tag> tags) {
 
+        HashSet<Tag> dataTags = new HashSet<>();
+        dataTags.add(new Tag(loanStatus.toString()));
+
         requireAllNonNull(name, nric, phone, email, address, bike, rate, startTime, loanStatus, tags);
         this.name = name;
         this.nric = nric;
@@ -63,6 +66,7 @@ public class Loan implements UniqueListItem<Loan> {
         this.endTime = endTime;
         this.loanStatus = loanStatus;
         this.tags.addAll(tags);
+        this.tags.addAll(dataTags);
     }
 
     /**

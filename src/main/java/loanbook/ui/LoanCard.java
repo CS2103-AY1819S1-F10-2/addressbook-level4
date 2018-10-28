@@ -13,8 +13,9 @@ import loanbook.model.loan.Loan;
 public class LoanCard extends UiPart<Region> {
 
     private static final String FXML = "LoanListCard.fxml";
+    private static final String[] LOANSTATUS_TAG_COLOR_STYLES = {"red", "green", "orange"};
     private static final String[] TAG_COLOR_STYLES =
-        {"teal", "red", "yellow", "blue", "orange", "brown", "green", "pink", "black", "grey"};
+        {"teal", "yellow", "blue", "brown", "pink", "black", "grey"};
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
@@ -71,7 +72,17 @@ public class LoanCard extends UiPart<Region> {
     private String getTagColorStyleFor(String tagName) {
         // we use the hash code of the tag name to generate a random color, so that the color remain consistent
         // between different runs of the program while still making it random enough between tags.
-        return TAG_COLOR_STYLES[Math.abs(tagName.hashCode()) % TAG_COLOR_STYLES.length];
+        switch (tagName) {
+        case "Ongoing":
+            return LOANSTATUS_TAG_COLOR_STYLES[2];
+        case "Returned":
+            return LOANSTATUS_TAG_COLOR_STYLES[1];
+        case "Deleted":
+            return LOANSTATUS_TAG_COLOR_STYLES[0];
+        default:
+            // All user defined tags are set to brown colour.
+            return TAG_COLOR_STYLES[3];
+        }
     }
 
     /**
