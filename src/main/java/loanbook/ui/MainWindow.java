@@ -17,6 +17,7 @@ import loanbook.commons.core.GuiSettings;
 import loanbook.commons.core.LogsCenter;
 import loanbook.commons.events.ui.BikeListShowEvent;
 import loanbook.commons.events.ui.ExitAppRequestEvent;
+import loanbook.commons.events.ui.LoanListShowEvent;
 import loanbook.commons.events.ui.ShowHelpRequestEvent;
 import loanbook.logic.Logic;
 import loanbook.model.UserPrefs;
@@ -208,6 +209,11 @@ public class MainWindow extends UiPart<Stage> {
     @Subscribe
     private void handleBikeListShowEvent(BikeListShowEvent event) {
         showBikeList();
+    }
+
+    @Subscribe
+    private void handleLoanListShowEvent(LoanListShowEvent event) {
+        showLoanList();
     }
 
     @Subscribe

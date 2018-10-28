@@ -109,7 +109,7 @@ public class LoanListPanelTest extends GuiUnitTest {
         }
         builder.append("</loanbook>\n");
 
-        Path manyLoansFile = Paths.get(TEST_DATA_FOLDER + "manyLoans.xml");
+        Path manyLoansFile = Paths.get(TEST_DATA_FOLDER + "/manyLoans.xml");
         FileUtil.createFile(manyLoansFile);
         FileUtil.writeToFile(manyLoansFile, builder.toString());
         manyLoansFile.toFile().deleteOnExit();
