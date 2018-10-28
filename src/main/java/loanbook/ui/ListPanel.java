@@ -1,5 +1,7 @@
 package loanbook.ui;
 
+import java.util.logging.Logger;
+
 import com.google.common.eventbus.Subscribe;
 
 import javafx.application.Platform;
@@ -20,11 +22,14 @@ public abstract class ListPanel<T> extends UiPart<Region> {
      */
     private static final String FXML = "ListPanel.fxml";
 
+    protected final Logger logger;
+
     @FXML
     protected ListView<T> listView;
 
-    public ListPanel(ObservableList<T> list) {
+    public ListPanel(Class thisClass, ObservableList<T> list) {
         super(FXML);
+        logger = LogsCenter.getLogger(thisClass);
         setConnections(list);
         registerAsAnEventHandler(this);
     }
@@ -56,11 +61,9 @@ public abstract class ListPanel<T> extends UiPart<Region> {
         });
     }
 
-    protected abstract void logInfoMessage(String message);
-
     @Subscribe
     private void handleJumpToListRequestEvent(JumpToListRequestEvent event) {
-        logInfoMessage(LogsCenter.getEventHandlingLogMessage(event));
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
         scrollTo(event.targetIndex);
     }
 
