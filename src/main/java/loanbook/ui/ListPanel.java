@@ -35,19 +35,19 @@ public abstract class ListPanel<T> extends UiPart<Region> {
         setEventHandlerForSelectionChangeEvent();
     }
 
-    protected abstract void setSelectionChangeEvent();
+    protected abstract void setSelectionChangeEvent(T oldValue, T newValue);
 
     private void setEventHandlerForSelectionChangeEvent() {
         listView.getSelectionModel().selectedItemProperty()
             .addListener((observable, oldValue, newValue) -> {
                 if (newValue != null) {
-                    setSelectionChangeEvent();
+                    setSelectionChangeEvent(oldValue, newValue);
                 }
             });
     }
 
     /**
-     * Scrolls to the {@code LoanCard} at the {@code index} and selects it.
+     * Scrolls to the {@code ListCard} at the {@code index} and selects it.
      */
     private void scrollTo(int index) {
         Platform.runLater(() -> {
@@ -67,7 +67,7 @@ public abstract class ListPanel<T> extends UiPart<Region> {
     protected abstract ListCard<T> getNewCard(T item, int displayedIndex);
 
     /**
-     * Custom {@code ListCell} that displays the graphics of a {@code Loan} using a {@code LoanCard}.
+     * Custom {@code ListCell} that displays the graphics of a {@code T} object using a {@code ListCard<T>}.
      */
     class ListViewCell extends ListCell<T> {
         @Override
