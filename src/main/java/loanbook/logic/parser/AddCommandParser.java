@@ -1,7 +1,6 @@
 package loanbook.logic.parser;
 
 import static loanbook.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static loanbook.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static loanbook.logic.parser.CliSyntax.PREFIX_BIKE;
 import static loanbook.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static loanbook.logic.parser.CliSyntax.PREFIX_LOANRATE;
@@ -16,7 +15,6 @@ import java.util.stream.Stream;
 import loanbook.logic.commands.AddCommand;
 import loanbook.logic.parser.exceptions.ParseException;
 import loanbook.model.bike.Bike;
-import loanbook.model.loan.Address;
 import loanbook.model.loan.Email;
 import loanbook.model.loan.Loan;
 import loanbook.model.loan.LoanRate;
@@ -42,7 +40,6 @@ public class AddCommandParser implements Parser<AddCommand> {
                         PREFIX_NRIC,
                         PREFIX_PHONE,
                         PREFIX_EMAIL,
-                        PREFIX_ADDRESS,
                         PREFIX_BIKE,
                         PREFIX_LOANRATE,
                         PREFIX_TAG);
@@ -52,7 +49,6 @@ public class AddCommandParser implements Parser<AddCommand> {
                 PREFIX_NRIC,
                 PREFIX_PHONE,
                 PREFIX_EMAIL,
-                PREFIX_ADDRESS,
                 PREFIX_BIKE,
                 PREFIX_LOANRATE)
                 || !argMultimap.getPreamble().isEmpty()) {
@@ -63,12 +59,11 @@ public class AddCommandParser implements Parser<AddCommand> {
         Nric nric = ParserUtil.parseNric(argMultimap.getValue(PREFIX_NRIC).get());
         Phone phone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get());
         Email email = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get());
-        Address address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get());
         Bike bike = ParserUtil.parseBike(argMultimap.getValue(PREFIX_BIKE).get());
         LoanRate rate = ParserUtil.parseLoanRate(argMultimap.getValue(PREFIX_LOANRATE).get());
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
-        Loan loan = new Loan(name, nric, phone, email, address, bike, rate, tagList);
+        Loan loan = new Loan(name, nric, phone, email, bike, rate, tagList);
 
         return new AddCommand(loan);
     }

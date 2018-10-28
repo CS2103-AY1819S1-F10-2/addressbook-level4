@@ -1,12 +1,9 @@
 package systemtests;
 
-import static loanbook.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
-import static loanbook.logic.commands.CommandTestUtil.ADDRESS_DESC_BOB;
 import static loanbook.logic.commands.CommandTestUtil.BIKE_DESC_AMY;
 import static loanbook.logic.commands.CommandTestUtil.BIKE_DESC_BOB;
 import static loanbook.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
 import static loanbook.logic.commands.CommandTestUtil.EMAIL_DESC_BOB;
-import static loanbook.logic.commands.CommandTestUtil.INVALID_ADDRESS_DESC;
 import static loanbook.logic.commands.CommandTestUtil.INVALID_BIKE_DESC;
 import static loanbook.logic.commands.CommandTestUtil.INVALID_EMAIL_DESC;
 import static loanbook.logic.commands.CommandTestUtil.INVALID_LOANRATE_DESC;
@@ -52,7 +49,6 @@ import loanbook.logic.commands.EditCommand;
 import loanbook.logic.commands.RedoCommand;
 import loanbook.logic.commands.UndoCommand;
 import loanbook.model.Model;
-import loanbook.model.loan.Address;
 import loanbook.model.loan.Email;
 import loanbook.model.loan.Loan;
 import loanbook.model.loan.LoanRate;
@@ -76,7 +72,7 @@ public class EditCommandSystemTest extends LoanBookSystemTest {
          */
         Index index = INDEX_FIRST_LOAN;
         String command = " " + EditCommand.COMMAND_WORD + "  " + index.getOneBased() + "  " + NAME_DESC_BOB + "  "
-                + NRIC_DESC_BOB + " " + PHONE_DESC_BOB + " " + EMAIL_DESC_BOB + "  " + ADDRESS_DESC_BOB + " "
+                + NRIC_DESC_BOB + " " + PHONE_DESC_BOB + " " + EMAIL_DESC_BOB + "  "
                 + BIKE_DESC_BOB + " " + LOANRATE_DESC_BOB + " " + TAG_DESC_HUSBAND + " ";
         Loan editedLoan = new LoanBuilder(BOB).withTags(VALID_TAG_HUSBAND).build();
         assertCommandSuccess(command, index, editedLoan);
@@ -95,7 +91,7 @@ public class EditCommandSystemTest extends LoanBookSystemTest {
 
         /* Case: edit a loan with new values same as existing values -> edited */
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + NRIC_DESC_BOB + PHONE_DESC_BOB
-                + EMAIL_DESC_BOB + ADDRESS_DESC_BOB
+                + EMAIL_DESC_BOB
                 + BIKE_DESC_BOB + LOANRATE_DESC_BOB
                 + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
         assertCommandSuccess(command, index, BOB);
@@ -105,7 +101,7 @@ public class EditCommandSystemTest extends LoanBookSystemTest {
         index = INDEX_SECOND_LOAN;
         assertNotEquals(getModel().getFilteredLoanList().get(index.getZeroBased()), BOB);
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_AMY + NRIC_DESC_BOB + PHONE_DESC_BOB
-                + EMAIL_DESC_BOB + ADDRESS_DESC_BOB
+                + EMAIL_DESC_BOB
                 + BIKE_DESC_BOB + LOANRATE_DESC_BOB
                 + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
         editedLoan = new LoanBuilder(BOB).withName(VALID_NAME_AMY).build();
@@ -114,7 +110,7 @@ public class EditCommandSystemTest extends LoanBookSystemTest {
         /* Case: edit a loan with new values same as another loan's values but with different nric -> edited */
         index = INDEX_SECOND_LOAN;
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + NRIC_DESC_AMY + PHONE_DESC_BOB
-                + EMAIL_DESC_BOB + ADDRESS_DESC_BOB
+                + EMAIL_DESC_BOB
                 + BIKE_DESC_BOB + LOANRATE_DESC_BOB
                 + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
         editedLoan = new LoanBuilder(BOB).withNric(VALID_NRIC_AMY).build();
@@ -123,7 +119,7 @@ public class EditCommandSystemTest extends LoanBookSystemTest {
         /* Case: edit a loan with new values same as another loan's values but with different bike -> edited */
         index = INDEX_SECOND_LOAN;
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + NRIC_DESC_BOB + PHONE_DESC_BOB
-                + EMAIL_DESC_BOB + ADDRESS_DESC_BOB
+                + EMAIL_DESC_BOB
                 + BIKE_DESC_AMY + LOANRATE_DESC_BOB
                 + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
         editedLoan = new LoanBuilder(BOB).withBike(VALID_NAME_BIKE1).build();
@@ -133,7 +129,7 @@ public class EditCommandSystemTest extends LoanBookSystemTest {
         loan rate and loan time -> edited */
         index = INDEX_SECOND_LOAN;
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + NRIC_DESC_BOB + PHONE_DESC_AMY
-                + EMAIL_DESC_AMY + ADDRESS_DESC_BOB
+                + EMAIL_DESC_AMY
                 + BIKE_DESC_BOB + LOANRATE_DESC_AMY
                 + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
         editedLoan = new LoanBuilder(BOB).withPhone(VALID_PHONE_AMY).withEmail(VALID_EMAIL_AMY)
@@ -175,7 +171,7 @@ public class EditCommandSystemTest extends LoanBookSystemTest {
         index = INDEX_FIRST_LOAN;
         selectLoan(index);
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_AMY + NRIC_DESC_AMY + PHONE_DESC_AMY
-                + EMAIL_DESC_AMY + ADDRESS_DESC_AMY
+                + EMAIL_DESC_AMY
                 + BIKE_DESC_AMY + LOANRATE_DESC_AMY
                 + TAG_DESC_FRIEND;
         // this can be misleading: card selection actually remains unchanged but the
@@ -221,10 +217,6 @@ public class EditCommandSystemTest extends LoanBookSystemTest {
         assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_LOAN.getOneBased() + INVALID_EMAIL_DESC,
                 Email.MESSAGE_EMAIL_CONSTRAINTS);
 
-        /* Case: invalid address -> rejected */
-        assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_LOAN.getOneBased() + INVALID_ADDRESS_DESC,
-                Address.MESSAGE_ADDRESS_CONSTRAINTS);
-
         /* Case: invalid bike -> rejected */
         assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_LOAN.getOneBased() + INVALID_BIKE_DESC,
                 Name.MESSAGE_NAME_CONSTRAINTS);
@@ -243,49 +235,42 @@ public class EditCommandSystemTest extends LoanBookSystemTest {
         index = INDEX_FIRST_LOAN;
         assertFalse(getModel().getFilteredLoanList().get(index.getZeroBased()).equals(BOB));
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + NRIC_DESC_BOB + PHONE_DESC_BOB
-                + EMAIL_DESC_BOB + ADDRESS_DESC_BOB
+                + EMAIL_DESC_BOB
                 + BIKE_DESC_BOB + LOANRATE_DESC_BOB
                 + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
         assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_LOAN);
 
         /* Case: edit a loan with new values same as another loan's values but with different tags -> rejected */
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + NRIC_DESC_BOB + PHONE_DESC_BOB
-                + EMAIL_DESC_BOB + ADDRESS_DESC_BOB
+                + EMAIL_DESC_BOB
                 + BIKE_DESC_BOB + LOANRATE_DESC_BOB
                 + TAG_DESC_HUSBAND;
         assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_LOAN);
 
-        /* Case: edit a loan with new values same as another loan's values but with different address -> rejected */
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + NRIC_DESC_BOB + PHONE_DESC_BOB
-                + EMAIL_DESC_BOB + ADDRESS_DESC_AMY
-                + BIKE_DESC_BOB + LOANRATE_DESC_BOB
-                + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
-        assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_LOAN);
-
         /* Case: edit a loan with new values same as another loan's values but with different phone -> rejected */
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + NRIC_DESC_BOB + PHONE_DESC_AMY
-                + EMAIL_DESC_BOB + ADDRESS_DESC_BOB
+                + EMAIL_DESC_BOB
                 + BIKE_DESC_BOB + LOANRATE_DESC_BOB
                 + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
         assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_LOAN);
 
         /* Case: edit a loan with new values same as another loan's values but with different email -> rejected */
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + NRIC_DESC_BOB + PHONE_DESC_BOB
-                + EMAIL_DESC_AMY + ADDRESS_DESC_BOB
+                + EMAIL_DESC_AMY
                 + BIKE_DESC_BOB + LOANRATE_DESC_BOB
                 + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
         assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_LOAN);
 
         /* Case: edit a loan with new values same as another loan's values but with different loan rate -> rejected */
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + NRIC_DESC_BOB + PHONE_DESC_BOB
-                + EMAIL_DESC_BOB + ADDRESS_DESC_BOB
+                + EMAIL_DESC_BOB
                 + BIKE_DESC_BOB + LOANRATE_DESC_AMY
                 + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
         assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_LOAN);
 
         /* Case: edit a loan with new values same as another loan's values but with different loan time -> rejected */
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + NRIC_DESC_BOB + PHONE_DESC_BOB
-                + EMAIL_DESC_BOB + ADDRESS_DESC_BOB
+                + EMAIL_DESC_BOB
                 + BIKE_DESC_BOB + LOANRATE_DESC_BOB
                 + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
         assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_LOAN);

@@ -1,7 +1,6 @@
 package loanbook.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static loanbook.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static loanbook.logic.parser.CliSyntax.PREFIX_BIKE;
 import static loanbook.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static loanbook.logic.parser.CliSyntax.PREFIX_LOANRATE;
@@ -24,7 +23,6 @@ import loanbook.logic.CommandHistory;
 import loanbook.logic.commands.exceptions.CommandException;
 import loanbook.model.Model;
 import loanbook.model.bike.Bike;
-import loanbook.model.loan.Address;
 import loanbook.model.loan.Email;
 import loanbook.model.loan.Loan;
 import loanbook.model.loan.LoanRate;
@@ -50,7 +48,6 @@ public class EditCommand extends Command {
             + "[" + PREFIX_NRIC + "NRIC] "
             + "[" + PREFIX_PHONE + "PHONE] "
             + "[" + PREFIX_EMAIL + "EMAIL] "
-            + "[" + PREFIX_ADDRESS + "ADDRESS] "
             + "[" + PREFIX_BIKE + "BIKE] "
             + "[" + PREFIX_LOANRATE + "LOANRATE] "
             + "[" + PREFIX_TAG + "TAG]...\n"
@@ -110,7 +107,6 @@ public class EditCommand extends Command {
         Nric updatedNric = editLoanDescriptor.getNric().orElse(loanToEdit.getNric());
         Phone updatedPhone = editLoanDescriptor.getPhone().orElse(loanToEdit.getPhone());
         Email updatedEmail = editLoanDescriptor.getEmail().orElse(loanToEdit.getEmail());
-        Address updatedAddress = editLoanDescriptor.getAddress().orElse(loanToEdit.getAddress());
         Bike updatedBike = editLoanDescriptor.getBike().orElse(loanToEdit.getBike());
         LoanRate updatedRate = editLoanDescriptor.getLoanRate().orElse(loanToEdit.getLoanRate());
         LoanTime updatedStartTime = editLoanDescriptor.getLoanStartTime().orElse(loanToEdit.getLoanStartTime());
@@ -122,7 +118,6 @@ public class EditCommand extends Command {
                 updatedNric,
                 updatedPhone,
                 updatedEmail,
-                updatedAddress,
                 updatedBike,
                 updatedRate,
                 updatedStartTime,
@@ -159,7 +154,6 @@ public class EditCommand extends Command {
         private Nric nric;
         private Phone phone;
         private Email email;
-        private Address address;
         private Bike bike;
         private LoanRate rate;
         private LoanTime startTime;
@@ -178,7 +172,6 @@ public class EditCommand extends Command {
             setNric(toCopy.nric);
             setPhone(toCopy.phone);
             setEmail(toCopy.email);
-            setAddress(toCopy.address);
             setBike(toCopy.bike);
             setLoanRate(toCopy.rate);
             setLoanStartTime(toCopy.startTime);
@@ -191,7 +184,7 @@ public class EditCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, phone, email, address, tags);
+            return CollectionUtil.isAnyNonNull(name, phone, email, tags);
         }
 
         public void setName(Name name) {
@@ -224,14 +217,6 @@ public class EditCommand extends Command {
 
         public Optional<Email> getEmail() {
             return Optional.ofNullable(email);
-        }
-
-        public void setAddress(Address address) {
-            this.address = address;
-        }
-
-        public Optional<Address> getAddress() {
-            return Optional.ofNullable(address);
         }
 
         public void setBike(Bike bike) {
@@ -310,7 +295,6 @@ public class EditCommand extends Command {
                     && getNric().equals(e.getNric())
                     && getPhone().equals(e.getPhone())
                     && getEmail().equals(e.getEmail())
-                    && getAddress().equals(e.getAddress())
                     && getBike().equals(e.getBike())
                     && getLoanRate().equals(e.getLoanRate())
                     && getTags().equals(e.getTags());

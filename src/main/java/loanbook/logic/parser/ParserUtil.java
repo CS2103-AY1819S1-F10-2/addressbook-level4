@@ -11,7 +11,6 @@ import loanbook.commons.util.StringUtil;
 import loanbook.logic.parser.exceptions.ParseException;
 import loanbook.model.Password;
 import loanbook.model.bike.Bike;
-import loanbook.model.loan.Address;
 import loanbook.model.loan.Email;
 import loanbook.model.loan.LoanRate;
 import loanbook.model.loan.LoanTime;
@@ -98,21 +97,6 @@ public class ParserUtil {
             throw new ParseException(Password.MESSAGE_PASSWORD_CONSTRAINTS);
         }
         return new Password(trimmedPass);
-    }
-
-    /**
-     * Parses a {@code String address} into an {@code Address}.
-     * Leading and trailing whitespaces will be trimmed.
-     *
-     * @throws ParseException if the given {@code address} is invalid.
-     */
-    public static Address parseAddress(String address) throws ParseException {
-        requireNonNull(address);
-        String trimmedAddress = address.trim();
-        if (!Address.isValidAddress(trimmedAddress)) {
-            throw new ParseException(Address.MESSAGE_ADDRESS_CONSTRAINTS);
-        }
-        return new Address(trimmedAddress);
     }
 
     /**

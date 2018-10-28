@@ -1,6 +1,5 @@
 package loanbook.model.loan;
 
-import static loanbook.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static loanbook.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
 import static loanbook.logic.commands.CommandTestUtil.VALID_LOANRATE_BOB;
 import static loanbook.logic.commands.CommandTestUtil.VALID_LOANSTARTTIME_BOB;
@@ -57,18 +56,17 @@ public class LoanTest {
         assertFalse(ALICE.isSame(editedAlice));
 
         // same identity fields, same phone, different attributes -> returns true
-        editedAlice = new LoanBuilder(ALICE).withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB)
+        editedAlice = new LoanBuilder(ALICE).withEmail(VALID_EMAIL_BOB)
                 .withTags(VALID_TAG_HUSBAND).build();
         assertTrue(ALICE.isSame(editedAlice));
 
         // same identity fields, same email, different attributes -> returns true
         editedAlice = new LoanBuilder(ALICE).withPhone(VALID_PHONE_BOB)
-                .withAddress(VALID_ADDRESS_BOB)
                 .withTags(VALID_TAG_HUSBAND).build();
         assertTrue(ALICE.isSame(editedAlice));
 
         // same identity fields, same phone, same email, different attributes -> returns true
-        editedAlice = new LoanBuilder(ALICE).withAddress(VALID_ADDRESS_BOB)
+        editedAlice = new LoanBuilder(ALICE)
                 .withTags(VALID_TAG_HUSBAND).build();
         assertTrue(ALICE.isSame(editedAlice));
 
@@ -128,10 +126,6 @@ public class LoanTest {
 
         // different email -> returns false
         editedAlice = new LoanBuilder(ALICE).withEmail(VALID_EMAIL_BOB).build();
-        assertFalse(ALICE.equals(editedAlice));
-
-        // different address -> returns false
-        editedAlice = new LoanBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).build();
         assertFalse(ALICE.equals(editedAlice));
 
         // different tags -> returns false
