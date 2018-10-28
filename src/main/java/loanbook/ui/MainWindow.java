@@ -38,6 +38,8 @@ public class MainWindow extends UiPart<Stage> {
     // Independent Ui parts residing in this Ui container
     private BrowserPanel browserPanel;
     private ListPanel listPanel;
+    private BikeListPanel bikeListPanel;
+    private LoanListPanel loanListPanel;
     private Config config;
     private UserPrefs prefs;
     private HelpWindow helpWindow;
@@ -118,13 +120,13 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     private void showBikeList() {
-        listPanel = new BikeListPanel(logic.getFilteredBikeList());
-        listPanelPlaceholder.getChildren().add(((BikeListPanel)listPanel).getRoot());
+        listPanel = bikeListPanel;
+        listPanelPlaceholder.getChildren().add(bikeListPanel.getRoot());
     }
 
     private void showLoanList() {
-        listPanel = new LoanListPanel(logic.getFilteredLoanList());
-        listPanelPlaceholder.getChildren().add(((LoanListPanel)listPanel).getRoot());
+        listPanel = loanListPanel;
+        listPanelPlaceholder.getChildren().add(loanListPanel.getRoot());
     }
 
     /**
@@ -134,6 +136,8 @@ public class MainWindow extends UiPart<Stage> {
         browserPanel = new BrowserPanel();
         browserPlaceholder.getChildren().add(browserPanel.getRoot());
 
+        bikeListPanel = new BikeListPanel(logic.getFilteredBikeList());
+        loanListPanel = new LoanListPanel(logic.getFilteredLoanList());
         showLoanList();
 
         ResultDisplay resultDisplay = new ResultDisplay();

@@ -13,7 +13,7 @@ import loanbook.model.loan.Loan;
  * Provides a handle for {@code LoanListPanel} containing the list of {@code LoanCard}.
  */
 public class LoanListPanelHandle extends NodeHandle<ListView<Loan>> {
-    public static final String LOAN_LIST_VIEW_ID = "#loanListView";
+    public static final String LOAN_LIST_VIEW_ID = "#listView";
 
     private static final String CARD_PANE_ID = "#cardPane";
 

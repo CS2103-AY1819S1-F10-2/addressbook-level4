@@ -36,6 +36,7 @@ import loanbook.commons.core.EventsCenter;
 import loanbook.commons.core.index.Index;
 import loanbook.logic.commands.ClearCommand;
 import loanbook.logic.commands.FindCommand;
+import loanbook.logic.commands.ListBikesCommand;
 import loanbook.logic.commands.ListCommand;
 import loanbook.logic.commands.SelectCommand;
 import loanbook.model.LoanBook;
@@ -104,7 +105,7 @@ public abstract class LoanBookSystemTest {
     }
 
     public LoanListPanelHandle getLoanListPanel() {
-        return mainWindowHandle.getLoanListPanel();
+        return mainWindowHandle.getListPanel();
     }
 
     public MainMenuHandle getMainMenu() {
@@ -136,6 +137,14 @@ public abstract class LoanBookSystemTest {
         mainWindowHandle.getCommandBox().run(command);
 
         waitUntilBrowserLoaded(getBrowserPanel());
+    }
+
+    /**
+     * Displays all bikes in the loan book.
+     */
+    protected void showAllBikes() {
+        executeCommand(ListBikesCommand.COMMAND_WORD);
+        assertEquals(getModel().getLoanBook().getBikeList().size(), getModel().getFilteredBikeList().size());
     }
 
     /**
