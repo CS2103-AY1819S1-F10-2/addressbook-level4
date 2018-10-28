@@ -207,21 +207,14 @@ public class Loan implements UniqueListItem<Loan> {
         }
 
         Loan otherLoan = (Loan) other;
-        if (otherLoan.getName().equals(getName())
+        return otherLoan.getName().equals(getName())
                 && otherLoan.getNric().equals(getNric())
                 && otherLoan.getPhone().equals(getPhone())
                 && otherLoan.getEmail().equals(getEmail())
                 && otherLoan.getLoanStatus().equals(getLoanStatus())
                 && otherLoan.getBike().equals(getBike())
                 && otherLoan.getLoanRate().equals(getLoanRate())
-                && otherLoan.getTags().equals(getTags())) {
-            return true;
-        } else {
-            System.out.println(this.getEmail());
-            System.out.println(otherLoan.getEmail().equals(getEmail()));
-
-            return false;
-        }
+                && otherLoan.getTags().equals(getTags());
     }
 
     @Override

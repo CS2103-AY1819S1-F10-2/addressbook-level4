@@ -87,7 +87,7 @@
         <name>George Best</name>
         <nric>S8313623E</nric>
         <phone>9482442</phone>
-        <email>annas@example.com</email>
+        <email>anna@example.com</email>
         <loanStatus>ONGOING</loanStatus>
         <bike>BIKE002</bike>
         <rate>5.05</rate>

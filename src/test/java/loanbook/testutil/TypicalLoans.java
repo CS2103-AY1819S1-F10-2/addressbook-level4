@@ -35,6 +35,7 @@ public class TypicalLoans {
             .withPhone("94351253")
             .withBike(VALID_NAME_BIKE1)
             .withLoanRate("1.1")
+            .withEmail("alice@example.com")
             .withLoanStartTime("12:33")
             .withLoanEndTime("23:54")
             .withTags("friends").build();
