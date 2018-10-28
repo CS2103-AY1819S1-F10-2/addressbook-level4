@@ -103,9 +103,7 @@ For the loan at index 9, changes the customer to James Tan, who has the specifie
 
 [NOTE]
 ====
-We do not allow editing of the loan's start time or the return time because we want you to be able to use our application as an auditing tool. We hope that this would simplify your business. However, by allowing you to edit the start and end time, this would invalidate this application as an auditing tool.
-
-We are currently looking into alternatives that would allow you to edit the start and end time though! Stay tuned for our announcement in LoanBook version 2.0!
+We do not allow editing of the loan's start time or the return time because we want you to be able to use our application as an auditing tool. We hope that this can then simplify the management of your business.
 ====
 
 === Locating loans by key words: `search`
@@ -170,7 +168,7 @@ Set the password of the app to `n3wP4sS`.
 
 What's the use of a LoanBook if you are unable to return the loans that you have? This is how you can do that! In fact, we see your pains trying to calculate the amount payable on a calculator, so we decided to help you out by doing all the number crunching for you.
 
-Marks a loan as returned based on LOAN_INDEX and automatically prints out the amount payable. The amount payable will be prorated and rounded down to the nearest minute. +
+This command marks a loan as returned based on LOAN_INDEX and automatically prints out the amount payable. The amount payable will be prorated and rounded down to the nearest minute. +
 
 [TIP]
 ====
@@ -217,7 +215,7 @@ The difference between deleting all the loans and hard resetting the LoanBook is
 
 Do you want to find out at a glance how much money your business has collected? Or maybe out of all the bicycles you have, how many are currently loaned out? Here's the command for you.
 
-Show the total number of loans that are done and in progress. Also summarizes the loan status of each item, the number of times an object was loaned before.
+This feature shows the total number of loans that are done and in progress. It also summarizes the loan status of each item, the number of times an object was loaned before.
 
 The `summary` function would display the statistics of all your loans in the display box on the right of the application. There, you will find the following statistics:
 

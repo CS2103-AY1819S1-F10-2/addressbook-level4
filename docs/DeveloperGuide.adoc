@@ -628,16 +628,16 @@ When the user deletes a loan from the LoanBook, it deletes the correct loan, the
 ==== Proposed implementation:
 From above, there is already a `LoanStatus` that has been implemented. What this does is that it allows the loan to be marked as deleted by setting the enum to the appropriate value. This would result in the LoanBook not needing to recommit every change.
 
-From here, when the user decides to close the LoanBook, it will then loop through all the loans and filter out the ones which have no been delete. These are the loans that would be kept and saved in the LoanBook.
+From here, when the user decides to close the LoanBook, it will then loop through all the loans and filter out the ones which have not been delete. These are the loans that would be kept and saved in the LoanBook.
 
 ==== Design Considerations
 **Aspect: Deleting a loan**
 
-* **Alternative 1 (current choice)**: we remove each loan as they are deleted
+* **Alternative 1 (current choice)**: Remove each loan as they are deleted
 ** Pros: Easy to implement
 ** Cons: Large time taken for memory operations as reading and writing to the data is required.
 
-* Alternative 2 (proposed implementation): Using an enum to implement lazy deletion.
+* Alternative 2 (proposed implementation): Use an enum to implement lazy deletion.
 ** Pros: Much more time efficient due to lazy deletion
 ** Cons: Implementation is harder, and changing to this implementation would affect the undo and redo features.
 
@@ -794,8 +794,7 @@ e.g. `loanbook.logic.LogicManagerTest`
 
 [WARNING]
 ====
-The tests within the `add` command parsers do not
-This is because of the time sensitive nature of the `add` command. It does not take in a specific `LoanTime` when the loan is created and populates the current system time into the `Loan`. Therefore, the strings that is returned for each command is time dependant. Hence it is impossible to do a string matching on the returned display string and a hard coded value.
+The tests within the `add` command parsers do not take into account the feedback string from within the display. This is because of the time sensitive nature of the `add` command. It does not take in a specific `LoanTime` when the loan is created and populates the current system time into the `Loan`. Therefore, the strings that is returned for each command is time dependant. Hence it is impossible to do a string matching on the returned display string and a hard coded value.
 
 In this case, we commented out the check for equality of the string from the `add` command in the GUI against the expected hard coded string.
 ====
@@ -1278,16 +1277,13 @@ Prerequisites: List all loans using the list command. Ensure there are multiple 
    Expected: The loan is returned successfully as well. The display message details that the loan has been deleted, and gives a suggestion for the cost price of the duration of the loan.
 
 . Negative tests:
-.. Test case: `return i/1` +
-   Expected: First loan from the list is marked as returned. Details of the returned loan shown in the status message. Timestamp in the status bar is updated. The values of the card on the left of the application has been changed to reflect the returning of the loan.
-
 .. Test case: `return i/0` +
-   Expected: No loan is returned. Error details shown in the status message. Status bar remains the same.
+   Expected: No loan is returned. Error details shown in the status message, the message should say "the specified index is invalid" in this case. Status bar remains the same.
 .. Other incorrect `return` commands to try:
 ... `return`
-... `return x` (where `x` is larger than the list size)
+... `return i/x` (where `x` is larger than the list size)
 ... `return i/aaa` (Where `aaa` is a string)
-... `return y` (where `y` is a loan that has already returned). +
+... `return i/y` (where `y` is the index of a loan that is not `ONGOING`). +
 
 === Summary functionality
 
