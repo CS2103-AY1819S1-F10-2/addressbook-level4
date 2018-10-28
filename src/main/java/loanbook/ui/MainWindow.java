@@ -15,11 +15,11 @@ import javafx.stage.Stage;
 import loanbook.commons.core.Config;
 import loanbook.commons.core.GuiSettings;
 import loanbook.commons.core.LogsCenter;
+import loanbook.commons.events.ui.BikeListShowEvent;
 import loanbook.commons.events.ui.ExitAppRequestEvent;
 import loanbook.commons.events.ui.ShowHelpRequestEvent;
 import loanbook.logic.Logic;
 import loanbook.model.UserPrefs;
-import loanbook.model.loan.Loan;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -116,6 +116,16 @@ public class MainWindow extends UiPart<Stage> {
         });
     }
 
+    private void showBikeList() {
+        listPanel = new BikeListPanel(logic.getFilteredBikeList());
+        listPanelPlaceholder.getChildren().add(((BikeListPanel)listPanel).getRoot());
+    }
+
+    private void showLoanList() {
+        listPanel = new LoanListPanel(logic.getFilteredLoanList());
+        listPanelPlaceholder.getChildren().add(((LoanListPanel)listPanel).getRoot());
+    }
+
     /**
      * Fills up all the placeholders of this window.
      */
@@ -123,8 +133,7 @@ public class MainWindow extends UiPart<Stage> {
         browserPanel = new BrowserPanel();
         browserPlaceholder.getChildren().add(browserPanel.getRoot());
 
-        listPanel = new LoanListPanel(logic.getFilteredLoanList());
-        listPanelPlaceholder.getChildren().add(((LoanListPanel)listPanel).getRoot());
+        showLoanList();
 
         ResultDisplay resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -194,6 +203,11 @@ public class MainWindow extends UiPart<Stage> {
 
     void releaseResources() {
         browserPanel.freeResources();
+    }
+
+    @Subscribe
+    private void handleBikeListShowEvent(BikeListShowEvent event) {
+        showBikeList();
     }
 
     @Subscribe
