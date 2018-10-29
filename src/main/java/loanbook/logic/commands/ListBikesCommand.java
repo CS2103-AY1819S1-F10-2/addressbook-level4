@@ -8,6 +8,9 @@ import loanbook.commons.events.ui.BikeListShowEvent;
 import loanbook.logic.CommandHistory;
 import loanbook.model.Model;
 
+/**
+ * Lists all bikes in the loan book to the user.
+ */
 public class ListBikesCommand extends Command {
 
     public static final String COMMAND_WORD = "listbikes";

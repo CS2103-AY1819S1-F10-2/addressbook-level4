@@ -4,6 +4,9 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import loanbook.model.bike.Bike;
 
+/**
+ * An UI component that displays information of a {@code Bike}.
+ */
 public class BikeCard extends ListCard<Bike> {
 
     private static final String FXML = "BikeCard.fxml";

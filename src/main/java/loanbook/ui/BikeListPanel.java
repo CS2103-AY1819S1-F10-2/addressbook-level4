@@ -4,6 +4,9 @@ import javafx.collections.ObservableList;
 import loanbook.commons.events.ui.BikeListPanelSelectionChangedEvent;
 import loanbook.model.bike.Bike;
 
+/**
+ * Panel containing the list of bikes.
+ */
 public class BikeListPanel extends ListPanel<Bike> {
 
     public BikeListPanel(ObservableList<Bike> bikeList) {
