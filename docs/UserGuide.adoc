@@ -241,6 +241,45 @@ Format: `history`
 Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and next input respectively in the command box.
 ====
 
+=== Check your email : `checkemail`
+
+Checks whether you have set your email or not, and displays the censored email address if you have set it before. +
+Format: `checkemail`
+
+=== Set your email : `setemail`
+
+Sets the email address to send reminder emails from. +
+Format: `setemail OLDEMAIL NEWEMAIL`
+
+* `OLDEMAIL` is `default` if you have not set an email yet.
+* `OLDEMAIL` must be the same as the one you set last time.
+* `NEWEMAIL` cannot the same as `OLDEMAIL`.
+* `NEWEMAIL` must be a valid gmail.
+
+[NOTE]
+Only gmail is accepted!
+
+Examples:
+
+* `setemail default \new_email@gmail.com`
+* `setemail \old_email@gmail.com \new_email@gmail.com`
+
+=== send reminder email : `remind`
+
+Sends a reminder email to the customer. +
+Format: `remind x/EMAILPASSWORD n/NAME b/BIKE`
+
+* `NAME` and `BIKE` must be from the same `ONGOING` loan.
+* `EMAILPASSWORD` must be correct.
+
+[NOTE]
+*[IMPORTANT] Before using this command, please go to* https://www.google.com/settings/security/lesssecureapps[Less Secure Apps] *, enable it and refresh the Settings page!*
+
+Examples:
+
+* `remind x/123456 n/Alex b/Bike001`
+* `remind x/nscjhbdhv n/Peter Lee b/NewBike`
+
 === Non-functional features :
 * Aliases to allow users to use the CLI with less keystrokes.
 * Chainable commands. I.e. allow adding and deleting of items asynchronously.

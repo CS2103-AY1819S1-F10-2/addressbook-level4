@@ -12,7 +12,6 @@ import org.junit.Test;
 
 import loanbook.commons.exceptions.IllegalValueException;
 import loanbook.model.bike.Bike;
-import loanbook.model.loan.Address;
 import loanbook.model.loan.Email;
 import loanbook.model.loan.LoanRate;
 import loanbook.model.loan.LoanTime;
@@ -25,7 +24,6 @@ public class XmlAdaptedLoanTest {
     private static final String INVALID_NAME = "R@chel";
     private static final String INVALID_NRIC = "A12#4567B";
     private static final String INVALID_PHONE = "+651234";
-    private static final String INVALID_ADDRESS = " ";
     private static final String INVALID_EMAIL = "example.com";
     private static final String INVALID_BIKE = "001B^^E";
     private static final String INVALID_LOANRATE = "12.333";
@@ -36,7 +34,6 @@ public class XmlAdaptedLoanTest {
     private static final String VALID_NRIC = BENSON.getNric().toString();
     private static final String VALID_PHONE = BENSON.getPhone().toString();
     private static final String VALID_EMAIL = BENSON.getEmail().toString();
-    private static final String VALID_ADDRESS = BENSON.getAddress().toString();
     private static final String VALID_BIKE = BENSON.getBike().getName().toString();
     private static final String VALID_LOANRATE = BENSON.getLoanRate().toString();
     private static final String VALID_LOANTIMEA = BENSON.getLoanStartTime().toString();
@@ -58,7 +55,6 @@ public class XmlAdaptedLoanTest {
                         VALID_NRIC,
                         VALID_PHONE,
                         VALID_EMAIL,
-                        VALID_ADDRESS,
                         VALID_BIKE,
                         VALID_LOANRATE,
                         VALID_LOANTIMEA,
@@ -75,7 +71,6 @@ public class XmlAdaptedLoanTest {
                         VALID_NRIC,
                         VALID_PHONE,
                         VALID_EMAIL,
-                        VALID_ADDRESS,
                         VALID_BIKE,
                         VALID_LOANRATE,
                         VALID_LOANTIMEA,
@@ -92,7 +87,6 @@ public class XmlAdaptedLoanTest {
                         INVALID_NRIC,
                         VALID_PHONE,
                         VALID_EMAIL,
-                        VALID_ADDRESS,
                         VALID_BIKE,
                         VALID_LOANRATE,
                         VALID_LOANTIMEA,
@@ -109,7 +103,6 @@ public class XmlAdaptedLoanTest {
                         null,
                         VALID_PHONE,
                         VALID_EMAIL,
-                        VALID_ADDRESS,
                         VALID_BIKE,
                         VALID_LOANRATE,
                         VALID_LOANTIMEA,
@@ -126,7 +119,6 @@ public class XmlAdaptedLoanTest {
                         VALID_NRIC,
                         INVALID_PHONE,
                         VALID_EMAIL,
-                        VALID_ADDRESS,
                         VALID_BIKE,
                         VALID_LOANRATE,
                         VALID_LOANTIMEA,
@@ -143,7 +135,6 @@ public class XmlAdaptedLoanTest {
                         VALID_NRIC,
                         null,
                         VALID_EMAIL,
-                        VALID_ADDRESS,
                         VALID_BIKE,
                         VALID_LOANRATE,
                         VALID_LOANTIMEA,
@@ -160,7 +151,6 @@ public class XmlAdaptedLoanTest {
                         VALID_NRIC,
                         VALID_PHONE,
                         INVALID_EMAIL,
-                        VALID_ADDRESS,
                         VALID_BIKE,
                         VALID_LOANRATE,
                         VALID_LOANTIMEA,
@@ -177,7 +167,6 @@ public class XmlAdaptedLoanTest {
                         VALID_NRIC,
                         VALID_PHONE,
                         null,
-                        VALID_ADDRESS,
                         VALID_BIKE,
                         VALID_LOANRATE,
                         VALID_LOANTIMEA,
@@ -188,47 +177,12 @@ public class XmlAdaptedLoanTest {
     }
 
     @Test
-    public void toModelTypeInvalidAddressThrowsIllegalValueException() {
-        XmlAdaptedLoan loan =
-                new XmlAdaptedLoan(VALID_NAME,
-                        VALID_NRIC,
-                        VALID_PHONE,
-                        VALID_EMAIL,
-                        INVALID_ADDRESS,
-                        VALID_BIKE,
-                        VALID_LOANRATE,
-                        VALID_LOANTIMEA,
-                        VALID_LOANTIMEB,
-                        VALID_TAGS);
-        String expectedMessage = Address.MESSAGE_ADDRESS_CONSTRAINTS;
-        Assert.assertThrows(IllegalValueException.class, expectedMessage, loan::toModelType);
-    }
-
-    @Test
-    public void toModelTypeNullAddressThrowsIllegalValueException() {
-        XmlAdaptedLoan loan =
-                new XmlAdaptedLoan(VALID_NAME,
-                        VALID_NRIC,
-                        VALID_PHONE,
-                        VALID_EMAIL,
-                        null,
-                        VALID_BIKE,
-                        VALID_LOANRATE,
-                        VALID_LOANTIMEA,
-                        VALID_LOANTIMEB,
-                        VALID_TAGS);
-        String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Address.class.getSimpleName());
-        Assert.assertThrows(IllegalValueException.class, expectedMessage, loan::toModelType);
-    }
-
-    @Test
     public void toModelTypeInvalidBikeThrowsIllegalValueException() {
         XmlAdaptedLoan loan =
                 new XmlAdaptedLoan(VALID_NAME,
                         VALID_NRIC,
                         VALID_PHONE,
                         VALID_EMAIL,
-                        VALID_ADDRESS,
                         INVALID_BIKE,
                         VALID_LOANRATE,
                         VALID_LOANTIMEA,
@@ -245,7 +199,6 @@ public class XmlAdaptedLoanTest {
                         VALID_NRIC,
                         VALID_PHONE,
                         VALID_EMAIL,
-                        VALID_ADDRESS,
                         null,
                         VALID_LOANRATE,
                         VALID_LOANTIMEA,
@@ -262,7 +215,6 @@ public class XmlAdaptedLoanTest {
                         VALID_NRIC,
                         VALID_PHONE,
                         VALID_EMAIL,
-                        VALID_ADDRESS,
                         VALID_BIKE,
                         INVALID_LOANRATE,
                         VALID_LOANTIMEA,
@@ -279,7 +231,6 @@ public class XmlAdaptedLoanTest {
                         VALID_NRIC,
                         VALID_PHONE,
                         VALID_EMAIL,
-                        VALID_ADDRESS,
                         VALID_BIKE,
                         null,
                         VALID_LOANTIMEA,
@@ -296,7 +247,6 @@ public class XmlAdaptedLoanTest {
                         VALID_NRIC,
                         VALID_PHONE,
                         VALID_EMAIL,
-                        VALID_ADDRESS,
                         VALID_BIKE,
                         VALID_LOANRATE,
                         INVALID_LOANTIME,
@@ -313,7 +263,6 @@ public class XmlAdaptedLoanTest {
                         VALID_NRIC,
                         VALID_PHONE,
                         VALID_EMAIL,
-                        VALID_ADDRESS,
                         VALID_BIKE,
                         VALID_LOANRATE,
                         null,
@@ -332,7 +281,6 @@ public class XmlAdaptedLoanTest {
                         VALID_NRIC,
                         VALID_PHONE,
                         VALID_EMAIL,
-                        VALID_ADDRESS,
                         VALID_BIKE,
                         VALID_LOANRATE,
                         VALID_LOANTIMEA,

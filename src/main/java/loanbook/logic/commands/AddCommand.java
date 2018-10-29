@@ -1,7 +1,6 @@
 package loanbook.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static loanbook.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static loanbook.logic.parser.CliSyntax.PREFIX_BIKE;
 import static loanbook.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static loanbook.logic.parser.CliSyntax.PREFIX_LOANRATE;
@@ -31,7 +30,6 @@ public class AddCommand extends Command {
             + PREFIX_NRIC + "NRIC "
             + PREFIX_PHONE + "PHONE "
             + PREFIX_EMAIL + "EMAIL "
-            + PREFIX_ADDRESS + "ADDRESS "
             + PREFIX_BIKE + "BIKE "
             + PREFIX_LOANRATE + "LOANRATE "
             + "[" + PREFIX_TAG + "TAG]...\n"
@@ -40,7 +38,6 @@ public class AddCommand extends Command {
             + PREFIX_NRIC + "T0248272F "
             + PREFIX_PHONE + "98765432 "
             + PREFIX_EMAIL + "johnd@example.com "
-            + PREFIX_ADDRESS + "311, Clementi Ave 2, #02-25 "
             + PREFIX_BIKE + "Bike001 "
             + PREFIX_LOANRATE + "3.5 "
             + PREFIX_TAG + "friends "

@@ -7,7 +7,6 @@ import java.util.stream.Stream;
 import loanbook.logic.commands.EditCommand;
 import loanbook.logic.commands.EditCommand.EditLoanDescriptor;
 import loanbook.model.bike.Bike;
-import loanbook.model.loan.Address;
 import loanbook.model.loan.Email;
 import loanbook.model.loan.Loan;
 import loanbook.model.loan.LoanRate;
@@ -41,7 +40,6 @@ public class EditLoanDescriptorBuilder {
         descriptor.setNric(loan.getNric());
         descriptor.setPhone(loan.getPhone());
         descriptor.setEmail(loan.getEmail());
-        descriptor.setAddress(loan.getAddress());
         descriptor.setBike(loan.getBike());
         descriptor.setLoanRate(loan.getLoanRate());
         descriptor.setLoanStartTime(loan.getLoanStartTime());
@@ -79,14 +77,6 @@ public class EditLoanDescriptorBuilder {
      */
     public EditLoanDescriptorBuilder withEmail(String email) {
         descriptor.setEmail(new Email(email));
-        return this;
-    }
-
-    /**
-     * Sets the {@code Address} of the {@code EditLoanDescriptor} that we are building.
-     */
-    public EditLoanDescriptorBuilder withAddress(String address) {
-        descriptor.setAddress(new Address(address));
         return this;
     }
 

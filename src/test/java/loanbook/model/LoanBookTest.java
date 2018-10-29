@@ -1,6 +1,5 @@
 package loanbook.model;
 
-import static loanbook.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static loanbook.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static loanbook.testutil.TypicalBikes.BIKE1;
 import static loanbook.testutil.TypicalLoanBook.getTypicalLoanBook;
@@ -56,7 +55,7 @@ public class LoanBookTest {
     @Test
     public void replaceData_withDuplicateLoans_throwsDuplicateLoanException() {
         // Two loans with the same identity fields
-        Loan editedAlice = new LoanBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
+        Loan editedAlice = new LoanBuilder(ALICE).withTags(VALID_TAG_HUSBAND)
                 .build();
         List<Bike> newBikes = Arrays.asList();
         List<Loan> newLoans = Arrays.asList(ALICE, editedAlice);
@@ -103,7 +102,7 @@ public class LoanBookTest {
     @Test
     public void hasLoan_loanWithSameIdentityFieldsInLoanBook_returnsTrue() {
         loanBook.addLoan(ALICE);
-        Loan editedAlice = new LoanBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
+        Loan editedAlice = new LoanBuilder(ALICE).withTags(VALID_TAG_HUSBAND)
                 .build();
         assertTrue(loanBook.hasLoan(editedAlice));
     }
