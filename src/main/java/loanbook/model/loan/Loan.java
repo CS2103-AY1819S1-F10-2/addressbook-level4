@@ -175,22 +175,6 @@ public class Loan implements UniqueListItem<Loan> {
     }
 
     /**
-     * Change the loan status to the newStatus as provided.
-     * Throws SameLoanStatusException if the newStatus is the same as the previous status.
-     * @param newStatus
-     * @return true if the function managed to complete.
-     * @throws SameLoanStatusException
-     */
-    public boolean changeLoanStatus(LoanStatus newStatus) throws SameLoanStatusException {
-        if (loanStatus.equals(newStatus)) {
-            throw new SameLoanStatusException();
-        } else {
-            loanStatus = newStatus;
-            return true;
-        }
-    }
-
-    /**
      * Returns true if both loans of the same name have at least one other identity field that is the same.
      */
     @Override
