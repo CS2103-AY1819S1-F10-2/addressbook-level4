@@ -1,11 +1,8 @@
 package loanbook.logic.parser;
 
 import static loanbook.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static loanbook.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
-import static loanbook.logic.commands.CommandTestUtil.ADDRESS_DESC_BOB;
 import static loanbook.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
 import static loanbook.logic.commands.CommandTestUtil.EMAIL_DESC_BOB;
-import static loanbook.logic.commands.CommandTestUtil.INVALID_ADDRESS_DESC;
 import static loanbook.logic.commands.CommandTestUtil.INVALID_EMAIL_DESC;
 import static loanbook.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
 import static loanbook.logic.commands.CommandTestUtil.INVALID_PHONE_DESC;
@@ -15,8 +12,6 @@ import static loanbook.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
 import static loanbook.logic.commands.CommandTestUtil.PHONE_DESC_BOB;
 import static loanbook.logic.commands.CommandTestUtil.TAG_DESC_FRIEND;
 import static loanbook.logic.commands.CommandTestUtil.TAG_DESC_HUSBAND;
-import static loanbook.logic.commands.CommandTestUtil.VALID_ADDRESS_AMY;
-import static loanbook.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static loanbook.logic.commands.CommandTestUtil.VALID_EMAIL_AMY;
 import static loanbook.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
 import static loanbook.logic.commands.CommandTestUtil.VALID_NAME_AMY;
@@ -36,7 +31,6 @@ import org.junit.Test;
 import loanbook.commons.core.index.Index;
 import loanbook.logic.commands.EditCommand;
 import loanbook.logic.commands.EditCommand.EditLoanDescriptor;
-import loanbook.model.loan.Address;
 import loanbook.model.loan.Email;
 import loanbook.model.loan.Name;
 import loanbook.model.loan.Phone;
@@ -84,7 +78,6 @@ public class EditCommandParserTest {
         assertParseFailure(parser, "1" + INVALID_NAME_DESC, Name.MESSAGE_NAME_CONSTRAINTS); // invalid name
         assertParseFailure(parser, "1" + INVALID_PHONE_DESC, Phone.MESSAGE_PHONE_CONSTRAINTS); // invalid phone
         assertParseFailure(parser, "1" + INVALID_EMAIL_DESC, Email.MESSAGE_EMAIL_CONSTRAINTS); // invalid email
-        assertParseFailure(parser, "1" + INVALID_ADDRESS_DESC, Address.MESSAGE_ADDRESS_CONSTRAINTS); // invalid address
         assertParseFailure(parser, "1" + INVALID_TAG_DESC, Tag.MESSAGE_TAG_CONSTRAINTS); // invalid tag
 
         // invalid phone followed by valid email
@@ -101,7 +94,7 @@ public class EditCommandParserTest {
         assertParseFailure(parser, "1" + TAG_EMPTY + TAG_DESC_FRIEND + TAG_DESC_HUSBAND, Tag.MESSAGE_TAG_CONSTRAINTS);
 
         // multiple invalid values, but only the first invalid value is captured
-        assertParseFailure(parser, "1" + INVALID_NAME_DESC + INVALID_EMAIL_DESC + VALID_ADDRESS_AMY + VALID_PHONE_AMY,
+        assertParseFailure(parser, "1" + INVALID_NAME_DESC + INVALID_EMAIL_DESC + VALID_PHONE_AMY,
                 Name.MESSAGE_NAME_CONSTRAINTS);
     }
 
@@ -109,10 +102,10 @@ public class EditCommandParserTest {
     public void parse_allFieldsSpecified_success() {
         Index targetIndex = INDEX_SECOND_LOAN;
         String userInput = targetIndex.getOneBased() + PHONE_DESC_BOB + TAG_DESC_HUSBAND
-                + EMAIL_DESC_AMY + ADDRESS_DESC_AMY + NAME_DESC_AMY + TAG_DESC_FRIEND;
+                + EMAIL_DESC_AMY + NAME_DESC_AMY + TAG_DESC_FRIEND;
 
         EditLoanDescriptor descriptor = new EditLoanDescriptorBuilder().withName(VALID_NAME_AMY)
-                .withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_AMY).withAddress(VALID_ADDRESS_AMY)
+                .withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_AMY)
                 .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
 
@@ -152,12 +145,6 @@ public class EditCommandParserTest {
         expectedCommand = new EditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
-        // address
-        userInput = targetIndex.getOneBased() + ADDRESS_DESC_AMY;
-        descriptor = new EditLoanDescriptorBuilder().withAddress(VALID_ADDRESS_AMY).build();
-        expectedCommand = new EditCommand(targetIndex, descriptor);
-        assertParseSuccess(parser, userInput, expectedCommand);
-
         // tags
         userInput = targetIndex.getOneBased() + TAG_DESC_FRIEND;
         descriptor = new EditLoanDescriptorBuilder().withTags(VALID_TAG_FRIEND).build();
@@ -168,12 +155,12 @@ public class EditCommandParserTest {
     @Test
     public void parse_multipleRepeatedFields_acceptsLast() {
         Index targetIndex = INDEX_FIRST_LOAN;
-        String userInput = targetIndex.getOneBased() + PHONE_DESC_AMY + ADDRESS_DESC_AMY + EMAIL_DESC_AMY
-                + TAG_DESC_FRIEND + PHONE_DESC_AMY + ADDRESS_DESC_AMY + EMAIL_DESC_AMY + TAG_DESC_FRIEND
-                + PHONE_DESC_BOB + ADDRESS_DESC_BOB + EMAIL_DESC_BOB + TAG_DESC_HUSBAND;
+        String userInput = targetIndex.getOneBased() + PHONE_DESC_AMY + EMAIL_DESC_AMY
+                + TAG_DESC_FRIEND + PHONE_DESC_AMY + EMAIL_DESC_AMY + TAG_DESC_FRIEND
+                + PHONE_DESC_BOB + EMAIL_DESC_BOB + TAG_DESC_HUSBAND;
 
         EditLoanDescriptor descriptor = new EditLoanDescriptorBuilder().withPhone(VALID_PHONE_BOB)
-                .withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_FRIEND, VALID_TAG_HUSBAND)
+                .withEmail(VALID_EMAIL_BOB).withTags(VALID_TAG_FRIEND, VALID_TAG_HUSBAND)
                 .build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
 
@@ -190,10 +177,10 @@ public class EditCommandParserTest {
         assertParseSuccess(parser, userInput, expectedCommand);
 
         // other valid values specified
-        userInput = targetIndex.getOneBased() + EMAIL_DESC_BOB + INVALID_PHONE_DESC + ADDRESS_DESC_BOB
+        userInput = targetIndex.getOneBased() + EMAIL_DESC_BOB + INVALID_PHONE_DESC
                 + PHONE_DESC_BOB;
         descriptor = new EditLoanDescriptorBuilder().withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB)
-                .withAddress(VALID_ADDRESS_BOB).build();
+                .build();
         expectedCommand = new EditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
     }

@@ -2,7 +2,6 @@ package loanbook.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 import static loanbook.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static loanbook.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static loanbook.logic.parser.CliSyntax.PREFIX_BIKE;
 import static loanbook.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static loanbook.logic.parser.CliSyntax.PREFIX_LOANRATE;
@@ -35,7 +34,7 @@ public class EditCommandParser implements Parser<EditCommand> {
     public EditCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_NRIC, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS,
+                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_NRIC, PREFIX_PHONE, PREFIX_EMAIL,
                         PREFIX_BIKE, PREFIX_LOANRATE, PREFIX_TAG);
 
         Index index;
@@ -58,9 +57,6 @@ public class EditCommandParser implements Parser<EditCommand> {
         }
         if (argMultimap.getValue(PREFIX_EMAIL).isPresent()) {
             editLoanDescriptor.setEmail(ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get()));
-        }
-        if (argMultimap.getValue(PREFIX_ADDRESS).isPresent()) {
-            editLoanDescriptor.setAddress(ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get()));
         }
         if (argMultimap.getValue(PREFIX_BIKE).isPresent()) {
             editLoanDescriptor.setBike(ParserUtil.parseBike(argMultimap.getValue(PREFIX_BIKE).get()));
