@@ -19,10 +19,19 @@ import loanbook.ui.LoanCard;
  */
 public class GuiTestAssert {
     private static final String LABEL_DEFAULT_STYLE = "label";
+
     /**
      * Asserts that {@code actualCard} displays the same values as {@code expectedCard}.
      */
-    public static void assertCardEquals(LoanCardHandle expectedCard, LoanCardHandle actualCard) {
+    public static void assertBikeCardEquals(BikeCardHandle expectedCard, BikeCardHandle actualCard) {
+        assertEquals(expectedCard.getId(), actualCard.getId());
+        assertEquals(expectedCard.getName(), actualCard.getName());
+    }
+
+    /**
+     * Asserts that {@code actualCard} displays the same values as {@code expectedCard}.
+     */
+    public static void assertLoanCardEquals(LoanCardHandle expectedCard, LoanCardHandle actualCard) {
         assertEquals(expectedCard.getId(), actualCard.getId());
         assertEquals(expectedCard.getEmail(), actualCard.getEmail());
         assertEquals(expectedCard.getName(), actualCard.getName());

@@ -5,7 +5,7 @@ import static loanbook.testutil.EventsUtil.postNow;
 import static loanbook.testutil.TypicalIndexes.INDEX_SECOND_LOAN;
 import static loanbook.testutil.TypicalLoans.getTypicalLoans;
 import static loanbook.ui.testutil.GuiTestAssert.assertCardDisplaysLoan;
-import static loanbook.ui.testutil.GuiTestAssert.assertCardEquals;
+import static loanbook.ui.testutil.GuiTestAssert.assertLoanCardEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTimeoutPreemptively;
 
@@ -58,7 +58,7 @@ public class LoanListPanelTest extends GuiUnitTest {
 
         LoanCardHandle expectedLoan = loanListPanelHandle.getLoanCardHandle(INDEX_SECOND_LOAN.getZeroBased());
         LoanCardHandle selectedLoan = loanListPanelHandle.getHandleToSelectedCard();
-        assertCardEquals(expectedLoan, selectedLoan);
+        assertLoanCardEquals(expectedLoan, selectedLoan);
     }
 
     /**
