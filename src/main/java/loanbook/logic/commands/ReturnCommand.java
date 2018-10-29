@@ -51,7 +51,7 @@ public class ReturnCommand extends Command {
 
         Loan loanToReturn = lastShownList.get(index.getZeroBased());
 
-        if (loanToReturn.getLoanStatus() != LoanStatus.ONGOING)) {
+        if (loanToReturn.getLoanStatus() != LoanStatus.ONGOING) {
             throw new CommandException(MESSAGE_LOAN_NOT_ONGOING);
         }
 
