@@ -374,37 +374,31 @@ decrypt our stored password.
 // end::userconfirmation[]
 
 === Return a Loan feature
+
+A LoanBook application that only allows users to do loans without being able to return them would not serve its purpose. When you take out a loan, it should automatically come with the feature of being returnable. This is the functionality for that.
+
 ==== Proposed Implementation
 
-Returning a loan is done by setting the corresponding status of the loan to `returned`. Other than setting the enum to be returned, the cost of the loan will also be calculated and displayed to the user.
+Returning a loan is done by setting the corresponding status of the loan to `LoanStatus.RETURNED`. Other than setting the enum to be returned, the cost of the loan will also be calculated and displayed to the user.
 
 The steps that have to be done by LoanBook is as follows:
 
 * Check the start and end time of the loan to ensure that the loan period is valid.
 * Store the current time as the return time of the loan.
 * Change the enum of `LoanStatus` to become `LoanStatus.RETURNED`.
-* Calculate the cost of the loan and display it in the gui as a suggestion for the user.
+* Calculate the cost of the loan and display it in the GUI as a suggestion for the user.
 
-These steps would change the given Loan object, and update the properties of the Loan object. The appropriate values stored within the Loan object would therefore change accordingly.
+These steps would change the given `Loan` object, and update the properties of the `Loan` object. The appropriate values stored within the `Loan` object would therefore change accordingly.
 
 Given below is an example usage scenerio and how the internals of the Loan would behave:
 
 **Step 1.** The user would have to do a search for which loan they would like to return. This will pull up a list of loans from which the user would be able to select the correct loan.
 
-[NOTE]
-Users who are able to remember the loanID would be able to access the loan directly by using the `i/<LOANID>` tag in the command. This would allow them to skip this step, and directly reference the loan which they would like to modify.
-
-image::return-loan-list-of-loans.png[]
-
-The user lists all loans. This is displayed on the GUI.
-
-{nbsp} +
-
 **Step 2.** Using the current system time as the `endTime`, the duration of the loan will be calculated. Should the duration ever be negative, an error message will be thrown. This is because such a scenario would not ever be possible in the LoanBook.
 
-**Step 3.** The user decides to return the current loan (in the case of the above image, the user wants to return loan number 3, as selected). User will therefore key in `return i/3`.
+**Step 3.** The user decides to return the current loan (in the case of the above image, the user wants to return loan at index 3, as selected). User will therefore key in `return i/3`.
 
-The LoanBook will save the current time into the `Optional<LoanTime> returnTime` field. This would be done by calling the constructor `LoanTime()`. Also, the loanStatus field would also be updated from `ONGOING` to `RETURNED`.
+The LoanBook will save the current time into the `LoanTime endTime` field. This would be done by calling the constructor `LoanTime()`. Also, the loanStatus field would also be updated from `ONGOING` to `RETURNED`.
 
 image::return-loan-loan2.png[]
 Note that originally the loan has a `null` value for end time. Note that the `endTime` and `loanStatus` values has been updated.
@@ -417,7 +411,7 @@ If the loan has already been returned or deleted, a corresponding error message 
 **Step 4.** The function now calculates the cost of the loan. This price would be based on the amount of time the loan was active for, as well as the loanRate that was set, by multiplying the time with the rate.
 
 [NOTE]
-Although the time saved is to the second, the time that is multiplied when we are getting the cost is rounded down to the nearest minute. In a sense, this is "pro-rating" the cost, and making it more discrete.
+Although the time saved is to the millisecond, the time that is multiplied when we are getting the cost is rounded down to the nearest minute. In a sense, this is "pro-rating" the cost, and making it more discrete.
 
 The result is then displayed into the GUI for the user as the cost price of the loan.
 
@@ -432,31 +426,34 @@ It is possible for the LoanBook to have a loan that lasts for 0 minutes. This is
 ** Pros: Easy to implement the return a loan feature, and do not need to create new data storage features.
 ** Cons: When using the `summary` function, it will take a longer amount of time, as the LoanBook would have to do a check at every step to ensure the correct data is appended to the correct place.
 
-* Alternative 2: Create new ArrayLists of loans for each possible status of the loan.
+* Alternative 2: Create new ArrayLists of `Loans` for each possible status of the `Loan` objects.
 ** Pros: Computing the `summary` of the LoanBook would be much easier, and quicker.
 ** Cons: `return` functionality would run much slower, as there will be empty slots in the ArrayList after shifting the Loan objects around. Searching for loans would also be much more difficult, as the results from the various Loan ArrayLists has to be appended together.
 
 === Summary Feature
+
+In order to allow the user to use the LoanBook effectively as an auditing tool, they must be able to get a summary of all the loans that they have made. This summary should ideally give them an idea of the statistics of each of their transactions at a glance.
+
 ==== Proposed Implementation
 
 Getting the summary of all the loans is simply done by looping through all the stored loans before and aggregating the statistics of all the loans.
 
-Currently, the `summary` command would display to the user the following statistics:
+Currently, the `summary` command displays to the user the following statistics:
 
 * Total number of ongoing loans
 * Total number of loans ever taken out
 * Total amount of time all bikes have been loaned for
 * Total revenue from the loan service
 
-This would give a very handy summary page as well as an audit page for the bicycle shop owners.
+This would give a very handy summary page as well as a printable audit page for the bicycle shop owners.
 
-Given below is an example usage scenerio and how the internals of the Loan would behave:
+Given below is an example usage scenario and how the internals of the LoanBook behaves:
 
 **Step 1.** The user simply has to type the `summary` keyword into the CLI.
 
-**Step 2.** The LoanBook will proceed to loop through all the loans and aggregate the statistics of the loans. Simple statistics to be counted include the total time of loan and the total revenue gained from the loans.
+**Step 2.** The LoanBook proceeds to loop through all the loans and aggregate the statistics of the loans.
 
-**Step 3.** The LoanBook will update the display with the aggregated statistics, and this can be screenshotted by the user as an audit page.
+**Step 3.** The LoanBook updates the display with the aggregated statistics, and this can be screenshotted by the user as a summary page.
 
 ==== Design considerations:
 ===== Aspect: Getting the summary
@@ -466,10 +463,10 @@ Given below is an example usage scenerio and how the internals of the Loan would
 
 * Alternative 2: Use a cache to store previously calculated values of the summaries.
 ** Pros: Quicker response time to the users.
-** Cons: Much hearder to implement, cache might break if user edits past loans.
+** Cons: Much harder to implement, cache might break if user edits past loans.
 
 ==== Future features
-We plan to include a feature which allows users to summarize the loanbook based on certain parameters. For example, in future implementations, the user will be able to filter the statistics based on the identity of a bicycle.
+We plan to include a feature which allows users to summarize the LoanBook based on certain parameters. For example, in future implementations, the user will be able to filter the statistics based on the identity of a bicycle.
 
 These are the proposed features you would be able to search based on:
 
@@ -478,6 +475,8 @@ These are the proposed features you would be able to search based on:
 * Person who took out the loan
 
 As well, having to recalculate all the loans would be a bad idea when the LoanBook contains many loans. A proposed solution would be to cache the results of the main summary method, so that the LoanBook would only have to recalculate the numbers based on loans that have not been added to the final tally.
+
+Another idea would be to display all the loans in a printable table, when the summary feature is called. Perhaps this would generate a pdf file which shows all the list of loans that the LoanBook is keeping track of. Users can then take use this as a more stringent auditing tool.
 
 === Logging
 
@@ -620,6 +619,31 @@ image::HideInfoSequenceDiagrams.png[]
 ==== How to see the hidden information
 
 The censored data are only hidden from the window, not changed in the database. The `BrowserPanel` on the bottom right of the window will still show all the information including the hidden information.
+
+=== [Proposed] Improved `delete` functionality
+
+==== Current Implementation
+When the user deletes a loan from the LoanBook, it deletes the correct loan, then commits the result into memory. What this entails is that the entire XML file gets overwritten when each delete command is being called.
+
+==== Proposed implementation:
+From above, there is already a `LoanStatus` that has been implemented. What this does is that it allows the loan to be marked as deleted by setting the enum to the appropriate value. This would result in the LoanBook not needing to recommit every change.
+
+From here, when the user decides to close the LoanBook, it will then loop through all the loans and filter out the ones which have not been deleted. These are the loans that would be kept and saved in the LoanBook.
+
+==== Design Considerations
+**Aspect: Deleting a loan**
+
+* **Alternative 1 (current choice)**: Remove each loan as they are deleted
+** Pros: Easy to implement
+** Cons: Large time taken for memory operations as reading and writing to the data is required.
+
+* Alternative 2 (proposed implementation): Use an enum to implement lazy deletion.
+** Pros: Much more time efficient due to lazy deletion
+** Cons: Implementation is harder, and changing to this implementation would affect the undo and redo features.
+
+* Alternative 3: Fix the LoanBook storage manager so that it does not rewrite the entire XML file after each delete operation.
+** Pros: All operations are now lazy. Much better performance of the application because commit operations do not need to change the large XML file.
+** Cons: Large refactoring work required. May potentially affect the timeline of development of the other functions.
 
 == Documentation
 
@@ -767,6 +791,20 @@ e.g. `loanbook.commons.StringUtilTest`
 e.g. `loanbook.storage.StorageManagerTest`
 ..  Hybrids of unit and integration tests. These test are checking multiple code units as well as how the are connected together. +
 e.g. `loanbook.logic.LogicManagerTest`
+
+[WARNING]
+====
+The tests within the `add` command parsers do not take into account the feedback string from within the display. This is because of the time sensitive nature of the `add` command. It does not take in a specific `LoanTime` when the loan is created and populates the current system time into the `Loan`. Therefore, the strings that is returned for each command is time dependant. Hence it is impossible to do a string matching on the returned display string and a hard coded value.
+
+In this case, we commented out the check for equality of the string from the `add` command in the GUI against the expected hard coded string.
+====
+
+[NOTE]
+====
+However we do not need to test the equality of the displayed strings to ensure that the `add` command is working properly. We can simply check that the size of the list of `Loans` in the LoanBook has increased by 1, as well as to ensure that the `Loan` that was added into the LoanBook has the same base property as the default `Loan` that was added.
+
+An alternative would be to use a regex to do string pattern matching on the added `Loan`. This can be combined with getting the current system time of the tests to check that the display strings match, and the saved `Loans` are correctly added. However, this modification would take time to develop and to ensure that it is correct. As such, such developments would be left to be completed in future releases of LoanBook.
+====
 
 
 === Troubleshooting Testing
@@ -1225,6 +1263,72 @@ _{ more test cases ... }_
    Expected: Similar to previous.
 
 _{ more test cases ... }_
+
+=== Return a loan functionality
+
+Prerequisites: List all loans using the list command. Ensure there are multiple loans in the list.
+
+. Returning a valid loan
+
+.. Choose a loan that has not been returned. These loans are marked with the ONGOING tag. Find the index number of it and run `return i/<INDEX>`. +
+   Expected: The loan is returned successfully. The display message details that the loan has been deleted, and gives a suggestion for the cost price of the duration of the loan.
+
+.. Choose another ongoing loan from the list and run `return i/<INDEX>`. +
+   Expected: The loan is returned successfully as well. The display message details that the loan has been deleted, and gives a suggestion for the cost price of the duration of the loan.
+
+. Negative tests:
+.. Test case: `return i/0` +
+   Expected: No loan is returned. Error details shown in the status message, the message should say "the specified index is invalid" in this case. Status bar remains the same.
+.. Other incorrect `return` commands to try:
+... `return`
+... `return i/x` (where `x` is larger than the list size)
+... `return i/aaa` (Where `aaa` is a string)
+... `return i/y` (where `y` is the index of a loan that is not `ONGOING`). +
+
+=== Summary functionality
+
+Use the `summary` command on various sizes of the LoanBook to test this functionality
+
+. Create an empty LoanBook and run the `summary` command. +
+Expected: The summary should report the following:
+** Total loans: 0
+** Loans in progress: 0
+** Returned loans: 0
+** Total product loan time: 0 minutes
+** Total revenue: $0.00
+
+. Add 1 loan with a rate of $30/hr. Run the `summary` command. +
+Expected: The displayed page should report the following:
+** Total loans: 1
+** Loans in progress: 1
+** Returned loans: 0
+** Total product loan time: 0 minutes
+** Total revenue: $0.00
+
+. Add 3 more loans with rates $120/hr. Run the `summary` command. +
+Expected: The displayed page should report the following:
+** Total loans: 4
+** Loans in progress: 4
+** Returned loans: 0
+** Total product loan time: 0 minutes
+** Total revenue: $0.00
+
+. Return the first loan that you have added from above after exactly 1 minute, and run the `summary` command. +
+Expected: The displayed page should report the following:
+** Total loans: 4
+** Loans in progress: 3
+** Returned loans: 1
+** Total product loan time: 1 minutes
+** Total revenue: $0.50
+
+. Return 2 of the 3 loans that you have added from above after exactly 1 and 2 minutes from when you added them, respectively. Run the `summary` command. +
+Expected: The displayed page should report the following:
+** Total loans: 4
+** Loans in progress: 1
+** Returned loans: 3
+** Total product loan time: 4 minutes
+** Total revenue: $6.50
+
 
 === Saving data
 

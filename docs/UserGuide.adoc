@@ -48,6 +48,13 @@ e.g. typing *`help`* and pressing kbd:[ENTER] will open the help window.
 === Viewing help : `help`
 
 Provides a list of all commands together with a basic description, how-to-use and example usage for each command. +
+
+[NOTE]
+This will cause a pop up window to appear, containing a copy of this User Guide.
+
+[TIP]
+This is not the only way to get help! If you key in the commands with the wrong format, you will get a prompt in the display box which will give you a brief description of the command. It will also tell you how to use the command correctly.
+
 Format: `help`
 
 === Adding a loan: `add`
@@ -55,7 +62,7 @@ Format: `help`
 Adds a loan to the loan book with the following parameters, and displays the transaction along with a LOAN_ID to keep track of the loan. +
 Format: `add p/PERSON_NAME hp/PERSON_PHONE_NO e/PERSON_EMAIL r/RATE o/OBJECT_IDENTITY`
 
-[TIP]
+[NOTE]
 NUMBER_LOANED and LOAN_OUT_PERIOD must be a positive integer
 RATE is in dollars per hour.
 PERSON_PHONE_NO and PERSON_EMAIL should not be blank.
@@ -65,6 +72,11 @@ Examples:
 * `add p/John hp/97626753 e/johnw@abc.com r/5 o/Bicycle-007`
 * `add p/James Tan hp/86661352 e/alabaaoe@xyz.com r/144 o/Bicycle-007`
 
+[TIP]
+====
+The best part about this is you do not even need to key in the time that you created this loan! LoanBook does the timing for you! Simple isn't it?
+====
+
 === Listing all loans : `list`
 
 Shows a list of all loans in the LoanBook. +
@@ -73,10 +85,10 @@ Format: `list`
 === Editing a loan : `edit`
 
 In case a wrong entry is keyed in, or the customer changes their mind, this command allows details of a loan entry to be edited. +
-Format: `edit i/LOAN_ID [p/PERSON_NAME] [hp/PERSON_PHONE_NO] [e/PERSON_EMAIL] [r/RATE] [o/OBJECT_IDENTITY]`
+Format: `edit i/LOAN_INDEX [p/PERSON_NAME] [hp/PERSON_PHONE_NO] [e/PERSON_EMAIL] [r/RATE] [o/OBJECT_IDENTITY]`
 
 ****
-* Edits the loan at the specified `LOAN_ID`. This LOAN_ID refers to the LOAN_ID number shown in the displayed loan list. The LOAN_ID *must be a positive integer* 1, 2, 3, ...
+* Edits the loan at the specified `LOAN_INDEX`. This LOAN_INDEX refers to the LOAN_INDEX number shown in the displayed loan list. The LOAN_INDEX *must be a positive integer* 1, 2, 3, ...
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
 * When editing tags, the existing tags of the loan will be removed i.e adding of tags is not cumulative.
@@ -84,15 +96,20 @@ Format: `edit i/LOAN_ID [p/PERSON_NAME] [hp/PERSON_PHONE_NO] [e/PERSON_EMAIL] [r
 
 Examples:
 
-* `edit i/11037 o/Bicycle-017` +
-For the loan with Loan ID 11037, changes the loaned object from whatever it was before to Bicycle-017.
-* `edit i/90210 p/James Tan hp/86661352 e/alabaaoe@xyz.com r/144` +
-For the loan with Loan ID 90210, changes the customer to James Tan, who has the specified contact details, to the rate of $144 per hour.
+* `edit i/11 o/Bicycle-017` +
+For the loan at index 11, changes the loaned object from whatever it was before to Bicycle-017.
+* `edit i/9 p/James Tan hp/86661352 e/alabaaoe@xyz.com r/144` +
+For the loan at index 9, changes the customer to James Tan, who has the specified contact details, to the rate of $144 per hour.
+
+[NOTE]
+====
+We do not allow editing of the loan's start time or the return time because we want you to be able to use our application as an auditing tool. We hope that this can then simplify the management of your business.
+====
 
 === Locating loans by key words: `search`
 
-Returns a loan based on parameters of LOAN_ID, PERSON_NAME or OBJECT_IDENTITY. +
-Format: `search [i/LOAN_ID] [p/PERSON_NAME] [o/OBJECT_IDENTITY]`
+Returns a loan based on parameters of LOAN_INDEX, PERSON_NAME or OBJECT_IDENTITY. +
+Format: `search [i/LOAN_INDEX] [p/PERSON_NAME] [o/OBJECT_IDENTITY]`
 
 ****
 * The search is case insensitive. e.g `hans` will match `Hans`
@@ -104,7 +121,7 @@ Format: `search [i/LOAN_ID] [p/PERSON_NAME] [o/OBJECT_IDENTITY]`
 Examples:
 
 * `search i/11037` +
-Searches for the loan with LOAN_ID 11037
+Searches for the loan with LOAN_INDEX 11037
 * `search p/James Tan` +
 Searches for loans made by James Tan
 * `search p/John Doe o/Bicycle-007` +
@@ -112,12 +129,12 @@ Searches for loans made by John Doe where the item loaned out is Bicycle-007
 
 === Deleting the chosen loan from the loan book : `delete`
 
-Delete the loan from the loan book. If you want to delete one loan, use `delete i/LOAN_ID x/CURRENT_PASSWORD`.
+Delete the loan from the loan book. If you want to delete one loan, use `delete i/LOAN_INDEX x/CURRENT_PASSWORD`.
 Due to `delete` modifying transectional summery, it is a critical command and hence elevation is required hence the password field. +
-Format: `delete i/LOAN_ID x/CURRENT_PASSWORD`
+Format: `delete i/LOAN_INDEX x/CURRENT_PASSWORD`
 
 ****
-* Deletes the loan at the specified `i/LOAN_ID`.
+* Deletes the loan at the specified `i/LOAN_INDEX`.
 * Note that this does not reset `LOAN_ID`.
 * Deletion will not occur if `CURRENT_PASSWORD` is incorrect.
 ****
@@ -130,7 +147,7 @@ The default password for the app is `a12345`.
 Examples:
 
 * `delete i/11037 x/a12345` +
-Deletes the loan with LOAN_ID 11037.
+Deletes the loan with that has been indexed at position 11037.
 
 === Changing the password of the app: `setpass`
 
@@ -149,13 +166,35 @@ Set the password of the app to `n3wP4sS`.
 
 === Returning a loan : `return`
 
-Marks a loan as returned based on LOAN_ID and automatically prints out the amount payable. +
-Format: `return i/LOAN_ID`
+What's the use of a LoanBook if you are unable to return the loans that you have? This is how you can do that! In fact, we see your pains trying to calculate the amount payable on a calculator, so we decided to help you out by doing all the number crunching for you.
+
+This command marks a loan as returned based on LOAN_INDEX and automatically prints out the amount payable. The amount payable will be prorated and rounded down to the nearest minute. +
+
+[TIP]
+====
+We choose to do this because when we get down to seconds, the difference in the earnings you will get is going to be on the order of fraction of cents. We hope that by doing this, your business would not seem to be very petty about the money.
+
+Also, this would be good for your business, as customers will not feel that they have been ripped off the cost of renting a bike for an extra minute just because you took 5 seconds to log their return details! :)
+====
+
+Do note that you will have to list out all the loans in order, or search for a particular loan that you would like to return. From there, you need to key in the index number of the loan as a parameter into this command.
+
+Format: `return i/LOAN_INDEX`
+
+[NOTE]
+Do be careful to note that it is the loan INDEX that you are keying into the program. Please do not key in the LoanID instead!
+
+[WARNING]
+====
+This command is currently not undoable. Please be careful to double check.
+
+We are working on fixing this issue! Do look forward to seeing this new functionality in the next release of LoanBook, version 2.0!
+====
 
 Examples:
 
 * `return i/11037` +
-Marks the loan with LOAN_ID 11037 as returned. Also automatically prints out the amount payable based on loan time and rate.
+Marks the loan with LOAN_INDEX 11037 as returned. Also automatically prints out the amount payable based on loan time and rate.
 
 === Hard reset the entire loan book : `reset`
 
@@ -174,7 +213,9 @@ The difference between deleting all the loans and hard resetting the LoanBook is
 
 === Summarize all the transactions : `summary`
 
-Show the total number of loans that are done and in progress. Also summarizes the loan status of each item, the number of times an object was loaned before.
+Do you want to find out at a glance how much money your business has collected? Or maybe out of all the bicycles you have, how many are currently loaned out? Here's the command for you.
+
+This feature shows the total number of loans that are done and in progress. It also summarizes the loan status of each item, the number of times an object was loaned before.
 
 The `summary` function would display the statistics of all your loans in the display box on the right of the application. There, you will find the following statistics:
 
