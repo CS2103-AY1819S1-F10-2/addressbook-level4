@@ -10,33 +10,47 @@ import javafx.scene.control.ListView;
 /**
  * Provides a handle for a {@code ListPanel<T>} containing a list of {@code ListCard<T>}.
  */
-public class ListPanelHandle<T> extends NodeHandle<ListView<T>> {
+public abstract class ListPanelHandle<T, CardHandle extends ListCardHandle<T>> extends NodeHandle<ListView<T>> {
 
     public static final String LIST_VIEW_ID = "#listView";
     private static final String CARD_PANE_ID = "#cardPane";
 
     private Optional<T> lastRememberedSelectedCard;
 
-    public ListPanelHandle(ListView<T> ListPanelNode) {
-        super(ListPanelNode);
+    public ListPanelHandle(ListView<T> listPanelNode) {
+        super(listPanelNode);
     }
 
     /**
-     * Returns a handle to the selected {@code ListCardHandle}.
+     * Gets the class name of T.
+     * An internal function to help with error reporting.
+     * @return The class name of T.
+     */
+    protected abstract String getItemClassName();
+
+    /**
+     * Creates a new CardHandle object using the provided cardNode.
+     * @param cardNode A node for a ListCard.
+     * @return A new CardHandle.
+     */
+    protected abstract CardHandle getNewCardHandle(Node cardNode);
+
+    /**
+     * Returns a handle to the selected {@code CardHandle}.
      * A maximum of 1 item can be selected at any time.
      * @throws AssertionError if no card is selected, or more than 1 card is selected.
      * @throws IllegalStateException if the selected card is currently not in the scene graph.
      */
-    public ListCardHandle getHandleToSelectedCard() {
+    public CardHandle getHandleToSelectedCard() {
         List<T> selectedList = getRootNode().getSelectionModel().getSelectedItems();
 
         if (selectedList.size() != 1) {
-            throw new AssertionError("Item list size expected 1.");
+            throw new AssertionError(getItemClassName() + " list size expected 1.");
         }
 
         return getAllCardNodes().stream()
-            .map(ListCardHandle::new)
-            .filter(handle -> handle.equals(selectedList.get(0)))
+            .map(this::getNewCardHandle)
+            .filter(handle -> handle.contains(selectedList.get(0)))
             .findFirst()
             .orElseThrow(IllegalStateException::new);
     }
@@ -55,7 +69,7 @@ public class ListPanelHandle<T> extends NodeHandle<ListView<T>> {
         List<T> selectedCardsList = getRootNode().getSelectionModel().getSelectedItems();
 
         if (selectedCardsList.size() > 1) {
-            throw new AssertionError("Card list size expected 0 or 1.");
+            throw new AssertionError(getItemClassName() + " card list size expected 0 or 1.");
         }
 
         return !selectedCardsList.isEmpty();
@@ -66,7 +80,7 @@ public class ListPanelHandle<T> extends NodeHandle<ListView<T>> {
      */
     public void navigateToCard(T item) {
         if (!getRootNode().getItems().contains(item)) {
-            throw new IllegalArgumentException("Item does not exist.");
+            throw new IllegalArgumentException(getItemClassName() + " does not exist.");
         }
 
         guiRobot.interact(() -> {
@@ -90,7 +104,7 @@ public class ListPanelHandle<T> extends NodeHandle<ListView<T>> {
     }
 
     /**
-     * Selects the {@code BikeCard} at {@code index} in the list.
+     * Selects the {@code ListCard} at {@code index} in the list.
      */
     public void select(int index) {
         getRootNode().getSelectionModel().select(index);
@@ -100,11 +114,11 @@ public class ListPanelHandle<T> extends NodeHandle<ListView<T>> {
      * Returns the card handle of an item associated with the {@code index} in the list.
      * @throws IllegalStateException if the selected card is currently not in the scene graph.
      */
-    public ListCardHandle getCardHandle(int index) {
-        Object[] s = getAllCardNodes().stream().map(ListCardHandle::new).toArray();
+    public CardHandle getCardHandle(int index) {
+        Object[] s = getAllCardNodes().stream().map(this::getNewCardHandle).toArray();
         return getAllCardNodes().stream()
-            .map(ListCardHandle::new)
-            .filter(handle -> handle.equals(getItem(index)))
+            .map(this::getNewCardHandle)
+            .filter(handle -> handle.contains(getItem(index)))
             .findFirst()
             .orElseThrow(IllegalStateException::new);
     }
@@ -136,7 +150,7 @@ public class ListPanelHandle<T> extends NodeHandle<ListView<T>> {
     }
 
     /**
-     * Returns true if the selected {@code BikeCard} is different from the value remembered by the most recent
+     * Returns true if the selected {@code ListCard} is different from the value remembered by the most recent
      * {@code rememberSelectedBikeCard()} call.
      */
     public boolean isSelectedCardChanged() {

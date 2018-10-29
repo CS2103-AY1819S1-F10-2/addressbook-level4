@@ -43,7 +43,7 @@ public class LoanListPanelTest extends GuiUnitTest {
         for (int i = 0; i < TYPICAL_LOANS.size(); i++) {
             loanListPanelHandle.navigateToCard(TYPICAL_LOANS.get(i));
             Loan expectedLoan = TYPICAL_LOANS.get(i);
-            LoanCardHandle actualCard = loanListPanelHandle.getLoanCardHandle(i);
+            LoanCardHandle actualCard = loanListPanelHandle.getCardHandle(i);
 
             assertCardDisplaysLoan(expectedLoan, actualCard);
             assertEquals(Integer.toString(i + 1), actualCard.getId());
@@ -56,7 +56,7 @@ public class LoanListPanelTest extends GuiUnitTest {
         postNow(JUMP_TO_SECOND_EVENT);
         guiRobot.pauseForHuman();
 
-        LoanCardHandle expectedLoan = loanListPanelHandle.getLoanCardHandle(INDEX_SECOND_LOAN.getZeroBased());
+        LoanCardHandle expectedLoan = loanListPanelHandle.getCardHandle(INDEX_SECOND_LOAN.getZeroBased());
         LoanCardHandle selectedLoan = loanListPanelHandle.getHandleToSelectedCard();
         assertLoanCardEquals(expectedLoan, selectedLoan);
     }
@@ -124,6 +124,6 @@ public class LoanListPanelTest extends GuiUnitTest {
         uiPartRule.setUiPart(loanListPanel);
 
         loanListPanelHandle = new LoanListPanelHandle(getChildNode(loanListPanel.getRoot(),
-                LoanListPanelHandle.LOAN_LIST_VIEW_ID));
+                LoanListPanelHandle.LIST_VIEW_ID));
     }
 }

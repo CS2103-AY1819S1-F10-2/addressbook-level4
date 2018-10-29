@@ -43,7 +43,7 @@ public class BikeListPanelTest extends GuiUnitTest {
         for (int i = 0; i < TYPICAL_BIKES.size(); i++) {
             bikeListPanelHandle.navigateToCard(TYPICAL_BIKES.get(i));
             Bike expectedBike = TYPICAL_BIKES.get(i);
-            BikeCardHandle actualCard = bikeListPanelHandle.getBikeCardHandle(i);
+            BikeCardHandle actualCard = bikeListPanelHandle.getCardHandle(i);
 
             assertCardDisplaysBike(expectedBike, actualCard);
             assertEquals(Integer.toString(i + 1), actualCard.getId());
@@ -56,7 +56,7 @@ public class BikeListPanelTest extends GuiUnitTest {
         postNow(JUMP_TO_SECOND_EVENT);
         guiRobot.pauseForHuman();
 
-        BikeCardHandle expectedBike = bikeListPanelHandle.getBikeCardHandle(INDEX_SECOND_LOAN.getZeroBased());
+        BikeCardHandle expectedBike = bikeListPanelHandle.getCardHandle(INDEX_SECOND_LOAN.getZeroBased());
         BikeCardHandle selectedBike = bikeListPanelHandle.getHandleToSelectedCard();
         assertBikeCardEquals(expectedBike, selectedBike);
     }
@@ -116,6 +116,6 @@ public class BikeListPanelTest extends GuiUnitTest {
         uiPartRule.setUiPart(bikeListPanel);
 
         bikeListPanelHandle = new BikeListPanelHandle(getChildNode(bikeListPanel.getRoot(),
-            BikeListPanelHandle.BIKE_LIST_VIEW_ID));
+            BikeListPanelHandle.LIST_VIEW_ID));
     }
 }

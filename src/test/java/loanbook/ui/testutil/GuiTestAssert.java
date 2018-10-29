@@ -115,7 +115,7 @@ public class GuiTestAssert {
     public static void assertListMatching(LoanListPanelHandle loanListPanelHandle, Loan... loans) {
         for (int i = 0; i < loans.length; i++) {
             loanListPanelHandle.navigateToCard(i);
-            assertCardDisplaysLoan(loans[i], loanListPanelHandle.getLoanCardHandle(i));
+            assertCardDisplaysLoan(loans[i], loanListPanelHandle.getCardHandle(i));
         }
     }
 

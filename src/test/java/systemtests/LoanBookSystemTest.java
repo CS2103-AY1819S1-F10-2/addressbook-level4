@@ -204,7 +204,7 @@ public abstract class LoanBookSystemTest {
         getBrowserPanel().rememberUrl();
         statusBarFooterHandle.rememberSaveLocation();
         statusBarFooterHandle.rememberSyncStatus();
-        getLoanListPanel().rememberSelectedLoanCard();
+        getLoanListPanel().rememberSelectedCard();
     }
 
     /**
@@ -221,7 +221,7 @@ public abstract class LoanBookSystemTest {
      * Asserts that the browser's url is changed to display the details of the loan in the loan list panel at
      * {@code expectedSelectedCardIndex}, and only the card at {@code expectedSelectedCardIndex} is selected.
      * @see BrowserPanelHandle#isUrlChanged()
-     * @see LoanListPanelHandle#isSelectedLoanCardChanged()
+     * @see LoanListPanelHandle#isSelectedCardChanged()
      */
     protected void assertSelectedCardChanged(Index expectedSelectedCardIndex) {
         getLoanListPanel().navigateToCard(getLoanListPanel().getSelectedCardIndex());
@@ -240,11 +240,11 @@ public abstract class LoanBookSystemTest {
     /**
      * Asserts that the browser's url and the selected card in the loan list panel remain unchanged.
      * @see BrowserPanelHandle#isUrlChanged()
-     * @see LoanListPanelHandle#isSelectedLoanCardChanged()
+     * @see LoanListPanelHandle#isSelectedCardChanged()
      */
     protected void assertSelectedCardUnchanged() {
         assertFalse(getBrowserPanel().isUrlChanged());
-        assertFalse(getLoanListPanel().isSelectedLoanCardChanged());
+        assertFalse(getLoanListPanel().isSelectedCardChanged());
     }
 
     /**

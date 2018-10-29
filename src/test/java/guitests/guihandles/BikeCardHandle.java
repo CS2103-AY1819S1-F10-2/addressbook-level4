@@ -7,7 +7,7 @@ import loanbook.model.bike.Bike;
 /**
  * Provides a handle to a bike card in the bike list panel.
  */
-public class BikeCardHandle extends ListCardHandle {
+public class BikeCardHandle extends ListCardHandle<Bike> {
 
     private static final String NAME_FIELD_ID = "#name";
 
@@ -26,7 +26,7 @@ public class BikeCardHandle extends ListCardHandle {
     /**
      * Returns true if this handle contains {@code bike}.
      */
-    public boolean equals(Bike bike) {
+    public boolean contains(Bike bike) {
         return getName().equals(bike.getName().value);
     }
 }

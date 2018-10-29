@@ -6,7 +6,7 @@ import javafx.scene.control.Label;
 /**
  * Provides a handle to a {@code ListCard<T>} in the list panel.
  */
-public class ListCardHandle extends NodeHandle<Node> {
+public abstract class ListCardHandle<T> extends NodeHandle<Node> {
 
     private static final String ID_FIELD_ID = "#id";
 
@@ -21,4 +21,9 @@ public class ListCardHandle extends NodeHandle<Node> {
     public String getId() {
         return idLabel.getText();
     }
+
+    /**
+     * Returns true if this handle contains {@code item}.
+     */
+    public abstract boolean contains(T item);
 }

@@ -13,7 +13,7 @@ import loanbook.model.loan.Loan;
 /**
  * Provides a handle to a loan card in the loan list panel.
  */
-public class LoanCardHandle extends ListCardHandle {
+public class LoanCardHandle extends ListCardHandle<Loan> {
 
     private static final String NAME_FIELD_ID = "#name";
     private static final String NRIC_FIELD_ID = "#nric";
@@ -106,7 +106,7 @@ public class LoanCardHandle extends ListCardHandle {
     /**
      * Returns true if this handle contains {@code loan}.
      */
-    public boolean equals(Loan loan) {
+    public boolean contains(Loan loan) {
         return getName().equals(loan.getName().value)
                 && getNric().equals(loan.getNric().getCensored())
                 && getPhone().equals(loan.getPhone().getCensored())
