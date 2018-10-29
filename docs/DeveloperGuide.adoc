@@ -18,7 +18,7 @@ endif::[]
 By: `Team F10-2`      Since: `Sep 2018`      Licence: `MIT`
 
 == Setting up
-This section describes the necessary dependencies required to install the application, together with the steps required to install.
+This section describes the necessary dependencies required to work on the application.
 
 === Prerequisites
 
@@ -104,7 +104,7 @@ Having both Travis and AppVeyor ensures your App works on both Unix-based platfo
 When you are ready to start coding, you may move on to <<Design-Architecture>> to get some sense of the overall design.
 
 == Design
-This section depicts the implementation of the application, from UI to storage.
+This section describes the implementation of the application.
 
 [[Design-Architecture]]
 === Architecture
@@ -647,7 +647,7 @@ From here, when the user decides to close the LoanBook, it will then loop throug
 
 == Documentation
 
-This section describe the way we document our project. We use asciidoc for writing documentation.
+This section describes the way we document our project. We use asciidoc for writing documentation.
 
 [NOTE]
 We chose asciidoc over Markdown because asciidoc, although a bit more complex than Markdown, provides more flexibility in formatting.
@@ -817,7 +817,7 @@ An alternative would be to use a regex to do string pattern matching on the adde
 
 == Dev Ops
 
-This sections provides a brief summery of the tools we use in the project, and how to integrate them to this project.
+This sections provides a brief summary of the tools we use in the project, and how to integrate them into the project.
 
 === Build Automation
 
@@ -1261,10 +1261,10 @@ _{ more test cases ... }_
 .. Prerequisites: List all loans using the `list` command. Multiple loans in the list.
 .. Test case: `delete i/1 x/a12345` +
    Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
-.. Test case: `delete i/1 x/a12345` +
-   Expected: No loan is deleted. Error details shown in the status message. Status bar remains the same.
+.. Test case: `delete i/0 x/a12345` +
+   Expected: No loan is deleted due to invalid index supplied. Error details shown in the status message. Status bar remains the same.
 .. Test case: `delete i/1 x/wr0ngP4sS` +
-   Expected: No loan is deleted. Error details shown in the status message. Status bar remains the same.
+   Expected: No loan is deleted due to invalid password supplied. Error details shown in the status message. Status bar remains the same.
 .. Other incorrect delete commands to try: `delete`, `delete i/x x/a12345` (where x is larger than the list size) +
    Expected: Similar to previous.
 
