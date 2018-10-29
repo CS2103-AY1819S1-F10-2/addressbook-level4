@@ -2,10 +2,10 @@ package loanbook.ui;
 
 import static java.time.Duration.ofMillis;
 import static loanbook.testutil.EventsUtil.postNow;
-import static loanbook.testutil.TypicalIndexes.INDEX_SECOND_LOAN;
 import static loanbook.testutil.TypicalBikes.getTypicalBikes;
-import static loanbook.ui.testutil.GuiTestAssert.assertCardDisplaysBike;
+import static loanbook.testutil.TypicalIndexes.INDEX_SECOND_LOAN;
 import static loanbook.ui.testutil.GuiTestAssert.assertBikeCardEquals;
+import static loanbook.ui.testutil.GuiTestAssert.assertCardDisplaysBike;
 import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTimeoutPreemptively;
 
