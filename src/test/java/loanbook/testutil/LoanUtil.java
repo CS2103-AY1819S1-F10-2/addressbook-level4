@@ -1,6 +1,5 @@
 package loanbook.testutil;
 
-import static loanbook.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static loanbook.logic.parser.CliSyntax.PREFIX_BIKE;
 import static loanbook.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static loanbook.logic.parser.CliSyntax.PREFIX_LOANRATE;
@@ -37,7 +36,6 @@ public class LoanUtil {
         sb.append(PREFIX_NRIC + loan.getNric().toString() + " ");
         sb.append(PREFIX_PHONE + loan.getPhone().value + " ");
         sb.append(PREFIX_EMAIL + loan.getEmail().value + " ");
-        sb.append(PREFIX_ADDRESS + loan.getAddress().value + " ");
         sb.append(PREFIX_BIKE + loan.getBike().getName().value + " ");
         sb.append(PREFIX_LOANRATE + loan.getLoanRate().toString() + " ");
         loan.getTags().stream().forEach(
@@ -55,7 +53,6 @@ public class LoanUtil {
         descriptor.getNric().ifPresent(nric -> sb.append(PREFIX_NRIC).append(nric.toString()).append(" "));
         descriptor.getPhone().ifPresent(phone -> sb.append(PREFIX_PHONE).append(phone.value).append(" "));
         descriptor.getEmail().ifPresent(email -> sb.append(PREFIX_EMAIL).append(email.value).append(" "));
-        descriptor.getAddress().ifPresent(address -> sb.append(PREFIX_ADDRESS).append(address.value).append(" "));
         descriptor.getBike().ifPresent(bike -> sb.append(PREFIX_BIKE).append(bike.getName().value).append(" "));
         descriptor.getLoanRate().ifPresent(rate -> sb.append(PREFIX_LOANRATE).append(rate.value).append(" "));
         if (descriptor.getTags().isPresent()) {

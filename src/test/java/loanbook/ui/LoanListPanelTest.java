@@ -99,8 +99,7 @@ public class LoanListPanelTest extends GuiUnitTest {
             builder.append("<nric>S9249123D</nric>\n");
             builder.append("<phone>000</phone>\n");
             builder.append("<email>a@aa</email>\n");
-            builder.append("<address>a</address>\n");
-            builder.append("<loanStatus>ONGOING</loanStatus>");
+            builder.append("<loanStatus>ONGOING</loanStatus>\n");
             builder.append("<bike>b</bike>\n");
             builder.append("<rate>1</rate>\n");
             builder.append("<startTime>12:00</startTime>\n");

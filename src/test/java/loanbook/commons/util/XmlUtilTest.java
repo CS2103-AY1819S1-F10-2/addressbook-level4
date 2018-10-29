@@ -40,7 +40,6 @@ public class XmlUtilTest {
     private static final String VALID_NRIC = "T0331476B";
     private static final String VALID_PHONE = "9482424";
     private static final String VALID_EMAIL = "hans@example";
-    private static final String VALID_ADDRESS = "4th street";
     private static final String VALID_BIKE = "BIKE001";
     private static final String VALID_LOANRATE = "30.6";
     private static final String VALID_LOANTIMEA = "2018-01-01 10:10";
@@ -89,7 +88,6 @@ public class XmlUtilTest {
                 VALID_NRIC,
                 VALID_PHONE,
                 VALID_EMAIL,
-                VALID_ADDRESS,
                 VALID_BIKE,
                 VALID_LOANRATE,
                 VALID_LOANTIMEA,
@@ -107,7 +105,6 @@ public class XmlUtilTest {
                 VALID_NRIC,
                 INVALID_PHONE,
                 VALID_EMAIL,
-                VALID_ADDRESS,
                 VALID_BIKE,
                 VALID_LOANRATE,
                 VALID_LOANTIMEA,
@@ -125,7 +122,6 @@ public class XmlUtilTest {
                 VALID_NRIC,
                 VALID_PHONE,
                 VALID_EMAIL,
-                VALID_ADDRESS,
                 VALID_BIKE,
                 VALID_LOANRATE,
                 VALID_LOANTIMEA,

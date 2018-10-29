@@ -31,7 +31,6 @@ public class Loan implements UniqueListItem<Loan> {
     private final LoanTime endTime; // Note that endTime can be null
     private final Phone phone;
     private final Email email;
-    private final Address address;
     private final Set<Tag> tags = new HashSet<>();
     private LoanStatus loanStatus;
 
@@ -43,7 +42,6 @@ public class Loan implements UniqueListItem<Loan> {
                 Nric nric,
                 Phone phone,
                 Email email,
-                Address address,
                 Bike bike,
                 LoanRate rate,
                 LoanTime startTime,
@@ -51,12 +49,11 @@ public class Loan implements UniqueListItem<Loan> {
                 LoanStatus loanStatus,
                 Set<Tag> tags) {
 
-        requireAllNonNull(name, nric, phone, email, address, bike, rate, startTime, loanStatus, tags);
+        requireAllNonNull(name, nric, phone, email, bike, rate, startTime, loanStatus, tags);
         this.name = name;
         this.nric = nric;
         this.phone = phone;
         this.email = email;
-        this.address = address;
         this.bike = bike;
         this.rate = rate;
         this.startTime = startTime;
@@ -73,13 +70,12 @@ public class Loan implements UniqueListItem<Loan> {
                 Nric nric,
                 Phone phone,
                 Email email,
-                Address address,
                 Bike bike,
                 LoanRate rate,
                 Set<Tag> tags) {
 
         // Initialise the loan to be ongoing.
-        this(name, nric, phone, email, address, bike, rate,
+        this(name, nric, phone, email, bike, rate,
                 new LoanTime(), null, LoanStatus.ONGOING, tags);
     }
 
@@ -92,14 +88,13 @@ public class Loan implements UniqueListItem<Loan> {
                 Nric nric,
                 Phone phone,
                 Email email,
-                Address address,
                 Bike bike,
                 LoanRate rate,
                 LoanTime startTime,
                 LoanTime endTime,
                 Set<Tag> tags) {
 
-        this(name, nric, phone, email, address, bike, rate,
+        this(name, nric, phone, email, bike, rate,
                 startTime, endTime, LoanStatus.RETURNED, tags);
     }
 
@@ -112,7 +107,6 @@ public class Loan implements UniqueListItem<Loan> {
             other.nric,
             other.phone,
             other.email,
-            other.address,
             bike,
             other.rate,
             other.startTime,
@@ -131,10 +125,6 @@ public class Loan implements UniqueListItem<Loan> {
 
     public Email getEmail() {
         return email;
-    }
-
-    public Address getAddress() {
-        return address;
     }
 
     public LoanStatus getLoanStatus() {
@@ -221,7 +211,6 @@ public class Loan implements UniqueListItem<Loan> {
                 && otherLoan.getNric().equals(getNric())
                 && otherLoan.getPhone().equals(getPhone())
                 && otherLoan.getEmail().equals(getEmail())
-                && otherLoan.getAddress().equals(getAddress())
                 && otherLoan.getLoanStatus().equals(getLoanStatus())
                 && otherLoan.getBike().equals(getBike())
                 && otherLoan.getLoanRate().equals(getLoanRate())
@@ -231,7 +220,7 @@ public class Loan implements UniqueListItem<Loan> {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, nric, phone, email, address, bike, rate, startTime, endTime, loanStatus, tags);
+        return Objects.hash(name, nric, phone, email, bike, rate, startTime, endTime, loanStatus, tags);
     }
 
     @Override
@@ -244,8 +233,6 @@ public class Loan implements UniqueListItem<Loan> {
                 .append(getPhone())
                 .append(" Email: ")
                 .append(getEmail())
-                .append(" Address: ")
-                .append(getAddress())
                 .append(" Status: ")
                 .append(getLoanStatus())
                 .append(" Bike: ")
