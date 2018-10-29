@@ -6,9 +6,11 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import guitests.guihandles.BikeCardHandle;
 import guitests.guihandles.LoanCardHandle;
 import guitests.guihandles.LoanListPanelHandle;
 import guitests.guihandles.ResultDisplayHandle;
+import loanbook.model.bike.Bike;
 import loanbook.model.loan.Loan;
 import loanbook.ui.LoanCard;
 
@@ -35,6 +37,13 @@ public class GuiTestAssert {
                 .getTags()
                 .forEach(tag ->
                         assertEquals(expectedCard.getTagStyleClasses(tag), actualCard.getTagStyleClasses(tag)));
+    }
+
+    /**
+     * Asserts that {@code actualCard} displays the details of {@code expectedBike}.
+     */
+    public static void assertCardDisplaysBike(Bike expectedBike, BikeCardHandle actualCard) {
+        assertEquals(expectedBike.getName().value, actualCard.getName());
     }
 
     /**
