@@ -121,12 +121,13 @@ public class MainWindow extends UiPart<Stage> {
 
     private void showBikeList() {
         listPanel = bikeListPanel;
-        listPanelPlaceholder.getChildren().add(bikeListPanel.getRoot());
+        listPanelPlaceholder.getChildren().setAll(bikeListPanel.getRoot());
     }
 
     private void showLoanList() {
         listPanel = loanListPanel;
-        listPanelPlaceholder.getChildren().add(loanListPanel.getRoot());
+
+        listPanelPlaceholder.getChildren().setAll(loanListPanel.getRoot());
     }
 
     /**
