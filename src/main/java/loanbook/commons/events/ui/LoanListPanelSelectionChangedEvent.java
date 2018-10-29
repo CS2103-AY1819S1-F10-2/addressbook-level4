@@ -3,7 +3,7 @@ package loanbook.commons.events.ui;
 import loanbook.model.loan.Loan;
 
 /**
- * Represents a selection change in the Loan List Panel
+ * Represents a selection change in the Loan List Panel.
  */
 public class LoanListPanelSelectionChangedEvent extends ListPanelSelectionChangedEvent<Loan> {
 
