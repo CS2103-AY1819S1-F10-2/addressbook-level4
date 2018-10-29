@@ -37,7 +37,8 @@
 <li><a href="#Implementation-Configuration">3.6. Configuration</a></li>
 <li><a href="#bicycle-management">3.7. Bicycle Management</a></li>
 <li><a href="#hide-private-information">3.8. Hide private information</a></li>
-<li><a href="#proposed-improved-code-delete-code-functionality">3.9. [Proposed] Improved <code>delete</code> functionality</a></li>
+<li><a href="#send-reminder-email-feature">3.9. Send Reminder Email feature</a></li>
+<li><a href="#proposed-improved-code-delete-code-functionality">3.10. [Proposed] Improved <code>delete</code> functionality</a></li>
 </ul>
 </li>
 <li><a href="#documentation">4. Documentation</a>
@@ -80,6 +81,7 @@
 <li><a href="#return-a-loan-functionality">G.3. Return a loan functionality</a></li>
 <li><a href="#summary-functionality">G.4. Summary functionality</a></li>
 <li><a href="#saving-data">G.5. Saving data</a></li>
+<li><a href="#sending-reminder-emails">G.6. Sending Reminder Emails</a></li>
 </ul>
 </li>
 </ul>
@@ -1489,15 +1491,250 @@ For example: <code>phone.setText(loan.getPhone().getCensored().value);</code> wi
 </div>
 </div>
 <div class="sect2">
-<h3 id="proposed-improved-code-delete-code-functionality"><a class="link" href="#proposed-improved-code-delete-code-functionality">3.9. [Proposed] Improved <code>delete</code> functionality</a></h3>
+<h3 id="send-reminder-email-feature"><a class="link" href="#send-reminder-email-feature">3.9. Send Reminder Email feature</a></h3>
 <div class="sect3">
 <h4 id="current-implementation-3"><a class="link" href="#current-implementation-3">3.9.1. Current Implementation</a></h4>
+<div class="paragraph">
+<p>The email sending mechanism is supported by the <a href="https://docs.oracle.com/javaee/7/api/javax/mail/package-summary.html"><code>JavaMail</code></a> library. This feature is composed of three commands: <code>checkemail</code>, <code>setemail</code> and <code>remind</code>.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>checkemail</code> command: display the email address that the user has set to send emails from. The app will censor the email address.</p>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+If user has not set an email, the email address will be a string <code>"default"</code> and the app show a "You have not set your email yet!" message.
+</td>
+</tr>
+</table>
+</div>
+</li>
+<li>
+<p><code>setemail</code> command: set the email address used for sending reminders to the customers.</p>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Only gmail is accepted by the app.
+</td>
+</tr>
+</table>
+</div>
+</li>
+<li>
+<p><code>remind</code> command: automatically generate an email containing some core information about the loan, and send it to the corresponding customer from user&#8217;s email. This command will use the <code>JavaMail</code> library.</p>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The email will contain the <code>Name</code>, <code>BikeId</code>, <code>LoanStartTime</code> and <code>LoanRate</code> of the loan.
+</td>
+</tr>
+</table>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Given below is an example usage scenario and how the reminder email mechanism behaves at each step.</p>
+</div>
+<div class="paragraph">
+<p><strong>Step 1.</strong> The user launches the application for the first time. The user&#8217;s email address is string <code>"default"</code> by default.</p>
+</div>
+<div class="paragraph">
+<p><strong>Step 2.</strong> The user executes <code>checkemail</code>. The following sequence diagram shows how <code>checkemail</code> works:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/CheckEmailSequenceDiagram.png" alt="CheckEmailSequenceDiagram">
+</div>
+</div>
+<div class="paragraph">
+<p>The command executes <code>Model#getMyEmail()</code>, which calls <code>UserPrefs#getDefaultEmail()</code> and returns user&#8217;s email stored in <code>UserPref</code>. The app checks if user&#8217;s email equals to <code>"default"</code>. In this case, they are equal, so it throws a <code>CommandException</code>.</p>
+</div>
+<div class="paragraph">
+<p><strong>Step 3.</strong> The user executes <code>setemail OLDEMAIL NEWEMAIL</code>. This command does a few checks first:</p>
+</div>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>If <code>OLDEMAIL</code> is not equal to either <code>"default"</code> or the previously set email, then a <code>CommandException</code> is thrown, as the validation of the old email fails.</p>
+</li>
+<li>
+<p>Otherwise, the app then checks if <code>OLDEMAIL</code> and <code>NEWEMAIL</code> are equal. If so, then a <code>CommandException</code> is thrown, to warn the user that they are setting the same email as last time.</p>
+</li>
+<li>
+<p>Otherwise, <code>SetEmailCommand#isValidGmail(NEWEMAIL)</code> is called to check if <code>NEWEMAIL</code> is a valid gmail. If not, a <code>CommandException</code> is thrown to warn the user that they are setting the same email as last time.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><strong>Step 4.</strong> The user forgets what email he has set before, so he executes <code>checkemail</code> again. The procedure is the same as in <strong>Step 2</strong>. However, the app detects that user&#8217;s email is not <code>"default"</code> this time, so it creates an <code>Email(userEmail)</code> object and executes <code>Email#getCensored()</code>. Then, the function returns a <code>CommandResult</code> with a success message and the censored user email.</p>
+</div>
+<div class="paragraph">
+<p><strong>Step 5.</strong> The user sends a reminder email to a customer by executing <code>remind x/EMAILPASSWORD n/NAME b/BIKEID</code>. This command implements the following operations:</p>
+</div>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Get a list of <code>Loans</code> from the <code>LoanBook</code> class and execute <code>RemindCommand#getLoan(list, NAME, BIKE)</code> to check if there is a <code>loan</code> that contains both this <code>NAME</code> and <code>BIKE</code>.</p>
+</li>
+<li>
+<p>If it returns a non-null <code>loan</code>, then check its <code>LoanStatus</code>.</p>
+</li>
+<li>
+<p>If its <code>LoanStatus</code> is <code>LoanStatus.ONGOING</code>, create a <code>SendReminder(model, EMAILPASSWORD, loan)</code> object and execute <code>SendReminder#send()</code> to send email.<br>
+The <code>SendReminder#send()</code> method calls <code>SendReminder#createReminderEmail(session, userEmail)</code> to create the content of the email, connects user&#8217;s email using <code>EMAILPASSWORD</code> and finally send the email.</p>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+If the user cannot remember the customer&#8217;s <code>NAME</code> or the loaned <code>BIKE</code>, he can use the <code>find [NAME] [BIKE]</code> command to search for the target loan.
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+For Steps (a) and (b), if the next step cannot be executed, a <code>CommandException</code> with corresponding failure message will be thrown.
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+If it throws a <code>CommandException</code> with authentication failed message in step (c), please check if user&#8217;s email and password are correct. If they are, please make sure that the <code>Less secure apps</code> setting of user&#8217;s email is enabled. If it is not, enable it and refresh the page.
+</td>
+</tr>
+</table>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect3">
+<h4 id="design-considerations-6"><a class="link" href="#design-considerations-6">3.9.2. Design considerations</a></h4>
+<div class="paragraph">
+<p><strong>Aspect: use user&#8217;s personal email vs share an immutable common email</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Alternative 1 (current choice):</strong> Use a user-specified email.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>The user has a choice of what email address to use.</p>
+</li>
+<li>
+<p>The user needs to type in the correct password if they want to send a reminder email, which ensures the security and privacy of the email.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Cons:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>The user needs to enable the <code>Less secure apps</code> setting, which could be a security concern.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Alternative 2:</strong> Use a common email provided by the app.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>The user does not need to set their own email when sending reminder emails, reducing hassle when setting up.</p>
+</li>
+<li>
+<p>The user does not need to type in a password when sending a reminder email.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Cons:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>The common email is less secure, as its password can be found within the program.</p>
+</li>
+<li>
+<p>The password of the common email can be changed by malicious users.</p>
+</li>
+<li>
+<p>The email might get overloaded.</p>
+</li>
+<li>
+<p>Customers might receive spam emails, as the <code>remind</code> command does not require a password.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="future-considerations"><a class="link" href="#future-considerations">3.9.3. Future considerations</a></h4>
+<div class="paragraph">
+<p>We plan to add a feature that can automatically send an e-receipt to the customer after <code>return</code> ing a loan.</p>
+</div>
+<div class="paragraph">
+<p>The e-receipt will contain the <code>Name</code>, <code>BikeID</code>, <code>LoanStartTime</code>, <code>LoanEndTime</code> and <code>TotalCost</code> of the loan.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="proposed-improved-code-delete-code-functionality"><a class="link" href="#proposed-improved-code-delete-code-functionality">3.10. [Proposed] Improved <code>delete</code> functionality</a></h3>
+<div class="sect3">
+<h4 id="current-implementation-4"><a class="link" href="#current-implementation-4">3.10.1. Current Implementation</a></h4>
 <div class="paragraph">
 <p>When the user deletes a loan from the LoanBook, it deletes the correct loan, then commits the result into memory. What this entails is that the entire XML file gets overwritten when each delete command is being called.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="proposed-implementation-3"><a class="link" href="#proposed-implementation-3">3.9.2. Proposed implementation:</a></h4>
+<h4 id="proposed-implementation-3"><a class="link" href="#proposed-implementation-3">3.10.2. Proposed implementation:</a></h4>
 <div class="paragraph">
 <p>From above, there is already a <code>LoanStatus</code> that has been implemented. What this does is that it allows the loan to be marked as deleted by setting the enum to the appropriate value. This would result in the LoanBook not needing to recommit every change.</p>
 </div>
@@ -1506,7 +1743,7 @@ For example: <code>phone.setText(loan.getPhone().getCensored().value);</code> wi
 </div>
 </div>
 <div class="sect3">
-<h4 id="design-considerations-6"><a class="link" href="#design-considerations-6">3.9.3. Design Considerations</a></h4>
+<h4 id="design-considerations-7"><a class="link" href="#design-considerations-7">3.10.3. Design Considerations</a></h4>
 <div class="paragraph">
 <p><strong>Aspect: Deleting a loan</strong></p>
 </div>
@@ -2882,5 +3119,88 @@ Expected: The displayed page should report the following:</p>
 <p><em>{ more test cases &#8230;&#8203; }</em></p>
 </div>
 </div>
+<div class="sect2">
+<h3 id="sending-reminder-emails"><a class="link" href="#sending-reminder-emails">G.6. Sending Reminder Emails</a></h3>
+<div class="paragraph">
+<p>Prerequisites: Make sure the system is connected to the internet. The email must be gmail and its <code>Less secure apps</code> option is enabled.</p>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-10-29 02:32:38 UTC</div></div></div></body></html>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Send a reminder email successfully. Please follow these steps:</p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>add</code> a loan with a valid customer&#8217;s email (but you own it of course).</p>
+</li>
+<li>
+<p>Execute the <code>checkemail</code> command. Then use the <code>setemail</code> command to set the sender&#8217;s email.</p>
+</li>
+<li>
+<p>After that, execute <code>remind x/correctpassword n/Name b/BikeId</code>.</p>
+</li>
+</ul>
+</div>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Expected: Receive a success message "Email sent!" on the screen. A reminder email should have been sent from the sender&#8217;s email (check the Sent folder). The same email should also be in the inbox of the customer&#8217;s email account that you have set.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Negative tests:</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Test case: <code>setemail WRONG_OLD_EMAIL@gmail.com NEW_EMAIL@gmail.com</code><br>
+Expected: Failure message "The old email address is wrong!" will show. User&#8217;s email is not changed.</p>
+</li>
+<li>
+<p>Test case: <code>setemail YOUR_EMAIL@gmail.com YOUR_EMAIL@gmail.com</code><br>
+Expected: Failure message "The old email and the new email cannot be the same!" will show. User&#8217;s email is not changed.</p>
+</li>
+<li>
+<p>Test case: <code>setemail OLD_EMAIL@gmail.com INVALID_NEW_EMAIL@outlook.com</code><br>
+Expected: Failure message "Your new email address is invalid! It must be a valid gmail!" will show. User&#8217;s email is not changed.</p>
+</li>
+<li>
+<p>Test case: <code>setemail OLD_EMAIL@gmail.com INVALID_NEW_EMAIL@gmail.com@gmail.com</code><br>
+Expected: Failure message "Your new email address is invalid! It must be a valid gmail!" will show. User&#8217;s email is not changed.</p>
+</li>
+<li>
+<p>Test case: <code>remind x/CORRECTPASSWORD n/NAME b/MISMATCHED_BIKE</code><br>
+Expected: Failure message "No loan contains both <code>NAME</code> and <code>MISMATCHED_BIKE</code>!" will show. The email is not sent.</p>
+</li>
+<li>
+<p>Test case: <code>remind x/CORRECTPASSWORD n/MISMATCHED_NAME b/BIKE</code><br>
+Expected: Failure message "No loan contains both <code>MISMATCHED_NAME</code> and <code>BIKE</code>!" will show. The email is not sent.</p>
+</li>
+<li>
+<p>Test case: <code>remind x/CORRECTPASSWORD n/RETURNED_NAME b/RETURNED_BIKE</code><br>
+Expected: Failure message "That loan has already been returned!" will show. The email is not sent.</p>
+</li>
+<li>
+<p>Test case: <code>remind x/CORRECTPASSWORD n/DELETED_NAME n/DELETED_BIKE</code><br>
+Expected: Failure message "That loan has been deleted!" will show. The email is not sent.</p>
+</li>
+<li>
+<p>Test case: <code>remind x/WRONGPASSWORD n/NAME b/BIKE</code><br>
+Expected: Failure message "Connection to your email failed! The password is wrong or you did not enable the <code>less secure app</code> option in your google account setting before you use remind command. Please refer to the User Guide!" will show. The email is not sent.</p>
+</li>
+<li>
+<p>Test case: Make sure your email is set, disable its <code>less secure apps</code> setting and refresh the setting page. Execute <code>remind x/CORRECTPASSWORD n/NAME b/BIKE</code><br>
+Expected: Failure message "Connection to your email failed! The password is wrong or you did not enable <code>less secure app</code> in your google account setting before you use remind command. Please refer to the User Guide!" will show. The email is not sent.</p>
+</li>
+<li>
+<p>Other incorrect commands to try: <code>setemail</code>, <code>setemail x</code> (where x can be any string), <code>remind</code>, <code>remind x y z</code> (no prefix, x, y and z can be any string).</p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-10-29 06:44:57 UTC</div></div></div></body></html>

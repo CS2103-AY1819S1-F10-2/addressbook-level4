@@ -24,7 +24,10 @@
 <li><a href="#hard-reset-the-entire-loan-book-code-reset-code">3.9. Hard reset the entire loan book : <code>reset</code></a></li>
 <li><a href="#summarize-all-the-transactions-code-summary-code">3.10. Summarize all the transactions : <code>summary</code></a></li>
 <li><a href="#listing-entered-commands-code-history-code">3.11. Listing entered commands : <code>history</code></a></li>
-<li><a href="#non-functional-features">3.12. Non-functional features :</a></li>
+<li><a href="#check-your-email-code-checkemail-code">3.12. Check your email : <code>checkemail</code></a></li>
+<li><a href="#set-your-email-code-setemail-code">3.13. Set your email : <code>setemail</code></a></li>
+<li><a href="#send-reminder-email-code-remind-code">3.14. send reminder email : <code>remind</code></a></li>
+<li><a href="#non-functional-features">3.15. Non-functional features :</a></li>
 </ul>
 </li>
 </ul>
@@ -545,7 +548,104 @@ Format: <code>history</code></p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="non-functional-features"><a class="link" href="#non-functional-features">3.12. Non-functional features :</a></h3>
+<h3 id="check-your-email-code-checkemail-code"><a class="link" href="#check-your-email-code-checkemail-code">3.12. Check your email : <code>checkemail</code></a></h3>
+<div class="paragraph">
+<p>Checks whether you have set your email or not, and displays the censored email address if you have set it before.<br>
+Format: <code>checkemail</code></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="set-your-email-code-setemail-code"><a class="link" href="#set-your-email-code-setemail-code">3.13. Set your email : <code>setemail</code></a></h3>
+<div class="paragraph">
+<p>Sets the email address to send reminder emails from.<br>
+Format: <code>setemail OLDEMAIL NEWEMAIL</code></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>OLDEMAIL</code> is <code>default</code> if you have not set an email yet.</p>
+</li>
+<li>
+<p><code>OLDEMAIL</code> must be the same as the one you set last time.</p>
+</li>
+<li>
+<p><code>NEWEMAIL</code> cannot the same as <code>OLDEMAIL</code>.</p>
+</li>
+<li>
+<p><code>NEWEMAIL</code> must be a valid gmail.</p>
+</li>
+</ul>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Only gmail is accepted!
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>setemail default new_email@gmail.com</code></p>
+</li>
+<li>
+<p><code>setemail old_email@gmail.com new_email@gmail.com</code></p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="send-reminder-email-code-remind-code"><a class="link" href="#send-reminder-email-code-remind-code">3.14. send reminder email : <code>remind</code></a></h3>
+<div class="paragraph">
+<p>Sends a reminder email to the customer.<br>
+Format: <code>remind x/EMAILPASSWORD n/NAME b/BIKE</code></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>NAME</code> and <code>BIKE</code> must be from the same <code>ONGOING</code> loan.</p>
+</li>
+<li>
+<p><code>EMAILPASSWORD</code> must be correct.</p>
+</li>
+</ul>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<strong>[IMPORTANT] Before using this command, please go to</strong> <a href="https://www.google.com/settings/security/lesssecureapps">Less Secure Apps</a> <strong>, enable it and refresh the Settings page!</strong>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>remind x/123456 n/Alex b/Bike001</code></p>
+</li>
+<li>
+<p><code>remind x/nscjhbdhv n/Peter Lee b/NewBike</code></p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="non-functional-features"><a class="link" href="#non-functional-features">3.15. Non-functional features :</a></h3>
 <div class="ulist">
 <ul>
 <li>
@@ -584,4 +684,4 @@ Format: <code>history</code></p>
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-10-29 02:32:38 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-10-29 06:44:57 UTC</div></div></div></body></html>
