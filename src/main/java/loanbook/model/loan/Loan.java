@@ -32,7 +32,7 @@ public class Loan implements UniqueListItem<Loan> {
     private final Phone phone;
     private final Email email;
     private final Set<Tag> tags = new HashSet<>();
-    private LoanStatus loanStatus;
+    private final LoanStatus loanStatus;
 
     /**
      * Default constructor.
@@ -102,7 +102,6 @@ public class Loan implements UniqueListItem<Loan> {
      * Copies over an existing Loan and edits the Bike, for AddCommand.
      */
     public Loan(Loan other, Bike bike) {
-
         this(other.name,
             other.nric,
             other.phone,
@@ -113,6 +112,22 @@ public class Loan implements UniqueListItem<Loan> {
             other.endTime,
             other.loanStatus,
             other.tags);
+    }
+
+    /**
+     * Copies over an existing Loan and edits the endTime, for ReturnCommand.
+     */
+    public Loan(Loan other, LoanTime endTime) {
+        this(other.name,
+                other.nric,
+                other.phone,
+                other.email,
+                other.bike,
+                other.rate,
+                other.startTime,
+                endTime,
+                other.loanStatus,
+                other.tags);
     }
 
     public Name getName() {
@@ -190,6 +205,14 @@ public class Loan implements UniqueListItem<Loan> {
                 && other.getBike().equals(getBike())
                 && (other.getEmail().equals(getEmail()) || other.getPhone().equals(getPhone())
                 || other.getLoanRate().equals(getLoanRate()) || other.getLoanStartTime().equals(getLoanStartTime()));
+    }
+
+    public double calculateCost(){
+        assert(endTime != null);
+
+        // Find the time the loan was taken out for, then pass it into LoanRate to get the cost.
+        long timeLoaned = this.getLoanStartTime().loanTimeDifferenceMinutes(this.getLoanEndTime());
+        return this.getLoanRate().calculateCost(timeLoaned);
     }
 
     /**
