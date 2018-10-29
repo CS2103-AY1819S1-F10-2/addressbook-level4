@@ -7,22 +7,16 @@ import loanbook.model.bike.Bike;
 /**
  * Provides a handle to a bike card in the bike list panel.
  */
-public class BikeCardHandle extends NodeHandle<Node> {
-    private static final String ID_FIELD_ID = "#id";
+public class BikeCardHandle extends ListCardHandle {
+
     private static final String NAME_FIELD_ID = "#name";
 
-    private final Label idLabel;
     private final Label nameLabel;
 
     public BikeCardHandle(Node cardNode) {
         super(cardNode);
 
-        idLabel = getChildNode(ID_FIELD_ID);
         nameLabel = getChildNode(NAME_FIELD_ID);
-    }
-
-    public String getId() {
-        return idLabel.getText();
     }
 
     public String getName() {
