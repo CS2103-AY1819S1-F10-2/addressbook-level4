@@ -1,6 +1,7 @@
 package loanbook.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static loanbook.logic.commands.AddCommand.MESSAGE_BIKE_NOT_FOUND;
 import static loanbook.logic.parser.CliSyntax.PREFIX_BIKE;
 import static loanbook.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static loanbook.logic.parser.CliSyntax.PREFIX_LOANRATE;
@@ -84,7 +85,7 @@ public class EditCommand extends Command {
         }
 
         Loan loanToEdit = lastShownList.get(index.getZeroBased());
-        Loan editedLoan = createEditedLoan(loanToEdit, editLoanDescriptor);
+        Loan editedLoan = createEditedLoan(loanToEdit, editLoanDescriptor, model);
 
         if (!loanToEdit.isSame(editedLoan) && model.hasLoan(editedLoan)) {
             throw new CommandException(MESSAGE_DUPLICATE_LOAN);
@@ -100,14 +101,28 @@ public class EditCommand extends Command {
      * Creates and returns a {@code Loan} with the details of {@code loanToEdit}
      * edited with {@code editLoanDescriptor}.
      */
-    private static Loan createEditedLoan(Loan loanToEdit, EditLoanDescriptor editLoanDescriptor) {
+    private static Loan createEditedLoan(
+            Loan loanToEdit,
+            EditLoanDescriptor editLoanDescriptor,
+            Model model) throws CommandException {
         assert loanToEdit != null;
 
         Name updatedName = editLoanDescriptor.getName().orElse(loanToEdit.getName());
         Nric updatedNric = editLoanDescriptor.getNric().orElse(loanToEdit.getNric());
         Phone updatedPhone = editLoanDescriptor.getPhone().orElse(loanToEdit.getPhone());
         Email updatedEmail = editLoanDescriptor.getEmail().orElse(loanToEdit.getEmail());
-        Bike updatedBike = editLoanDescriptor.getBike().orElse(loanToEdit.getBike());
+        Bike updatedBike;
+        {   Optional<Bike> editedBike = editLoanDescriptor.getBike();
+            if (editedBike.isPresent()) {
+                editedBike = model.getBike(editedBike.get().getName().value);
+                if (!editedBike.isPresent()) {
+                    throw new CommandException(MESSAGE_BIKE_NOT_FOUND);
+                }
+                updatedBike = editedBike.get();
+            } else {
+                updatedBike = loanToEdit.getBike();
+            }
+        }
         LoanRate updatedRate = editLoanDescriptor.getLoanRate().orElse(loanToEdit.getLoanRate());
         LoanTime updatedStartTime = editLoanDescriptor.getLoanStartTime().orElse(loanToEdit.getLoanStartTime());
         LoanTime updatedEndTime = editLoanDescriptor.getLoanEndTime().orElse(loanToEdit.getLoanEndTime());
@@ -184,7 +199,7 @@ public class EditCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, phone, email, tags);
+            return CollectionUtil.isAnyNonNull(name, nric, phone, email, bike, rate, startTime, endTime, tags);
         }
 
         public void setName(Name name) {
