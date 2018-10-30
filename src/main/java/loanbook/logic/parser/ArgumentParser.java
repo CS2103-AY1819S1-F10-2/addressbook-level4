@@ -9,7 +9,8 @@ import loanbook.logic.commands.Command;
 import loanbook.logic.parser.exceptions.ParseException;
 
 /**
- * Represents a Parser that parses a use input of only prefixed arguments for use by a {@code Command} of type {@code T}.
+ * Represents a Parser that parses a use input of only prefixed arguments
+ * for use by a {@code Command} of type {@code T}.
  */
 public abstract class ArgumentParser<T extends Command> implements Parser<T> {
 

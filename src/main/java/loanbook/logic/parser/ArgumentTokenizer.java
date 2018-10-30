@@ -26,6 +26,10 @@ public class ArgumentTokenizer {
     public static ArgumentMultimap tokenize(String argsString, Prefix... prefixes) {
         return tokenize(argsString, Arrays.asList(prefixes));
     }
+
+    /**
+     * Overloaded, same as above.
+     */
     public static ArgumentMultimap tokenize(String argsString, List<Prefix> prefixes) {
         List<PrefixPosition> positions = findAllPrefixPositions(argsString, prefixes);
         return extractArguments(argsString, positions);
