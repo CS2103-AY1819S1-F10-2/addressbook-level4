@@ -9,7 +9,8 @@ import java.util.function.Function;
 public class Name extends DataField<String> {
 
     public static final String MESSAGE_NAME_CONSTRAINTS =
-        "Names should start with an alphanumeric character, and contain only contain alphanumeric characters, spaces, and the characters ' - , . .";
+            "Names should start with an alphanumeric character, and contain " +
+            "only contain alphanumeric characters, spaces, and the characters ' - , . .";
 
     /**
      * Constructs a {@code Name}.
