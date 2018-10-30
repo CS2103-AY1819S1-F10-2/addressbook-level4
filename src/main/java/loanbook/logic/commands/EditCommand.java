@@ -112,17 +112,17 @@ public class EditCommand extends Command {
         Phone updatedPhone = editLoanDescriptor.getPhone().orElse(loanToEdit.getPhone());
         Email updatedEmail = editLoanDescriptor.getEmail().orElse(loanToEdit.getEmail());
         Bike updatedBike;
-        {   Optional<Bike> editedBike = editLoanDescriptor.getBike();
-            if (editedBike.isPresent()) {
-                editedBike = model.getBike(editedBike.get().getName().value);
-                if (!editedBike.isPresent()) {
-                    throw new CommandException(MESSAGE_BIKE_NOT_FOUND);
+            { Optional<Bike> editedBike = editLoanDescriptor.getBike();
+                if (editedBike.isPresent()) {
+                    editedBike = model.getBike(editedBike.get().getName().value);
+                    if (!editedBike.isPresent()) {
+                        throw new CommandException(MESSAGE_BIKE_NOT_FOUND);
+                    }
+                    updatedBike = editedBike.get();
+                } else {
+                    updatedBike = loanToEdit.getBike();
                 }
-                updatedBike = editedBike.get();
-            } else {
-                updatedBike = loanToEdit.getBike();
             }
-        }
         LoanRate updatedRate = editLoanDescriptor.getLoanRate().orElse(loanToEdit.getLoanRate());
         LoanTime updatedStartTime = editLoanDescriptor.getLoanStartTime().orElse(loanToEdit.getLoanStartTime());
         LoanTime updatedEndTime = editLoanDescriptor.getLoanEndTime().orElse(loanToEdit.getLoanEndTime());
