@@ -1,7 +1,6 @@
 package loanbook.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static loanbook.logic.commands.AddCommand.MESSAGE_BIKE_NOT_FOUND;
 import static loanbook.logic.parser.CliSyntax.PREFIX_BIKE;
 import static loanbook.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static loanbook.logic.parser.CliSyntax.PREFIX_LOANRATE;
@@ -59,6 +58,7 @@ public class EditCommand extends Command {
     public static final String MESSAGE_EDIT_LOAN_SUCCESS = "Edited Loan: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_LOAN = "This loan already exists in the loan book.";
+    public static final String MESSAGE_BIKE_NOT_FOUND = "No bike with that name exists within the loan book.";
 
     private final Index index;
     private final EditLoanDescriptor editLoanDescriptor;
@@ -111,18 +111,7 @@ public class EditCommand extends Command {
         Nric updatedNric = editLoanDescriptor.getNric().orElse(loanToEdit.getNric());
         Phone updatedPhone = editLoanDescriptor.getPhone().orElse(loanToEdit.getPhone());
         Email updatedEmail = editLoanDescriptor.getEmail().orElse(loanToEdit.getEmail());
-        Bike updatedBike;
-            { Optional<Bike> editedBike = editLoanDescriptor.getBike();
-                if (editedBike.isPresent()) {
-                    editedBike = model.getBike(editedBike.get().getName().value);
-                    if (!editedBike.isPresent()) {
-                        throw new CommandException(MESSAGE_BIKE_NOT_FOUND);
-                    }
-                    updatedBike = editedBike.get();
-                } else {
-                    updatedBike = loanToEdit.getBike();
-                }
-            }
+        Bike updatedBike = getEditedBike(editLoanDescriptor, model).orElse(loanToEdit.getBike());
         LoanRate updatedRate = editLoanDescriptor.getLoanRate().orElse(loanToEdit.getLoanRate());
         LoanTime updatedStartTime = editLoanDescriptor.getLoanStartTime().orElse(loanToEdit.getLoanStartTime());
         LoanTime updatedEndTime = editLoanDescriptor.getLoanEndTime().orElse(loanToEdit.getLoanEndTime());
@@ -140,6 +129,27 @@ public class EditCommand extends Command {
                 updatedLoanStatus,
                 updatedTags
         );
+    }
+
+    /**
+     * Retrieves the edited bike from the {@code model}, if a
+     * dummy bike was specified in the {@code editLoanDescriptor}. Returns {@code Optional.empty()} otherwise.
+     * @throws CommandException if a dummy bike was specified but could not be found in the model.
+     */
+    private static Optional<Bike> getEditedBike(
+            EditLoanDescriptor editLoanDescriptor,
+            Model model) throws CommandException {
+
+        Optional<Bike> dummyBike = editLoanDescriptor.getBike();
+        if (dummyBike.isPresent()) {
+            Optional<Bike> editedBike = model.getBike(dummyBike.get().getName().value);
+            if (!editedBike.isPresent()) {
+                throw new CommandException(MESSAGE_BIKE_NOT_FOUND);
+            }
+            return editedBike;
+        } else {
+            return Optional.empty();
+        }
     }
 
     @Override
