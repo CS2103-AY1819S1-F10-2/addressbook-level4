@@ -15,7 +15,9 @@ import javafx.stage.Stage;
 import loanbook.commons.core.Config;
 import loanbook.commons.core.GuiSettings;
 import loanbook.commons.core.LogsCenter;
+import loanbook.commons.events.ui.BikeListShowEvent;
 import loanbook.commons.events.ui.ExitAppRequestEvent;
+import loanbook.commons.events.ui.LoanListShowEvent;
 import loanbook.commons.events.ui.ShowHelpRequestEvent;
 import loanbook.logic.Logic;
 import loanbook.model.UserPrefs;
@@ -35,6 +37,8 @@ public class MainWindow extends UiPart<Stage> {
 
     // Independent Ui parts residing in this Ui container
     private BrowserPanel browserPanel;
+    private ListPanel listPanel;
+    private BikeListPanel bikeListPanel;
     private LoanListPanel loanListPanel;
     private Config config;
     private UserPrefs prefs;
@@ -50,7 +54,7 @@ public class MainWindow extends UiPart<Stage> {
     private MenuItem helpMenuItem;
 
     @FXML
-    private StackPane loanListPanelPlaceholder;
+    private StackPane listPanelPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
@@ -115,6 +119,17 @@ public class MainWindow extends UiPart<Stage> {
         });
     }
 
+    private void showBikeList() {
+        listPanel = bikeListPanel;
+        listPanelPlaceholder.getChildren().setAll(bikeListPanel.getRoot());
+    }
+
+    private void showLoanList() {
+        listPanel = loanListPanel;
+
+        listPanelPlaceholder.getChildren().setAll(loanListPanel.getRoot());
+    }
+
     /**
      * Fills up all the placeholders of this window.
      */
@@ -122,8 +137,9 @@ public class MainWindow extends UiPart<Stage> {
         browserPanel = new BrowserPanel();
         browserPlaceholder.getChildren().add(browserPanel.getRoot());
 
+        bikeListPanel = new BikeListPanel(logic.getFilteredBikeList());
         loanListPanel = new LoanListPanel(logic.getFilteredLoanList());
-        loanListPanelPlaceholder.getChildren().add(loanListPanel.getRoot());
+        showLoanList();
 
         ResultDisplay resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -187,12 +203,22 @@ public class MainWindow extends UiPart<Stage> {
         raise(new ExitAppRequestEvent());
     }
 
-    public LoanListPanel getLoanListPanel() {
-        return loanListPanel;
+    public ListPanel getListPanel() {
+        return listPanel;
     }
 
     void releaseResources() {
         browserPanel.freeResources();
+    }
+
+    @Subscribe
+    private void handleBikeListShowEvent(BikeListShowEvent event) {
+        showBikeList();
+    }
+
+    @Subscribe
+    private void handleLoanListShowEvent(LoanListShowEvent event) {
+        showLoanList();
     }
 
     @Subscribe
