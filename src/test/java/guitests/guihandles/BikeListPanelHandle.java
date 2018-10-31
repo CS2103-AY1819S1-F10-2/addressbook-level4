@@ -18,7 +18,7 @@ public class BikeListPanelHandle extends ListPanelHandle<Bike, BikeCardHandle> {
         return Bike.class.getSimpleName();
     }
 
-    protected String getCardPaneID() {
+    protected String getCardPaneId() {
         return "#bikeCardPane";
     }
 

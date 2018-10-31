@@ -27,7 +27,7 @@ public abstract class ListPanelHandle<T, CardHandle extends ListCardHandle<T>> e
      */
     protected abstract String getItemClassName();
 
-    protected abstract String getCardPaneID();
+    protected abstract String getCardPaneId();
 
     /**
      * Creates a new CardHandle object using the provided cardNode.
@@ -134,7 +134,7 @@ public abstract class ListPanelHandle<T, CardHandle extends ListCardHandle<T>> e
      * visible in the listview may also be in the scene graph.
      */
     private Set<Node> getAllCardNodes() {
-        return guiRobot.lookup(getCardPaneID()).queryAll();
+        return guiRobot.lookup(getCardPaneId()).queryAll();
     }
 
     /**

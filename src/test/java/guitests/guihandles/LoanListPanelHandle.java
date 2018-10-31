@@ -18,7 +18,7 @@ public class LoanListPanelHandle extends ListPanelHandle<Loan, LoanCardHandle> {
         return Loan.class.getSimpleName();
     }
 
-    protected String getCardPaneID() {
+    protected String getCardPaneId() {
         return "#loanCardPane";
     }
 
