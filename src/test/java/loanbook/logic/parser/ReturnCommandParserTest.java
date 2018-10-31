@@ -16,7 +16,7 @@ public class ReturnCommandParserTest {
 
     @Test
     public void parse_emptyArg_throwsParseException() {
-        assertParseFailure(parser, "     ", String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
+        assertParseFailure(parser, "     ", String.format(MESSAGE_INVALID_COMMAND_FORMAT, ReturnCommand.MESSAGE_USAGE));
     }
 
     @Test
@@ -24,7 +24,7 @@ public class ReturnCommandParserTest {
         // no leading and trailing whitespaces
         ReturnCommand expectedFindCommand =
                 new ReturnCommand(Index.fromOneBased(1));
-        assertParseSuccess(parser, "1", expectedFindCommand);
+        assertParseSuccess(parser, " i/1", expectedFindCommand);
     }
 
 }
