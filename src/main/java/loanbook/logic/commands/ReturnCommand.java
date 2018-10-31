@@ -60,7 +60,7 @@ public class ReturnCommand extends Command {
 
         model.updateLoan(loanToReturn, editedLoan);
         model.commitLoanBook();
-        return new CommandResult(String.format(MESSAGE_SUCCESS, loanToReturn, cost));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, editedLoan, cost));
     }
 
     private static Loan createReturnedLoan(Loan loanToReturn) {
