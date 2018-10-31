@@ -4,13 +4,15 @@
 :stylesDir: ../stylesheets
 
 == PROJECT: LoanBook
-This portfolio page serves to showcases my contributions to the project, [https://github.com/CS2103-AY1819S1-F10-2/main[LoanBook]]. My resume and full portfolio can be found [https://weineng.io[here].
+This portfolio page serves to showcases my contributions to the project, [https://github.com/CS2103-AY1819S1-F10-2/main[LoanBook]]. My resume and full portfolio can be found [https://weineng.io[here]].
 
-== Overview
+== Overview of Loanbook
 
 AddressBook - Level 4 is a desktop address book application used for teaching Software Engineering principles. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
 
 == Summary of contributions
+
+This section summarises the key contributions that I made to the project.
 
 * *Major enhancement*: added the ability to *set and change password to the application*
 ** What it does: Allow user to set password and change password for the app, so that critical comments that affects statistical integrity (Transection summery & Tax-filing) cannot be performed by unauthorised personnel.
@@ -23,7 +25,7 @@ AddressBook - Level 4 is a desktop address book application used for teaching So
 * *Other contributions*:
 
 ** Project management:
-*** Managed releases `v1.1` - `v1.4` (4 releases) on GitHub
+*** Managed releases `v1.1` - `v1.4` (4 releases) on GitHub.
 *** Added badges to show CI status, code quality and type of licence for the master branch [https://github.com/CS2103-AY1819S1-F10-2/main/pull/2[#2]][https://github.com/CS2103-AY1819S1-F10-2/main/pull/32[#32]]
 ** Enhancements to existing features:
 *** Improve data security by requiring a password before deletion.[https://github.com/CS2103-AY1819S1-F10-2/main/pull/96[#96]]
@@ -33,9 +35,14 @@ AddressBook - Level 4 is a desktop address book application used for teaching So
 *** Changed the gradle build script to display team name: [https://github.com/CS2103-AY1819S1-F10-2/main/pull/1[#1]]
 ** Community:
 *** PRs reviewed (with non-trivial review comments): [https://github.com/CS2103-AY1819S1-F10-2/main/pull/35[#35]], [https://github.com/CS2103-AY1819S1-F10-2/main/pull/24[#24]]
+** Aesthetics:
+*** Create application icon. [https://github.com/CS2103-AY1819S1-F10-2/main/pull/154[#154]
 
 ** Tools:
 *** Integrated TravisCI, AppVeyor, Coveralls, Codacy, and Netlify to the team repo [https://github.com/CS2103-AY1819S1-F10-2/main/pull/23[#23]]
+*** Set up [https://cs2103-ay1819s1-f10-2.github.io/main/[team website]]
+*** Set up slack notification and web hook for team.
+**** This provides notification to developers on any updates to the repository.
 
 == Contributions to the User Guide
 
@@ -44,7 +51,7 @@ AddressBook - Level 4 is a desktop address book application used for teaching So
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-//include::../UserGuide.adoc[tag=undoredo]
+include::../UserGuide.adoc[tag=undoredo]
 //
 //include::../UserGuide.adoc[tag=dataencryption]
 
