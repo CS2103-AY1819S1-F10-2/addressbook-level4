@@ -49,6 +49,7 @@ public class CommandTestUtil {
     public static final String VALID_NAME_BIKE2 = "BIKE002";
     public static final String VALID_NAME_BIKE3 = "Silver Surfer";
     public static final String VALID_NAME_BIKE4 = "Blue Ocean";
+    public static final String NOEXIST_NAME_BIKE = "This bike does not exist";
 
     public static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_AMY;
     public static final String NAME_DESC_BOB = " " + PREFIX_NAME + VALID_NAME_BOB;
