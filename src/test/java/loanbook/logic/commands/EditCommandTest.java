@@ -3,8 +3,6 @@ package loanbook.logic.commands;
 import static loanbook.logic.commands.CommandTestUtil.DESC_AMY;
 import static loanbook.logic.commands.CommandTestUtil.DESC_BOB;
 import static loanbook.logic.commands.CommandTestUtil.NOEXIST_NAME_BIKE;
-import static loanbook.logic.commands.CommandTestUtil.VALID_LOANENDTIME_AMY;
-import static loanbook.logic.commands.CommandTestUtil.VALID_LOANSTARTTIME_AMY;
 import static loanbook.logic.commands.CommandTestUtil.VALID_NAME_BIKE4;
 import static loanbook.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static loanbook.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
