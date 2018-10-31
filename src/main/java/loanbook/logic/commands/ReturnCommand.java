@@ -1,5 +1,10 @@
 package loanbook.logic.commands;
 
+import static java.util.Objects.requireNonNull;
+import static loanbook.logic.parser.CliSyntax.PREFIX_INDEX;
+
+import java.util.List;
+
 import loanbook.commons.core.Messages;
 import loanbook.commons.core.index.Index;
 import loanbook.logic.CommandHistory;
@@ -8,11 +13,6 @@ import loanbook.model.Model;
 import loanbook.model.loan.Loan;
 import loanbook.model.loan.LoanStatus;
 import loanbook.model.loan.LoanTime;
-
-import java.util.List;
-
-import static java.util.Objects.requireNonNull;
-import static loanbook.logic.parser.CliSyntax.*;
 
 /**
  * Adds a loan to the loan book.
@@ -63,6 +63,9 @@ public class ReturnCommand extends Command {
         return new CommandResult(String.format(MESSAGE_SUCCESS, editedLoan, cost));
     }
 
+    /**
+     * Creates a returned loan from an ongoing loan {@code loanToReturn}.
+     */
     private static Loan createReturnedLoan(Loan loanToReturn) {
         return new Loan(
                 loanToReturn.getName(),

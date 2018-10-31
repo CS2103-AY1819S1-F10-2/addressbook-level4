@@ -10,7 +10,6 @@ import loanbook.model.bike.Bike;
 import loanbook.model.loan.Email;
 import loanbook.model.loan.Loan;
 import loanbook.model.loan.LoanRate;
-import loanbook.model.loan.LoanTime;
 import loanbook.model.loan.Name;
 import loanbook.model.loan.Nric;
 import loanbook.model.loan.Phone;

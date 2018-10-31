@@ -1,12 +1,12 @@
 package loanbook.logic.parser;
 
-import loanbook.logic.commands.ReturnCommand;
-import loanbook.logic.parser.exceptions.ParseException;
+import static loanbook.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static loanbook.logic.parser.CliSyntax.PREFIX_INDEX;
 
 import java.util.stream.Stream;
 
-import static loanbook.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static loanbook.logic.parser.CliSyntax.PREFIX_INDEX;
+import loanbook.logic.commands.ReturnCommand;
+import loanbook.logic.parser.exceptions.ParseException;
 
 /**
  * Parses input arguments and creates a new DeleteCommand object
@@ -35,5 +35,4 @@ public class ReturnCommandParser implements Parser<ReturnCommand> {
     private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
         return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
     }
-
 }

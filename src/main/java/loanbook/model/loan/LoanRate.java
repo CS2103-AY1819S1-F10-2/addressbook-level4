@@ -25,7 +25,7 @@ public class LoanRate extends DataField<Double> {
         return test.matches("^(([1-9]\\d*|0)|(([0]\\.\\d{1,2}|[1-9][0-9]*\\.\\d{1,2})))$");
     }
 
-    public double calculateCost (long minutes){
+    public double calculateCost (long minutes) {
         return value * minutes / 60;
     }
 }

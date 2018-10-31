@@ -6,10 +6,6 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import loanbook.model.loan.exceptions.SameLoanStatusException;
-import loanbook.testutil.Assert;
-import loanbook.testutil.LoanBuilder;
-
 public class LoanStatusTest {
     @Test
     public void loanStatusToStringTest() {

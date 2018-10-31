@@ -9,7 +9,6 @@ import java.util.Set;
 
 import loanbook.model.UniqueListItem;
 import loanbook.model.bike.Bike;
-import loanbook.model.loan.exceptions.SameLoanStatusException;
 import loanbook.model.tag.Tag;
 
 /**
@@ -191,8 +190,12 @@ public class Loan implements UniqueListItem<Loan> {
                 || other.getLoanRate().equals(getLoanRate()) || other.getLoanStartTime().equals(getLoanStartTime()));
     }
 
-    public double calculateCost(){
+    /**
+     * Calculates the cost of the current Loan, provided it has already been returned.
+     */
+    public double calculateCost() {
         assert(endTime != null);
+        assert(loanStatus == LoanStatus.RETURNED);
 
         // Find the time the loan was taken out for, then pass it into LoanRate to get the cost.
         long timeLoaned = this.getLoanStartTime().loanTimeDifferenceMinutes(this.getLoanEndTime());

@@ -100,7 +100,7 @@ public class LoanTest {
     }
 
     @Test
-    public void calculateCost_ReturnedLoan_Success() {
+    public void calculateCostReturnedLoan() {
         Loan loan1 = new Loan(ALICE.getName(),
                 ALICE.getNric(),
                 ALICE.getPhone(),

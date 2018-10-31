@@ -6,7 +6,22 @@ import static loanbook.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import loanbook.logic.commands.*;
+import loanbook.logic.commands.AddBikeCommand;
+import loanbook.logic.commands.AddCommand;
+import loanbook.logic.commands.ClearCommand;
+import loanbook.logic.commands.Command;
+import loanbook.logic.commands.DeleteCommand;
+import loanbook.logic.commands.EditCommand;
+import loanbook.logic.commands.ExitCommand;
+import loanbook.logic.commands.FindCommand;
+import loanbook.logic.commands.HelpCommand;
+import loanbook.logic.commands.HistoryCommand;
+import loanbook.logic.commands.ListCommand;
+import loanbook.logic.commands.RedoCommand;
+import loanbook.logic.commands.ReturnCommand;
+import loanbook.logic.commands.SelectCommand;
+import loanbook.logic.commands.SetPasswordCommand;
+import loanbook.logic.commands.UndoCommand;
 import loanbook.logic.parser.exceptions.ParseException;
 
 /**

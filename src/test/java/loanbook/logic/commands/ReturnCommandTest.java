@@ -1,7 +1,16 @@
 package loanbook.logic.commands;
 
+import static loanbook.logic.commands.CommandTestUtil.assertCommandFailure;
+import static loanbook.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static loanbook.testutil.TypicalIndexes.INDEX_FIRST_LOAN;
+import static loanbook.testutil.TypicalIndexes.INDEX_SECOND_LOAN;
+import static loanbook.testutil.TypicalLoanBook.getLoanBookWithUnreturnedLoans;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
+import org.junit.Test;
+
 import loanbook.commons.core.Messages;
-import loanbook.commons.core.index.Index;
 import loanbook.logic.CommandHistory;
 import loanbook.model.LoanBook;
 import loanbook.model.Model;
@@ -9,15 +18,7 @@ import loanbook.model.ModelManager;
 import loanbook.model.UserPrefs;
 import loanbook.model.loan.Loan;
 import loanbook.model.loan.LoanTime;
-import loanbook.testutil.EditLoanDescriptorBuilder;
 import loanbook.testutil.LoanBuilder;
-import org.junit.Test;
-
-import static loanbook.logic.commands.CommandTestUtil.*;
-import static loanbook.testutil.TypicalIndexes.INDEX_FIRST_LOAN;
-import static loanbook.testutil.TypicalIndexes.INDEX_SECOND_LOAN;
-import static loanbook.testutil.TypicalLoanBook.getLoanBookWithUnreturnedLoans;
-import static org.junit.Assert.*;
 
 /**
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for EditCommand.
