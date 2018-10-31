@@ -7,7 +7,6 @@ import static loanbook.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import org.junit.Test;
 
 import loanbook.commons.core.index.Index;
-import loanbook.logic.commands.FindCommand;
 import loanbook.logic.commands.ReturnCommand;
 
 public class ReturnCommandParserTest {
