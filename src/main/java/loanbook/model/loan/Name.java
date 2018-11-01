@@ -9,7 +9,8 @@ import java.util.function.Function;
 public class Name extends DataField<String> {
 
     public static final String MESSAGE_NAME_CONSTRAINTS =
-        "Names should only contain alphanumeric characters and spaces, and it should not be blank";
+            "Names should start with an alphanumeric character, and contain "
+            + "only contain alphanumeric characters, spaces, and the characters ' - , . .";
 
     /**
      * Constructs a {@code Name}.
@@ -28,7 +29,7 @@ public class Name extends DataField<String> {
          * The first character of the name must not be a whitespace,
          * otherwise " " (a blank string) becomes a valid input.
          */
-        return objString.matches("[\\p{Alnum}][\\p{Alnum} ]*");
+        return objString.matches("[A-Za-z0-9][A-Za-z0-9 \\-,.']*");
     }
 
 }

@@ -6,9 +6,11 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import guitests.guihandles.BikeCardHandle;
 import guitests.guihandles.LoanCardHandle;
 import guitests.guihandles.LoanListPanelHandle;
 import guitests.guihandles.ResultDisplayHandle;
+import loanbook.model.bike.Bike;
 import loanbook.model.loan.Loan;
 import loanbook.ui.LoanCard;
 
@@ -17,10 +19,19 @@ import loanbook.ui.LoanCard;
  */
 public class GuiTestAssert {
     private static final String LABEL_DEFAULT_STYLE = "label";
+
     /**
      * Asserts that {@code actualCard} displays the same values as {@code expectedCard}.
      */
-    public static void assertCardEquals(LoanCardHandle expectedCard, LoanCardHandle actualCard) {
+    public static void assertBikeCardEquals(BikeCardHandle expectedCard, BikeCardHandle actualCard) {
+        assertEquals(expectedCard.getId(), actualCard.getId());
+        assertEquals(expectedCard.getName(), actualCard.getName());
+    }
+
+    /**
+     * Asserts that {@code actualCard} displays the same values as {@code expectedCard}.
+     */
+    public static void assertLoanCardEquals(LoanCardHandle expectedCard, LoanCardHandle actualCard) {
         assertEquals(expectedCard.getId(), actualCard.getId());
         assertEquals(expectedCard.getEmail(), actualCard.getEmail());
         assertEquals(expectedCard.getName(), actualCard.getName());
@@ -35,6 +46,13 @@ public class GuiTestAssert {
                 .getTags()
                 .forEach(tag ->
                         assertEquals(expectedCard.getTagStyleClasses(tag), actualCard.getTagStyleClasses(tag)));
+    }
+
+    /**
+     * Asserts that {@code actualCard} displays the details of {@code expectedBike}.
+     */
+    public static void assertCardDisplaysBike(Bike expectedBike, BikeCardHandle actualCard) {
+        assertEquals(expectedBike.getName().value, actualCard.getName());
     }
 
     /**
@@ -97,7 +115,7 @@ public class GuiTestAssert {
     public static void assertListMatching(LoanListPanelHandle loanListPanelHandle, Loan... loans) {
         for (int i = 0; i < loans.length; i++) {
             loanListPanelHandle.navigateToCard(i);
-            assertCardDisplaysLoan(loans[i], loanListPanelHandle.getLoanCardHandle(i));
+            assertCardDisplaysLoan(loans[i], loanListPanelHandle.getCardHandle(i));
         }
     }
 

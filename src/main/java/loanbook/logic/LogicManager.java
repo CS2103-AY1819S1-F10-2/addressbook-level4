@@ -11,6 +11,7 @@ import loanbook.logic.commands.exceptions.CommandException;
 import loanbook.logic.parser.LoanBookParser;
 import loanbook.logic.parser.exceptions.ParseException;
 import loanbook.model.Model;
+import loanbook.model.bike.Bike;
 import loanbook.model.loan.Loan;
 
 /**
@@ -38,6 +39,11 @@ public class LogicManager extends ComponentManager implements Logic {
         } finally {
             history.add(commandText);
         }
+    }
+
+    @Override
+    public ObservableList<Bike> getFilteredBikeList() {
+        return model.getFilteredBikeList();
     }
 
     @Override

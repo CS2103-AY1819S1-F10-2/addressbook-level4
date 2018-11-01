@@ -13,8 +13,8 @@ import loanbook.model.loan.Loan;
 /**
  * Provides a handle to a loan card in the loan list panel.
  */
-public class LoanCardHandle extends NodeHandle<Node> {
-    private static final String ID_FIELD_ID = "#id";
+public class LoanCardHandle extends ListCardHandle<Loan> {
+
     private static final String NAME_FIELD_ID = "#name";
     private static final String NRIC_FIELD_ID = "#nric";
     private static final String PHONE_FIELD_ID = "#phone";
@@ -25,7 +25,6 @@ public class LoanCardHandle extends NodeHandle<Node> {
     private static final String LOANENDTIME_FIELD_ID = "#endTime";
     private static final String TAGS_FIELD_ID = "#tags";
 
-    private final Label idLabel;
     private final Label nameLabel;
     private final Label nricLabel;
     private final Label phoneLabel;
@@ -39,7 +38,6 @@ public class LoanCardHandle extends NodeHandle<Node> {
     public LoanCardHandle(Node cardNode) {
         super(cardNode);
 
-        idLabel = getChildNode(ID_FIELD_ID);
         nameLabel = getChildNode(NAME_FIELD_ID);
         nricLabel = getChildNode(NRIC_FIELD_ID);
         phoneLabel = getChildNode(PHONE_FIELD_ID);
@@ -55,10 +53,6 @@ public class LoanCardHandle extends NodeHandle<Node> {
                 .stream()
                 .map(Label.class::cast)
                 .collect(Collectors.toList());
-    }
-
-    public String getId() {
-        return idLabel.getText();
     }
 
     public String getName() {
@@ -112,7 +106,7 @@ public class LoanCardHandle extends NodeHandle<Node> {
     /**
      * Returns true if this handle contains {@code loan}.
      */
-    public boolean equals(Loan loan) {
+    public boolean contains(Loan loan) {
         return getName().equals(loan.getName().value)
                 && getNric().equals(loan.getNric().getCensored())
                 && getPhone().equals(loan.getPhone().getCensored())
