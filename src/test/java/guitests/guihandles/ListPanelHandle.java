@@ -13,7 +13,6 @@ import javafx.scene.control.ListView;
 public abstract class ListPanelHandle<T, CardHandle extends ListCardHandle<T>> extends NodeHandle<ListView<T>> {
 
     public static final String LIST_VIEW_ID = "#listView";
-    private static final String CARD_PANE_ID = "#cardPane";
 
     private Optional<T> lastRememberedSelectedCard;
 
@@ -27,6 +26,8 @@ public abstract class ListPanelHandle<T, CardHandle extends ListCardHandle<T>> e
      * @return The class name of T.
      */
     protected abstract String getItemClassName();
+
+    protected abstract String getCardPaneCssId();
 
     /**
      * Creates a new CardHandle object using the provided cardNode.
@@ -133,7 +134,7 @@ public abstract class ListPanelHandle<T, CardHandle extends ListCardHandle<T>> e
      * visible in the listview may also be in the scene graph.
      */
     private Set<Node> getAllCardNodes() {
-        return guiRobot.lookup(CARD_PANE_ID).queryAll();
+        return guiRobot.lookup(getCardPaneCssId()).queryAll();
     }
 
     /**
