@@ -46,6 +46,10 @@ The default password for the app is `a12345`. This is required for some commands
 *Command Format*
 
 * Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add o/OBJECT_NAME`, `OBJECT_NAME` is a parameter which can be used as `add o/Bicycle`.
+* All parameters need to be specified in order for the command to work, unless they are in square brackets. e.g. in `add n/LOANER_NAME [t/TAGS]`, `LOANER_NAME` must be specified, but `TAGS` can be left out.
+* Parameters can be specified in any order.
+* Command words are case-sensitive, and should be in all lowercase. Most parameters are case-sensitive too.
+* If you enter the parameters of a command incorrectly, the LoanBook will feedback the correct command format to you.
 ====
 
 === Viewing help : `help`
@@ -60,15 +64,29 @@ This is not the only way to get help! If you key in the commands with the wrong 
 
 Format: `help`
 
+=== Adding a bike: `addbike`
+
+Adds a bike to the loan book with the following parameters, and displays the bike's details as confirmation. +
+Format: `addbike n/BIKE_NAME`
+
+[NOTE]
+`BIKE_NAME` is used as a bicycle identifier, that is, every bicycle should have a unique bicycle name. As such, `BIKE_NAME` will be rejected if it matches the name of an existing bike in the LoanBook.
+
+Examples:
+
+* `addbike n/A Wonderful Bike`
+* `addbike n/BX-0027`
+
 === Adding a loan: `add`
 
 Adds a loan to the loan book with the following parameters, and displays the transaction along with a LOAN_ID to keep track of the loan. +
-Format: `add p/PERSON_NAME hp/PERSON_PHONE_NO e/PERSON_EMAIL r/RATE o/OBJECT_IDENTITY`
+Format: `add p/PERSON_NAME ic/PERSON_NRIC hp/PERSON_PHONE_NO e/PERSON_EMAIL b/BIKE_NAME r/RATE o/OBJECT_IDENTITY`
 
 [NOTE]
+PERSON_PHONE_NO and PERSON_EMAIL should not be blank.
+BIKE_NAME must be the name of a bicycle that has already been registered into the LoanBook.
 NUMBER_LOANED and LOAN_OUT_PERIOD must be a positive integer
 RATE is in dollars per hour.
-PERSON_PHONE_NO and PERSON_EMAIL should not be blank.
 
 Examples:
 
@@ -80,10 +98,28 @@ Examples:
 The best part about this is you do not even need to key in the time that you created this loan! LoanBook does the timing for you! Simple isn't it?
 ====
 
+=== Listing all bikes : `listbikes`
+
+Shows a list of all registered bicycles in the LoanBook. +
+Format: `listbikes`
+
 === Listing all loans : `list`
 
 Shows a list of all loans in the LoanBook. +
 Format: `list`
+
+=== \[Coming in v1.4\] Editing a bike : `editbike`
+
+To keep the system updated with any changes in the bicycles, this command allows details of a bicycle to be edited. +
+Format: `edit BIKE_NAME [n/NEW_BIKE_NAME]`
+
+* At least one of the optional fields must be provided.
+* Existing values will be updated to the input values. Any values not specified in the command will be unchanged.
+
+Examples:
+
+* `edit Bike 1 n/Bike-001` +
+For the bicycle named "Bike 1", its name is changed to "Bike-001", "Bike-001" isn't already the name of another registered bicycle.
 
 === Editing a loan : `edit`
 
@@ -109,10 +145,10 @@ For the loan at index 9, changes the customer to James Tan, who has the specifie
 We do not allow editing of the loan's start time or the return time because we want you to be able to use our application as an auditing tool. We hope that this can then simplify the management of your business.
 ====
 
-=== Locating loans by key words: `search`
+=== Locating loans by key words: `find`
 
 Returns a loan based on parameters of LOAN_INDEX, PERSON_NAME or OBJECT_IDENTITY. +
-Format: `search [i/LOAN_INDEX] [p/PERSON_NAME] [o/OBJECT_IDENTITY]`
+Format: `find [i/LOAN_INDEX] [p/PERSON_NAME] [o/OBJECT_IDENTITY]`
 
 ****
 * The search is case insensitive. e.g `hans` will match `Hans`
@@ -130,10 +166,23 @@ Searches for loans made by James Tan
 * `search p/John Doe o/Bicycle-007` +
 Searches for loans made by John Doe where the item loaned out is Bicycle-007
 
+=== \[Coming in v1.4\] Deleting the chosen bike from the loan book : `deletebike`
+
+Deletes a bike from the loan book. +
+Format: `deletebike BIKE_NAME x/CURRENT_PASSWORD`
+
+[NOTE]
+The command will be rejected if there are any ongoing loans that use that bicycle. Return or delete those loans first.
+
+Examples:
+
+* `delete Bike 1 x/a12345` +
+Deletes the bicycle with the name of "Bike 1".
+
 === Deleting the chosen loan from the loan book : `delete`
 
 Delete the loan from the loan book. If you want to delete one loan, use `delete i/LOAN_INDEX x/CURRENT_PASSWORD`.
-Due to `delete` modifying transectional summery, it is a critical command and hence elevation is required hence the password field. +
+Due to `delete` modifying transactional summary, it is a critical command and hence elevation is required hence the password field. +
 Format: `delete i/LOAN_INDEX x/CURRENT_PASSWORD`
 
 ****
