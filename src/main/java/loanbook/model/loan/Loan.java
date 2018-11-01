@@ -9,7 +9,6 @@ import java.util.Set;
 
 import loanbook.model.UniqueListItem;
 import loanbook.model.bike.Bike;
-import loanbook.model.loan.exceptions.SameLoanStatusException;
 import loanbook.model.tag.Tag;
 
 /**
@@ -31,7 +30,7 @@ public class Loan implements UniqueListItem<Loan> {
     private final Phone phone;
     private final Email email;
     private final Set<Tag> tags = new HashSet<>();
-    private LoanStatus loanStatus;
+    private final LoanStatus loanStatus;
 
     /**
      * Default constructor.
@@ -104,7 +103,6 @@ public class Loan implements UniqueListItem<Loan> {
      * Copies over an existing Loan and edits the Bike, for AddCommand.
      */
     public Loan(Loan other, Bike bike) {
-
         this(other.id,
                 other.name,
                 other.nric,
@@ -120,6 +118,23 @@ public class Loan implements UniqueListItem<Loan> {
 
     public LoanId getLoanId() {
         return id;
+    }
+
+    /**
+     * Copies over an existing Loan and edits the endTime, for ReturnCommand.
+     */
+    public Loan(Loan other, LoanTime endTime) {
+        this(other.id,
+                other.name,
+                other.nric,
+                other.phone,
+                other.email,
+                other.bike,
+                other.rate,
+                other.startTime,
+                endTime,
+                other.loanStatus,
+                other.tags);
     }
 
     public Name getName() {
@@ -167,22 +182,6 @@ public class Loan implements UniqueListItem<Loan> {
     }
 
     /**
-     * Change the loan status to the newStatus as provided.
-     * Throws SameLoanStatusException if the newStatus is the same as the previous status.
-     * @param newStatus
-     * @return true if the function managed to complete.
-     * @throws SameLoanStatusException
-     */
-    public boolean changeLoanStatus(LoanStatus newStatus) throws SameLoanStatusException {
-        if (loanStatus.equals(newStatus)) {
-            throw new SameLoanStatusException();
-        } else {
-            loanStatus = newStatus;
-            return true;
-        }
-    }
-
-    /**
      * Returns true if both loans of the same name have at least one other identity field that is the same.
      */
     @Override
@@ -219,6 +218,18 @@ public class Loan implements UniqueListItem<Loan> {
                 && other.getLoanRate().equals(getLoanRate())
                 && other.getEmail().equals(getEmail())
                 && other.getTags().equals(getTags());
+    }
+
+    /**
+     * Calculates the cost of the current Loan, provided it has already been returned.
+     */
+    public double calculateCost() {
+        assert(endTime != null);
+        assert(loanStatus == LoanStatus.RETURNED);
+
+        // Find the time the loan was taken out for, then pass it into LoanRate to get the cost.
+        long timeLoaned = this.getLoanStartTime().loanTimeDifferenceMinutes(this.getLoanEndTime());
+        return this.getLoanRate().calculateCost(timeLoaned);
     }
 
     /**

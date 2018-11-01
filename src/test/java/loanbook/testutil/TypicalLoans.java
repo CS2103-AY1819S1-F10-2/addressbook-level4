@@ -47,12 +47,12 @@ public class TypicalLoans {
             .withLoanId("1")
             .withName("Benson Meier")
             .withNric("F1342714M")
-            .withEmail("johnd@example.com").withPhone("98765432")
+            .withEmail("johnd@example.com")
+            .withPhone("98765432")
             .withBike(VALID_NAME_BIKE1)
             .withLoanRate("0.15")
             .withLoanStartTime("2017-10-12 06:08")
-            .withLoanEndTime("2017-10-12 23:54")
-            .withLoanStatus("RETURNED")
+            .withLoanStatus("ONGOING")
             .withTags("owesMoney", "friends")
             .build();
     public static final Loan CARL = new LoanBuilder()
@@ -64,7 +64,6 @@ public class TypicalLoans {
             .withBike(VALID_NAME_BIKE1)
             .withLoanRate("23.9")
             .withLoanStartTime("14:20")
-            .withLoanEndTime("23:54")
             .withLoanStatus("ONGOING")
             .build();
     public static final Loan DANIEL = new LoanBuilder()

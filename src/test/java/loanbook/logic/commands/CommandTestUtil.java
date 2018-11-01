@@ -90,14 +90,12 @@ public class CommandTestUtil {
                 .withPhone(VALID_PHONE_AMY).withEmail(VALID_EMAIL_AMY)
                 .withBike(VALID_NAME_BIKE1)
                 .withLoanRate(VALID_LOANRATE_AMY)
-                .withLoanStartTime(VALID_LOANSTARTTIME_AMY)
                 .withTags(VALID_TAG_FRIEND).build();
         DESC_BOB = new EditLoanDescriptorBuilder().withName(VALID_NAME_BOB)
                 .withNric(VALID_NRIC_BOB)
                 .withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB)
                 .withBike(VALID_NAME_BIKE2)
                 .withLoanRate(VALID_LOANRATE_BOB)
-                .withLoanStartTime(VALID_LOANSTARTTIME_BOB)
                 .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
     }
 

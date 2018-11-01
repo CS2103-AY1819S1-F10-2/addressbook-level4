@@ -40,7 +40,16 @@ public class EditCommandTest {
 
     @Test
     public void execute_allFieldsSpecifiedUnfilteredList_success() {
+//<<<<<<< HEAD
         Model expectedModel = new ModelManager(new LoanBook(model.getLoanBook()), new UserPrefs());
+//=======
+//        // Note that for this case, editCommand is UNABLE to change the start and
+//        // end time of another loan. Therefore, we need to ensure that the start and
+//        // end times of editedLoan matches that of the loan to be edited.
+//        Loan editedLoan = new LoanBuilder().withLoanStartTime("12:33").withLoanEndTime("23:54").build();
+//        EditLoanDescriptor descriptor = new EditLoanDescriptorBuilder(editedLoan).build();
+//        EditCommand editCommand = new EditCommand(INDEX_FIRST_LOAN, descriptor);
+//>>>>>>> cac2c662932d21029b7be13d39c5dd8be043e1b8
 
         // Have the edited loan have the default fields in the LoanBuilder.
         // However, the uneditable fields should match the existing Loan.
@@ -51,16 +60,24 @@ public class EditCommandTest {
                 .withLoanEndTime(existingLoan.getLoanEndTime().toString())
                 .withLoanStatus(existingLoan.getLoanStatus().name())
                 .build();
+        // TODO: Try and remove these settings up here and see if it still passes.
+        // It should.
 
         expectedModel.updateLoan(model.getFilteredLoanList().get(0), editedLoan);
         expectedModel.commitLoanBook();
 
+//<<<<<<< HEAD
         EditLoanDescriptor descriptor = new EditLoanDescriptorBuilder(editedLoan).build();
         EditCommand editCommand = new EditCommand(INDEX_FIRST_LOAN, descriptor);
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_LOAN_SUCCESS, editedLoan);
 
         assertCommandSuccessCompareEditableFields(editCommand, model, commandHistory, expectedMessage, expectedModel);
+//=======
+//        // If this test fails, check to see if anything other than LoanStartTime and LoanEndTime
+//        // is different. Because we are not supposed to edit the LoanTimes of already existing loans.
+//        assertCommandSuccess(editCommand, model, commandHistory, expectedMessage, expectedModel);
+//>>>>>>> cac2c662932d21029b7be13d39c5dd8be043e1b8
     }
 
     @Test
