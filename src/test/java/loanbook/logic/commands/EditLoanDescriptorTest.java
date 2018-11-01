@@ -3,7 +3,10 @@ package loanbook.logic.commands;
 import static loanbook.logic.commands.CommandTestUtil.DESC_AMY;
 import static loanbook.logic.commands.CommandTestUtil.DESC_BOB;
 import static loanbook.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
+import static loanbook.logic.commands.CommandTestUtil.VALID_LOANRATE_BOB;
+import static loanbook.logic.commands.CommandTestUtil.VALID_NAME_BIKE2;
 import static loanbook.logic.commands.CommandTestUtil.VALID_NAME_BOB;
+import static loanbook.logic.commands.CommandTestUtil.VALID_NRIC_BOB;
 import static loanbook.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 import static loanbook.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static org.junit.Assert.assertFalse;
@@ -38,12 +41,24 @@ public class EditLoanDescriptorTest {
             new EditLoanDescriptorBuilder(DESC_AMY).withName(VALID_NAME_BOB).build();
         assertFalse(DESC_AMY.equals(editedAmy));
 
+        // different NRIC -> returns false
+        editedAmy = new EditLoanDescriptorBuilder(DESC_AMY).withNric(VALID_NRIC_BOB).build();
+        assertFalse(DESC_AMY.equals(editedAmy));
+
         // different phone -> returns false
         editedAmy = new EditLoanDescriptorBuilder(DESC_AMY).withPhone(VALID_PHONE_BOB).build();
         assertFalse(DESC_AMY.equals(editedAmy));
 
         // different email -> returns false
         editedAmy = new EditLoanDescriptorBuilder(DESC_AMY).withEmail(VALID_EMAIL_BOB).build();
+        assertFalse(DESC_AMY.equals(editedAmy));
+
+        // different bike -> returns false
+        editedAmy = new EditLoanDescriptorBuilder(DESC_AMY).withBike(VALID_NAME_BIKE2).build();
+        assertFalse(DESC_AMY.equals(editedAmy));
+
+        // different rate -> returns false
+        editedAmy = new EditLoanDescriptorBuilder(DESC_AMY).withLoanRate(VALID_LOANRATE_BOB).build();
         assertFalse(DESC_AMY.equals(editedAmy));
 
         // different tags -> returns false
