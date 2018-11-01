@@ -77,7 +77,6 @@ Examples:
 * `addbike n/A Wonderful Bike`
 * `addbike n/BX-0027`
 
-
 === Adding a loan: `add`
 
 Adds a loan to the loan book with the following parameters, and displays the transaction along with a LOAN_ID to keep track of the loan. +

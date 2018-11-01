@@ -216,7 +216,7 @@ The model component:
 It allows the following operations:
 
 * Viewing, adding, modifying and deleting `Bike` s and `Loan` s from the LoanBook.
-* Retrieving lists of `Bike` s and `Loan` s that are registered in the LoanBook, filtered by a Predicate.
+* Retrieving lists of `Bike` s and `Loan` s that are registered in the LoanBook, filtered by a `Predicate`.
 * Undo/redo operations.
 
 The component's class diagram is given below:
@@ -1399,13 +1399,13 @@ _{ more test cases ... }_
 
 .. Prerequisites: List all bikes using the `listbikes` command.
 .. Test case: `addbike B i-k e 0 01-` +
-   Expected: Bike B i-k e 0 01- is added to the bike list.
+   Expected: Bike B i-k e 0 01- is added to the bike list. Details of the updated bike is shown in the status message. Timestamp in the status bar is updated.
 
 . Adding a bike that already exists in the bike list
 
-.. Prerequisites: List all bikes using the `listbikes` command.
-.. Test case: `addbike Bike1` then `addbike Bike1` +
-   Expected: The first command adds Bike1 to the bike list. The second command reports that a bike with the same name already exists within the LoanBook.
+.. Prerequisites: List all bikes using the `listbikes` command. `Bike1` exists in the list.
+.. Test case: `addbike Bike1` +
+   Expected: No bike is added as a bike with the same name already exists within the LoanBook. Error details shown in the status message. Status bar remains the same.
 
 === Adding a loan
 
@@ -1419,10 +1419,10 @@ _{ more test cases ... }_
 
 . Editing a bike while all bikes are listed
 
-.. Prerequisites: List all bikes using the `listbikes` command. `Bike001` is in the list.
-.. Test case: `editbike Bike001 n/New Bike001` +
-   Expected: The bike `Bike001` will be renamed to "New Bike001". Details of the updated bike is shown in the status message. Timestamp in the status bar is updated.
-.. Test case: `editbike Bike002 n/Bike001` where both `Bike001` and `Bike002` exist. +
+.. Prerequisites: List all bikes using the `listbikes` command. `BikeToRename`, `Bike001` and `Bike002` are in the list.
+.. Test case: `editbike BikeToRename n/New Bike` +
+   Expected: The bike `BikeToRename` will be renamed to "New Bike". Details of the updated bike is shown in the status message. Timestamp in the status bar is updated.
+.. Test case: `editbike Bike002 n/Bike001` +
    Expected: No bike is edited due to the specified name matching that of an existing bike, thus creating a duplicate bike if the command proceeds. Error details shown in the status message. Status bar remains the same.
 .. Test case: `editbike ThisBikeDoesNotExist n/New Bike` +
    Expected: No bike is edited due to the specified name not matching that of any existing bike. Error details shown in the status message. Status bar remains the same.
@@ -1433,7 +1433,7 @@ _{ more test cases ... }_
 
 . Deleting a bike while all bikes are listed
 
-.. Prerequisites: List all bikes using the `listbikes` command. `B i-k e 0 01-` is in the list.
+.. Prerequisites: List all bikes using the `listbikes` command. `Bike001` and `B i-k e 0 01-` are in the list.
 .. Test case: `deletebike B i-k e 0 01- x/a12345` +
    Expected: The bike `B i-k e 0 01-` is deleted from the list. Details of the deleted bike is shown in the status message. Timestamp in the status bar is updated.
 .. Test case: `deletebike NotAnExistingBike x/a12345` +
