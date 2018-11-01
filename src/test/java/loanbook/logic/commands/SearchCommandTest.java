@@ -2,7 +2,6 @@ package loanbook.logic.commands;
 
 import static loanbook.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static loanbook.testutil.TypicalLoanBook.getTypicalLoanBook;
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
@@ -23,7 +22,6 @@ public class SearchCommandTest {
     public ExpectedException thrown = ExpectedException.none();
 
     private Model model = new ModelManager(getTypicalLoanBook(), new UserPrefs());
-    private Model expectedModel = new ModelManager(getTypicalLoanBook(), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
     private LoanTime firstStartDate = LoanTime.startOfDayLoanTime("2000-01-01");
     private LoanTime secondStartDate = LoanTime.startOfDayLoanTime("2000-02-02");
@@ -66,7 +64,7 @@ public class SearchCommandTest {
         SearchCommand searchCommand = new SearchCommand(firstStartDate, firstEndDate);
 
         thrown.expect(CommandException.class);
-        thrown.expectMessage(SearchCommand.getNoMatchMessage(firstStartDate, firstEndDate));
+        thrown.expectMessage(String.format(SearchCommand.MESSAGE_FAILURE, firstStartDate, firstEndDate));
         searchCommand.execute(model, commandHistory);
     }
 
@@ -74,20 +72,6 @@ public class SearchCommandTest {
     public void execute_loanFound_success() {
         SearchCommand searchCommand = new SearchCommand(firstStartDate, secondEndDate);
         assertCommandSuccess(searchCommand, model, commandHistory,
-                SearchCommand.getSuccessMessage(firstStartDate, secondEndDate), model);
-    }
-
-    @Test
-    public void getSuccessMessage() {
-        assertEquals(SearchCommand.getSuccessMessage(firstStartDate, firstEndDate),
-                String.format(SearchCommand.MESSAGE_SUCCESS, firstStartDate, firstEndDate));
-    }
-
-    @Test
-    public void getNoMatchMessage() {
-        assertEquals(
-                SearchCommand.getNoMatchMessage(firstStartDate, firstEndDate),
-                String.format(SearchCommand.MESSAGE_FAILURE, firstStartDate, firstEndDate)
-        );
+                String.format(SearchCommand.MESSAGE_SUCCESS, firstStartDate, secondEndDate), model);
     }
 }
