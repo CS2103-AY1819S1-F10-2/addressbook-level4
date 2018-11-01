@@ -376,7 +376,7 @@ image::UndoRedoActivityDiagram.png[width="650"]
 To keep individual loan transactions identifiable, we have a Loan ID for every loan. This will be automatically assigned when the user creates a Loan using the `add` command, and will be unique among all Loans in the Loanbook.
 
 ==== Current Implementation
-In the current implementation, the Loan IDs are represented using integers. The added loans will be assigned IDs in increasing order starting from 0 (i.e. the first loan will be assigned ID 0, the second loan will be assigned ID 1, the third loan, ID 2, and so on). 
+In the current implementation, the Loan IDs are represented using integers. The added loans will be assigned IDs in increasing order starting from 0 (i.e. the first loan will be assigned ID 0, the second loan will be assigned ID 1, the third loan, ID 2, and so on).
 
 [NOTE]
 Since this value will be a represented by a Java `int`, the maximum possible ID has been set to be 999,999,999 to prevent any integer overflow. The user will not be allowed to add a Loan using the `add` command after that maximum ID has been assigned.
@@ -398,7 +398,7 @@ The following sequence diagram shows how the updated `add` command works:
 ==== Design Considerations
 ===== Aspect: Using an Integer for the Loan ID
 * **Alternative 1**: Use a `String` to represent the Loan ID
-** Pros: 
+** Pros:
 *** More Loan ID values can be created given the same number of characters.
 *** There would be no technical limit to the number of Loan IDs possible. If all Loan IDs of a certain length get exhausted, the next generated Loan ID can be one character longer.
 ** Cons:
