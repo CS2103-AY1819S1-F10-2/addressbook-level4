@@ -77,12 +77,15 @@
 <li><a href="#instructions-for-manual-testing">Appendix F: Instructions for Manual Testing</a>
 <ul class="sectlevel2">
 <li><a href="#launch-and-shutdown">F.1. Launch and Shutdown</a></li>
-<li><a href="#adding-a-loan">F.2. Adding a loan</a></li>
-<li><a href="#deleting-a-loan">F.3. Deleting a loan</a></li>
-<li><a href="#return-a-loan-functionality">F.4. Return a loan functionality</a></li>
-<li><a href="#summary-functionality">F.5. Summary functionality</a></li>
-<li><a href="#saving-data">F.6. Saving data</a></li>
-<li><a href="#sending-reminder-emails">F.7. Sending Reminder Emails</a></li>
+<li><a href="#adding-a-bike">F.2. Adding a bike</a></li>
+<li><a href="#adding-a-loan">F.3. Adding a loan</a></li>
+<li><a href="#edit-a-bike">F.4. Edit a bike</a></li>
+<li><a href="#deleting-a-bike">F.5. Deleting a bike</a></li>
+<li><a href="#deleting-a-loan">F.6. Deleting a loan</a></li>
+<li><a href="#return-a-loan-functionality">F.7. Return a loan functionality</a></li>
+<li><a href="#summary-functionality">F.8. Summary functionality</a></li>
+<li><a href="#saving-data">F.9. Saving data</a></li>
+<li><a href="#sending-reminder-emails">F.10. Sending Reminder Emails</a></li>
 </ul>
 </li>
 </ul>
@@ -527,6 +530,44 @@ Note how the event is propagated through the <code>EventsCenter</code> to the <c
 </div>
 <div class="sect2">
 <h3 id="Design-Model"><a class="link" href="#Design-Model">2.4. Model component</a></h3>
+<div class="paragraph">
+<p>The model component:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Stores the LoanBook data.</p>
+</li>
+<li>
+<p>Exposes an unmodifiable <code>ObservableList&lt;Loan&gt;</code> that can be 'observed' by the UI, so that the UI automatically updates when the data in the model changes.</p>
+</li>
+<li>
+<p>Stores the user&#8217;s preferences.</p>
+</li>
+<li>
+<p>Does not depend on any of the other three components.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>It allows the following operations:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Viewing, adding, modifying and deleting <code>Bike</code> s and <code>Loan</code> s from the LoanBook.</p>
+</li>
+<li>
+<p>Retrieving lists of <code>Bike</code> s and <code>Loan</code> s that are registered in the LoanBook, filtered by a <code>Predicate</code>.</p>
+</li>
+<li>
+<p>Undo/redo operations.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The component&#8217;s class diagram is given below:</p>
+</div>
 <div class="imageblock">
 <div class="content">
 <img src="images/ModelClassDiagram.png" alt="ModelClassDiagram" width="800">
@@ -537,23 +578,119 @@ Note how the event is propagated through the <code>EventsCenter</code> to the <c
 <p><strong>API</strong> : <a href="https://github.com/CS2103-AY1819S1-F10-2/main/tree/master/src/main/java/loanbook/model/Model.java"><code>Model.java</code></a></p>
 </div>
 <div class="paragraph">
-<p>The <code>Model</code>,</p>
+<p>The API is backed by a <code>ModelManager</code> which contains:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>stores a <code>UserPref</code> object that represents the user&#8217;s preferences.</p>
+<p>A <code>VersionedLoanBook</code> object which tracks the main data (i.e. <code>Bike</code> s and <code>Loan</code> s) within the LoanBook.</p>
 </li>
 <li>
-<p>stores the Loan Book data.</p>
+<p>A filtered list each for <code>Bike</code> s and <code>Loan</code> s to expose to the UI.</p>
 </li>
 <li>
-<p>exposes an unmodifiable <code>ObservableList&lt;Loan&gt;</code> that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.</p>
-</li>
-<li>
-<p>does not depend on any of the other three components.</p>
+<p>A <code>UserPrefs</code> object to track the user&#8217;s preferences.</p>
 </li>
 </ul>
+</div>
+<div class="paragraph">
+<p>Most operations passed to the <code>Model</code> component deals with its <code>VersionedLoanBook</code>. A <code>VersionedLoanBook</code> is simply a regular <code>LoanBook</code> that keeps track of its own history, for the undo/redo operation. The <code>LoanBook</code> itself contains:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>A <code>LoanIdManager</code> that helps to assign a unique <code>LoanId</code> to every <code>Loan</code>, so that <code>Loan</code> s may be easily identified.</p>
+</li>
+<li>
+<p>A list of unique <code>Bike</code> s.</p>
+</li>
+<li>
+<p>A list of unique <code>Loan</code> s.</p>
+</li>
+</ul>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>A unique list in the sense above is a list where no two elements are the "same":</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>A <code>Bike</code> is considered to be the same as another <code>Bike</code> if their <code>Name</code> s match.</p>
+</li>
+<li>
+<p>A <code>Loan</code> is considered to be the same as another <code>Loan</code> if their <code>LoanId</code> s match.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>We want to exclude duplicate items from these lists to make sure that identifying any given <code>Bike</code> or <code>Loan</code> is simple and without ambiguity.<br></p>
+</div>
+<div class="paragraph">
+<p>To facilitate this structure, both the <code>Bike</code> and <code>Loan</code> class implement a <code>UniqueListItem</code> interface, and the <code>Bike</code> and <code>Loan</code> lists inherit from a <code>UniqueList</code> class.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Most of the commands passed into the <code>Model</code> are forwarded to its <code>LoanBook</code>, who then executes these commands on the <code>Bike</code> and <code>Loan</code> lists that it has.</p>
+</div>
+<div class="paragraph">
+<p>A <code>Loan</code> contains:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>The customer&#8217;s particulars: Their <code>Name</code>, <code>Nric</code>, <code>Phone</code> and <code>Email</code>.</p>
+</li>
+<li>
+<p>The <code>Bike</code> that the customer is renting.</p>
+</li>
+<li>
+<p>A <code>LoanStatus</code> used signal whether this <code>Loan</code> is <code>Ongoing</code>, <code>Returned</code> or <code>Deleted</code>.</p>
+</li>
+<li>
+<p>A <code>LoanId</code> used for identifying this <code>Loan</code>.</p>
+</li>
+<li>
+<p>A <code>LoanRate</code> specifying the rate which the bicycle is being loaned at, in $/hr.</p>
+</li>
+<li>
+<p>A <code>loanStartTime</code> and <code>loanEndTime</code>, specifying the scheduled start and end times of the loan. <code>loanEndTime</code> might be <code>null</code> if the loan has no scheduled return time.</p>
+</li>
+<li>
+<p>Any number of <code>Tag</code> s to provide additional details for the <code>Loan</code>.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>A <code>Bike</code> contains:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>A <code>Name</code> used for identifying this Bike.</p>
+</li>
+</ul>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The <code>DataField</code> class is used to unify the common idea that the above details for <code>Loan</code> s and <code>Bike</code> s are specifiable by a user-inputted string. The only exception is the <code>Bike</code> field in the <code>Loan</code> class, which is specified using the <code>Bike</code> 's <code>Name</code> instead.
+</td>
+</tr>
+</table>
 </div>
 </div>
 <div class="sect2">
@@ -2237,29 +2374,7 @@ b. Require developers to download those libraries manually (this creates extra w
 <h2 id="product-scope"><a class="link" href="#product-scope">Appendix A: Product Scope</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><strong>Target user profile</strong>:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>rents bicycles as a business in Singapore</p>
-</li>
-<li>
-<p>prefer desktop apps over other types</p>
-</li>
-<li>
-<p>can type fast</p>
-</li>
-<li>
-<p>prefers typing over mouse input</p>
-</li>
-<li>
-<p>is reasonably comfortable using CLI apps</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p><strong>Value proposition</strong>: manage bicycle loans faster than a typical mouse/GUI driven app</p>
+<p>LoanBook targets users who run a bicycle rental business in Singapore. Users who will find this product especially useful are those who are familiar with desktop applications, and who prefer using a command-line interface (CLI) over a graphic user interface (GUI) for input. A reason for this preference is that using a mouse to access app features may be slower and more accident-prone than typing on a keyboard.</p>
 </div>
 </div>
 </div>
@@ -2368,12 +2483,6 @@ b. Require developers to download those libraries manually (this creates extra w
 <td class="tableblock halign-left valign-top"><p class="tableblock">bicycle rental shop owner who wants to manage my bicycle paraphernalia</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">tag loans that loan additional items (e.g. helmets, attachable headlights)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">keep track of which transactions concern them</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>* *</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">bicycle rental shop owner who wants to manage my loans</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">tag loans that loan additional items (e.g. helmets, attachable headlights)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">keep track of which transactions concern my paraphernalia</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>* * *</code></p></td>
@@ -2600,7 +2709,57 @@ b. Require developers to download those libraries manually (this creates extra w
 </li>
 </ul>
 </div>
-<h3 id="use-case-add-loan-into-loan-book" class="discrete">Use case: Add loan into loan book</h3>
+<h3 id="use-case-add-a-bike-into-loan-book" class="discrete">Use case: Add a bike into loan book</h3>
+<div class="paragraph">
+<p><strong>MSS</strong></p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>User requests to add a bike with the specific parameters into the LoanBook.</p>
+</li>
+<li>
+<p>LoanBook adds the bike.</p>
+</li>
+<li>
+<p>LoanBook displays a prompt to the user indicating success.</p>
+<div class="paragraph">
+<p>Use case ends.</p>
+</div>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><strong>Extensions</strong></p>
+</div>
+<div class="ulist none">
+<ul class="none">
+<li>
+<p>1a. The user input is not of the correct format.</p>
+<div class="ulist none">
+<ul class="none">
+<li>
+<p>1a1. LoanBook shows an error message giving the user an example command, as well as correct format of the command.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>1b. Any one of the inputs fails their respective validation checks.</p>
+<div class="ulist none">
+<ul class="none">
+<li>
+<p>1b1. LoanBook shows an error message telling the user how to rectify their command.</p>
+<div class="paragraph">
+<p>Use case ends.</p>
+</div>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<h3 id="use-case-add-a-loan-into-loan-book" class="discrete">Use case: Add a loan into loan book</h3>
 <div class="paragraph">
 <p><strong>MSS</strong></p>
 </div>
@@ -2872,7 +3031,42 @@ Expected: The most recent window size and location is retained.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="adding-a-loan"><a class="link" href="#adding-a-loan">F.2. Adding a loan</a></h3>
+<h3 id="adding-a-bike"><a class="link" href="#adding-a-bike">F.2. Adding a bike</a></h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Adding a bike whose name contains alphanumeric characters, spaces, and hyphens</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Prerequisites: List all bikes using the <code>listbikes</code> command.</p>
+</li>
+<li>
+<p>Test case: <code>addbike B i-k e 0 01-</code><br>
+Expected: Bike B i-k e 0 01- is added to the bike list. Details of the updated bike is shown in the status message. Timestamp in the status bar is updated.</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>Adding a bike that already exists in the bike list</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Prerequisites: List all bikes using the <code>listbikes</code> command. <code>Bike1</code> exists in the list.</p>
+</li>
+<li>
+<p>Test case: <code>addbike Bike1</code><br>
+Expected: No bike is added as a bike with the same name already exists within the LoanBook. Error details shown in the status message. Status bar remains the same.</p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="adding-a-loan"><a class="link" href="#adding-a-loan">F.3. Adding a loan</a></h3>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -2893,7 +3087,73 @@ Expected: PLACEHOLDER</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="deleting-a-loan"><a class="link" href="#deleting-a-loan">F.3. Deleting a loan</a></h3>
+<h3 id="edit-a-bike"><a class="link" href="#edit-a-bike">F.4. Edit a bike</a></h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Editing a bike while all bikes are listed</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Prerequisites: List all bikes using the <code>listbikes</code> command. <code>BikeToRename</code>, <code>Bike001</code> and <code>Bike002</code> are in the list.</p>
+</li>
+<li>
+<p>Test case: <code>editbike BikeToRename n/New Bike</code><br>
+Expected: The bike <code>BikeToRename</code> will be renamed to "New Bike". Details of the updated bike is shown in the status message. Timestamp in the status bar is updated.</p>
+</li>
+<li>
+<p>Test case: <code>editbike Bike002 n/Bike001</code><br>
+Expected: No bike is edited due to the specified name matching that of an existing bike, thus creating a duplicate bike if the command proceeds. Error details shown in the status message. Status bar remains the same.</p>
+</li>
+<li>
+<p>Test case: <code>editbike ThisBikeDoesNotExist n/New Bike</code><br>
+Expected: No bike is edited due to the specified name not matching that of any existing bike. Error details shown in the status message. Status bar remains the same.</p>
+</li>
+<li>
+<p>Other incorrect delete commands to try: <code>editbike</code><br>
+Expected: Similar to previous.</p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="deleting-a-bike"><a class="link" href="#deleting-a-bike">F.5. Deleting a bike</a></h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Deleting a bike while all bikes are listed</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Prerequisites: List all bikes using the <code>listbikes</code> command. <code>Bike001</code> and <code>B i-k e 0 01-</code> are in the list.</p>
+</li>
+<li>
+<p>Test case: <code>deletebike B i-k e 0 01- x/a12345</code><br>
+Expected: The bike <code>B i-k e 0 01-</code> is deleted from the list. Details of the deleted bike is shown in the status message. Timestamp in the status bar is updated.</p>
+</li>
+<li>
+<p>Test case: <code>deletebike NotAnExistingBike x/a12345</code><br>
+Expected: No bike is deleted due to the supplied name not referring to an existing bike. Error details shown in the status message. Status bar remains the same.</p>
+</li>
+<li>
+<p>Test case: <code>deletebike Bike001 x/wr0ngP4sS</code><br>
+Expected: No bike is deleted due to invalid password supplied. Error details shown in the status message. Status bar remains the same.</p>
+</li>
+<li>
+<p>Other incorrect delete commands to try: <code>deletebike</code><br>
+Expected: Similar to previous.</p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="deleting-a-loan"><a class="link" href="#deleting-a-loan">F.6. Deleting a loan</a></h3>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -2929,7 +3189,7 @@ Expected: Similar to previous.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="return-a-loan-functionality"><a class="link" href="#return-a-loan-functionality">F.4. Return a loan functionality</a></h3>
+<h3 id="return-a-loan-functionality"><a class="link" href="#return-a-loan-functionality">F.7. Return a loan functionality</a></h3>
 <div class="paragraph">
 <p>Prerequisites: List all loans using the list command. Ensure there are multiple loans in the list.</p>
 </div>
@@ -2984,7 +3244,7 @@ Expected: No loan is returned. Error details shown in the status message, the me
 </div>
 </div>
 <div class="sect2">
-<h3 id="summary-functionality"><a class="link" href="#summary-functionality">F.5. Summary functionality</a></h3>
+<h3 id="summary-functionality"><a class="link" href="#summary-functionality">F.8. Summary functionality</a></h3>
 <div class="paragraph">
 <p>Use the <code>summary</code> command on various sizes of the LoanBook to test this functionality</p>
 </div>
@@ -3109,7 +3369,7 @@ Expected: The displayed page should report the following:</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="saving-data"><a class="link" href="#saving-data">F.6. Saving data</a></h3>
+<h3 id="saving-data"><a class="link" href="#saving-data">F.9. Saving data</a></h3>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -3129,7 +3389,7 @@ Expected: The displayed page should report the following:</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="sending-reminder-emails"><a class="link" href="#sending-reminder-emails">F.7. Sending Reminder Emails</a></h3>
+<h3 id="sending-reminder-emails"><a class="link" href="#sending-reminder-emails">F.10. Sending Reminder Emails</a></h3>
 <div class="paragraph">
 <p>Prerequisites: Make sure the system is connected to the internet. The email must be gmail and its <code>Less secure apps</code> option is enabled.</p>
 </div>
@@ -3212,4 +3472,4 @@ Expected: Failure message "Connection to your email failed! The password is wron
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-01 11:57:19 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-01 12:05:58 UTC</div></div></div></body></html>
