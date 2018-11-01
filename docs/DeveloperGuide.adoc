@@ -206,17 +206,59 @@ image::DeleteLoanSdForLogic.png[width="800"]
 [[Design-Model]]
 === Model component
 
+The model component:
+* stores the LoanBook data.
+* exposes an unmodifiable `ObservableList<Loan>` that can be 'observed' by the UI, so that the UI automatically updates when the data in the model changes.
+* stores the user's preferences.
+* does not depend on any of the other three components.
+
+It allows the following operations:
+* Viewing, adding, modifying and deleting Bikes and Loans from the LoanBook.
+* Retrieving lists of Bikes and Loans that are registered in the LoanBook, filtered by a Predicate.
+* Undo/redo operations.
+
+The component's class diagram is given below:
+
 .Structure of the Model Component
 image::ModelClassDiagram.png[width="800"]
 
 *API* : link:{repoURL}/src/main/java/loanbook/model/Model.java[`Model.java`]
 
-The `Model`,
+The API is backed by a `ModelManager` which contains:
+* A `VersionedLoanBook` object which tracks the main data (i.e. Bikes and Loans) within the LoanBook.
+* A filtered list each for Bikes and Loans to expose to the UI.
+* A `UserPrefs` object to track the user's preferences.
 
-* stores a `UserPref` object that represents the user's preferences.
-* stores the Loan Book data.
-* exposes an unmodifiable `ObservableList<Loan>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
-* does not depend on any of the other three components.
+Most operations passed to the `Model` component deals with its `VersionedLoanBook`. A `VersionedLoanBook` is simply a regular `LoanBook` that keeps track of its own history, for the undo/redo operation. The `LoanBook` itself contains:
+* A `LoanIdManager` that helps to assign a unique `LoanId` to every Loan, so that Loans may be easily identified.
+* A list of unique Bikes.
+* A list of unique Loans.
+
+[NOTE]
+A unique list in the sense above is a list where no two elements are the "same":
+* A Bike is considered to be the same as another Bike if their Names match.
+* A Loan is considered to be the same as another Loan if their LoanIds match.
+We want to exclude duplicate items from these lists to make sure that identifying any given Bike or Loan is simple and without ambiguity. +
+
+To facilitate this structure, both the `Bike` and `Loan` class implement a `UniqueListItem` interface, and the Bike and Loan lists inherit from a `UniqueList` class.
+
+Most of the commands passed into the Model are forwarded to its `LoanBook`, who then executes these commands on the Bike and Loan lists that it has.
+
+A *Loan* contains:
+* The customer's particulars: Their `Name`, `Nric`, `Phone` and `Email`.
+* The `Bike` that the customer is renting.
+* A `LoanStatus` used signal whether this Loan is `Ongoing`, `Returned` or `Deleted`.
+* A `LoanId` used for identifying this Loan.
+* A `LoanRate` specifying the rate which the bicycle is being loaned at, in $/hr.
+* A `loanStartTime` and `loanEndTime`, specifying the scheduled start and end times of the loan. `loanEndTime` might be `null` if the loan has no scheduled return time.
+* Any number of `Tag` s to provide additional details for the Loan.
+
+A *Bike* contains:
+* A `Name` used for identifying this Bike.
+
+[NOTE]
+The `DataField` class is used to unify the common idea that the above details for Loans and Bikes are specifiable by a user-inputted String. The only exception is the Bike field in the Loan class, which is specified using the Bike's Name instead.
+
 
 [[Design-Storage]]
 === Storage component
