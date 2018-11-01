@@ -9,7 +9,6 @@ import java.util.Set;
 
 import loanbook.model.UniqueListItem;
 import loanbook.model.bike.Bike;
-import loanbook.model.loan.exceptions.SameLoanStatusException;
 import loanbook.model.tag.Tag;
 
 /**
@@ -31,9 +30,8 @@ public class Loan implements UniqueListItem<Loan> {
     private final LoanTime endTime; // Note that endTime can be null
     private final Phone phone;
     private final Email email;
-    private final Address address;
     private final Set<Tag> tags = new HashSet<>();
-    private LoanStatus loanStatus;
+    private final LoanStatus loanStatus;
 
     /**
      * Default constructor.
@@ -43,7 +41,6 @@ public class Loan implements UniqueListItem<Loan> {
                 Nric nric,
                 Phone phone,
                 Email email,
-                Address address,
                 Bike bike,
                 LoanRate rate,
                 LoanTime startTime,
@@ -57,7 +54,6 @@ public class Loan implements UniqueListItem<Loan> {
         this.nric = nric;
         this.phone = phone;
         this.email = email;
-        this.address = address;
         this.bike = bike;
         this.rate = rate;
         this.startTime = startTime;
@@ -74,13 +70,12 @@ public class Loan implements UniqueListItem<Loan> {
                 Nric nric,
                 Phone phone,
                 Email email,
-                Address address,
                 Bike bike,
                 LoanRate rate,
                 Set<Tag> tags) {
 
         // Initialise the loan to be ongoing.
-        this(name, nric, phone, email, address, bike, rate,
+        this(name, nric, phone, email, bike, rate,
                 new LoanTime(), null, LoanStatus.ONGOING, tags);
     }
 
@@ -93,14 +88,13 @@ public class Loan implements UniqueListItem<Loan> {
                 Nric nric,
                 Phone phone,
                 Email email,
-                Address address,
                 Bike bike,
                 LoanRate rate,
                 LoanTime startTime,
                 LoanTime endTime,
                 Set<Tag> tags) {
 
-        this(name, nric, phone, email, address, bike, rate,
+        this(name, nric, phone, email, bike, rate,
                 startTime, endTime, LoanStatus.RETURNED, tags);
     }
 
@@ -108,18 +102,32 @@ public class Loan implements UniqueListItem<Loan> {
      * Copies over an existing Loan and edits the Bike, for AddCommand.
      */
     public Loan(Loan other, Bike bike) {
-
         this(other.name,
             other.nric,
             other.phone,
             other.email,
-            other.address,
             bike,
             other.rate,
             other.startTime,
             other.endTime,
             other.loanStatus,
             other.tags);
+    }
+
+    /**
+     * Copies over an existing Loan and edits the endTime, for ReturnCommand.
+     */
+    public Loan(Loan other, LoanTime endTime) {
+        this(other.name,
+                other.nric,
+                other.phone,
+                other.email,
+                other.bike,
+                other.rate,
+                other.startTime,
+                endTime,
+                other.loanStatus,
+                other.tags);
     }
 
     public Name getName() {
@@ -132,10 +140,6 @@ public class Loan implements UniqueListItem<Loan> {
 
     public Email getEmail() {
         return email;
-    }
-
-    public Address getAddress() {
-        return address;
     }
 
     public LoanStatus getLoanStatus() {
@@ -171,22 +175,6 @@ public class Loan implements UniqueListItem<Loan> {
     }
 
     /**
-     * Change the loan status to the newStatus as provided.
-     * Throws SameLoanStatusException if the newStatus is the same as the previous status.
-     * @param newStatus
-     * @return true if the function managed to complete.
-     * @throws SameLoanStatusException
-     */
-    public boolean changeLoanStatus(LoanStatus newStatus) throws SameLoanStatusException {
-        if (loanStatus.equals(newStatus)) {
-            throw new SameLoanStatusException();
-        } else {
-            loanStatus = newStatus;
-            return true;
-        }
-    }
-
-    /**
      * Returns true if both loans of the same name have at least one other identity field that is the same.
      */
     @Override
@@ -201,6 +189,18 @@ public class Loan implements UniqueListItem<Loan> {
                 && other.getBike().equals(getBike())
                 && (other.getEmail().equals(getEmail()) || other.getPhone().equals(getPhone())
                 || other.getLoanRate().equals(getLoanRate()) || other.getLoanStartTime().equals(getLoanStartTime()));
+    }
+
+    /**
+     * Calculates the cost of the current Loan, provided it has already been returned.
+     */
+    public double calculateCost() {
+        assert(endTime != null);
+        assert(loanStatus == LoanStatus.RETURNED);
+
+        // Find the time the loan was taken out for, then pass it into LoanRate to get the cost.
+        long timeLoaned = this.getLoanStartTime().loanTimeDifferenceMinutes(this.getLoanEndTime());
+        return this.getLoanRate().calculateCost(timeLoaned);
     }
 
     /**
@@ -222,7 +222,6 @@ public class Loan implements UniqueListItem<Loan> {
                 && otherLoan.getNric().equals(getNric())
                 && otherLoan.getPhone().equals(getPhone())
                 && otherLoan.getEmail().equals(getEmail())
-                && otherLoan.getAddress().equals(getAddress())
                 && otherLoan.getLoanStatus().equals(getLoanStatus())
                 && otherLoan.getBike().equals(getBike())
                 && otherLoan.getLoanRate().equals(getLoanRate())
@@ -232,7 +231,7 @@ public class Loan implements UniqueListItem<Loan> {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, nric, phone, email, address, bike, rate, startTime, endTime, loanStatus, tags);
+        return Objects.hash(name, nric, phone, email, bike, rate, startTime, endTime, loanStatus, tags);
     }
 
     @Override
@@ -245,8 +244,6 @@ public class Loan implements UniqueListItem<Loan> {
                 .append(getPhone())
                 .append(" Email: ")
                 .append(getEmail())
-                .append(" Address: ")
-                .append(getAddress())
                 .append(" Status: ")
                 .append(getLoanStatus())
                 .append(" Bike: ")

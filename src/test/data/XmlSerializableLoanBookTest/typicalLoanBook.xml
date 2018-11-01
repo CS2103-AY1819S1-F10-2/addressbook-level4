@@ -18,7 +18,6 @@
         <nric>S0848937H</nric>
         <phone>94351253</phone>
         <email>alice@example.com</email>
-        <address>123, Jurong West Ave 6, #08-111</address>
         <loanStatus>ONGOING</loanStatus>
         <bike>BIKE001</bike>
         <rate>1.1</rate>
@@ -31,7 +30,6 @@
         <nric>F1342714M</nric>
         <phone>98765432</phone>
         <email>johnd@example.com</email>
-        <address>311, Clementi Ave 2, #02-25</address>
         <loanStatus>ONGOING</loanStatus>
         <bike>BIKE001</bike>
         <rate>0.15</rate>
@@ -45,7 +43,6 @@
         <nric>T0238282I</nric>
         <phone>95352563</phone>
         <email>heinz@example.com</email>
-        <address>wall street</address>
         <loanStatus>ONGOING</loanStatus>
         <bike>BIKE001</bike>
         <rate>23.9</rate>
@@ -58,7 +55,6 @@
         <phone>87652533</phone>
         <email>cornelia@example.com</email>
         <loanStatus>ONGOING</loanStatus>
-        <address>10th street</address>
         <bike>BIKE002</bike>
         <rate>9.0</rate>
         <startTime>17:56</startTime>
@@ -71,7 +67,6 @@
         <phone>9482224</phone>
         <email>werner@example.com</email>
         <loanStatus>ONGOING</loanStatus>
-        <address>michegan ave</address>
         <bike>BIKE002</bike>
         <rate>5.55</rate>
         <startTime>2010-12-30 10:30</startTime>
@@ -83,7 +78,6 @@
         <phone>9482427</phone>
         <email>lydia@example.com</email>
         <loanStatus>ONGOING</loanStatus>
-        <address>little tokyo</address>
         <bike>BIKE002</bike>
         <rate>33.3</rate>
         <startTime>01:01</startTime>
@@ -95,11 +89,10 @@
         <phone>9482442</phone>
         <email>anna@example.com</email>
         <loanStatus>ONGOING</loanStatus>
-        <address>4th street</address>
         <bike>BIKE002</bike>
         <rate>5.05</rate>
         <startTime>2013-03-13 12:08</startTime>
-        <endTime>2013-05-14 12:18</endTime>
+        <endTime>2013-03-13 23:54</endTime>
     </loans>
     <loanIdManager>
         <lastUsedLoanId>6</lastUsedLoanId>

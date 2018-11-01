@@ -36,6 +36,7 @@ import loanbook.commons.core.EventsCenter;
 import loanbook.commons.core.index.Index;
 import loanbook.logic.commands.ClearCommand;
 import loanbook.logic.commands.FindCommand;
+import loanbook.logic.commands.ListBikesCommand;
 import loanbook.logic.commands.ListCommand;
 import loanbook.logic.commands.SelectCommand;
 import loanbook.model.LoanBook;
@@ -104,7 +105,7 @@ public abstract class LoanBookSystemTest {
     }
 
     public LoanListPanelHandle getLoanListPanel() {
-        return mainWindowHandle.getLoanListPanel();
+        return mainWindowHandle.getListPanel();
     }
 
     public MainMenuHandle getMainMenu() {
@@ -136,6 +137,14 @@ public abstract class LoanBookSystemTest {
         mainWindowHandle.getCommandBox().run(command);
 
         waitUntilBrowserLoaded(getBrowserPanel());
+    }
+
+    /**
+     * Displays all bikes in the loan book.
+     */
+    protected void showAllBikes() {
+        executeCommand(ListBikesCommand.COMMAND_WORD);
+        assertEquals(getModel().getLoanBook().getBikeList().size(), getModel().getFilteredBikeList().size());
     }
 
     /**
@@ -195,7 +204,7 @@ public abstract class LoanBookSystemTest {
         getBrowserPanel().rememberUrl();
         statusBarFooterHandle.rememberSaveLocation();
         statusBarFooterHandle.rememberSyncStatus();
-        getLoanListPanel().rememberSelectedLoanCard();
+        getLoanListPanel().rememberSelectedCard();
     }
 
     /**
@@ -212,7 +221,7 @@ public abstract class LoanBookSystemTest {
      * Asserts that the browser's url is changed to display the details of the loan in the loan list panel at
      * {@code expectedSelectedCardIndex}, and only the card at {@code expectedSelectedCardIndex} is selected.
      * @see BrowserPanelHandle#isUrlChanged()
-     * @see LoanListPanelHandle#isSelectedLoanCardChanged()
+     * @see LoanListPanelHandle#isSelectedCardChanged()
      */
     protected void assertSelectedCardChanged(Index expectedSelectedCardIndex) {
         getLoanListPanel().navigateToCard(getLoanListPanel().getSelectedCardIndex());
@@ -231,11 +240,11 @@ public abstract class LoanBookSystemTest {
     /**
      * Asserts that the browser's url and the selected card in the loan list panel remain unchanged.
      * @see BrowserPanelHandle#isUrlChanged()
-     * @see LoanListPanelHandle#isSelectedLoanCardChanged()
+     * @see LoanListPanelHandle#isSelectedCardChanged()
      */
     protected void assertSelectedCardUnchanged() {
         assertFalse(getBrowserPanel().isUrlChanged());
-        assertFalse(getLoanListPanel().isSelectedLoanCardChanged());
+        assertFalse(getLoanListPanel().isSelectedCardChanged());
     }
 
     /**

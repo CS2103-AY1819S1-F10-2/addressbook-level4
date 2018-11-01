@@ -5,37 +5,21 @@ import java.util.HashSet;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Region;
 import loanbook.model.loan.Loan;
 import loanbook.model.tag.Tag;
 
 /**
  * An UI component that displays information of a {@code Loan}.
  */
-public class LoanCard extends UiPart<Region> {
+public class LoanCard extends ListCard<Loan> {
 
     private static final String FXML = "LoanListCard.fxml";
     private static final String[] LOANSTATUS_TAG_COLOR_STYLES = {"red", "green", "orange"};
     private static final String[] TAG_COLOR_STYLES =
         {"teal", "yellow", "blue", "brown", "pink", "black", "grey"};
 
-    /**
-     * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
-     * As a consequence, UI elements' variable names cannot be set to such keywords
-     * or an exception will be thrown by JavaFX during runtime.
-     *
-     * @see <a href="https://github.com/se-edu/addressbook-level4/issues/336">The issue on AddressBook level 4</a>
-     */
-
-    public final Loan loan;
-
-    @FXML
-    private HBox cardPane;
     @FXML
     private Label name;
-    @FXML
-    private Label id;
     @FXML
     private Label nric;
     @FXML
@@ -54,9 +38,7 @@ public class LoanCard extends UiPart<Region> {
     private FlowPane tags;
 
     public LoanCard(Loan loan, int displayedIndex) {
-        super(FXML);
-        this.loan = loan;
-        id.setText(Integer.toString(displayedIndex));
+        super(FXML, loan, displayedIndex);
         name.setText(loan.getName().value);
         nric.setText(loan.getNric().getCensored());
         phone.setText(loan.getPhone().getCensored());
@@ -89,7 +71,7 @@ public class LoanCard extends UiPart<Region> {
     }
 
     /**
-     * Creates the tag labels for {@code person}.
+     * Creates the tag labels for {@code loan}.
      */
     private void initTags(Loan loan) {
         HashSet<Tag> currentTags = new HashSet<>(loan.getTags());
@@ -99,23 +81,5 @@ public class LoanCard extends UiPart<Region> {
             tagLabel.getStyleClass().add(getTagColorStyleFor(tag.value));
             tags.getChildren().add(tagLabel);
         });
-    }
-
-    @Override
-    public boolean equals(Object other) {
-        // short circuit if same object
-        if (other == this) {
-            return true;
-        }
-
-        // instanceof handles nulls
-        if (!(other instanceof LoanCard)) {
-            return false;
-        }
-
-        // state check
-        LoanCard card = (LoanCard) other;
-        return id.getText().equals(card.id.getText())
-                && loan.equals(card.loan);
     }
 }

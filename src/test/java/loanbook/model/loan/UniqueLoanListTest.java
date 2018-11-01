@@ -1,6 +1,5 @@
 package loanbook.model.loan;
 
-import static loanbook.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static loanbook.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static loanbook.testutil.TypicalLoans.ALICE;
 import static loanbook.testutil.TypicalLoans.BOB;
@@ -46,7 +45,7 @@ public class UniqueLoanListTest {
     @Test
     public void containsLoanWithSameIdentityFieldsInListReturnsTrue() {
         uniqueLoanList.add(ALICE);
-        Loan editedAlice = new LoanBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
+        Loan editedAlice = new LoanBuilder(ALICE).withTags(VALID_TAG_HUSBAND)
                 .build();
         assertTrue(uniqueLoanList.contains(editedAlice));
     }
@@ -94,7 +93,7 @@ public class UniqueLoanListTest {
     @Test
     public void setEditedLoanHasSameIdentity_success() {
         uniqueLoanList.add(ALICE);
-        Loan editedAlice = new LoanBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
+        Loan editedAlice = new LoanBuilder(ALICE).withTags(VALID_TAG_HUSBAND)
                 .build();
         uniqueLoanList.set(ALICE, editedAlice);
         UniqueLoanList expectedUniqueLoanList = new UniqueLoanList();

@@ -16,8 +16,10 @@ import loanbook.logic.commands.ExitCommand;
 import loanbook.logic.commands.FindCommand;
 import loanbook.logic.commands.HelpCommand;
 import loanbook.logic.commands.HistoryCommand;
+import loanbook.logic.commands.ListBikesCommand;
 import loanbook.logic.commands.ListCommand;
 import loanbook.logic.commands.RedoCommand;
+import loanbook.logic.commands.ReturnCommand;
 import loanbook.logic.commands.SelectCommand;
 import loanbook.logic.commands.SetPasswordCommand;
 import loanbook.logic.commands.UndoCommand;
@@ -62,6 +64,9 @@ public class LoanBookParser {
         case SelectCommand.COMMAND_WORD:
             return new SelectCommandParser().parse(arguments);
 
+        case ReturnCommand.COMMAND_WORD:
+            return new ReturnCommandParser().parse(arguments);
+
         case DeleteCommand.COMMAND_WORD:
             return new DeleteCommandParser().parse(arguments);
 
@@ -73,6 +78,9 @@ public class LoanBookParser {
 
         case SetPasswordCommand.COMMAND_WORD:
             return new SetPasswordCommandParser().parse(arguments);
+
+        case ListBikesCommand.COMMAND_WORD:
+            return new ListBikesCommand();
 
         case ListCommand.COMMAND_WORD:
             return new ListCommand();

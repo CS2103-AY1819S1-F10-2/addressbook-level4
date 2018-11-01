@@ -6,7 +6,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 import loanbook.model.bike.Bike;
-import loanbook.model.loan.Address;
 import loanbook.model.loan.Email;
 import loanbook.model.loan.Loan;
 import loanbook.model.loan.LoanRate;
@@ -27,7 +26,6 @@ public class LoanBuilder {
     public static final String DEFAULT_NRIC = "G1234567X";
     public static final String DEFAULT_PHONE = "85355255";
     public static final String DEFAULT_EMAIL = "alice@gmail.com";
-    public static final String DEFAULT_ADDRESS = "123, Jurong West Ave 6, #08-111";
     public static final String DEFAULT_BIKE = VALID_NAME_BIKE1;
     public static final String DEFAULT_LOANRATE = "12.3";
     public static final String DEFAULT_LOANSTARTTIME = "11:45";
@@ -38,7 +36,6 @@ public class LoanBuilder {
     private Nric nric;
     private Phone phone;
     private Email email;
-    private Address address;
     private Bike bike;
     private LoanRate rate;
     private LoanTime startTime;
@@ -51,7 +48,6 @@ public class LoanBuilder {
         nric = new Nric(DEFAULT_NRIC);
         phone = new Phone(DEFAULT_PHONE);
         email = new Email(DEFAULT_EMAIL);
-        address = new Address(DEFAULT_ADDRESS);
         bike = new Bike(new Name(DEFAULT_BIKE));
         rate = new LoanRate(DEFAULT_LOANRATE);
         startTime = new LoanTime(DEFAULT_LOANSTARTTIME);
@@ -68,7 +64,6 @@ public class LoanBuilder {
         nric = loanToCopy.getNric();
         phone = loanToCopy.getPhone();
         email = loanToCopy.getEmail();
-        address = loanToCopy.getAddress();
         bike = loanToCopy.getBike();
         rate = loanToCopy.getLoanRate();
         startTime = loanToCopy.getLoanStartTime();
@@ -98,14 +93,6 @@ public class LoanBuilder {
      */
     public LoanBuilder withTags(String ... tags) {
         this.tags = SampleDataUtil.getTagSet(tags);
-        return this;
-    }
-
-    /**
-     * Sets the {@code Address} of the {@code Loan} that we are building.
-     */
-    public LoanBuilder withAddress(String address) {
-        this.address = new Address(address);
         return this;
     }
 
@@ -168,6 +155,6 @@ public class LoanBuilder {
     }
 
     public Loan build() {
-        return new Loan(name, nric, phone, email, address, bike, rate, startTime, endTime, loanStatus, tags);
+        return new Loan(name, nric, phone, email, bike, rate, startTime, endTime, loanStatus, tags);
     }
 }

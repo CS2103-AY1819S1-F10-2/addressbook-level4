@@ -4,6 +4,7 @@ import javafx.collections.ObservableList;
 import loanbook.logic.commands.CommandResult;
 import loanbook.logic.commands.exceptions.CommandException;
 import loanbook.logic.parser.exceptions.ParseException;
+import loanbook.model.bike.Bike;
 import loanbook.model.loan.Loan;
 
 /**
@@ -18,6 +19,9 @@ public interface Logic {
      * @throws ParseException If an error occurs during parsing.
      */
     CommandResult execute(String commandText) throws CommandException, ParseException;
+
+    /** Returns an unmodifiable view of the filtered list of bikes */
+    ObservableList<Bike> getFilteredBikeList();
 
     /** Returns an unmodifiable view of the filtered list of loans */
     ObservableList<Loan> getFilteredLoanList();

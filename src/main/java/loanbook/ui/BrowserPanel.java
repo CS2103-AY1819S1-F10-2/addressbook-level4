@@ -12,7 +12,7 @@ import javafx.scene.layout.Region;
 import javafx.scene.web.WebView;
 import loanbook.MainApp;
 import loanbook.commons.core.LogsCenter;
-import loanbook.commons.events.ui.LoanPanelSelectionChangedEvent;
+import loanbook.commons.events.ui.LoanListPanelSelectionChangedEvent;
 import loanbook.model.loan.Loan;
 
 /**
@@ -65,7 +65,7 @@ public class BrowserPanel extends UiPart<Region> {
     }
 
     @Subscribe
-    private void handleLoanPanelSelectionChangedEvent(LoanPanelSelectionChangedEvent event) {
+    private void handleLoanListPanelSelectionChangedEvent(LoanListPanelSelectionChangedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         loadLoanPage(event.getNewSelection());
     }

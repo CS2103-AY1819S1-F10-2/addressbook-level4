@@ -14,17 +14,17 @@ import org.junit.Test;
 
 import guitests.guihandles.BrowserPanelHandle;
 import loanbook.MainApp;
-import loanbook.commons.events.ui.LoanPanelSelectionChangedEvent;
+import loanbook.commons.events.ui.LoanListPanelSelectionChangedEvent;
 
 public class BrowserPanelTest extends GuiUnitTest {
-    private LoanPanelSelectionChangedEvent selectionChangedEventStub;
+    private LoanListPanelSelectionChangedEvent selectionChangedEventStub;
 
     private BrowserPanel browserPanel;
     private BrowserPanelHandle browserPanelHandle;
 
     @Before
     public void setUp() {
-        selectionChangedEventStub = new LoanPanelSelectionChangedEvent(ALICE);
+        selectionChangedEventStub = new LoanListPanelSelectionChangedEvent(ALICE);
 
         guiRobot.interact(() -> browserPanel = new BrowserPanel());
         uiPartRule.setUiPart(browserPanel);

@@ -12,7 +12,6 @@ import javax.xml.bind.annotation.XmlElement;
 
 import loanbook.commons.exceptions.IllegalValueException;
 import loanbook.model.bike.Bike;
-import loanbook.model.loan.Address;
 import loanbook.model.loan.Email;
 import loanbook.model.loan.Loan;
 import loanbook.model.loan.LoanRate;
@@ -38,8 +37,6 @@ public class XmlAdaptedLoan {
     private String phone;
     @XmlElement(required = true)
     private String email;
-    @XmlElement(required = true)
-    private String address;
     @XmlElement(required = true)
     private String loanStatus;
     @XmlElement(required = true)
@@ -67,7 +64,6 @@ public class XmlAdaptedLoan {
                           String nric,
                           String phone,
                           String email,
-                          String address,
                           String bike,
                           String rate,
                           String startTime,
@@ -78,7 +74,6 @@ public class XmlAdaptedLoan {
         this.nric = nric;
         this.phone = phone;
         this.email = email;
-        this.address = address;
         this.bike = bike;
         this.rate = rate;
         this.startTime = startTime;
@@ -98,12 +93,11 @@ public class XmlAdaptedLoan {
                           String nric,
                           String phone,
                           String email,
-                          String address,
                           String bike,
                           String rate,
                           String time,
                           List<XmlAdaptedTag> tagged) {
-        this(name, nric, phone, email, address, bike, rate, time, "ONGOING", tagged);
+        this(name, nric, phone, email, bike, rate, time, "ONGOING", tagged);
     }
 
     /**
@@ -114,13 +108,12 @@ public class XmlAdaptedLoan {
                           String nric,
                           String phone,
                           String email,
-                          String address,
                           String bike,
                           String rate,
                           String startTime,
                           String endTime,
                           List<XmlAdaptedTag> tagged) {
-        this(name, nric, phone, email, address, bike, rate, startTime, endTime, "ONGOING", tagged);
+        this(name, nric, phone, email, bike, rate, startTime, endTime, "ONGOING", tagged);
     }
 
     /**
@@ -133,7 +126,6 @@ public class XmlAdaptedLoan {
         nric = source.getNric().nric;
         phone = source.getPhone().value;
         email = source.getEmail().value;
-        address = source.getAddress().value;
         bike = source.getBike().getName().value;
         rate = source.getLoanRate().toString();
         startTime = source.getLoanStartTime().toString();
@@ -218,9 +210,6 @@ public class XmlAdaptedLoan {
         checkFieldValid(email, Email.class, Email::isValidEmail, Email.MESSAGE_EMAIL_CONSTRAINTS);
         final Email modelEmail = new Email(email);
 
-        checkFieldValid(address, Address.class, Address::isValidAddress, Address.MESSAGE_ADDRESS_CONSTRAINTS);
-        final Address modelAddress = new Address(address);
-
         checkFieldValid(loanStatus, LoanStatus.class, LoanStatus::isValidLoanStatus,
             LoanStatus.MESSAGE_LOANSTATUS_CONSTRAINTS);
         final LoanStatus modelLoanStatus = LoanStatus.valueOf(loanStatus);
@@ -242,7 +231,6 @@ public class XmlAdaptedLoan {
                 modelNric,
                 modelPhone,
                 modelEmail,
-                modelAddress,
                 modelBike,
                 modelRate,
                 modelStartTime,
@@ -267,7 +255,6 @@ public class XmlAdaptedLoan {
                 && Objects.equals(nric, otherLoan.nric)
                 && Objects.equals(phone, otherLoan.phone)
                 && Objects.equals(email, otherLoan.email)
-                && Objects.equals(address, otherLoan.address)
                 && Objects.equals(bike, otherLoan.bike)
                 && Objects.equals(rate, otherLoan.rate)
                 && Objects.equals(startTime, otherLoan.startTime)
