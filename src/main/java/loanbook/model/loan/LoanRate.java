@@ -24,4 +24,8 @@ public class LoanRate extends DataField<Double> {
     public static boolean isValidRate(String test) {
         return test.matches("^(([1-9]\\d*|0)|(([0]\\.\\d{1,2}|[1-9][0-9]*\\.\\d{1,2})))$");
     }
+
+    public double calculateCost (long minutes) {
+        return value * minutes / 60;
+    }
 }
