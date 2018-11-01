@@ -9,8 +9,8 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
-
 import java.util.function.BiPredicate;
+
 import org.junit.Test;
 
 public class CollectionUtilTest {
@@ -87,10 +87,9 @@ public class CollectionUtilTest {
     public void testByElement_success() {
         List<String> list1 = List.of("Alice", "Bob", "Charlie", "David");
         List<String> list2 = List.of("Alpha", "Bravo", "Charlie", "Delta");
-        BiPredicate<String, String> checkFirstLetter =
-                (str1, str2) -> str1.length() > 0
-                        && str2.length() > 0
-                        && str1.charAt(0) == str2.charAt(0);
+        BiPredicate<String, String> checkFirstLetter = (str1, str2) -> str1.length() > 0
+                && str2.length() > 0
+                && str1.charAt(0) == str2.charAt(0);
 
         assertTrue(testByElement(list1, list2, checkFirstLetter));
 
@@ -111,10 +110,9 @@ public class CollectionUtilTest {
         List<String> list1 = List.of("Alice", "Bob", "Charlie", "David");
         List<String> list2 = List.of("Alpha", "Bravo", "Charlie");
         List<String> list3 = List.of("Alpha", "Bravo", "Charlie", "David", "Echo");
-        BiPredicate<String, String> checkFirstLetter =
-                (str1, str2) -> str1.length() > 0
-                        && str2.length() > 0
-                        && str1.charAt(0) == str2.charAt(0);
+        BiPredicate<String, String> checkFirstLetter = (str1, str2) -> str1.length() > 0
+                && str2.length() > 0
+                && str1.charAt(0) == str2.charAt(0);
 
         assertFalse(testByElement(list1, list2, checkFirstLetter));
         assertFalse(testByElement(list1, list3, checkFirstLetter));

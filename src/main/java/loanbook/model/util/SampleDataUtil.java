@@ -24,12 +24,12 @@ import loanbook.model.tag.Tag;
 public class SampleDataUtil {
     public static Bike[] getSampleBikes() {
         return new Bike[] {
-                new Bike(new Name("Bike001")),
-                new Bike(new Name("Bike002")),
-                new Bike(new Name("Silver Surfer")),
-                new Bike(new Name("Blue Ocean")),
-                new Bike(new Name("Bike013")),
-                new Bike(new Name("Bike099")),
+            new Bike(new Name("Bike001")),
+            new Bike(new Name("Bike002")),
+            new Bike(new Name("Silver Surfer")),
+            new Bike(new Name("Blue Ocean")),
+            new Bike(new Name("Bike013")),
+            new Bike(new Name("Bike099")),
         };
     }
 

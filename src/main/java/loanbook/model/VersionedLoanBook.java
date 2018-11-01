@@ -1,9 +1,10 @@
 package loanbook.model;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
+
 import loanbook.commons.util.CollectionUtil;
+import loanbook.model.loan.Loan;
 
 /**
  * {@code LoanBook} that keeps track of its own history.
@@ -71,6 +72,12 @@ public class VersionedLoanBook extends LoanBook {
         return currentStatePointer < loanBookStateList.size() - 1;
     }
 
+    /**
+     * Checks if this Versioned Loan Book is equal to the specified Versioned Loan Book, but
+     * only compares the editable fields of the Loans.
+     *
+     * @see Loan#hasEqualEditableFields(Loan)
+     */
     public boolean hasEqualEditableFields(VersionedLoanBook other) {
         if (other == this) {
             return true;

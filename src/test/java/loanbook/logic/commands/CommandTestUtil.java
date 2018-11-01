@@ -120,6 +120,13 @@ public class CommandTestUtil {
         }
     }
 
+    /**
+     * Does the same thing as {@link #assertCommandSuccess(Command, Model, CommandHistory, String, Model)}, but when
+     * comparing the Models, only the editable fields of the Loans are compared.
+     *
+     * @see #assertCommandSuccess(Command, Model, CommandHistory, String, Model)
+     * @see Model#hasEqualEditableFields(Model)
+     */
     public static void assertCommandSuccessCompareEditableFields(Command command, Model actualModel,
             CommandHistory actualCommandHistory, String expectedMessage, Model expectedModel) {
         CommandHistory expectedCommandHistory = new CommandHistory(actualCommandHistory);

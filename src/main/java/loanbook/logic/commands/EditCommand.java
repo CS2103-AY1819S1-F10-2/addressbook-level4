@@ -297,29 +297,5 @@ public class EditCommand extends Command {
                     && getLoanRate().equals(e.getLoanRate())
                     && getTags().equals(e.getTags());
         }
-
-        @Override
-        public String toString() {
-            return "EditLoanDescriptor{" +
-                    "name=" + name +
-                    ", nric=" + nric +
-                    ", phone=" + phone +
-                    ", email=" + email +
-                    ", bike=" + bike +
-                    ", rate=" + rate +
-                    ", startTime=" + startTime +
-                    ", endTime=" + endTime +
-                    ", tags=" + tags +
-                    ", loanStatus=" + loanStatus +
-                    '}';
-        }
-    }
-
-    @Override
-    public String toString() {
-        return "EditCommand{" +
-                "index=" + index +
-                ", editLoanDescriptor=" + editLoanDescriptor +
-                '}';
     }
 }

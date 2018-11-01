@@ -37,7 +37,6 @@ import static loanbook.testutil.TypicalIndexes.INDEX_SECOND_LOAN;
 import static loanbook.testutil.TypicalLoans.AMY;
 import static loanbook.testutil.TypicalLoans.BOB;
 import static loanbook.testutil.TypicalLoans.KEYWORD_MATCHING_MEIER;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 
@@ -57,7 +56,6 @@ import loanbook.model.loan.Nric;
 import loanbook.model.loan.Phone;
 import loanbook.model.tag.Tag;
 import loanbook.testutil.LoanBuilder;
-import loanbook.testutil.LoanUtil;
 
 public class EditCommandSystemTest extends LoanBookSystemTest {
 
@@ -96,7 +94,6 @@ public class EditCommandSystemTest extends LoanBookSystemTest {
         assertCommandSuccess(command, index, BOB);
 
         /* Case: edit a loan with new values same as another loan's values but with different name -> edited */
-//        assertTrue(getModel().getLoanBook().getLoanList().contains(BOB));
         index = INDEX_SECOND_LOAN;
         assertNotEquals(getModel().getFilteredLoanList().get(index.getZeroBased()), BOB);
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_AMY + NRIC_DESC_BOB + PHONE_DESC_BOB
@@ -286,7 +283,6 @@ public class EditCommandSystemTest extends LoanBookSystemTest {
         executeCommand(command);
         expectedModel.updateFilteredLoanList(PREDICATE_SHOW_ALL_LOANS);
         assertApplicationDisplaysExpectedCompareEditableFields("", expectedResultMessage, expectedModel);
-//        assertApplicationDisplaysExpected("", expectedResultMessage, expectedModel);
         assertCommandBoxShowsDefaultStyle();
         if (expectedSelectedCardIndex != null) {
             assertSelectedCardChanged(expectedSelectedCardIndex);

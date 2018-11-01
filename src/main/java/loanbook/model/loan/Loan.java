@@ -200,6 +200,13 @@ public class Loan implements UniqueListItem<Loan> {
                 || other.getLoanRate().equals(getLoanRate()) || other.getLoanStartTime().equals(getLoanStartTime()));
     }
 
+    /**
+     * Checks if this Loan is equal to the specified Loan, but only compares editable fields.
+     * Editable fields refer to fields that can be edited through the "Edit Command", which are
+     * the Name, NRIC, Phone, Bike, Loan rate, Email and Tags.
+     *
+     * @return true if the editable fields are equal.
+     */
     public boolean hasEqualEditableFields(Loan other) {
         if (other == this) {
             return true;
@@ -210,6 +217,7 @@ public class Loan implements UniqueListItem<Loan> {
                 && other.getPhone().equals(getPhone())
                 && other.getBike().equals(getBike())
                 && other.getLoanRate().equals(getLoanRate())
+                && other.getEmail().equals(getEmail())
                 && other.getTags().equals(getTags());
     }
 

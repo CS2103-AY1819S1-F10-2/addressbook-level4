@@ -11,7 +11,6 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-import loanbook.model.loan.LoanIdManager;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -20,6 +19,7 @@ import org.junit.rules.TemporaryFolder;
 import loanbook.commons.exceptions.DataConversionException;
 import loanbook.model.LoanBook;
 import loanbook.model.ReadOnlyLoanBook;
+import loanbook.model.loan.LoanIdManager;
 
 public class XmlLoanBookStorageTest {
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "XmlLoanBookStorageTest");

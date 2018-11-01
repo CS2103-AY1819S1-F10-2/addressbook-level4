@@ -4,12 +4,11 @@ import static java.util.Objects.hash;
 import static java.util.Objects.requireNonNull;
 import static loanbook.commons.util.CollectionUtil.testByElement;
 
-import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 
 import javafx.collections.ObservableList;
-import loanbook.commons.util.CollectionUtil;
+
 import loanbook.model.bike.Bike;
 import loanbook.model.bike.UniqueBikeList;
 import loanbook.model.loan.Loan;

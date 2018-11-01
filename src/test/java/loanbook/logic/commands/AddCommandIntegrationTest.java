@@ -1,10 +1,8 @@
 package loanbook.logic.commands;
 
-import static loanbook.logic.commands.CommandTestUtil.assertCommandFailure;
 import static loanbook.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static loanbook.testutil.TypicalLoanBook.getTypicalLoanBook;
 
-import loanbook.model.loan.LoanId;
 import org.junit.Before;
 import org.junit.Test;
 

@@ -11,18 +11,18 @@ import java.util.List;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import loanbook.storage.XmlAdaptedLoanId;
+import org.junit.Rule;
+import org.junit.Test;
+import org.junit.rules.ExpectedException;
+
 import loanbook.model.LoanBook;
 import loanbook.storage.XmlAdaptedLoan;
+import loanbook.storage.XmlAdaptedLoanId;
 import loanbook.storage.XmlAdaptedTag;
 import loanbook.storage.XmlSerializableLoanBook;
 import loanbook.testutil.LoanBookBuilder;
 import loanbook.testutil.LoanBuilder;
 import loanbook.testutil.TestUtil;
-
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.ExpectedException;
 
 
 public class XmlUtilTest {

@@ -9,17 +9,16 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Optional;
 
-import loanbook.model.loan.LoanId;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import loanbook.logic.CommandHistory;
-import loanbook.logic.commands.exceptions.CommandException;
 import loanbook.model.LoanBook;
 import loanbook.model.ReadOnlyLoanBook;
 import loanbook.model.bike.Bike;
 import loanbook.model.loan.Loan;
+import loanbook.model.loan.LoanId;
 import loanbook.model.loan.Name;
 import loanbook.testutil.LoanBuilder;
 import loanbook.testutil.ModelStub;

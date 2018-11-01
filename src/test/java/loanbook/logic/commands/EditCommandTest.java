@@ -160,12 +160,11 @@ public class EditCommandTest {
         expectedModel.undoLoanBook();
         assertCommandSuccessCompareEditableFields(new UndoCommand(), model, commandHistory,
                 UndoCommand.MESSAGE_SUCCESS, expectedModel);
-//         assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
 
         // redo -> same first loan edited again
         expectedModel.redoLoanBook();
-        assertCommandSuccessCompareEditableFields(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModel);
-//        assertCommandSuccess(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModel);
+        assertCommandSuccessCompareEditableFields(new RedoCommand(), model, commandHistory,
+                RedoCommand.MESSAGE_SUCCESS, expectedModel);
     }
 
     @Test
@@ -206,12 +205,14 @@ public class EditCommandTest {
 
         // undo -> reverts loanbook back to previous state and filtered loan list to show all loans
         expectedModel.undoLoanBook();
-        assertCommandSuccessCompareEditableFields(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
+        assertCommandSuccessCompareEditableFields(new UndoCommand(), model, commandHistory,
+                UndoCommand.MESSAGE_SUCCESS, expectedModel);
 
         assertNotEquals(model.getFilteredLoanList().get(INDEX_FIRST_LOAN.getZeroBased()), loanToEdit);
         // redo -> edits same second loan in unfiltered loan list
         expectedModel.redoLoanBook();
-        assertCommandSuccessCompareEditableFields(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModel);
+        assertCommandSuccessCompareEditableFields(new RedoCommand(), model, commandHistory,
+                RedoCommand.MESSAGE_SUCCESS, expectedModel);
     }
 
     @Test
