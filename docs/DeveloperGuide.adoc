@@ -980,15 +980,7 @@ b. Require developers to download those libraries manually (this creates extra w
 [appendix]
 == Product Scope
 
-*Target user profile*:
-
-* rents bicycles as a business in Singapore
-* prefer desktop apps over other types
-* can type fast
-* prefers typing over mouse input
-* is reasonably comfortable using CLI apps
-
-*Value proposition*: manage bicycle loans faster than a typical mouse/GUI driven app
+LoanBook targets users who run a bicycle rental business in Singapore. Users who will find this product especially useful are those who are familiar with desktop applications, and who prefer using a command-line interface (CLI) over a graphic user interface (GUI) for input. A reason for this preference is that using a mouse to access app features may be slower and more accident-prone than typing on a keyboard.
 
 [appendix]
 == User Stories
