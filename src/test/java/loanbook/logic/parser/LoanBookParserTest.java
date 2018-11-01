@@ -66,7 +66,9 @@ public class LoanBookParserTest {
 
     @Test
     public void parseCommand_add() throws Exception {
-        Loan loan = new LoanBuilder().build();
+        Loan loan = new LoanBuilder()
+                .withLoanId(AddCommandParser.PLACEHOLDER_LOAN_ID.toString())
+                .build();
         AddCommand command = (AddCommand) parser.parseCommand(LoanUtil.getAddCommand(loan));
         assertEquals(new AddCommand(loan), command);
     }

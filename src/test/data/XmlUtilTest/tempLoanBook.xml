@@ -9,4 +9,7 @@
         <postalCode></postalCode>
         <city></city>
     </loans>
+    <loanIdManager>
+        <lastUsedLoanId>1</lastUsedLoanId>
+    </loanIdManager>
 </loanbook>

@@ -17,11 +17,13 @@ import org.junit.rules.ExpectedException;
 
 import loanbook.model.LoanBook;
 import loanbook.storage.XmlAdaptedLoan;
+import loanbook.storage.XmlAdaptedLoanId;
 import loanbook.storage.XmlAdaptedTag;
 import loanbook.storage.XmlSerializableLoanBook;
 import loanbook.testutil.LoanBookBuilder;
 import loanbook.testutil.LoanBuilder;
 import loanbook.testutil.TestUtil;
+
 
 public class XmlUtilTest {
 
@@ -36,6 +38,7 @@ public class XmlUtilTest {
 
     private static final String INVALID_PHONE = "9482asf424";
 
+    private static final XmlAdaptedLoanId VALID_LOANID = new XmlAdaptedLoanId(3451);
     private static final String VALID_NAME = "Hans Muster";
     private static final String VALID_NRIC = "T0331476B";
     private static final String VALID_PHONE = "9482424";
@@ -84,7 +87,8 @@ public class XmlUtilTest {
     public void xmlAdaptedLoanFromFile_fileWithMissingLoanField_validResult() throws Exception {
         XmlAdaptedLoan actualLoan = XmlUtil.getDataFromFile(
             MISSING_LOAN_FIELD_FILE, XmlAdaptedLoanWithRootElement.class);
-        XmlAdaptedLoan expectedLoan = new XmlAdaptedLoan(null,
+        XmlAdaptedLoan expectedLoan = new XmlAdaptedLoan(VALID_LOANID,
+                null,
                 VALID_NRIC,
                 VALID_PHONE,
                 VALID_EMAIL,
@@ -101,7 +105,8 @@ public class XmlUtilTest {
     public void xmlAdaptedLoanFromFile_fileWithInvalidLoanField_validResult() throws Exception {
         XmlAdaptedLoan actualLoan = XmlUtil.getDataFromFile(
             INVALID_LOAN_FIELD_FILE, XmlAdaptedLoanWithRootElement.class);
-        XmlAdaptedLoan expectedLoan = new XmlAdaptedLoan(VALID_NAME,
+        XmlAdaptedLoan expectedLoan = new XmlAdaptedLoan(VALID_LOANID,
+                VALID_NAME,
                 VALID_NRIC,
                 INVALID_PHONE,
                 VALID_EMAIL,
@@ -118,7 +123,8 @@ public class XmlUtilTest {
     public void xmlAdaptedLoanFromFile_fileWithValidLoan_validResult() throws Exception {
         XmlAdaptedLoan actualLoan = XmlUtil.getDataFromFile(
             VALID_LOAN_FILE, XmlAdaptedLoanWithRootElement.class);
-        XmlAdaptedLoan expectedLoan = new XmlAdaptedLoan(VALID_NAME,
+        XmlAdaptedLoan expectedLoan = new XmlAdaptedLoan(VALID_LOANID,
+                VALID_NAME,
                 VALID_NRIC,
                 VALID_PHONE,
                 VALID_EMAIL,

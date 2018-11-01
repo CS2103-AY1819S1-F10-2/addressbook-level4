@@ -16,6 +16,7 @@ import loanbook.logic.commands.exceptions.CommandException;
 import loanbook.model.Model;
 import loanbook.model.bike.Bike;
 import loanbook.model.loan.Loan;
+import loanbook.model.loan.LoanId;
 
 /**
  * Adds a loan to the loan book.
@@ -44,7 +45,7 @@ public class AddCommand extends Command {
             + PREFIX_TAG + "owesMoney";
 
     public static final String MESSAGE_SUCCESS = "New loan added: %1$s";
-    public static final String MESSAGE_DUPLICATE_LOAN = "This loan already exists in the loan book";
+    public static final String MESSAGE_LOANBOOK_FULL = "The loan book is full";
     public static final String MESSAGE_BIKE_NOT_FOUND = "No bike with that name exists within the loan book";
 
     private final Loan toAdd;
@@ -61,15 +62,27 @@ public class AddCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
 
-        if (model.hasLoan(toAdd)) {
-            throw new CommandException(MESSAGE_DUPLICATE_LOAN);
+        if (!model.hasNextAvailableId()) {
+            throw new CommandException(MESSAGE_LOANBOOK_FULL);
         }
 
         Optional<Bike> actualBike = model.getBike(toAdd.getBike().getName().value);
         if (!actualBike.isPresent()) {
             throw new CommandException(MESSAGE_BIKE_NOT_FOUND);
         }
-        Loan actualLoan = new Loan(toAdd, actualBike.get());
+
+        LoanId actualId = model.getNextAvailableId();
+        Loan actualLoan = new Loan(actualId,
+                toAdd.getName(),
+                toAdd.getNric(),
+                toAdd.getPhone(),
+                toAdd.getEmail(),
+                actualBike.get(),
+                toAdd.getLoanRate(),
+                toAdd.getLoanStartTime(),
+                toAdd.getLoanEndTime(),
+                toAdd.getLoanStatus(),
+                toAdd.getTags());
 
         model.addLoan(actualLoan);
         model.commitLoanBook();

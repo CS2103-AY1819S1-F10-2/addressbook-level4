@@ -68,6 +68,7 @@ public class ReturnCommand extends Command {
      */
     private static Loan createReturnedLoan(Loan loanToReturn) {
         return new Loan(
+                loanToReturn.getLoanId(),
                 loanToReturn.getName(),
                 loanToReturn.getNric(),
                 loanToReturn.getPhone(),

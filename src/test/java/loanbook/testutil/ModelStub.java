@@ -28,8 +28,7 @@ public class ModelStub implements Model {
 
     @Override
     public boolean hasBike(Bike bike) {
-        throw new AssertionError(
-            "This method should not be called.");
+        throw new AssertionError("This method should not be called.");
     }
 
     @Override
@@ -164,6 +163,11 @@ public class ModelStub implements Model {
 
     @Override
     public void setPass(Password pass) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public boolean hasEqualEditableFields(Model other) {
         throw new AssertionError("This method should not be called.");
     }
 }

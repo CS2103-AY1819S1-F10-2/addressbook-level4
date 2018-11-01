@@ -14,6 +14,7 @@ import loanbook.commons.exceptions.IllegalValueException;
 import loanbook.model.bike.Bike;
 import loanbook.model.loan.Email;
 import loanbook.model.loan.Loan;
+import loanbook.model.loan.LoanId;
 import loanbook.model.loan.LoanRate;
 import loanbook.model.loan.LoanStatus;
 import loanbook.model.loan.LoanTime;
@@ -29,6 +30,8 @@ public class XmlAdaptedLoan {
 
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Loan's %s field is missing!";
 
+    @XmlElement(required = true)
+    private XmlAdaptedLoanId id;
     @XmlElement(required = true)
     private String name;
     @XmlElement(required = true)
@@ -60,7 +63,8 @@ public class XmlAdaptedLoan {
     /**
      * Constructs an {@code XmlAdaptedLoan} with the given loan details.
      */
-    public XmlAdaptedLoan(String name,
+    public XmlAdaptedLoan(XmlAdaptedLoanId id,
+                          String name,
                           String nric,
                           String phone,
                           String email,
@@ -70,6 +74,7 @@ public class XmlAdaptedLoan {
                           String endTime,
                           String loanStatus,
                           List<XmlAdaptedTag> tagged) {
+        this.id = id;
         this.name = name;
         this.nric = nric;
         this.phone = phone;
@@ -82,7 +87,6 @@ public class XmlAdaptedLoan {
         if (tagged != null) {
             this.tagged = new ArrayList<>(tagged);
         }
-        this.loanStatus = loanStatus;
     }
 
     /**
@@ -97,7 +101,7 @@ public class XmlAdaptedLoan {
                           String rate,
                           String time,
                           List<XmlAdaptedTag> tagged) {
-        this(name, nric, phone, email, bike, rate, time, "ONGOING", tagged);
+        this(null, name, nric, phone, email, bike, rate, time, null, "ONGOING", tagged);
     }
 
     /**
@@ -113,7 +117,7 @@ public class XmlAdaptedLoan {
                           String startTime,
                           String endTime,
                           List<XmlAdaptedTag> tagged) {
-        this(name, nric, phone, email, bike, rate, startTime, endTime, "ONGOING", tagged);
+        this(null, name, nric, phone, email, bike, rate, startTime, endTime, "ONGOING", tagged);
     }
 
     /**
@@ -122,6 +126,7 @@ public class XmlAdaptedLoan {
      * @param source future changes to this will not affect the created XmlAdaptedLoan
      */
     public XmlAdaptedLoan(Loan source) {
+        id = new XmlAdaptedLoanId(source.getLoanId());
         name = source.getName().value;
         nric = source.getNric().nric;
         phone = source.getPhone().value;
@@ -143,6 +148,7 @@ public class XmlAdaptedLoan {
      * @param fieldClass The class which the data field should belong to.
      * @param isValid A predicate to check if {@code field} is valid.
      * @param msgConstraints A message to display to the user if {@code field} is not valid.
+     *
      * @throws IllegalValueException
      */
     private void checkFieldValid(
@@ -158,6 +164,19 @@ public class XmlAdaptedLoan {
             throw new IllegalValueException(msgConstraints);
         }
     }
+
+    /**
+     * Throws an {@link IllegalValueException} if {@code id} does not exist.
+     *
+     * @throws IllegalValueException
+     */
+    private void checkLoanIdValid() throws IllegalValueException {
+        if (id == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    XmlAdaptedLoanId.class.getSimpleName()));
+        }
+    }
+
     /**
      * Throws an {@code IllegalValueException} if {@code startTime} does not exist or is not valid.
      *
@@ -198,6 +217,9 @@ public class XmlAdaptedLoan {
             loanTags.add(tag.toModelType());
         }
 
+        checkLoanIdValid();
+        final LoanId modelId = id.toModelType();
+
         checkFieldValid(name, Name.class, Name::isValidName, Name.MESSAGE_NAME_CONSTRAINTS);
         final Name modelName = new Name(name);
 
@@ -227,7 +249,8 @@ public class XmlAdaptedLoan {
         final LoanTime modelEndTime = endTime == null ? null : new LoanTime(endTime);
 
         final Set<Tag> modelTags = new HashSet<>(loanTags);
-        return new Loan(modelName,
+        return new Loan(modelId,
+                modelName,
                 modelNric,
                 modelPhone,
                 modelEmail,
@@ -251,7 +274,8 @@ public class XmlAdaptedLoan {
         }
 
         XmlAdaptedLoan otherLoan = (XmlAdaptedLoan) other;
-        return Objects.equals(name, otherLoan.name)
+        return Objects.equals(id, otherLoan.id)
+                && Objects.equals(name, otherLoan.name)
                 && Objects.equals(nric, otherLoan.nric)
                 && Objects.equals(phone, otherLoan.phone)
                 && Objects.equals(email, otherLoan.email)

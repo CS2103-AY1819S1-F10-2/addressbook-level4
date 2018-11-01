@@ -101,7 +101,8 @@ public class LoanTest {
 
     @Test
     public void calculateCostReturnedLoan() {
-        Loan loan1 = new Loan(ALICE.getName(),
+        Loan loan1 = new Loan(ALICE.getLoanId(),
+                ALICE.getName(),
                 ALICE.getNric(),
                 ALICE.getPhone(),
                 ALICE.getEmail(),
@@ -114,7 +115,8 @@ public class LoanTest {
         // 10 minutes, at $6 an hour, = $1
         assertEquals(loan1.calculateCost(), 1.00, 0.005);
 
-        Loan loan2 = new Loan(ALICE.getName(),
+        Loan loan2 = new Loan(ALICE.getLoanId(),
+                ALICE.getName(),
                 ALICE.getNric(),
                 ALICE.getPhone(),
                 ALICE.getEmail(),
@@ -127,7 +129,8 @@ public class LoanTest {
         // 1 day = 24 hours, at $12.50 an hour, = $300
         assertEquals(loan2.calculateCost(), 300.00, 0.005);
 
-        Loan loan3 = new Loan(ALICE.getName(),
+        Loan loan3 = new Loan(ALICE.getLoanId(),
+                ALICE.getName(),
                 ALICE.getNric(),
                 ALICE.getPhone(),
                 ALICE.getEmail(),

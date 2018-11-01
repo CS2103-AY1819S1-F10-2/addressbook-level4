@@ -2,6 +2,7 @@ package loanbook.model;
 
 import static java.util.Objects.requireNonNull;
 import static loanbook.commons.util.CollectionUtil.requireAllNonNull;
+import static loanbook.commons.util.CollectionUtil.testByElement;
 
 import java.util.Collections;
 import java.util.List;
@@ -244,6 +245,25 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public String getPass() {
         return preference.getPass();
+    }
+
+    //=========== Utility ==================================================================================
+
+    @Override
+    public boolean hasEqualEditableFields(Model other) {
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof ModelManager)) {
+            return false;
+        }
+
+        // state check
+        ModelManager otherManager = (ModelManager) other;
+        return versionedLoanBook.hasEqualEditableFields(otherManager.versionedLoanBook)
+                && filteredBikes.equals(otherManager.filteredBikes)
+                && testByElement(filteredLoans, otherManager.filteredLoans, Loan::hasEqualEditableFields);
     }
 
     //=========== Email =================================================================================

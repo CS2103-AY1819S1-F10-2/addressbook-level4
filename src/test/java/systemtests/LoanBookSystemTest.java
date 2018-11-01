@@ -195,6 +195,16 @@ public abstract class LoanBookSystemTest {
         assertListMatching(getLoanListPanel(), expectedModel.getFilteredLoanList());
     }
 
+
+    protected void assertApplicationDisplaysExpectedCompareEditableFields(
+            String expectedCommandInput,
+            String expectedResultMessage,
+            Model expectedModel) {
+        assertEquals(expectedCommandInput, getCommandBox().getInput());
+        assertTrue(new LoanBook(expectedModel.getLoanBook()).hasEqualEditableFields(testApp.readStorageLoanBook()));
+        assertListMatching(getLoanListPanel(), expectedModel.getFilteredLoanList());
+    }
+
     /**
      * Calls {@code BrowserPanelHandle}, {@code LoanListPanelHandle} and {@code StatusBarFooterHandle} to remember
      * their current state.

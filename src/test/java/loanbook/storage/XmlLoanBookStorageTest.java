@@ -19,6 +19,7 @@ import org.junit.rules.TemporaryFolder;
 import loanbook.commons.exceptions.DataConversionException;
 import loanbook.model.LoanBook;
 import loanbook.model.ReadOnlyLoanBook;
+import loanbook.model.loan.LoanIdManager;
 
 public class XmlLoanBookStorageTest {
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "XmlLoanBookStorageTest");
@@ -87,12 +88,14 @@ public class XmlLoanBookStorageTest {
         //Modify data, overwrite exiting file, and read back
         original.addLoan(HOON);
         original.removeLoan(ALICE);
+        original.setLoanIdManager(new LoanIdManager(HOON.getLoanId())); // HOON has the largest Loan ID
         xmlLoanBookStorage.saveLoanBook(original, filePath);
         readBack = xmlLoanBookStorage.readLoanBook(filePath).get();
         assertEquals(original, new LoanBook(readBack));
 
         //Save and read without specifying file path
         original.addLoan(IDA);
+        original.setLoanIdManager(new LoanIdManager(IDA.getLoanId())); // IDA has a larger Loan ID than HOON
         xmlLoanBookStorage.saveLoanBook(original); //file path not specified
         readBack = xmlLoanBookStorage.readLoanBook().get(); //file path not specified
         assertEquals(original, new LoanBook(readBack));
