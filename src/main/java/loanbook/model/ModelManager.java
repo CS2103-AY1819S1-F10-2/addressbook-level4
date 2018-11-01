@@ -266,6 +266,18 @@ public class ModelManager extends ComponentManager implements Model {
                 && testByElement(filteredLoans, otherManager.filteredLoans, Loan::hasEqualEditableFields);
     }
 
+    //=========== Email =================================================================================
+
+    @Override
+    public void setMyEmail(String email) {
+        preference.setDefaultEmail(email);
+    }
+
+    @Override
+    public String getMyEmail() {
+        return preference.getDefaultEmail();
+    }
+
     @Override
     public boolean equals(Object obj) {
         // short circuit if same object
