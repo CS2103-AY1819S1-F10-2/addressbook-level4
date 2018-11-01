@@ -3,6 +3,7 @@ package loanbook.ui.testutil;
 import static org.junit.Assert.assertEquals;
 
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -10,6 +11,7 @@ import guitests.guihandles.LoanCardHandle;
 import guitests.guihandles.LoanListPanelHandle;
 import guitests.guihandles.ResultDisplayHandle;
 import loanbook.model.loan.Loan;
+import loanbook.model.tag.Tag;
 import loanbook.ui.LoanCard;
 
 /**
@@ -84,7 +86,9 @@ public class GuiTestAssert {
      * color.
      */
     private static void assertTagsEqual(Loan expectedLoan, LoanCardHandle actualCard) {
-        List<String> expectedTags = expectedLoan.getTags().stream()
+        HashSet<Tag> newTags = new HashSet<>(expectedLoan.getTags());
+        newTags.add(new Tag(expectedLoan.getLoanStatus().toString()));
+        List<String> expectedTags = newTags.stream()
                 .map(tag -> tag.value).collect(Collectors.toList());
         assertEquals(expectedTags, actualCard.getTags());
         expectedTags.forEach(tag -> assertEquals(

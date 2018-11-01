@@ -1,11 +1,14 @@
 package loanbook.ui;
 
+import java.util.HashSet;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import loanbook.model.loan.Loan;
+import loanbook.model.tag.Tag;
 
 /**
  * An UI component that displays information of a {@code Loan}.
@@ -89,7 +92,9 @@ public class LoanCard extends UiPart<Region> {
      * Creates the tag labels for {@code person}.
      */
     private void initTags(Loan loan) {
-        loan.getTags().forEach(tag -> {
+        HashSet<Tag> currentTags = new HashSet<>(loan.getTags());
+        currentTags.add(new Tag(loan.getLoanStatus().toString()));
+        currentTags.forEach(tag -> {
             Label tagLabel = new Label(tag.value);
             tagLabel.getStyleClass().add(getTagColorStyleFor(tag.value));
             tags.getChildren().add(tagLabel);
