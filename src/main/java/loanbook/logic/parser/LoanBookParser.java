@@ -8,6 +8,7 @@ import java.util.regex.Pattern;
 
 import loanbook.logic.commands.AddBikeCommand;
 import loanbook.logic.commands.AddCommand;
+import loanbook.logic.commands.CheckEmailCommand;
 import loanbook.logic.commands.ClearCommand;
 import loanbook.logic.commands.Command;
 import loanbook.logic.commands.DeleteCommand;
@@ -19,8 +20,10 @@ import loanbook.logic.commands.HistoryCommand;
 import loanbook.logic.commands.ListBikesCommand;
 import loanbook.logic.commands.ListCommand;
 import loanbook.logic.commands.RedoCommand;
+import loanbook.logic.commands.RemindCommand;
 import loanbook.logic.commands.ReturnCommand;
 import loanbook.logic.commands.SelectCommand;
+import loanbook.logic.commands.SetEmailCommand;
 import loanbook.logic.commands.SetPasswordCommand;
 import loanbook.logic.commands.UndoCommand;
 import loanbook.logic.parser.exceptions.ParseException;
@@ -79,6 +82,12 @@ public class LoanBookParser {
         case SetPasswordCommand.COMMAND_WORD:
             return new SetPasswordCommandParser().parse(arguments);
 
+        case RemindCommand.COMMAND_WORD:
+            return new RemindCommandParser().parse(arguments);
+
+        case SetEmailCommand.COMMAND_WORD:
+            return new SetEmailCommandParser().parse(arguments);
+
         case ListBikesCommand.COMMAND_WORD:
             return new ListBikesCommand();
 
@@ -99,6 +108,9 @@ public class LoanBookParser {
 
         case RedoCommand.COMMAND_WORD:
             return new RedoCommand();
+
+        case CheckEmailCommand.COMMAND_WORD:
+            return new CheckEmailCommand();
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
