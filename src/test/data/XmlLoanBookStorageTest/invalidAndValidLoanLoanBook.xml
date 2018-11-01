@@ -7,15 +7,11 @@
         <nric isPrivate ="false">T0331476B</nric>
         <phone isPrivate="false">9482424</phone>
         <email isPrivate="false">hans@example.com</email>
-<<<<<<< Updated upstream
-=======
-        <address isPrivate="false">4th street</address>
         <loanStatus>ONGOING</loanStatus>
         <bike isPrivate ="false">BIKE001</bike>
         <rate isPrivate ="false">30.6</rate>
         <startTime isPrivate ="false">2018-01-01 10:10</startTime>
         <endTime isPrivate ="false">2018-01-01 17:10</endTime>
->>>>>>> Stashed changes
     </loans>
     <!-- Loan with invalid phone field -->    
     <loans>
@@ -24,14 +20,13 @@
         <nric isPrivate ="false">T0331476B</nric>
         <phone isPrivate="false">948asdf2424</phone>
         <email isPrivate="false">hans@example.com</email>
-<<<<<<< Updated upstream
-=======
-        <address isPrivate="false">4th street</address>
         <loanStatus>ONGOING</loanStatus>
         <bike isPrivate ="false">BIKE001</bike>
         <rate isPrivate ="false">30.6</rate>
         <startTime isPrivate ="false">2018-01-01 10:10</startTime>
         <endTime isPrivate ="false">2018-01-01 17:10</endTime>
->>>>>>> Stashed changes
     </loans>
+    <loanIdManager>
+        <lastUsedLoanId>3452</lastUsedLoanId>
+    </loanIdManager>
 </loanbook>

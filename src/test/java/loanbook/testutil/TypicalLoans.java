@@ -119,7 +119,7 @@ public class TypicalLoans {
 
     // Manually added
     public static final Loan HOON = new LoanBuilder()
-            .withLoanId("700")
+            .withLoanId("10")
             .withName("Hoon Meier")
             .withNric("T0127601D")
             .withPhone("8482424")
@@ -131,7 +131,7 @@ public class TypicalLoans {
             .withLoanStatus("ONGOING")
             .build();
     public static final Loan IDA = new LoanBuilder()
-            .withLoanId("701")
+            .withLoanId("11")
             .withName("Ida Mueller")
             .withNric("S9739813E")
             .withPhone("8482131")

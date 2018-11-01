@@ -83,6 +83,42 @@ public class CollectionUtilTest {
         assertTrue(CollectionUtil.isAnyNonNull(new Object(), null));
     }
 
+    @Test
+    public void testByElement_success() {
+        List<String> list1 = List.of("Alice", "Bob", "Charlie", "David");
+        List<String> list2 = List.of("Alpha", "Bravo", "Charlie", "Delta");
+        BiPredicate<String, String> checkFirstLetter =
+                (str1, str2) -> str1.length() > 0
+                        && str2.length() > 0
+                        && str1.charAt(0) == str2.charAt(0);
+
+        assertTrue(testByElement(list1, list2, checkFirstLetter));
+
+        List<String> emptyList = List.of();
+        assertTrue(testByElement(emptyList, emptyList, checkFirstLetter)); // Vacuous truth
+    }
+
+    @Test
+    public void testByElement_predicateFails_returnFalse() {
+        List<String> list1 = List.of("Alpha", "Bravo", "Charlie", "Delta");
+        List<String> list2 = List.of("Alpha", "Beta", "Delta", "Gamma");
+
+        assertFalse(testByElement(list1, list2, String::equals));
+    }
+
+    @Test
+    public void testByElement_differentSize_returnFalse() {
+        List<String> list1 = List.of("Alice", "Bob", "Charlie", "David");
+        List<String> list2 = List.of("Alpha", "Bravo", "Charlie");
+        List<String> list3 = List.of("Alpha", "Bravo", "Charlie", "David", "Echo");
+        BiPredicate<String, String> checkFirstLetter =
+                (str1, str2) -> str1.length() > 0
+                        && str2.length() > 0
+                        && str1.charAt(0) == str2.charAt(0);
+
+        assertFalse(testByElement(list1, list2, checkFirstLetter));
+        assertFalse(testByElement(list1, list3, checkFirstLetter));
+    }
 
     /**
      * Asserts that {@code CollectionUtil#requireAllNonNull(Object...)} throw {@code NullPointerException}

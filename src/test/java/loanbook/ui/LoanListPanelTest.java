@@ -107,6 +107,13 @@ public class LoanListPanelTest extends GuiUnitTest {
             builder.append("<endTime>12:00</endTime>\n");
             builder.append("</loans>\n");
         }
+
+        builder.append("<loanIdManager>\n")
+                .append("<lastUsedLoanId>")
+                .append(loanCount - 1)
+                .append("</lastUsedLoanId>")
+                .append("</loanIdManager>");
+
         builder.append("</loanbook>\n");
 
         Path manyLoansFile = Paths.get(TEST_DATA_FOLDER + "/manyLoans.xml");

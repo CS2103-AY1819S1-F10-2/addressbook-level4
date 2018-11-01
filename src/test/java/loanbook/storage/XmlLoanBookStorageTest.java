@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+import loanbook.model.loan.LoanIdManager;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -87,12 +88,14 @@ public class XmlLoanBookStorageTest {
         //Modify data, overwrite exiting file, and read back
         original.addLoan(HOON);
         original.removeLoan(ALICE);
+        original.setLoanIdManager(new LoanIdManager(HOON.getLoanId())); // HOON has the largest Loan ID
         xmlLoanBookStorage.saveLoanBook(original, filePath);
         readBack = xmlLoanBookStorage.readLoanBook(filePath).get();
         assertEquals(original, new LoanBook(readBack));
 
         //Save and read without specifying file path
         original.addLoan(IDA);
+        original.setLoanIdManager(new LoanIdManager(IDA.getLoanId())); // IDA has a larger Loan ID than HOON
         xmlLoanBookStorage.saveLoanBook(original); //file path not specified
         readBack = xmlLoanBookStorage.readLoanBook().get(); //file path not specified
         assertEquals(original, new LoanBook(readBack));
