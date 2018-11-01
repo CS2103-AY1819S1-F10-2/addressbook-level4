@@ -20,10 +20,14 @@ public class SearchCommandParserTest {
         isValidDate("2018-01-01 2018-01-02");
     }
 
+    @Test
     public void parse_validSameDate_success() {
         isValidDate("2018-01-01 2018-01-01");
     }
 
+    /**
+     * Checks if the given input is a valid input for the search command.
+     */
     private void isValidDate(String input) {
 
         String[] parts = input.trim().split(" ");
@@ -31,8 +35,8 @@ public class SearchCommandParserTest {
         String startDate = parts[0];
         String endDate = parts[1];
 
-        LoanTime startLoanTime = LoanTime.StartOfDayLoanTime(startDate);
-        LoanTime endLoanTime = LoanTime.EndOfDayLoanTime(endDate);
+        LoanTime startLoanTime = LoanTime.startOfDayLoanTime(startDate);
+        LoanTime endLoanTime = LoanTime.endOfDayLoanTime(endDate);
 
         assertParseSuccess(parser, input, new SearchCommand(startLoanTime, endLoanTime));
     }

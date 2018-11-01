@@ -25,10 +25,10 @@ public class SearchCommandTest {
     private Model model = new ModelManager(getTypicalLoanBook(), new UserPrefs());
     private Model expectedModel = new ModelManager(getTypicalLoanBook(), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
-    private LoanTime firstStartDate = LoanTime.StartOfDayLoanTime("2000-01-01");
-    private LoanTime secondStartDate = LoanTime.StartOfDayLoanTime("2000-02-02");
-    private LoanTime firstEndDate = LoanTime.EndOfDayLoanTime("2000-03-03");
-    private LoanTime secondEndDate = LoanTime.EndOfDayLoanTime("2018-04-04");
+    private LoanTime firstStartDate = LoanTime.startOfDayLoanTime("2000-01-01");
+    private LoanTime secondStartDate = LoanTime.startOfDayLoanTime("2000-02-02");
+    private LoanTime firstEndDate = LoanTime.endOfDayLoanTime("2000-03-03");
+    private LoanTime secondEndDate = LoanTime.endOfDayLoanTime("2018-04-04");
 
     @Test
     public void equals() {
@@ -71,7 +71,7 @@ public class SearchCommandTest {
     }
 
     @Test
-    public void execute_LoanFound_success() {
+    public void execute_loanFound_success() {
         SearchCommand searchCommand = new SearchCommand(firstStartDate, secondEndDate);
         assertCommandSuccess(searchCommand, model, commandHistory,
                 SearchCommand.getSuccessMessage(firstStartDate, secondEndDate), model);

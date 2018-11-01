@@ -179,7 +179,7 @@ public class LoanTime extends DataField<Instant> {
      *
      * Precondition: {@code date} String is valid
      */
-    public static LoanTime StartOfDayLoanTime(String date) {
+    public static LoanTime startOfDayLoanTime(String date) {
         return new LoanTime(date + " 00:00");
     }
 
@@ -188,7 +188,7 @@ public class LoanTime extends DataField<Instant> {
      *
      * Precondition: {@code date} String is valid
      */
-    public static LoanTime EndOfDayLoanTime(String date) {
+    public static LoanTime endOfDayLoanTime(String date) {
         return new LoanTime(date + " 23:59");
     }
 

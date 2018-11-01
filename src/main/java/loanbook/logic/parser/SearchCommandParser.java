@@ -31,8 +31,8 @@ public class SearchCommandParser implements Parser<SearchCommand> {
             throw new ParseException(MESSAGE_INVALID_DATE_FORMAT);
         }
 
-        LoanTime startLoanTime = LoanTime.StartOfDayLoanTime(startDate);
-        LoanTime endLoanTime = LoanTime.EndOfDayLoanTime(endDate);
+        LoanTime startLoanTime = LoanTime.startOfDayLoanTime(startDate);
+        LoanTime endLoanTime = LoanTime.endOfDayLoanTime(endDate);
 
         if (LoanTime.loanTimeDifferenceMinutes(startLoanTime, endLoanTime) == -1) {
             throw new ParseException(MESSAGE_INVALID_DATE_RANGE);
