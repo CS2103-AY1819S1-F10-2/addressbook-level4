@@ -45,7 +45,6 @@ public class SearchCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
 
-        // TODO PERFORM FILTERING
         model.updateFilteredLoanList(loan -> loan.getLoanStartTime().isBetweenRange(startDate, endDate));
 
         List<Loan> filteredLoanList = model.getFilteredLoanList();
