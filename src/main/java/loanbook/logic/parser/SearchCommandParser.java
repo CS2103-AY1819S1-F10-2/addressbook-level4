@@ -34,7 +34,7 @@ public class SearchCommandParser implements Parser<SearchCommand> {
         LoanTime startLoanTime = LoanTime.startOfDayLoanTime(startDate);
         LoanTime endLoanTime = LoanTime.endOfDayLoanTime(endDate);
 
-        if (!LoanTime.isStartTimeBeforeEndTime(startLoanTime, endLoanTime)) {
+        if (endLoanTime.isBefore(startLoanTime)) {
             throw new ParseException(MESSAGE_INVALID_DATE_RANGE);
         }
 

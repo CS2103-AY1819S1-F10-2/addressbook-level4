@@ -168,10 +168,10 @@ public class LoanTime extends DataField<Instant> {
     }
 
     /**
-     * Checks if the startTime is before endTime.
+     * Checks if the current object is before {@code time}.
      */
-    public static boolean isStartTimeBeforeEndTime(LoanTime startTime, LoanTime endTime) {
-        return loanTimeDifferenceMinutes(startTime, endTime) != -1;
+    public boolean isBefore(LoanTime time) {
+        return value.isBefore(time.value) || value.equals(time.value);
     }
 
     /**
@@ -245,7 +245,7 @@ public class LoanTime extends DataField<Instant> {
      * Check if instance is between provided range.
      */
     public boolean isBetweenRange(LoanTime startLoanTime, LoanTime endLoanTime) {
-        return isStartTimeBeforeEndTime(startLoanTime, this) && isStartTimeBeforeEndTime(this, endLoanTime);
+        return startLoanTime.isBefore(this) && this.isBefore(endLoanTime);
     }
 
     /**
