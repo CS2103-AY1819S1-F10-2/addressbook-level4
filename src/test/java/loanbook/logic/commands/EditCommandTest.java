@@ -154,27 +154,6 @@ public class EditCommandTest {
         assertCommandFailure(editCommand, model, commandHistory, EditCommand.MESSAGE_BIKE_NOT_FOUND);
     }
 
-//    @Test
-//    public void execute_duplicateLoanUnfilteredList_failure() {
-//        Loan firstLoan = model.getFilteredLoanList().get(INDEX_FIRST_LOAN.getZeroBased());
-//        EditLoanDescriptor descriptor = new EditLoanDescriptorBuilder(firstLoan).build();
-//        EditCommand editCommand = new EditCommand(INDEX_SECOND_LOAN, descriptor);
-//
-//        assertCommandFailure(editCommand, model, commandHistory, EditCommand.MESSAGE_DUPLICATE_LOAN);
-//    }
-//
-//    @Test
-//    public void execute_duplicateLoanFilteredList_failure() {
-//        showLoanAtIndex(model, INDEX_FIRST_LOAN);
-//
-//        // edit loan in filtered list into a duplicate in loan book
-//        Loan loanInList = model.getLoanBook().getLoanList().get(INDEX_SECOND_LOAN.getZeroBased());
-//        EditCommand editCommand = new EditCommand(INDEX_FIRST_LOAN,
-//                new EditLoanDescriptorBuilder(loanInList).build());
-//
-//        assertCommandFailure(editCommand, model, commandHistory, EditCommand.MESSAGE_DUPLICATE_LOAN);
-//    }
-
     @Test
     public void execute_invalidLoanIndexUnfilteredList_failure() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredLoanList().size() + 1);

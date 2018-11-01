@@ -11,12 +11,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Optional;
 
-import loanbook.logic.commands.exceptions.CommandException;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import loanbook.logic.CommandHistory;
+import loanbook.logic.commands.exceptions.CommandException;
 import loanbook.model.LoanBook;
 import loanbook.model.Model;
 import loanbook.model.ModelManager;
