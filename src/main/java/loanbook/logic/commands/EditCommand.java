@@ -109,8 +109,8 @@ public class EditCommand extends Command {
         Email updatedEmail = editLoanDescriptor.getEmail().orElse(loanToEdit.getEmail());
         Bike updatedBike = editLoanDescriptor.getBike().orElse(loanToEdit.getBike());
         LoanRate updatedRate = editLoanDescriptor.getLoanRate().orElse(loanToEdit.getLoanRate());
-        LoanTime updatedStartTime = editLoanDescriptor.getLoanStartTime().orElse(loanToEdit.getLoanStartTime());
-        LoanTime updatedEndTime = editLoanDescriptor.getLoanEndTime().orElse(loanToEdit.getLoanEndTime());
+        LoanTime updatedStartTime = loanToEdit.getLoanStartTime();
+        LoanTime updatedEndTime = loanToEdit.getLoanEndTime();
         Set<Tag> updatedTags = editLoanDescriptor.getTags().orElse(loanToEdit.getTags());
         LoanStatus updatedLoanStatus = editLoanDescriptor.getLoanStatus().orElse(loanToEdit.getLoanStatus());
 
@@ -156,8 +156,6 @@ public class EditCommand extends Command {
         private Email email;
         private Bike bike;
         private LoanRate rate;
-        private LoanTime startTime;
-        private LoanTime endTime;
         private Set<Tag> tags;
         private LoanStatus loanStatus;
 
@@ -174,8 +172,6 @@ public class EditCommand extends Command {
             setEmail(toCopy.email);
             setBike(toCopy.bike);
             setLoanRate(toCopy.rate);
-            setLoanStartTime(toCopy.startTime);
-            setLoanEndTime(toCopy.endTime);
             setTags(toCopy.tags);
             setLoanStatus(toCopy.loanStatus);
         }
@@ -233,22 +229,6 @@ public class EditCommand extends Command {
 
         public Optional<LoanRate> getLoanRate() {
             return Optional.ofNullable(rate);
-        }
-
-        public void setLoanStartTime(LoanTime time) {
-            this.startTime = time;
-        }
-
-        public Optional<LoanTime> getLoanStartTime() {
-            return Optional.ofNullable(startTime);
-        }
-
-        public void setLoanEndTime(LoanTime time) {
-            this.endTime = time;
-        }
-
-        public Optional<LoanTime> getLoanEndTime() {
-            return Optional.ofNullable(endTime);
         }
 
         /**

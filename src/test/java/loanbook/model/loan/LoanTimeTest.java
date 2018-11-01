@@ -158,6 +158,9 @@ public class LoanTimeTest {
 
         LoanTime loanTime3 = new LoanTime("2001-01-02 12:05");
         assertEquals(1445, loanTime1.loanTimeDifferenceMinutes(loanTime3)); // Across Day
+
+        // Also check the second overloaded method
+        assertEquals(1445, LoanTime.loanTimeDifferenceMinutes(loanTime1, loanTime3));
     }
 
     @Test
@@ -166,6 +169,10 @@ public class LoanTimeTest {
         LoanTime loanTime2 = new LoanTime("2103-01-01 12:00");
         LoanTime loanTime3 = new LoanTime("2103-01-02 12:00");
         LoanTime loanTime4 = new LoanTime("2103-01-01 12:30");
+
+        assertEquals(loanTime1, loanTime1);
+
+        assertNotEquals(loanTime1, 2);
 
         assertEquals(loanTime1, loanTime2);
         assertNotEquals(loanTime1, loanTime3); // Different date

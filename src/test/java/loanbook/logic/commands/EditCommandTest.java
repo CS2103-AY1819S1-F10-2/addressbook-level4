@@ -39,7 +39,10 @@ public class EditCommandTest {
 
     @Test
     public void execute_allFieldsSpecifiedUnfilteredList_success() {
-        Loan editedLoan = new LoanBuilder().build();
+        // Note that for this case, editCommand is UNABLE to change the start and
+        // end time of another loan. Therefore, we need to ensure that the start and
+        // end times of editedLoan matches that of the loan to be edited.
+        Loan editedLoan = new LoanBuilder().withLoanStartTime("12:33").withLoanEndTime("23:54").build();
         EditLoanDescriptor descriptor = new EditLoanDescriptorBuilder(editedLoan).build();
         EditCommand editCommand = new EditCommand(INDEX_FIRST_LOAN, descriptor);
 
@@ -49,6 +52,8 @@ public class EditCommandTest {
         expectedModel.updateLoan(model.getFilteredLoanList().get(0), editedLoan);
         expectedModel.commitLoanBook();
 
+        // If this test fails, check to see if anything other than LoanStartTime and LoanEndTime
+        // is different. Because we are not supposed to edit the LoanTimes of already existing loans.
         assertCommandSuccess(editCommand, model, commandHistory, expectedMessage, expectedModel);
     }
 
