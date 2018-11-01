@@ -21,21 +21,24 @@ public class LoanTime extends DataField<Instant> {
                     + "HH should be in 24 hour format";
 
     /*
-     * 2 versions of the regex:
+     * 3 versions of the regex:
      * A long version where a date is specified
      * Format: YYYY-MM-DD HH:mm
      *
-     * A short version where only the time is specified
+     * A short time version where only the time is specified
      * Format HH:MM
+     *
+     * A short date version where only the date is specified
+     * Format YYYY-MM-DD
      */
     public static final String LONG_LOANTIME_VALIDATION_REGEX = "^\\d{4}-\\d{2}-\\d{2} +\\d{2}:\\d{2}";
-    public static final String SHORT_LOANTIME_VALIDATION_REGEX = "^\\d{2}:\\d{2}";
+    public static final String SHORT_TIME_LOANTIME_VALIDATION_REGEX = "^\\d{2}:\\d{2}";
 
     // Default patterns for Date and Time
     private static final String DEFAULT_DATE_PATTERN = "uuuu-MM-dd";
     private static final String DEFAULT_TIME_PATTERN = "HH:mm";
 
-    // Formatters for Date and Time
+    // Formatter for Date and Time
     private static final DateTimeFormatter DEFAULT_DATE_FORMATTER = DateTimeFormatter
             .ofPattern(DEFAULT_DATE_PATTERN)
             .withResolverStyle(ResolverStyle.STRICT);
@@ -103,13 +106,13 @@ public class LoanTime extends DataField<Instant> {
     }
 
     /**
-     * Checks if a given string is a valid short LoanTime.
+     * Checks if a given string is a valid short time LoanTime.
      *
      * @param test The string to test
      * @return true if the string is a valid short LoanTime
      */
     public static boolean isValidShortLoanTimeFormat(String test) {
-        return test.matches(SHORT_LOANTIME_VALIDATION_REGEX);
+        return test.matches(SHORT_TIME_LOANTIME_VALIDATION_REGEX);
     }
 
     /**
@@ -124,7 +127,6 @@ public class LoanTime extends DataField<Instant> {
         } catch (DateTimeParseException e) {
             return false;
         }
-
         return true;
     }
 
@@ -155,14 +157,21 @@ public class LoanTime extends DataField<Instant> {
     /**
      * Returns the difference in time given two LoanTime objects.
      * This will be returned as a long of number of minutes.
-     * Function returns 0 if the specified other LoanTime is before the current LoanTime.
+     * Function returns -1 if the specified other LoanTime is before the current LoanTime.
      *
      * @param currentTime LoanTime object to signify start of time interval.
      * @param otherTime   LoanTime object to signify end of time interval.
      */
     public static long loanTimeDifferenceMinutes(LoanTime currentTime, LoanTime otherTime) {
         long timeDifference = Duration.between(currentTime.value, otherTime.value).toMinutes();
-        return (timeDifference >= 0) ? timeDifference : 0;
+        return (timeDifference >= 0) ? timeDifference : -1;
+    }
+
+    /**
+     * Checks if the startTime is before endTime.
+     */
+    public static boolean isStartTimeBeforeEndTime(LoanTime startTime, LoanTime endTime) {
+        return loanTimeDifferenceMinutes(startTime, endTime) != -1;
     }
 
     /**
@@ -212,6 +221,13 @@ public class LoanTime extends DataField<Instant> {
 
         // Convert the ZonedDateTime into an Instant.
         return Instant.from(loanZonedDateTime);
+    }
+
+    /**
+     * Check if instance is between provided range.
+     */
+    public boolean isBetweenRange(LoanTime startLoanTime, LoanTime endLoanTime) {
+        return isStartTimeBeforeEndTime(startLoanTime, this) && isStartTimeBeforeEndTime(this, endLoanTime);
     }
 
     /**

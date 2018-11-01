@@ -10,7 +10,11 @@ import loanbook.logic.CommandHistory;
 import loanbook.logic.commands.exceptions.CommandException;
 import loanbook.model.Model;
 import loanbook.model.loan.Loan;
+import loanbook.model.loan.LoanTime;
 
+/**
+ * Finds and lists all loans in loan book whose loan start time is within the provided range..
+ */
 public class SearchCommand extends Command {
 
     public static final String COMMAND_WORD = "search";
@@ -22,16 +26,15 @@ public class SearchCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "Showing all loans that was created between: %s and %s.";
     public static final String MESSAGE_FAILURE = "There are no loans that was created between: %s and %s.";
-    public static final String MESSAGE_INVALID_DATES = "The end date cannot be before the start date.";
 
-    private final String startDate;
-    private final String endDate;
+    private final LoanTime startDate;
+    private final LoanTime endDate;
 
     /**
      * Creates an SearchCommand to check loans that was created between {@code startDate} and {@code endDate}.
      */
-    public SearchCommand(String startDate, String endDate) {
-        // TODO ALLOW FOR NULL STARTDATE AND ENDDATE
+    public SearchCommand(LoanTime startDate, LoanTime endDate) {
+        // TODO ALLOW FOR NULL STARTDATE AND ENDDATE.
         requireNonNull(startDate);
         requireNonNull(endDate);
         this.startDate = startDate;
@@ -40,15 +43,17 @@ public class SearchCommand extends Command {
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
-        if (false) { // TODO CHECK IF ENDDATE < STARTDATE
-            throw new CommandException(MESSAGE_INVALID_DATES);
-        }
         requireNonNull(model);
-        model.updateFilteredLoanList(showstuff -> true); // TODO PERFORM FILTERING
+
+        // TODO PERFORM FILTERING
+        model.updateFilteredLoanList(loan -> loan.getLoanStartTime().isBetweenRange(startDate, endDate));
+
         List<Loan> filteredLoanList = model.getFilteredLoanList();
+
         if (filteredLoanList.size() == 0) {
             throw new CommandException(getNoMatchMessage());
         }
+
         EventsCenter.getInstance().post(new LoanListShowEvent());
         return new CommandResult(getSuccessMessage());
     }
