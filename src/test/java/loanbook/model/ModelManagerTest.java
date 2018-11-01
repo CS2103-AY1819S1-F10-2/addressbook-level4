@@ -1,6 +1,7 @@
 package loanbook.model;
 
 import static loanbook.logic.commands.CommandTestUtil.VALID_NAME_BIKE1;
+import static loanbook.logic.commands.CommandTestUtil.VALID_USER_EMAIL1;
 import static loanbook.model.Model.PREDICATE_SHOW_ALL_BIKES;
 import static loanbook.model.Model.PREDICATE_SHOW_ALL_LOANS;
 import static loanbook.testutil.TypicalBikes.BIKE1;
@@ -97,6 +98,15 @@ public class ModelManagerTest {
         modelManager.setPass(newPass);
         String currPass = modelManager.getPass();
         assertTrue(Password.isSamePassword(currPass, newPass));
+    }
+
+    @Test
+    public void getAndSetMyEmail_returnsTrue() {
+        UserPrefs prefs = new UserPrefs();
+        prefs.setDefaultEmail(VALID_USER_EMAIL1);
+        modelManager.setMyEmail(VALID_USER_EMAIL1);
+        String userEmail = modelManager.getMyEmail();
+        assertTrue(prefs.getDefaultEmail().equals(userEmail));
     }
 
     @Test
