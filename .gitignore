@@ -4,6 +4,7 @@ build/
 .settings/
 .idea/
 lib/*
+!lib/*jar
 *.iml
 *.log
 *.log.*

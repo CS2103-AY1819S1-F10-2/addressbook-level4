@@ -99,20 +99,31 @@
     -fx-padding: 0 0 0 0;
 }
 
-.list-cell:filled:even {
-    -fx-background-color: #3c3e3f;
+.list-cell:filled:even #bikeCardPane {
+    -fx-background-color: #283644;
 }
 
-.list-cell:filled:odd {
-    -fx-background-color: #515658;
+.list-cell:filled:even #loanCardPane {
+    -fx-background-color: #423f2f;
 }
 
-.list-cell:filled:selected {
-    -fx-background-color: #424d5f;
+.list-cell:filled:odd #bikeCardPane {
+    -fx-background-color: #394654;
 }
 
-.list-cell:filled:selected #cardPane {
+.list-cell:filled:odd #loanCardPane {
+    -fx-background-color: #4e4a38;
+}
+
+.list-cell:filled:selected #bikeCardPane {
+    -fx-background-color: #42525f;
     -fx-border-color: #3e7b91;
+    -fx-border-width: 1;
+}
+
+.list-cell:filled:selected #loanCardPane {
+    -fx-background-color: #5f5d42;
+    -fx-border-color: #917b3e;
     -fx-border-width: 1;
 }
 

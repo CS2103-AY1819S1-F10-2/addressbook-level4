@@ -10,7 +10,7 @@ import loanbook.model.loan.Loan;
  */
 public class LoanCard extends ListCard<Loan> {
 
-    private static final String FXML = "LoanListCard.fxml";
+    private static final String FXML = "LoanCard.fxml";
     private static final String[] TAG_COLOR_STYLES =
         {"teal", "red", "yellow", "blue", "orange", "brown", "green", "pink", "black", "grey"};
 

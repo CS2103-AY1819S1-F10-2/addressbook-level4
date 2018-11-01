@@ -18,6 +18,7 @@ endif::[]
 By: `Team F10-2`      Since: `Sep 2018`      Licence: `MIT`
 
 == Setting up
+This section describes the necessary dependencies required to work on the application.
 
 === Prerequisites
 
@@ -103,6 +104,7 @@ Having both Travis and AppVeyor ensures your App works on both Unix-based platfo
 When you are ready to start coding, you may move on to <<Design-Architecture>> to get some sense of the overall design.
 
 == Design
+This section describes the implementation of the application.
 
 [[Design-Architecture]]
 === Architecture
@@ -145,9 +147,9 @@ image::LogicClassDiagram.png[width="800"]
 [discrete]
 ==== Events-Driven nature of the design
 
-The _Sequence Diagram_ below shows how the components interact for the scenario where the user issues the command `delete 1`.
+The _Sequence Diagram_ below shows how the components interact for the scenario where the user issues the command `delete i/1 x/a12345`.
 
-.Component interactions for `delete 1` command (part 1)
+.Component interactions for `delete i/1 x/a12345` command (part 1)
 image::SDforDeleteLoan.png[width="800"]
 
 [NOTE]
@@ -155,7 +157,7 @@ Note how the `Model` simply raises a `LoanBookChangedEvent` when the Loan Book d
 
 The diagram below shows how the `EventsCenter` reacts to that event, which eventually results in the updates being saved to the hard disk and the status bar of the UI being updated to reflect the 'Last Updated' time.
 
-.Component interactions for `delete 1` command (part 2)
+.Component interactions for `delete i/1 x/a12345` command (part 2)
 image::SDforDeleteLoanEventHandling.png[width="800"]
 
 [NOTE]
@@ -196,9 +198,9 @@ link:{repoURL}/src/main/java/loanbook/logic/Logic.java[`Logic.java`]
 .  The command execution can affect the `Model` (e.g. adding a loan) and/or raise events.
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 
-Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
+Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete i/1 x/a12345")` API call.
 
-.Interactions Inside the Logic Component for the `delete 1` Command
+.Interactions Inside the Logic Component for the `delete i/1 x/a12345` Command
 image::DeleteLoanSdForLogic.png[width="800"]
 
 [[Design-Model]]
@@ -360,9 +362,7 @@ Step 4. Password in `UserPref` is set to new password input.
 
 The following sequence diagram shows how the `setpass` operation works:
 
-image::setPasswordLogic.png[width="1000"]
-
-image::setPasswordModel.png[width="1000"]
+image::setPasswordLogic.png[width="800"]
 
 ==== Encrypt current password for security
 To ensure that others are unable to retrieve the app's password from the preference.json, we encrypt the password before storing. Decryption of password can only be done by the `Password` class.
@@ -729,7 +729,7 @@ From here, when the user decides to close the LoanBook, it will then loop throug
 
 == Documentation
 
-We use asciidoc for writing documentation.
+This section describes the way we document our project. We use asciidoc for writing documentation.
 
 [NOTE]
 We chose asciidoc over Markdown because asciidoc, although a bit more complex than Markdown, provides more flexibility in formatting.
@@ -834,6 +834,8 @@ The SE-EDU team does not provide support for modified template files.
 [[Testing]]
 == Testing
 
+We write extensive tests to prevent regression and allow other developers to build on our work without fear of breaking other parts. This section provides the necessary steps to run tests.
+
 === Running Tests
 
 There are three ways to run tests.
@@ -897,6 +899,8 @@ An alternative would be to use a regex to do string pattern matching on the adde
 
 == Dev Ops
 
+This sections provides a brief summary of the tools we use in the project, and how to integrate them into the project.
+
 === Build Automation
 
 See <<UsingGradle#, UsingGradle.adoc>> to learn how to use Gradle for build automation.
@@ -908,6 +912,10 @@ We use https://travis-ci.org/[Travis CI] and https://www.appveyor.com/[AppVeyor]
 === Coverage Reporting
 
 We use https://coveralls.io/[Coveralls] to track the code coverage of our projects. See <<UsingCoveralls#, UsingCoveralls.adoc>> for more details.
+
+=== Code Quality
+
+We use https://www.codacy.com/[Codacy] to track the code quality of our projects. See <<UsingCodacy#, UsingCodacy.adoc>> for more details.
 
 === Documentation Previews
 When a pull request has changes to asciidoc files, you can use https://www.netlify.com/[Netlify] to see a preview of how the HTML version of those asciidoc files will look like when the pull request is merged. See <<UsingNetlify#, UsingNetlify.adoc>> for more details.
@@ -1161,11 +1169,9 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 1.  User requests to list loans.
 2.  LoanBook shows a list of loans.
-3.  User requests to delete a loan in the list by specifying a list index.
-4.  LoanBook prompts user for a password.
-5.  User enters their password.
-6.  LoanBook deletes the loan.
-7.	LoanBook displays a prompt to the user indicating success.
+3.  User requests to delete a loan in the list by specifying a list index and the app's password.
+4.  LoanBook deletes the loan.
+5.	LoanBook displays a prompt to the user indicating success.
 +
 Use case ends.
 
@@ -1177,6 +1183,13 @@ Use case ends.
 Use case ends.
 
 * 3a. The given index is invalid.
++
+[none]
+** 3a1. LoanBook shows an error message.
++
+Use case resumes at step 2.
+
+* 4a. The given password is invalid.
 +
 [none]
 ** 3a1. LoanBook shows an error message.
@@ -1292,23 +1305,6 @@ Windows, Linux, Unix, OS-X
 A contact detail that is not meant to be shared with others
 
 [appendix]
-== Product Survey
-
-*Product Name*
-
-Author: ...
-
-Pros:
-
-* ...
-* ...
-
-Cons:
-
-* ...
-* ...
-
-[appendix]
 == Instructions for Manual Testing
 
 Given below are instructions to test the app manually.
@@ -1332,16 +1328,26 @@ These instructions only provide a starting point for testers to work on; testers
 
 _{ more test cases ... }_
 
+=== Adding a loan
+
+. Adding a loan while all loans are listed
+
+.. Prerequisites: List all loans using the `list` command. Multiple loans in the list.
+.. Test case: `PLACEHOLDER` +
+   Expected: PLACEHOLDER
+
 === Deleting a loan
 
 . Deleting a loan while all loans are listed
 
 .. Prerequisites: List all loans using the `list` command. Multiple loans in the list.
-.. Test case: `delete 1` +
+.. Test case: `delete i/1 x/a12345` +
    Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
-.. Test case: `delete 0` +
-   Expected: No loan is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
+.. Test case: `delete i/0 x/a12345` +
+   Expected: No loan is deleted due to invalid index supplied. Error details shown in the status message. Status bar remains the same.
+.. Test case: `delete i/1 x/wr0ngP4sS` +
+   Expected: No loan is deleted due to invalid password supplied. Error details shown in the status message. Status bar remains the same.
+.. Other incorrect delete commands to try: `delete`, `delete i/x x/a12345` (where x is larger than the list size) +
    Expected: Similar to previous.
 
 _{ more test cases ... }_
@@ -1410,7 +1416,6 @@ Expected: The displayed page should report the following:
 ** Returned loans: 3
 ** Total product loan time: 4 minutes
 ** Total revenue: $6.50
-
 
 === Saving data
 

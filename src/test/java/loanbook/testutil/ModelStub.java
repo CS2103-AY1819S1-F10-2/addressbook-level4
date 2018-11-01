@@ -73,6 +73,16 @@ public class ModelStub implements Model {
     }
 
     @Override
+    public void setMyEmail(String email) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public String getMyEmail() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
     public void addLoan(Loan loan) {
         throw new AssertionError("This method should not be called.");
     }
