@@ -3,8 +3,6 @@ package guitests.guihandles;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import com.google.common.collect.ImmutableMultiset;
-
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Region;
@@ -119,9 +117,6 @@ public class LoanCardHandle extends NodeHandle<Node> {
                 && getEmail().equals(loan.getEmail().getCensored())
                 && getBike().equals(loan.getBike().getName().value)
                 && getLoanRate().equals(loan.getLoanRate().toString())
-                && getLoanStartTime().equals(loan.getLoanStartTime().toString())
-                && ImmutableMultiset.copyOf(getTags()).equals(ImmutableMultiset.copyOf(loan.getTags().stream()
-                        .map(tag -> tag.value)
-                        .collect(Collectors.toList())));
+                && getLoanStartTime().equals(loan.getLoanStartTime().toString());
     }
 }

@@ -84,6 +84,7 @@ public class GuiTestAssert {
     /**
      * Asserts that the tags in {@code actualCard} matches all the tags in {@code expectedPerson} with the correct
      * color.
+     *
      */
     private static void assertTagsEqual(Loan expectedLoan, LoanCardHandle actualCard) {
         HashSet<Tag> newTags = new HashSet<>(expectedLoan.getTags());
