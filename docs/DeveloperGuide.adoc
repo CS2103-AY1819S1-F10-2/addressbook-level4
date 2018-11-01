@@ -1226,7 +1226,33 @@ Use case resumes at step 2.
 Use case resumes at step 2.
 
 [discrete]
-=== Use case: Add loan into loan book
+=== Use case: Add a bike into loan book
+
+*MSS*
+
+1.  User requests to add a bike with the specific parameters into the LoanBook.
+2.  LoanBook adds the bike.
+3.	LoanBook displays a prompt to the user indicating success.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The user input is not of the correct format.
++
+[none]
+** 1a1. LoanBook shows an error message giving the user an example command, as well as correct format of the command.
++
+* 1b. Any one of the inputs fails their respective validation checks.
++
+[none]
+** 1b1. LoanBook shows an error message telling the user how to rectify their command.
++
+Use case ends.
+
+[discrete]
+=== Use case: Add a loan into loan book
 
 *MSS*
 
