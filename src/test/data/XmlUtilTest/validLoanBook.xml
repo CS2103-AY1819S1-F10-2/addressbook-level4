@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <loanbook>
     <loans>
+        <id>3451</id>
         <name>Hans Muster</name>
         <nric isPrivate ="false">T0331476B</nric>
         <phone isPrivate="false">9482424</phone>
@@ -13,6 +14,7 @@
         <endTime isPrivate ="false">2018-01-01 17:10</endTime>
     </loans>
     <loans>
+        <id>3452</id>
         <name>Ruth Mueller</name>
         <nric isPrivate ="false">T0331476B</nric>
         <phone isPrivate="false">87249245</phone>
@@ -25,6 +27,7 @@
         <endTime isPrivate ="false">2018-01-01 17:10</endTime>
     </loans>
     <loans>
+        <id>3453</id>
         <name>Heinz Kurz</name>
         <nric isPrivate ="false">T0331476B</nric>
         <phone isPrivate="false">95352563</phone>
@@ -37,6 +40,7 @@
         <endTime isPrivate ="false">2018-01-01 17:10</endTime>
     </loans>
     <loans>
+        <id>3454</id>
         <name>Cornelia Meier</name>
         <nric isPrivate ="false">T0331476B</nric>
         <phone isPrivate="false">87652533</phone>
@@ -49,6 +53,7 @@
         <endTime isPrivate ="false">2018-01-01 17:10</endTime>
     </loans>
     <loans>
+        <id>3455</id>
         <name>Werner Meyer</name>
         <nric isPrivate ="false">T0331476B</nric>
         <phone isPrivate="false">9482224</phone>
@@ -61,6 +66,7 @@
         <endTime isPrivate ="false">2018-01-01 17:10</endTime>
     </loans>
     <loans>
+        <id>3456</id>
         <name>Lydia Kunz</name>
         <nric isPrivate ="false">T0331476B</nric>
         <phone isPrivate="false">9482427</phone>
@@ -73,6 +79,7 @@
         <endTime isPrivate ="false">2018-01-01 17:10</endTime>
     </loans>
     <loans>
+        <id>3457</id>
         <name>Anna Best</name>
         <nric isPrivate ="false">T0331476B</nric>
         <phone isPrivate="false">9482442</phone>
@@ -85,6 +92,7 @@
         <endTime isPrivate ="false">2018-01-01 17:10</endTime>
     </loans>
     <loans>
+        <id>3458</id>
         <name>Stefan Meier</name>
         <nric isPrivate ="false">T0331476B</nric>
         <phone isPrivate="false">8482424</phone>
@@ -97,6 +105,7 @@
         <endTime isPrivate ="false">2018-01-01 17:10</endTime>
     </loans>
     <loans>
+        <id>3459</id>
         <name>Martin Mueller</name>
         <nric isPrivate ="false">T0331476B</nric>
         <phone isPrivate="false">8482131</phone>

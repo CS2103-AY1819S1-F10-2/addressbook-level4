@@ -9,4 +9,6 @@
         <loanStatus>OFFGOING</loanStatus>
         <tagged>friends</tagged>
     </loans>
+    
+    <loanIdManager/>
 </loanbook>

@@ -25,6 +25,7 @@ public class TypicalLoanBook {
 
         int lastUsedId = lb.getLoanList().size() + LoanId.MINIMUM_ID - 1;
         LoanId lastUsedLoanId = LoanId.isValidLoanId(lastUsedId) ? LoanId.fromInt(lastUsedId) : null;
+
         lb.setLoanIdManager(new LoanIdManager(lastUsedLoanId));
 
         return lb;

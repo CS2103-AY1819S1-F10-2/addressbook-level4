@@ -15,6 +15,8 @@ public class LoanCard extends ListCard<Loan> {
         {"teal", "red", "yellow", "blue", "orange", "brown", "green", "pink", "black", "grey"};
 
     @FXML
+    private Label loanId;
+    @FXML
     private Label name;
     @FXML
     private Label nric;
@@ -35,6 +37,7 @@ public class LoanCard extends ListCard<Loan> {
 
     public LoanCard(Loan loan, int displayedIndex) {
         super(FXML, loan, displayedIndex);
+        loanId.setText(loan.getLoanId().toString());
         name.setText(loan.getName().value);
         nric.setText(loan.getNric().getCensored());
         phone.setText(loan.getPhone().getCensored());

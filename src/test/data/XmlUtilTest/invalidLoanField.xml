@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <!-- Loan with an invalid phone field -->
 <loan>
+    <id>3451</id>
     <name>Hans Muster</name>
     <nric>T0331476B</nric>
     <phone>9482asf424</phone>

@@ -1,6 +1,7 @@
 package loanbook.commons.util;
 
 import static loanbook.commons.util.CollectionUtil.requireAllNonNull;
+import static loanbook.commons.util.CollectionUtil.testByElement;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
@@ -9,6 +10,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
+import java.util.function.BiPredicate;
 import org.junit.Test;
 
 public class CollectionUtilTest {
@@ -80,6 +82,7 @@ public class CollectionUtilTest {
         assertTrue(CollectionUtil.isAnyNonNull(new Object()));
         assertTrue(CollectionUtil.isAnyNonNull(new Object(), null));
     }
+
 
     /**
      * Asserts that {@code CollectionUtil#requireAllNonNull(Object...)} throw {@code NullPointerException}

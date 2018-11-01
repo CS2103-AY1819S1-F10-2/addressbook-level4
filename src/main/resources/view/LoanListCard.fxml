@@ -25,11 +25,16 @@
       <HBox alignment="CENTER_LEFT" spacing="5">
             <TextFlow>
                <children>
-                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Loan ID: ">
+                 <Label fx:id="id" styleClass="cell_big_label">
+                   <minWidth>
+                     <Region fx:constant="USE_PREF_SIZE" />
+                   </minWidth>
+                 </Label>
+                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text=") Loan ID: ">
                      <font>
                         <Font size="14.0" />
                      </font></Text>
-              <Label fx:id="id" styleClass="cell_big_label">
+              <Label fx:id="loanId" styleClass="cell_big_label">
                 <minWidth>
                   <!-- Ensures that the label text is never truncated -->
                   <Region fx:constant="USE_PREF_SIZE" />

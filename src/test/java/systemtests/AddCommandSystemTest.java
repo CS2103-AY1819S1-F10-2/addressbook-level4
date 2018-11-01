@@ -38,6 +38,7 @@ import static loanbook.testutil.TypicalLoans.HOON;
 import static loanbook.testutil.TypicalLoans.IDA;
 import static loanbook.testutil.TypicalLoans.KEYWORD_MATCHING_MEIER;
 
+import loanbook.model.loan.LoanId;
 import org.junit.Test;
 
 import loanbook.commons.core.Messages;
@@ -83,7 +84,11 @@ public class AddCommandSystemTest extends LoanBookSystemTest {
 
         /* Case: redo adding Amy to the list -> Amy added again */
         command = RedoCommand.COMMAND_WORD;
-        model.addLoan(toAdd);
+        LoanId expectedLoanId = model.getNextAvailableId();
+        Loan toAddWithExpectedLoanId = new LoanBuilder(toAdd)
+                .withLoanId(expectedLoanId.toString())
+                .build();
+        model.addLoan(toAddWithExpectedLoanId);
         expectedResultMessage = RedoCommand.MESSAGE_SUCCESS;
         assertCommandSuccess(command, model, expectedResultMessage);
 
@@ -130,34 +135,6 @@ public class AddCommandSystemTest extends LoanBookSystemTest {
         assertCommandSuccess(CARL);
 
         /* ----------------------------------- Perform invalid add operations --------------------------------------- */
-
-        /* Case: add a duplicate loan -> rejected */
-        command = LoanUtil.getAddCommand(HOON);
-        assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_LOAN);
-
-        /* Case: add a duplicate loan except with different phone -> rejected */
-        toAdd = new LoanBuilder(HOON).withPhone(VALID_PHONE_BOB).build();
-        command = LoanUtil.getAddCommand(toAdd);
-        assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_LOAN);
-
-        /* Case: add a duplicate loan except with different email -> rejected */
-        toAdd = new LoanBuilder(HOON).withEmail(VALID_EMAIL_BOB).build();
-        command = LoanUtil.getAddCommand(toAdd);
-        assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_LOAN);
-
-        /* Case: add a duplicate loan except with different loanrate -> rejected */
-        toAdd = new LoanBuilder(HOON).withLoanRate(VALID_LOANRATE_BOB).build();
-        command = LoanUtil.getAddCommand(toAdd);
-        assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_LOAN);
-
-        /* Case: add a duplicate loan except with different loantime -> rejected */
-        toAdd = new LoanBuilder(HOON).withLoanStartTime(VALID_LOANSTARTTIME_BOB).build();
-        command = LoanUtil.getAddCommand(toAdd);
-        assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_LOAN);
-
-        /* Case: add a duplicate loan except with different tags -> rejected */
-        command = LoanUtil.getAddCommand(HOON) + " " + PREFIX_TAG.getPrefix() + "friends";
-        assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_LOAN);
 
         /* Case: missing name -> rejected */
         command = AddCommand.COMMAND_WORD + NRIC_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY
@@ -254,8 +231,15 @@ public class AddCommandSystemTest extends LoanBookSystemTest {
      */
     private void assertCommandSuccess(String command, Loan toAdd) {
         Model expectedModel = getModel();
-        expectedModel.addLoan(toAdd);
-        String expectedResultMessage = String.format(AddCommand.MESSAGE_SUCCESS, toAdd);
+
+        LoanId expectedLoanId = expectedModel.getNextAvailableId();
+        Loan expectedLoanToAdd = new LoanBuilder(toAdd)
+                .withLoanId(expectedLoanId.toString())
+                .withLoanStatus("ONGOING")
+                .build();
+
+        expectedModel.addLoan(expectedLoanToAdd);
+        String expectedResultMessage = String.format(AddCommand.MESSAGE_SUCCESS, expectedLoanToAdd);
 
         assertCommandSuccess(command, expectedModel, expectedResultMessage);
     }

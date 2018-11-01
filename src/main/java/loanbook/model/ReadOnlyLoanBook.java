@@ -24,8 +24,13 @@ public interface ReadOnlyLoanBook {
 
     /**
      * Returns a copy of the Loan ID Manager.
-     * // TODO: Change this to an unmodifiable view
      */
     LoanIdManager getLoanIdManager();
+
+    /**
+     * Checks if this ReadOnlyLoanBook is equal to the specified ReadOnlyLoanBook,
+     * but when comparing Loans, only the editable fields will be checked for equality.
+     */
+    boolean hasEqualEditableFields(ReadOnlyLoanBook other);
 
 }

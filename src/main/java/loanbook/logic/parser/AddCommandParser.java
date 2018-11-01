@@ -17,6 +17,7 @@ import loanbook.logic.parser.exceptions.ParseException;
 import loanbook.model.bike.Bike;
 import loanbook.model.loan.Email;
 import loanbook.model.loan.Loan;
+import loanbook.model.loan.LoanId;
 import loanbook.model.loan.LoanRate;
 import loanbook.model.loan.Name;
 import loanbook.model.loan.Nric;
@@ -27,6 +28,8 @@ import loanbook.model.tag.Tag;
  * Parses input arguments and creates a new AddCommand object
  */
 public class AddCommandParser implements Parser<AddCommand> {
+
+    public static final LoanId PLACEHOLDER_LOAN_ID = LoanId.fromInt(999999999);
 
     /**
      * Parses the given {@code String} of arguments in the context of the AddCommand
@@ -63,9 +66,9 @@ public class AddCommandParser implements Parser<AddCommand> {
         LoanRate rate = ParserUtil.parseLoanRate(argMultimap.getValue(PREFIX_LOANRATE).get());
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
-        Loan loan = new Loan(name, nric, phone, email, bike, rate, tagList);
+        Loan loanWithPlaceholderId = new Loan(PLACEHOLDER_LOAN_ID, name, nric, phone, email, bike, rate, tagList);
 
-        return new AddCommand(loan);
+        return new AddCommand(loanWithPlaceholderId);
     }
 
     /**

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <!-- Loan with missing name field -->
 <loan>
+    <id>3451</id>
     <nric>T0331476B</nric>
     <phone>9482424</phone>
     <email>hans@example</email>

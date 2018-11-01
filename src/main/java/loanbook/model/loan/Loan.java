@@ -22,8 +22,7 @@ public class Loan implements UniqueListItem<Loan> {
     private final Bike bike;
     private final Name name;
     private final Nric nric;
-    //TODO: add LoanId filed
-    //private final LoanId id;
+    private final LoanId id;
 
     // Data fields
     private final LoanRate rate;
@@ -38,7 +37,8 @@ public class Loan implements UniqueListItem<Loan> {
      * Default constructor.
      * Every field except endTime must be present and not null.
      */
-    public Loan(Name name,
+    public Loan(LoanId id,
+                Name name,
                 Nric nric,
                 Phone phone,
                 Email email,
@@ -48,8 +48,9 @@ public class Loan implements UniqueListItem<Loan> {
                 LoanTime endTime,
                 LoanStatus loanStatus,
                 Set<Tag> tags) {
-
-        requireAllNonNull(name, nric, phone, email, bike, rate, startTime, loanStatus, tags);
+        // Note that endTime can be null. This loans in progress do not have an endTime.
+        requireAllNonNull(id, name, nric, phone, email, bike, rate, startTime, tags);
+        this.id = id;
         this.name = name;
         this.nric = nric;
         this.phone = phone;
@@ -66,7 +67,8 @@ public class Loan implements UniqueListItem<Loan> {
      * Constructor for adding a loan on the spot.
      * Every field must be present and not null.
      */
-    public Loan(Name name,
+    public Loan(LoanId id,
+                Name name,
                 Nric nric,
                 Phone phone,
                 Email email,
@@ -75,7 +77,7 @@ public class Loan implements UniqueListItem<Loan> {
                 Set<Tag> tags) {
 
         // Initialise the loan to be ongoing.
-        this(name, nric, phone, email, bike, rate,
+        this(id, name, nric, phone, email, bike, rate,
                 new LoanTime(), null, LoanStatus.ONGOING, tags);
     }
 
@@ -84,7 +86,8 @@ public class Loan implements UniqueListItem<Loan> {
      * If you know the end time, then the loan would be returned.
      * Every field except endTime must be present and not null.
      */
-    public Loan(Name name,
+    public Loan(LoanId id,
+                Name name,
                 Nric nric,
                 Phone phone,
                 Email email,
@@ -93,8 +96,7 @@ public class Loan implements UniqueListItem<Loan> {
                 LoanTime startTime,
                 LoanTime endTime,
                 Set<Tag> tags) {
-
-        this(name, nric, phone, email, bike, rate,
+        this(id, name, nric, phone, email, bike, rate,
                 startTime, endTime, LoanStatus.RETURNED, tags);
     }
 
@@ -103,16 +105,21 @@ public class Loan implements UniqueListItem<Loan> {
      */
     public Loan(Loan other, Bike bike) {
 
-        this(other.name,
-            other.nric,
-            other.phone,
-            other.email,
-            bike,
-            other.rate,
-            other.startTime,
-            other.endTime,
-            other.loanStatus,
-            other.tags);
+        this(other.id,
+                other.name,
+                other.nric,
+                other.phone,
+                other.email,
+                bike,
+                other.rate,
+                other.startTime,
+                other.endTime,
+                other.loanStatus,
+                other.tags);
+    }
+
+    public LoanId getLoanId() {
+        return id;
     }
 
     public Name getName() {
@@ -185,11 +192,25 @@ public class Loan implements UniqueListItem<Loan> {
         }
 
         return other != null
+                && other.getLoanId().equals(getLoanId())
                 && other.getName().equals(getName())
                 && other.getNric().equals(getNric())
                 && other.getBike().equals(getBike())
                 && (other.getEmail().equals(getEmail()) || other.getPhone().equals(getPhone())
                 || other.getLoanRate().equals(getLoanRate()) || other.getLoanStartTime().equals(getLoanStartTime()));
+    }
+
+    public boolean hasEqualEditableFields(Loan other) {
+        if (other == this) {
+            return true;
+        }
+
+        return other.getName().equals(getName())
+                && other.getNric().equals(getNric())
+                && other.getPhone().equals(getPhone())
+                && other.getBike().equals(getBike())
+                && other.getLoanRate().equals(getLoanRate())
+                && other.getTags().equals(getTags());
     }
 
     /**
@@ -207,7 +228,8 @@ public class Loan implements UniqueListItem<Loan> {
         }
 
         Loan otherLoan = (Loan) other;
-        return otherLoan.getName().equals(getName())
+        return otherLoan.getLoanId().equals(getLoanId())
+                && otherLoan.getName().equals(getName())
                 && otherLoan.getNric().equals(getNric())
                 && otherLoan.getPhone().equals(getPhone())
                 && otherLoan.getEmail().equals(getEmail())
@@ -220,13 +242,16 @@ public class Loan implements UniqueListItem<Loan> {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, nric, phone, email, bike, rate, startTime, endTime, loanStatus, tags);
+        return Objects.hash(id, name, nric, phone, email, bike, rate, startTime, endTime, loanStatus, tags);
     }
 
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append(getName())
+        builder.append("Loan ID: ")
+                .append(getLoanId())
+                .append(" Name: ")
+                .append(getName())
                 .append(" Nric: ")
                 .append(getNric())
                 .append(" Phone: ")

@@ -9,6 +9,7 @@ import loanbook.logic.commands.EditCommand.EditLoanDescriptor;
 import loanbook.model.bike.Bike;
 import loanbook.model.loan.Email;
 import loanbook.model.loan.Loan;
+import loanbook.model.loan.LoanId;
 import loanbook.model.loan.LoanRate;
 import loanbook.model.loan.LoanTime;
 import loanbook.model.loan.Name;

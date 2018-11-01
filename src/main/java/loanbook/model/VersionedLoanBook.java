@@ -1,7 +1,9 @@
 package loanbook.model;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import loanbook.commons.util.CollectionUtil;
 
 /**
  * {@code LoanBook} that keeps track of its own history.
@@ -67,6 +69,17 @@ public class VersionedLoanBook extends LoanBook {
      */
     public boolean canRedo() {
         return currentStatePointer < loanBookStateList.size() - 1;
+    }
+
+    public boolean hasEqualEditableFields(VersionedLoanBook other) {
+        if (other == this) {
+            return true;
+        }
+
+        return super.hasEqualEditableFields(other)
+                && CollectionUtil.testByElement(loanBookStateList, other.loanBookStateList,
+                        ReadOnlyLoanBook::hasEqualEditableFields)
+                && currentStatePointer == other.currentStatePointer;
     }
 
     @Override

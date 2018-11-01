@@ -9,5 +9,6 @@
     <bikes>
         <name>BAcKStREET</name>
     </bikes>
-
+    
+    <loanIdManager/>
 </loanbook>

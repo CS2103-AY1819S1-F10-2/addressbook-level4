@@ -72,15 +72,6 @@ public class XmlSerializableLoanBookTest {
     }
 
     @Test
-    public void toModelType_duplicateLoans_throwsIllegalValueException() throws Exception {
-        XmlSerializableLoanBook dataFromFile = XmlUtil.getDataFromFile(DUPLICATE_LOAN_FILE,
-            XmlSerializableLoanBook.class);
-        thrown.expect(IllegalValueException.class);
-        thrown.expectMessage(XmlSerializableLoanBook.MESSAGE_DUPLICATE_LOAN);
-        dataFromFile.toModelType();
-    }
-
-    @Test
     public void toModelType_invalidLoanIdManager_throwsIllegalValueException() throws Exception {
         XmlSerializableLoanBook dataFromFile = XmlUtil.getDataFromFile(INVALID_LOAN_ID_MANAGER_FILE,
                 XmlSerializableLoanBook.class);

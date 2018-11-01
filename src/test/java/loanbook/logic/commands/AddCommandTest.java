@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Optional;
 
+import loanbook.model.loan.LoanId;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -41,7 +42,9 @@ public class AddCommandTest {
     @Test
     public void execute_loanAcceptedByModel_addSuccessful() throws Exception {
         ModelStubAcceptingLoanAdded modelStub = new ModelStubAcceptingLoanAdded();
-        Loan validLoan = new LoanBuilder().build();
+        Loan validLoan = new LoanBuilder()
+                .withLoanId(ModelStubAcceptingLoanAdded.FIXED_LOAN_ID.toString())
+                .build();
 
         CommandResult commandResult = new AddCommand(validLoan).execute(modelStub, commandHistory);
 
@@ -50,16 +53,7 @@ public class AddCommandTest {
         assertEquals(EMPTY_COMMAND_HISTORY, commandHistory);
     }
 
-    @Test
-    public void execute_duplicateLoan_throwsCommandException() throws Exception {
-        Loan validLoan = new LoanBuilder().build();
-        AddCommand addCommand = new AddCommand(validLoan);
-        ModelStub modelStub = new ModelStubWithLoan(validLoan);
 
-        thrown.expect(CommandException.class);
-        thrown.expectMessage(AddCommand.MESSAGE_DUPLICATE_LOAN);
-        addCommand.execute(modelStub, commandHistory);
-    }
 
     @Test
     public void equals() {
@@ -106,7 +100,8 @@ public class AddCommandTest {
     /**
      * A Model stub that always accept the loan being added.
      */
-    private class ModelStubAcceptingLoanAdded extends ModelStub {
+    private static class ModelStubAcceptingLoanAdded extends ModelStub {
+        private static final LoanId FIXED_LOAN_ID = LoanId.fromInt(0);
         final ArrayList<Loan> loansAdded = new ArrayList<>();
 
         @Override
@@ -125,6 +120,16 @@ public class AddCommandTest {
         public void addLoan(Loan loan) {
             requireNonNull(loan);
             loansAdded.add(loan);
+        }
+
+        @Override
+        public boolean hasNextAvailableId() {
+            return true;
+        }
+
+        @Override
+        public LoanId getNextAvailableId() {
+            return FIXED_LOAN_ID;
         }
 
         @Override
