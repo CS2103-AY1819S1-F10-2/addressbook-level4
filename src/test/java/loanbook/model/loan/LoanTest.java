@@ -10,6 +10,7 @@ import static loanbook.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 import static loanbook.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static loanbook.testutil.TypicalLoans.ALICE;
 import static loanbook.testutil.TypicalLoans.BOB;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
@@ -96,6 +97,48 @@ public class LoanTest {
                 .withLoanEndTime(VALID_LOANSTARTTIME_BOB)
                 .withTags(VALID_TAG_HUSBAND).build();
         assertTrue(ALICE.isSame(editedAlice));
+    }
+
+    @Test
+    public void calculateCostReturnedLoan() {
+        Loan loan1 = new Loan(ALICE.getName(),
+                ALICE.getNric(),
+                ALICE.getPhone(),
+                ALICE.getEmail(),
+                ALICE.getBike(),
+                new LoanRate("6.00"),
+                new LoanTime("2001-02-03 19:06"),
+                new LoanTime("2001-02-03 19:16"),
+                ALICE.getTags());
+
+        // 10 minutes, at $6 an hour, = $1
+        assertEquals(loan1.calculateCost(), 1.00, 0.005);
+
+        Loan loan2 = new Loan(ALICE.getName(),
+                ALICE.getNric(),
+                ALICE.getPhone(),
+                ALICE.getEmail(),
+                ALICE.getBike(),
+                new LoanRate("12.50"),
+                new LoanTime("2001-02-03 19:06"),
+                new LoanTime("2001-02-04 19:06"),
+                ALICE.getTags());
+
+        // 1 day = 24 hours, at $12.50 an hour, = $300
+        assertEquals(loan2.calculateCost(), 300.00, 0.005);
+
+        Loan loan3 = new Loan(ALICE.getName(),
+                ALICE.getNric(),
+                ALICE.getPhone(),
+                ALICE.getEmail(),
+                ALICE.getBike(),
+                new LoanRate("24.29"),
+                new LoanTime("2001-02-04 19:06"),
+                new LoanTime("2001-02-04 21:32"),
+                ALICE.getTags());
+
+        // 2 hours 26 minutes, at $24.29 an hour, = $59.10
+        assertEquals(loan3.calculateCost(), 59.105, 0.005);
     }
 
     @Test

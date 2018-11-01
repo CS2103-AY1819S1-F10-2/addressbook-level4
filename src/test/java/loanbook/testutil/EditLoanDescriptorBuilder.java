@@ -10,7 +10,6 @@ import loanbook.model.bike.Bike;
 import loanbook.model.loan.Email;
 import loanbook.model.loan.Loan;
 import loanbook.model.loan.LoanRate;
-import loanbook.model.loan.LoanTime;
 import loanbook.model.loan.Name;
 import loanbook.model.loan.Nric;
 import loanbook.model.loan.Phone;
@@ -42,8 +41,6 @@ public class EditLoanDescriptorBuilder {
         descriptor.setEmail(loan.getEmail());
         descriptor.setBike(loan.getBike());
         descriptor.setLoanRate(loan.getLoanRate());
-        descriptor.setLoanStartTime(loan.getLoanStartTime());
-        descriptor.setLoanEndTime(loan.getLoanEndTime());
         descriptor.setLoanStatus(loan.getLoanStatus());
         descriptor.setTags(loan.getTags());
     }
@@ -93,22 +90,6 @@ public class EditLoanDescriptorBuilder {
      */
     public EditLoanDescriptorBuilder withLoanRate(String rate) {
         descriptor.setLoanRate(new LoanRate(rate));
-        return this;
-    }
-
-    /**
-     * Sets the {@code LoanStartTime} of the {@code EditLoanDescriptor} that we are building.
-     */
-    public EditLoanDescriptorBuilder withLoanStartTime(String time) {
-        descriptor.setLoanStartTime(new LoanTime(time));
-        return this;
-    }
-
-    /**
-     * Sets the {@code LoanEndTime} of the {@code EditLoanDescriptor} that we are building.
-     */
-    public EditLoanDescriptorBuilder withLoanEndTime(String time) {
-        descriptor.setLoanEndTime(new LoanTime(time));
         return this;
     }
 
