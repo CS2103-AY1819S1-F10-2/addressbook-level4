@@ -45,7 +45,6 @@ public class TypicalLoans {
             .withBike(VALID_NAME_BIKE1)
             .withLoanRate("0.15")
             .withLoanStartTime("2017-10-12 06:08")
-            .withLoanEndTime("2017-10-12 23:54")
             .withTags("owesMoney", "friends").build();
     public static final Loan CARL = new LoanBuilder().withName("Carl Kurz")
             .withNric("T0238282I")
@@ -54,7 +53,6 @@ public class TypicalLoans {
             .withBike(VALID_NAME_BIKE1)
             .withLoanRate("23.9")
             .withLoanStartTime("14:20")
-            .withLoanEndTime("23:54")
             .build();
     public static final Loan DANIEL = new LoanBuilder().withName("Daniel Meier")
             .withNric("S9335895C")

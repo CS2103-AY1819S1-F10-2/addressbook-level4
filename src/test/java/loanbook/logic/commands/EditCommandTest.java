@@ -55,6 +55,8 @@ public class EditCommandTest {
         expectedModel.updateLoan(model.getFilteredLoanList().get(0), editedLoan);
         expectedModel.commitLoanBook();
 
+        // If this test fails, check to see if anything other than LoanStartTime and LoanEndTime
+        // is different. Because we are not supposed to edit the LoanTimes of already existing loans.
         assertCommandSuccess(editCommand, model, commandHistory, expectedMessage, expectedModel);
     }
 
