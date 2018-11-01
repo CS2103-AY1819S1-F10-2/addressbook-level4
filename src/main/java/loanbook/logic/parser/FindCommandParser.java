@@ -9,7 +9,7 @@ import loanbook.logic.parser.exceptions.ParseException;
 import loanbook.model.loan.NameContainsKeywordsPredicate;
 
 /**
- * Parses input arguments and creates a new FindCommand object
+ * Parses input arguments and creates a new FindCommand object.
  */
 public class FindCommandParser implements Parser<FindCommand> {
 

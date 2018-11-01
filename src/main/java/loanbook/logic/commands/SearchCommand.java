@@ -13,7 +13,7 @@ import loanbook.model.loan.Loan;
 import loanbook.model.loan.LoanTime;
 
 /**
- * Finds and lists all loans in loan book whose loan start time is within the provided range..
+ * Finds and lists all loans in loan book whose loan start time is within the provided range.
  */
 public class SearchCommand extends Command {
 

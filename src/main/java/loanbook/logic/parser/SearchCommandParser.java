@@ -8,6 +8,9 @@ import loanbook.logic.commands.SearchCommand;
 import loanbook.logic.parser.exceptions.ParseException;
 import loanbook.model.loan.LoanTime;
 
+/**
+ * Parses input arguments and creates a new SearchCommand object.
+ */
 public class SearchCommandParser implements Parser<SearchCommand> {
 
     /**

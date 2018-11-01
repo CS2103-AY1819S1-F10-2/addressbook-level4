@@ -12,7 +12,7 @@ import java.time.format.ResolverStyle;
 
 /**
  * Represents a timeStamp in the loan book.
- * Guarantees: immutable;
+ * Guarantees: immutable.
  */
 public class LoanTime extends DataField<Instant> {
 
