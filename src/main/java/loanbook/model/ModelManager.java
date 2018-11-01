@@ -246,6 +246,18 @@ public class ModelManager extends ComponentManager implements Model {
         return preference.getPass();
     }
 
+    //=========== Email =================================================================================
+
+    @Override
+    public void setMyEmail(String email) {
+        preference.setDefaultEmail(email);
+    }
+
+    @Override
+    public String getMyEmail() {
+        return preference.getDefaultEmail();
+    }
+
     @Override
     public boolean equals(Object obj) {
         // short circuit if same object

@@ -18,6 +18,10 @@ public class BikeListPanelHandle extends ListPanelHandle<Bike, BikeCardHandle> {
         return Bike.class.getSimpleName();
     }
 
+    protected String getCardPaneCssId() {
+        return "#bikeCardPane";
+    }
+
     protected BikeCardHandle getNewCardHandle(Node cardNode) {
         return new BikeCardHandle(cardNode);
     }

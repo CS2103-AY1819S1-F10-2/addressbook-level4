@@ -18,6 +18,10 @@ public class LoanListPanelHandle extends ListPanelHandle<Loan, LoanCardHandle> {
         return Loan.class.getSimpleName();
     }
 
+    protected String getCardPaneCssId() {
+        return "#loanCardPane";
+    }
+
     protected LoanCardHandle getNewCardHandle(Node cardNode) {
         return new LoanCardHandle(cardNode);
     }
