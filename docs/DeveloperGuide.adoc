@@ -372,6 +372,44 @@ image::UndoRedoActivityDiagram.png[width="650"]
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
 
+=== Unique Loan ID
+To keep individual loan transactions identifiable, we have a Loan ID for every loan. This will be automatically assigned when the user creates a Loan using the `add` command, and will be unique among all Loans in the Loanbook.
+
+==== Current Implementation
+In the current implementation, the Loan IDs are represented using integers. The added loans will be assigned IDs in increasing order starting from 0 (i.e. the first loan will be assigned ID 0, the second loan will be assigned ID 1, the third loan, ID 2, and so on).
+
+[NOTE]
+Since this value will be a represented by a Java `int`, the maximum possible ID has been set to be 999,999,999 to prevent any integer overflow. The user will not be allowed to add a Loan using the `add` command after that maximum ID has been assigned.
+
+The running ID mechanism is facilitated by the `LoanIdManager` class, which is a component within the `LoanBook` class. After initialization using the last used Loan ID value, it stores a running integer value which increments whenever the next Loan ID is generated using `getNextAvailableLoanId()`.
+
+Since the `LoanIdManager` is a component within the `LoanBook` class, this makes it possible to capture the internal state of the `LoanIdManager` at any point for future use. It allows for simple integration with the existing undo/redo mechanism, and can be stored within the same XML file that contains all other Loanbook details.
+
+The following steps are taken when the user adds a new Loan using the `add` command:
+
+**Step 1**: After typing an `add` command, the `AddCommandParser` will parse the user input and construct a new `Loan` instance with a placeholder Loan ID, which is then used to construct a new `AddCommand` instance.
+
+**Step 2**: When `AddCommand` gets executed, the next available Loan ID will be generated via the `Model` interface. This will increment the internal running ID within the `LoanIdManager` of the `VersionedLoanBook`.
+
+**Step 3**: A new `Loan` instance will be generated using the generated Loan ID value. This new `Loan` instance gets inserted into the `VersionedLoanBook` and gets committed.
+
+The following sequence diagram shows how the updated `add` command works:
+
+==== Design Considerations
+===== Aspect: Using an Integer for the Loan ID
+* **Alternative 1**: Use a `String` to represent the Loan ID
+** Pros:
+*** More Loan ID values can be created given the same number of characters.
+*** There would be no technical limit to the number of Loan IDs possible. If all Loan IDs of a certain length get exhausted, the next generated Loan ID can be one character longer.
+** Cons:
+*** Generating the next available Loan ID may be more complicated for a string as compared to an integer (though not by a significant amount).
+
+* **Alternative 2**: Have a static integer variable in the `Loan` or the `VersionedLoanBook` class
+** Pros:
+*** The process of incrementing the running value is simpler and has lesser steps than with a `LoanIdManager` class.
+** Cons:
+*** It is more complicated to capture the state of the running value. The undo/redo mechanism will not work with a static variable.
+
 // tag::adminauthentication[]
 === Admin Authentication
 Before critical actions such as deleting a loan can be performed, admin authentication
