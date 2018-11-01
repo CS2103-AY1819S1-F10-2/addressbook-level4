@@ -171,7 +171,7 @@ public class LoanTime extends DataField<Instant> {
      * Checks if the current object is before {@code time}.
      */
     public boolean isBefore(LoanTime time) {
-        return value.isBefore(time.value) || value.equals(time.value);
+        return value.isBefore(time.value);
     }
 
     /**
