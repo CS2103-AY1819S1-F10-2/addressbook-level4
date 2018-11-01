@@ -13,11 +13,13 @@ public class UserPrefs {
 
     private GuiSettings guiSettings;
     private String password;
+    private String defaultEmail;
     private Path loanBookFilePath = Paths.get("data" , "loanbook.xml");
 
     public UserPrefs() {
         setGuiSettings(500, 500, 0, 0);
         password = (new Password("a12345")).hashedPassword(); // Default password is set to a12345
+        defaultEmail = "default";
     }
 
     public GuiSettings getGuiSettings() {
@@ -48,6 +50,14 @@ public class UserPrefs {
         return password;
     }
 
+    public void setDefaultEmail(String email) {
+        this.defaultEmail = email;
+    }
+
+    public String getDefaultEmail() {
+        return defaultEmail;
+    }
+
     @Override
     public boolean equals(Object other) {
         if (other == this) {
@@ -61,6 +71,7 @@ public class UserPrefs {
 
         return Objects.equals(guiSettings, o.guiSettings)
                 && Objects.equals(password, o.password)
+                && Objects.equals(defaultEmail, o.defaultEmail)
                 && Objects.equals(loanBookFilePath, o.loanBookFilePath);
     }
 
@@ -74,6 +85,7 @@ public class UserPrefs {
         StringBuilder sb = new StringBuilder();
         sb.append("Gui Settings : " + guiSettings.toString());
         sb.append("Password : " + password);
+        sb.append("My email address : " + defaultEmail);
         sb.append("\nLocal data file location : " + loanBookFilePath);
         return sb.toString();
     }

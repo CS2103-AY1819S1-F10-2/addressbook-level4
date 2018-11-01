@@ -5,6 +5,7 @@ import static loanbook.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static loanbook.logic.parser.CliSyntax.PREFIX_LOANRATE;
 import static loanbook.logic.parser.CliSyntax.PREFIX_NAME;
 import static loanbook.logic.parser.CliSyntax.PREFIX_NRIC;
+import static loanbook.logic.parser.CliSyntax.PREFIX_PASSWORD;
 import static loanbook.logic.parser.CliSyntax.PREFIX_PHONE;
 import static loanbook.logic.parser.CliSyntax.PREFIX_TAG;
 import static org.junit.Assert.assertEquals;
@@ -50,6 +51,14 @@ public class CommandTestUtil {
     public static final String VALID_NAME_BIKE3 = "Silver Surfer";
     public static final String VALID_NAME_BIKE4 = "Blue Ocean";
 
+    public static final String DEFAULT_USER_EMAIL = "default";
+    public static final String VALID_USER_EMAIL1 = "abcdefg@gmail.com";
+    public static final String VALID_USER_EMAIL2 = "cs2103@gmail.com";
+    public static final String VALID_USER_EMAIL3 = "cs2103f10-2@gmail.com";
+    public static final String VALID_USER_EMAIL4 = "loanbookteam@gmail.com";
+    public static final String PASSWORD1 = "cs2103f10-2";
+    public static final String PASSWORD2 = "loanbookpassword";
+
     public static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_AMY;
     public static final String NAME_DESC_BOB = " " + PREFIX_NAME + VALID_NAME_BOB;
     public static final String NRIC_DESC_AMY = " " + PREFIX_NRIC + VALID_NRIC_AMY;
@@ -69,6 +78,14 @@ public class CommandTestUtil {
     public static final String NAME_DESC_BIKE2 = " " + PREFIX_NAME + VALID_NAME_BIKE2;
     public static final String NAME_DESC_BIKE3 = " " + PREFIX_NAME + VALID_NAME_BIKE3;
     public static final String NAME_DESC_BIKE4 = " " + PREFIX_NAME + VALID_NAME_BIKE4;
+
+    public static final String DEFAULT_EMAIL_DESC = " " + DEFAULT_USER_EMAIL;
+    public static final String USER_EMAIL1_DESC = " " + VALID_USER_EMAIL1;
+    public static final String USER_EMAIL2_DESC = " " + VALID_USER_EMAIL2;
+    public static final String USER_EMAIL3_DESC = " " + VALID_USER_EMAIL3;
+    public static final String USER_EMAIL4_DESC = " " + VALID_USER_EMAIL4;
+    public static final String PASSWORD1_DESC = " " + PREFIX_PASSWORD + PASSWORD1;
+    public static final String PASSWORD2_DESC = " " + PREFIX_PASSWORD + PASSWORD2;
 
     public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in names
     public static final String INVALID_NRIC_DESC = " " + PREFIX_NRIC + "S*055310A"; // wrong format
