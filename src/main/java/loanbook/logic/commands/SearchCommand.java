@@ -51,11 +51,11 @@ public class SearchCommand extends Command {
         List<Loan> filteredLoanList = model.getFilteredLoanList();
 
         if (filteredLoanList.size() == 0) {
-            throw new CommandException(getNoMatchMessage());
+            throw new CommandException(getNoMatchMessage(startDate, endDate));
         }
 
         EventsCenter.getInstance().post(new LoanListShowEvent());
-        return new CommandResult(getSuccessMessage());
+        return new CommandResult(getSuccessMessage(startDate, endDate));
     }
 
     @Override
@@ -66,11 +66,25 @@ public class SearchCommand extends Command {
                 && endDate.equals(((SearchCommand) other).endDate));
     }
 
-    private String getSuccessMessage() {
+    /**
+     * Return a success message when search completes with results.
+     *
+     * @param startDate
+     * @param endDate
+     * @return success message
+     */
+    public static String getSuccessMessage(LoanTime startDate, LoanTime endDate) {
         return String.format(MESSAGE_SUCCESS, startDate, endDate);
     }
 
-    private String getNoMatchMessage() {
+    /**
+     * Return an error message when search completes with results.
+     *
+     * @param startDate
+     * @param endDate
+     * @return error message
+     */
+    public static String getNoMatchMessage(LoanTime startDate, LoanTime endDate) {
         return String.format(MESSAGE_FAILURE, startDate, endDate);
     }
 }

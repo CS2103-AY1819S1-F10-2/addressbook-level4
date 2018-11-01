@@ -175,6 +175,24 @@ public class LoanTime extends DataField<Instant> {
     }
 
     /**
+     * Create a LoanTime with time set as start of the day. i.e. time 00:00.
+     *
+     * Precondition: {@code date} String is valid
+     */
+    public static LoanTime StartOfDayLoanTime(String date) {
+        return new LoanTime(date + " 00:00");
+    }
+
+    /**
+     * Create a LoanTime with time set as end of the day. i.e. time 23:59.
+     *
+     * Precondition: {@code date} String is valid
+     */
+    public static LoanTime EndOfDayLoanTime(String date) {
+        return new LoanTime(date + " 23:59");
+    }
+
+    /**
      * Parses the specified string into an {@link Instant}. This method will use the current System
      * time zone during the parsing process.
      *
