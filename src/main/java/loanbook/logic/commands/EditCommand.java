@@ -58,6 +58,7 @@ public class EditCommand extends Command {
     public static final String MESSAGE_EDIT_LOAN_SUCCESS = "Edited Loan: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_LOAN = "This loan already exists in the loan book.";
+    public static final String MESSAGE_BIKE_NOT_FOUND = "No bike with that name exists within the loan book.";
 
     private final Index index;
     private final EditLoanDescriptor editLoanDescriptor;
@@ -84,7 +85,7 @@ public class EditCommand extends Command {
         }
 
         Loan loanToEdit = lastShownList.get(index.getZeroBased());
-        Loan editedLoan = createEditedLoan(loanToEdit, editLoanDescriptor);
+        Loan editedLoan = createEditedLoan(loanToEdit, editLoanDescriptor, model);
 
         if (!loanToEdit.isSame(editedLoan) && model.hasLoan(editedLoan)) {
             throw new CommandException(MESSAGE_DUPLICATE_LOAN);
@@ -100,14 +101,17 @@ public class EditCommand extends Command {
      * Creates and returns a {@code Loan} with the details of {@code loanToEdit}
      * edited with {@code editLoanDescriptor}.
      */
-    private static Loan createEditedLoan(Loan loanToEdit, EditLoanDescriptor editLoanDescriptor) {
+    private static Loan createEditedLoan(
+            Loan loanToEdit,
+            EditLoanDescriptor editLoanDescriptor,
+            Model model) throws CommandException {
         assert loanToEdit != null;
 
         Name updatedName = editLoanDescriptor.getName().orElse(loanToEdit.getName());
         Nric updatedNric = editLoanDescriptor.getNric().orElse(loanToEdit.getNric());
         Phone updatedPhone = editLoanDescriptor.getPhone().orElse(loanToEdit.getPhone());
         Email updatedEmail = editLoanDescriptor.getEmail().orElse(loanToEdit.getEmail());
-        Bike updatedBike = editLoanDescriptor.getBike().orElse(loanToEdit.getBike());
+        Bike updatedBike = getEditedBike(editLoanDescriptor, model).orElse(loanToEdit.getBike());
         LoanRate updatedRate = editLoanDescriptor.getLoanRate().orElse(loanToEdit.getLoanRate());
         LoanTime updatedStartTime = loanToEdit.getLoanStartTime();
         LoanTime updatedEndTime = loanToEdit.getLoanEndTime();
@@ -125,6 +129,27 @@ public class EditCommand extends Command {
                 updatedLoanStatus,
                 updatedTags
         );
+    }
+
+    /**
+     * Retrieves the edited bike from the {@code model}, if a
+     * dummy bike was specified in the {@code editLoanDescriptor}. Returns {@code Optional.empty()} otherwise.
+     * @throws CommandException if a dummy bike was specified but could not be found in the model.
+     */
+    private static Optional<Bike> getEditedBike(
+            EditLoanDescriptor editLoanDescriptor,
+            Model model) throws CommandException {
+
+        Optional<Bike> dummyBike = editLoanDescriptor.getBike();
+        if (dummyBike.isPresent()) {
+            Optional<Bike> editedBike = model.getBike(dummyBike.get().getName().value);
+            if (!editedBike.isPresent()) {
+                throw new CommandException(MESSAGE_BIKE_NOT_FOUND);
+            }
+            return editedBike;
+        } else {
+            return Optional.empty();
+        }
     }
 
     @Override
@@ -180,7 +205,7 @@ public class EditCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, phone, email, tags);
+            return CollectionUtil.isAnyNonNull(name, nric, phone, email, bike, rate, tags);
         }
 
         public void setName(Name name) {
