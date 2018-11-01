@@ -30,15 +30,16 @@
 <li><a href="#implementation">3. Implementation</a>
 <ul class="sectlevel2">
 <li><a href="#undo-redo-feature">3.1. Undo/Redo feature</a></li>
-<li><a href="#admin-authentication">3.2. Admin Authentication</a></li>
-<li><a href="#return-a-loan-feature">3.3. Return a Loan feature</a></li>
-<li><a href="#summary-feature">3.4. Summary Feature</a></li>
-<li><a href="#logging">3.5. Logging</a></li>
-<li><a href="#Implementation-Configuration">3.6. Configuration</a></li>
-<li><a href="#bicycle-management">3.7. Bicycle Management</a></li>
-<li><a href="#hide-private-information">3.8. Hide private information</a></li>
-<li><a href="#send-reminder-email-feature">3.9. Send Reminder Email feature</a></li>
-<li><a href="#proposed-improved-code-delete-code-functionality">3.10. [Proposed] Improved <code>delete</code> functionality</a></li>
+<li><a href="#unique-loan-id">3.2. Unique Loan ID</a></li>
+<li><a href="#admin-authentication">3.3. Admin Authentication</a></li>
+<li><a href="#return-a-loan-feature">3.4. Return a Loan feature</a></li>
+<li><a href="#summary-feature">3.5. Summary Feature</a></li>
+<li><a href="#logging">3.6. Logging</a></li>
+<li><a href="#Implementation-Configuration">3.7. Configuration</a></li>
+<li><a href="#bicycle-management">3.8. Bicycle Management</a></li>
+<li><a href="#hide-private-information">3.9. Hide private information</a></li>
+<li><a href="#send-reminder-email-feature">3.10. Send Reminder Email feature</a></li>
+<li><a href="#proposed-improved-code-delete-code-functionality">3.11. [Proposed] Improved <code>delete</code> functionality</a></li>
 </ul>
 </li>
 <li><a href="#documentation">4. Documentation</a>
@@ -935,7 +936,119 @@ If the <code>currentStatePointer</code> is at index <code>loanBookStateList.size
 </div>
 </div>
 <div class="sect2">
-<h3 id="admin-authentication"><a class="link" href="#admin-authentication">3.2. Admin Authentication</a></h3>
+<h3 id="unique-loan-id"><a class="link" href="#unique-loan-id">3.2. Unique Loan ID</a></h3>
+<div class="paragraph">
+<p>To keep individual loan transactions identifiable, we have a Loan ID for every loan. This will be automatically assigned when the user creates a Loan using the <code>add</code> command, and will be unique among all Loans in the Loanbook.</p>
+</div>
+<div class="sect3">
+<h4 id="current-implementation-2"><a class="link" href="#current-implementation-2">3.2.1. Current Implementation</a></h4>
+<div class="paragraph">
+<p>In the current implementation, the Loan IDs are represented using integers. The added loans will be assigned IDs in increasing order starting from 0 (i.e. the first loan will be assigned ID 0, the second loan will be assigned ID 1, the third loan, ID 2, and so on).</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Since this value will be a represented by a Java <code>int</code>, the maximum possible ID has been set to be 999,999,999 to prevent any integer overflow. The user will not be allowed to add a Loan using the <code>add</code> command after that maximum ID has been assigned.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The running ID mechanism is facilitated by the <code>LoanIdManager</code> class, which is a component within the <code>LoanBook</code> class. After initialization using the last used Loan ID value, it stores a running integer value which increments whenever the next Loan ID is generated using <code>getNextAvailableLoanId()</code>.</p>
+</div>
+<div class="paragraph">
+<p>Since the <code>LoanIdManager</code> is a component within the <code>LoanBook</code> class, this makes it possible to capture the internal state of the <code>LoanIdManager</code> at any point for future use. It allows for simple integration with the existing undo/redo mechanism, and can be stored within the same XML file that contains all other Loanbook details.</p>
+</div>
+<div class="paragraph">
+<p>The following steps are taken when the user adds a new Loan using the <code>add</code> command:</p>
+</div>
+<div class="paragraph">
+<p><strong>Step 1</strong>: After typing an <code>add</code> command, the <code>AddCommandParser</code> will parse the user input and construct a new <code>Loan</code> instance with a placeholder Loan ID, which is then used to construct a new <code>AddCommand</code> instance.</p>
+</div>
+<div class="paragraph">
+<p><strong>Step 2</strong>: When <code>AddCommand</code> gets executed, the next available Loan ID will be generated via the <code>Model</code> interface. This will increment the internal running ID within the <code>LoanIdManager</code> of the <code>VersionedLoanBook</code>.</p>
+</div>
+<div class="paragraph">
+<p><strong>Step 3</strong>: A new <code>Loan</code> instance will be generated using the generated Loan ID value. This new <code>Loan</code> instance gets inserted into the <code>VersionedLoanBook</code> and gets committed.</p>
+</div>
+<div class="paragraph">
+<p>The following sequence diagram shows how the updated <code>add</code> command works:</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="design-considerations-2"><a class="link" href="#design-considerations-2">3.2.2. Design Considerations</a></h4>
+<div class="sect4">
+<h5 id="aspect-using-an-integer-for-the-loan-id"><a class="link" href="#aspect-using-an-integer-for-the-loan-id">Aspect: Using an Integer for the Loan ID</a></h5>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Alternative 1</strong>: Use a <code>String</code> to represent the Loan ID</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>More Loan ID values can be created given the same number of characters.</p>
+</li>
+<li>
+<p>There would be no technical limit to the number of Loan IDs possible. If all Loan IDs of a certain length get exhausted, the next generated Loan ID can be one character longer.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Cons:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Generating the next available Loan ID may be more complicated for a string as compared to an integer (though not by a significant amount).</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Alternative 2</strong>: Have a static integer variable in the <code>Loan</code> or the <code>VersionedLoanBook</code> class</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>The process of incrementing the running value is simpler and has lesser steps than with a <code>LoanIdManager</code> class.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Cons:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>It is more complicated to capture the state of the running value. The undo/redo mechanism will not work with a static variable.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="admin-authentication"><a class="link" href="#admin-authentication">3.3. Admin Authentication</a></h3>
 <div class="paragraph">
 <p>Before critical actions such as deleting a loan can be performed, admin authentication
 should be required. This ensures that only authorized users are able to perform critical actions.
@@ -950,7 +1063,7 @@ There are three stages in this implementation:</p>
 </ul>
 </div>
 <div class="sect3">
-<h4 id="allowing-the-code-delete-code-command-to-accept-a-password"><a class="link" href="#allowing-the-code-delete-code-command-to-accept-a-password">3.2.1. Allowing the <code>delete</code> command to accept a password</a></h4>
+<h4 id="allowing-the-code-delete-code-command-to-accept-a-password"><a class="link" href="#allowing-the-code-delete-code-command-to-accept-a-password">3.3.1. Allowing the <code>delete</code> command to accept a password</a></h4>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -993,7 +1106,7 @@ The default password for a new app is <code>a12345</code>.
 </div>
 </div>
 <div class="sect3">
-<h4 id="allow-changing-of-master-password"><a class="link" href="#allow-changing-of-master-password">3.2.2. Allow changing of master password</a></h4>
+<h4 id="allow-changing-of-master-password"><a class="link" href="#allow-changing-of-master-password">3.3.2. Allow changing of master password</a></h4>
 <div class="paragraph">
 <p>Given below is an example usage scenario and how the <code>setpass</code> mechanism behaves at each step.</p>
 </div>
@@ -1043,7 +1156,7 @@ If the current password input the same as the new password input, it will not ca
 </div>
 </div>
 <div class="sect3">
-<h4 id="encrypt-current-password-for-security"><a class="link" href="#encrypt-current-password-for-security">3.2.3. Encrypt current password for security</a></h4>
+<h4 id="encrypt-current-password-for-security"><a class="link" href="#encrypt-current-password-for-security">3.3.3. Encrypt current password for security</a></h4>
 <div class="paragraph">
 <p>To ensure that others are unable to retrieve the app&#8217;s password from the preference.json, we encrypt the password before storing. Decryption of password can only be done by the <code>Password</code> class.</p>
 </div>
@@ -1055,12 +1168,12 @@ decrypt our stored password.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="return-a-loan-feature"><a class="link" href="#return-a-loan-feature">3.3. Return a Loan feature</a></h3>
+<h3 id="return-a-loan-feature"><a class="link" href="#return-a-loan-feature">3.4. Return a Loan feature</a></h3>
 <div class="paragraph">
 <p>A LoanBook application that only allows users to do loans without being able to return them would not serve its purpose. When you take out a loan, it should automatically come with the feature of being returnable. This is the functionality for that.</p>
 </div>
 <div class="sect3">
-<h4 id="proposed-implementation"><a class="link" href="#proposed-implementation">3.3.1. Proposed Implementation</a></h4>
+<h4 id="proposed-implementation"><a class="link" href="#proposed-implementation">3.4.1. Proposed Implementation</a></h4>
 <div class="paragraph">
 <p>Returning a loan is done by setting the corresponding status of the loan to <code>LoanStatus.RETURNED</code>. Other than setting the enum to be returned, the cost of the loan will also be calculated and displayed to the user.</p>
 </div>
@@ -1159,7 +1272,7 @@ It is possible for the LoanBook to have a loan that lasts for 0 minutes. This is
 </div>
 </div>
 <div class="sect3">
-<h4 id="design-considerations-2"><a class="link" href="#design-considerations-2">3.3.2. Design considerations:</a></h4>
+<h4 id="design-considerations-3"><a class="link" href="#design-considerations-3">3.4.2. Design considerations:</a></h4>
 <div class="sect4">
 <h5 id="aspect-using-an-enum-vs-changing-the-location-of-the-loan"><a class="link" href="#aspect-using-an-enum-vs-changing-the-location-of-the-loan">Aspect: Using an enum vs changing the location of the loan</a></h5>
 <div class="ulist">
@@ -1196,12 +1309,12 @@ It is possible for the LoanBook to have a loan that lasts for 0 minutes. This is
 </div>
 </div>
 <div class="sect2">
-<h3 id="summary-feature"><a class="link" href="#summary-feature">3.4. Summary Feature</a></h3>
+<h3 id="summary-feature"><a class="link" href="#summary-feature">3.5. Summary Feature</a></h3>
 <div class="paragraph">
 <p>In order to allow the user to use the LoanBook effectively as an auditing tool, they must be able to get a summary of all the loans that they have made. This summary should ideally give them an idea of the statistics of each of their transactions at a glance.</p>
 </div>
 <div class="sect3">
-<h4 id="proposed-implementation-2"><a class="link" href="#proposed-implementation-2">3.4.1. Proposed Implementation</a></h4>
+<h4 id="proposed-implementation-2"><a class="link" href="#proposed-implementation-2">3.5.1. Proposed Implementation</a></h4>
 <div class="paragraph">
 <p>Getting the summary of all the loans is simply done by looping through all the stored loans before and aggregating the statistics of all the loans.</p>
 </div>
@@ -1241,7 +1354,7 @@ It is possible for the LoanBook to have a loan that lasts for 0 minutes. This is
 </div>
 </div>
 <div class="sect3">
-<h4 id="design-considerations-3"><a class="link" href="#design-considerations-3">3.4.2. Design considerations:</a></h4>
+<h4 id="design-considerations-4"><a class="link" href="#design-considerations-4">3.5.2. Design considerations:</a></h4>
 <div class="sect4">
 <h5 id="aspect-getting-the-summary"><a class="link" href="#aspect-getting-the-summary">Aspect: Getting the summary</a></h5>
 <div class="ulist">
@@ -1277,7 +1390,7 @@ It is possible for the LoanBook to have a loan that lasts for 0 minutes. This is
 </div>
 </div>
 <div class="sect3">
-<h4 id="future-features"><a class="link" href="#future-features">3.4.3. Future features</a></h4>
+<h4 id="future-features"><a class="link" href="#future-features">3.5.3. Future features</a></h4>
 <div class="paragraph">
 <p>We plan to include a feature which allows users to summarize the LoanBook based on certain parameters. For example, in future implementations, the user will be able to filter the statistics based on the identity of a bicycle.</p>
 </div>
@@ -1306,14 +1419,14 @@ It is possible for the LoanBook to have a loan that lasts for 0 minutes. This is
 </div>
 </div>
 <div class="sect2">
-<h3 id="logging"><a class="link" href="#logging">3.5. Logging</a></h3>
+<h3 id="logging"><a class="link" href="#logging">3.6. Logging</a></h3>
 <div class="paragraph">
 <p>We are using <code>java.util.logging</code> package for logging. The <code>LogsCenter</code> class is used to manage the logging levels and logging destinations.</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>The logging level can be controlled using the <code>logLevel</code> setting in the configuration file (See <a href="#Implementation-Configuration">Section 3.6, &#8220;Configuration&#8221;</a>)</p>
+<p>The logging level can be controlled using the <code>logLevel</code> setting in the configuration file (See <a href="#Implementation-Configuration">Section 3.7, &#8220;Configuration&#8221;</a>)</p>
 </li>
 <li>
 <p>The <code>Logger</code> for a class can be obtained using <code>LogsCenter.getLogger(Class)</code> which will log messages according to the specified logging level</p>
@@ -1344,13 +1457,13 @@ It is possible for the LoanBook to have a loan that lasts for 0 minutes. This is
 </div>
 </div>
 <div class="sect2">
-<h3 id="Implementation-Configuration"><a class="link" href="#Implementation-Configuration">3.6. Configuration</a></h3>
+<h3 id="Implementation-Configuration"><a class="link" href="#Implementation-Configuration">3.7. Configuration</a></h3>
 <div class="paragraph">
 <p>Certain properties of the application can be controlled (e.g App name, logging level) through the configuration file (default: <code>config.json</code>).</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="bicycle-management"><a class="link" href="#bicycle-management">3.7. Bicycle Management</a></h3>
+<h3 id="bicycle-management"><a class="link" href="#bicycle-management">3.8. Bicycle Management</a></h3>
 <div class="paragraph">
 <p>As bicycles have a lot of properties, statuses and actions associated with them, they are represented in the code base as a dedicated <code>Bike</code> class.</p>
 </div>
@@ -1435,13 +1548,13 @@ Due to the dependency of <code>Loan</code> s on <code>Bike</code> s, any bicycle
 <p>Using this framework, it is now more efficient to implement and use a set of mini-features and operations to facilitate bicycle management, as detailed in the following sections:</p>
 </div>
 <div class="sect3">
-<h4 id="visible-bicycle-statuses"><a class="link" href="#visible-bicycle-statuses">3.7.1. Visible bicycle statuses</a></h4>
+<h4 id="visible-bicycle-statuses"><a class="link" href="#visible-bicycle-statuses">3.8.1. Visible bicycle statuses</a></h4>
 <div class="paragraph">
 <p>The current availability of bicycles are tracked by LoanBook. Bicycles can thus be filtered by whether they are available or not, and the available ones are readily visible in the UI.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="invalid-loans"><a class="link" href="#invalid-loans">3.7.2. Invalid loans</a></h4>
+<h4 id="invalid-loans"><a class="link" href="#invalid-loans">3.8.2. Invalid loans</a></h4>
 <div class="paragraph">
 <p>Loaning out a particular bicycle during the time which it is unavailable or has already been reserved will be denied. This prevents accidents in loaning out bicycles.</p>
 </div>
@@ -1472,13 +1585,13 @@ The loan will be rejected if no bicycle is found that matches the bicycle name p
 </div>
 </div>
 <div class="sect3">
-<h4 id="bicycles-for-particular-needs"><a class="link" href="#bicycles-for-particular-needs">3.7.3. Bicycles for particular needs</a></h4>
+<h4 id="bicycles-for-particular-needs"><a class="link" href="#bicycles-for-particular-needs">3.8.3. Bicycles for particular needs</a></h4>
 <div class="paragraph">
 <p>The list of bicycles can be filtered using the same algorithm to filter the list of loans in order to find bicycles with particular properties, to suit particular customer&#8217;s needs or activities.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="design-considerations-4"><a class="link" href="#design-considerations-4">3.7.4. Design Considerations</a></h4>
+<h4 id="design-considerations-5"><a class="link" href="#design-considerations-5">3.8.4. Design Considerations</a></h4>
 <div class="sect4">
 <h5 id="aspect-internal-representation-of-bicycles"><a class="link" href="#aspect-internal-representation-of-bicycles">Aspect: Internal representation of bicycles</a></h5>
 <div class="ulist">
@@ -1515,7 +1628,7 @@ The loan will be rejected if no bicycle is found that matches the bicycle name p
 </div>
 </div>
 <div class="sect2">
-<h3 id="hide-private-information"><a class="link" href="#hide-private-information">3.8. Hide private information</a></h3>
+<h3 id="hide-private-information"><a class="link" href="#hide-private-information">3.9. Hide private information</a></h3>
 <div class="paragraph">
 <p>Users must provide some important and personal information when adding a loan, e.g. <code>Nric</code>, so it is our responsibility to protect their privacy.</p>
 </div>
@@ -1529,7 +1642,7 @@ Example: The customer&#8217;s <code>Nric</code> as stored in the database is <co
 </div>
 </div>
 <div class="sect3">
-<h4 id="current-implementation-2"><a class="link" href="#current-implementation-2">3.8.1. Current implementation</a></h4>
+<h4 id="current-implementation-3"><a class="link" href="#current-implementation-3">3.9.1. Current implementation</a></h4>
 <div class="paragraph">
 <p>Hidden private information is facilitated by an interface called <code>Censor</code>. It is implemented by classes <code>Nric</code>, <code>Phone</code> and <code>Email</code>.</p>
 </div>
@@ -1587,7 +1700,7 @@ For example: <code>phone.setText(loan.getPhone().getCensored().value);</code> wi
 </div>
 </div>
 <div class="sect3">
-<h4 id="design-considerations-5"><a class="link" href="#design-considerations-5">3.8.2. Design Considerations</a></h4>
+<h4 id="design-considerations-6"><a class="link" href="#design-considerations-6">3.9.2. Design Considerations</a></h4>
 <div class="paragraph">
 <p><strong>Aspect: How to execute getCensored() and doCensoring(int)</strong></p>
 </div>
@@ -1623,16 +1736,16 @@ For example: <code>phone.setText(loan.getPhone().getCensored().value);</code> wi
 </div>
 </div>
 <div class="sect3">
-<h4 id="how-to-see-the-hidden-information"><a class="link" href="#how-to-see-the-hidden-information">3.8.3. How to see the hidden information</a></h4>
+<h4 id="how-to-see-the-hidden-information"><a class="link" href="#how-to-see-the-hidden-information">3.9.3. How to see the hidden information</a></h4>
 <div class="paragraph">
 <p>The censored data are only hidden from the window, not changed in the database. The <code>BrowserPanel</code> on the bottom right of the window will still show all the information including the hidden information.</p>
 </div>
 </div>
 </div>
 <div class="sect2">
-<h3 id="send-reminder-email-feature"><a class="link" href="#send-reminder-email-feature">3.9. Send Reminder Email feature</a></h3>
+<h3 id="send-reminder-email-feature"><a class="link" href="#send-reminder-email-feature">3.10. Send Reminder Email feature</a></h3>
 <div class="sect3">
-<h4 id="current-implementation-3"><a class="link" href="#current-implementation-3">3.9.1. Current Implementation</a></h4>
+<h4 id="current-implementation-4"><a class="link" href="#current-implementation-4">3.10.1. Current Implementation</a></h4>
 <div class="paragraph">
 <p>The email sending mechanism is supported by the <a href="https://docs.oracle.com/javaee/7/api/javax/mail/package-summary.html"><code>JavaMail</code></a> library. This feature is composed of three commands: <code>checkemail</code>, <code>setemail</code> and <code>remind</code>.</p>
 </div>
@@ -1776,7 +1889,7 @@ If it throws a <code>CommandException</code> with authentication failed message 
 </div>
 </div>
 <div class="sect3">
-<h4 id="design-considerations-6"><a class="link" href="#design-considerations-6">3.9.2. Design considerations</a></h4>
+<h4 id="design-considerations-7"><a class="link" href="#design-considerations-7">3.10.2. Design considerations</a></h4>
 <div class="paragraph">
 <p><strong>Aspect: use user&#8217;s personal email vs share an immutable common email</strong></p>
 </div>
@@ -1855,7 +1968,7 @@ If it throws a <code>CommandException</code> with authentication failed message 
 </div>
 </div>
 <div class="sect3">
-<h4 id="future-considerations"><a class="link" href="#future-considerations">3.9.3. Future considerations</a></h4>
+<h4 id="future-considerations"><a class="link" href="#future-considerations">3.10.3. Future considerations</a></h4>
 <div class="paragraph">
 <p>We plan to add a feature that can automatically send an e-receipt to the customer after <code>return</code> ing a loan.</p>
 </div>
@@ -1865,15 +1978,15 @@ If it throws a <code>CommandException</code> with authentication failed message 
 </div>
 </div>
 <div class="sect2">
-<h3 id="proposed-improved-code-delete-code-functionality"><a class="link" href="#proposed-improved-code-delete-code-functionality">3.10. [Proposed] Improved <code>delete</code> functionality</a></h3>
+<h3 id="proposed-improved-code-delete-code-functionality"><a class="link" href="#proposed-improved-code-delete-code-functionality">3.11. [Proposed] Improved <code>delete</code> functionality</a></h3>
 <div class="sect3">
-<h4 id="current-implementation-4"><a class="link" href="#current-implementation-4">3.10.1. Current Implementation</a></h4>
+<h4 id="current-implementation-5"><a class="link" href="#current-implementation-5">3.11.1. Current Implementation</a></h4>
 <div class="paragraph">
 <p>When the user deletes a loan from the LoanBook, it deletes the correct loan, then commits the result into memory. What this entails is that the entire XML file gets overwritten when each delete command is being called.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="proposed-implementation-3"><a class="link" href="#proposed-implementation-3">3.10.2. Proposed implementation:</a></h4>
+<h4 id="proposed-implementation-3"><a class="link" href="#proposed-implementation-3">3.11.2. Proposed implementation:</a></h4>
 <div class="paragraph">
 <p>From above, there is already a <code>LoanStatus</code> that has been implemented. What this does is that it allows the loan to be marked as deleted by setting the enum to the appropriate value. This would result in the LoanBook not needing to recommit every change.</p>
 </div>
@@ -1882,7 +1995,7 @@ If it throws a <code>CommandException</code> with authentication failed message 
 </div>
 </div>
 <div class="sect3">
-<h4 id="design-considerations-7"><a class="link" href="#design-considerations-7">3.10.3. Design Considerations</a></h4>
+<h4 id="design-considerations-8"><a class="link" href="#design-considerations-8">3.11.3. Design Considerations</a></h4>
 <div class="paragraph">
 <p><strong>Aspect: Deleting a loan</strong></p>
 </div>
@@ -3472,4 +3585,4 @@ Expected: Failure message "Connection to your email failed! The password is wron
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-01 15:50:10 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-01 15:55:58 UTC</div></div></div></body></html>
