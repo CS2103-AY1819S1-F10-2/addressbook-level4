@@ -1383,6 +1383,20 @@ These instructions only provide a starting point for testers to work on; testers
 
 _{ more test cases ... }_
 
+=== Adding a bike
+
+. Adding a bike whose name contains alphanumeric characters, spaces, and hyphens
+
+.. Prerequisites: List all bikes using the `listbikes` command.
+.. Test case: `addbike B i-k e 0 01-` +
+   Expected: Bike B i-k e 0 01- is added to the bike list.
+
+. Adding a bike that already exists in the bike list
+
+.. Prerequisites: List all bikes using the `listbikes` command.
+.. Test case: `addbike Bike1` then `addbike Bike1` +
+   Expected: The first command adds Bike1 to the bike list. The second command reports that a bike with the same name already exists within the LoanBook.
+
 === Adding a loan
 
 . Adding a loan while all loans are listed
@@ -1390,6 +1404,34 @@ _{ more test cases ... }_
 .. Prerequisites: List all loans using the `list` command. Multiple loans in the list.
 .. Test case: `PLACEHOLDER` +
    Expected: PLACEHOLDER
+
+=== Edit a bike
+
+. Editing a bike while all bikes are listed
+
+.. Prerequisites: List all bikes using the `listbikes` command. `Bike001` is in the list.
+.. Test case: `editbike Bike001 n/New Bike001` +
+   Expected: The bike `Bike001` will be renamed to "New Bike001". Details of the updated bike is shown in the status message. Timestamp in the status bar is updated.
+.. Test case: `editbike Bike002 n/Bike001` where both `Bike001` and `Bike002` exist. +
+   Expected: No bike is edited due to the specified name matching that of an existing bike, thus creating a duplicate bike if the command proceeds. Error details shown in the status message. Status bar remains the same.
+.. Test case: `editbike ThisBikeDoesNotExist n/New Bike` +
+   Expected: No bike is edited due to the specified name not matching that of any existing bike. Error details shown in the status message. Status bar remains the same.
+.. Other incorrect delete commands to try: `editbike` +
+   Expected: Similar to previous.
+
+=== Deleting a bike
+
+. Deleting a bike while all bikes are listed
+
+.. Prerequisites: List all bikes using the `listbikes` command. `B i-k e 0 01-` is in the list.
+.. Test case: `deletebike B i-k e 0 01- x/a12345` +
+   Expected: The bike `B i-k e 0 01-` is deleted from the list. Details of the deleted bike is shown in the status message. Timestamp in the status bar is updated.
+.. Test case: `deletebike NotAnExistingBike x/a12345` +
+   Expected: No bike is deleted due to the supplied name not referring to an existing bike. Error details shown in the status message. Status bar remains the same.
+.. Test case: `deletebike Bike001 x/wr0ngP4sS` +
+   Expected: No bike is deleted due to invalid password supplied. Error details shown in the status message. Status bar remains the same.
+.. Other incorrect delete commands to try: `deletebike` +
+   Expected: Similar to previous.
 
 === Deleting a loan
 
