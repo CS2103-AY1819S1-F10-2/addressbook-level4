@@ -1060,11 +1060,6 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |tag loans that loan additional items (e.g. helmets, attachable headlights)
 |keep track of which transactions concern them
 
-|`* *`
-|bicycle rental shop owner who wants to manage my loans
-|tag loans that loan additional items (e.g. helmets, attachable headlights)
-|keep track of which transactions concern my paraphernalia
-
 |`* * *`
 |bicycle rental shop owner who wants to accommodate customer demands
 |register rentals in advance and reserve bicycles
