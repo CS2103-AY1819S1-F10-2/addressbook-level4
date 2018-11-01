@@ -206,17 +206,69 @@ image::DeleteLoanSdForLogic.png[width="800"]
 [[Design-Model]]
 === Model component
 
+The model component:
+
+* Stores the LoanBook data.
+* Exposes an unmodifiable `ObservableList<Loan>` that can be 'observed' by the UI, so that the UI automatically updates when the data in the model changes.
+* Stores the user's preferences.
+* Does not depend on any of the other three components.
+
+It allows the following operations:
+
+* Viewing, adding, modifying and deleting `Bike` s and `Loan` s from the LoanBook.
+* Retrieving lists of `Bike` s and `Loan` s that are registered in the LoanBook, filtered by a `Predicate`.
+* Undo/redo operations.
+
+The component's class diagram is given below:
+
 .Structure of the Model Component
 image::ModelClassDiagram.png[width="800"]
 
 *API* : link:{repoURL}/src/main/java/loanbook/model/Model.java[`Model.java`]
 
-The `Model`,
+The API is backed by a `ModelManager` which contains:
 
-* stores a `UserPref` object that represents the user's preferences.
-* stores the Loan Book data.
-* exposes an unmodifiable `ObservableList<Loan>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
-* does not depend on any of the other three components.
+* A `VersionedLoanBook` object which tracks the main data (i.e. `Bike` s and `Loan` s) within the LoanBook.
+* A filtered list each for `Bike` s and `Loan` s to expose to the UI.
+* A `UserPrefs` object to track the user's preferences.
+
+Most operations passed to the `Model` component deals with its `VersionedLoanBook`. A `VersionedLoanBook` is simply a regular `LoanBook` that keeps track of its own history, for the undo/redo operation. The `LoanBook` itself contains:
+
+* A `LoanIdManager` that helps to assign a unique `LoanId` to every `Loan`, so that `Loan` s may be easily identified.
+* A list of unique `Bike` s.
+* A list of unique `Loan` s.
+
+[NOTE]
+====
+A unique list in the sense above is a list where no two elements are the "same":
+
+* A `Bike` is considered to be the same as another `Bike` if their `Name` s match.
+* A `Loan` is considered to be the same as another `Loan` if their `LoanId` s match.
+
+We want to exclude duplicate items from these lists to make sure that identifying any given `Bike` or `Loan` is simple and without ambiguity. +
+
+To facilitate this structure, both the `Bike` and `Loan` class implement a `UniqueListItem` interface, and the `Bike` and `Loan` lists inherit from a `UniqueList` class.
+====
+
+Most of the commands passed into the `Model` are forwarded to its `LoanBook`, who then executes these commands on the `Bike` and `Loan` lists that it has.
+
+A `Loan` contains:
+
+* The customer's particulars: Their `Name`, `Nric`, `Phone` and `Email`.
+* The `Bike` that the customer is renting.
+* A `LoanStatus` used signal whether this `Loan` is `Ongoing`, `Returned` or `Deleted`.
+* A `LoanId` used for identifying this `Loan`.
+* A `LoanRate` specifying the rate which the bicycle is being loaned at, in $/hr.
+* A `loanStartTime` and `loanEndTime`, specifying the scheduled start and end times of the loan. `loanEndTime` might be `null` if the loan has no scheduled return time.
+* Any number of `Tag` s to provide additional details for the `Loan`.
+
+A `Bike` contains:
+
+* A `Name` used for identifying this Bike.
+
+[NOTE]
+The `DataField` class is used to unify the common idea that the above details for `Loan` s and `Bike` s are specifiable by a user-inputted string. The only exception is the `Bike` field in the `Loan` class, which is specified using the `Bike` 's `Name` instead.
+
 
 [[Design-Storage]]
 === Storage component
@@ -938,15 +990,7 @@ b. Require developers to download those libraries manually (this creates extra w
 [appendix]
 == Product Scope
 
-*Target user profile*:
-
-* rents bicycles as a business in Singapore
-* prefer desktop apps over other types
-* can type fast
-* prefers typing over mouse input
-* is reasonably comfortable using CLI apps
-
-*Value proposition*: manage bicycle loans faster than a typical mouse/GUI driven app
+LoanBook targets users who run a bicycle rental business in Singapore. Users who will find this product especially useful are those who are familiar with desktop applications, and who prefer using a command-line interface (CLI) over a graphic user interface (GUI) for input. A reason for this preference is that using a mouse to access app features may be slower and more accident-prone than typing on a keyboard.
 
 [appendix]
 == User Stories
@@ -1025,11 +1069,6 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |bicycle rental shop owner who wants to manage my bicycle paraphernalia
 |tag loans that loan additional items (e.g. helmets, attachable headlights)
 |keep track of which transactions concern them
-
-|`* *`
-|bicycle rental shop owner who wants to manage my loans
-|tag loans that loan additional items (e.g. helmets, attachable headlights)
-|keep track of which transactions concern my paraphernalia
 
 |`* * *`
 |bicycle rental shop owner who wants to accommodate customer demands
@@ -1197,7 +1236,33 @@ Use case resumes at step 2.
 Use case resumes at step 2.
 
 [discrete]
-=== Use case: Add loan into loan book
+=== Use case: Add a bike into loan book
+
+*MSS*
+
+1.  User requests to add a bike with the specific parameters into the LoanBook.
+2.  LoanBook adds the bike.
+3.	LoanBook displays a prompt to the user indicating success.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The user input is not of the correct format.
++
+[none]
+** 1a1. LoanBook shows an error message giving the user an example command, as well as correct format of the command.
++
+* 1b. Any one of the inputs fails their respective validation checks.
++
+[none]
+** 1b1. LoanBook shows an error message telling the user how to rectify their command.
++
+Use case ends.
+
+[discrete]
+=== Use case: Add a loan into loan book
 
 *MSS*
 
@@ -1328,6 +1393,20 @@ These instructions only provide a starting point for testers to work on; testers
 
 _{ more test cases ... }_
 
+=== Adding a bike
+
+. Adding a bike whose name contains alphanumeric characters, spaces, and hyphens
+
+.. Prerequisites: List all bikes using the `listbikes` command.
+.. Test case: `addbike B i-k e 0 01-` +
+   Expected: Bike B i-k e 0 01- is added to the bike list. Details of the updated bike is shown in the status message. Timestamp in the status bar is updated.
+
+. Adding a bike that already exists in the bike list
+
+.. Prerequisites: List all bikes using the `listbikes` command. `Bike1` exists in the list.
+.. Test case: `addbike Bike1` +
+   Expected: No bike is added as a bike with the same name already exists within the LoanBook. Error details shown in the status message. Status bar remains the same.
+
 === Adding a loan
 
 . Adding a loan while all loans are listed
@@ -1335,6 +1414,34 @@ _{ more test cases ... }_
 .. Prerequisites: List all loans using the `list` command. Multiple loans in the list.
 .. Test case: `PLACEHOLDER` +
    Expected: PLACEHOLDER
+
+=== Edit a bike
+
+. Editing a bike while all bikes are listed
+
+.. Prerequisites: List all bikes using the `listbikes` command. `BikeToRename`, `Bike001` and `Bike002` are in the list.
+.. Test case: `editbike BikeToRename n/New Bike` +
+   Expected: The bike `BikeToRename` will be renamed to "New Bike". Details of the updated bike is shown in the status message. Timestamp in the status bar is updated.
+.. Test case: `editbike Bike002 n/Bike001` +
+   Expected: No bike is edited due to the specified name matching that of an existing bike, thus creating a duplicate bike if the command proceeds. Error details shown in the status message. Status bar remains the same.
+.. Test case: `editbike ThisBikeDoesNotExist n/New Bike` +
+   Expected: No bike is edited due to the specified name not matching that of any existing bike. Error details shown in the status message. Status bar remains the same.
+.. Other incorrect delete commands to try: `editbike` +
+   Expected: Similar to previous.
+
+=== Deleting a bike
+
+. Deleting a bike while all bikes are listed
+
+.. Prerequisites: List all bikes using the `listbikes` command. `Bike001` and `B i-k e 0 01-` are in the list.
+.. Test case: `deletebike B i-k e 0 01- x/a12345` +
+   Expected: The bike `B i-k e 0 01-` is deleted from the list. Details of the deleted bike is shown in the status message. Timestamp in the status bar is updated.
+.. Test case: `deletebike NotAnExistingBike x/a12345` +
+   Expected: No bike is deleted due to the supplied name not referring to an existing bike. Error details shown in the status message. Status bar remains the same.
+.. Test case: `deletebike Bike001 x/wr0ngP4sS` +
+   Expected: No bike is deleted due to invalid password supplied. Error details shown in the status message. Status bar remains the same.
+.. Other incorrect delete commands to try: `deletebike` +
+   Expected: Similar to previous.
 
 === Deleting a loan
 
