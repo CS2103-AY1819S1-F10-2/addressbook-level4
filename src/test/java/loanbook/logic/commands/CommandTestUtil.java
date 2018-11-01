@@ -50,6 +50,7 @@ public class CommandTestUtil {
     public static final String VALID_NAME_BIKE2 = "BIKE002";
     public static final String VALID_NAME_BIKE3 = "Silver Surfer";
     public static final String VALID_NAME_BIKE4 = "Blue Ocean";
+    public static final String NOEXIST_NAME_BIKE = "This bike does not exist";
 
     public static final String DEFAULT_USER_EMAIL = "default";
     public static final String VALID_USER_EMAIL1 = "abcdefg@gmail.com";

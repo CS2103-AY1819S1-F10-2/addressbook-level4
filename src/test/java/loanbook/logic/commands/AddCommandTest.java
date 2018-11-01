@@ -1,6 +1,8 @@
 package loanbook.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static loanbook.logic.commands.CommandTestUtil.NOEXIST_NAME_BIKE;
+import static loanbook.testutil.TypicalLoanBook.getTypicalLoanBook;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -9,13 +11,17 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Optional;
 
+import loanbook.logic.commands.exceptions.CommandException;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import loanbook.logic.CommandHistory;
 import loanbook.model.LoanBook;
+import loanbook.model.Model;
+import loanbook.model.ModelManager;
 import loanbook.model.ReadOnlyLoanBook;
+import loanbook.model.UserPrefs;
 import loanbook.model.bike.Bike;
 import loanbook.model.loan.Loan;
 import loanbook.model.loan.LoanId;
@@ -52,7 +58,16 @@ public class AddCommandTest {
         assertEquals(EMPTY_COMMAND_HISTORY, commandHistory);
     }
 
+    @Test
+    public void execute_bikeDoesNotExistInModel_throwsCommandException() throws Exception {
+        Loan invalidBikeLoan = new LoanBuilder().withBike(NOEXIST_NAME_BIKE).build();
+        AddCommand addCommand = new AddCommand(invalidBikeLoan);
+        Model model = new ModelManager(getTypicalLoanBook(), new UserPrefs());
 
+        thrown.expect(CommandException.class);
+        thrown.expectMessage(AddCommand.MESSAGE_BIKE_NOT_FOUND);
+        addCommand.execute(model, commandHistory);
+    }
 
     @Test
     public void equals() {
