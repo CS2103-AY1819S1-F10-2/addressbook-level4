@@ -116,10 +116,6 @@ public class Loan implements UniqueListItem<Loan> {
                 other.tags);
     }
 
-    public LoanId getLoanId() {
-        return id;
-    }
-
     /**
      * Copies over an existing Loan and edits the endTime, for ReturnCommand.
      */
@@ -135,6 +131,10 @@ public class Loan implements UniqueListItem<Loan> {
                 endTime,
                 other.loanStatus,
                 other.tags);
+    }
+
+    public LoanId getLoanId() {
+        return id;
     }
 
     public Name getName() {
