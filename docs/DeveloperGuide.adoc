@@ -461,7 +461,7 @@ This is currently done by appending `-encrypt` to the password, and removing it 
 decrypting. For version 2.0, we plan to utilise existing libraries to encrypt and
 decrypt our stored password.
 
-// end::userconfirmation[]
+// end::adminauthentication[]
 
 === Return a Loan feature
 
