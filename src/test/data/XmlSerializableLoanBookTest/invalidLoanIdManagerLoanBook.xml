@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<loanbook>
+    <!-- It- It's over 9 digiiits! (Value too large) -->
+    <loanIdManager>
+        <lastUsedLoanId>1000000000</lastUsedLoanId>
+    </loanIdManager>
+</loanbook>

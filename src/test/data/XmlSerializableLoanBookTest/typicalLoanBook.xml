@@ -14,77 +14,93 @@
         <name>Blue Ocean</name>
     </bikes>
     <loans>
+        <id>0</id>
         <name>Alice Pauline</name>
         <nric>S0848937H</nric>
         <phone>94351253</phone>
         <email>alice@example.com</email>
-        <address>123, Jurong West Ave 6, #08-111</address>
-        <bike>Bike001</bike>
+        <loanStatus>ONGOING</loanStatus>
+        <bike>BIKE001</bike>
         <rate>1.1</rate>
-        <time>12:33</time>
+        <startTime>12:33</startTime>
+        <endTime>23:54</endTime>
+        <loanStatus>ONGOING</loanStatus>
         <tagged>friends</tagged>
     </loans>
     <loans>
+        <id>1</id>
         <name>Benson Meier</name>
         <nric>F1342714M</nric>
         <phone>98765432</phone>
         <email>johnd@example.com</email>
-        <address>311, Clementi Ave 2, #02-25</address>
-        <bike>Bike002</bike>
+        <bike>BIKE001</bike>
         <rate>0.15</rate>
-        <time>2017-10-12 06:08</time>
+        <startTime>2017-10-12 06:08</startTime>
         <tagged>owesMoney</tagged>
+        <loanStatus>ONGOING</loanStatus>
         <tagged>friends</tagged>
     </loans>
     <loans>
+        <id>2</id>
         <name>Carl Kurz</name>
         <nric>T0238282I</nric>
         <phone>95352563</phone>
         <email>heinz@example.com</email>
-        <address>wall street</address>
-        <bike>Bike003</bike>
+        <loanStatus>ONGOING</loanStatus>
+        <bike>BIKE001</bike>
         <rate>23.9</rate>
-        <time>14:20</time>
+        <startTime>14:20</startTime>
     </loans>
     <loans>
+        <id>3</id>
         <name>Daniel Meier</name>
         <nric>S9335895C</nric>
         <phone>87652533</phone>
         <email>cornelia@example.com</email>
-        <address>10th street</address>
-        <bike>Bike004</bike>
+        <bike>BIKE002</bike>
         <rate>9.0</rate>
-        <time>17:56</time>
+        <startTime>17:56</startTime>
+        <endTime>23:54</endTime>
+        <loanStatus>ONGOING</loanStatus>
         <tagged>friends</tagged>
     </loans>
     <loans>
+        <id>4</id>
         <name>Elle Meyer</name>
         <nric>G9112925L</nric>
         <phone>9482224</phone>
         <email>werner@example.com</email>
-        <address>michegan ave</address>
-        <bike>Bike005</bike>
+        <bike>BIKE002</bike>
         <rate>5.55</rate>
-        <time>2010-12-30 10:30</time>
+        <startTime>2010-12-30 10:30</startTime>
+        <endTime>2011-12-30 23:54</endTime>
+        <loanStatus>RETURNED</loanStatus>
     </loans>
     <loans>
+        <id>5</id>
         <name>Fiona Kunz</name>
         <nric>G9400645M</nric>
         <phone>9482427</phone>
         <email>lydia@example.com</email>
-        <address>little tokyo</address>
-        <bike>Bike006</bike>
+        <bike>BIKE002</bike>
         <rate>33.3</rate>
-        <time>01:01</time>
+        <startTime>01:01</startTime>
+        <endTime>23:54</endTime>
+        <loanStatus>ONGOING</loanStatus>
     </loans>
     <loans>
+        <id>6</id>
         <name>George Best</name>
         <nric>S8313623E</nric>
         <phone>9482442</phone>
         <email>anna@example.com</email>
-        <address>4th street</address>
-        <bike>Bike007</bike>
+        <loanStatus>RETURNED</loanStatus>
+        <bike>BIKE002</bike>
         <rate>5.05</rate>
-        <time>2013-03-13 12:08</time>
+        <startTime>2013-03-13 12:08</startTime>
+        <endTime>2013-03-13 23:54</endTime>
     </loans>
+    <loanIdManager>
+        <lastUsedLoanId>6</lastUsedLoanId>
+    </loanIdManager>
 </loanbook>

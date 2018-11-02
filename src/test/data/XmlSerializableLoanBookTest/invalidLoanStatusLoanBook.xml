@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<loanbook>
+    <!-- loan with an invalid loanStatus-->
+    <loans>
+        <id>0</id>
+        <name>Alice Pauline</name>
+        <phone>94351253</phone>
+        <email>alice@example.com</email>
+        <loanStatus>OFFGOING</loanStatus>
+        <tagged>friends</tagged>
+    </loans>
+
+    <loanIdManager>
+        <lastUsedLoanId>0</lastUsedLoanId>
+    </loanIdManager>
+</loanbook>

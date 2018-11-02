@@ -18,6 +18,7 @@ endif::[]
 By: `Team F10-2`      Since: `Sep 2018`      Licence: `MIT`
 
 == Setting up
+This section describes the necessary dependencies required to work on the application.
 
 === Prerequisites
 
@@ -49,14 +50,14 @@ For Windows, the default installation directory would be `C:\Program Files\Java\
 . Click `OK` to accept the default settings. Gradle will now start building your project. Wait a short while for it to complete (it will say `main: sync finished` in IntelliJ's Build tab  when it is done)
 . Open a console and run the command `gradlew processResources` (Mac/Linux: `./gradlew processResources`). It should finish with the `BUILD SUCCESSFUL` message. +
 This will generate all resources required by the application and tests.
-. Open link:{repoURL}/src/main/java/seedu/address/storage/XmlAdaptedLoan.java[`XmlAdaptedLoan.java`] and link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow.java`] and check for any code errors
+. Open link:{repoURL}/src/main/java/loanbook/storage/XmlAdaptedLoan.java[`XmlAdaptedLoan.java`] and link:{repoURL}/src/main/java/loanbook/ui/MainWindow.java[`MainWindow.java`] and check for any code errors
 .. Due to an ongoing https://youtrack.jetbrains.com/issue/IDEA-189060[issue] with some of the newer versions of IntelliJ, code errors may be detected even if the project can be built and run successfully
 .. To resolve this, place your cursor over any of the code section highlighted in red. Press kbd:[ALT + ENTER], and select `Add '--add-modules=...' to module compiler options` for each error
-. Repeat this for the test folder as well (e.g. check link:{repoURL}/src/test/java/seedu/address/commons/util/XmlUtilTest.java[`XmlUtilTest.java`] and link:{repoURL}/src/test/java/seedu/address/ui/HelpWindowTest.java[`HelpWindowTest.java`] for code errors, and if so, resolve it the same way)
+. Repeat this for the test folder as well (e.g. check link:{repoURL}/src/test/java/loanbook/commons/util/XmlUtilTest.java[`XmlUtilTest.java`] and link:{repoURL}/src/test/java/loanbook/ui/HelpWindowTest.java[`HelpWindowTest.java`] for code errors, and if so, resolve it the same way)
 
 === Verifying the setup
 
-. Run the `seedu.address.MainApp` and try a few commands
+. Run the `loanbook.MainApp` and try a few commands
 . <<Testing,Run the tests>> to ensure they all pass.
 
 === Configurations to do before writing code
@@ -103,6 +104,7 @@ Having both Travis and AppVeyor ensures your App works on both Unix-based platfo
 When you are ready to start coding, you may move on to <<Design-Architecture>> to get some sense of the overall design.
 
 == Design
+This section describes the implementation of the application.
 
 [[Design-Architecture]]
 === Architecture
@@ -115,7 +117,7 @@ The *_Architecture Diagram_* given above explains the high-level design of the A
 [TIP]
 The `.pptx` files used to create diagrams in this document can be found in the link:{repoURL}/docs/diagrams/[diagrams] folder. To update a diagram, modify the diagram in the pptx file, select the objects of the diagram, and choose `Save as picture`.
 
-`Main` has only one class called link:{repoURL}/src/main/java/seedu/address/MainApp.java[`MainApp`]. It is responsible for,
+`Main` has only one class called link:{repoURL}/src/main/java/loanbook/MainApp.java[`MainApp`]. It is responsible for,
 
 * At app launch: Initializes the components in the correct sequence, and connects them up with each other.
 * At shut down: Shuts down the components and invokes cleanup method where necessary.
@@ -145,9 +147,9 @@ image::LogicClassDiagram.png[width="800"]
 [discrete]
 ==== Events-Driven nature of the design
 
-The _Sequence Diagram_ below shows how the components interact for the scenario where the user issues the command `delete 1`.
+The _Sequence Diagram_ below shows how the components interact for the scenario where the user issues the command `delete i/1 x/a12345`.
 
-.Component interactions for `delete 1` command (part 1)
+.Component interactions for `delete i/1 x/a12345` command (part 1)
 image::SDforDeleteLoan.png[width="800"]
 
 [NOTE]
@@ -155,7 +157,7 @@ Note how the `Model` simply raises a `LoanBookChangedEvent` when the Loan Book d
 
 The diagram below shows how the `EventsCenter` reacts to that event, which eventually results in the updates being saved to the hard disk and the status bar of the UI being updated to reflect the 'Last Updated' time.
 
-.Component interactions for `delete 1` command (part 2)
+.Component interactions for `delete i/1 x/a12345` command (part 2)
 image::SDforDeleteLoanEventHandling.png[width="800"]
 
 [NOTE]
@@ -169,11 +171,11 @@ The sections below give more details of each component.
 .Structure of the UI Component
 image::UiClassDiagram.png[width="800"]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
+*API* : link:{repoURL}/src/main/java/loanbook/ui/Ui.java[`Ui.java`]
 
 The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `LoanListPanel`, `StatusBarFooter`, `BrowserPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
-The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
+The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/loanbook/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
 The `UI` component,
 
@@ -189,32 +191,84 @@ The `UI` component,
 image::LogicClassDiagram.png[width="800"]
 
 *API* :
-link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
+link:{repoURL}/src/main/java/loanbook/logic/Logic.java[`Logic.java`]
 
 .  `Logic` uses the `LoanBookParser` class to parse the user command.
 .  This results in a `Command` object which is executed by the `LogicManager`.
 .  The command execution can affect the `Model` (e.g. adding a loan) and/or raise events.
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 
-Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
+Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete i/1 x/a12345")` API call.
 
-.Interactions Inside the Logic Component for the `delete 1` Command
+.Interactions Inside the Logic Component for the `delete i/1 x/a12345` Command
 image::DeleteLoanSdForLogic.png[width="800"]
 
 [[Design-Model]]
 === Model component
 
+The model component:
+
+* Stores the LoanBook data.
+* Exposes an unmodifiable `ObservableList<Loan>` that can be 'observed' by the UI, so that the UI automatically updates when the data in the model changes.
+* Stores the user's preferences.
+* Does not depend on any of the other three components.
+
+It allows the following operations:
+
+* Viewing, adding, modifying and deleting `Bike` s and `Loan` s from the LoanBook.
+* Retrieving lists of `Bike` s and `Loan` s that are registered in the LoanBook, filtered by a `Predicate`.
+* Undo/redo operations.
+
+The component's class diagram is given below:
+
 .Structure of the Model Component
 image::ModelClassDiagram.png[width="800"]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
+*API* : link:{repoURL}/src/main/java/loanbook/model/Model.java[`Model.java`]
 
-The `Model`,
+The API is backed by a `ModelManager` which contains:
 
-* stores a `UserPref` object that represents the user's preferences.
-* stores the Loan Book data.
-* exposes an unmodifiable `ObservableList<Loan>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
-* does not depend on any of the other three components.
+* A `VersionedLoanBook` object which tracks the main data (i.e. `Bike` s and `Loan` s) within the LoanBook.
+* A filtered list each for `Bike` s and `Loan` s to expose to the UI.
+* A `UserPrefs` object to track the user's preferences.
+
+Most operations passed to the `Model` component deals with its `VersionedLoanBook`. A `VersionedLoanBook` is simply a regular `LoanBook` that keeps track of its own history, for the undo/redo operation. The `LoanBook` itself contains:
+
+* A `LoanIdManager` that helps to assign a unique `LoanId` to every `Loan`, so that `Loan` s may be easily identified.
+* A list of unique `Bike` s.
+* A list of unique `Loan` s.
+
+[NOTE]
+====
+A unique list in the sense above is a list where no two elements are the "same":
+
+* A `Bike` is considered to be the same as another `Bike` if their `Name` s match.
+* A `Loan` is considered to be the same as another `Loan` if their `LoanId` s match.
+
+We want to exclude duplicate items from these lists to make sure that identifying any given `Bike` or `Loan` is simple and without ambiguity. +
+
+To facilitate this structure, both the `Bike` and `Loan` class implement a `UniqueListItem` interface, and the `Bike` and `Loan` lists inherit from a `UniqueList` class.
+====
+
+Most of the commands passed into the `Model` are forwarded to its `LoanBook`, who then executes these commands on the `Bike` and `Loan` lists that it has.
+
+A `Loan` contains:
+
+* The customer's particulars: Their `Name`, `Nric`, `Phone` and `Email`.
+* The `Bike` that the customer is renting.
+* A `LoanStatus` used signal whether this `Loan` is `Ongoing`, `Returned` or `Deleted`.
+* A `LoanId` used for identifying this `Loan`.
+* A `LoanRate` specifying the rate which the bicycle is being loaned at, in $/hr.
+* A `loanStartTime` and `loanEndTime`, specifying the scheduled start and end times of the loan. `loanEndTime` might be `null` if the loan has no scheduled return time.
+* Any number of `Tag` s to provide additional details for the `Loan`.
+
+A `Bike` contains:
+
+* A `Name` used for identifying this Bike.
+
+[NOTE]
+The `DataField` class is used to unify the common idea that the above details for `Loan` s and `Bike` s are specifiable by a user-inputted string. The only exception is the `Bike` field in the `Loan` class, which is specified using the `Bike` 's `Name` instead.
+
 
 [[Design-Storage]]
 === Storage component
@@ -222,7 +276,7 @@ The `Model`,
 .Structure of the Storage Component
 image::StorageClassDiagram.png[width="800"]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
+*API* : link:{repoURL}/src/main/java/loanbook/storage/Storage.java[`Storage.java`]
 
 The `Storage` component,
 
@@ -232,7 +286,7 @@ The `Storage` component,
 [[Design-Commons]]
 === Common classes
 
-Classes used by multiple components are in the `seedu.addressbook.commons` package.
+Classes used by multiple components are in the `loanbook.commons` package.
 
 == Implementation
 
@@ -318,38 +372,123 @@ image::UndoRedoActivityDiagram.png[width="650"]
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
 
+=== Unique Loan ID
+To keep individual loan transactions identifiable, we have a Loan ID for every loan. This will be automatically assigned when the user creates a Loan using the `add` command, and will be unique among all Loans in the Loanbook.
+
+==== Current Implementation
+In the current implementation, the Loan IDs are represented using integers. The added loans will be assigned IDs in increasing order starting from 0 (i.e. the first loan will be assigned ID 0, the second loan will be assigned ID 1, the third loan, ID 2, and so on).
+
+[NOTE]
+Since this value will be a represented by a Java `int`, the maximum possible ID has been set to be 999,999,999 to prevent any integer overflow. The user will not be allowed to add a Loan using the `add` command after that maximum ID has been assigned.
+
+The running ID mechanism is facilitated by the `LoanIdManager` class, which is a component within the `LoanBook` class. After initialization using the last used Loan ID value, it stores a running integer value which increments whenever the next Loan ID is generated using `getNextAvailableLoanId()`.
+
+Since the `LoanIdManager` is a component within the `LoanBook` class, this makes it possible to capture the internal state of the `LoanIdManager` at any point for future use. It allows for simple integration with the existing undo/redo mechanism, and can be stored within the same XML file that contains all other Loanbook details.
+
+The following steps are taken when the user adds a new Loan using the `add` command:
+
+**Step 1**: After typing an `add` command, the `AddCommandParser` will parse the user input and construct a new `Loan` instance with a placeholder Loan ID, which is then used to construct a new `AddCommand` instance.
+
+**Step 2**: When `AddCommand` gets executed, the next available Loan ID will be generated via the `Model` interface. This will increment the internal running ID within the `LoanIdManager` of the `VersionedLoanBook`.
+
+**Step 3**: A new `Loan` instance will be generated using the generated Loan ID value. This new `Loan` instance gets inserted into the `VersionedLoanBook` and gets committed.
+
+The following sequence diagram shows how the updated `add` command works:
+
+==== Design Considerations
+===== Aspect: Using an Integer for the Loan ID
+* **Alternative 1**: Use a `String` to represent the Loan ID
+** Pros:
+*** More Loan ID values can be created given the same number of characters.
+*** There would be no technical limit to the number of Loan IDs possible. If all Loan IDs of a certain length get exhausted, the next generated Loan ID can be one character longer.
+** Cons:
+*** Generating the next available Loan ID may be more complicated for a string as compared to an integer (though not by a significant amount).
+
+* **Alternative 2**: Have a static integer variable in the `Loan` or the `VersionedLoanBook` class
+** Pros:
+*** The process of incrementing the running value is simpler and has lesser steps than with a `LoanIdManager` class.
+** Cons:
+*** It is more complicated to capture the state of the running value. The undo/redo mechanism will not work with a static variable.
+
+// tag::adminauthentication[]
+=== Admin Authentication
+Before critical actions such as deleting a loan can be performed, admin authentication
+should be required. This ensures that only authorized users are able to perform critical actions.
+This is done by requiring a password before performing a critical action.
+
+* Current Implementation *
+There are three stages in this implementation:
+
+==== Allowing the `delete` command to accept a password
+1. To allow `delete` command to accept a password, we set a stub password of `a12345` and require all `delete` command to take in a password argument.
+* When password is wrong, we do not perform the deletion of the loans.
+* Only when password matches with stub password will the loan be deleted.
+2. Existing tests were edited to include and check for a valid password before deletion.
+
+[NOTE]
+The default password for a new app is `a12345`.
+
+The following sequence diagram shows how the new `delete` operation works.
+
+image::deleteLoanWithPass.png[width="1000"]
+
+==== Allow changing of master password
+
+Given below is an example usage scenario and how the `setpass` mechanism behaves at each step.
+
+Step 1. The user launches the application for the first time. `UserPref` file will initialise the password as `a12345`.
+
+Step 2. The user executes `setpass a12345 newP4sS` command to change the password to `newP4sS`.
+
+Step 3. `Password` class will encrypt the password, and call Model#setPass, that changes the password of the application in `UserPref`.
+
+[NOTE]
+If the current password input is wrong, it will not call Model#setPass, so the UserPref state will not be saved.
+
+[NOTE]
+If the current password input the same as the new password input, it will not call Model#setPass, so the UserPref state will not be saved.
+
+Step 4. Password in `UserPref` is set to new password input.
+
+The following sequence diagram shows how the `setpass` operation works:
+
+image::setPasswordLogic.png[width="800"]
+
+==== Encrypt current password for security
+To ensure that others are unable to retrieve the app's password from the preference.json, we encrypt the password before storing. Decryption of password can only be done by the `Password` class.
+
+This is currently done by appending `-encrypt` to the password, and removing it when
+decrypting. For version 2.0, we plan to utilise existing libraries to encrypt and
+decrypt our stored password.
+
+// end::userconfirmation[]
+
 === Return a Loan feature
+
+A LoanBook application that only allows users to do loans without being able to return them would not serve its purpose. When you take out a loan, it should automatically come with the feature of being returnable. This is the functionality for that.
+
 ==== Proposed Implementation
 
-Returning a loan is done by setting the corresponding status of the loan to `returned`. Other than setting the enum to be returned, the cost of the loan will also be calculated and displayed to the user.
+Returning a loan is done by setting the corresponding status of the loan to `LoanStatus.RETURNED`. Other than setting the enum to be returned, the cost of the loan will also be calculated and displayed to the user.
 
 The steps that have to be done by LoanBook is as follows:
 
 * Check the start and end time of the loan to ensure that the loan period is valid.
 * Store the current time as the return time of the loan.
 * Change the enum of `LoanStatus` to become `LoanStatus.RETURNED`.
-* Calculate the cost of the loan and display it in the gui as a suggestion for the user.
+* Calculate the cost of the loan and display it in the GUI as a suggestion for the user.
 
-These steps would change the given Loan object, and update the properties of the Loan object. The appropriate values stored within the Loan object would therefore change accordingly.
+These steps would change the given `Loan` object, and update the properties of the `Loan` object. The appropriate values stored within the `Loan` object would therefore change accordingly.
 
 Given below is an example usage scenerio and how the internals of the Loan would behave:
 
 **Step 1.** The user would have to do a search for which loan they would like to return. This will pull up a list of loans from which the user would be able to select the correct loan.
 
-[NOTE]
-Users who are able to remember the loanID would be able to access the loan directly by using the `i/<LOANID>` tag in the command. This would allow them to skip this step, and directly reference the loan which they would like to modify.
-
-image::return-loan-list-of-loans.png[]
-
-The user lists all loans. This is displayed on the GUI.
-
-{nbsp} +
-
 **Step 2.** Using the current system time as the `endTime`, the duration of the loan will be calculated. Should the duration ever be negative, an error message will be thrown. This is because such a scenario would not ever be possible in the LoanBook.
 
-**Step 3.** The user decides to return the current loan (in the case of the above image, the user wants to return loan number 3, as selected). User will therefore key in `return i/3`.
+**Step 3.** The user decides to return the current loan (in the case of the above image, the user wants to return loan at index 3, as selected). User will therefore key in `return i/3`.
 
-The LoanBook will save the current time into the `Optional<LoanTime> returnTime` field. This would be done by calling the constructor `LoanTime()`. Also, the loanStatus field would also be updated from `ONGOING` to `RETURNED`.
+The LoanBook will save the current time into the `LoanTime endTime` field. This would be done by calling the constructor `LoanTime()`. Also, the loanStatus field would also be updated from `ONGOING` to `RETURNED`.
 
 image::return-loan-loan2.png[]
 Note that originally the loan has a `null` value for end time. Note that the `endTime` and `loanStatus` values has been updated.
@@ -362,7 +501,7 @@ If the loan has already been returned or deleted, a corresponding error message 
 **Step 4.** The function now calculates the cost of the loan. This price would be based on the amount of time the loan was active for, as well as the loanRate that was set, by multiplying the time with the rate.
 
 [NOTE]
-Although the time saved is to the second, the time that is multiplied when we are getting the cost is rounded down to the nearest minute. In a sense, this is "pro-rating" the cost, and making it more discrete.
+Although the time saved is to the millisecond, the time that is multiplied when we are getting the cost is rounded down to the nearest minute. In a sense, this is "pro-rating" the cost, and making it more discrete.
 
 The result is then displayed into the GUI for the user as the cost price of the loan.
 
@@ -377,31 +516,34 @@ It is possible for the LoanBook to have a loan that lasts for 0 minutes. This is
 ** Pros: Easy to implement the return a loan feature, and do not need to create new data storage features.
 ** Cons: When using the `summary` function, it will take a longer amount of time, as the LoanBook would have to do a check at every step to ensure the correct data is appended to the correct place.
 
-* Alternative 2: Create new ArrayLists of loans for each possible status of the loan.
+* Alternative 2: Create new ArrayLists of `Loans` for each possible status of the `Loan` objects.
 ** Pros: Computing the `summary` of the LoanBook would be much easier, and quicker.
 ** Cons: `return` functionality would run much slower, as there will be empty slots in the ArrayList after shifting the Loan objects around. Searching for loans would also be much more difficult, as the results from the various Loan ArrayLists has to be appended together.
 
 === Summary Feature
+
+In order to allow the user to use the LoanBook effectively as an auditing tool, they must be able to get a summary of all the loans that they have made. This summary should ideally give them an idea of the statistics of each of their transactions at a glance.
+
 ==== Proposed Implementation
 
 Getting the summary of all the loans is simply done by looping through all the stored loans before and aggregating the statistics of all the loans.
 
-Currently, the `summary` command would display to the user the following statistics:
+Currently, the `summary` command displays to the user the following statistics:
 
 * Total number of ongoing loans
 * Total number of loans ever taken out
 * Total amount of time all bikes have been loaned for
 * Total revenue from the loan service
 
-This would give a very handy summary page as well as an audit page for the bicycle shop owners.
+This would give a very handy summary page as well as a printable audit page for the bicycle shop owners.
 
-Given below is an example usage scenerio and how the internals of the Loan would behave:
+Given below is an example usage scenario and how the internals of the LoanBook behaves:
 
 **Step 1.** The user simply has to type the `summary` keyword into the CLI.
 
-**Step 2.** The LoanBook will proceed to loop through all the loans and aggregate the statistics of the loans. Simple statistics to be counted include the total time of loan and the total revenue gained from the loans.
+**Step 2.** The LoanBook proceeds to loop through all the loans and aggregate the statistics of the loans.
 
-**Step 3.** The LoanBook will update the display with the aggregated statistics, and this can be screenshotted by the user as an audit page.
+**Step 3.** The LoanBook updates the display with the aggregated statistics, and this can be screenshotted by the user as a summary page.
 
 ==== Design considerations:
 ===== Aspect: Getting the summary
@@ -411,10 +553,10 @@ Given below is an example usage scenerio and how the internals of the Loan would
 
 * Alternative 2: Use a cache to store previously calculated values of the summaries.
 ** Pros: Quicker response time to the users.
-** Cons: Much hearder to implement, cache might break if user edits past loans.
+** Cons: Much harder to implement, cache might break if user edits past loans.
 
 ==== Future features
-We plan to include a feature which allows users to summarize the loanbook based on certain parameters. For example, in future implementations, the user will be able to filter the statistics based on the identity of a bicycle.
+We plan to include a feature which allows users to summarize the LoanBook based on certain parameters. For example, in future implementations, the user will be able to filter the statistics based on the identity of a bicycle.
 
 These are the proposed features you would be able to search based on:
 
@@ -423,6 +565,8 @@ These are the proposed features you would be able to search based on:
 * Person who took out the loan
 
 As well, having to recalculate all the loans would be a bad idea when the LoanBook contains many loans. A proposed solution would be to cache the results of the main summary method, so that the LoanBook would only have to recalculate the numbers based on loans that have not been added to the final tally.
+
+Another idea would be to display all the loans in a printable table, when the summary feature is called. Perhaps this would generate a pdf file which shows all the list of loans that the LoanBook is keeping track of. Users can then take use this as a more stringent auditing tool.
 
 === Logging
 
@@ -524,9 +668,15 @@ When showing a new loan, it will do the following operations:
 
 * `Nric#getCensored()` -- censor the Nric value and hide the first five digital numbers. Then it returns the censored String.
 
+* `Nric#doCensoring(int length)` -- Take in the length of the Nric String and return the censored part ("x" part) according to the length.
+
 * `Phone#getCensored()` -- censor the phone number and hide the first five digital numbers. Then it returns the censored String.
 
+* `Phone#doCensoring(int length)` -- Take in the length of the Phone String and return the censored part ("x" part) according to the length.
+
 * `Email#getCensored()` -- censor the email address and hide every characters except the last two characters in the local-part and the domain.
+
+* `Email#doCensoring(int length)` -- Take in the length of the Email String and return the censored part ("x" part) according to the length.
 
 Given below is an example usage scenario and how this mechanism behaves at each step.
 
@@ -537,6 +687,7 @@ The `LoanCard` object will contain information on the loan: `LoanID`, `BikeID`, 
 For example: `name.setText(loan.getName().value);` will directly assign the name String of this loan to the `name` label. +
 
 However, the values of `Nric`, `Phone` and `Email` need censoring before assigning their values, so they will call their own `getCensored()` method in their class. +
+`getCensored()` in each of these class will call their corresponding `doCensoring(int)` method. Then combine the censored part and remain part and return. +
 For example: `phone.setText(loan.getPhone().getCensored().value);` will censor the value of the phone String of this loan and then assign the censored value to the `phone` label.
 
 The following sequence diagram shows how this operation works:
@@ -545,7 +696,7 @@ image::HideInfoSequenceDiagrams.png[]
 
 ==== Design Considerations
 
-**Aspect: How to execute getCensored()**
+**Aspect: How to execute getCensored() and doCensoring(int)**
 
 * **Alternative 1 (current choice)**: each class implements from `Censor` interface.
 ** Pros: Easy to implement.
@@ -559,9 +710,116 @@ image::HideInfoSequenceDiagrams.png[]
 
 The censored data are only hidden from the window, not changed in the database. The `BrowserPanel` on the bottom right of the window will still show all the information including the hidden information.
 
+=== Send Reminder Email feature
+
+==== Current Implementation
+
+The email sending mechanism is supported by the https://docs.oracle.com/javaee/7/api/javax/mail/package-summary.html[`JavaMail`] library. This feature is composed of three commands: `checkemail`, `setemail` and `remind`.
+
+* `checkemail` command: display the email address that the user has set to send emails from. The app will censor the email address.
+[NOTE]
+If user has not set an email, the email address will be a string `"default"` and the app show a "You have not set your email yet!" message.
+
+* `setemail` command: set the email address used for sending reminders to the customers.
+[NOTE]
+Only gmail is accepted by the app.
+
+* `remind` command: automatically generate an email containing some core information about the loan, and send it to the corresponding customer from user's email. This command will use the `JavaMail` library.
+[NOTE]
+The email will contain the `Name`, `BikeId`, `LoanStartTime` and `LoanRate` of the loan.
+
+Given below is an example usage scenario and how the reminder email mechanism behaves at each step.
+
+*Step 1.* The user launches the application for the first time. The user's email address is string `"default"` by default.
+
+*Step 2.* The user executes `checkemail`. The following sequence diagram shows how `checkemail` works:
+
+image::CheckEmailSequenceDiagram.png[]
+
+The command executes `Model#getMyEmail()`, which calls `UserPrefs#getDefaultEmail()` and returns user's email stored in `UserPref`. The app checks if user's email equals to `"default"`. In this case, they are equal, so it throws a `CommandException`.
+
+*Step 3.* The user executes `setemail OLDEMAIL NEWEMAIL`. This command does a few checks first:
+
+.. If `OLDEMAIL` is not equal to either `"default"` or the previously set email, then a `CommandException` is thrown, as the validation of the old email fails.
+
+.. Otherwise, the app then checks if `OLDEMAIL` and `NEWEMAIL` are equal. If so, then a `CommandException` is thrown, to warn the user that they are setting the same email as last time.
+
+.. Otherwise, `SetEmailCommand#isValidGmail(NEWEMAIL)` is called to check if `NEWEMAIL` is a valid gmail. If not, a `CommandException` is thrown to warn the user that they are setting the same email as last time.
+
+*Step 4.* The user forgets what email he has set before, so he executes `checkemail` again. The procedure is the same as in *Step 2*. However, the app detects that user's email is not `"default"` this time, so it creates an `Email(userEmail)` object and executes `Email#getCensored()`. Then, the function returns a `CommandResult` with a success message and the censored user email.
+
+*Step 5.* The user sends a reminder email to a customer by executing `remind x/EMAILPASSWORD n/NAME b/BIKEID`. This command implements the following operations:
+
+a. Get a list of `Loans` from the `LoanBook` class and execute `RemindCommand#getLoan(list, NAME, BIKE)` to check if there is a `loan` that contains both this `NAME` and `BIKE`.
+
+b. If it returns a non-null `loan`, then check its `LoanStatus`.
+
+c. If its `LoanStatus` is `LoanStatus.ONGOING`, create a `SendReminder(model, EMAILPASSWORD, loan)` object and execute `SendReminder#send()` to send email. +
+The `SendReminder#send()` method calls `SendReminder#createReminderEmail(session, userEmail)` to create the content of the email, connects user's email using `EMAILPASSWORD` and finally send the email.
+[NOTE]
+If the user cannot remember the customer's `NAME` or the loaned `BIKE`, he can use the `find [NAME] [BIKE]` command to search for the target loan.
+[NOTE]
+For Steps (a) and (b), if the next step cannot be executed, a `CommandException` with corresponding failure message will be thrown.
+[NOTE]
+If it throws a `CommandException` with authentication failed message in step (c), please check if user's email and password are correct. If they are, please make sure that the `Less secure apps` setting of user's email is enabled. If it is not, enable it and refresh the page.
+
+==== Design considerations
+*Aspect: use user's personal email vs share an immutable common email*
+
+* *Alternative 1 (current choice):* Use a user-specified email.
+
+** Pros:
+*** The user has a choice of what email address to use.
+*** The user needs to type in the correct password if they want to send a reminder email, which ensures the security and privacy of the email.
+
+** Cons:
+*** The user needs to enable the `Less secure apps` setting, which could be a security concern.
+
+* *Alternative 2:* Use a common email provided by the app.
+
+** Pros:
+*** The user does not need to set their own email when sending reminder emails, reducing hassle when setting up.
+*** The user does not need to type in a password when sending a reminder email.
+
+** Cons:
+*** The common email is less secure, as its password can be found within the program.
+*** The password of the common email can be changed by malicious users.
+*** The email might get overloaded.
+*** Customers might receive spam emails, as the `remind` command does not require a password.
+
+==== Future considerations
+We plan to add a feature that can automatically send an e-receipt to the customer after `return` ing a loan.
+
+The e-receipt will contain the `Name`, `BikeID`, `LoanStartTime`, `LoanEndTime` and `TotalCost` of the loan.
+
+=== [Proposed] Improved `delete` functionality
+
+==== Current Implementation
+When the user deletes a loan from the LoanBook, it deletes the correct loan, then commits the result into memory. What this entails is that the entire XML file gets overwritten when each delete command is being called.
+
+==== Proposed implementation:
+From above, there is already a `LoanStatus` that has been implemented. What this does is that it allows the loan to be marked as deleted by setting the enum to the appropriate value. This would result in the LoanBook not needing to recommit every change.
+
+From here, when the user decides to close the LoanBook, it will then loop through all the loans and filter out the ones which have not been deleted. These are the loans that would be kept and saved in the LoanBook.
+
+==== Design Considerations
+**Aspect: Deleting a loan**
+
+* **Alternative 1 (current choice)**: Remove each loan as they are deleted
+** Pros: Easy to implement
+** Cons: Large time taken for memory operations as reading and writing to the data is required.
+
+* Alternative 2 (proposed implementation): Use an enum to implement lazy deletion.
+** Pros: Much more time efficient due to lazy deletion
+** Cons: Implementation is harder, and changing to this implementation would affect the undo and redo features.
+
+* Alternative 3: Fix the LoanBook storage manager so that it does not rewrite the entire XML file after each delete operation.
+** Pros: All operations are now lazy. Much better performance of the application because commit operations do not need to change the large XML file.
+** Cons: Large refactoring work required. May potentially affect the timeline of development of the other functions.
+
 == Documentation
 
-We use asciidoc for writing documentation.
+This section describes the way we document our project. We use asciidoc for writing documentation.
 
 [NOTE]
 We chose asciidoc over Markdown because asciidoc, although a bit more complex than Markdown, provides more flexibility in formatting.
@@ -666,6 +924,8 @@ The SE-EDU team does not provide support for modified template files.
 [[Testing]]
 == Testing
 
+We write extensive tests to prevent regression and allow other developers to build on our work without fear of breaking other parts. This section provides the necessary steps to run tests.
+
 === Running Tests
 
 There are three ways to run tests.
@@ -697,14 +957,28 @@ We have two types of tests:
 
 .  *GUI Tests* - These are tests involving the GUI. They include,
 .. _System Tests_ that test the entire App by simulating user actions on the GUI. These are in the `systemtests` package.
-.. _Unit tests_ that test the individual components. These are in `seedu.address.ui` package.
+.. _Unit tests_ that test the individual components. These are in `loanbook.ui` package.
 .  *Non-GUI Tests* - These are tests not involving the GUI. They include,
 ..  _Unit tests_ targeting the lowest level methods/classes. +
-e.g. `seedu.address.commons.StringUtilTest`
+e.g. `loanbook.commons.StringUtilTest`
 ..  _Integration tests_ that are checking the integration of multiple code units (those code units are assumed to be working). +
-e.g. `seedu.address.storage.StorageManagerTest`
+e.g. `loanbook.storage.StorageManagerTest`
 ..  Hybrids of unit and integration tests. These test are checking multiple code units as well as how the are connected together. +
-e.g. `seedu.address.logic.LogicManagerTest`
+e.g. `loanbook.logic.LogicManagerTest`
+
+[WARNING]
+====
+The tests within the `add` command parsers do not take into account the feedback string from within the display. This is because of the time sensitive nature of the `add` command. It does not take in a specific `LoanTime` when the loan is created and populates the current system time into the `Loan`. Therefore, the strings that is returned for each command is time dependant. Hence it is impossible to do a string matching on the returned display string and a hard coded value.
+
+In this case, we commented out the check for equality of the string from the `add` command in the GUI against the expected hard coded string.
+====
+
+[NOTE]
+====
+However we do not need to test the equality of the displayed strings to ensure that the `add` command is working properly. We can simply check that the size of the list of `Loans` in the LoanBook has increased by 1, as well as to ensure that the `Loan` that was added into the LoanBook has the same base property as the default `Loan` that was added.
+
+An alternative would be to use a regex to do string pattern matching on the added `Loan`. This can be combined with getting the current system time of the tests to check that the display strings match, and the saved `Loans` are correctly added. However, this modification would take time to develop and to ensure that it is correct. As such, such developments would be left to be completed in future releases of LoanBook.
+====
 
 
 === Troubleshooting Testing
@@ -714,6 +988,8 @@ e.g. `seedu.address.logic.LogicManagerTest`
 * Solution: Execute Gradle task `processResources`.
 
 == Dev Ops
+
+This sections provides a brief summary of the tools we use in the project, and how to integrate them into the project.
 
 === Build Automation
 
@@ -727,6 +1003,10 @@ We use https://travis-ci.org/[Travis CI] and https://www.appveyor.com/[AppVeyor]
 
 We use https://coveralls.io/[Coveralls] to track the code coverage of our projects. See <<UsingCoveralls#, UsingCoveralls.adoc>> for more details.
 
+=== Code Quality
+
+We use https://www.codacy.com/[Codacy] to track the code quality of our projects. See <<UsingCodacy#, UsingCodacy.adoc>> for more details.
+
 === Documentation Previews
 When a pull request has changes to asciidoc files, you can use https://www.netlify.com/[Netlify] to see a preview of how the HTML version of those asciidoc files will look like when the pull request is merged. See <<UsingNetlify#, UsingNetlify.adoc>> for more details.
 
@@ -734,7 +1014,7 @@ When a pull request has changes to asciidoc files, you can use https://www.netli
 
 Here are the steps to create a new release.
 
-.  Update the version number in link:{repoURL}/src/main/java/seedu/address/MainApp.java[`MainApp.java`].
+.  Update the version number in link:{repoURL}/src/main/java/loanbook/MainApp.java[`MainApp.java`].
 .  Generate a JAR file <<UsingGradle#creating-the-jar-file, using Gradle>>.
 .  Tag the repo with the version number. e.g. `v0.1`
 .  https://help.github.com/articles/creating-releases/[Create a new release using GitHub] and upload the JAR file you created.
@@ -748,15 +1028,7 @@ b. Require developers to download those libraries manually (this creates extra w
 [appendix]
 == Product Scope
 
-*Target user profile*:
-
-* rents bicycles as a business in Singapore
-* prefer desktop apps over other types
-* can type fast
-* prefers typing over mouse input
-* is reasonably comfortable using CLI apps
-
-*Value proposition*: manage bicycle loans faster than a typical mouse/GUI driven app
+LoanBook targets users who run a bicycle rental business in Singapore. Users who will find this product especially useful are those who are familiar with desktop applications, and who prefer using a command-line interface (CLI) over a graphic user interface (GUI) for input. A reason for this preference is that using a mouse to access app features may be slower and more accident-prone than typing on a keyboard.
 
 [appendix]
 == User Stories
@@ -835,11 +1107,6 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |bicycle rental shop owner who wants to manage my bicycle paraphernalia
 |tag loans that loan additional items (e.g. helmets, attachable headlights)
 |keep track of which transactions concern them
-
-|`* *`
-|bicycle rental shop owner who wants to manage my loans
-|tag loans that loan additional items (e.g. helmets, attachable headlights)
-|keep track of which transactions concern my paraphernalia
 
 |`* * *`
 |bicycle rental shop owner who wants to accommodate customer demands
@@ -979,11 +1246,9 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 1.  User requests to list loans.
 2.  LoanBook shows a list of loans.
-3.  User requests to delete a loan in the list by specifying a list index.
-4.  LoanBook prompts user for a password.
-5.  User enters their password.
-6.  LoanBook deletes the loan.
-7.	LoanBook displays a prompt to the user indicating success.
+3.  User requests to delete a loan in the list by specifying a list index and the app's password.
+4.  LoanBook deletes the loan.
+5.	LoanBook displays a prompt to the user indicating success.
 +
 Use case ends.
 
@@ -1001,8 +1266,41 @@ Use case ends.
 +
 Use case resumes at step 2.
 
+* 4a. The given password is invalid.
++
+[none]
+** 3a1. LoanBook shows an error message.
++
+Use case resumes at step 2.
+
 [discrete]
-=== Use case: Add loan into loan book
+=== Use case: Add a bike into loan book
+
+*MSS*
+
+1.  User requests to add a bike with the specific parameters into the LoanBook.
+2.  LoanBook adds the bike.
+3.	LoanBook displays a prompt to the user indicating success.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The user input is not of the correct format.
++
+[none]
+** 1a1. LoanBook shows an error message giving the user an example command, as well as correct format of the command.
++
+* 1b. Any one of the inputs fails their respective validation checks.
++
+[none]
+** 1b1. LoanBook shows an error message telling the user how to rectify their command.
++
+Use case ends.
+
+[discrete]
+=== Use case: Add a loan into loan book
 
 *MSS*
 
@@ -1110,23 +1408,6 @@ Windows, Linux, Unix, OS-X
 A contact detail that is not meant to be shared with others
 
 [appendix]
-== Product Survey
-
-*Product Name*
-
-Author: ...
-
-Pros:
-
-* ...
-* ...
-
-Cons:
-
-* ...
-* ...
-
-[appendix]
 == Instructions for Manual Testing
 
 Given below are instructions to test the app manually.
@@ -1150,19 +1431,136 @@ These instructions only provide a starting point for testers to work on; testers
 
 _{ more test cases ... }_
 
+=== Adding a bike
+
+. Adding a bike whose name contains alphanumeric characters, spaces, and hyphens
+
+.. Prerequisites: List all bikes using the `listbikes` command.
+.. Test case: `addbike B i-k e 0 01-` +
+   Expected: Bike B i-k e 0 01- is added to the bike list. Details of the updated bike is shown in the status message. Timestamp in the status bar is updated.
+
+. Adding a bike that already exists in the bike list
+
+.. Prerequisites: List all bikes using the `listbikes` command. `Bike1` exists in the list.
+.. Test case: `addbike Bike1` +
+   Expected: No bike is added as a bike with the same name already exists within the LoanBook. Error details shown in the status message. Status bar remains the same.
+
+=== Adding a loan
+
+. Adding a loan while all loans are listed
+
+.. Prerequisites: List all loans using the `list` command. Multiple loans in the list.
+.. Test case: `PLACEHOLDER` +
+   Expected: PLACEHOLDER
+
+=== Edit a bike
+
+. Editing a bike while all bikes are listed
+
+.. Prerequisites: List all bikes using the `listbikes` command. `BikeToRename`, `Bike001` and `Bike002` are in the list.
+.. Test case: `editbike BikeToRename n/New Bike` +
+   Expected: The bike `BikeToRename` will be renamed to "New Bike". Details of the updated bike is shown in the status message. Timestamp in the status bar is updated.
+.. Test case: `editbike Bike002 n/Bike001` +
+   Expected: No bike is edited due to the specified name matching that of an existing bike, thus creating a duplicate bike if the command proceeds. Error details shown in the status message. Status bar remains the same.
+.. Test case: `editbike ThisBikeDoesNotExist n/New Bike` +
+   Expected: No bike is edited due to the specified name not matching that of any existing bike. Error details shown in the status message. Status bar remains the same.
+.. Other incorrect delete commands to try: `editbike` +
+   Expected: Similar to previous.
+
+=== Deleting a bike
+
+. Deleting a bike while all bikes are listed
+
+.. Prerequisites: List all bikes using the `listbikes` command. `Bike001` and `B i-k e 0 01-` are in the list.
+.. Test case: `deletebike B i-k e 0 01- x/a12345` +
+   Expected: The bike `B i-k e 0 01-` is deleted from the list. Details of the deleted bike is shown in the status message. Timestamp in the status bar is updated.
+.. Test case: `deletebike NotAnExistingBike x/a12345` +
+   Expected: No bike is deleted due to the supplied name not referring to an existing bike. Error details shown in the status message. Status bar remains the same.
+.. Test case: `deletebike Bike001 x/wr0ngP4sS` +
+   Expected: No bike is deleted due to invalid password supplied. Error details shown in the status message. Status bar remains the same.
+.. Other incorrect delete commands to try: `deletebike` +
+   Expected: Similar to previous.
+
 === Deleting a loan
 
 . Deleting a loan while all loans are listed
 
 .. Prerequisites: List all loans using the `list` command. Multiple loans in the list.
-.. Test case: `delete 1` +
+.. Test case: `delete i/1 x/a12345` +
    Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
-.. Test case: `delete 0` +
-   Expected: No loan is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
+.. Test case: `delete i/0 x/a12345` +
+   Expected: No loan is deleted due to invalid index supplied. Error details shown in the status message. Status bar remains the same.
+.. Test case: `delete i/1 x/wr0ngP4sS` +
+   Expected: No loan is deleted due to invalid password supplied. Error details shown in the status message. Status bar remains the same.
+.. Other incorrect delete commands to try: `delete`, `delete i/x x/a12345` (where x is larger than the list size) +
    Expected: Similar to previous.
 
 _{ more test cases ... }_
+
+=== Return a loan functionality
+
+Prerequisites: List all loans using the list command. Ensure there are multiple loans in the list.
+
+. Returning a valid loan
+
+.. Choose a loan that has not been returned. These loans are marked with the ONGOING tag. Find the index number of it and run `return i/<INDEX>`. +
+   Expected: The loan is returned successfully. The display message details that the loan has been deleted, and gives a suggestion for the cost price of the duration of the loan.
+
+.. Choose another ongoing loan from the list and run `return i/<INDEX>`. +
+   Expected: The loan is returned successfully as well. The display message details that the loan has been deleted, and gives a suggestion for the cost price of the duration of the loan.
+
+. Negative tests:
+.. Test case: `return i/0` +
+   Expected: No loan is returned. Error details shown in the status message, the message should say "the specified index is invalid" in this case. Status bar remains the same.
+.. Other incorrect `return` commands to try:
+... `return`
+... `return i/x` (where `x` is larger than the list size)
+... `return i/aaa` (Where `aaa` is a string)
+... `return i/y` (where `y` is the index of a loan that is not `ONGOING`). +
+
+=== Summary functionality
+
+Use the `summary` command on various sizes of the LoanBook to test this functionality
+
+. Create an empty LoanBook and run the `summary` command. +
+Expected: The summary should report the following:
+** Total loans: 0
+** Loans in progress: 0
+** Returned loans: 0
+** Total product loan time: 0 minutes
+** Total revenue: $0.00
+
+. Add 1 loan with a rate of $30/hr. Run the `summary` command. +
+Expected: The displayed page should report the following:
+** Total loans: 1
+** Loans in progress: 1
+** Returned loans: 0
+** Total product loan time: 0 minutes
+** Total revenue: $0.00
+
+. Add 3 more loans with rates $120/hr. Run the `summary` command. +
+Expected: The displayed page should report the following:
+** Total loans: 4
+** Loans in progress: 4
+** Returned loans: 0
+** Total product loan time: 0 minutes
+** Total revenue: $0.00
+
+. Return the first loan that you have added from above after exactly 1 minute, and run the `summary` command. +
+Expected: The displayed page should report the following:
+** Total loans: 4
+** Loans in progress: 3
+** Returned loans: 1
+** Total product loan time: 1 minutes
+** Total revenue: $0.50
+
+. Return 2 of the 3 loans that you have added from above after exactly 1 and 2 minutes from when you added them, respectively. Run the `summary` command. +
+Expected: The displayed page should report the following:
+** Total loans: 4
+** Loans in progress: 1
+** Returned loans: 3
+** Total product loan time: 4 minutes
+** Total revenue: $6.50
 
 === Saving data
 
@@ -1171,3 +1569,38 @@ _{ more test cases ... }_
 .. _{explain how to simulate a missing/corrupted file and the expected behavior}_
 
 _{ more test cases ... }_
+
+=== Sending Reminder Emails
+
+Prerequisites: Make sure the system is connected to the internet. The email must be gmail and its `Less secure apps` option is enabled.
+
+. Send a reminder email successfully. Please follow these steps:
+
+* `add` a loan with a valid customer's email (but you own it of course).
+* Execute the `checkemail` command. Then use the `setemail` command to set the sender's email.
+* After that, execute `remind x/correctpassword n/Name b/BikeId`.
+
+Expected: Receive a success message "Email sent!" on the screen. A reminder email should have been sent from the sender's email (check the Sent folder). The same email should also be in the inbox of the customer's email account that you have set.
+
+. Negative tests:
+.. Test case: `setemail \WRONG_OLD_EMAIL@gmail.com \NEW_EMAIL@gmail.com` +
+Expected: Failure message "The old email address is wrong!" will show. User's email is not changed.
+.. Test case: `setemail \YOUR_EMAIL@gmail.com \YOUR_EMAIL@gmail.com` +
+Expected: Failure message "The old email and the new email cannot be the same!" will show. User's email is not changed.
+.. Test case: `setemail \OLD_EMAIL@gmail.com \INVALID_NEW_EMAIL@outlook.com` +
+Expected: Failure message "Your new email address is invalid! It must be a valid gmail!" will show. User's email is not changed.
+.. Test case: `setemail \OLD_EMAIL@gmail.com \INVALID_NEW_EMAIL@gmail.com@gmail.com` +
+Expected: Failure message "Your new email address is invalid! It must be a valid gmail!" will show. User's email is not changed.
+.. Test case: `remind x/CORRECTPASSWORD n/NAME b/MISMATCHED_BIKE` +
+Expected: Failure message "No loan contains both `NAME` and `MISMATCHED_BIKE`!" will show. The email is not sent.
+.. Test case: `remind x/CORRECTPASSWORD n/MISMATCHED_NAME b/BIKE` +
+Expected: Failure message "No loan contains both `MISMATCHED_NAME` and `BIKE`!" will show. The email is not sent.
+.. Test case: `remind x/CORRECTPASSWORD n/RETURNED_NAME b/RETURNED_BIKE` +
+Expected: Failure message "That loan has already been returned!" will show. The email is not sent.
+.. Test case: `remind x/CORRECTPASSWORD n/DELETED_NAME n/DELETED_BIKE` +
+Expected: Failure message "That loan has been deleted!" will show. The email is not sent.
+.. Test case: `remind x/WRONGPASSWORD n/NAME b/BIKE` +
+Expected: Failure message "Connection to your email failed! The password is wrong or you did not enable the `less secure app` option in your google account setting before you use remind command. Please refer to the User Guide!" will show. The email is not sent.
+.. Test case: Make sure your email is set, disable its `less secure apps` setting and refresh the setting page. Execute `remind x/CORRECTPASSWORD n/NAME b/BIKE` +
+Expected: Failure message "Connection to your email failed! The password is wrong or you did not enable `less secure app` in your google account setting before you use remind command. Please refer to the User Guide!" will show. The email is not sent.
+.. Other incorrect commands to try: `setemail`, `setemail x` (where x can be any string), `remind`, `remind x y z` (no prefix, x, y and z can be any string).

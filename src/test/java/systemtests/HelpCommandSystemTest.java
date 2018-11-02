@@ -1,21 +1,21 @@
 package systemtests;
 
+import static loanbook.testutil.TypicalIndexes.INDEX_FIRST_LOAN;
+import static loanbook.ui.testutil.GuiTestAssert.assertListMatching;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_LOAN;
-import static seedu.address.ui.testutil.GuiTestAssert.assertListMatching;
 
 import org.junit.Test;
 
 import guitests.GuiRobot;
 import guitests.guihandles.HelpWindowHandle;
-import seedu.address.logic.commands.DeleteCommand;
-import seedu.address.logic.commands.HelpCommand;
-import seedu.address.logic.commands.SelectCommand;
-import seedu.address.ui.BrowserPanel;
-import seedu.address.ui.StatusBarFooter;
+import loanbook.logic.commands.DeleteCommand;
+import loanbook.logic.commands.HelpCommand;
+import loanbook.logic.commands.SelectCommand;
+import loanbook.ui.BrowserPanel;
+import loanbook.ui.StatusBarFooter;
 
 /**
  * A system test class for the help window, which contains interaction with other UI components.

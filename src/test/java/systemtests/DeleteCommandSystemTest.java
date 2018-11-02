@@ -1,24 +1,24 @@
 package systemtests;
 
+import static loanbook.commons.core.Messages.MESSAGE_INVALID_LOAN_DISPLAYED_INDEX;
+import static loanbook.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static loanbook.logic.commands.DeleteCommand.MESSAGE_DELETE_LOAN_SUCCESS;
+import static loanbook.testutil.TestUtil.getLastIndex;
+import static loanbook.testutil.TestUtil.getLoan;
+import static loanbook.testutil.TestUtil.getMidIndex;
+import static loanbook.testutil.TypicalIndexes.INDEX_FIRST_LOAN;
+import static loanbook.testutil.TypicalLoans.KEYWORD_MATCHING_MEIER;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_LOAN_DISPLAYED_INDEX;
-import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-import static seedu.address.logic.commands.DeleteCommand.MESSAGE_DELETE_LOAN_SUCCESS;
-import static seedu.address.testutil.TestUtil.getLastIndex;
-import static seedu.address.testutil.TestUtil.getLoan;
-import static seedu.address.testutil.TestUtil.getMidIndex;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_LOAN;
-import static seedu.address.testutil.TypicalLoans.KEYWORD_MATCHING_MEIER;
 
 import org.junit.Test;
 
-import seedu.address.commons.core.Messages;
-import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.DeleteCommand;
-import seedu.address.logic.commands.RedoCommand;
-import seedu.address.logic.commands.UndoCommand;
-import seedu.address.model.Model;
-import seedu.address.model.loan.Loan;
+import loanbook.commons.core.Messages;
+import loanbook.commons.core.index.Index;
+import loanbook.logic.commands.DeleteCommand;
+import loanbook.logic.commands.RedoCommand;
+import loanbook.logic.commands.UndoCommand;
+import loanbook.model.Model;
+import loanbook.model.loan.Loan;
 
 public class DeleteCommandSystemTest extends LoanBookSystemTest {
 

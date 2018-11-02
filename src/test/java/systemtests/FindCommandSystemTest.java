@@ -1,25 +1,25 @@
 package systemtests;
 
+import static loanbook.commons.core.Messages.MESSAGE_LOANS_LISTED_OVERVIEW;
+import static loanbook.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static loanbook.testutil.TypicalLoans.BENSON;
+import static loanbook.testutil.TypicalLoans.CARL;
+import static loanbook.testutil.TypicalLoans.DANIEL;
+import static loanbook.testutil.TypicalLoans.KEYWORD_MATCHING_MEIER;
 import static org.junit.Assert.assertFalse;
-import static seedu.address.commons.core.Messages.MESSAGE_LOANS_LISTED_OVERVIEW;
-import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-import static seedu.address.testutil.TypicalLoans.BENSON;
-import static seedu.address.testutil.TypicalLoans.CARL;
-import static seedu.address.testutil.TypicalLoans.DANIEL;
-import static seedu.address.testutil.TypicalLoans.KEYWORD_MATCHING_MEIER;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Test;
 
-import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.DeleteCommand;
-import seedu.address.logic.commands.FindCommand;
-import seedu.address.logic.commands.RedoCommand;
-import seedu.address.logic.commands.UndoCommand;
-import seedu.address.model.Model;
-import seedu.address.model.tag.Tag;
+import loanbook.commons.core.index.Index;
+import loanbook.logic.commands.DeleteCommand;
+import loanbook.logic.commands.FindCommand;
+import loanbook.logic.commands.RedoCommand;
+import loanbook.logic.commands.UndoCommand;
+import loanbook.model.Model;
+import loanbook.model.tag.Tag;
 
 public class FindCommandSystemTest extends LoanBookSystemTest {
 
@@ -113,11 +113,6 @@ public class FindCommandSystemTest extends LoanBookSystemTest {
 
         /* Case: find phone number of loan in loan book -> 0 loans found */
         command = FindCommand.COMMAND_WORD + " " + DANIEL.getPhone().value;
-        assertCommandSuccess(command, expectedModel);
-        assertSelectedCardUnchanged();
-
-        /* Case: find address of loan in loan book -> 0 loans found */
-        command = FindCommand.COMMAND_WORD + " " + DANIEL.getAddress().value;
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 

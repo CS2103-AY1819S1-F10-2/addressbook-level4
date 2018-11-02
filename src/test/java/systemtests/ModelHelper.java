@@ -5,8 +5,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
 
-import seedu.address.model.Model;
-import seedu.address.model.loan.Loan;
+import loanbook.model.Model;
+import loanbook.model.loan.Loan;
 
 /**
  * Contains helper methods to set up {@code Model} for testing.
