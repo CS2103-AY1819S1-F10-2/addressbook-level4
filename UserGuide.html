@@ -18,10 +18,10 @@
 <li><a href="#adding-a-loan-code-add-code">3.3. Adding a loan: <code>add</code></a></li>
 <li><a href="#listing-all-bikes-code-listbikes-code">3.4. Listing all bikes : <code>listbikes</code></a></li>
 <li><a href="#listing-all-loans-code-list-code">3.5. Listing all loans : <code>list</code></a></li>
-<li><a href="#coming-in-v1-4-editing-a-bike-code-editbike-code">3.6. \[Coming in v1.4\] Editing a bike : <code>editbike</code></a></li>
+<li><a href="#coming-in-v1-4-editing-a-bike-code-editbike-code">3.6. [Coming in v1.4] Editing a bike : <code>editbike</code></a></li>
 <li><a href="#editing-a-loan-code-edit-code">3.7. Editing a loan : <code>edit</code></a></li>
 <li><a href="#locating-loans-by-key-words-code-find-code">3.8. Locating loans by key words: <code>find</code></a></li>
-<li><a href="#coming-in-v1-4-deleting-the-chosen-bike-from-the-loan-book-code-deletebike-code">3.9. \[Coming in v1.4\] Deleting the chosen bike from the loan book : <code>deletebike</code></a></li>
+<li><a href="#coming-in-v1-4-deleting-the-chosen-bike-from-the-loan-book-code-deletebike-code">3.9. [Coming in v1.4] Deleting the chosen bike from the loan book : <code>deletebike</code></a></li>
 <li><a href="#deleting-the-chosen-loan-from-the-loan-book-code-delete-code">3.10. Deleting the chosen loan from the loan book : <code>delete</code></a></li>
 <li><a href="#changing-the-password-of-the-app-code-setpass-code">3.11. Changing the password of the app: <code>setpass</code></a></li>
 <li><a href="#returning-a-loan-code-return-code">3.12. Returning a loan : <code>return</code></a></li>
@@ -264,7 +264,7 @@ Format: <code>list</code></p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="coming-in-v1-4-editing-a-bike-code-editbike-code"><a class="link" href="#coming-in-v1-4-editing-a-bike-code-editbike-code">3.6. \[Coming in v1.4\] Editing a bike : <code>editbike</code></a></h3>
+<h3 id="coming-in-v1-4-editing-a-bike-code-editbike-code"><a class="link" href="#coming-in-v1-4-editing-a-bike-code-editbike-code">3.6. [Coming in v1.4] Editing a bike : <code>editbike</code></a></h3>
 <div class="paragraph">
 <p>To keep the system updated with any changes in the bicycles, this command allows details of a bicycle to be edited.<br>
 Format: <code>edit BIKE_NAME [n/NEW_BIKE_NAME]</code></p>
@@ -350,8 +350,8 @@ For the loan at index 9, changes the customer to James Tan, who has the specifie
 <div class="sect2">
 <h3 id="locating-loans-by-key-words-code-find-code"><a class="link" href="#locating-loans-by-key-words-code-find-code">3.8. Locating loans by key words: <code>find</code></a></h3>
 <div class="paragraph">
-<p>Returns a loan based on parameters of LOAN_INDEX, PERSON_NAME or OBJECT_IDENTITY.<br>
-Format: <code>find [i/LOAN_INDEX] [p/PERSON_NAME] [o/OBJECT_IDENTITY]</code></p>
+<p>Finds loans whose customers' names contain any of the given keywords.<br>
+Format: find KEYWORD [MORE_KEYWORDS]</p>
 </div>
 <div class="sidebarblock">
 <div class="content">
@@ -362,6 +362,9 @@ Format: <code>find [i/LOAN_INDEX] [p/PERSON_NAME] [o/OBJECT_IDENTITY]</code></p>
 </li>
 <li>
 <p>The order of the keywords does not matter. e.g. <code>Hans Bo</code> will match <code>Bo Hans</code></p>
+</li>
+<li>
+<p>Only the name is searched.</p>
 </li>
 <li>
 <p>Only full words will be matched e.g. <code>Han</code> will not match <code>Hans</code></p>
@@ -379,22 +382,18 @@ Format: <code>find [i/LOAN_INDEX] [p/PERSON_NAME] [o/OBJECT_IDENTITY]</code></p>
 <div class="ulist">
 <ul>
 <li>
-<p><code>search i/11037</code><br>
-Searches for the loan with LOAN_INDEX 11037</p>
+<p><code>find John</code><br>
+Returns <code>john</code> and <code>John Doe</code></p>
 </li>
 <li>
-<p><code>search p/James Tan</code><br>
-Searches for loans made by James Tan</p>
-</li>
-<li>
-<p><code>search p/John Doe o/Bicycle-007</code><br>
-Searches for loans made by John Doe where the item loaned out is Bicycle-007</p>
+<p><code>find Betsy Tim John</code><br>
+Returns any loan having names <code>Betsy</code>, <code>Tim</code>, or <code>John</code></p>
 </li>
 </ul>
 </div>
 </div>
 <div class="sect2">
-<h3 id="coming-in-v1-4-deleting-the-chosen-bike-from-the-loan-book-code-deletebike-code"><a class="link" href="#coming-in-v1-4-deleting-the-chosen-bike-from-the-loan-book-code-deletebike-code">3.9. \[Coming in v1.4\] Deleting the chosen bike from the loan book : <code>deletebike</code></a></h3>
+<h3 id="coming-in-v1-4-deleting-the-chosen-bike-from-the-loan-book-code-deletebike-code"><a class="link" href="#coming-in-v1-4-deleting-the-chosen-bike-from-the-loan-book-code-deletebike-code">3.9. [Coming in v1.4] Deleting the chosen bike from the loan book : <code>deletebike</code></a></h3>
 <div class="paragraph">
 <p>Deletes a bike from the loan book.<br>
 Format: <code>deletebike BIKE_NAME x/CURRENT_PASSWORD</code></p>
@@ -860,4 +859,4 @@ Format: <code>remind x/EMAILPASSWORD n/NAME b/BIKE</code></p>
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-02 03:18:09 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-02 03:30:03 UTC</div></div></div></body></html>
