@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <loanbook>
-    <!-- Loan with invalid name field -->
-    <loans>
+    <!-- Bike with invalid name field -->
+    <bikes>
         <name>@uh%oh$</name>
-    </loans>
+    </bikes>
+    <loanIdManager/>
 </loanbook>

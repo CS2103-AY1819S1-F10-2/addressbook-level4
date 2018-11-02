@@ -1,6 +1,7 @@
 package loanbook.storage;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -12,6 +13,8 @@ import loanbook.model.LoanBook;
 import loanbook.model.ReadOnlyLoanBook;
 import loanbook.model.bike.Bike;
 import loanbook.model.loan.Loan;
+import loanbook.model.loan.LoanId;
+import loanbook.model.loan.LoanIdManager;
 
 /**
  * An Immutable LoanBook that is serializable to XML format
@@ -20,7 +23,8 @@ import loanbook.model.loan.Loan;
 public class XmlSerializableLoanBook {
 
     public static final String MESSAGE_DUPLICATE_BIKE = "Bikes list contains duplicate bike(s).";
-    public static final String MESSAGE_DUPLICATE_LOAN = "Loans list contains duplicate loan(s).";
+    public static final String MESSAGE_DUPLICATE_LOAN_ID = "Loans list contains duplicate Loan ID(s).";
+    public static final String MESSAGE_ILLEGAL_LOAN_ID_MANAGER = "Loan ID Manager is in an illegal state.";
 
     @XmlElement
     private List<XmlAdaptedBike> bikes;
@@ -64,14 +68,26 @@ public class XmlSerializableLoanBook {
             }
             loanBook.addBike(bike);
         }
+
+        ArrayList<Loan> modelLoans = new ArrayList<>();
         for (XmlAdaptedLoan p : loans) {
-            Loan loan = p.toModelType();
-            if (loanBook.hasLoan(loan)) {
-                throw new IllegalValueException(MESSAGE_DUPLICATE_LOAN);
-            }
-            loanBook.addLoan(loan);
+            modelLoans.add(p.toModelType());
         }
-        loanBook.setLoanIdManager(loanIdManager.toModelType());
+
+        LoanIdManager modelIdManager = loanIdManager.toModelType();
+
+        if (hasDuplicateLoanIds(modelLoans)) {
+            throw new IllegalValueException(MESSAGE_DUPLICATE_LOAN_ID);
+        }
+
+        if (!isLoanIdManagerInLegalState(modelIdManager, modelLoans)) {
+            throw new IllegalValueException(MESSAGE_ILLEGAL_LOAN_ID_MANAGER);
+        }
+
+        for (Loan modelLoan : modelLoans) {
+            loanBook.addLoan(modelLoan);
+        }
+        loanBook.setLoanIdManager(modelIdManager);
 
         return loanBook;
     }
@@ -89,5 +105,52 @@ public class XmlSerializableLoanBook {
         return bikes.equals(otherXmlLoanBook.bikes)
             && loans.equals(otherXmlLoanBook.loans)
             && loanIdManager.equals(otherXmlLoanBook.loanIdManager);
+    }
+
+    /**
+     * Checks if the specified list of Loans has a duplicate Loan ID.
+     */
+    private static boolean hasDuplicateLoanIds(List<Loan> loans) {
+        HashSet<LoanId> loanIdHashSet = new HashSet<>();
+        for (Loan loan : loans) {
+            LoanId loanId = loan.getLoanId();
+
+            if (loanIdHashSet.contains(loanId)) {
+                return true;
+            }
+
+            loanIdHashSet.add(loanId);
+        }
+
+        return false;
+    }
+
+    /**
+     * Checks if the specified Loan ID Manager is in a legal state given the specified list of Loans.
+     */
+    private static boolean isLoanIdManagerInLegalState(LoanIdManager loanIdManager, List<Loan> loanList) {
+        // Here, the ID Manager is deemed illegal if the "Last used Loan ID" field
+        // in the ID Manager is smaller than the maximum Loan ID in the loan list.
+
+        LoanId maximumObservedLoanId = null;
+        for (Loan loan : loanList) {
+            LoanId loanId = loan.getLoanId();
+            if (maximumObservedLoanId == null || loanId.value > maximumObservedLoanId.value) {
+                maximumObservedLoanId = loanId;
+            }
+        }
+
+        // If the list of Loans is empty, then the ID Manager is definitely legal.
+        if (maximumObservedLoanId == null) {
+            return true;
+        }
+
+        // If the list of Loans is not empty, but the ID Manager has no last used ID, then the ID Manager is illegal.
+        LoanId managerLastUsedId = loanIdManager.getLastUsedLoanId();
+        if (managerLastUsedId == null) {
+            return false;
+        }
+
+        return managerLastUsedId.value >= maximumObservedLoanId.value;
     }
 }

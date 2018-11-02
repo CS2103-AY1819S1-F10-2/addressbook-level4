@@ -30,7 +30,9 @@ import loanbook.model.loan.Loan;
  */
 public class TypicalLoans {
 
-    public static final Loan ALICE = new LoanBuilder().withName("Alice Pauline")
+    public static final Loan ALICE = new LoanBuilder()
+            .withLoanId("0")
+            .withName("Alice Pauline")
             .withNric("S0848937H")
             .withPhone("94351253")
             .withBike(VALID_NAME_BIKE1)
@@ -38,23 +40,35 @@ public class TypicalLoans {
             .withEmail("alice@example.com")
             .withLoanStartTime("12:33")
             .withLoanEndTime("23:54")
-            .withTags("friends").build();
-    public static final Loan BENSON = new LoanBuilder().withName("Benson Meier")
+            .withLoanStatus("ONGOING")
+            .withTags("friends")
+            .build();
+    public static final Loan BENSON = new LoanBuilder()
+            .withLoanId("1")
+            .withName("Benson Meier")
             .withNric("F1342714M")
-            .withEmail("johnd@example.com").withPhone("98765432")
+            .withEmail("johnd@example.com")
+            .withPhone("98765432")
             .withBike(VALID_NAME_BIKE1)
             .withLoanRate("0.15")
             .withLoanStartTime("2017-10-12 06:08")
-            .withTags("owesMoney", "friends").build();
-    public static final Loan CARL = new LoanBuilder().withName("Carl Kurz")
+            .withLoanStatus("ONGOING")
+            .withTags("owesMoney", "friends")
+            .build();
+    public static final Loan CARL = new LoanBuilder()
+            .withLoanId("2")
+            .withName("Carl Kurz")
             .withNric("T0238282I")
             .withPhone("95352563")
             .withEmail("heinz@example.com")
             .withBike(VALID_NAME_BIKE1)
             .withLoanRate("23.9")
             .withLoanStartTime("14:20")
+            .withLoanStatus("ONGOING")
             .build();
-    public static final Loan DANIEL = new LoanBuilder().withName("Daniel Meier")
+    public static final Loan DANIEL = new LoanBuilder()
+            .withLoanId("3")
+            .withName("Daniel Meier")
             .withNric("S9335895C")
             .withPhone("87652533")
             .withEmail("cornelia@example.com")
@@ -62,8 +76,12 @@ public class TypicalLoans {
             .withLoanRate("9.0")
             .withLoanStartTime("17:56")
             .withLoanEndTime("23:54")
-            .withTags("friends").build();
-    public static final Loan ELLE = new LoanBuilder().withName("Elle Meyer")
+            .withLoanStatus("ONGOING")
+            .withTags("friends")
+            .build();
+    public static final Loan ELLE = new LoanBuilder()
+            .withLoanId("4")
+            .withName("Elle Meyer")
             .withNric("G9112925L")
             .withPhone("9482224")
             .withEmail("werner@example.com")
@@ -71,8 +89,11 @@ public class TypicalLoans {
             .withLoanRate("5.55")
             .withLoanStartTime("2010-12-30 10:30")
             .withLoanEndTime("2010-12-30 23:54")
+            .withLoanStatus("RETURNED")
             .build();
-    public static final Loan FIONA = new LoanBuilder().withName("Fiona Kunz")
+    public static final Loan FIONA = new LoanBuilder()
+            .withLoanId("5")
+            .withName("Fiona Kunz")
             .withNric("G9400645M")
             .withPhone("9482427")
             .withEmail("lydia@example.com")
@@ -80,8 +101,11 @@ public class TypicalLoans {
             .withLoanRate("33.3")
             .withLoanStartTime("01:01")
             .withLoanEndTime("23:54")
+            .withLoanStatus("ONGOING")
             .build();
-    public static final Loan GEORGE = new LoanBuilder().withName("George Best")
+    public static final Loan GEORGE = new LoanBuilder()
+            .withLoanId("6")
+            .withName("George Best")
             .withNric("S8313623E")
             .withPhone("9482442")
             .withEmail("anna@example.com")
@@ -89,10 +113,13 @@ public class TypicalLoans {
             .withLoanRate("5.05")
             .withLoanStartTime("2013-03-13 12:08")
             .withLoanEndTime("2013-03-13 23:54")
+            .withLoanStatus("RETURNED")
             .build();
 
     // Manually added
-    public static final Loan HOON = new LoanBuilder().withName("Hoon Meier")
+    public static final Loan HOON = new LoanBuilder()
+            .withLoanId("10")
+            .withName("Hoon Meier")
             .withNric("T0127601D")
             .withPhone("8482424")
             .withEmail("stefan@example.com")
@@ -100,8 +127,11 @@ public class TypicalLoans {
             .withLoanRate("8.9")
             .withLoanStartTime("16:45")
             .withLoanEndTime("23:54")
+            .withLoanStatus("ONGOING")
             .build();
-    public static final Loan IDA = new LoanBuilder().withName("Ida Mueller")
+    public static final Loan IDA = new LoanBuilder()
+            .withLoanId("11")
+            .withName("Ida Mueller")
             .withNric("S9739813E")
             .withPhone("8482131")
             .withEmail("hans@example.com")
@@ -109,6 +139,7 @@ public class TypicalLoans {
             .withLoanRate("7.65")
             .withLoanStartTime("2017-09-08 18:08")
             .withLoanEndTime("2017-09-08 23:54")
+            .withLoanStatus("RETURNED")
             .build();
 
     // Manually added - Loan's details found in {@code CommandTestUtil}

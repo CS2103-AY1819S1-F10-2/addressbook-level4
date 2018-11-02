@@ -171,4 +171,9 @@ public interface Model {
      * Saves the current loan book state for undo/redo.
      */
     void commitLoanBook();
+
+    /**
+     * Checks if this Model is equal to the specified Model, but when comparing Loans
+     */
+    boolean hasEqualEditableFields(Model other);
 }

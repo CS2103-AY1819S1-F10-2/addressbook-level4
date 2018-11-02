@@ -137,6 +137,26 @@ public class CommandTestUtil {
     }
 
     /**
+     * Does the same thing as {@link #assertCommandSuccess(Command, Model, CommandHistory, String, Model)}, but when
+     * comparing the Models, only the editable fields of the Loans are compared.
+     *
+     * @see #assertCommandSuccess(Command, Model, CommandHistory, String, Model)
+     * @see Model#hasEqualEditableFields(Model)
+     */
+    public static void assertCommandSuccessCompareEditableFields(Command command, Model actualModel,
+            CommandHistory actualCommandHistory, String expectedMessage, Model expectedModel) {
+        CommandHistory expectedCommandHistory = new CommandHistory(actualCommandHistory);
+        try {
+            CommandResult result = command.execute(actualModel, actualCommandHistory);
+            assertEquals(expectedMessage, result.feedbackToUser);
+            assertTrue(expectedModel.hasEqualEditableFields(actualModel));
+            assertEquals(expectedCommandHistory, actualCommandHistory);
+        } catch (CommandException ce) {
+            throw new AssertionError("Execution of command should not fail.", ce);
+        }
+    }
+
+    /**
      * Executes the given {@code command}, confirms that <br>
      * - a {@code CommandException} is thrown <br>
      * - the CommandException message matches {@code expectedMessage} <br>

@@ -2,11 +2,13 @@ package loanbook.model;
 
 import static java.util.Objects.hash;
 import static java.util.Objects.requireNonNull;
+import static loanbook.commons.util.CollectionUtil.testByElement;
 
 import java.util.List;
 import java.util.Optional;
 
 import javafx.collections.ObservableList;
+
 import loanbook.model.bike.Bike;
 import loanbook.model.bike.UniqueBikeList;
 import loanbook.model.loan.Loan;
@@ -184,6 +186,22 @@ public class LoanBook implements ReadOnlyLoanBook {
     }
 
     //// util methods
+
+    @Override
+    public boolean hasEqualEditableFields(ReadOnlyLoanBook other) {
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof LoanBook)) {
+            return false;
+        }
+
+        LoanBook otherLoanBook = (LoanBook) other;
+        return testByElement(loans, otherLoanBook.loans, Loan::hasEqualEditableFields)
+                && bikes.equals(otherLoanBook.bikes)
+                && loanIdManager.equals(otherLoanBook.loanIdManager);
+    }
 
     @Override
     public String toString() {

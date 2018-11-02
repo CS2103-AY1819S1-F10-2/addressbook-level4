@@ -25,6 +25,7 @@ import loanbook.model.Model;
 import loanbook.model.bike.Bike;
 import loanbook.model.loan.Email;
 import loanbook.model.loan.Loan;
+import loanbook.model.loan.LoanId;
 import loanbook.model.loan.LoanRate;
 import loanbook.model.loan.LoanStatus;
 import loanbook.model.loan.LoanTime;
@@ -57,7 +58,6 @@ public class EditCommand extends Command {
 
     public static final String MESSAGE_EDIT_LOAN_SUCCESS = "Edited Loan: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_LOAN = "This loan already exists in the loan book.";
     public static final String MESSAGE_BIKE_NOT_FOUND = "No bike with that name exists within the loan book.";
 
     private final Index index;
@@ -87,10 +87,6 @@ public class EditCommand extends Command {
         Loan loanToEdit = lastShownList.get(index.getZeroBased());
         Loan editedLoan = createEditedLoan(loanToEdit, editLoanDescriptor, model);
 
-        if (!loanToEdit.isSame(editedLoan) && model.hasLoan(editedLoan)) {
-            throw new CommandException(MESSAGE_DUPLICATE_LOAN);
-        }
-
         model.updateLoan(loanToEdit, editedLoan);
         model.updateFilteredLoanList(PREDICATE_SHOW_ALL_LOANS);
         model.commitLoanBook();
@@ -107,6 +103,7 @@ public class EditCommand extends Command {
             Model model) throws CommandException {
         assert loanToEdit != null;
 
+        LoanId existingId = loanToEdit.getLoanId();
         Name updatedName = editLoanDescriptor.getName().orElse(loanToEdit.getName());
         Nric updatedNric = editLoanDescriptor.getNric().orElse(loanToEdit.getNric());
         Phone updatedPhone = editLoanDescriptor.getPhone().orElse(loanToEdit.getPhone());
@@ -118,7 +115,8 @@ public class EditCommand extends Command {
         Set<Tag> updatedTags = editLoanDescriptor.getTags().orElse(loanToEdit.getTags());
         LoanStatus updatedLoanStatus = editLoanDescriptor.getLoanStatus().orElse(loanToEdit.getLoanStatus());
 
-        return new Loan(updatedName,
+        return new Loan(existingId,
+                updatedName,
                 updatedNric,
                 updatedPhone,
                 updatedEmail,

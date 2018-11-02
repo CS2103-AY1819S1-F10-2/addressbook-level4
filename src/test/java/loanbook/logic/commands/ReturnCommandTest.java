@@ -31,7 +31,8 @@ public class ReturnCommandTest {
     @Test
     public void execute_returnOngoingLoan_success() {
         Loan newLoan = new LoanBuilder().build();
-        Loan returnedLoan = new Loan(newLoan.getName(),
+        Loan returnedLoan = new Loan(newLoan.getLoanId(),
+                newLoan.getName(),
                 newLoan.getNric(),
                 newLoan.getPhone(),
                 newLoan.getEmail(),

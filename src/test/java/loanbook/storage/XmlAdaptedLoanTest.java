@@ -30,6 +30,7 @@ public class XmlAdaptedLoanTest {
     private static final String INVALID_LOANTIME = "2017-02-30 12:56";
     private static final String INVALID_TAG = "#friend";
 
+    private static final XmlAdaptedLoanId VALID_LOANID = new XmlAdaptedLoanId(BENSON.getLoanId());
     private static final String VALID_NAME = BENSON.getName().toString();
     private static final String VALID_NRIC = BENSON.getNric().toString();
     private static final String VALID_PHONE = BENSON.getPhone().toString();
@@ -38,6 +39,7 @@ public class XmlAdaptedLoanTest {
     private static final String VALID_LOANRATE = BENSON.getLoanRate().toString();
     private static final String VALID_LOANTIMEA = BENSON.getLoanStartTime().toString();
     private static final String VALID_LOANTIMEB = BENSON.getLoanEndTime().toString();
+    private static final String VALID_LOANSTATUS = BENSON.getLoanStatus().name();
     private static final List<XmlAdaptedTag> VALID_TAGS = BENSON.getTags().stream()
             .map(XmlAdaptedTag::new)
             .collect(Collectors.toList());
@@ -51,7 +53,8 @@ public class XmlAdaptedLoanTest {
     @Test
     public void toModelTypeInvalidNameThrowsIllegalValueException() {
         XmlAdaptedLoan loan =
-                new XmlAdaptedLoan(INVALID_NAME,
+                new XmlAdaptedLoan(VALID_LOANID,
+                        INVALID_NAME,
                         VALID_NRIC,
                         VALID_PHONE,
                         VALID_EMAIL,
@@ -59,6 +62,7 @@ public class XmlAdaptedLoanTest {
                         VALID_LOANRATE,
                         VALID_LOANTIMEA,
                         VALID_LOANTIMEB,
+                        VALID_LOANSTATUS,
                         VALID_TAGS);
         String expectedMessage = Name.MESSAGE_NAME_CONSTRAINTS;
         Assert.assertThrows(IllegalValueException.class, expectedMessage, loan::toModelType);
@@ -67,7 +71,8 @@ public class XmlAdaptedLoanTest {
     @Test
     public void toModelTypeNullNameThrowsIllegalValueException() {
         XmlAdaptedLoan loan =
-                new XmlAdaptedLoan(null,
+                new XmlAdaptedLoan(VALID_LOANID,
+                        null,
                         VALID_NRIC,
                         VALID_PHONE,
                         VALID_EMAIL,
@@ -75,6 +80,7 @@ public class XmlAdaptedLoanTest {
                         VALID_LOANRATE,
                         VALID_LOANTIMEA,
                         VALID_LOANTIMEB,
+                        VALID_LOANSTATUS,
                         VALID_TAGS);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName());
         Assert.assertThrows(IllegalValueException.class, expectedMessage, loan::toModelType);
@@ -83,7 +89,8 @@ public class XmlAdaptedLoanTest {
     @Test
     public void toModelTypeInvalidNricThrowsIllegalValueException() {
         XmlAdaptedLoan loan =
-                new XmlAdaptedLoan(VALID_NAME,
+                new XmlAdaptedLoan(VALID_LOANID,
+                        VALID_NAME,
                         INVALID_NRIC,
                         VALID_PHONE,
                         VALID_EMAIL,
@@ -91,6 +98,7 @@ public class XmlAdaptedLoanTest {
                         VALID_LOANRATE,
                         VALID_LOANTIMEA,
                         VALID_LOANTIMEB,
+                        VALID_LOANSTATUS,
                         VALID_TAGS);
         String expectedMessage = Nric.MESSAGE_NRIC_CONSTRAINTS;
         Assert.assertThrows(IllegalValueException.class, expectedMessage, loan::toModelType);
@@ -99,7 +107,8 @@ public class XmlAdaptedLoanTest {
     @Test
     public void toModelTypeNullNricThrowsIllegalValueException() {
         XmlAdaptedLoan loan =
-                new XmlAdaptedLoan(VALID_NAME,
+                new XmlAdaptedLoan(VALID_LOANID,
+                        VALID_NAME,
                         null,
                         VALID_PHONE,
                         VALID_EMAIL,
@@ -107,6 +116,7 @@ public class XmlAdaptedLoanTest {
                         VALID_LOANRATE,
                         VALID_LOANTIMEA,
                         VALID_LOANTIMEB,
+                        VALID_LOANSTATUS,
                         VALID_TAGS);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Nric.class.getSimpleName());
         Assert.assertThrows(IllegalValueException.class, expectedMessage, loan::toModelType);
@@ -115,7 +125,8 @@ public class XmlAdaptedLoanTest {
     @Test
     public void toModelTypeInvalidPhoneThrowsIllegalValueException() {
         XmlAdaptedLoan loan =
-                new XmlAdaptedLoan(VALID_NAME,
+                new XmlAdaptedLoan(VALID_LOANID,
+                        VALID_NAME,
                         VALID_NRIC,
                         INVALID_PHONE,
                         VALID_EMAIL,
@@ -123,6 +134,7 @@ public class XmlAdaptedLoanTest {
                         VALID_LOANRATE,
                         VALID_LOANTIMEA,
                         VALID_LOANTIMEB,
+                        VALID_LOANSTATUS,
                         VALID_TAGS);
         String expectedMessage = Phone.MESSAGE_PHONE_CONSTRAINTS;
         Assert.assertThrows(IllegalValueException.class, expectedMessage, loan::toModelType);
@@ -131,7 +143,8 @@ public class XmlAdaptedLoanTest {
     @Test
     public void toModelTypeNullPhoneThrowsIllegalValueException() {
         XmlAdaptedLoan loan =
-                new XmlAdaptedLoan(VALID_NAME,
+                new XmlAdaptedLoan(VALID_LOANID,
+                        VALID_NAME,
                         VALID_NRIC,
                         null,
                         VALID_EMAIL,
@@ -139,6 +152,7 @@ public class XmlAdaptedLoanTest {
                         VALID_LOANRATE,
                         VALID_LOANTIMEA,
                         VALID_LOANTIMEB,
+                        VALID_LOANSTATUS,
                         VALID_TAGS);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Phone.class.getSimpleName());
         Assert.assertThrows(IllegalValueException.class, expectedMessage, loan::toModelType);
@@ -147,7 +161,8 @@ public class XmlAdaptedLoanTest {
     @Test
     public void toModelTypeInvalidEmailThrowsIllegalValueException() {
         XmlAdaptedLoan loan =
-                new XmlAdaptedLoan(VALID_NAME,
+                new XmlAdaptedLoan(VALID_LOANID,
+                        VALID_NAME,
                         VALID_NRIC,
                         VALID_PHONE,
                         INVALID_EMAIL,
@@ -155,6 +170,7 @@ public class XmlAdaptedLoanTest {
                         VALID_LOANRATE,
                         VALID_LOANTIMEA,
                         VALID_LOANTIMEB,
+                        VALID_LOANSTATUS,
                         VALID_TAGS);
         String expectedMessage = Email.MESSAGE_EMAIL_CONSTRAINTS;
         Assert.assertThrows(IllegalValueException.class, expectedMessage, loan::toModelType);
@@ -163,7 +179,8 @@ public class XmlAdaptedLoanTest {
     @Test
     public void toModelTypeNullEmailThrowsIllegalValueException() {
         XmlAdaptedLoan loan =
-                new XmlAdaptedLoan(VALID_NAME,
+                new XmlAdaptedLoan(VALID_LOANID,
+                        VALID_NAME,
                         VALID_NRIC,
                         VALID_PHONE,
                         null,
@@ -171,6 +188,7 @@ public class XmlAdaptedLoanTest {
                         VALID_LOANRATE,
                         VALID_LOANTIMEA,
                         VALID_LOANTIMEB,
+                        VALID_LOANSTATUS,
                         VALID_TAGS);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Email.class.getSimpleName());
         Assert.assertThrows(IllegalValueException.class, expectedMessage, loan::toModelType);
@@ -179,7 +197,8 @@ public class XmlAdaptedLoanTest {
     @Test
     public void toModelTypeInvalidBikeThrowsIllegalValueException() {
         XmlAdaptedLoan loan =
-                new XmlAdaptedLoan(VALID_NAME,
+                new XmlAdaptedLoan(VALID_LOANID,
+                        VALID_NAME,
                         VALID_NRIC,
                         VALID_PHONE,
                         VALID_EMAIL,
@@ -187,6 +206,7 @@ public class XmlAdaptedLoanTest {
                         VALID_LOANRATE,
                         VALID_LOANTIMEA,
                         VALID_LOANTIMEB,
+                        VALID_LOANSTATUS,
                         VALID_TAGS);
         String expectedMessage = Name.MESSAGE_NAME_CONSTRAINTS;
         Assert.assertThrows(IllegalValueException.class, expectedMessage, loan::toModelType);
@@ -195,7 +215,8 @@ public class XmlAdaptedLoanTest {
     @Test
     public void toModelTypeNullBikeThrowsIllegalValueException() {
         XmlAdaptedLoan loan =
-                new XmlAdaptedLoan(VALID_NAME,
+                new XmlAdaptedLoan(VALID_LOANID,
+                        VALID_NAME,
                         VALID_NRIC,
                         VALID_PHONE,
                         VALID_EMAIL,
@@ -203,6 +224,7 @@ public class XmlAdaptedLoanTest {
                         VALID_LOANRATE,
                         VALID_LOANTIMEA,
                         VALID_LOANTIMEB,
+                        VALID_LOANSTATUS,
                         VALID_TAGS);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Bike.class.getSimpleName());
         Assert.assertThrows(IllegalValueException.class, expectedMessage, loan::toModelType);
@@ -211,7 +233,8 @@ public class XmlAdaptedLoanTest {
     @Test
     public void toModelTypeInvalidLoanRateThrowsIllegalValueException() {
         XmlAdaptedLoan loan =
-                new XmlAdaptedLoan(VALID_NAME,
+                new XmlAdaptedLoan(VALID_LOANID,
+                        VALID_NAME,
                         VALID_NRIC,
                         VALID_PHONE,
                         VALID_EMAIL,
@@ -219,6 +242,7 @@ public class XmlAdaptedLoanTest {
                         INVALID_LOANRATE,
                         VALID_LOANTIMEA,
                         VALID_LOANTIMEB,
+                        VALID_LOANSTATUS,
                         VALID_TAGS);
         String expectedMessage = LoanRate.MESSAGE_LOANRATE_CONSTRAINTS;
         Assert.assertThrows(IllegalValueException.class, expectedMessage, loan::toModelType);
@@ -227,7 +251,8 @@ public class XmlAdaptedLoanTest {
     @Test
     public void toModelTypeNullLoanRateThrowsIllegalValueException() {
         XmlAdaptedLoan loan =
-                new XmlAdaptedLoan(VALID_NAME,
+                new XmlAdaptedLoan(VALID_LOANID,
+                        VALID_NAME,
                         VALID_NRIC,
                         VALID_PHONE,
                         VALID_EMAIL,
@@ -235,6 +260,7 @@ public class XmlAdaptedLoanTest {
                         null,
                         VALID_LOANTIMEA,
                         VALID_LOANTIMEB,
+                        VALID_LOANSTATUS,
                         VALID_TAGS);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, LoanRate.class.getSimpleName());
         Assert.assertThrows(IllegalValueException.class, expectedMessage, loan::toModelType);
@@ -243,7 +269,8 @@ public class XmlAdaptedLoanTest {
     @Test
     public void toModelTypeInvalidLoanTimeThrowsIllegalValueException() {
         XmlAdaptedLoan loan =
-                new XmlAdaptedLoan(VALID_NAME,
+                new XmlAdaptedLoan(VALID_LOANID,
+                        VALID_NAME,
                         VALID_NRIC,
                         VALID_PHONE,
                         VALID_EMAIL,
@@ -251,6 +278,7 @@ public class XmlAdaptedLoanTest {
                         VALID_LOANRATE,
                         INVALID_LOANTIME,
                         VALID_LOANTIMEB,
+                        VALID_LOANSTATUS,
                         VALID_TAGS);
         String expectedMessage = LoanTime.MESSAGE_LOANTIME_CONSTRAINTS;
         Assert.assertThrows(IllegalValueException.class, expectedMessage, loan::toModelType);
@@ -259,7 +287,8 @@ public class XmlAdaptedLoanTest {
     @Test
     public void toModelTypeNullLoanTimeThrowsIllegalValueException() {
         XmlAdaptedLoan loan =
-                new XmlAdaptedLoan(VALID_NAME,
+                new XmlAdaptedLoan(VALID_LOANID,
+                        VALID_NAME,
                         VALID_NRIC,
                         VALID_PHONE,
                         VALID_EMAIL,
@@ -267,6 +296,7 @@ public class XmlAdaptedLoanTest {
                         VALID_LOANRATE,
                         null,
                         VALID_LOANTIMEB,
+                        VALID_LOANSTATUS,
                         VALID_TAGS);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, LoanTime.class.getSimpleName());
         Assert.assertThrows(IllegalValueException.class, expectedMessage, loan::toModelType);
@@ -277,7 +307,8 @@ public class XmlAdaptedLoanTest {
         List<XmlAdaptedTag> invalidTags = new ArrayList<>(VALID_TAGS);
         invalidTags.add(new XmlAdaptedTag(INVALID_TAG));
         XmlAdaptedLoan loan =
-                new XmlAdaptedLoan(VALID_NAME,
+                new XmlAdaptedLoan(VALID_LOANID,
+                        VALID_NAME,
                         VALID_NRIC,
                         VALID_PHONE,
                         VALID_EMAIL,
@@ -285,6 +316,7 @@ public class XmlAdaptedLoanTest {
                         VALID_LOANRATE,
                         VALID_LOANTIMEA,
                         VALID_LOANTIMEB,
+                        VALID_LOANSTATUS,
                         invalidTags);
         Assert.assertThrows(IllegalValueException.class, loan::toModelType);
     }
