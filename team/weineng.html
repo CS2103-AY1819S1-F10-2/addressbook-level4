@@ -3,11 +3,13 @@
 <link rel="stylesheet" href="../stylesheets/coderay-asciidoctor.css"></head><body class="article"><div id="site-header"><nav class="navbar navbar-light bg-light"><div class="container"><a class="navbar-brand" href="../index.html">LoanBook</a><ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="../UserGuide.html">User Guide</a></li><li class="nav-item"><a class="nav-link" href="../DeveloperGuide.html">Developer Guide</a></li><li class="nav-item"><a class="nav-link active" href="../AboutUs.html">About Us</a></li><li class="nav-item"><a class="nav-link" href="../ContactUs.html">Contact Us</a></li><li class="navitem"><a class="nav-link" href="https://github.com/CS2103-AY1819S1-F10-2/main.git"><span class="fa fa-github fa-lg" aria-hidden="true"></span>&nbsp;View on GitHub</a></li></ul></div></nav></div><div id="header"><h1>Ang Wei Neng - Project Portfolio</h1></div><div id="content"><div class="sect1">
 <h2 id="project-loanbook"><a class="link" href="#project-loanbook">PROJECT: LoanBook</a></h2>
 <div class="sectionbody">
-<hr>
+<div class="paragraph">
+<p>This portfolio page serves to showcases my contributions to the project, [<a href="https://github.com/CS2103-AY1819S1-F10-2/main">LoanBook</a>]. My resume and full portfolio can be found [<a href="https://weineng.io">here</a>].</p>
+</div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="overview"><a class="link" href="#overview">Overview</a></h2>
+<h2 id="overview-of-loanbook"><a class="link" href="#overview-of-loanbook">Overview of Loanbook</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>AddressBook - Level 4 is a desktop address book application used for teaching Software Engineering principles. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.</p>
@@ -17,32 +19,30 @@
 <div class="sect1">
 <h2 id="summary-of-contributions"><a class="link" href="#summary-of-contributions">Summary of contributions</a></h2>
 <div class="sectionbody">
+<div class="paragraph">
+<p>This section summarises the key contributions that I made to the project.</p>
+</div>
 <div class="ulist">
 <ul>
 <li>
-<p><strong>Major enhancement</strong>: added <strong>the ability to undo/redo previous commands</strong></p>
+<p><strong>Major enhancement</strong>: added the ability to <strong>set and change password to the application</strong> and allow <strong>searching for loans of specific dates</strong>.</p>
 <div class="ulist">
 <ul>
 <li>
-<p>What it does: allows the user to undo all previous commands one at a time. Preceding undo commands can be reversed by using the redo command.</p>
+<p>What it does: Allow user to set password and change password for the app, so that critical comments that affects statistical integrity (Transaction summery &amp; Tax-filing) cannot be performed by unauthorised personnel.</p>
 </li>
 <li>
-<p>Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.</p>
+<p>Justification: This feature improves the product significantly because only authorized users are now able use the critical commands (E.g. <code>delete</code> command) to delete loans, which affects critical summery including tax-filling, revenue management.</p>
 </li>
 <li>
-<p>Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.</p>
-</li>
-<li>
-<p>Credits: <em>{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}</em></p>
+<p>Highlights: This enhancement affects the security of the application and how existing commands and commands can leverage this in future release. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.</p>
 </li>
 </ul>
 </div>
 </li>
 <li>
-<p><strong>Minor enhancement</strong>: added a history command that allows the user to navigate to previous commands using up/down keys.</p>
-</li>
-<li>
-<p><strong>Code contributed</strong>: [<a href="https://github.com">Functional code</a>] [<a href="https://github.com">Test code</a>] <em>{give links to collated code files}</em></p>
+<p><strong>Minor enhancement</strong>:
+*Create NRIC class and validate to ensure that only Singapore issued NRIC is provided.</p>
 </li>
 <li>
 <p><strong>Other contributions</strong>:</p>
@@ -53,7 +53,10 @@
 <div class="ulist">
 <ul>
 <li>
-<p>Managed releases <code>v1.3</code> - <code>v1.5rc</code> (3 releases) on GitHub</p>
+<p>Managed releases <code>v1.1</code> - <code>v1.4</code> (4 releases) on GitHub.</p>
+</li>
+<li>
+<p>Added badges to show CI status, code quality and type of licence for the master branch [<a href="https://github.com/CS2103-AY1819S1-F10-2/main/pull/2">#2</a>][<a href="https://github.com/CS2103-AY1819S1-F10-2/main/pull/32">#32</a>]</p>
 </li>
 </ul>
 </div>
@@ -63,10 +66,10 @@
 <div class="ulist">
 <ul>
 <li>
-<p>Updated the GUI color scheme (Pull requests <a href="https://github.com">#33</a>, <a href="https://github.com">#34</a>)</p>
+<p>Improve data security by requiring a password before deletion.[<a href="https://github.com/CS2103-AY1819S1-F10-2/main/pull/96">#96</a>]</p>
 </li>
 <li>
-<p>Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests <a href="https://github.com">#36</a>, <a href="https://github.com">#38</a>)</p>
+<p>Add colour to tags [<a href="https://github.com/CS2103-AY1819S1-F10-2/main/pull/90">#90</a>]</p>
 </li>
 </ul>
 </div>
@@ -76,7 +79,7 @@
 <div class="ulist">
 <ul>
 <li>
-<p>Did cosmetic tweaks to existing contents of the User Guide: <a href="https://github.com">#14</a></p>
+<p>Changed the gradle build script to display team name: [<a href="https://github.com/CS2103-AY1819S1-F10-2/main/pull/1">#1</a>]</p>
 </li>
 </ul>
 </div>
@@ -86,16 +89,17 @@
 <div class="ulist">
 <ul>
 <li>
-<p>PRs reviewed (with non-trivial review comments): <a href="https://github.com">#12</a>, <a href="https://github.com">#32</a>, <a href="https://github.com">#19</a>, <a href="https://github.com">#42</a></p>
+<p>PRs reviewed (with non-trivial review comments): [<a href="https://github.com/CS2103-AY1819S1-F10-2/main/pull/35">#35</a>], [<a href="https://github.com/CS2103-AY1819S1-F10-2/main/pull/24">#24</a>]</p>
+</li>
+</ul>
+</div>
 </li>
 <li>
-<p>Contributed to forum discussions (examples:  <a href="https://github.com">1</a>, <a href="https://github.com">2</a>, <a href="https://github.com">3</a>, <a href="https://github.com">4</a>)</p>
-</li>
+<p>Aesthetics:</p>
+<div class="ulist">
+<ul>
 <li>
-<p>Reported bugs and suggestions for other teams in the class (examples:  <a href="https://github.com">1</a>, <a href="https://github.com">2</a>, <a href="https://github.com">3</a>)</p>
-</li>
-<li>
-<p>Some parts of the history feature I added was adopted by several other class mates (<a href="https://github.com">1</a>, <a href="https://github.com">2</a>)</p>
+<p>Create application icon. [<a href="https://github.com/CS2103-AY1819S1-F10-2/main/pull/154">#154</a></p>
 </li>
 </ul>
 </div>
@@ -105,10 +109,17 @@
 <div class="ulist">
 <ul>
 <li>
-<p>Integrated a third party library (Natty) to the project (<a href="https://github.com">#42</a>)</p>
+<p>Integrated TravisCI, AppVeyor, Coveralls, Codacy, and Netlify to the team repo [<a href="https://github.com/CS2103-AY1819S1-F10-2/main/pull/23">#23</a>]</p>
 </li>
 <li>
-<p>Integrated a new Github plugin (CircleCI) to the team repo</p>
+<p>Set up [<a href="https://cs2103-ay1819s1-f10-2.github.io/main/">team website</a>]</p>
+</li>
+<li>
+<p>Set up slack notification and web hook for team.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>This provides notification to developers on any updates to the repository.</p>
 </li>
 </ul>
 </div>
@@ -118,8 +129,8 @@
 </li>
 </ul>
 </div>
-<div class="paragraph">
-<p><em>{you can add/remove categories in the list above}</em></p>
+</li>
+</ul>
 </div>
 </div>
 </div>
@@ -137,24 +148,33 @@
 </tbody>
 </table>
 <div class="sect2">
-<h3 id="undoing-previous-command-code-undo-code"><a class="link" href="#undoing-previous-command-code-undo-code">Undoing previous command : <code>undo</code></a></h3>
+<h3 id="locating-loans-by-date-of-loan-code-search-code"><a class="link" href="#locating-loans-by-date-of-loan-code-search-code">Locating loans by date of loan: <code>search</code></a></h3>
 <div class="paragraph">
-<p>Restores the address book to the state before the previous <em>undoable</em> command was executed.<br>
-Format: <code>undo</code></p>
+<p>Returns all loans that was created between the range provided
+Format: <code>search START_DATE END_DATE</code></p>
 </div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-<div class="paragraph">
-<p>Undoable commands: those commands that modify the address book&#8217;s content (<code>add</code>, <code>delete</code>, <code>edit</code> and <code>clear</code>).</p>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>Date format must be YYYY-MM-DD.</p>
+</li>
+<li>
+<p>The search is format sensitive sensitive. i.e. Date format must be strictly followed`.</p>
+</li>
+<li>
+<p>The search is determined on the date and time of loan created.</p>
+</li>
+<li>
+<p>Date provided must be valid. i.e. 2018-02-31 will return an error as it is not a valid date.</p>
+</li>
+<li>
+<p>The start date provided should be before end date. i.e. <code>search 2018-01-02 2018-01-01</code> will throw an error.</p>
+</li>
+</ul>
 </div>
-</td>
-</tr>
-</table>
+</div>
 </div>
 <div class="paragraph">
 <p>Examples:</p>
@@ -162,30 +182,35 @@ Format: <code>undo</code></p>
 <div class="ulist">
 <ul>
 <li>
-<p><code>delete 1</code><br>
-<code>list</code><br>
-<code>undo</code> (reverses the <code>delete 1</code> command)<br></p>
+<p><code>search 2018-01-01 2018-01-01</code><br>
+Searches for loans with loan start date and time as 2018-01-01.</p>
 </li>
 <li>
-<p><code>select 1</code><br>
-<code>list</code><br>
-<code>undo</code><br>
-The <code>undo</code> command fails as there are no undoable commands executed previously.</p>
-</li>
-<li>
-<p><code>delete 1</code><br>
-<code>clear</code><br>
-<code>undo</code> (reverses the <code>clear</code> command)<br>
-<code>undo</code> (reverses the <code>delete 1</code> command)<br></p>
+<p><code>search 2018-01-01 2018-01-02</code><br>
+Searches for loans with loan start date and time between 2018-01-01 and 2018-01-02, inclusive.</p>
 </li>
 </ul>
 </div>
 </div>
 <div class="sect2">
-<h3 id="redoing-the-previously-undone-command-code-redo-code"><a class="link" href="#redoing-the-previously-undone-command-code-redo-code">Redoing the previously undone command : <code>redo</code></a></h3>
+<h3 id="changing-the-password-of-the-app-code-setpass-code"><a class="link" href="#changing-the-password-of-the-app-code-setpass-code">Changing the password of the app: <code>setpass</code></a></h3>
 <div class="paragraph">
-<p>Reverses the most recent <code>undo</code> command.<br>
-Format: <code>redo</code></p>
+<p>Change the current password of the app to <code>NEW_PASSWORD</code>. This ensures that critical commands such as <code>delete</code> and <code>reset</code> may be performed by authorized personnels only.<br>
+Format: <code>setpass CURRENT_PASSWORD NEW_PASSWORD</code></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>Set the password of the app to <code>NEW_PASSWORD</code></p>
+</li>
+<li>
+<p>Password change will not occur if <code>CURRENT_PASSWORD</code> is incorrect.</p>
+</li>
+</ul>
+</div>
+</div>
 </div>
 <div class="paragraph">
 <p>Examples:</p>
@@ -193,30 +218,10 @@ Format: <code>redo</code></p>
 <div class="ulist">
 <ul>
 <li>
-<p><code>delete 1</code><br>
-<code>undo</code> (reverses the <code>delete 1</code> command)<br>
-<code>redo</code> (reapplies the <code>delete 1</code> command)<br></p>
-</li>
-<li>
-<p><code>delete 1</code><br>
-<code>redo</code><br>
-The <code>redo</code> command fails as there are no <code>undo</code> commands executed previously.</p>
-</li>
-<li>
-<p><code>delete 1</code><br>
-<code>clear</code><br>
-<code>undo</code> (reverses the <code>clear</code> command)<br>
-<code>undo</code> (reverses the <code>delete 1</code> command)<br>
-<code>redo</code> (reapplies the <code>delete 1</code> command)<br>
-<code>redo</code> (reapplies the <code>clear</code> command)<br></p>
+<p><code>setpass a12345 n3wP4sS</code><br>
+Set the password of the app to <code>n3wP4sS</code>.</p>
 </li>
 </ul>
-</div>
-</div>
-<div class="sect2">
-<h3 id="encrypting-data-files-code-coming-in-v2-0-code"><a class="link" href="#encrypting-data-files-code-coming-in-v2-0-code">Encrypting data files <code>[coming in v2.0]</code></a></h3>
-<div class="paragraph">
-<p><em>{explain how the user can enable/disable data encryption}</em></p>
 </div>
 </div>
 </div>
@@ -235,56 +240,197 @@ The <code>redo</code> command fails as there are no <code>undo</code> commands e
 </tbody>
 </table>
 <div class="sect2">
-<h3 id="undo-redo-feature"><a class="link" href="#undo-redo-feature">Undo/Redo feature</a></h3>
-<div class="sect3">
-<h4 id="current-implementation"><a class="link" href="#current-implementation">Current Implementation</a></h4>
+<h3 id="admin-authentication"><a class="link" href="#admin-authentication">Admin Authentication</a></h3>
 <div class="paragraph">
-<p>The undo/redo mechanism is facilitated by <code>VersionedLoanBook</code>.
-It extends <code>LoanBook</code> with an undo/redo history, stored internally as a <code>loanBookStateList</code> and <code>currentStatePointer</code>.
-Additionally, it implements the following operations:</p>
+<p>Before critical actions such as deleting a loan can be performed, admin authentication
+should be required. This ensures that only authorized users are able to perform critical actions.
+This is done by requiring a password before performing a critical action.</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p><code>VersionedLoanBook#commit()</code>&#8201;&#8212;&#8201;Saves the current loan book state in its history.</p>
+<p>Current Implementation *
+There are three stages in this implementation:</p>
+</li>
+</ul>
+</div>
+<div class="sect3">
+<h4 id="allowing-the-code-delete-code-command-to-accept-a-password"><a class="link" href="#allowing-the-code-delete-code-command-to-accept-a-password">Allowing the <code>delete</code> command to accept a password</a></h4>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>To allow <code>delete</code> command to accept a password, we set a stub password of <code>a12345</code> and require all <code>delete</code> command to take in a password argument.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>When password is wrong, we do not perform the deletion of the loans.</p>
 </li>
 <li>
-<p><code>VersionedLoanBook#undo()</code>&#8201;&#8212;&#8201;Restores the previous loan book state from its history.</p>
+<p>Only when password matches with stub password will the loan be deleted.</p>
+</li>
+</ul>
+</div>
 </li>
 <li>
-<p><code>VersionedLoanBook#redo()</code>&#8201;&#8212;&#8201;Restores a previously undone loan book state from its history.</p>
+<p>Existing tests were edited to include and check for a valid password before deletion.</p>
+</li>
+</ol>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The default password for a new app is <code>a12345</code>.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The following sequence diagram shows how the new <code>delete</code> operation works.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/deleteLoanWithPass.png" alt="deleteLoanWithPass" width="1000">
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="allow-changing-of-master-password"><a class="link" href="#allow-changing-of-master-password">Allow changing of master password</a></h4>
+<div class="paragraph">
+<p>Given below is an example usage scenario and how the <code>setpass</code> mechanism behaves at each step.</p>
+</div>
+<div class="paragraph">
+<p>Step 1. The user launches the application for the first time. <code>UserPref</code> file will initialise the password as <code>a12345</code>.</p>
+</div>
+<div class="paragraph">
+<p>Step 2. The user executes <code>setpass a12345 newP4sS</code> command to change the password to <code>newP4sS</code>.</p>
+</div>
+<div class="paragraph">
+<p>Step 3. <code>Password</code> class will encrypt the password, and call Model#setPass, that changes the password of the application in <code>UserPref</code>.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+If the current password input is wrong, it will not call Model#setPass, so the UserPref state will not be saved.
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+If the current password input the same as the new password input, it will not call Model#setPass, so the UserPref state will not be saved.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Step 4. Password in <code>UserPref</code> is set to new password input.</p>
+</div>
+<div class="paragraph">
+<p>The following sequence diagram shows how the <code>setpass</code> operation works:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/setPasswordLogic.png" alt="setPasswordLogic" width="800">
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="encrypt-current-password-for-security"><a class="link" href="#encrypt-current-password-for-security">Encrypt current password for security</a></h4>
+<div class="paragraph">
+<p>To ensure that others are unable to retrieve the app&#8217;s password from the preference.json, we encrypt the password before storing. Decryption of password can only be done by the <code>Password</code> class.</p>
+</div>
+<div class="paragraph">
+<p>This is currently done by appending <code>-encrypt</code> to the password, and removing it when
+decrypting. For version 2.0, we plan to utilise existing libraries to encrypt and
+decrypt our stored password.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="return-a-loan-feature"><a class="link" href="#return-a-loan-feature">Return a Loan feature</a></h3>
+<div class="paragraph">
+<p>A LoanBook application that only allows users to do loans without being able to return them would not serve its purpose. When you take out a loan, it should automatically come with the feature of being returnable. This is the functionality for that.</p>
+</div>
+<div class="sect3">
+<h4 id="proposed-implementation"><a class="link" href="#proposed-implementation">Proposed Implementation</a></h4>
+<div class="paragraph">
+<p>Returning a loan is done by setting the corresponding status of the loan to <code>LoanStatus.RETURNED</code>. Other than setting the enum to be returned, the cost of the loan will also be calculated and displayed to the user.</p>
+</div>
+<div class="paragraph">
+<p>The steps that have to be done by LoanBook is as follows:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Check the start and end time of the loan to ensure that the loan period is valid.</p>
+</li>
+<li>
+<p>Store the current time as the return time of the loan.</p>
+</li>
+<li>
+<p>Change the enum of <code>LoanStatus</code> to become <code>LoanStatus.RETURNED</code>.</p>
+</li>
+<li>
+<p>Calculate the cost of the loan and display it in the GUI as a suggestion for the user.</p>
 </li>
 </ul>
 </div>
 <div class="paragraph">
-<p>These operations are exposed in the <code>Model</code> interface as <code>Model#commitLoanBook()</code>, <code>Model#undoLoanBook()</code> and <code>Model#redoLoanBook()</code> respectively.</p>
+<p>These steps would change the given <code>Loan</code> object, and update the properties of the <code>Loan</code> object. The appropriate values stored within the <code>Loan</code> object would therefore change accordingly.</p>
 </div>
 <div class="paragraph">
-<p>Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.</p>
+<p>Given below is an example usage scenerio and how the internals of the Loan would behave:</p>
 </div>
 <div class="paragraph">
-<p>Step 1. The user launches the application for the first time. The <code>VersionedLoanBook</code> will be initialized with the initial loan book state, and the <code>currentStatePointer</code> pointing to that single loan book state.</p>
+<p><strong>Step 1.</strong> The user would have to do a search for which loan they would like to return. This will pull up a list of loans from which the user would be able to select the correct loan.</p>
+</div>
+<div class="paragraph">
+<p><strong>Step 2.</strong> Using the current system time as the <code>endTime</code>, the duration of the loan will be calculated. Should the duration ever be negative, an error message will be thrown. This is because such a scenario would not ever be possible in the LoanBook.</p>
+</div>
+<div class="paragraph">
+<p><strong>Step 3.</strong> The user decides to return the current loan (in the case of the above image, the user wants to return loan at index 3, as selected). User will therefore key in <code>return i/3</code>.</p>
+</div>
+<div class="paragraph">
+<p>The LoanBook will save the current time into the <code>LoanTime endTime</code> field. This would be done by calling the constructor <code>LoanTime()</code>. Also, the loanStatus field would also be updated from <code>ONGOING</code> to <code>RETURNED</code>.</p>
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="../images/UndoRedoStartingStateListDiagram.png" alt="UndoRedoStartingStateListDiagram" width="800">
+<img src="../images/return-loan-loan2.png" alt="return loan loan2">
 </div>
 </div>
 <div class="paragraph">
-<p>Step 2. The user executes <code>delete 5</code> command to delete the 5th loan in the loan book. The <code>delete</code> command calls <code>Model#commitLoanBook()</code>, causing the modified state of the loan book after the <code>delete 5</code> command executes to be saved in the <code>loanBookStateList</code>, and the <code>currentStatePointer</code> is shifted to the newly inserted loan book state.</p>
+<p>Note that originally the loan has a <code>null</code> value for end time. Note that the <code>endTime</code> and <code>loanStatus</code> values has been updated.</p>
 </div>
-<div class="imageblock">
-<div class="content">
-<img src="../images/UndoRedoNewCommand1StateListDiagram.png" alt="UndoRedoNewCommand1StateListDiagram" width="800">
-</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+If the loan has already been returned or deleted, a corresponding error message will notify you that you cannot return a loan that is not ongoing. The message will also display the current status of the loan for troubleshooting. This check happens during this step.
+</td>
+</tr>
+</table>
 </div>
 <div class="paragraph">
-<p>Step 3. The user executes <code>add n/David &#8230;&#8203;</code> to add a new loan. The <code>add</code> command also calls <code>Model#commitLoanBook()</code>, causing another modified loan book state to be saved into the <code>loanBookStateList</code>.</p>
+<p>&#160;<br></p>
 </div>
-<div class="imageblock">
-<div class="content">
-<img src="../images/UndoRedoNewCommand2StateListDiagram.png" alt="UndoRedoNewCommand2StateListDiagram" width="800">
-</div>
+<div class="paragraph">
+<p><strong>Step 4.</strong> The function now calculates the cost of the loan. This price would be based on the amount of time the loan was active for, as well as the loanRate that was set, by multiplying the time with the rate.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -293,18 +439,13 @@ Additionally, it implements the following operations:</p>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-If a command fails its execution, it will not call <code>Model#commitLoanBook()</code>, so the loan book state will not be saved into the <code>loanBookStateList</code>.
+Although the time saved is to the millisecond, the time that is multiplied when we are getting the cost is rounded down to the nearest minute. In a sense, this is "pro-rating" the cost, and making it more discrete.
 </td>
 </tr>
 </table>
 </div>
 <div class="paragraph">
-<p>Step 4. The user now decides that adding the loan was a mistake, and decides to undo that action by executing the <code>undo</code> command. The <code>undo</code> command will call <code>Model#undoLoanBook()</code>, which will shift the <code>currentStatePointer</code> once to the left, pointing it to the previous loan book state, and restores the loan book to that state.</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="../images/UndoRedoExecuteUndoStateListDiagram.png" alt="UndoRedoExecuteUndoStateListDiagram" width="800">
-</div>
+<p>The result is then displayed into the GUI for the user as the cost price of the loan.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -313,87 +454,472 @@ If a command fails its execution, it will not call <code>Model#commitLoanBook()<
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-If the <code>currentStatePointer</code> is at index 0, pointing to the initial loan book state, then there are no previous loan book states to restore. The <code>undo</code> command uses <code>Model#canUndoLoanBook()</code> to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
+It is possible for the LoanBook to have a loan that lasts for 0 minutes. This is because there may be some weird edge case where an object is loaned for less than a minute, which gets prorated down.
 </td>
 </tr>
 </table>
 </div>
 <div class="paragraph">
-<p>The following sequence diagram shows how the undo operation works:</p>
+<p>&#160;<br></p>
 </div>
-<div class="imageblock">
-<div class="content">
-<img src="../images/UndoRedoSequenceDiagram.png" alt="UndoRedoSequenceDiagram" width="800">
 </div>
+<div class="sect3">
+<h4 id="design-considerations"><a class="link" href="#design-considerations">Design considerations:</a></h4>
+<div class="sect4">
+<h5 id="aspect-using-an-enum-vs-changing-the-location-of-the-loan"><a class="link" href="#aspect-using-an-enum-vs-changing-the-location-of-the-loan">Aspect: Using an enum vs changing the location of the loan</a></h5>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Alternative 1 (current choice):</strong> To create an enum that will store the status of the linked list.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: Easy to implement the return a loan feature, and do not need to create new data storage features.</p>
+</li>
+<li>
+<p>Cons: When using the <code>summary</code> function, it will take a longer amount of time, as the LoanBook would have to do a check at every step to ensure the correct data is appended to the correct place.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Alternative 2: Create new ArrayLists of <code>Loans</code> for each possible status of the <code>Loan</code> objects.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: Computing the <code>summary</code> of the LoanBook would be much easier, and quicker.</p>
+</li>
+<li>
+<p>Cons: <code>return</code> functionality would run much slower, as there will be empty slots in the ArrayList after shifting the Loan objects around. Searching for loans would also be much more difficult, as the results from the various Loan ArrayLists has to be appended together.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="summary-feature"><a class="link" href="#summary-feature">Summary Feature</a></h3>
+<div class="paragraph">
+<p>In order to allow the user to use the LoanBook effectively as an auditing tool, they must be able to get a summary of all the loans that they have made. This summary should ideally give them an idea of the statistics of each of their transactions at a glance.</p>
+</div>
+<div class="sect3">
+<h4 id="proposed-implementation-2"><a class="link" href="#proposed-implementation-2">Proposed Implementation</a></h4>
+<div class="paragraph">
+<p>Getting the summary of all the loans is simply done by looping through all the stored loans before and aggregating the statistics of all the loans.</p>
 </div>
 <div class="paragraph">
-<p>The <code>redo</code> command does the opposite&#8201;&#8212;&#8201;it calls <code>Model#redoLoanBook()</code>, which shifts the <code>currentStatePointer</code> once to the right, pointing to the previously undone state, and restores the loan book to that state.</p>
+<p>Currently, the <code>summary</code> command displays to the user the following statistics:</p>
 </div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-If the <code>currentStatePointer</code> is at index <code>loanBookStateList.size() - 1</code>, pointing to the latest loan book state, then there are no undone loan book states to restore. The <code>redo</code> command uses <code>Model#canRedoLoanBook()</code> to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Step 5. The user then decides to execute the command <code>list</code>. Commands that do not modify the loan book, such as <code>list</code>, will usually not call <code>Model#commitLoanBook()</code>, <code>Model#undoLoanBook()</code> or <code>Model#redoLoanBook()</code>. Thus, the <code>loanBookStateList</code> remains unchanged.</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="../images/UndoRedoNewCommand3StateListDiagram.png" alt="UndoRedoNewCommand3StateListDiagram" width="800">
-</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Total number of ongoing loans</p>
+</li>
+<li>
+<p>Total number of loans ever taken out</p>
+</li>
+<li>
+<p>Total amount of time all bikes have been loaned for</p>
+</li>
+<li>
+<p>Total revenue from the loan service</p>
+</li>
+</ul>
 </div>
 <div class="paragraph">
-<p>Step 6. The user executes <code>clear</code>, which calls <code>Model#commitLoanBook()</code>. Since the <code>currentStatePointer</code> is not pointing at the end of the <code>loanBookStateList</code>, all loan book states after the <code>currentStatePointer</code> will be purged. We designed it this way because it no longer makes sense to redo the <code>add n/David &#8230;&#8203;</code> command. This is the behavior that most modern desktop applications follow.</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="../images/UndoRedoNewCommand4StateListDiagram.png" alt="UndoRedoNewCommand4StateListDiagram" width="800">
-</div>
+<p>This would give a very handy summary page as well as a printable audit page for the bicycle shop owners.</p>
 </div>
 <div class="paragraph">
-<p>The following activity diagram summarizes what happens when a user executes a new command:</p>
+<p>Given below is an example usage scenario and how the internals of the LoanBook behaves:</p>
 </div>
-<div class="imageblock">
-<div class="content">
-<img src="../images/UndoRedoActivityDiagram.png" alt="UndoRedoActivityDiagram" width="650">
+<div class="paragraph">
+<p><strong>Step 1.</strong> The user simply has to type the <code>summary</code> keyword into the CLI.</p>
+</div>
+<div class="paragraph">
+<p><strong>Step 2.</strong> The LoanBook proceeds to loop through all the loans and aggregate the statistics of the loans.</p>
+</div>
+<div class="paragraph">
+<p><strong>Step 3.</strong> The LoanBook updates the display with the aggregated statistics, and this can be screenshotted by the user as a summary page.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="design-considerations-2"><a class="link" href="#design-considerations-2">Design considerations:</a></h4>
+<div class="sect4">
+<h5 id="aspect-getting-the-summary"><a class="link" href="#aspect-getting-the-summary">Aspect: Getting the summary</a></h5>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Alternative 1 (current choice):</strong> Looping through the entire list of loans to get the summary of the content</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: Easy to implement, and do not need to create new data storage features.</p>
+</li>
+<li>
+<p>Cons: Looping through all loans will take more time, as the LoanBook would have to check every loan and recalculate.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Alternative 2: Use a cache to store previously calculated values of the summaries.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: Quicker response time to the users.</p>
+</li>
+<li>
+<p>Cons: Much harder to implement, cache might break if user edits past loans.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
 </div>
 </div>
 </div>
 <div class="sect3">
-<h4 id="design-considerations"><a class="link" href="#design-considerations">Design Considerations</a></h4>
-<div class="sect4">
-<h5 id="aspect-how-undo-redo-executes"><a class="link" href="#aspect-how-undo-redo-executes">Aspect: How undo &amp; redo executes</a></h5>
+<h4 id="future-features"><a class="link" href="#future-features">Future features</a></h4>
+<div class="paragraph">
+<p>We plan to include a feature which allows users to summarize the LoanBook based on certain parameters. For example, in future implementations, the user will be able to filter the statistics based on the identity of a bicycle.</p>
+</div>
+<div class="paragraph">
+<p>These are the proposed features you would be able to search based on:</p>
+</div>
 <div class="ulist">
 <ul>
 <li>
-<p><strong>Alternative 1 (current choice):</strong> Saves the entire loan book.</p>
+<p>Bicycle</p>
+</li>
+<li>
+<p>Time period</p>
+</li>
+<li>
+<p>Person who took out the loan</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>As well, having to recalculate all the loans would be a bad idea when the LoanBook contains many loans. A proposed solution would be to cache the results of the main summary method, so that the LoanBook would only have to recalculate the numbers based on loans that have not been added to the final tally.</p>
+</div>
+<div class="paragraph">
+<p>Another idea would be to display all the loans in a printable table, when the summary feature is called. Perhaps this would generate a pdf file which shows all the list of loans that the LoanBook is keeping track of. Users can then take use this as a more stringent auditing tool.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="logging"><a class="link" href="#logging">Logging</a></h3>
+<div class="paragraph">
+<p>We are using <code>java.util.logging</code> package for logging. The <code>LogsCenter</code> class is used to manage the logging levels and logging destinations.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>The logging level can be controlled using the <code>logLevel</code> setting in the configuration file (See <a href="#Implementation-Configuration">Configuration</a>)</p>
+</li>
+<li>
+<p>The <code>Logger</code> for a class can be obtained using <code>LogsCenter.getLogger(Class)</code> which will log messages according to the specified logging level</p>
+</li>
+<li>
+<p>Currently log messages are output through: <code>Console</code> and to a <code>.log</code> file.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>Logging Levels</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>SEVERE</code> : Critical problem detected which may possibly cause the termination of the application</p>
+</li>
+<li>
+<p><code>WARNING</code> : Can continue, but with caution</p>
+</li>
+<li>
+<p><code>INFO</code> : Information showing the noteworthy actions by the App</p>
+</li>
+<li>
+<p><code>FINE</code> : Details that is not usually noteworthy but may be useful in debugging e.g. print the actual list instead of just its size</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Implementation-Configuration"><a class="link" href="#Implementation-Configuration">Configuration</a></h3>
+<div class="paragraph">
+<p>Certain properties of the application can be controlled (e.g App name, logging level) through the configuration file (default: <code>config.json</code>).</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="bicycle-management"><a class="link" href="#bicycle-management">Bicycle Management</a></h3>
+<div class="paragraph">
+<p>As bicycles have a lot of properties, statuses and actions associated with them, they are represented in the code base as a dedicated <code>Bike</code> class.</p>
+</div>
+<div class="paragraph">
+<p>Each <code>LoanBook</code> will have its own list of <code>Bike</code> s, representing all the bicycles that a bicycle shop owner has at their disposal. For the most part, the list of bicycles will be maintained in the same way as the list of loans.</p>
+</div>
+<div class="paragraph">
+<p>Every bicycle will have the following members:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>name</code>: A name that uniquely identifies the bicycle, e.g. the bicycle&#8217;s serial number.</p>
+</li>
+<li>
+<p><code>status</code>: The bicycle&#8217;s current status that represents where it is or what it is doing, e.g. <code>Available</code>, <code>Loaned Out</code>, <code>On Display</code>, <code>Under Repair</code>.</p>
+</li>
+<li>
+<p><code>loanHistory</code>: A list of past loans associated with this bicycle, sorted chronologically.</p>
+</li>
+<li>
+<p><code>loanReserves</code>: A list of future loans (i.e. reservations) associated with this bicycle, sorted chronologically.</p>
+</li>
+<li>
+<p>Traits that characterize the bicycle, such as <code>brand</code>, <code>model</code>, <code>top speed</code>, <code>wheel size</code>, <code>weight</code>, <code>material</code> etc.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The new structure of the Loan Book is demonstrated in the class diagram below:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/BicycleManagementClassDiagram.png" alt="BicycleManagementClassDiagram" width="720">
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Why does the bicycle track loans using two lists, instead of collating them into one big list? Because each list has a specific category of loans and it is more common to encounter situations that deal with only one of the lists (e.g. checking transaction history, or checking for clashes with reservations), rather than both.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Every <code>Loan</code> will have a reference to exactly one <code>Bike</code>: the bicycle that is loaned out. Conversely, every <code>Bike</code> has two lists of references of <code>Loan</code> s, which track the bicycle&#8217;s loan history and future reservations.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+This makes the <code>LoanBook</code> 's list of loans a little harder to manage, due to the extra references. However, we have chosen to implement it anyway as referencing a bicycle&#8217;s history is a very useful and frequently used operation. To manage the deletion of loans, the loan will be dereferenced from the Bike it references before it gets deleted. The sequence diagram below demonstrates this process:
+</td>
+</tr>
+</table>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/DeleteLoanSequenceDiagram.png" alt="DeleteLoanSequenceDiagram" width="800">
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Due to the dependency of <code>Loan</code> s on <code>Bike</code> s, any bicycle that has been loaned out at least once will never be deleted from the system, merely archived and labelled <code>Decommissioned</code>. The <code>Bike</code> can still be deleted completely if all of the <code>Loan</code> s associated with it are deleted (i.e. invalidated) first.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Using this framework, it is now more efficient to implement and use a set of mini-features and operations to facilitate bicycle management, as detailed in the following sections:</p>
+</div>
+<div class="sect3">
+<h4 id="visible-bicycle-statuses"><a class="link" href="#visible-bicycle-statuses">Visible bicycle statuses</a></h4>
+<div class="paragraph">
+<p>The current availability of bicycles are tracked by LoanBook. Bicycles can thus be filtered by whether they are available or not, and the available ones are readily visible in the UI.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="invalid-loans"><a class="link" href="#invalid-loans">Invalid loans</a></h4>
+<div class="paragraph">
+<p>Loaning out a particular bicycle during the time which it is unavailable or has already been reserved will be denied. This prevents accidents in loaning out bicycles.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>When attempting to loan out a bicycle, the associated bicycle is retrieved from the system.</p>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The loan will be rejected if no bicycle is found that matches the bicycle name provided.
+</td>
+</tr>
+</table>
+</div>
+</li>
+<li>
+<p>If the loan will take effect immediately, the bicycle&#8217;s status is checked. If the bicycle is unavailable, the loan is rejected, and the bicycle&#8217;s status is reported to the user.</p>
+</li>
+<li>
+<p>If the loan is a reservation, i.e. it schedules a loan for the future, the bicycle&#8217;s future reservations are checked. LoanBook will attempt to insert the reservation into the list of existing reservations. If the reservation clashes with the one directly before or after it, the loan is rejected, and the clash is reported to the user.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="bicycles-for-particular-needs"><a class="link" href="#bicycles-for-particular-needs">Bicycles for particular needs</a></h4>
+<div class="paragraph">
+<p>The list of bicycles can be filtered using the same algorithm to filter the list of loans in order to find bicycles with particular properties, to suit particular customer&#8217;s needs or activities.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="design-considerations-3"><a class="link" href="#design-considerations-3">Design Considerations</a></h4>
+<div class="sect4">
+<h5 id="aspect-internal-representation-of-bicycles"><a class="link" href="#aspect-internal-representation-of-bicycles">Aspect: Internal representation of bicycles</a></h5>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Alternative 1 (current choice):</strong> Have a dedicated <code>Bike</code> class.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: OO design. Easier to track status of bicycles. Bicycles can support more properties and features.</p>
+</li>
+<li>
+<p>Cons: Complex internal representation. Additional memory used for tracking Bikes.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Alternative 2:</strong> Identify bikes by their names used in the Loans.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: Simpler internal representation. Less data to manage internally or in storage.</p>
+</li>
+<li>
+<p>Cons: Data on bikes have to be algorithmically searched for. Bicycles are assumed to exist and there is no verification for mistyped bicycle names. More difficult to implement bike-specific features.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="hide-private-information"><a class="link" href="#hide-private-information">Hide private information</a></h3>
+<div class="paragraph">
+<p>Users must provide some important and personal information when adding a loan, e.g. <code>Nric</code>, so it is our responsibility to protect their privacy.</p>
+</div>
+<div class="paragraph">
+<p>As a result, we have added a new feature to hide the private information from the Window.<br>
+Example: The customer&#8217;s <code>Nric</code> as stored in the database is <code>Nric: G1234567U</code>, but our <code>LoanCard</code> will only show <code>Nric: Gxxxxx67U</code>.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/LoanListPanelView.png" alt="LoanListPanelView">
+</div>
+</div>
+<div class="sect3">
+<h4 id="current-implementation"><a class="link" href="#current-implementation">Current implementation</a></h4>
+<div class="paragraph">
+<p>Hidden private information is facilitated by an interface called <code>Censor</code>. It is implemented by classes <code>Nric</code>, <code>Phone</code> and <code>Email</code>.</p>
+</div>
+<div class="paragraph">
+<p>When showing a new loan, it will do the following operations:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>LoanCard#LoanCard()</code>&#8201;&#8212;&#8201;the constructor will assign values to each of the labels shown in the LoanCard.</p>
+</li>
+<li>
+<p><code>Nric#getCensored()</code>&#8201;&#8212;&#8201;censor the Nric value and hide the first five digital numbers. Then it returns the censored String.</p>
+</li>
+<li>
+<p><code>Nric#doCensoring(int length)</code>&#8201;&#8212;&#8201;Take in the length of the Nric String and return the censored part ("x" part) according to the length.</p>
+</li>
+<li>
+<p><code>Phone#getCensored()</code>&#8201;&#8212;&#8201;censor the phone number and hide the first five digital numbers. Then it returns the censored String.</p>
+</li>
+<li>
+<p><code>Phone#doCensoring(int length)</code>&#8201;&#8212;&#8201;Take in the length of the Phone String and return the censored part ("x" part) according to the length.</p>
+</li>
+<li>
+<p><code>Email#getCensored()</code>&#8201;&#8212;&#8201;censor the email address and hide every characters except the last two characters in the local-part and the domain.</p>
+</li>
+<li>
+<p><code>Email#doCensoring(int length)</code>&#8201;&#8212;&#8201;Take in the length of the Email String and return the censored part ("x" part) according to the length.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Given below is an example usage scenario and how this mechanism behaves at each step.</p>
+</div>
+<div class="paragraph">
+<p><strong>Step1.</strong> The user adds a new loan to the LoanBook. A new <code>LoanCard</code> object will be created.<br>
+The <code>LoanCard</code> object will contain information on the loan: <code>LoanID</code>, <code>BikeID</code>, <code>Name</code>, <code>Nric</code>, <code>Phone</code>, <code>Email</code>, <code>LoanRate</code> and <code>LoanTime</code>.</p>
+</div>
+<div class="paragraph">
+<p><strong>Step2.</strong> Assign the value of each of the components to their corresponding labels.<br>
+For example: <code>name.setText(loan.getName().value);</code> will directly assign the name String of this loan to the <code>name</code> label.<br></p>
+</div>
+<div class="paragraph">
+<p>However, the values of <code>Nric</code>, <code>Phone</code> and <code>Email</code> need censoring before assigning their values, so they will call their own <code>getCensored()</code> method in their class.<br>
+<code>getCensored()</code> in each of these class will call their corresponding <code>doCensoring(int)</code> method. Then combine the censored part and remain part and return.<br>
+For example: <code>phone.setText(loan.getPhone().getCensored().value);</code> will censor the value of the phone String of this loan and then assign the censored value to the <code>phone</code> label.</p>
+</div>
+<div class="paragraph">
+<p>The following sequence diagram shows how this operation works:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/HideInfoSequenceDiagrams.png" alt="HideInfoSequenceDiagrams">
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="design-considerations-4"><a class="link" href="#design-considerations-4">Design Considerations</a></h4>
+<div class="paragraph">
+<p><strong>Aspect: How to execute getCensored() and doCensoring(int)</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Alternative 1 (current choice)</strong>: each class implements from <code>Censor</code> interface.</p>
 <div class="ulist">
 <ul>
 <li>
 <p>Pros: Easy to implement.</p>
 </li>
 <li>
-<p>Cons: May have performance issues in terms of memory usage.</p>
+<p>Cons:</p>
 </li>
 </ul>
 </div>
 </li>
 <li>
-<p><strong>Alternative 2:</strong> Individual command knows how to undo/redo by itself.</p>
+<p><strong>Alternative 2</strong>: <code>Loan</code> class implements from <code>Censor</code> interface.</p>
 <div class="ulist">
 <ul>
 <li>
-<p>Pros: Will use less memory (e.g. for <code>delete</code>, just save the loan being deleted).</p>
+<p>Pros: Maybe easy to understand.</p>
 </li>
 <li>
-<p>Cons: We must ensure that the implementation of each individual command are correct.</p>
+<p>Cons: The method might be bulky.</p>
 </li>
 </ul>
 </div>
@@ -401,49 +927,1854 @@ If the <code>currentStatePointer</code> is at index <code>loanBookStateList.size
 </ul>
 </div>
 </div>
-<div class="sect4">
-<h5 id="aspect-data-structure-to-support-the-undo-redo-commands"><a class="link" href="#aspect-data-structure-to-support-the-undo-redo-commands">Aspect: Data structure to support the undo/redo commands</a></h5>
+<div class="sect3">
+<h4 id="how-to-see-the-hidden-information"><a class="link" href="#how-to-see-the-hidden-information">How to see the hidden information</a></h4>
+<div class="paragraph">
+<p>The censored data are only hidden from the window, not changed in the database. The <code>BrowserPanel</code> on the bottom right of the window will still show all the information including the hidden information.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="send-reminder-email-feature"><a class="link" href="#send-reminder-email-feature">Send Reminder Email feature</a></h3>
+<div class="sect3">
+<h4 id="current-implementation-2"><a class="link" href="#current-implementation-2">Current Implementation</a></h4>
+<div class="paragraph">
+<p>The email sending mechanism is supported by the <a href="https://docs.oracle.com/javaee/7/api/javax/mail/package-summary.html"><code>JavaMail</code></a> library. This feature is composed of three commands: <code>checkemail</code>, <code>setemail</code> and <code>remind</code>.</p>
+</div>
 <div class="ulist">
 <ul>
 <li>
-<p><strong>Alternative 1 (current choice):</strong> Use a list to store the history of loan book states.</p>
+<p><code>checkemail</code> command: display the email address that the user has set to send emails from. The app will censor the email address.</p>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+If user has not set an email, the email address will be a string <code>"default"</code> and the app show a "You have not set your email yet!" message.
+</td>
+</tr>
+</table>
+</div>
+</li>
+<li>
+<p><code>setemail</code> command: set the email address used for sending reminders to the customers.</p>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Only gmail is accepted by the app.
+</td>
+</tr>
+</table>
+</div>
+</li>
+<li>
+<p><code>remind</code> command: automatically generate an email containing some core information about the loan, and send it to the corresponding customer from user&#8217;s email. This command will use the <code>JavaMail</code> library.</p>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The email will contain the <code>Name</code>, <code>BikeId</code>, <code>LoanStartTime</code> and <code>LoanRate</code> of the loan.
+</td>
+</tr>
+</table>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Given below is an example usage scenario and how the reminder email mechanism behaves at each step.</p>
+</div>
+<div class="paragraph">
+<p><strong>Step 1.</strong> The user launches the application for the first time. The user&#8217;s email address is string <code>"default"</code> by default.</p>
+</div>
+<div class="paragraph">
+<p><strong>Step 2.</strong> The user executes <code>checkemail</code>. The following sequence diagram shows how <code>checkemail</code> works:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/CheckEmailSequenceDiagram.png" alt="CheckEmailSequenceDiagram">
+</div>
+</div>
+<div class="paragraph">
+<p>The command executes <code>Model#getMyEmail()</code>, which calls <code>UserPrefs#getDefaultEmail()</code> and returns user&#8217;s email stored in <code>UserPref</code>. The app checks if user&#8217;s email equals to <code>"default"</code>. In this case, they are equal, so it throws a <code>CommandException</code>.</p>
+</div>
+<div class="paragraph">
+<p><strong>Step 3.</strong> The user executes <code>setemail OLDEMAIL NEWEMAIL</code>. This command does a few checks first:</p>
+</div>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>If <code>OLDEMAIL</code> is not equal to either <code>"default"</code> or the previously set email, then a <code>CommandException</code> is thrown, as the validation of the old email fails.</p>
+</li>
+<li>
+<p>Otherwise, the app then checks if <code>OLDEMAIL</code> and <code>NEWEMAIL</code> are equal. If so, then a <code>CommandException</code> is thrown, to warn the user that they are setting the same email as last time.</p>
+</li>
+<li>
+<p>Otherwise, <code>SetEmailCommand#isValidGmail(NEWEMAIL)</code> is called to check if <code>NEWEMAIL</code> is a valid gmail. If not, a <code>CommandException</code> is thrown to warn the user that they are setting the same email as last time.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><strong>Step 4.</strong> The user forgets what email he has set before, so he executes <code>checkemail</code> again. The procedure is the same as in <strong>Step 2</strong>. However, the app detects that user&#8217;s email is not <code>"default"</code> this time, so it creates an <code>Email(userEmail)</code> object and executes <code>Email#getCensored()</code>. Then, the function returns a <code>CommandResult</code> with a success message and the censored user email.</p>
+</div>
+<div class="paragraph">
+<p><strong>Step 5.</strong> The user sends a reminder email to a customer by executing <code>remind x/EMAILPASSWORD n/NAME b/BIKEID</code>. This command implements the following operations:</p>
+</div>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Get a list of <code>Loans</code> from the <code>LoanBook</code> class and execute <code>RemindCommand#getLoan(list, NAME, BIKE)</code> to check if there is a <code>loan</code> that contains both this <code>NAME</code> and <code>BIKE</code>.</p>
+</li>
+<li>
+<p>If it returns a non-null <code>loan</code>, then check its <code>LoanStatus</code>.</p>
+</li>
+<li>
+<p>If its <code>LoanStatus</code> is <code>LoanStatus.ONGOING</code>, create a <code>SendReminder(model, EMAILPASSWORD, loan)</code> object and execute <code>SendReminder#send()</code> to send email.<br>
+The <code>SendReminder#send()</code> method calls <code>SendReminder#createReminderEmail(session, userEmail)</code> to create the content of the email, connects user&#8217;s email using <code>EMAILPASSWORD</code> and finally send the email.</p>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+If the user cannot remember the customer&#8217;s <code>NAME</code> or the loaned <code>BIKE</code>, he can use the <code>find [NAME] [BIKE]</code> command to search for the target loan.
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+For Steps (a) and (b), if the next step cannot be executed, a <code>CommandException</code> with corresponding failure message will be thrown.
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+If it throws a <code>CommandException</code> with authentication failed message in step (c), please check if user&#8217;s email and password are correct. If they are, please make sure that the <code>Less secure apps</code> setting of user&#8217;s email is enabled. If it is not, enable it and refresh the page.
+</td>
+</tr>
+</table>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect3">
+<h4 id="design-considerations-5"><a class="link" href="#design-considerations-5">Design considerations</a></h4>
+<div class="paragraph">
+<p><strong>Aspect: use user&#8217;s personal email vs share an immutable common email</strong></p>
+</div>
 <div class="ulist">
 <ul>
 <li>
-<p>Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.</p>
-</li>
-<li>
-<p>Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both <code>HistoryManager</code> and <code>VersionedLoanBook</code>.</p>
-</li>
-</ul>
-</div>
-</li>
-<li>
-<p><strong>Alternative 2:</strong> Use <code>HistoryManager</code> for undo/redo</p>
+<p><strong>Alternative 1 (current choice):</strong> Use a user-specified email.</p>
 <div class="ulist">
 <ul>
 <li>
-<p>Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.</p>
+<p>Pros:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>The user has a choice of what email address to use.</p>
 </li>
 <li>
-<p>Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as <code>HistoryManager</code> now needs to do two different things.</p>
+<p>The user needs to type in the correct password if they want to send a reminder email, which ensures the security and privacy of the email.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Cons:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>The user needs to enable the <code>Less secure apps</code> setting, which could be a security concern.</p>
 </li>
 </ul>
 </div>
 </li>
 </ul>
 </div>
+</li>
+<li>
+<p><strong>Alternative 2:</strong> Use a common email provided by the app.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>The user does not need to set their own email when sending reminder emails, reducing hassle when setting up.</p>
+</li>
+<li>
+<p>The user does not need to type in a password when sending a reminder email.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Cons:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>The common email is less secure, as its password can be found within the program.</p>
+</li>
+<li>
+<p>The password of the common email can be changed by malicious users.</p>
+</li>
+<li>
+<p>The email might get overloaded.</p>
+</li>
+<li>
+<p>Customers might receive spam emails, as the <code>remind</code> command does not require a password.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="future-considerations"><a class="link" href="#future-considerations">Future considerations</a></h4>
+<div class="paragraph">
+<p>We plan to add a feature that can automatically send an e-receipt to the customer after <code>return</code> ing a loan.</p>
+</div>
+<div class="paragraph">
+<p>The e-receipt will contain the <code>Name</code>, <code>BikeID</code>, <code>LoanStartTime</code>, <code>LoanEndTime</code> and <code>TotalCost</code> of the loan.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="proposed-improved-code-delete-code-functionality"><a class="link" href="#proposed-improved-code-delete-code-functionality">[Proposed] Improved <code>delete</code> functionality</a></h3>
+<div class="sect3">
+<h4 id="current-implementation-3"><a class="link" href="#current-implementation-3">Current Implementation</a></h4>
+<div class="paragraph">
+<p>When the user deletes a loan from the LoanBook, it deletes the correct loan, then commits the result into memory. What this entails is that the entire XML file gets overwritten when each delete command is being called.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="proposed-implementation-3"><a class="link" href="#proposed-implementation-3">Proposed implementation:</a></h4>
+<div class="paragraph">
+<p>From above, there is already a <code>LoanStatus</code> that has been implemented. What this does is that it allows the loan to be marked as deleted by setting the enum to the appropriate value. This would result in the LoanBook not needing to recommit every change.</p>
+</div>
+<div class="paragraph">
+<p>From here, when the user decides to close the LoanBook, it will then loop through all the loans and filter out the ones which have not been deleted. These are the loans that would be kept and saved in the LoanBook.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="design-considerations-6"><a class="link" href="#design-considerations-6">Design Considerations</a></h4>
+<div class="paragraph">
+<p><strong>Aspect: Deleting a loan</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Alternative 1 (current choice)</strong>: Remove each loan as they are deleted</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: Easy to implement</p>
+</li>
+<li>
+<p>Cons: Large time taken for memory operations as reading and writing to the data is required.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Alternative 2 (proposed implementation): Use an enum to implement lazy deletion.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: Much more time efficient due to lazy deletion</p>
+</li>
+<li>
+<p>Cons: Implementation is harder, and changing to this implementation would affect the undo and redo features.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Alternative 3: Fix the LoanBook storage manager so that it does not rewrite the entire XML file after each delete operation.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: All operations are now lazy. Much better performance of the application because commit operations do not need to change the large XML file.</p>
+</li>
+<li>
+<p>Cons: Large refactoring work required. May potentially affect the timeline of development of the other functions.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
 </div>
 </div>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="project-powerpointlabs"><a class="link" href="#project-powerpointlabs">PROJECT: PowerPointLabs</a></h2>
+<h2 id="documentation"><a class="link" href="#documentation">Documentation</a></h2>
 <div class="sectionbody">
-<hr>
 <div class="paragraph">
-<p><em>{Optionally, you may include other projects in your portfolio.}</em></p>
+<p>This section describes the way we document our project. We use asciidoc for writing documentation.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+We chose asciidoc over Markdown because asciidoc, although a bit more complex than Markdown, provides more flexibility in formatting.
+</td>
+</tr>
+</table>
+</div>
+<div class="sect2">
+<h3 id="editing-documentation"><a class="link" href="#editing-documentation">Editing Documentation</a></h3>
+<div class="paragraph">
+<p>See <a href="UsingGradle.html#rendering-asciidoc-files">UsingGradle.adoc</a> to learn how to render <code>.adoc</code> files locally to preview the end result of your edits.
+Alternatively, you can download the AsciiDoc plugin for IntelliJ, which allows you to preview the changes you have made to your <code>.adoc</code> files in real-time.</p>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-01 16:01:45 UTC</div></div></div></body></html>
+<div class="sect2">
+<h3 id="publishing-documentation"><a class="link" href="#publishing-documentation">Publishing Documentation</a></h3>
+<div class="paragraph">
+<p>See <a href="UsingTravis.html#deploying-github-pages">UsingTravis.adoc</a> to learn how to deploy GitHub Pages using Travis.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="converting-documentation-to-pdf-format"><a class="link" href="#converting-documentation-to-pdf-format">Converting Documentation to PDF format</a></h3>
+<div class="paragraph">
+<p>We use <a href="https://www.google.com/chrome/browser/desktop/">Google Chrome</a> for converting documentation to PDF format, as Chrome&#8217;s PDF engine preserves hyperlinks used in webpages.</p>
+</div>
+<div class="paragraph">
+<p>Here are the steps to convert the project documentation files to PDF format.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Follow the instructions in <a href="UsingGradle.html#rendering-asciidoc-files">UsingGradle.adoc</a> to convert the AsciiDoc files in the <code>docs/</code> directory to HTML format.</p>
+</li>
+<li>
+<p>Go to your generated HTML files in the <code>build/docs</code> folder, right click on them and select <code>Open with</code> &#8594; <code>Google Chrome</code>.</p>
+</li>
+<li>
+<p>Within Chrome, click on the <code>Print</code> option in Chrome&#8217;s menu.</p>
+</li>
+<li>
+<p>Set the destination to <code>Save as PDF</code>, then click <code>Save</code> to save a copy of the file in PDF format. For best results, use the settings indicated in the screenshot below.</p>
+</li>
+</ol>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/chrome_save_as_pdf.png" alt="chrome save as pdf" width="300">
+</div>
+<div class="title">Figure 1. Saving documentation as PDF files in Chrome</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Docs-SiteWideDocSettings"><a class="link" href="#Docs-SiteWideDocSettings">Site-wide Documentation Settings</a></h3>
+<div class="paragraph">
+<p>The <a href="{repoURL}/build.gradle"><code>build.gradle</code></a> file specifies some project-specific <a href="https://asciidoctor.org/docs/user-manual/#attributes">asciidoc attributes</a> which affects how all documentation files within this project are rendered.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+Attributes left unset in the <code>build.gradle</code> file will use their <strong>default value</strong>, if any.
+</td>
+</tr>
+</table>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<caption class="title">Table 1. List of site-wide attributes</caption>
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 50%;">
+<col style="width: 25%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Attribute name</th>
+<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">Default value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>site-name</code></p></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>The name of the website.
+If set, the name will be displayed near the top of the page.</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>not set</em></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>site-githuburl</code></p></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>URL to the site&#8217;s repository on <a href="https://github.com">GitHub</a>.
+Setting this will add a "View on GitHub" link in the navigation bar.</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>not set</em></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>site-seedu</code></p></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>Define this attribute if the project is an official SE-EDU project.
+This will render the SE-EDU navigation bar at the top of the page, and add some SE-EDU-specific navigation items.</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>not set</em></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="Docs-PerFileDocSettings"><a class="link" href="#Docs-PerFileDocSettings">Per-file Documentation Settings</a></h3>
+<div class="paragraph">
+<p>Each <code>.adoc</code> file may also specify some file-specific <a href="https://asciidoctor.org/docs/user-manual/#attributes">asciidoc attributes</a> which affects how the file is rendered.</p>
+</div>
+<div class="paragraph">
+<p>Asciidoctor&#8217;s <a href="https://asciidoctor.org/docs/user-manual/#builtin-attributes">built-in attributes</a> may be specified and used as well.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+Attributes left unset in <code>.adoc</code> files will use their <strong>default value</strong>, if any.
+</td>
+</tr>
+</table>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<caption class="title">Table 2. List of per-file attributes, excluding Asciidoctor&#8217;s built-in attributes</caption>
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 50%;">
+<col style="width: 25%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Attribute name</th>
+<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">Default value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>site-section</code></p></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>Site section that the document belongs to.
+This will cause the associated item in the navigation bar to be highlighted.
+One of: <code>UserGuide</code>, <code>DeveloperGuide</code>, <code>LearningOutcomes</code>*, <code>AboutUs</code>, <code>ContactUs</code></p>
+</div>
+<div class="paragraph">
+<p><em>* Official SE-EDU projects only</em></p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>not set</em></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>no-site-header</code></p></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>Set this attribute to remove the site navigation bar.</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>not set</em></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="site-template"><a class="link" href="#site-template">Site Template</a></h3>
+<div class="paragraph">
+<p>The files in <a href="{repoURL}/docs/stylesheets"><code>docs/stylesheets</code></a> are the <a href="https://developer.mozilla.org/en-US/docs/Web/CSS">CSS stylesheets</a> of the site.
+You can modify them to change some properties of the site&#8217;s design.</p>
+</div>
+<div class="paragraph">
+<p>The files in <a href="{repoURL}/docs/templates"><code>docs/templates</code></a> controls the rendering of <code>.adoc</code> files into HTML5.
+These template files are written in a mixture of <a href="https://www.ruby-lang.org">Ruby</a> and <a href="http://slim-lang.com">Slim</a>.</p>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Modifying the template files in <a href="{repoURL}/docs/templates"><code>docs/templates</code></a> requires some knowledge and experience with Ruby and Asciidoctor&#8217;s API.
+You should only modify them if you need greater control over the site&#8217;s layout than what stylesheets can provide.
+The SE-EDU team does not provide support for modified template files.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="Testing"><a class="link" href="#Testing">Testing</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>We write extensive tests to prevent regression and allow other developers to build on our work without fear of breaking other parts. This section provides the necessary steps to run tests.</p>
+</div>
+<div class="sect2">
+<h3 id="running-tests"><a class="link" href="#running-tests">Running Tests</a></h3>
+<div class="paragraph">
+<p>There are three ways to run tests.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+The most reliable way to run tests is the 3rd one. The first two methods might fail some GUI tests due to platform/resolution-specific idiosyncrasies.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p><strong>Method 1: Using IntelliJ JUnit test runner</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>To run all tests, right-click on the <code>src/test/java</code> folder and choose <code>Run 'All Tests'</code></p>
+</li>
+<li>
+<p>To run a subset of tests, you can right-click on a test package, test class, or a test and choose <code>Run 'ABC'</code></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>Method 2: Using Gradle</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Open a console and run the command <code>gradlew clean allTests</code> (Mac/Linux: <code>./gradlew clean allTests</code>)</p>
+</li>
+</ul>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+See <a href="UsingGradle.html">UsingGradle.adoc</a> for more info on how to run tests using Gradle.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p><strong>Method 3: Using Gradle (headless)</strong></p>
+</div>
+<div class="paragraph">
+<p>Thanks to the <a href="https://github.com/TestFX/TestFX">TestFX</a> library we use, our GUI tests can be run in the <em>headless</em> mode. In the headless mode, GUI tests do not show up on the screen. That means the developer can do other things on the Computer while the tests are running.</p>
+</div>
+<div class="paragraph">
+<p>To run tests in headless mode, open a console and run the command <code>gradlew clean headless allTests</code> (Mac/Linux: <code>./gradlew clean headless allTests</code>)</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="types-of-tests"><a class="link" href="#types-of-tests">Types of tests</a></h3>
+<div class="paragraph">
+<p>We have two types of tests:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><strong>GUI Tests</strong> - These are tests involving the GUI. They include,</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p><em>System Tests</em> that test the entire App by simulating user actions on the GUI. These are in the <code>systemtests</code> package.</p>
+</li>
+<li>
+<p><em>Unit tests</em> that test the individual components. These are in <code>loanbook.ui</code> package.</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p><strong>Non-GUI Tests</strong> - These are tests not involving the GUI. They include,</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p><em>Unit tests</em> targeting the lowest level methods/classes.<br>
+e.g. <code>loanbook.commons.StringUtilTest</code></p>
+</li>
+<li>
+<p><em>Integration tests</em> that are checking the integration of multiple code units (those code units are assumed to be working).<br>
+e.g. <code>loanbook.storage.StorageManagerTest</code></p>
+</li>
+<li>
+<p>Hybrids of unit and integration tests. These test are checking multiple code units as well as how the are connected together.<br>
+e.g. <code>loanbook.logic.LogicManagerTest</code></p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>The tests within the <code>add</code> command parsers do not take into account the feedback string from within the display. This is because of the time sensitive nature of the <code>add</code> command. It does not take in a specific <code>LoanTime</code> when the loan is created and populates the current system time into the <code>Loan</code>. Therefore, the strings that is returned for each command is time dependant. Hence it is impossible to do a string matching on the returned display string and a hard coded value.</p>
+</div>
+<div class="paragraph">
+<p>In this case, we commented out the check for equality of the string from the <code>add</code> command in the GUI against the expected hard coded string.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>However we do not need to test the equality of the displayed strings to ensure that the <code>add</code> command is working properly. We can simply check that the size of the list of <code>Loans</code> in the LoanBook has increased by 1, as well as to ensure that the <code>Loan</code> that was added into the LoanBook has the same base property as the default <code>Loan</code> that was added.</p>
+</div>
+<div class="paragraph">
+<p>An alternative would be to use a regex to do string pattern matching on the added <code>Loan</code>. This can be combined with getting the current system time of the tests to check that the display strings match, and the saved <code>Loans</code> are correctly added. However, this modification would take time to develop and to ensure that it is correct. As such, such developments would be left to be completed in future releases of LoanBook.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="troubleshooting-testing"><a class="link" href="#troubleshooting-testing">Troubleshooting Testing</a></h3>
+<div class="paragraph">
+<p><strong>Problem: <code>HelpWindowTest</code> fails with a <code>NullPointerException</code>.</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Reason: One of its dependencies, <code>HelpWindow.html</code> in <code>src/main/resources/docs</code> is missing.</p>
+</li>
+<li>
+<p>Solution: Execute Gradle task <code>processResources</code>.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="dev-ops"><a class="link" href="#dev-ops">Dev Ops</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This sections provides a brief summary of the tools we use in the project, and how to integrate them into the project.</p>
+</div>
+<div class="sect2">
+<h3 id="build-automation"><a class="link" href="#build-automation">Build Automation</a></h3>
+<div class="paragraph">
+<p>See <a href="UsingGradle.html">UsingGradle.adoc</a> to learn how to use Gradle for build automation.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="continuous-integration"><a class="link" href="#continuous-integration">Continuous Integration</a></h3>
+<div class="paragraph">
+<p>We use <a href="https://travis-ci.org/">Travis CI</a> and <a href="https://www.appveyor.com/">AppVeyor</a> to perform <em>Continuous Integration</em> on our projects. See <a href="UsingTravis.html">UsingTravis.adoc</a> and <a href="UsingAppVeyor.html">UsingAppVeyor.adoc</a> for more details.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="coverage-reporting"><a class="link" href="#coverage-reporting">Coverage Reporting</a></h3>
+<div class="paragraph">
+<p>We use <a href="https://coveralls.io/">Coveralls</a> to track the code coverage of our projects. See <a href="UsingCoveralls.html">UsingCoveralls.adoc</a> for more details.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="code-quality"><a class="link" href="#code-quality">Code Quality</a></h3>
+<div class="paragraph">
+<p>We use <a href="https://www.codacy.com/">Codacy</a> to track the code quality of our projects. See <a href="UsingCodacy.html">UsingCodacy.adoc</a> for more details.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="documentation-previews"><a class="link" href="#documentation-previews">Documentation Previews</a></h3>
+<div class="paragraph">
+<p>When a pull request has changes to asciidoc files, you can use <a href="https://www.netlify.com/">Netlify</a> to see a preview of how the HTML version of those asciidoc files will look like when the pull request is merged. See <a href="UsingNetlify.html">UsingNetlify.adoc</a> for more details.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="making-a-release"><a class="link" href="#making-a-release">Making a Release</a></h3>
+<div class="paragraph">
+<p>Here are the steps to create a new release.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Update the version number in <a href="{repoURL}/src/main/java/loanbook/MainApp.java"><code>MainApp.java</code></a>.</p>
+</li>
+<li>
+<p>Generate a JAR file <a href="UsingGradle.html#creating-the-jar-file">using Gradle</a>.</p>
+</li>
+<li>
+<p>Tag the repo with the version number. e.g. <code>v0.1</code></p>
+</li>
+<li>
+<p><a href="https://help.github.com/articles/creating-releases/">Create a new release using GitHub</a> and upload the JAR file you created.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="managing-dependencies"><a class="link" href="#managing-dependencies">Managing Dependencies</a></h3>
+<div class="paragraph">
+<p>A project often depends on third-party libraries. For example, Loan Book depends on the <a href="http://wiki.fasterxml.com/JacksonHome">Jackson library</a> for XML parsing. Managing these <em>dependencies</em> can be automated using Gradle. For example, Gradle can download the dependencies automatically, which is better than these alternatives.<br>
+a. Include those libraries in the repo (this bloats the repo size)<br>
+b. Require developers to download those libraries manually (this creates extra work for developers)</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="product-scope"><a class="link" href="#product-scope">Appendix A: Product Scope</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>LoanBook targets users who run a bicycle rental business in Singapore. Users who will find this product especially useful are those who are familiar with desktop applications, and who prefer using a command-line interface (CLI) over a graphic user interface (GUI) for input. A reason for this preference is that using a mouse to access app features may be slower and more accident-prone than typing on a keyboard.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="user-stories"><a class="link" href="#user-stories">Appendix B: User Stories</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Priorities: High (must have) - <code>* * *</code>, Medium (nice to have) - <code>* *</code>, Low (unlikely to have) - <code>*</code></p>
+</div>
+<table class="tableblock frame-all grid-all" style="width: 59%;">
+<colgroup>
+<col style="width: 22%;">
+<col style="width: 23%;">
+<col style="width: 25%;">
+<col style="width: 30%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Priority</th>
+<th class="tableblock halign-left valign-top">As a &#8230;&#8203;</th>
+<th class="tableblock halign-left valign-top">I want to &#8230;&#8203;</th>
+<th class="tableblock halign-left valign-top">So that I can&#8230;&#8203;</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>* * *</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">bicycle rental shop owner who wants to manage my bicycles</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">register my bicycles into the app</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">keep track of my bicycles within the app</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>* * *</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">bicycle rental shop owner who wants to manage my bicycles</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">edit details for my bicycles within the app</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">update the system with the latest bicycle statuses (e.g. got damaged, repaired, changed name or ID)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>* * *</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">bicycle rental shop owner who wants to manage my bicycles</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">remove bicycles from the app</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">reflect the decommissioning of bicycles in the app</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>* *</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">bicycle rental shop owner who wants to manage my bicycles</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">track the features of my bicycles (e.g. wheel size, gears, has a bell)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">search for particular bicycles or types of bicycles better, especially when serving customers</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>*</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">bicycle rental shop owner who wants to manage my bicycles</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">mark a bicycle with a repair end date</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">I can be reminded by the app on when to collect my bike from the repairman</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>* * *</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">bicycle rental shop owner who wants to manage my loans</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">initiate new loans into the app</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">keep track of my loans within the app</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>* *</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">bicycle rental shop owner who wants to manage my loans</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">edit a loan&#8217;s details</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">correct a typo or adapt to a customer&#8217;s change of mind</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>* * *</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">bicycle rental shop owner who wants to manage my loans</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">register the completion of a loan (i.e. return of the bike) in the system</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">update the system (make the bike available again, receive payment etc.)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>* * *</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">bicycle rental shop owner who wants to manage my loans</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">cancel a loan</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">update the system in case the loan is invalidated (e.g. the customer changes their mind)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>* *</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">bicycle rental shop owner who wants to manage my loans</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">be automatically notified and given details if the same customer tries to rent two bikes simultaneously</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">not loan out another bicycle to a customer who has not returned their previous bike</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>* *</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">bicycle rental shop owner who wants to manage my loans</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">be automatically notified and given details if two customers try to loan the same bike simultaneously</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">not loan out an already loaned bike</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>* * *</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">bicycle rental shop owner who wants to manage my bicycles and loans</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">view a list of all bicycles or loans</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">get a big picture of my current state</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>* * *</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">bicycle rental shop owner who wants to manage my bicycles and loans</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">choose to view the full details of a particular bicycle or loan</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">get details about a particular bicycle or loan as needed or desired</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>* *</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">bicycle rental shop owner who wants to manage my bicycle paraphernalia</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">tag loans that loan additional items (e.g. helmets, attachable headlights)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">keep track of which transactions concern them</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>* * *</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">bicycle rental shop owner who wants to accommodate customer demands</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">register rentals in advance and reserve bicycles</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">be reminded of reservations, and not accidentally loan the bicycle out thus becoming unable to meet the reservation</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>* *</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">bicycle rental shop owner who wants to manage my loans</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">see at a glance what loans are overdue</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">automatically remind people who are still in possession of my bicycles to return them</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>*</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">bicycle rental shop owner who wants to manage my loans</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">get an automatic reminder when a loan is overdue</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">contact the customer to tell them that their time is up</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>* * *</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">bicycle rental shop owner that has to deal with an overdue loan</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">view the contact details of bicycle loaners</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">contact them to check on their (and my bicycle&#8217;s) status</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>* * *</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">bicycle rental shop owner</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">view past loans of my bicycles</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">analyze my own history or present records for whatever purpose (accounting, investigation, legal etc.)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>* *</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">bicycle rental shop owner</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">view loan activity over a specific period of time (e.g. Jun to Aug 2018)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">analyze my own history for a focussed period of time</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>*</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">bicycle rental shop owner who wants to optimize my business</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">see which bicycles are the least popular to be rented</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">investigate them for issues or possibly decommission them</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>* * *</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">bicycle rental shop owner who is proficient with a CLI</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">use a CLI for all operations within the app</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">give commands faster and with less error</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>* * *</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">bicycle rental shop owner who wants to meet customer demands promptly</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">readily view a list of available bicycles</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">make recommendations to customers to serve them faster</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>* *</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">bicycle rental shop owner who wants to manage my bicycles and loans</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">have my list of bicycles or loans sorted (by name, date etc.)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">search for a particular entry much more easily</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>* *</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">bicycle rental shop owner who wants to manage my bicycles and loans</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">filter my list of bicycles or loans with a keyword</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">search for a particular entry much more easily</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>* *</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">bicycle rental shop owner who wants to manage my bicycles and loans</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">view only a subset of my bikes or loans with entries in a particular range (e.g. date, loan rate)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">search for a particular entry much more easily</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>* *</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">bicycle rental shop owner who wants to make returning a bike easy</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">automatically calculate the correct amount of money based on the time they loaned the bike for</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">I don&#8217;t have to calculate the cost manually, and thus be faster with less mistakes</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>* *</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">bicycle rental shop owner who wants to manage my bicycles</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">add tags to bicycles</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">categorize and later search for them more easily</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>* *</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">bicycle rental shop owner who wants to manage my bicycles and loans</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">undo and redo recent changes in the app</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">quickly recover in the event of a command mistake</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>*</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">bicycle rental shop owner who wants to expand my service capabilities</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">access the same data on different machines simultaneously</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">manage multiple service counters efficiently and accurately</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>*</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">bicycle rental shop owner who wants to expand my service capabilities</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">hook the app up with the national database</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">automatically retrieve some customer details (e.g. name, gender) when I type in their NRIC</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>*</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">bicycle rental shop owner who wants to expand my service capabilities</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">integrate the app with an NRIC barcode scanner</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">automate entering a customer’s details</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>* *</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">bicycle rental shop owner who respects my customer&#8217;s privacy</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">partially or fully hide some of the customers’ <a href="#private-contact-detail">personal data</a> (e.g. NRIC, phone)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">minimize the chance of leaking those details out to third parties</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>*</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">bicycle rental shop owner who is concerned about the data&#8217;s security</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">encrypt the app’s data</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ensure no one can access or modify it with third-party software</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>*</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">bicycle rental shop owner who is concerned about the data&#8217;s security</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">set a username and password for accessing the app</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">lock unknown parties out from the app</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>* *</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">bicycle rental shop owner who is concerned about the data&#8217;s security</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">prompt the user (myself) for a confirmation or a password before I delete entries</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">prevent accidental or hasty deletions of data</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>*</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">bicycle rental shop owner who is concerned about the data&#8217;s security</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">back-up the app&#8217;s data</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">recover quickly in the case of data corruption or just general data unavailability</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>* * *</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">new or inexperienced user</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">readily access the Help page for the app</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">have a quick and comprehensive reference on how to get started and do things</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>* * *</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">new or inexperienced user</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">see command usage instructions whenever I mistype</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">correct myself on the spot</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect1">
+<h2 id="use-cases"><a class="link" href="#use-cases">Appendix C: Use Cases</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>(For all use cases below, the <strong>System</strong> is the <code>LoanBook</code> and the <strong>Actor</strong> is the <code>user</code>, unless specified otherwise)</p>
+</div>
+<h3 id="use-case-delete-loan" class="discrete">Use case: Delete loan</h3>
+<div class="paragraph">
+<p><strong>MSS</strong></p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>User requests to list loans.</p>
+</li>
+<li>
+<p>LoanBook shows a list of loans.</p>
+</li>
+<li>
+<p>User requests to delete a loan in the list by specifying a list index and the app&#8217;s password.</p>
+</li>
+<li>
+<p>LoanBook deletes the loan.</p>
+</li>
+<li>
+<p>LoanBook displays a prompt to the user indicating success.</p>
+<div class="paragraph">
+<p>Use case ends.</p>
+</div>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><strong>Extensions</strong></p>
+</div>
+<div class="ulist none">
+<ul class="none">
+<li>
+<p>2a. The list is empty.</p>
+<div class="paragraph">
+<p>Use case ends.</p>
+</div>
+</li>
+<li>
+<p>3a. The given index is invalid.</p>
+<div class="ulist none">
+<ul class="none">
+<li>
+<p>3a1. LoanBook shows an error message.</p>
+<div class="paragraph">
+<p>Use case resumes at step 2.</p>
+</div>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>4a. The given password is invalid.</p>
+<div class="ulist none">
+<ul class="none">
+<li>
+<p>3a1. LoanBook shows an error message.</p>
+<div class="paragraph">
+<p>Use case resumes at step 2.</p>
+</div>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<h3 id="use-case-add-a-bike-into-loan-book" class="discrete">Use case: Add a bike into loan book</h3>
+<div class="paragraph">
+<p><strong>MSS</strong></p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>User requests to add a bike with the specific parameters into the LoanBook.</p>
+</li>
+<li>
+<p>LoanBook adds the bike.</p>
+</li>
+<li>
+<p>LoanBook displays a prompt to the user indicating success.</p>
+<div class="paragraph">
+<p>Use case ends.</p>
+</div>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><strong>Extensions</strong></p>
+</div>
+<div class="ulist none">
+<ul class="none">
+<li>
+<p>1a. The user input is not of the correct format.</p>
+<div class="ulist none">
+<ul class="none">
+<li>
+<p>1a1. LoanBook shows an error message giving the user an example command, as well as correct format of the command.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>1b. Any one of the inputs fails their respective validation checks.</p>
+<div class="ulist none">
+<ul class="none">
+<li>
+<p>1b1. LoanBook shows an error message telling the user how to rectify their command.</p>
+<div class="paragraph">
+<p>Use case ends.</p>
+</div>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<h3 id="use-case-add-a-loan-into-loan-book" class="discrete">Use case: Add a loan into loan book</h3>
+<div class="paragraph">
+<p><strong>MSS</strong></p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>User requests to add a loan with the specific parameters into the LoanBook.</p>
+</li>
+<li>
+<p>LoanBook adds the loan.</p>
+</li>
+<li>
+<p>LoanBook displays a prompt to the user indicating success.</p>
+<div class="paragraph">
+<p>Use case ends.</p>
+</div>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><strong>Extensions</strong></p>
+</div>
+<div class="ulist none">
+<ul class="none">
+<li>
+<p>1a. The user input is not of the correct format.</p>
+<div class="ulist none">
+<ul class="none">
+<li>
+<p>1a1. LoanBook shows an error message giving the user an example command, as well as correct format of the command.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>1b. Any one of the inputs fails their respective validation checks.</p>
+<div class="ulist none">
+<ul class="none">
+<li>
+<p>1b1. LoanBook shows an error message telling the user how to rectify their command.</p>
+<div class="paragraph">
+<p>Use case ends.</p>
+</div>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<h3 id="use-case-mark-a-loan-as-returned-in-the-loanbook" class="discrete">Use case: Mark a loan as returned in the LoanBook</h3>
+<div class="paragraph">
+<p><strong>MSS</strong></p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>User requests to search for a loan with a specific name or tag.</p>
+</li>
+<li>
+<p>LoanBook shows a list of loans that fulfills the condition.</p>
+</li>
+<li>
+<p>User requests to return a specific loan from the list by specifying a <code>LoanID</code>.</p>
+</li>
+<li>
+<p>LoanBook marks the loan as returned.</p>
+</li>
+<li>
+<p>LoanBook prompts the user to charge the customer a certain amount of money, based on the prevailing rates and rental times in the loan book.</p>
+<div class="paragraph">
+<p>Use case ends.</p>
+</div>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><strong>Extensions</strong></p>
+</div>
+<div class="ulist none">
+<ul class="none">
+<li>
+<p>2a. The list is empty.</p>
+</li>
+<li>
+<p>2a1. LoanBook feedbacks to the user that no loans fulfilling the condition were found.</p>
+<div class="paragraph">
+<p>Use case ends.</p>
+</div>
+</li>
+<li>
+<p>3a. The given LoanID is invalid.</p>
+<div class="ulist none">
+<ul class="none">
+<li>
+<p>3a1. LoanBook shows an error message.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>3b. The loan at the given LoanID has been returned.</p>
+<div class="ulist none">
+<ul class="none">
+<li>
+<p>3b1. LoanBook shows an error message, stating the time which the loan has been returned.</p>
+<div class="paragraph">
+<p>Use case resumes at step 2.</p>
+</div>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<h3 id="use-case-reset-the-entire-loanbook" class="discrete">Use case: Reset the entire loanbook</h3>
+<div class="paragraph">
+<p><strong>MSS</strong></p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>User requests to reset the loanbook.</p>
+</li>
+<li>
+<p>LoanBook prompts the user for their password.</p>
+</li>
+<li>
+<p>User enters the correct password.</p>
+</li>
+<li>
+<p>LoanBook clears its entire history of loans.</p>
+<div class="paragraph">
+<p>Use case ends.</p>
+</div>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><strong>Extensions</strong></p>
+</div>
+<div class="ulist none">
+<ul class="none">
+<li>
+<p>3a. The user inputs an incorrect password.</p>
+<div class="ulist none">
+<ul class="none">
+<li>
+<p>3a1. LoanBook shows an error message telling the user that the password that they entered is incorrect.</p>
+<div class="paragraph">
+<p>Use case ends.</p>
+</div>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<h3 id="use-case-give-a-summary-of-all-transactions" class="discrete">Use case: Give a summary of all transactions</h3>
+<div class="paragraph">
+<p><strong>MSS</strong></p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>User requests for a summary of all transactions.</p>
+</li>
+<li>
+<p>LoanBook gives a summary of all the transactions that that had happened.</p>
+<div class="paragraph">
+<p>Use case ends.</p>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="non-functional-requirements"><a class="link" href="#non-functional-requirements">Appendix D: Non Functional Requirements</a></h2>
+<div class="sectionbody">
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Should work on any <a href="#mainstream-os">mainstream OS</a> as long as it has Java <code>9</code> or higher installed.</p>
+</li>
+<li>
+<p>Should be able to hold up to 1000 loans without a noticeable sluggishness in performance for typical usage.</p>
+</li>
+<li>
+<p>A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><em>{More to be added}</em></p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="glossary"><a class="link" href="#glossary">Appendix E: Glossary</a></h2>
+<div class="sectionbody">
+<div class="dlist">
+<dl>
+<dt class="hdlist1"><a id="mainstream-os"></a> Mainstream OS</dt>
+<dd>
+<p>Windows, Linux, Unix, OS-X</p>
+</dd>
+<dt class="hdlist1"><a id="private-contact-detail"></a> Private contact detail</dt>
+<dd>
+<p>A contact detail that is not meant to be shared with others</p>
+</dd>
+</dl>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="instructions-for-manual-testing"><a class="link" href="#instructions-for-manual-testing">Appendix F: Instructions for Manual Testing</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Given below are instructions to test the app manually.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+These instructions only provide a starting point for testers to work on; testers are expected to do more <em>exploratory</em> testing.
+</td>
+</tr>
+</table>
+</div>
+<div class="sect2">
+<h3 id="launch-and-shutdown"><a class="link" href="#launch-and-shutdown">Launch and Shutdown</a></h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Initial launch</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Download the jar file and copy into an empty folder</p>
+</li>
+<li>
+<p>Double-click the jar file<br>
+Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>Saving window preferences</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Resize the window to an optimum size. Move the window to a different location. Close the window.</p>
+</li>
+<li>
+<p>Re-launch the app by double-clicking the jar file.<br>
+Expected: The most recent window size and location is retained.</p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><em>{ more test cases &#8230;&#8203; }</em></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="adding-a-bike"><a class="link" href="#adding-a-bike">Adding a bike</a></h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Adding a bike whose name contains alphanumeric characters, spaces, and hyphens</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Prerequisites: List all bikes using the <code>listbikes</code> command.</p>
+</li>
+<li>
+<p>Test case: <code>addbike B i-k e 0 01-</code><br>
+Expected: Bike B i-k e 0 01- is added to the bike list. Details of the updated bike is shown in the status message. Timestamp in the status bar is updated.</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>Adding a bike that already exists in the bike list</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Prerequisites: List all bikes using the <code>listbikes</code> command. <code>Bike1</code> exists in the list.</p>
+</li>
+<li>
+<p>Test case: <code>addbike Bike1</code><br>
+Expected: No bike is added as a bike with the same name already exists within the LoanBook. Error details shown in the status message. Status bar remains the same.</p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="adding-a-loan"><a class="link" href="#adding-a-loan">Adding a loan</a></h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Adding a loan while all loans are listed</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Prerequisites: List all loans using the <code>list</code> command. Multiple loans in the list.</p>
+</li>
+<li>
+<p>Test case: <code>PLACEHOLDER</code><br>
+Expected: PLACEHOLDER</p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="edit-a-bike"><a class="link" href="#edit-a-bike">Edit a bike</a></h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Editing a bike while all bikes are listed</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Prerequisites: List all bikes using the <code>listbikes</code> command. <code>BikeToRename</code>, <code>Bike001</code> and <code>Bike002</code> are in the list.</p>
+</li>
+<li>
+<p>Test case: <code>editbike BikeToRename n/New Bike</code><br>
+Expected: The bike <code>BikeToRename</code> will be renamed to "New Bike". Details of the updated bike is shown in the status message. Timestamp in the status bar is updated.</p>
+</li>
+<li>
+<p>Test case: <code>editbike Bike002 n/Bike001</code><br>
+Expected: No bike is edited due to the specified name matching that of an existing bike, thus creating a duplicate bike if the command proceeds. Error details shown in the status message. Status bar remains the same.</p>
+</li>
+<li>
+<p>Test case: <code>editbike ThisBikeDoesNotExist n/New Bike</code><br>
+Expected: No bike is edited due to the specified name not matching that of any existing bike. Error details shown in the status message. Status bar remains the same.</p>
+</li>
+<li>
+<p>Other incorrect delete commands to try: <code>editbike</code><br>
+Expected: Similar to previous.</p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="deleting-a-bike"><a class="link" href="#deleting-a-bike">Deleting a bike</a></h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Deleting a bike while all bikes are listed</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Prerequisites: List all bikes using the <code>listbikes</code> command. <code>Bike001</code> and <code>B i-k e 0 01-</code> are in the list.</p>
+</li>
+<li>
+<p>Test case: <code>deletebike B i-k e 0 01- x/a12345</code><br>
+Expected: The bike <code>B i-k e 0 01-</code> is deleted from the list. Details of the deleted bike is shown in the status message. Timestamp in the status bar is updated.</p>
+</li>
+<li>
+<p>Test case: <code>deletebike NotAnExistingBike x/a12345</code><br>
+Expected: No bike is deleted due to the supplied name not referring to an existing bike. Error details shown in the status message. Status bar remains the same.</p>
+</li>
+<li>
+<p>Test case: <code>deletebike Bike001 x/wr0ngP4sS</code><br>
+Expected: No bike is deleted due to invalid password supplied. Error details shown in the status message. Status bar remains the same.</p>
+</li>
+<li>
+<p>Other incorrect delete commands to try: <code>deletebike</code><br>
+Expected: Similar to previous.</p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="deleting-a-loan"><a class="link" href="#deleting-a-loan">Deleting a loan</a></h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Deleting a loan while all loans are listed</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Prerequisites: List all loans using the <code>list</code> command. Multiple loans in the list.</p>
+</li>
+<li>
+<p>Test case: <code>delete i/1 x/a12345</code><br>
+Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.</p>
+</li>
+<li>
+<p>Test case: <code>delete i/0 x/a12345</code><br>
+Expected: No loan is deleted due to invalid index supplied. Error details shown in the status message. Status bar remains the same.</p>
+</li>
+<li>
+<p>Test case: <code>delete i/1 x/wr0ngP4sS</code><br>
+Expected: No loan is deleted due to invalid password supplied. Error details shown in the status message. Status bar remains the same.</p>
+</li>
+<li>
+<p>Other incorrect delete commands to try: <code>delete</code>, <code>delete i/x x/a12345</code> (where x is larger than the list size)<br>
+Expected: Similar to previous.</p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><em>{ more test cases &#8230;&#8203; }</em></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="return-a-loan-functionality"><a class="link" href="#return-a-loan-functionality">Return a loan functionality</a></h3>
+<div class="paragraph">
+<p>Prerequisites: List all loans using the list command. Ensure there are multiple loans in the list.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Returning a valid loan</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Choose a loan that has not been returned. These loans are marked with the ONGOING tag. Find the index number of it and run <code>return i/&lt;INDEX&gt;</code>.<br>
+Expected: The loan is returned successfully. The display message details that the loan has been deleted, and gives a suggestion for the cost price of the duration of the loan.</p>
+</li>
+<li>
+<p>Choose another ongoing loan from the list and run <code>return i/&lt;INDEX&gt;</code>.<br>
+Expected: The loan is returned successfully as well. The display message details that the loan has been deleted, and gives a suggestion for the cost price of the duration of the loan.</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>Negative tests:</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Test case: <code>return i/0</code><br>
+Expected: No loan is returned. Error details shown in the status message, the message should say "the specified index is invalid" in this case. Status bar remains the same.</p>
+</li>
+<li>
+<p>Other incorrect <code>return</code> commands to try:</p>
+<div class="olist lowerroman">
+<ol class="lowerroman" type="i">
+<li>
+<p><code>return</code></p>
+</li>
+<li>
+<p><code>return i/x</code> (where <code>x</code> is larger than the list size)</p>
+</li>
+<li>
+<p><code>return i/aaa</code> (Where <code>aaa</code> is a string)</p>
+</li>
+<li>
+<p><code>return i/y</code> (where <code>y</code> is the index of a loan that is not <code>ONGOING</code>).<br></p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="summary-functionality"><a class="link" href="#summary-functionality">Summary functionality</a></h3>
+<div class="paragraph">
+<p>Use the <code>summary</code> command on various sizes of the LoanBook to test this functionality</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Create an empty LoanBook and run the <code>summary</code> command.<br>
+Expected: The summary should report the following:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Total loans: 0</p>
+</li>
+<li>
+<p>Loans in progress: 0</p>
+</li>
+<li>
+<p>Returned loans: 0</p>
+</li>
+<li>
+<p>Total product loan time: 0 minutes</p>
+</li>
+<li>
+<p>Total revenue: $0.00</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Add 1 loan with a rate of $30/hr. Run the <code>summary</code> command.<br>
+Expected: The displayed page should report the following:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Total loans: 1</p>
+</li>
+<li>
+<p>Loans in progress: 1</p>
+</li>
+<li>
+<p>Returned loans: 0</p>
+</li>
+<li>
+<p>Total product loan time: 0 minutes</p>
+</li>
+<li>
+<p>Total revenue: $0.00</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Add 3 more loans with rates $120/hr. Run the <code>summary</code> command.<br>
+Expected: The displayed page should report the following:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Total loans: 4</p>
+</li>
+<li>
+<p>Loans in progress: 4</p>
+</li>
+<li>
+<p>Returned loans: 0</p>
+</li>
+<li>
+<p>Total product loan time: 0 minutes</p>
+</li>
+<li>
+<p>Total revenue: $0.00</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Return the first loan that you have added from above after exactly 1 minute, and run the <code>summary</code> command.<br>
+Expected: The displayed page should report the following:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Total loans: 4</p>
+</li>
+<li>
+<p>Loans in progress: 3</p>
+</li>
+<li>
+<p>Returned loans: 1</p>
+</li>
+<li>
+<p>Total product loan time: 1 minutes</p>
+</li>
+<li>
+<p>Total revenue: $0.50</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Return 2 of the 3 loans that you have added from above after exactly 1 and 2 minutes from when you added them, respectively. Run the <code>summary</code> command.<br>
+Expected: The displayed page should report the following:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Total loans: 4</p>
+</li>
+<li>
+<p>Loans in progress: 1</p>
+</li>
+<li>
+<p>Returned loans: 3</p>
+</li>
+<li>
+<p>Total product loan time: 4 minutes</p>
+</li>
+<li>
+<p>Total revenue: $6.50</p>
+</li>
+</ul>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="saving-data"><a class="link" href="#saving-data">Saving data</a></h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Dealing with missing/corrupted data files</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p><em>{explain how to simulate a missing/corrupted file and the expected behavior}</em></p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><em>{ more test cases &#8230;&#8203; }</em></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="sending-reminder-emails"><a class="link" href="#sending-reminder-emails">Sending Reminder Emails</a></h3>
+<div class="paragraph">
+<p>Prerequisites: Make sure the system is connected to the internet. The email must be gmail and its <code>Less secure apps</code> option is enabled.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Send a reminder email successfully. Please follow these steps:</p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>add</code> a loan with a valid customer&#8217;s email (but you own it of course).</p>
+</li>
+<li>
+<p>Execute the <code>checkemail</code> command. Then use the <code>setemail</code> command to set the sender&#8217;s email.</p>
+</li>
+<li>
+<p>After that, execute <code>remind x/correctpassword n/Name b/BikeId</code>.</p>
+</li>
+</ul>
+</div>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Expected: Receive a success message "Email sent!" on the screen. A reminder email should have been sent from the sender&#8217;s email (check the Sent folder). The same email should also be in the inbox of the customer&#8217;s email account that you have set.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Negative tests:</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Test case: <code>setemail WRONG_OLD_EMAIL@gmail.com NEW_EMAIL@gmail.com</code><br>
+Expected: Failure message "The old email address is wrong!" will show. User&#8217;s email is not changed.</p>
+</li>
+<li>
+<p>Test case: <code>setemail YOUR_EMAIL@gmail.com YOUR_EMAIL@gmail.com</code><br>
+Expected: Failure message "The old email and the new email cannot be the same!" will show. User&#8217;s email is not changed.</p>
+</li>
+<li>
+<p>Test case: <code>setemail OLD_EMAIL@gmail.com INVALID_NEW_EMAIL@outlook.com</code><br>
+Expected: Failure message "Your new email address is invalid! It must be a valid gmail!" will show. User&#8217;s email is not changed.</p>
+</li>
+<li>
+<p>Test case: <code>setemail OLD_EMAIL@gmail.com INVALID_NEW_EMAIL@gmail.com@gmail.com</code><br>
+Expected: Failure message "Your new email address is invalid! It must be a valid gmail!" will show. User&#8217;s email is not changed.</p>
+</li>
+<li>
+<p>Test case: <code>remind x/CORRECTPASSWORD n/NAME b/MISMATCHED_BIKE</code><br>
+Expected: Failure message "No loan contains both <code>NAME</code> and <code>MISMATCHED_BIKE</code>!" will show. The email is not sent.</p>
+</li>
+<li>
+<p>Test case: <code>remind x/CORRECTPASSWORD n/MISMATCHED_NAME b/BIKE</code><br>
+Expected: Failure message "No loan contains both <code>MISMATCHED_NAME</code> and <code>BIKE</code>!" will show. The email is not sent.</p>
+</li>
+<li>
+<p>Test case: <code>remind x/CORRECTPASSWORD n/RETURNED_NAME b/RETURNED_BIKE</code><br>
+Expected: Failure message "That loan has already been returned!" will show. The email is not sent.</p>
+</li>
+<li>
+<p>Test case: <code>remind x/CORRECTPASSWORD n/DELETED_NAME n/DELETED_BIKE</code><br>
+Expected: Failure message "That loan has been deleted!" will show. The email is not sent.</p>
+</li>
+<li>
+<p>Test case: <code>remind x/WRONGPASSWORD n/NAME b/BIKE</code><br>
+Expected: Failure message "Connection to your email failed! The password is wrong or you did not enable the <code>less secure app</code> option in your google account setting before you use remind command. Please refer to the User Guide!" will show. The email is not sent.</p>
+</li>
+<li>
+<p>Test case: Make sure your email is set, disable its <code>less secure apps</code> setting and refresh the setting page. Execute <code>remind x/CORRECTPASSWORD n/NAME b/BIKE</code><br>
+Expected: Failure message "Connection to your email failed! The password is wrong or you did not enable <code>less secure app</code> in your google account setting before you use remind command. Please refer to the User Guide!" will show. The email is not sent.</p>
+</li>
+<li>
+<p>Other incorrect commands to try: <code>setemail</code>, <code>setemail x</code> (where x can be any string), <code>remind</code>, <code>remind x y z</code> (no prefix, x, y and z can be any string).</p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-02 03:18:09 UTC</div></div></div></body></html>
