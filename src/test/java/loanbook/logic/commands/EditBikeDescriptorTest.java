@@ -15,7 +15,8 @@ public class EditBikeDescriptorTest {
     @Test
     public void equals() {
         // same values -> returns true
-        EditBikeCommand.EditBikeDescriptor descriptorWithSameValues = new EditBikeCommand.EditBikeDescriptor(DESC_BIKE1);
+        EditBikeCommand.EditBikeDescriptor descriptorWithSameValues =
+                new EditBikeCommand.EditBikeDescriptor(DESC_BIKE1);
         assertTrue(DESC_BIKE1.equals(descriptorWithSameValues));
 
         // same object -> returns true

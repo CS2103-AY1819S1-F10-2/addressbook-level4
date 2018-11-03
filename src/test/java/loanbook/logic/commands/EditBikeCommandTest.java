@@ -5,7 +5,6 @@ import static loanbook.logic.commands.CommandTestUtil.DESC_BIKE2;
 import static loanbook.logic.commands.CommandTestUtil.NOEXIST_NAME_BIKE;
 import static loanbook.logic.commands.CommandTestUtil.VALID_NAME_BIKE1;
 import static loanbook.logic.commands.CommandTestUtil.VALID_NAME_BIKE2;
-import static loanbook.logic.commands.CommandTestUtil.VALID_NAME_BIKE4;
 import static loanbook.logic.commands.CommandTestUtil.assertCommandFailure;
 import static loanbook.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static loanbook.logic.commands.CommandTestUtil.assertCommandSuccessCompareEditableFields;
@@ -24,8 +23,8 @@ import loanbook.model.ModelManager;
 import loanbook.model.UserPrefs;
 import loanbook.model.bike.Bike;
 import loanbook.model.loan.Name;
-import loanbook.testutil.EditBikeDescriptorBuilder;
 import loanbook.testutil.BikeBuilder;
+import loanbook.testutil.EditBikeDescriptorBuilder;
 
 /**
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and

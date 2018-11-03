@@ -8,13 +8,9 @@ import static loanbook.logic.commands.CommandTestUtil.VALID_NAME_BIKE1;
 import static loanbook.logic.commands.CommandTestUtil.VALID_NAME_BIKE2;
 import static loanbook.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static loanbook.logic.parser.CommandParserTestUtil.assertParseSuccess;
-import static loanbook.testutil.TypicalIndexes.INDEX_FIRST_LOAN;
-import static loanbook.testutil.TypicalIndexes.INDEX_SECOND_LOAN;
-import static loanbook.testutil.TypicalIndexes.INDEX_THIRD_LOAN;
 
 import org.junit.Test;
 
-import loanbook.commons.core.index.Index;
 import loanbook.logic.commands.EditBikeCommand;
 import loanbook.logic.commands.EditBikeCommand.EditBikeDescriptor;
 import loanbook.model.loan.Name;
