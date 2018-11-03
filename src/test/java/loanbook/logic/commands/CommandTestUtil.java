@@ -20,6 +20,7 @@ import loanbook.logic.CommandHistory;
 import loanbook.logic.commands.exceptions.CommandException;
 import loanbook.model.LoanBook;
 import loanbook.model.Model;
+import loanbook.model.bike.Bike;
 import loanbook.model.loan.Loan;
 import loanbook.model.loan.NameContainsKeywordsPredicate;
 import loanbook.testutil.EditLoanDescriptorBuilder;
@@ -184,6 +185,20 @@ public class CommandTestUtil {
     }
 
     /**
+     * Updates {@code model}'s filtered list to show only the bike at the given {@code targetIndex} in the
+     * {@code model}'s loan book.
+     */
+    public static void showBikeAtIndex(Model model, Index targetIndex) {
+        assertTrue(targetIndex.getZeroBased() < model.getFilteredBikeList().size());
+
+        Bike bike = model.getFilteredBikeList().get(targetIndex.getZeroBased());
+        final String[] splitName = bike.getName().value.split("\\s+");
+        model.updateFilteredBikeList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])).forBikes());
+
+        assertEquals(1, model.getFilteredBikeList().size());
+    }
+
+    /**
      * Updates {@code model}'s filtered list to show only the loan at the given {@code targetIndex} in the
      * {@code model}'s loan book.
      */
@@ -192,7 +207,7 @@ public class CommandTestUtil {
 
         Loan loan = model.getFilteredLoanList().get(targetIndex.getZeroBased());
         final String[] splitName = loan.getName().value.split("\\s+");
-        model.updateFilteredLoanList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
+        model.updateFilteredLoanList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])).forLoans());
 
         assertEquals(1, model.getFilteredLoanList().size());
     }
