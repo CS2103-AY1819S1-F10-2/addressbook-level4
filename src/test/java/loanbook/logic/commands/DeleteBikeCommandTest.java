@@ -10,12 +10,10 @@ import static loanbook.testutil.TypicalIndexes.INDEX_FIRST_LOAN;
 import static loanbook.testutil.TypicalIndexes.INDEX_SECOND_LOAN;
 import static loanbook.testutil.TypicalLoanBook.getTypicalLoanBook;
 import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import loanbook.commons.core.Messages;
 import loanbook.logic.CommandHistory;
 import loanbook.model.Model;
 import loanbook.model.ModelManager;
@@ -79,7 +77,7 @@ public class DeleteBikeCommandTest {
     }
 
     @Test
-    public void execute_BikeNotInFilteredList_success() {
+    public void execute_bikeNotInFilteredList_success() {
         Password pass = new Password("a12345");
         model.setPass(pass);
 
