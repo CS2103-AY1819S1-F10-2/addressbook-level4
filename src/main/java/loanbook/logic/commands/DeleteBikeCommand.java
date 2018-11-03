@@ -20,7 +20,7 @@ import loanbook.model.loan.Name;
  */
 public class DeleteBikeCommand extends Command {
 
-    public static final String COMMAND_WORD = "delete";
+    public static final String COMMAND_WORD = "deletebike";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
         + ": Deletes the bike with the given name.\n"
