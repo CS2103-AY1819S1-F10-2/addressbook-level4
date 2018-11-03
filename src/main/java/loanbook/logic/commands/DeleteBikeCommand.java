@@ -4,7 +4,6 @@ import static java.util.Objects.requireNonNull;
 import static loanbook.logic.parser.CliSyntax.PREFIX_NAME;
 import static loanbook.logic.parser.CliSyntax.PREFIX_PASSWORD;
 
-import java.util.List;
 import java.util.Optional;
 
 import loanbook.commons.core.Messages;
