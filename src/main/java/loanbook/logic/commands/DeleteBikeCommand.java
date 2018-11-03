@@ -43,7 +43,6 @@ public class DeleteBikeCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
 
         requireNonNull(model);
-        List<Bike> lastShownList = model.getFilteredBikeList();
 
         Optional<Bike> actualBike = model.getBike(bikeName.value);
         if (!actualBike.isPresent()) {
@@ -67,7 +66,7 @@ public class DeleteBikeCommand extends Command {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof DeleteCommand)) {
+        if (!(other instanceof DeleteBikeCommand)) {
             return false;
         }
 
