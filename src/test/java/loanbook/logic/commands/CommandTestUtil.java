@@ -22,6 +22,7 @@ import loanbook.model.LoanBook;
 import loanbook.model.Model;
 import loanbook.model.loan.Loan;
 import loanbook.model.loan.NameContainsKeywordsPredicate;
+import loanbook.testutil.EditBikeDescriptorBuilder;
 import loanbook.testutil.EditLoanDescriptorBuilder;
 
 /**
@@ -99,10 +100,16 @@ public class CommandTestUtil {
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
 
+    public static final EditBikeCommand.EditBikeDescriptor DESC_BIKE1;
+    public static final EditBikeCommand.EditBikeDescriptor DESC_BIKE2;
+
     public static final EditCommand.EditLoanDescriptor DESC_AMY;
     public static final EditCommand.EditLoanDescriptor DESC_BOB;
 
     static {
+        DESC_BIKE1 = new EditBikeDescriptorBuilder().withName(VALID_NAME_BIKE1).build();
+        DESC_BIKE2 = new EditBikeDescriptorBuilder().withName(VALID_NAME_BIKE2).build();
+
         DESC_AMY = new EditLoanDescriptorBuilder().withName(VALID_NAME_AMY)
                 .withNric(VALID_NRIC_AMY)
                 .withPhone(VALID_PHONE_AMY).withEmail(VALID_EMAIL_AMY)
