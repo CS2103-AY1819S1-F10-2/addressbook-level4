@@ -85,7 +85,7 @@ Format: `add p/PERSON_NAME ic/PERSON_NRIC hp/PERSON_PHONE_NO e/PERSON_EMAIL b/BI
 [NOTE]
 PERSON_PHONE_NO and PERSON_EMAIL should not be blank.
 BIKE_NAME must be the name of a bicycle that has already been registered into the LoanBook.
-NUMBER_LOANED and LOAN_OUT_PERIOD must be a positive integer
+NUMBER_LOANED and LOAN_OUT_PERIOD must be a positive integer.
 RATE is in dollars per hour.
 
 Examples:
@@ -108,7 +108,7 @@ Format: `listbikes`
 Shows a list of all loans in the LoanBook. +
 Format: `list`
 
-=== \[Coming in v1.4\] Editing a bike : `editbike`
+=== \[Coming in v1.4\] Editing a bike: `editbike`
 
 To keep the system updated with any changes in the bicycles, this command allows details of a bicycle to be edited. +
 Format: `edit BIKE_NAME [n/NEW_BIKE_NAME]`
@@ -121,7 +121,7 @@ Examples:
 * `edit Bike 1 n/Bike-001` +
 For the bicycle named "Bike 1", its name is changed to "Bike-001", "Bike-001" isn't already the name of another registered bicycle.
 
-=== Editing a loan : `edit`
+=== Editing a loan: `edit`
 
 In case a wrong entry is keyed in, or the customer changes their mind, this command allows details of a loan entry to be edited. +
 Format: `edit i/LOAN_INDEX [p/PERSON_NAME] [hp/PERSON_PHONE_NO] [e/PERSON_EMAIL] [r/RATE] [o/OBJECT_IDENTITY]`
@@ -145,7 +145,7 @@ For the loan at index 9, changes the customer to James Tan, who has the specifie
 We do not allow editing of the loan's start time or the return time because we want you to be able to use our application as an auditing tool. We hope that this can then simplify the management of your business.
 ====
 
-=== Locating loans by key words: `find`
+=== Locating loans by keywords: `find`
 
 Returns a loan based on parameters of LOAN_INDEX, PERSON_NAME or OBJECT_IDENTITY. +
 Format: `find [i/LOAN_INDEX] [p/PERSON_NAME] [o/OBJECT_IDENTITY]`
@@ -203,7 +203,7 @@ Deletes the loan with that has been indexed at position 11037.
 
 === Changing the password of the app: `setpass`
 
-Change the current password of the app to `NEW_PASSWORD`. This ensures that critical commands such as `delete` and `reset` may be performed by authorized personnels only. +
+Change the current password of the app to `NEW_PASSWORD`. This ensures that critical commands such as `delete` and `reset` may be performed by authorized personnel only. +
 Format: `setpass CURRENT_PASSWORD NEW_PASSWORD`
 
 ****
@@ -224,7 +224,7 @@ This command marks a loan as returned based on LOAN_INDEX and automatically prin
 
 [TIP]
 ====
-We choose to do this because when we get down to seconds, the difference in the earnings you will get is going to be on the order of fraction of cents. We hope that by doing this, your business would not seem to be very petty about the money.
+We choose to do this because when we get down to seconds, the difference in the earnings you will get is going to be on the order of a fraction of cents. We hope that by doing this, your business would not seem to be very petty about the money.
 
 Also, this would be good for your business, as customers will not feel that they have been ripped off the cost of renting a bike for an extra minute just because you took 5 seconds to log their return details! :)
 ====
