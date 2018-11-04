@@ -263,7 +263,7 @@ The difference between deleting all the loans and hard resetting the LoanBook is
 **Hard resetting the LoanBook will remove ALL loans! Do this ar your own peril.**
 ====
 
-=== Summarize all the transactions : `summary`
+=== Summarize all the transactions: `summary`
 
 Do you want to find out at a glance how much money your business has collected? Or maybe out of all the bicycles you have, how many are currently loaned out? Here's the command for you.
 
