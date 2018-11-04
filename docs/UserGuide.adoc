@@ -332,16 +332,6 @@ Examples:
 * `remind x/123456 n/Alex b/Bike001`
 * `remind x/nscjhbdhv n/Peter Lee b/NewBike`
 
-=== Non-functional features :
-* Aliases to allow users to use the CLI with less keystrokes.
-* Chainable commands. I.e. allow adding and deleting of items asynchronously.
-** `add_items i/bicycle q/5 delete_items motorbike q/7`
-* Auto complete
-** Populate recently loaned items/users, depending on the input. i.e. add i/ should show a dropdown on the last 5 items used. User can type add i/5 to select the 5th LRU item.
-** typing `del` followed by tab auto completes to `delete`
-* Send reminder email to the borrower after a day of borrowing reminding them to return the bike.
-* Login authentication to ensure that unauthorized people do not delete the loans which they are not supposed to. LoanBook requires a password when deleting.
-
 ////
 // tag::undoredo[]
 === Undoing previous command : `undo`
