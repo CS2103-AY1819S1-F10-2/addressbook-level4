@@ -316,6 +316,7 @@ Format: `history`
 Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and next input respectively in the command box.
 ====
 
+// tag::sendemail[]
 === Check your email: `checkemail`
 
 Checks whether you have set your email or not, and displays the censored email address if you have set it before. +
@@ -336,8 +337,8 @@ Only Gmail is accepted!
 
 Examples:
 
-* `setemail default \new_email@gmail.com`
-* `setemail \old_email@gmail.com \new_email@gmail.com`
+* `setemail default \new.email@gmail.com`
+* `setemail \old.email@gmail.com \new.email@gmail.com`
 
 === Send reminder email: `remind`
 
@@ -354,6 +355,7 @@ Examples:
 
 * `remind x/123456 n/Alex b/Bike001`
 * `remind x/nscjhbdhv n/Peter Lee b/NewBike`
+// end::sendemail[]
 
 ////
 // tag::undoredo[]

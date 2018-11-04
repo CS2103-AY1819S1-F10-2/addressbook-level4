@@ -55,7 +55,7 @@ public class SetPasswordCommandTest {
         assertFalse(addOldPassCommand.equals(1));
 
         // null -> returns false
-        assertFalse(addOldPassCommand.equals(null));
+        assertFalse(addOldPassCommand == null);
 
         // different loan -> returns false
         assertFalse(addOldPassCommand.equals(wrongPassCommand));

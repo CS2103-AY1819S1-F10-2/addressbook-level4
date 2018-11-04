@@ -28,6 +28,7 @@ import loanbook.logic.commands.SearchCommand;
 import loanbook.logic.commands.SelectCommand;
 import loanbook.logic.commands.SetEmailCommand;
 import loanbook.logic.commands.SetPasswordCommand;
+import loanbook.logic.commands.SummaryCommand;
 import loanbook.logic.commands.UndoCommand;
 import loanbook.logic.parser.exceptions.ParseException;
 
@@ -75,6 +76,9 @@ public class LoanBookParser {
 
         case ReturnCommand.COMMAND_WORD:
             return new ReturnCommandParser().parse(arguments);
+
+        case SummaryCommand.COMMAND_WORD:
+            return new SummaryCommand();
 
         case DeleteBikeCommand.COMMAND_WORD:
             return new DeleteBikeCommandParser().parse(arguments);

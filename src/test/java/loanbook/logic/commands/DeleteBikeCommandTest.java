@@ -158,7 +158,7 @@ public class DeleteBikeCommandTest {
         assertFalse(deleteFirstCommand.equals(1));
 
         // null -> returns false
-        assertFalse(deleteFirstCommand.equals(null));
+        assertFalse(deleteFirstCommand == null);
 
         // different loan -> returns false
         assertFalse(deleteFirstCommand.equals(deleteSecondCommand));

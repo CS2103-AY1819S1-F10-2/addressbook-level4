@@ -23,7 +23,7 @@ public class EditBikeDescriptorTest {
         assertTrue(DESC_BIKE1.equals(DESC_BIKE1));
 
         // null -> returns false
-        assertFalse(DESC_BIKE1.equals(null));
+        assertFalse(DESC_BIKE1 == null);
 
         // different types -> returns false
         assertFalse(DESC_BIKE1.equals(5));
