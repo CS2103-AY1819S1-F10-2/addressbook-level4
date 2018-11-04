@@ -52,7 +52,7 @@ The default password for the app is `a12345`. This is required for some commands
 * If you enter the parameters of a command incorrectly, the LoanBook will feedback the correct command format to you.
 ====
 
-=== Viewing help : `help`
+=== Viewing help: `help`
 
 Provides a list of all commands together with a basic description, how-to-use and example usage for each command. +
 
@@ -166,7 +166,7 @@ Searches for loans made by James Tan
 * `search p/John Doe o/Bicycle-007` +
 Searches for loans made by John Doe where the item loaned out is Bicycle-007
 
-=== \[Coming in v1.4\] Deleting the chosen bike from the loan book : `deletebike`
+=== \[Coming in v1.4\] Deleting the chosen bike from the loan book: `deletebike`
 
 Deletes a bike from the loan book. +
 Format: `deletebike BIKE_NAME x/CURRENT_PASSWORD`
@@ -179,7 +179,7 @@ Examples:
 * `delete Bike 1 x/a12345` +
 Deletes the bicycle with the name of "Bike 1".
 
-=== Deleting the chosen loan from the loan book : `delete`
+=== Deleting the chosen loan from the loan book: `delete`
 
 Delete the loan from the loan book. If you want to delete one loan, use `delete i/LOAN_INDEX x/CURRENT_PASSWORD`.
 Due to `delete` modifying transactional summary, it is a critical command and hence elevation is required hence the password field. +
@@ -216,7 +216,7 @@ Examples:
 * `setpass a12345 n3wP4sS` +
 Set the password of the app to `n3wP4sS`.
 
-=== Returning a loan : `return`
+=== Returning a loan: `return`
 
 What's the use of a LoanBook if you are unable to return the loans that you have? This is how you can do that! In fact, we see your pains trying to calculate the amount payable on a calculator, so we decided to help you out by doing all the number crunching for you.
 
@@ -248,7 +248,7 @@ Examples:
 * `return i/11037` +
 Marks the loan with LOAN_INDEX 11037 as returned. Also automatically prints out the amount payable based on loan time and rate.
 
-=== Hard reset the entire loan book : `reset`
+=== Hard reset the entire loan book: `reset`
 
 Removes all the loans from the loan book and resets the LOAN_ID counter. +
 Format: `reset`
@@ -283,7 +283,7 @@ Format: `summary`
 The summary feature may take a while to run, especially when you have many loans that you have made in the past. Please allow about a second for it to process.
 ====
 
-=== Listing entered commands : `history`
+=== Listing entered commands: `history`
 
 Lists all the commands that you have entered in reverse chronological order. +
 Format: `history`
@@ -293,12 +293,12 @@ Format: `history`
 Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and next input respectively in the command box.
 ====
 
-=== Check your email : `checkemail`
+=== Check your email: `checkemail`
 
 Checks whether you have set your email or not, and displays the censored email address if you have set it before. +
 Format: `checkemail`
 
-=== Set your email : `setemail`
+=== Set your email: `setemail`
 
 Sets the email address to send reminder emails from. +
 Format: `setemail OLDEMAIL NEWEMAIL`
@@ -316,7 +316,7 @@ Examples:
 * `setemail default \new_email@gmail.com`
 * `setemail \old_email@gmail.com \new_email@gmail.com`
 
-=== send reminder email : `remind`
+=== Send reminder email: `remind`
 
 Sends a reminder email to the customer. +
 Format: `remind x/EMAILPASSWORD n/NAME b/BIKE`
@@ -334,7 +334,7 @@ Examples:
 
 ////
 // tag::undoredo[]
-=== Undoing previous command : `undo`
+=== Undoing previous command: `undo`
 
 Restores the address book to the state before the previous _undoable_ command was executed. +
 Format: `undo`
@@ -383,12 +383,12 @@ The `redo` command fails as there are no `undo` commands executed previously.
 `redo` (reapplies the `clear` command) +
 // end::undoredo[]
 
-=== Clearing all entries : `clear`
+=== Clearing all entries: `clear`
 
 Clears all entries from the address book. +
 Format: `clear`
 
-=== Exiting the program : `exit`
+=== Exiting the program: `exit`
 
 Exits the program. +
 Format: `exit`
