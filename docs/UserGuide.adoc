@@ -255,7 +255,7 @@ Format: `reset`
 
 [NOTE]
 ====
-The difference between deleting all the loans and hard resetting the LoanBook is that when a loan is delete, you will still be able to search for it. However, the statistics of deleted loans do not appear in the `summary` command.
+The difference between deleting all the loans and hard resetting the LoanBook is that when a loan is deleted, you will still be able to search for it. However, the statistics of deleted loans do not appear in the `summary` command.
 ====
 
 [WARNING]
