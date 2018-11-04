@@ -3,21 +3,17 @@ package loanbook.storage;
 import static loanbook.storage.XmlAdaptedLoan.MISSING_FIELD_MESSAGE_FORMAT;
 import static loanbook.testutil.TypicalLoans.BENSON;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import loanbook.model.loan.*;
 import org.junit.Test;
 
 import loanbook.commons.exceptions.IllegalValueException;
 import loanbook.model.bike.Bike;
-import loanbook.model.loan.Email;
-import loanbook.model.loan.LoanRate;
-import loanbook.model.loan.LoanTime;
-import loanbook.model.loan.Name;
-import loanbook.model.loan.Nric;
-import loanbook.model.loan.Phone;
 import loanbook.testutil.Assert;
 
 public class XmlAdaptedLoanTest {
@@ -321,4 +317,52 @@ public class XmlAdaptedLoanTest {
         Assert.assertThrows(IllegalValueException.class, loan::toModelType);
     }
 
+    @Test
+    public void equalityTest() {
+        XmlAdaptedLoan xmlAdaptedLoan1 =
+                new XmlAdaptedLoan(VALID_LOANID,
+                        VALID_NAME,
+                        VALID_NRIC,
+                        VALID_PHONE,
+                        VALID_EMAIL,
+                        VALID_BIKE,
+                        VALID_LOANRATE,
+                        VALID_LOANTIMEA,
+                        VALID_LOANTIMEB,
+                        VALID_LOANSTATUS,
+                        VALID_TAGS);
+
+        XmlAdaptedLoan xmlAdaptedLoan2 =
+                new XmlAdaptedLoan(BENSON);
+
+        XmlAdaptedLoan xmlAdaptedLoan3 =
+                new XmlAdaptedLoan(VALID_LOANID,
+                        "DefinitelyNotTheSameName",
+                        VALID_NRIC,
+                        VALID_PHONE,
+                        VALID_EMAIL,
+                        VALID_BIKE,
+                        VALID_LOANRATE,
+                        VALID_LOANTIMEA,
+                        VALID_LOANTIMEB,
+                        VALID_LOANSTATUS,
+                        VALID_TAGS);
+
+        assertEquals(xmlAdaptedLoan1, xmlAdaptedLoan1); // Same instance
+        assertEquals(xmlAdaptedLoan1, xmlAdaptedLoan2); // Same value
+        assertNotEquals(xmlAdaptedLoan1, xmlAdaptedLoan3); // Different value
+        assertNotEquals(xmlAdaptedLoan1, "Different type");
+    }
+
+    @Test
+    public void equalityTestXMLAdatedTag() {
+        XmlAdaptedTag xmlTag1 = new XmlAdaptedTag("tag");
+        XmlAdaptedTag xmlTag2 = new XmlAdaptedTag("tag");
+        XmlAdaptedTag xmlTag3 = new XmlAdaptedTag("notATag");
+
+        assertEquals(xmlTag1, xmlTag1); // Same instance
+        assertEquals(xmlTag1, xmlTag2); // Same value
+        assertNotEquals(xmlTag1, xmlTag3); // Different value
+        assertNotEquals(xmlTag1, "Different type");
+    }
 }
