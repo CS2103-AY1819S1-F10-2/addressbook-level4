@@ -28,7 +28,7 @@ public class EditLoanDescriptorTest {
         assertTrue(DESC_AMY.equals(DESC_AMY));
 
         // null -> returns false
-        assertFalse(DESC_AMY.equals(null));
+        assertFalse(DESC_AMY == null);
 
         // different types -> returns false
         assertFalse(DESC_AMY.equals(5));

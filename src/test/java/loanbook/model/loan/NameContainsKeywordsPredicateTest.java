@@ -32,7 +32,7 @@ public class NameContainsKeywordsPredicateTest {
         assertFalse(firstPredicate.equals(1));
 
         // null -> returns false
-        assertFalse(firstPredicate.equals(null));
+        assertFalse(firstPredicate == null);
 
         // different loan -> returns false
         assertFalse(firstPredicate.equals(secondPredicate));

@@ -126,7 +126,7 @@ public class ModelManagerTest {
         assertTrue(modelManager.equals(modelManager));
 
         // null -> returns false
-        assertFalse(modelManager.equals(null));
+        assertFalse(modelManager == null);
 
         // different types -> returns false
         assertFalse(modelManager.equals(5));

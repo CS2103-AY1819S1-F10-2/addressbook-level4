@@ -44,7 +44,7 @@ public class SearchCommandTest {
         assertFalse(firstSearch.equals(1));
 
         // null -> returns false
-        assertFalse(firstSearch.equals(null));
+        assertFalse(firstSearch == null);
 
         // different start date -> returns false
         SearchCommand differentStartDateSearch = new SearchCommand(secondStartDate, firstEndDate);

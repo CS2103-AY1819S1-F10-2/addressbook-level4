@@ -52,7 +52,7 @@ public class CommandHistoryTest {
         assertTrue(commandHistoryWithA.equals(anotherCommandHistoryWithA));
 
         // null -> returns false
-        assertFalse(commandHistoryWithA.equals(null));
+        assertFalse(commandHistoryWithA == null);
 
         // different types -> returns false
         assertFalse(commandHistoryWithA.equals(5.0f));

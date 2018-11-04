@@ -50,7 +50,7 @@ public class FindCommandTest {
         assertFalse(findFirstCommand.equals(1));
 
         // null -> returns false
-        assertFalse(findFirstCommand.equals(null));
+        assertFalse(findFirstCommand == null);
 
         // different loan -> returns false
         assertFalse(findFirstCommand.equals(findSecondCommand));
