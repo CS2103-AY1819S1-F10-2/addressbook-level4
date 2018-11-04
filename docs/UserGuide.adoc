@@ -98,12 +98,12 @@ Examples:
 The best part about this is you do not even need to key in the time that you created this loan! LoanBook does the timing for you! Simple isn't it?
 ====
 
-=== Listing all bikes : `listbikes`
+=== Listing all bikes: `listbikes`
 
 Shows a list of all registered bicycles in the LoanBook. +
 Format: `listbikes`
 
-=== Listing all loans : `list`
+=== Listing all loans: `list`
 
 Shows a list of all loans in the LoanBook. +
 Format: `list`
