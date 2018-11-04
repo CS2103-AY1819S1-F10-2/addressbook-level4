@@ -9,11 +9,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import loanbook.model.loan.*;
 import org.junit.Test;
 
 import loanbook.commons.exceptions.IllegalValueException;
 import loanbook.model.bike.Bike;
+import loanbook.model.loan.Email;
+import loanbook.model.loan.LoanRate;
+import loanbook.model.loan.LoanTime;
+import loanbook.model.loan.Name;
+import loanbook.model.loan.Nric;
+import loanbook.model.loan.Phone;
 import loanbook.testutil.Assert;
 
 public class XmlAdaptedLoanTest {
@@ -355,7 +360,7 @@ public class XmlAdaptedLoanTest {
     }
 
     @Test
-    public void equalityTestXMLAdatedTag() {
+    public void equalityTestXmlAdatedTag() {
         XmlAdaptedTag xmlTag1 = new XmlAdaptedTag("tag");
         XmlAdaptedTag xmlTag2 = new XmlAdaptedTag("tag");
         XmlAdaptedTag xmlTag3 = new XmlAdaptedTag("notATag");

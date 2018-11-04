@@ -14,11 +14,11 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-import loanbook.model.bike.Bike;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
+import loanbook.model.bike.Bike;
 import loanbook.testutil.LoanBuilder;
 
 public class LoanTest {
@@ -101,7 +101,7 @@ public class LoanTest {
     }
 
     @Test
-    public void constructorTests(){
+    public void constructorTests() {
         Loan editedAlice;
         editedAlice = new LoanBuilder(ALICE).withBike("NewBike").build();
         Loan loanWithBikeConstructor = new Loan(ALICE, new Bike(new Name("NewBike")));
