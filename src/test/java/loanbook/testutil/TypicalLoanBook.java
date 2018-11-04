@@ -41,6 +41,7 @@ public class TypicalLoanBook {
         }
 
         lb.addLoan(new LoanBuilder().build());
+        lb.addLoan(new LoanBuilder().withName("Ash").withLoanStatus("RETURNED").build());
 
         int lastUsedId = lb.getLoanList().size() + LoanId.MINIMUM_ID - 1;
         LoanId lastUsedLoanId = LoanId.isValidLoanId(lastUsedId) ? LoanId.fromInt(lastUsedId) : null;

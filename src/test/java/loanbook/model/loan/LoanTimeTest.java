@@ -9,6 +9,8 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+import loanbook.testutil.Assert;
+
 import org.junit.Test;
 
 public class LoanTimeTest {
@@ -29,6 +31,9 @@ public class LoanTimeTest {
 
         LoanTime loanTime3 = new LoanTime("2103-01-01 21:03");
         assertEquals("2103-01-01 21:03", loanTime3.toString());
+
+        String expectedMessage = LoanTime.MESSAGE_LOANTIME_CONSTRAINTS;
+        Assert.assertThrows(IllegalArgumentException.class, expectedMessage, () -> new LoanTime("NotADate"));
     }
 
     /**

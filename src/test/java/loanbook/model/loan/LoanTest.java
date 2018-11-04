@@ -14,6 +14,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import loanbook.model.bike.Bike;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -97,6 +98,20 @@ public class LoanTest {
                 .withLoanEndTime(VALID_LOANSTARTTIME_BOB)
                 .withTags(VALID_TAG_HUSBAND).build();
         assertTrue(ALICE.isSame(editedAlice));
+    }
+
+    @Test
+    public void constructorTests(){
+        Loan editedAlice;
+        editedAlice = new LoanBuilder(ALICE).withBike("NewBike").build();
+        Loan loanWithBikeConstructor = new Loan(ALICE, new Bike(new Name("NewBike")));
+
+        assertEquals(loanWithBikeConstructor, editedAlice);
+
+        editedAlice = new LoanBuilder(ALICE).withLoanEndTime(VALID_LOANSTARTTIME_BOB).build();
+        Loan loanWithTimeConstructor = new Loan(ALICE, new LoanTime(VALID_LOANSTARTTIME_BOB));
+
+        assertEquals(loanWithTimeConstructor, editedAlice);
     }
 
     @Test
