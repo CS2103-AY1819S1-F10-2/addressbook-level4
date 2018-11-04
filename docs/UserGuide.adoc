@@ -31,7 +31,7 @@ e.g. typing *`help`* and pressing kbd:[ENTER] will open the help window.
 
 * *`list`* : List the status of the loanbook
 * **`add`**`p/John hp/12345678 e/john@abc.com r/3 o/Bicycle-007` : Loans Bicycle-007 to John at a rate of $3 per hour
-* **`delete`**`i/3 x/a12345` : deletes the 3rd loan shown in the current list
+* **`delete`**`i/1 x/a12345` : deletes the 1st loan shown in the current list
 * *`reset`* : Reset the loanbook
 
 [NOTE]
@@ -80,18 +80,18 @@ Examples:
 === Adding a loan: `add`
 
 Adds a loan to the loan book with the following parameters, and displays the transaction along with a LOAN_ID to keep track of the loan. +
-Format: `add p/PERSON_NAME ic/PERSON_NRIC hp/PERSON_PHONE_NO e/PERSON_EMAIL b/BIKE_NAME r/RATE o/OBJECT_IDENTITY`
+Format: `add n/NAME ic/NRIC p/PHONE e/EMAIL b/BIKE lr/LOANRATE [t/TAG]...`
 
 [NOTE]
-PERSON_PHONE_NO and PERSON_EMAIL should not be blank.
-BIKE_NAME must be the name of a bicycle that has already been registered into the LoanBook.
-NUMBER_LOANED and LOAN_OUT_PERIOD must be a positive integer.
-RATE is in dollars per hour.
+PERSON_PHONE_NO and PERSON_EMAIL should not be blank. +
+BIKE_NAME must be the name of a bicycle that has already been registered into the LoanBook. +
+NUMBER_LOANED and LOAN_OUT_PERIOD must be a positive integer. +
+LOANRATE is in dollars per hour.
 
 Examples:
 
-* `add p/John hp/97626753 e/johnw@abc.com r/5 o/Bicycle-007`
-* `add p/James Tan hp/86661352 e/alabaaoe@xyz.com r/144 o/Bicycle-007`
+* `add n/John Doe ic/T0248272F p/98765432 e/johnd@example.com b/Bike001 lr/3.5 t/friends t/owesMoney`
+* `add n/James Ho ic/T0248272F p/91234567 e/jamesh@example.com b/Bike001 lr/3.5`
 
 [TIP]
 ====
@@ -119,12 +119,12 @@ Format: `edit BIKE_NAME [n/NEW_BIKE_NAME]`
 Examples:
 
 * `edit Bike 1 n/Bike-001` +
-For the bicycle named "Bike 1", its name is changed to "Bike-001", "Bike-001" isn't already the name of another registered bicycle.
+For the bicycle named "Bike 1", its name is changed to "Bike-001", as long as "Bike-001" isn't already the name of another registered bicycle.
 
 === Editing a loan: `edit`
 
 In case a wrong entry is keyed in, or the customer changes their mind, this command allows details of a loan entry to be edited. +
-Format: `edit i/LOAN_INDEX [p/PERSON_NAME] [hp/PERSON_PHONE_NO] [e/PERSON_EMAIL] [r/RATE] [o/OBJECT_IDENTITY]`
+Format: `edit INDEX (must be a positive integer) [n/NAME] [ic/NRIC] [p/PHONE] [e/EMAIL] [b/BIKE] [lr/LOANRATE] [t/TAG]...`
 
 ****
 * Edits the loan at the specified `LOAN_INDEX`. This LOAN_INDEX refers to the LOAN_INDEX number shown in the displayed loan list. The LOAN_INDEX *must be a positive integer* 1, 2, 3, ...
@@ -135,10 +135,10 @@ Format: `edit i/LOAN_INDEX [p/PERSON_NAME] [hp/PERSON_PHONE_NO] [e/PERSON_EMAIL]
 
 Examples:
 
-* `edit i/11 o/Bicycle-017` +
-For the loan at index 11, changes the loaned object from whatever it was before to Bicycle-017.
-* `edit i/9 p/James Tan hp/86661352 e/alabaaoe@xyz.com r/144` +
-For the loan at index 9, changes the customer to James Tan, who has the specified contact details, to the rate of $144 per hour.
+* `edit 1 p/91234567 e/johndoe@example.com` +
+For the loan at index 1, changes the loaned object from whatever it was before to Bicycle-017.
+* `edit 1 n/James Tan p/90010090 e/jamest@example.com lr/144` +
+For the loan at index 1, changes the customer to James Tan, who has the specified contact details, to the rate of $144 per hour.
 
 [NOTE]
 ====
@@ -197,8 +197,8 @@ The default password for the app is `a12345`.
 
 Examples:
 
-* `delete i/11037 x/a12345` +
-Deletes the loan with that has been indexed at position 11037.
+* `delete i/1 x/a12345` +
+Deletes the loan with that has been indexed at position 1.
 
 // tag::setpass[]
 === Changing the password of the app: `setpass`
@@ -246,13 +246,13 @@ We are working on fixing this issue! Do look forward to seeing this new function
 
 Examples:
 
-* `return i/11037` +
-Marks the loan with LOAN_INDEX 11037 as returned. Also automatically prints out the amount payable based on loan time and rate.
+* `return i/1` +
+Marks the loan that has been indexed at position 1 as returned. Also automatically prints out the amount payable based on loan time and rate.
 
 // tag::searchcommand[]
 === Locating loans by date of loan: `search`
 
-Returns all loans that was created between the range provided
+Returns all loans that were created between the range provided
 Format: `search START_DATE END_DATE`
 
 ****
@@ -435,7 +435,7 @@ _{explain how the user can enable/disable data encryption}_
 == Command Summary
 
 * *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
-e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
+e.g. `add n/James Ho p/90224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
 * *Clear* : `clear`
 * *Delete* : `delete INDEX` +
 e.g. `delete 3`
