@@ -124,7 +124,7 @@ For the bicycle named "Bike 1", its name is changed to "Bike-001", as long as "B
 === Editing a loan: `edit`
 
 In case a wrong entry is keyed in, or the customer changes their mind, this command allows details of a loan entry to be edited. +
-Format: `edit i/LOAN_INDEX [p/PERSON_NAME] [hp/PERSON_PHONE_NO] [e/PERSON_EMAIL] [r/RATE] [o/OBJECT_IDENTITY]`
+Format: `edit INDEX (must be a positive integer) [n/NAME] [ic/NRIC] [p/PHONE] [e/EMAIL] [b/BIKE] [lr/LOANRATE] [t/TAG]...`
 
 ****
 * Edits the loan at the specified `LOAN_INDEX`. This LOAN_INDEX refers to the LOAN_INDEX number shown in the displayed loan list. The LOAN_INDEX *must be a positive integer* 1, 2, 3, ...
@@ -135,9 +135,9 @@ Format: `edit i/LOAN_INDEX [p/PERSON_NAME] [hp/PERSON_PHONE_NO] [e/PERSON_EMAIL]
 
 Examples:
 
-* `edit i/1 o/Bicycle-017` +
+* `edit 1 p/91234567 e/johndoe@example.com` +
 For the loan at index 1, changes the loaned object from whatever it was before to Bicycle-017.
-* `edit i/1 p/James Tan hp/86661352 e/alabaaoe@xyz.com r/144` +
+* `edit 1 n/James Tan p/90010090 e/jamest@example.com lr/144` +
 For the loan at index 1, changes the customer to James Tan, who has the specified contact details, to the rate of $144 per hour.
 
 [NOTE]
