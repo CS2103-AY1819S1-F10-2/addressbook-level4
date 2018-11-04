@@ -154,7 +154,7 @@ public class LoanTest {
         assertTrue(ALICE.equals(ALICE));
 
         // null -> returns false
-        assertFalse(ALICE.equals(null));
+        assertFalse(ALICE == null);
 
         // different type -> returns false
         assertFalse(ALICE.equals(5));

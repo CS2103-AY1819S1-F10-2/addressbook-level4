@@ -118,8 +118,8 @@ public class SetEmailCommandTest {
         assertTrue(standardCommandWithDefault.equals(commandWithSameValuesWithDefault));
 
         // null -> returns false
-        assertFalse(standardCommand.equals(null));
-        assertFalse(standardCommandWithDefault.equals(null));
+        assertFalse(standardCommand == null);
+        assertFalse(standardCommandWithDefault == null);
 
         // different types -> returns false
         assertFalse(standardCommand.equals(new ClearCommand()));
