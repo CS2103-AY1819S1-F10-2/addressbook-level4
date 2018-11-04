@@ -340,7 +340,7 @@ Examples:
 ** Populate recently loaned items/users, depending on the input. i.e. add i/ should show a dropdown on the last 5 items used. User can type add i/5 to select the 5th LRU item.
 ** typing `del` followed by tab auto completes to `delete`
 * Send reminder email to the borrower after a day of borrowing reminding them to return the bike.
-* Login authentication to ensure that unauthorised people do not delete the loans which they are not supposed to. Require password when deleting.
+* Login authentication to ensure that unauthorized people do not delete the loans which they are not supposed to. LoanBook requires a password when deleting.
 
 ////
 // tag::undoredo[]
