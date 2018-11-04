@@ -1,16 +1,14 @@
 package loanbook.logic.commands;
 
-import loanbook.commons.core.EventsCenter;
-import loanbook.commons.events.ui.ExitAppRequestEvent;
+import static java.util.Objects.requireNonNull;
+import static loanbook.model.Model.PREDICATE_SHOW_ALL_LOANS;
+
+import java.util.List;
+
 import loanbook.logic.CommandHistory;
 import loanbook.model.Model;
 import loanbook.model.loan.Loan;
 import loanbook.model.loan.LoanStatus;
-
-import java.util.List;
-
-import static java.util.Objects.requireNonNull;
-import static loanbook.model.Model.PREDICATE_SHOW_ALL_LOANS;
 
 /**
  * Terminates the program.
@@ -30,7 +28,7 @@ public class SummaryCommand extends Command {
 
         List<Loan> lastShownList = model.getFilteredLoanList();
 
-        for (Loan loan : lastShownList){
+        for (Loan loan : lastShownList) {
             summary.addLoan(loan);
         }
 
@@ -38,47 +36,65 @@ public class SummaryCommand extends Command {
     }
 }
 
+/**
+ * Class to encapsulate all the statistics to be kept track of.
+ */
 class Summary {
-    int numLoans;
-    int numLoansInProgress;
-    double totalRevenue;
+    public static final String MESSAGE_SUMMARY = "You have loaned %1$d loan(s). "
+            + "You have %2$d loan(s) ongoing.\n"
+            + "Your total revenue is $%3$.2f.";
 
-     public static final String MESSAGE_SUMMARY = "You have loaned %1$d loan(s). " +
-             "You have %2$d loan(s) ongoing.\n" +
-             "Your total revenue is $%3$.2f.";
+    private int numLoans;
+    private int numLoansInProgress;
+    private double totalRevenue;
 
-    public Summary(){
+    public Summary() {
         numLoans = 0;
         numLoansInProgress = 0;
         totalRevenue = 0;
     }
 
-    public void addLoan(Loan loan){
-        numLoans++;
-        if (loan.getLoanStatus() == LoanStatus.ONGOING){
-            numLoansInProgress++;
-        }
-        else {
-            totalRevenue += Math.floor(loan.calculateCost()*100)/100;
+    /**
+     * Adds the statistics of a loan into the summary object
+     * @param loan
+     */
+    public void addLoan(Loan loan) {
+        addNumLoans();
+        if (loan.getLoanStatus() == LoanStatus.ONGOING) {
+            addNumLoansInProgress();
+        } else {
+            addTotalRevenue(Math.floor(loan.calculateCost() * 100) / 100);
         }
     }
 
-    public int getNumLoans(){
+    public int getNumLoans() {
         return numLoans;
     }
 
-    public int getNumLoansInProgress(){
+    public void addNumLoans() {
+        numLoans++;
+    }
+
+    public int getNumLoansInProgress() {
         return numLoansInProgress;
     }
 
-    public double getTotalRevenue(){
+    public void addNumLoansInProgress() {
+        numLoansInProgress++;
+    }
+
+    public double getTotalRevenue() {
         return totalRevenue;
     }
 
-    public String getSummary(){
-         return String.format(MESSAGE_SUMMARY,
-                 getNumLoans(),
-                 getNumLoansInProgress(),
-                 getTotalRevenue());
+    public void addTotalRevenue(double revenue) {
+        totalRevenue += revenue;
+    }
+
+    public String getSummary() {
+        return String.format(MESSAGE_SUMMARY,
+                getNumLoans(),
+                getNumLoansInProgress(),
+                getTotalRevenue());
     }
 }

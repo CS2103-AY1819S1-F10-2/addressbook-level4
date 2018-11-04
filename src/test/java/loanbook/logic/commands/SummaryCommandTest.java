@@ -1,11 +1,13 @@
 package loanbook.logic.commands;
 
-import static org.junit.Assert.assertEquals;
-
 import static loanbook.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static loanbook.testutil.TypicalLoanBook.getTypicalLoanBook;
 import static loanbook.testutil.TypicalLoans.ALICE;
 import static loanbook.testutil.TypicalLoans.BOB;
-import static loanbook.testutil.TypicalLoanBook.getTypicalLoanBook;
+
+import static org.junit.Assert.assertEquals;
+
+import org.junit.Test;
 
 import loanbook.logic.CommandHistory;
 import loanbook.model.Model;
@@ -15,14 +17,14 @@ import loanbook.model.loan.Loan;
 import loanbook.model.loan.LoanRate;
 import loanbook.model.loan.LoanStatus;
 import loanbook.model.loan.LoanTime;
-import org.junit.Test;
+
 
 public class SummaryCommandTest {
 
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
-    public void addLoan_SummaryObject_success(){
+    public void addLoan_summaryObject_success() {
         Summary summary = new Summary();
 
         // Add a finished loan
@@ -62,7 +64,8 @@ public class SummaryCommandTest {
         Model expectedModel = new ModelManager();
 
         // Empty loanbook should have 0 for all fields
-        String expectedMessage = String.format(SummaryCommand.MESSAGE_SUMMARY_ACKNOWLEDGEMENT, new Summary().getSummary());
+        String expectedMessage = String.format(SummaryCommand.MESSAGE_SUMMARY_ACKNOWLEDGEMENT,
+                new Summary().getSummary());
 
         assertCommandSuccess(new SummaryCommand(), model, commandHistory, expectedMessage, expectedModel);
     }
@@ -74,7 +77,7 @@ public class SummaryCommandTest {
 
         Summary summary = new Summary();
 
-        for (Loan loan : expectedModel.getLoanBook().getLoanList()){
+        for (Loan loan : expectedModel.getLoanBook().getLoanList()) {
             summary.addLoan(loan);
         }
 
