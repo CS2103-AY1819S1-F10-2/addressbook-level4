@@ -31,7 +31,7 @@ e.g. typing *`help`* and pressing kbd:[ENTER] will open the help window.
 
 * *`list`* : List the status of the loanbook
 * **`add`**`p/John hp/12345678 e/john@abc.com r/3 o/Bicycle-007` : Loans Bicycle-007 to John at a rate of $3 per hour
-* **`delete`**`i/3 x/a12345` : deletes the 3rd loan shown in the current list
+* **`delete`**`i/1 x/a12345` : deletes the 1st loan shown in the current list
 * *`reset`* : Reset the loanbook
 
 [NOTE]
@@ -119,7 +119,7 @@ Format: `edit BIKE_NAME [n/NEW_BIKE_NAME]`
 Examples:
 
 * `edit Bike 1 n/Bike-001` +
-For the bicycle named "Bike 1", its name is changed to "Bike-001", "Bike-001" isn't already the name of another registered bicycle.
+For the bicycle named "Bike 1", its name is changed to "Bike-001", as long as "Bike-001" isn't already the name of another registered bicycle.
 
 === Editing a loan: `edit`
 
@@ -135,10 +135,10 @@ Format: `edit i/LOAN_INDEX [p/PERSON_NAME] [hp/PERSON_PHONE_NO] [e/PERSON_EMAIL]
 
 Examples:
 
-* `edit i/11 o/Bicycle-017` +
-For the loan at index 11, changes the loaned object from whatever it was before to Bicycle-017.
-* `edit i/9 p/James Tan hp/86661352 e/alabaaoe@xyz.com r/144` +
-For the loan at index 9, changes the customer to James Tan, who has the specified contact details, to the rate of $144 per hour.
+* `edit i/1 o/Bicycle-017` +
+For the loan at index 1, changes the loaned object from whatever it was before to Bicycle-017.
+* `edit i/1 p/James Tan hp/86661352 e/alabaaoe@xyz.com r/144` +
+For the loan at index 1, changes the customer to James Tan, who has the specified contact details, to the rate of $144 per hour.
 
 [NOTE]
 ====
@@ -197,8 +197,8 @@ The default password for the app is `a12345`.
 
 Examples:
 
-* `delete i/11037 x/a12345` +
-Deletes the loan with that has been indexed at position 11037.
+* `delete i/1 x/a12345` +
+Deletes the loan with that has been indexed at position 1.
 
 // tag::setpass[]
 === Changing the password of the app: `setpass`
@@ -246,8 +246,8 @@ We are working on fixing this issue! Do look forward to seeing this new function
 
 Examples:
 
-* `return i/11037` +
-Marks the loan with LOAN_INDEX 11037 as returned. Also automatically prints out the amount payable based on loan time and rate.
+* `return i/1` +
+Marks the loan that has been indexed at position 1 as returned. Also automatically prints out the amount payable based on loan time and rate.
 
 // tag::searchcommand[]
 === Locating loans by date of loan: `search`
