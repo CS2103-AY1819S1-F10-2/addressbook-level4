@@ -147,21 +147,6 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String time} into a {@code LoanTime}.
-     * Leading and trailing whitespaces will be trimmed.
-     *
-     * @throws ParseException if the given {@code time} is invalid.
-     */
-    public static LoanTime parseLoanTime(String time) throws ParseException {
-        requireNonNull(time);
-        String trimmedLoanTime = time.trim();
-        if (!LoanTime.isValidLoanTime(trimmedLoanTime)) {
-            throw new ParseException(LoanTime.MESSAGE_LOANTIME_CONSTRAINTS);
-        }
-        return new LoanTime(trimmedLoanTime);
-    }
-
-    /**
      * Parses a {@code String tag} into a {@code Tag}.
      * Leading and trailing whitespaces will be trimmed.
      *

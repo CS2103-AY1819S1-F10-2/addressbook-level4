@@ -68,6 +68,7 @@ public class LoanIdTest {
         assertNotEquals(id1, id3);
         assertNotEquals(id2, id3);
         assertEquals(id3, id4);
+        assertNotEquals(id1, "NotEvenALoanID");
     }
 
     @Test
