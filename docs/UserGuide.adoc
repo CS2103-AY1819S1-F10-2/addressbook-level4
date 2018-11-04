@@ -48,16 +48,16 @@ The default password for the app is `a12345`. This is required for some commands
 * Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add o/OBJECT_NAME`, `OBJECT_NAME` is a parameter which can be used as `add o/Bicycle`.
 * All parameters need to be specified in order for the command to work, unless they are in square brackets. e.g. in `add n/LOANER_NAME [t/TAGS]`, `LOANER_NAME` must be specified, but `TAGS` can be left out.
 * Parameters can be specified in any order.
-* Command words are case-sensitive, and should be in all lowercase. Most parameters are case-sensitive too.
+* Command words are case-sensitive and should be in all lowercase. Most parameters are case-sensitive too.
 * If you enter the parameters of a command incorrectly, the LoanBook will feedback the correct command format to you.
 ====
 
-=== Viewing help : `help`
+=== Viewing help: `help`
 
 Provides a list of all commands together with a basic description, how-to-use and example usage for each command. +
 
 [NOTE]
-This will cause a pop up window to appear, containing a copy of this User Guide.
+This will cause a pop-up window to appear, containing a copy of this User Guide.
 
 [TIP]
 This is not the only way to get help! If you key in the commands with the wrong format, you will get a prompt in the display box which will give you a brief description of the command. It will also tell you how to use the command correctly.
@@ -85,7 +85,7 @@ Format: `add p/PERSON_NAME ic/PERSON_NRIC hp/PERSON_PHONE_NO e/PERSON_EMAIL b/BI
 [NOTE]
 PERSON_PHONE_NO and PERSON_EMAIL should not be blank.
 BIKE_NAME must be the name of a bicycle that has already been registered into the LoanBook.
-NUMBER_LOANED and LOAN_OUT_PERIOD must be a positive integer
+NUMBER_LOANED and LOAN_OUT_PERIOD must be a positive integer.
 RATE is in dollars per hour.
 
 Examples:
@@ -98,12 +98,12 @@ Examples:
 The best part about this is you do not even need to key in the time that you created this loan! LoanBook does the timing for you! Simple isn't it?
 ====
 
-=== Listing all bikes : `listbikes`
+=== Listing all bikes: `listbikes`
 
 Shows a list of all registered bicycles in the LoanBook. +
 Format: `listbikes`
 
-=== Listing all loans : `list`
+=== Listing all loans: `list`
 
 Shows a list of all loans in the LoanBook. +
 Format: `list`
@@ -121,7 +121,7 @@ Examples:
 * `edit Bike 1 n/Bike-001` +
 For the bicycle named "Bike 1", its name is changed to "Bike-001", "Bike-001" isn't already the name of another registered bicycle.
 
-=== Editing a loan : `edit`
+=== Editing a loan: `edit`
 
 In case a wrong entry is keyed in, or the customer changes their mind, this command allows details of a loan entry to be edited. +
 Format: `edit i/LOAN_INDEX [p/PERSON_NAME] [hp/PERSON_PHONE_NO] [e/PERSON_EMAIL] [r/RATE] [o/OBJECT_IDENTITY]`
@@ -145,7 +145,7 @@ For the loan at index 9, changes the customer to James Tan, who has the specifie
 We do not allow editing of the loan's start time or the return time because we want you to be able to use our application as an auditing tool. We hope that this can then simplify the management of your business.
 ====
 
-=== Locating loans by key words: `find`
+=== Locating loans by keywords: `find`
 
 Finds loans whose customers' names contain any of the given keywords. +
 Format: find KEYWORD [MORE_KEYWORDS]
@@ -178,7 +178,7 @@ Examples:
 * `delete Bike 1 x/a12345` +
 Deletes the bicycle with the name of "Bike 1".
 
-=== Deleting the chosen loan from the loan book : `delete`
+=== Deleting the chosen loan from the loan book: `delete`
 
 Delete the loan from the loan book. If you want to delete one loan, use `delete i/LOAN_INDEX x/CURRENT_PASSWORD`.
 Due to `delete` modifying transactional summary, it is a critical command and hence elevation is required hence the password field. +
@@ -203,7 +203,7 @@ Deletes the loan with that has been indexed at position 11037.
 // tag::setpass[]
 === Changing the password of the app: `setpass`
 
-Change the current password of the app to `NEW_PASSWORD`. This ensures that critical commands such as `delete` and `reset` may be performed by authorized personnels only. +
+Change the current password of the app to `NEW_PASSWORD`. This ensures that critical commands such as `delete` and `reset` may be performed by authorized personnel only. +
 Format: `setpass CURRENT_PASSWORD NEW_PASSWORD`
 
 ****
@@ -217,7 +217,7 @@ Examples:
 Set the password of the app to `n3wP4sS`.
 // end::setpass[]
 
-=== Returning a loan : `return`
+=== Returning a loan: `return`
 
 What's the use of a LoanBook if you are unable to return the loans that you have? This is how you can do that! In fact, we see your pains trying to calculate the amount payable on a calculator, so we decided to help you out by doing all the number crunching for you.
 
@@ -225,7 +225,7 @@ This command marks a loan as returned based on LOAN_INDEX and automatically prin
 
 [TIP]
 ====
-We choose to do this because when we get down to seconds, the difference in the earnings you will get is going to be on the order of fraction of cents. We hope that by doing this, your business would not seem to be very petty about the money.
+We choose to do this because when we get down to seconds, the difference in the earnings you will get is going to be on the order of a fraction of cents. We hope that by doing this, your business would not seem to be very petty about the money.
 
 Also, this would be good for your business, as customers will not feel that they have been ripped off the cost of renting a bike for an extra minute just because you took 5 seconds to log their return details! :)
 ====
@@ -278,7 +278,7 @@ Format: `reset`
 
 [NOTE]
 ====
-The difference between deleting all the loans and hard resetting the LoanBook is that when a loan is delete, you will still be able to search for it. However, the statistics of deleted loans do not appear in the `summary` command.
+The difference between deleting all the loans and hard resetting the LoanBook is that when a loan is deleted, you will still be able to search for it. However, the statistics of deleted loans do not appear in the `summary` command.
 ====
 
 [WARNING]
@@ -286,7 +286,7 @@ The difference between deleting all the loans and hard resetting the LoanBook is
 **Hard resetting the LoanBook will remove ALL loans! Do this ar your own peril.**
 ====
 
-=== Summarize all the transactions : `summary`
+=== Summarize all the transactions: `summary`
 
 Do you want to find out at a glance how much money your business has collected? Or maybe out of all the bicycles you have, how many are currently loaned out? Here's the command for you.
 
@@ -306,7 +306,7 @@ Format: `summary`
 The summary feature may take a while to run, especially when you have many loans that you have made in the past. Please allow about a second for it to process.
 ====
 
-=== Listing entered commands : `history`
+=== Listing entered commands: `history`
 
 Lists all the commands that you have entered in reverse chronological order. +
 Format: `history`
@@ -316,12 +316,12 @@ Format: `history`
 Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and next input respectively in the command box.
 ====
 
-=== Check your email : `checkemail`
+=== Check your email: `checkemail`
 
 Checks whether you have set your email or not, and displays the censored email address if you have set it before. +
 Format: `checkemail`
 
-=== Set your email : `setemail`
+=== Set your email: `setemail`
 
 Sets the email address to send reminder emails from. +
 Format: `setemail OLDEMAIL NEWEMAIL`
@@ -329,17 +329,17 @@ Format: `setemail OLDEMAIL NEWEMAIL`
 * `OLDEMAIL` is `default` if you have not set an email yet.
 * `OLDEMAIL` must be the same as the one you set last time.
 * `NEWEMAIL` cannot the same as `OLDEMAIL`.
-* `NEWEMAIL` must be a valid gmail.
+* `NEWEMAIL` must be a valid Gmail address.
 
 [NOTE]
-Only gmail is accepted!
+Only Gmail is accepted!
 
 Examples:
 
 * `setemail default \new_email@gmail.com`
 * `setemail \old_email@gmail.com \new_email@gmail.com`
 
-=== send reminder email : `remind`
+=== Send reminder email: `remind`
 
 Sends a reminder email to the customer. +
 Format: `remind x/EMAILPASSWORD n/NAME b/BIKE`
@@ -355,19 +355,9 @@ Examples:
 * `remind x/123456 n/Alex b/Bike001`
 * `remind x/nscjhbdhv n/Peter Lee b/NewBike`
 
-=== Non-functional features :
-* Aliases to allow users to use the CLI with less keystrokes.
-* Chainable commands. I.e. allow adding and deleting of items asynchronously.
-** `add_items i/bicycle q/5 delete_items motorbike q/7`
-* Auto complete
-** Populate recently loaned items/users, depending on the input. i.e. add i/ should show a dropdown on the last 5 items used. User can type add i/5 to select the 5th LRU item.
-** typing `del` followed by tab auto completes to `delete`
-* Send reminder email to the borrower after a day of borrowing reminding them to return the bike.
-* Login authentication to ensure that unauthorised people do not delete the loans which they are not supposed to. Require password when deleting.
-
 ////
 // tag::undoredo[]
-=== Undoing previous command : `undo`
+=== Undoing previous command: `undo`
 
 Restores the address book to the state before the previous _undoable_ command was executed. +
 Format: `undo`
@@ -416,12 +406,12 @@ The `redo` command fails as there are no `undo` commands executed previously.
 `redo` (reapplies the `clear` command) +
 // end::undoredo[]
 
-=== Clearing all entries : `clear`
+=== Clearing all entries: `clear`
 
 Clears all entries from the address book. +
 Format: `clear`
 
-=== Exiting the program : `exit`
+=== Exiting the program: `exit`
 
 Exits the program. +
 Format: `exit`
