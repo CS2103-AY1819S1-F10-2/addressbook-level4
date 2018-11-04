@@ -252,7 +252,7 @@ Marks the loan with LOAN_INDEX 11037 as returned. Also automatically prints out 
 // tag::searchcommand[]
 === Locating loans by date of loan: `search`
 
-Returns all loans that was created between the range provided
+Returns all loans that were created between the range provided
 Format: `search START_DATE END_DATE`
 
 ****
