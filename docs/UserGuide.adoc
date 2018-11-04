@@ -306,10 +306,10 @@ Format: `setemail OLDEMAIL NEWEMAIL`
 * `OLDEMAIL` is `default` if you have not set an email yet.
 * `OLDEMAIL` must be the same as the one you set last time.
 * `NEWEMAIL` cannot the same as `OLDEMAIL`.
-* `NEWEMAIL` must be a valid gmail.
+* `NEWEMAIL` must be a valid Gmail address.
 
 [NOTE]
-Only gmail is accepted!
+Only Gmail is accepted!
 
 Examples:
 
