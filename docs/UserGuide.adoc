@@ -83,10 +83,10 @@ Adds a loan to the loan book with the following parameters, and displays the tra
 Format: `add n/NAME ic/NRIC p/PHONE e/EMAIL b/BIKE lr/LOANRATE [t/TAG]...`
 
 [NOTE]
-PERSON_PHONE_NO and PERSON_EMAIL should not be blank.
-BIKE_NAME must be the name of a bicycle that has already been registered into the LoanBook.
-NUMBER_LOANED and LOAN_OUT_PERIOD must be a positive integer.
-RATE is in dollars per hour.
+PERSON_PHONE_NO and PERSON_EMAIL should not be blank. +
+BIKE_NAME must be the name of a bicycle that has already been registered into the LoanBook. +
+NUMBER_LOANED and LOAN_OUT_PERIOD must be a positive integer. +
+LOANRATE is in dollars per hour.
 
 Examples:
 
