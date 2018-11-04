@@ -48,7 +48,7 @@ The default password for the app is `a12345`. This is required for some commands
 * Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add o/OBJECT_NAME`, `OBJECT_NAME` is a parameter which can be used as `add o/Bicycle`.
 * All parameters need to be specified in order for the command to work, unless they are in square brackets. e.g. in `add n/LOANER_NAME [t/TAGS]`, `LOANER_NAME` must be specified, but `TAGS` can be left out.
 * Parameters can be specified in any order.
-* Command words are case-sensitive, and should be in all lowercase. Most parameters are case-sensitive too.
+* Command words are case-sensitive and should be in all lowercase. Most parameters are case-sensitive too.
 * If you enter the parameters of a command incorrectly, the LoanBook will feedback the correct command format to you.
 ====
 
@@ -57,7 +57,7 @@ The default password for the app is `a12345`. This is required for some commands
 Provides a list of all commands together with a basic description, how-to-use and example usage for each command. +
 
 [NOTE]
-This will cause a pop up window to appear, containing a copy of this User Guide.
+This will cause a pop-up window to appear, containing a copy of this User Guide.
 
 [TIP]
 This is not the only way to get help! If you key in the commands with the wrong format, you will get a prompt in the display box which will give you a brief description of the command. It will also tell you how to use the command correctly.
