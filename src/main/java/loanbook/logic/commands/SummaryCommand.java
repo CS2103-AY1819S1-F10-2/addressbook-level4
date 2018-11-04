@@ -19,9 +19,7 @@ public class SummaryCommand extends Command {
 
     public static final String COMMAND_WORD = "summary";
 
-    public static final String MESSAGE_SUMMARY_ACKNOWLEDGEMENT = "Summarized LoanBook!\n" +
-            "You have loaned %1$d loan(s). There are %2$d loan(s) ongoing.\n" +
-            "Your total revenue is $%3$.2f.";
+    public static final String MESSAGE_SUMMARY_ACKNOWLEDGEMENT = "Summarized LoanBook!\n%1$s";
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) {
@@ -36,10 +34,7 @@ public class SummaryCommand extends Command {
             summary.addLoan(loan);
         }
 
-        return new CommandResult(String.format(MESSAGE_SUMMARY_ACKNOWLEDGEMENT,
-                summary.getNumLoans(),
-                summary.getNumLoansInProgress(),
-                summary.getTotalRevenue()));
+        return new CommandResult(String.format(MESSAGE_SUMMARY_ACKNOWLEDGEMENT, summary.getSummary()));
     }
 }
 
@@ -47,6 +42,10 @@ class Summary {
     int numLoans;
     int numLoansInProgress;
     double totalRevenue;
+
+     public static final String MESSAGE_SUMMARY = "You have loaned %1$d loan(s). " +
+             "You have %2$d loan(s) ongoing.\n" +
+             "Your total revenue is $%3$.2f.";
 
     public Summary(){
         numLoans = 0;
@@ -74,5 +73,12 @@ class Summary {
 
     public double getTotalRevenue(){
         return totalRevenue;
+    }
+
+    public String getSummary(){
+         return String.format(MESSAGE_SUMMARY,
+                 getNumLoans(),
+                 getNumLoansInProgress(),
+                 getTotalRevenue());
     }
 }
