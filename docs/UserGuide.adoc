@@ -80,7 +80,7 @@ Examples:
 === Adding a loan: `add`
 
 Adds a loan to the loan book with the following parameters, and displays the transaction along with a LOAN_ID to keep track of the loan. +
-Format: `add p/PERSON_NAME ic/PERSON_NRIC hp/PERSON_PHONE_NO e/PERSON_EMAIL b/BIKE_NAME r/RATE o/OBJECT_IDENTITY`
+Format: `add n/NAME ic/NRIC p/PHONE e/EMAIL b/BIKE lr/LOANRATE [t/TAG]...`
 
 [NOTE]
 PERSON_PHONE_NO and PERSON_EMAIL should not be blank.
@@ -90,8 +90,8 @@ RATE is in dollars per hour.
 
 Examples:
 
-* `add p/John hp/97626753 e/johnw@abc.com r/5 o/Bicycle-007`
-* `add p/James Tan hp/86661352 e/alabaaoe@xyz.com r/144 o/Bicycle-007`
+* `add n/John Doe ic/T0248272F p/98765432 e/johnd@example.com b/Bike001 lr/3.5 t/friends t/owesMoney`
+* `add n/James Ho ic/T0248272F p/91234567 e/jamesh@example.com b/Bike001 lr/3.5`
 
 [TIP]
 ====
@@ -435,7 +435,7 @@ _{explain how the user can enable/disable data encryption}_
 == Command Summary
 
 * *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
-e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
+e.g. `add n/James Ho p/90224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
 * *Clear* : `clear`
 * *Delete* : `delete INDEX` +
 e.g. `delete 3`
