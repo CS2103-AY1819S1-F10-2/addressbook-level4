@@ -136,7 +136,7 @@ public class ModelManagerTest {
 
         // different filteredList -> returns false
         String[] keywords = ALICE.getName().value.split("\\s+");
-        modelManager.updateFilteredLoanList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
+        modelManager.updateFilteredLoanList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)).forLoans());
         assertFalse(modelManager.equals(new ModelManager(loanBook, userPrefs)));
 
         // resets modelManager to initial state for upcoming tests

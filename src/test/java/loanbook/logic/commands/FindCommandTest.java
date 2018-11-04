@@ -61,7 +61,7 @@ public class FindCommandTest {
         String expectedMessage = String.format(MESSAGE_LOANS_LISTED_OVERVIEW, 0);
         NameContainsKeywordsPredicate predicate = preparePredicate(" ");
         FindCommand command = new FindCommand(predicate);
-        expectedModel.updateFilteredLoanList(predicate);
+        expectedModel.updateFilteredLoanList(predicate.forLoans());
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
         assertEquals(Collections.emptyList(), model.getFilteredLoanList());
     }
@@ -71,7 +71,7 @@ public class FindCommandTest {
         String expectedMessage = String.format(MESSAGE_LOANS_LISTED_OVERVIEW, 3);
         NameContainsKeywordsPredicate predicate = preparePredicate("Kurz Elle Kunz");
         FindCommand command = new FindCommand(predicate);
-        expectedModel.updateFilteredLoanList(predicate);
+        expectedModel.updateFilteredLoanList(predicate.forLoans());
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
         assertEquals(Arrays.asList(CARL, ELLE, FIONA), model.getFilteredLoanList());
     }
