@@ -359,11 +359,16 @@ Examples:
 == Future features
 The following are a list of features that the team will implement in version 2.0.
 
+=== Allow a log in system that require a username and password
+This will be done with a login page that requires users to log in before having access to the app's feature.
+
+* This allows separation of password from command argument.
+* This solves the issue of users having to type their password repeatedly when executing multiple commands that require
+a password.
+* This prevents any password being entered on the command line from showing when users view command history.
+
 === Reset password
 * This allows users to reset their password by receiving a new password via email.
-
-=== Only require password every 10 minutes
-* This prevent users from typing the password frequently when entering commands that require password, repeatedly.
 
 // end::sendemail[]
 
