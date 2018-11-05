@@ -134,6 +134,11 @@ public interface Model {
     void setLoans(List<Loan> loans);
 
     /**
+     * Retrieve a Loan by its Loan ID, if it exists.
+     */
+    Optional<Loan> getLoanById(LoanId loanId);
+
+    /**
      * Clears the loan list and resets the loan ID.
      */
     void resetLoans();

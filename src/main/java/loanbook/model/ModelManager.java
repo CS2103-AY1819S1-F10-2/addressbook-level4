@@ -105,6 +105,11 @@ public class ModelManager extends ComponentManager implements Model {
         indicateLoanBookChanged();
     }
 
+    @Override
+    public Optional<Loan> getLoanById(LoanId loanId) {
+        return versionedLoanBook.getLoanById(loanId);
+    }
+
     //=========== Filtered Bike List Accessors =============================================================
 
     /**
