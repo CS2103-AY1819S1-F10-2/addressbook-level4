@@ -371,6 +371,8 @@ a password.
 * This allows users to reset their password by receiving a new password via email.
 
 === Prevent some commands from showing in the command history.
+Currently, commands that require a password input will be exposed to the user when they view command history. This will
+will be resolved in v2.0.
 
 // end::sendemail[]
 
