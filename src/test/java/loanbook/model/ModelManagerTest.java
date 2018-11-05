@@ -16,6 +16,8 @@ import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.Optional;
 
+import loanbook.model.loan.Loan;
+import loanbook.model.loan.LoanId;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -61,6 +63,23 @@ public class ModelManagerTest {
     public void hasLoan_loanInLoanBook_returnsTrue() {
         modelManager.addLoan(ALICE);
         assertTrue(modelManager.hasLoan(ALICE));
+    }
+
+    @Test
+    public void getLoanById_loanExists_success() {
+        modelManager.addLoan(ALICE);
+        Optional<Loan> retrievedLoan = modelManager.getLoanById(ALICE.getLoanId());
+
+        assertTrue(retrievedLoan.isPresent());
+        assertEquals(retrievedLoan.get(), ALICE);
+    }
+
+    @Test
+    public void getLoanById_loanDoesNotExist_returnEmptyOptional() {
+        LoanId idExpectedNotToExist = LoanId.fromInt(999999999);
+        Optional<Loan> retrievedLoan = modelManager.getLoanById(idExpectedNotToExist);
+
+        assertFalse(retrievedLoan.isPresent());
     }
 
     @Test
