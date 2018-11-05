@@ -355,6 +355,16 @@ Examples:
 
 * `remind x/123456 n/Alex b/Bike001`
 * `remind x/nscjhbdhv n/Peter Lee b/NewBike`
+
+== Future features
+The following are a list of features that the team will implement in version 2.0.
+
+=== Reset password
+* This allows users to reset their password by receiving a new password via email.
+
+=== Only require password every 10 minutes
+* This prevent users from typing the password frequently when entering commands that require password, repeatedly.
+
 // end::sendemail[]
 
 ////
