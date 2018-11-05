@@ -90,37 +90,6 @@ public class XmlAdaptedLoan {
     }
 
     /**
-     * Constructs an {@code XmlAdaptedLoan} with the given loan details.
-     * This constructor is called if no loanStatus is given
-     */
-    public XmlAdaptedLoan(String name,
-                          String nric,
-                          String phone,
-                          String email,
-                          String bike,
-                          String rate,
-                          String time,
-                          List<XmlAdaptedTag> tagged) {
-        this(null, name, nric, phone, email, bike, rate, time, null, "ONGOING", tagged);
-    }
-
-    /**
-     * Constructs an {@code XmlAdaptedLoan} with the given loan details.
-     * This constructor is called if no loanStatus is given
-     */
-    public XmlAdaptedLoan(String name,
-                          String nric,
-                          String phone,
-                          String email,
-                          String bike,
-                          String rate,
-                          String startTime,
-                          String endTime,
-                          List<XmlAdaptedTag> tagged) {
-        this(null, name, nric, phone, email, bike, rate, startTime, endTime, "ONGOING", tagged);
-    }
-
-    /**
      * Converts a given Loan into this class for JAXB use.
      *
      * @param source future changes to this will not affect the created XmlAdaptedLoan

@@ -81,7 +81,7 @@ public class IndexTest {
         assertTrue(fifthLoanIndex.equals(fifthLoanIndex));
 
         // null -> returns false
-        assertFalse(fifthLoanIndex.equals(null));
+        assertFalse(fifthLoanIndex == null);
 
         // different types -> returns false
         assertFalse(fifthLoanIndex.equals(5.0f));

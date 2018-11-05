@@ -3,6 +3,7 @@ package loanbook.storage;
 import static loanbook.storage.XmlAdaptedBike.MISSING_FIELD_MESSAGE_FORMAT;
 import static loanbook.testutil.TypicalBikes.BIKE1;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 
 import org.junit.Test;
 
@@ -33,5 +34,17 @@ public class XmlAdaptedBikeTest {
         XmlAdaptedBike bike = new XmlAdaptedBike((String) null);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName());
         Assert.assertThrows(IllegalValueException.class, expectedMessage, bike::toModelType);
+    }
+
+    @Test
+    public void equalityTest() {
+        XmlAdaptedBike bike1 = new XmlAdaptedBike("IsABike");
+        XmlAdaptedBike bike2 = new XmlAdaptedBike("IsABike");
+        XmlAdaptedBike bike3 = new XmlAdaptedBike("NotABike");
+
+        assertEquals(bike1, bike1); // Same instance
+        assertEquals(bike1, bike2); // Same value
+        assertNotEquals(bike1, bike3); // Different value
+        assertNotEquals(bike1, "Different type");
     }
 }

@@ -102,6 +102,11 @@ public class ModelStub implements Model {
     }
 
     @Override
+    public Optional<Loan> getLoanById(LoanId loanId) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
     public void resetLoans() {
         throw new AssertionError("This method should not be called.");
     }

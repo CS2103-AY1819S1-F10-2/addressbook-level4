@@ -4,6 +4,7 @@ import static loanbook.logic.commands.CommandTestUtil.assertCommandFailure;
 import static loanbook.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static loanbook.testutil.TypicalIndexes.INDEX_FIRST_LOAN;
 import static loanbook.testutil.TypicalIndexes.INDEX_SECOND_LOAN;
+import static loanbook.testutil.TypicalIndexes.INDEX_THIRD_LOAN;
 import static loanbook.testutil.TypicalLoanBook.getLoanBookWithUnreturnedLoans;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -61,6 +62,13 @@ public class ReturnCommandTest {
     public void execute_returnInvalidLoanIndex_failure() {
         ReturnCommand returnCommand = new ReturnCommand(INDEX_SECOND_LOAN);
 
+        assertCommandFailure(returnCommand, model, commandHistory, ReturnCommand.MESSAGE_LOAN_NOT_ONGOING);
+    }
+
+    @Test
+    public void execute_returnAlreadyReturned_failure() {
+        ReturnCommand returnCommand = new ReturnCommand(INDEX_THIRD_LOAN);
+
         assertCommandFailure(returnCommand, model, commandHistory, Messages.MESSAGE_INVALID_LOAN_DISPLAYED_INDEX);
     }
 
@@ -76,7 +84,7 @@ public class ReturnCommandTest {
         assertTrue(standardCommand.equals(standardCommand));
 
         // null -> returns false
-        assertFalse(standardCommand.equals(null));
+        assertFalse(standardCommand == null);
 
         // different types -> returns false
         assertFalse(standardCommand.equals(new ClearCommand()));

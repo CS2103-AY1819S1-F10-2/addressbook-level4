@@ -105,6 +105,11 @@ public class ModelManager extends ComponentManager implements Model {
         indicateLoanBookChanged();
     }
 
+    @Override
+    public Optional<Loan> getLoanById(LoanId loanId) {
+        return versionedLoanBook.getLoanById(loanId);
+    }
+
     //=========== Filtered Bike List Accessors =============================================================
 
     /**
@@ -295,6 +300,16 @@ public class ModelManager extends ComponentManager implements Model {
         return versionedLoanBook.equals(other.versionedLoanBook)
                 && filteredBikes.equals(other.filteredBikes)
                 && filteredLoans.equals(other.filteredLoans);
+    }
+
+    @Override
+    public String toString() {
+        return logger
+            + ", " + versionedLoanBook
+            + ", " + filteredBikes
+            + ", " + filteredLoans
+            + ", " + preference;
+
     }
 
 }

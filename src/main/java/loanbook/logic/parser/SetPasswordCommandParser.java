@@ -9,7 +9,7 @@ import loanbook.model.Password;
 /**
  * Parses input arguments and creates a new SetPasswordCommand object
  */
-public class SetPasswordCommandParser {
+public class SetPasswordCommandParser implements Parser<SetPasswordCommand> {
     /**
      * Parses the given {@code String} of arguments in the context of the DeleteCommand
      * and returns an DeleteCommand object for execution.
