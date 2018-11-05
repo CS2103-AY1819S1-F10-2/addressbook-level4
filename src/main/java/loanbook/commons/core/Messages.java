@@ -13,8 +13,8 @@ public class Messages {
     public static final String MESSAGE_INVALID_OLD_PASS = "The old password entered is incorrect!";
     public static final String MESSAGE_SAME_AS_CURRENT_PASSWORD = "The password provided is same as before!";
     public static final String MESSAGE_INVALID_DATE_FORMAT =
-            "Dates provided are either an invalid date or they are in an invalid format.\n" +
-            "Please use the format YYYY-MM-DD.";
+            "Dates provided are either an invalid date or they are in an invalid format.\n"
+            + "Please use the format YYYY-MM-DD.";
     public static final String MESSAGE_INVALID_DATE_RANGE =
             "Dates provided are not in a valid range. The end date cannot be before the start date.";
     public static final String MESSAGE_AUTHEN_FAILURE = "Your password might be wrong "
