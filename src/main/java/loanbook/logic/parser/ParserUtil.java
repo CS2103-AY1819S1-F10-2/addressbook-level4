@@ -147,14 +147,14 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String rate} into a {@code LoanRate}.
+     * Parses a {@code String loanId} into a {@code LoanID}.
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @throws ParseException if the given {@code rate} is invalid.
+     * @throws ParseException if the given {@code loanId} is invalid.
      */
-    public static LoanId parseLoanId(String rate) throws ParseException {
-        requireNonNull(rate);
-        String trimmedLoanId = rate.trim();
+    public static LoanId parseLoanId(String loanId) throws ParseException {
+        requireNonNull(loanId);
+        String trimmedLoanId = loanId.trim();
         if (!LoanId.isValidLoanId(trimmedLoanId)) {
             throw new ParseException(LoanId.MESSAGE_LOANID_CONSTRAINTS);
         }
