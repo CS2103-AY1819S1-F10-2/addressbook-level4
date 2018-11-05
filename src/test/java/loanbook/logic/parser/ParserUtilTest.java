@@ -72,8 +72,8 @@ public class ParserUtilTest {
 
     @Test
     public void parseLoanId_invalidInput_throwsParseException() {
-        Assert.assertThrows(ParseException.class, LoanId.MESSAGE_LOANID_CONSTRAINTS,
-                () -> ParserUtil.parseLoanId("Invalid ID"));
+        Assert.assertThrows(ParseException.class, LoanId.MESSAGE_LOANID_CONSTRAINTS, () ->
+                ParserUtil.parseLoanId("Invalid ID"));
     }
 
 
