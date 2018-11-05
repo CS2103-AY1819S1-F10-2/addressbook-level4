@@ -1,6 +1,7 @@
 package loanbook.model.loan;
 
 import java.util.Optional;
+
 import loanbook.model.UniqueList;
 import loanbook.model.loan.exceptions.DuplicateLoanException;
 import loanbook.model.loan.exceptions.LoanNotFoundException;

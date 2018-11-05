@@ -16,12 +16,12 @@ import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.Optional;
 
-import loanbook.model.loan.Loan;
-import loanbook.model.loan.LoanId;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
+import loanbook.model.loan.Loan;
+import loanbook.model.loan.LoanId;
 import loanbook.model.loan.NameContainsKeywordsPredicate;
 import loanbook.testutil.LoanBookBuilder;
 
