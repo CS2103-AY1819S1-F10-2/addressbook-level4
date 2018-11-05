@@ -370,6 +370,8 @@ a password.
 === Reset password
 * This allows users to reset their password by receiving a new password via email.
 
+=== Prevent some commands from showing in the command history.
+
 // end::sendemail[]
 
 ////
