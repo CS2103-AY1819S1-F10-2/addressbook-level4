@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<loanbook>
+    <bikes>
+        <name>BIKE001</name>
+    </bikes>
+    <loans>
+        <id>0</id>
+        <name>Alice Pauline</name>
+        <nric>S0848937H</nric>
+        <phone>94351253</phone>
+        <email>alice@example.com</email>
+        <loanStatus>ONGOING</loanStatus>
+        <bike>BIKE001</bike>
+        <rate>1.1</rate>
+        <startTime>12:33</startTime>
+        <endTime>14:13</endTime>
+        <loanStatus>ONGOING</loanStatus>
+        <tagged>friends</tagged>
+    </loans>
+    <loans>
+        <id>1</id>
+        <name>Benson Meier</name>
+        <nric>F1342714M</nric>
+        <phone>98765432</phone>
+        <email>johnd@example.com</email>
+        <loanStatus>ONGOING</loanStatus>
+        <bike>BIKE001</bike>
+        <rate>0.15</rate>
+        <startTime>2017-10-12 12:08</startTime>
+        <endTime>2017-10-12 06:08</endTime>
+        <tagged>owesMoney</tagged>
+        <loanStatus>RETURNED</loanStatus>
+        <tagged>friends</tagged>
+    </loans>
+    <loans>
+        <id>2</id>
+        <name>Carl Kurz</name>
+        <nric>T0238282I</nric>
+        <phone>95352563</phone>
+        <email>heinz@example.com</email>
+        <loanStatus>ONGOING</loanStatus>
+        <bike>BIKE001</bike>
+        <rate>23.9</rate>
+        <startTime>14:20</startTime>
+        <endTime>18:22</endTime>
+        <loanStatus>ONGOING</loanStatus>
+    </loans>
+    <!-- The largest ID that appears in the Loans is 2. -->
+    <!-- The last used ID should be at least 2. -->
+    <loanIdManager>
+        <lastUsedLoanId>0</lastUsedLoanId>
+    </loanIdManager>
+</loanbook>

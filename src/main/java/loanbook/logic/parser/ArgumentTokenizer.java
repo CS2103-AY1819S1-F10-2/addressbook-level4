@@ -24,6 +24,13 @@ public class ArgumentTokenizer {
      * @return           ArgumentMultimap object that maps prefixes to their arguments
      */
     public static ArgumentMultimap tokenize(String argsString, Prefix... prefixes) {
+        return tokenize(argsString, Arrays.asList(prefixes));
+    }
+
+    /**
+     * Overloaded, same as above.
+     */
+    public static ArgumentMultimap tokenize(String argsString, List<Prefix> prefixes) {
         List<PrefixPosition> positions = findAllPrefixPositions(argsString, prefixes);
         return extractArguments(argsString, positions);
     }
@@ -35,8 +42,8 @@ public class ArgumentTokenizer {
      * @param prefixes   Prefixes to find in the arguments string
      * @return           List of zero-based prefix positions in the given arguments string
      */
-    private static List<PrefixPosition> findAllPrefixPositions(String argsString, Prefix... prefixes) {
-        return Arrays.stream(prefixes)
+    private static List<PrefixPosition> findAllPrefixPositions(String argsString, List<Prefix> prefixes) {
+        return prefixes.stream()
                 .flatMap(prefix -> findPrefixPositions(argsString, prefix).stream())
                 .collect(Collectors.toList());
     }

@@ -28,8 +28,7 @@ public class ModelStub implements Model {
 
     @Override
     public boolean hasBike(Bike bike) {
-        throw new AssertionError(
-            "This method should not be called.");
+        throw new AssertionError("This method should not be called.");
     }
 
     @Override
@@ -58,6 +57,11 @@ public class ModelStub implements Model {
     }
 
     @Override
+    public void resetBikes() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
     public ObservableList<Bike> getFilteredBikeList() {
         throw new AssertionError("This method should not be called.");
     }
@@ -69,6 +73,16 @@ public class ModelStub implements Model {
 
     @Override
     public boolean hasLoan(Loan loan) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void setMyEmail(String email) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public String getMyEmail() {
         throw new AssertionError("This method should not be called.");
     }
 
@@ -89,6 +103,11 @@ public class ModelStub implements Model {
 
     @Override
     public void setLoans(List<Loan> loans) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public Optional<Loan> getLoanById(LoanId loanId) {
         throw new AssertionError("This method should not be called.");
     }
 
@@ -154,6 +173,11 @@ public class ModelStub implements Model {
 
     @Override
     public void setPass(Password pass) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public boolean hasEqualEditableFields(Model other) {
         throw new AssertionError("This method should not be called.");
     }
 }

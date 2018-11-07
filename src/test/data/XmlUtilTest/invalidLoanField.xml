@@ -1,14 +1,17 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <!-- Loan with an invalid phone field -->
 <loan>
+    <id>3451</id>
     <name>Hans Muster</name>
     <nric>T0331476B</nric>
     <phone>9482asf424</phone>
     <email>hans@example</email>
-    <address>4th street</address>
     <bike>BIKE001</bike>
     <rate>30.6</rate>
     <startTime>2018-01-01 10:10</startTime>
     <endTime>2018-01-01 17:10</endTime>
     <tagged>friends</tagged>
+    <loanIdManager>
+        <lastUsedLoanId>3451</lastUsedLoanId>
+    </loanIdManager>
 </loan>

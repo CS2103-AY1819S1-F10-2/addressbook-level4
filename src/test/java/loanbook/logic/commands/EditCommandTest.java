@@ -2,11 +2,14 @@ package loanbook.logic.commands;
 
 import static loanbook.logic.commands.CommandTestUtil.DESC_AMY;
 import static loanbook.logic.commands.CommandTestUtil.DESC_BOB;
+import static loanbook.logic.commands.CommandTestUtil.NOEXIST_NAME_BIKE;
+import static loanbook.logic.commands.CommandTestUtil.VALID_NAME_BIKE4;
 import static loanbook.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static loanbook.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 import static loanbook.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static loanbook.logic.commands.CommandTestUtil.assertCommandFailure;
 import static loanbook.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static loanbook.logic.commands.CommandTestUtil.assertCommandSuccessCompareEditableFields;
 import static loanbook.logic.commands.CommandTestUtil.showLoanAtIndex;
 import static loanbook.testutil.TypicalIndexes.INDEX_FIRST_LOAN;
 import static loanbook.testutil.TypicalIndexes.INDEX_SECOND_LOAN;
@@ -39,22 +42,31 @@ public class EditCommandTest {
 
     @Test
     public void execute_allFieldsSpecifiedUnfilteredList_success() {
-        // Note that for this case, editCommand is UNABLE to change the start and
-        // end time of another loan. Therefore, we need to ensure that the start and
-        // end times of editedLoan matches that of the loan to be edited.
-        Loan editedLoan = new LoanBuilder().withLoanStartTime("12:33").withLoanEndTime("23:54").build();
+        Model expectedModel = new ModelManager(new LoanBook(model.getLoanBook()), new UserPrefs());
+
+        // Have the edited loan have the default fields in the LoanBuilder.
+        // However, the uneditable fields should match the existing Loan.
+        //
+        // Note: Without these, assertCommandSuccessCompareEditableFields will
+        // actually find that model.hasEqualEditableFields(expectedModel) is true.
+        // However, the expected messages are different, which is why it fails.
+        Loan existingLoan = model.getFilteredLoanList().get(0);
+        Loan editedLoan = new LoanBuilder()
+                .withLoanId(existingLoan.getLoanId().toString())
+                .withLoanStartTime(existingLoan.getLoanStartTime().toString())
+                .withLoanEndTime(existingLoan.getLoanEndTime().toString())
+                .withLoanStatus(existingLoan.getLoanStatus().name())
+                .build();
+
+        expectedModel.updateLoan(model.getFilteredLoanList().get(0), editedLoan);
+        expectedModel.commitLoanBook();
+
         EditLoanDescriptor descriptor = new EditLoanDescriptorBuilder(editedLoan).build();
         EditCommand editCommand = new EditCommand(INDEX_FIRST_LOAN, descriptor);
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_LOAN_SUCCESS, editedLoan);
 
-        Model expectedModel = new ModelManager(new LoanBook(model.getLoanBook()), new UserPrefs());
-        expectedModel.updateLoan(model.getFilteredLoanList().get(0), editedLoan);
-        expectedModel.commitLoanBook();
-
-        // If this test fails, check to see if anything other than LoanStartTime and LoanEndTime
-        // is different. Because we are not supposed to edit the LoanTimes of already existing loans.
-        assertCommandSuccess(editCommand, model, commandHistory, expectedMessage, expectedModel);
+        assertCommandSuccessCompareEditableFields(editCommand, model, commandHistory, expectedMessage, expectedModel);
     }
 
     @Test
@@ -66,7 +78,7 @@ public class EditCommandTest {
         Loan editedLoan = loanInList.withName(VALID_NAME_BOB).withPhone(VALID_PHONE_BOB)
                 .withTags(VALID_TAG_HUSBAND).build();
 
-        EditCommand.EditLoanDescriptor descriptor = new EditLoanDescriptorBuilder().withName(VALID_NAME_BOB)
+        EditLoanDescriptor descriptor = new EditLoanDescriptorBuilder().withName(VALID_NAME_BOB)
                 .withPhone(VALID_PHONE_BOB).withTags(VALID_TAG_HUSBAND).build();
         EditCommand editCommand = new EditCommand(indexLastLoan, descriptor);
 
@@ -111,24 +123,35 @@ public class EditCommandTest {
     }
 
     @Test
-    public void execute_duplicateLoanUnfilteredList_failure() {
-        Loan firstLoan = model.getFilteredLoanList().get(INDEX_FIRST_LOAN.getZeroBased());
-        EditLoanDescriptor descriptor = new EditLoanDescriptorBuilder(firstLoan).build();
-        EditCommand editCommand = new EditCommand(INDEX_SECOND_LOAN, descriptor);
+    public void execute_bikeExistsInModel_success() {
+        Index indexLastLoan = Index.fromOneBased(model.getFilteredLoanList().size());
+        Loan lastLoan = model.getFilteredLoanList().get(indexLastLoan.getZeroBased());
 
-        assertCommandFailure(editCommand, model, commandHistory, EditCommand.MESSAGE_DUPLICATE_LOAN);
+        LoanBuilder loanInList = new LoanBuilder(lastLoan);
+        Loan editedLoan = loanInList.withBike(VALID_NAME_BIKE4).build();
+
+        EditLoanDescriptor descriptor = new EditLoanDescriptorBuilder()
+            .withBike(VALID_NAME_BIKE4).build();
+        EditCommand editCommand = new EditCommand(indexLastLoan, descriptor);
+
+        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_LOAN_SUCCESS, editedLoan);
+
+        Model expectedModel = new ModelManager(new LoanBook(model.getLoanBook()), new UserPrefs());
+        expectedModel.updateLoan(lastLoan, editedLoan);
+        expectedModel.commitLoanBook();
+
+        assertCommandSuccess(editCommand, model, commandHistory, expectedMessage, expectedModel);
     }
 
     @Test
-    public void execute_duplicateLoanFilteredList_failure() {
-        showLoanAtIndex(model, INDEX_FIRST_LOAN);
+    public void execute_bikeDoesNotExistInModel_failure() {
+        Index indexLastLoan = Index.fromOneBased(model.getFilteredLoanList().size());
 
-        // edit loan in filtered list into a duplicate in loan book
-        Loan loanInList = model.getLoanBook().getLoanList().get(INDEX_SECOND_LOAN.getZeroBased());
-        EditCommand editCommand = new EditCommand(INDEX_FIRST_LOAN,
-                new EditLoanDescriptorBuilder(loanInList).build());
+        EditLoanDescriptor descriptor = new EditLoanDescriptorBuilder()
+            .withBike(NOEXIST_NAME_BIKE).build();
+        EditCommand editCommand = new EditCommand(indexLastLoan, descriptor);
 
-        assertCommandFailure(editCommand, model, commandHistory, EditCommand.MESSAGE_DUPLICATE_LOAN);
+        assertCommandFailure(editCommand, model, commandHistory, EditCommand.MESSAGE_BIKE_NOT_FOUND);
     }
 
     @Test
@@ -172,11 +195,13 @@ public class EditCommandTest {
 
         // undo -> reverts loanbook back to previous state and filtered loan list to show all loans
         expectedModel.undoLoanBook();
-        assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
+        assertCommandSuccessCompareEditableFields(new UndoCommand(), model, commandHistory,
+                UndoCommand.MESSAGE_SUCCESS, expectedModel);
 
         // redo -> same first loan edited again
         expectedModel.redoLoanBook();
-        assertCommandSuccess(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModel);
+        assertCommandSuccessCompareEditableFields(new RedoCommand(), model, commandHistory,
+                RedoCommand.MESSAGE_SUCCESS, expectedModel);
     }
 
     @Test
@@ -217,12 +242,14 @@ public class EditCommandTest {
 
         // undo -> reverts loanbook back to previous state and filtered loan list to show all loans
         expectedModel.undoLoanBook();
-        assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
+        assertCommandSuccessCompareEditableFields(new UndoCommand(), model, commandHistory,
+                UndoCommand.MESSAGE_SUCCESS, expectedModel);
 
         assertNotEquals(model.getFilteredLoanList().get(INDEX_FIRST_LOAN.getZeroBased()), loanToEdit);
         // redo -> edits same second loan in unfiltered loan list
         expectedModel.redoLoanBook();
-        assertCommandSuccess(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModel);
+        assertCommandSuccessCompareEditableFields(new RedoCommand(), model, commandHistory,
+                RedoCommand.MESSAGE_SUCCESS, expectedModel);
     }
 
     @Test
@@ -238,10 +265,10 @@ public class EditCommandTest {
         assertTrue(standardCommand.equals(standardCommand));
 
         // null -> returns false
-        assertFalse(standardCommand.equals(null));
+        assertFalse(standardCommand == null);
 
         // different types -> returns false
-        assertFalse(standardCommand.equals(new ClearCommand()));
+        assertFalse(standardCommand.equals(new ListCommand()));
 
         // different index -> returns false
         assertFalse(standardCommand.equals(new EditCommand(INDEX_SECOND_LOAN, DESC_AMY)));

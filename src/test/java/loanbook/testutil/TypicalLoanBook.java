@@ -25,6 +25,7 @@ public class TypicalLoanBook {
 
         int lastUsedId = lb.getLoanList().size() + LoanId.MINIMUM_ID - 1;
         LoanId lastUsedLoanId = LoanId.isValidLoanId(lastUsedId) ? LoanId.fromInt(lastUsedId) : null;
+
         lb.setLoanIdManager(new LoanIdManager(lastUsedLoanId));
 
         return lb;
@@ -40,6 +41,27 @@ public class TypicalLoanBook {
         }
 
         lb.addLoan(new LoanBuilder().build());
+        lb.addLoan(new LoanBuilder().withName("Ash").withLoanStatus("RETURNED").build());
+
+        int lastUsedId = lb.getLoanList().size() + LoanId.MINIMUM_ID - 1;
+        LoanId lastUsedLoanId = LoanId.isValidLoanId(lastUsedId) ? LoanId.fromInt(lastUsedId) : null;
+        lb.setLoanIdManager(new LoanIdManager(lastUsedLoanId));
+
+        return lb;
+    }
+
+    /**
+     * Returns an {@code LoanBook} with all the bikes and loans only for the remind tests.
+     */
+    public static LoanBook getLoanBookForRemindTest() {
+        LoanBook lb = new LoanBook();
+        for (Bike bike : TypicalBikes.getTypicalBikes()) {
+            lb.addBike(bike);
+        }
+
+        for (Loan loan : TypicalLoans.getLoansForRemindTest()) {
+            lb.addLoan(loan);
+        }
 
         int lastUsedId = lb.getLoanList().size() + LoanId.MINIMUM_ID - 1;
         LoanId lastUsedLoanId = LoanId.isValidLoanId(lastUsedId) ? LoanId.fromInt(lastUsedId) : null;

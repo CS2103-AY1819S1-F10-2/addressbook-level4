@@ -28,7 +28,7 @@ public class CommandHistoryTest {
 
     @Test
     public void add() {
-        final String validCommand = "clear";
+        final String validCommand = "reset";
         final String invalidCommand = "adds Bob";
 
         history.add(validCommand);
@@ -52,7 +52,7 @@ public class CommandHistoryTest {
         assertTrue(commandHistoryWithA.equals(anotherCommandHistoryWithA));
 
         // null -> returns false
-        assertFalse(commandHistoryWithA.equals(null));
+        assertFalse(commandHistoryWithA == null);
 
         // different types -> returns false
         assertFalse(commandHistoryWithA.equals(5.0f));

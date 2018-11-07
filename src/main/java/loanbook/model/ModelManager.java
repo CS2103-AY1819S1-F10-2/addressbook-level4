@@ -2,6 +2,7 @@ package loanbook.model;
 
 import static java.util.Objects.requireNonNull;
 import static loanbook.commons.util.CollectionUtil.requireAllNonNull;
+import static loanbook.commons.util.CollectionUtil.testByElement;
 
 import java.util.Collections;
 import java.util.List;
@@ -104,6 +105,17 @@ public class ModelManager extends ComponentManager implements Model {
         indicateLoanBookChanged();
     }
 
+    @Override
+    public void resetBikes() {
+        setBikes(Collections.emptyList());
+        // Change has already been indicated in the above command.
+    }
+
+    @Override
+    public Optional<Loan> getLoanById(LoanId loanId) {
+        return versionedLoanBook.getLoanById(loanId);
+    }
+
     //=========== Filtered Bike List Accessors =============================================================
 
     /**
@@ -149,12 +161,11 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     /**
-     * Clears the loan list and resets the loan ID.
+     * Clears the loan list.
      */
     @Override
     public void resetLoans() {
         setLoans(Collections.emptyList());
-        resetId();
         // Change has already been indicated in the above commands
     }
 
@@ -246,6 +257,37 @@ public class ModelManager extends ComponentManager implements Model {
         return preference.getPass();
     }
 
+    //=========== Utility ==================================================================================
+
+    @Override
+    public boolean hasEqualEditableFields(Model other) {
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof ModelManager)) {
+            return false;
+        }
+
+        // state check
+        ModelManager otherManager = (ModelManager) other;
+        return versionedLoanBook.hasEqualEditableFields(otherManager.versionedLoanBook)
+                && filteredBikes.equals(otherManager.filteredBikes)
+                && testByElement(filteredLoans, otherManager.filteredLoans, Loan::hasEqualEditableFields);
+    }
+
+    //=========== Email =================================================================================
+
+    @Override
+    public void setMyEmail(String email) {
+        preference.setDefaultEmail(email);
+    }
+
+    @Override
+    public String getMyEmail() {
+        return preference.getDefaultEmail();
+    }
+
     @Override
     public boolean equals(Object obj) {
         // short circuit if same object
@@ -263,6 +305,16 @@ public class ModelManager extends ComponentManager implements Model {
         return versionedLoanBook.equals(other.versionedLoanBook)
                 && filteredBikes.equals(other.filteredBikes)
                 && filteredLoans.equals(other.filteredLoans);
+    }
+
+    @Override
+    public String toString() {
+        return logger
+            + ", " + versionedLoanBook
+            + ", " + filteredBikes
+            + ", " + filteredLoans
+            + ", " + preference;
+
     }
 
 }

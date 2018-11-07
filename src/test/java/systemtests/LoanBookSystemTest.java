@@ -1,6 +1,7 @@
 package systemtests;
 
 import static guitests.guihandles.WebViewUtil.waitUntilBrowserLoaded;
+import static loanbook.logic.parser.CliSyntax.PREFIX_PASSWORD;
 import static loanbook.ui.BrowserPanel.DEFAULT_PAGE;
 import static loanbook.ui.StatusBarFooter.SYNC_STATUS_INITIAL;
 import static loanbook.ui.StatusBarFooter.SYNC_STATUS_UPDATED;
@@ -34,10 +35,10 @@ import loanbook.MainApp;
 import loanbook.TestApp;
 import loanbook.commons.core.EventsCenter;
 import loanbook.commons.core.index.Index;
-import loanbook.logic.commands.ClearCommand;
 import loanbook.logic.commands.FindCommand;
 import loanbook.logic.commands.ListBikesCommand;
 import loanbook.logic.commands.ListCommand;
+import loanbook.logic.commands.ResetLoansCommand;
 import loanbook.logic.commands.SelectCommand;
 import loanbook.model.LoanBook;
 import loanbook.model.Model;
@@ -172,10 +173,11 @@ public abstract class LoanBookSystemTest {
     }
 
     /**
-     * Deletes everything in the loan book.
+     * Deletes all loans in the loan book.
      */
     protected void deleteAllLoans() {
-        executeCommand(ClearCommand.COMMAND_WORD);
+        String expectedPassword = "a12345";
+        executeCommand(ResetLoansCommand.COMMAND_WORD + " " + PREFIX_PASSWORD + expectedPassword);
         assertEquals(0, getModel().getLoanBook().getLoanList().size());
     }
 
@@ -192,6 +194,16 @@ public abstract class LoanBookSystemTest {
         // that is displayed is dependant on system time. This line is therefore commented
         //assertEquals(expectedResultMessage, getResultDisplay().getText());
         assertEquals(new LoanBook(expectedModel.getLoanBook()), testApp.readStorageLoanBook());
+        assertListMatching(getLoanListPanel(), expectedModel.getFilteredLoanList());
+    }
+
+
+    protected void assertApplicationDisplaysExpectedCompareEditableFields(
+            String expectedCommandInput,
+            String expectedResultMessage,
+            Model expectedModel) {
+        assertEquals(expectedCommandInput, getCommandBox().getInput());
+        assertTrue(new LoanBook(expectedModel.getLoanBook()).hasEqualEditableFields(testApp.readStorageLoanBook()));
         assertListMatching(getLoanListPanel(), expectedModel.getFilteredLoanList());
     }
 

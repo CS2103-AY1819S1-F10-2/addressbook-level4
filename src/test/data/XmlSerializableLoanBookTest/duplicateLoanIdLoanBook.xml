@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<loanbook>
+    <bikes>
+        <name>BIKE001</name>
+    </bikes>
+    <!-- Two loans with the same ID of 0 -->
+    <loans>
+        <id>0</id>
+        <name>Alice Pauline</name>
+        <nric>S0848937H</nric>
+        <phone>94351253</phone>
+        <email>alice@example.com</email>
+        <loanStatus>ONGOING</loanStatus>
+        <bike>BIKE001</bike>
+        <rate>1.1</rate>
+        <startTime>12:33</startTime>
+        <endTime>14:13</endTime>
+        <loanStatus>ONGOING</loanStatus>
+    </loans>
+    <loans>
+        <id>0</id>
+        <name>Benson Meier</name>
+        <nric>F1342714M</nric>
+        <phone>98765432</phone>
+        <email>johnd@example.com</email>
+        <loanStatus>ONGOING</loanStatus>
+        <bike>BIKE001</bike>
+        <rate>0.15</rate>
+        <startTime>2017-10-12 12:08</startTime>
+        <endTime>2017-10-12 06:08</endTime>
+        <tagged>owesMoney</tagged>
+        <loanStatus>RETURNED</loanStatus>
+    </loans>
+    <loanIdManager>
+        <lastUsedLoanId>0</lastUsedLoanId>
+    </loanIdManager>
+</loanbook>

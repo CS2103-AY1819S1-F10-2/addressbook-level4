@@ -1,0 +1,77 @@
+package loanbook.logic.commands;
+
+import static java.util.Objects.requireNonNull;
+import static loanbook.logic.parser.CliSyntax.PREFIX_NAME;
+import static loanbook.logic.parser.CliSyntax.PREFIX_PASSWORD;
+
+import java.util.Optional;
+
+import loanbook.commons.core.Messages;
+import loanbook.logic.CommandHistory;
+import loanbook.logic.commands.exceptions.CommandException;
+import loanbook.model.Model;
+import loanbook.model.Password;
+import loanbook.model.bike.Bike;
+import loanbook.model.loan.Name;
+
+/**
+ * Deletes a bike identified using it's displayed index from the loan book.
+ */
+public class DeleteBikeCommand extends Command {
+
+    public static final String COMMAND_WORD = "deletebike";
+
+    public static final String MESSAGE_USAGE = COMMAND_WORD
+        + ": Deletes the bike with the given name.\n"
+        + "Requires a password for verification.\n"
+        + "Parameters: " + PREFIX_NAME + "NAME " + PREFIX_PASSWORD + "PASSWORD\n"
+        + "Example: " + COMMAND_WORD + " " + PREFIX_NAME + "Bike001 " + PREFIX_PASSWORD + "a12345";
+
+    public static final String MESSAGE_DELETE_BIKE_SUCCESS = "Deleted Bike: %1$s";
+    public static final String MESSAGE_BIKE_NOT_FOUND = "No bike with that name exists within the loan book";
+
+    private final Name bikeName;
+    private final Password targetPassword;
+
+    public DeleteBikeCommand(Name bikeName, Password pass) {
+        this.bikeName = bikeName;
+        targetPassword = pass;
+    }
+
+    @Override
+    public CommandResult execute(Model model, CommandHistory history) throws CommandException {
+
+        requireNonNull(model);
+
+        Optional<Bike> actualBike = model.getBike(bikeName.value);
+        if (!actualBike.isPresent()) {
+            throw new CommandException(MESSAGE_BIKE_NOT_FOUND);
+        }
+
+        if (!Password.isSamePassword(model.getPass(), targetPassword)) {
+            throw new CommandException(Messages.MESSAGE_INVALID_PASSWORD);
+        }
+
+        model.deleteBike(actualBike.get());
+        model.commitLoanBook();
+        return new CommandResult(String.format(MESSAGE_DELETE_BIKE_SUCCESS, actualBike.get()));
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        // short circuit if same object
+        if (other == this) {
+            return true;
+        }
+
+        // instanceof handles nulls
+        if (!(other instanceof DeleteBikeCommand)) {
+            return false;
+        }
+
+        // state check
+        DeleteBikeCommand otherCommand = (DeleteBikeCommand) other;
+        return bikeName.equals(otherCommand.bikeName)
+            && targetPassword.equals(otherCommand.targetPassword);
+    }
+}

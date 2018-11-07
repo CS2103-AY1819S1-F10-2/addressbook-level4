@@ -183,6 +183,11 @@ public class LoanBookTest {
         public LoanIdManager getLoanIdManager() {
             return loanIdManager;
         }
+
+        @Override
+        public boolean hasEqualEditableFields(ReadOnlyLoanBook other) {
+            throw new AssertionError("This method should not be called.");
+        }
     }
 
 }

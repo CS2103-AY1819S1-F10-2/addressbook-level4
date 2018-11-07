@@ -9,7 +9,8 @@ import static loanbook.commons.util.AppUtil.checkArgument;
 public class Nric implements Censor {
 
     public static final String MESSAGE_NRIC_CONSTRAINTS =
-            "NRIC should be Singapore issued. It may be blank. ";
+            "Invalid NRIC input. NRIC should be a valid Singapore-issued NRIC number consisting of a "
+            + "prefix letter, followed by 7 numbers and a checksum suffix.";
 
     public static final String NRIC_VALIDATION_REGEX = "^[ST]\\d{7}[A-JZ]|[FG]\\d{7}[K-NPQRTUWX]$";
 

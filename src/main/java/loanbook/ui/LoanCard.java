@@ -13,11 +13,13 @@ import loanbook.model.tag.Tag;
  */
 public class LoanCard extends ListCard<Loan> {
 
-    private static final String FXML = "LoanListCard.fxml";
+    private static final String FXML = "LoanCard.fxml";
     private static final String[] LOANSTATUS_TAG_COLOR_STYLES = {"red", "green", "orange"};
     private static final String[] TAG_COLOR_STYLES =
         {"teal", "yellow", "blue", "brown", "pink", "black", "grey"};
 
+    @FXML
+    private Label loanId;
     @FXML
     private Label name;
     @FXML
@@ -39,6 +41,7 @@ public class LoanCard extends ListCard<Loan> {
 
     public LoanCard(Loan loan, int displayedIndex) {
         super(FXML, loan, displayedIndex);
+        loanId.setText(loan.getLoanId().toString());
         name.setText(loan.getName().value);
         nric.setText(loan.getNric().getCensored());
         phone.setText(loan.getPhone().getCensored());

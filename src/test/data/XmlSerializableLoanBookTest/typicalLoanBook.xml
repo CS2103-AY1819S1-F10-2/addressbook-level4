@@ -14,6 +14,7 @@
         <name>Blue Ocean</name>
     </bikes>
     <loans>
+        <id>0</id>
         <name>Alice Pauline</name>
         <nric>S0848937H</nric>
         <phone>94351253</phone>
@@ -22,23 +23,25 @@
         <bike>BIKE001</bike>
         <rate>1.1</rate>
         <startTime>12:33</startTime>
-        <endTime>14:13</endTime>
+        <endTime>23:54</endTime>
+        <loanStatus>ONGOING</loanStatus>
         <tagged>friends</tagged>
     </loans>
     <loans>
+        <id>1</id>
         <name>Benson Meier</name>
         <nric>F1342714M</nric>
         <phone>98765432</phone>
         <email>johnd@example.com</email>
-        <loanStatus>ONGOING</loanStatus>
         <bike>BIKE001</bike>
         <rate>0.15</rate>
-        <startTime>2017-10-12 12:08</startTime>
-        <endTime>2017-10-12 06:08</endTime>
+        <startTime>2017-10-12 06:08</startTime>
         <tagged>owesMoney</tagged>
+        <loanStatus>ONGOING</loanStatus>
         <tagged>friends</tagged>
     </loans>
     <loans>
+        <id>2</id>
         <name>Carl Kurz</name>
         <nric>T0238282I</nric>
         <phone>95352563</phone>
@@ -47,48 +50,51 @@
         <bike>BIKE001</bike>
         <rate>23.9</rate>
         <startTime>14:20</startTime>
-        <endTime>18:22</endTime>
     </loans>
     <loans>
+        <id>3</id>
         <name>Daniel Meier</name>
         <nric>S9335895C</nric>
         <phone>87652533</phone>
         <email>cornelia@example.com</email>
-        <loanStatus>ONGOING</loanStatus>
         <bike>BIKE002</bike>
         <rate>9.0</rate>
         <startTime>17:56</startTime>
-        <endTime>18:22</endTime>
+        <endTime>23:54</endTime>
+        <loanStatus>ONGOING</loanStatus>
         <tagged>friends</tagged>
     </loans>
     <loans>
+        <id>4</id>
         <name>Elle Meyer</name>
         <nric>G9112925L</nric>
         <phone>9482224</phone>
         <email>werner@example.com</email>
-        <loanStatus>ONGOING</loanStatus>
         <bike>BIKE002</bike>
         <rate>5.55</rate>
         <startTime>2010-12-30 10:30</startTime>
-        <endTime>2011-12-30 12:30</endTime>
+        <endTime>2011-12-30 23:54</endTime>
+        <loanStatus>RETURNED</loanStatus>
     </loans>
     <loans>
+        <id>5</id>
         <name>Fiona Kunz</name>
         <nric>G9400645M</nric>
         <phone>9482427</phone>
         <email>lydia@example.com</email>
-        <loanStatus>ONGOING</loanStatus>
         <bike>BIKE002</bike>
         <rate>33.3</rate>
         <startTime>01:01</startTime>
-        <endTime>21:01</endTime>
+        <endTime>23:54</endTime>
+        <loanStatus>ONGOING</loanStatus>
     </loans>
     <loans>
+        <id>6</id>
         <name>George Best</name>
         <nric>S8313623E</nric>
         <phone>9482442</phone>
         <email>anna@example.com</email>
-        <loanStatus>ONGOING</loanStatus>
+        <loanStatus>RETURNED</loanStatus>
         <bike>BIKE002</bike>
         <rate>5.05</rate>
         <startTime>2013-03-13 12:08</startTime>

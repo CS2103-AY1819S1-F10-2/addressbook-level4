@@ -18,6 +18,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
+import loanbook.model.bike.Bike;
 import loanbook.testutil.LoanBuilder;
 
 public class LoanTest {
@@ -100,8 +101,23 @@ public class LoanTest {
     }
 
     @Test
+    public void constructorTests() {
+        Loan editedAlice;
+        editedAlice = new LoanBuilder(ALICE).withBike("NewBike").build();
+        Loan loanWithBikeConstructor = new Loan(ALICE, new Bike(new Name("NewBike")));
+
+        assertEquals(loanWithBikeConstructor, editedAlice);
+
+        editedAlice = new LoanBuilder(ALICE).withLoanEndTime(VALID_LOANSTARTTIME_BOB).build();
+        Loan loanWithTimeConstructor = new Loan(ALICE, new LoanTime(VALID_LOANSTARTTIME_BOB));
+
+        assertEquals(loanWithTimeConstructor, editedAlice);
+    }
+
+    @Test
     public void calculateCostReturnedLoan() {
-        Loan loan1 = new Loan(ALICE.getName(),
+        Loan loan1 = new Loan(ALICE.getLoanId(),
+                ALICE.getName(),
                 ALICE.getNric(),
                 ALICE.getPhone(),
                 ALICE.getEmail(),
@@ -114,7 +130,8 @@ public class LoanTest {
         // 10 minutes, at $6 an hour, = $1
         assertEquals(loan1.calculateCost(), 1.00, 0.005);
 
-        Loan loan2 = new Loan(ALICE.getName(),
+        Loan loan2 = new Loan(ALICE.getLoanId(),
+                ALICE.getName(),
                 ALICE.getNric(),
                 ALICE.getPhone(),
                 ALICE.getEmail(),
@@ -127,7 +144,8 @@ public class LoanTest {
         // 1 day = 24 hours, at $12.50 an hour, = $300
         assertEquals(loan2.calculateCost(), 300.00, 0.005);
 
-        Loan loan3 = new Loan(ALICE.getName(),
+        Loan loan3 = new Loan(ALICE.getLoanId(),
+                ALICE.getName(),
                 ALICE.getNric(),
                 ALICE.getPhone(),
                 ALICE.getEmail(),
@@ -151,7 +169,7 @@ public class LoanTest {
         assertTrue(ALICE.equals(ALICE));
 
         // null -> returns false
-        assertFalse(ALICE.equals(null));
+        assertFalse(ALICE == null);
 
         // different type -> returns false
         assertFalse(ALICE.equals(5));

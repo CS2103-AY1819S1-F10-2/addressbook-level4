@@ -8,6 +8,7 @@ import java.util.Set;
 import loanbook.model.bike.Bike;
 import loanbook.model.loan.Email;
 import loanbook.model.loan.Loan;
+import loanbook.model.loan.LoanId;
 import loanbook.model.loan.LoanRate;
 import loanbook.model.loan.LoanStatus;
 import loanbook.model.loan.LoanTime;
@@ -22,6 +23,7 @@ import loanbook.model.util.SampleDataUtil;
  */
 public class LoanBuilder {
 
+    public static final String DEFAULT_LOANID = "21012103";
     public static final String DEFAULT_NAME = "Alice Pauline";
     public static final String DEFAULT_NRIC = "G1234567X";
     public static final String DEFAULT_PHONE = "85355255";
@@ -32,6 +34,7 @@ public class LoanBuilder {
     public static final String DEFAULT_LOANENDTIME = "12:45";
     public static final String DEFAULT_LOANSTATUS = "ONGOING";
 
+    private LoanId id;
     private Name name;
     private Nric nric;
     private Phone phone;
@@ -44,6 +47,7 @@ public class LoanBuilder {
     private LoanStatus loanStatus;
 
     public LoanBuilder() {
+        id = new LoanId(DEFAULT_LOANID);
         name = new Name(DEFAULT_NAME);
         nric = new Nric(DEFAULT_NRIC);
         phone = new Phone(DEFAULT_PHONE);
@@ -60,6 +64,7 @@ public class LoanBuilder {
      * Initializes the LoanBuilder with the data of {@code loanToCopy}.
      */
     public LoanBuilder(Loan loanToCopy) {
+        id = loanToCopy.getLoanId();
         name = loanToCopy.getName();
         nric = loanToCopy.getNric();
         phone = loanToCopy.getPhone();
@@ -70,6 +75,14 @@ public class LoanBuilder {
         endTime = loanToCopy.getLoanEndTime();
         loanStatus = loanToCopy.getLoanStatus();
         tags = new HashSet<>(loanToCopy.getTags());
+    }
+
+    /**
+     * Sets the {@code Name} of the {@code Loan} that we are building.
+     */
+    public LoanBuilder withLoanId(String loanId) {
+        this.id = new LoanId(loanId);
+        return this;
     }
 
     /**
@@ -155,6 +168,6 @@ public class LoanBuilder {
     }
 
     public Loan build() {
-        return new Loan(name, nric, phone, email, bike, rate, startTime, endTime, loanStatus, tags);
+        return new Loan(id, name, nric, phone, email, bike, rate, startTime, endTime, loanStatus, tags);
     }
 }

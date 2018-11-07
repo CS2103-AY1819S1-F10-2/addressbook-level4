@@ -2,11 +2,15 @@
 <loanbook>
     <!-- loan with an invalid loanStatus-->
     <loans>
+        <id>0</id>
         <name>Alice Pauline</name>
         <phone>94351253</phone>
         <email>alice@example.com</email>
-        <address>123, Jurong West Ave 6, #08-111</address>
         <loanStatus>OFFGOING</loanStatus>
         <tagged>friends</tagged>
     </loans>
+
+    <loanIdManager>
+        <lastUsedLoanId>0</lastUsedLoanId>
+    </loanIdManager>
 </loanbook>

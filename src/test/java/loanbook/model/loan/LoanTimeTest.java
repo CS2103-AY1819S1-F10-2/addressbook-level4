@@ -11,6 +11,8 @@ import java.time.format.DateTimeFormatter;
 
 import org.junit.Test;
 
+import loanbook.testutil.Assert;
+
 public class LoanTimeTest {
 
     private static final DateTimeFormatter EXPECTED_DATE_FORMAT = DateTimeFormatter.ofPattern("uuuu-MM-dd");
@@ -29,6 +31,9 @@ public class LoanTimeTest {
 
         LoanTime loanTime3 = new LoanTime("2103-01-01 21:03");
         assertEquals("2103-01-01 21:03", loanTime3.toString());
+
+        String expectedMessage = LoanTime.MESSAGE_LOANTIME_CONSTRAINTS;
+        Assert.assertThrows(IllegalArgumentException.class, expectedMessage, () -> new LoanTime("NotADate"));
     }
 
     /**
@@ -151,10 +156,10 @@ public class LoanTimeTest {
         LoanTime loanTime2 = new LoanTime("2001-01-01 14:00");
 
         assertEquals(120, loanTime1.loanTimeDifferenceMinutes(loanTime2)); // Functional use
-        assertEquals(0, loanTime2.loanTimeDifferenceMinutes(loanTime1)); // Time 2 earlier
+        assertEquals(-1, loanTime2.loanTimeDifferenceMinutes(loanTime1)); // Time 2 earlier
 
         assertEquals(120, LoanTime.loanTimeDifferenceMinutes(loanTime1, loanTime2)); // Functional use
-        assertEquals(0, LoanTime.loanTimeDifferenceMinutes(loanTime2, loanTime1)); // Time 2 earlier
+        assertEquals(-1, LoanTime.loanTimeDifferenceMinutes(loanTime2, loanTime1)); // Time 2 earlier
 
         LoanTime loanTime3 = new LoanTime("2001-01-02 12:05");
         assertEquals(1445, loanTime1.loanTimeDifferenceMinutes(loanTime3)); // Across Day

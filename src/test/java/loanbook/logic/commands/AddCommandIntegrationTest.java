@@ -1,6 +1,5 @@
 package loanbook.logic.commands;
 
-import static loanbook.logic.commands.CommandTestUtil.assertCommandFailure;
 import static loanbook.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static loanbook.testutil.TypicalLoanBook.getTypicalLoanBook;
 
@@ -29,9 +28,15 @@ public class AddCommandIntegrationTest {
 
     @Test
     public void execute_newLoan_success() {
-        Loan validLoan = new LoanBuilder().build();
-
         Model expectedModel = new ModelManager(model.getLoanBook(), new UserPrefs());
+
+        // This will increment the internal Loan Manager's counter.
+        String expectedLoanId = expectedModel.getNextAvailableId().toString();
+
+        Loan validLoan = new LoanBuilder()
+                .withLoanId(expectedLoanId)
+                .build();
+
         expectedModel.addLoan(validLoan);
         expectedModel.commitLoanBook();
 
@@ -39,11 +44,5 @@ public class AddCommandIntegrationTest {
                 String.format(AddCommand.MESSAGE_SUCCESS, validLoan), expectedModel);
     }
 
-    @Test
-    public void execute_duplicateLoan_throwsCommandException() {
-        Loan loanInList = model.getLoanBook().getLoanList().get(0);
-        assertCommandFailure(new AddCommand(loanInList), model, commandHistory,
-                AddCommand.MESSAGE_DUPLICATE_LOAN);
-    }
 
 }

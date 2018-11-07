@@ -63,6 +63,11 @@ public interface Model {
     void setBikes(List<Bike> bikes);
 
     /**
+     * Clears the bike list.
+     */
+    void resetBikes();
+
+    /**
      * Updates the filter of the filtered bike list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
      */
@@ -72,6 +77,16 @@ public interface Model {
      * Returns true if a loan with the same identity as {@code loan} exists in the loan book.
      */
     boolean hasLoan(Loan loan);
+
+    /**
+     * Set user's email.
+     */
+    void setMyEmail(String email);
+
+    /**
+     * Get user's email.
+     */
+    String getMyEmail();
 
     /**
      * Set password for the App
@@ -124,7 +139,12 @@ public interface Model {
     void setLoans(List<Loan> loans);
 
     /**
-     * Clears the loan list and resets the loan ID.
+     * Retrieve a Loan by its Loan ID, if it exists.
+     */
+    Optional<Loan> getLoanById(LoanId loanId);
+
+    /**
+     * Clears the loan list.
      */
     void resetLoans();
 
@@ -161,4 +181,9 @@ public interface Model {
      * Saves the current loan book state for undo/redo.
      */
     void commitLoanBook();
+
+    /**
+     * Checks if this Model is equal to the specified Model, but when comparing Loans
+     */
+    boolean hasEqualEditableFields(Model other);
 }

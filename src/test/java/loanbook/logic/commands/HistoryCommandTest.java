@@ -17,7 +17,7 @@ public class HistoryCommandTest {
     public void execute() {
         assertCommandSuccess(new HistoryCommand(), model, history, HistoryCommand.MESSAGE_NO_HISTORY, expectedModel);
 
-        String command1 = "clear";
+        String command1 = "reset";
         history.add(command1);
         assertCommandSuccess(new HistoryCommand(), model, history,
                 String.format(HistoryCommand.MESSAGE_SUCCESS, command1), expectedModel);

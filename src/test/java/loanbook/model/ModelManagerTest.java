@@ -1,6 +1,7 @@
 package loanbook.model;
 
 import static loanbook.logic.commands.CommandTestUtil.VALID_NAME_BIKE1;
+import static loanbook.logic.commands.CommandTestUtil.VALID_USER_EMAIL1;
 import static loanbook.model.Model.PREDICATE_SHOW_ALL_BIKES;
 import static loanbook.model.Model.PREDICATE_SHOW_ALL_LOANS;
 import static loanbook.testutil.TypicalBikes.BIKE1;
@@ -19,6 +20,8 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
+import loanbook.model.loan.Loan;
+import loanbook.model.loan.LoanId;
 import loanbook.model.loan.NameContainsKeywordsPredicate;
 import loanbook.testutil.LoanBookBuilder;
 
@@ -63,6 +66,23 @@ public class ModelManagerTest {
     }
 
     @Test
+    public void getLoanById_loanExists_success() {
+        modelManager.addLoan(ALICE);
+        Optional<Loan> retrievedLoan = modelManager.getLoanById(ALICE.getLoanId());
+
+        assertTrue(retrievedLoan.isPresent());
+        assertEquals(retrievedLoan.get(), ALICE);
+    }
+
+    @Test
+    public void getLoanById_loanDoesNotExist_returnEmptyOptional() {
+        LoanId idExpectedNotToExist = LoanId.fromInt(999999999);
+        Optional<Loan> retrievedLoan = modelManager.getLoanById(idExpectedNotToExist);
+
+        assertFalse(retrievedLoan.isPresent());
+    }
+
+    @Test
     public void getBike_bikeNotInLoanBook_returnsEmpty() {
         assertEquals(Optional.empty(), modelManager.getBike(VALID_NAME_BIKE1));
     }
@@ -100,6 +120,15 @@ public class ModelManagerTest {
     }
 
     @Test
+    public void getAndSetMyEmail_returnsTrue() {
+        UserPrefs prefs = new UserPrefs();
+        prefs.setDefaultEmail(VALID_USER_EMAIL1);
+        modelManager.setMyEmail(VALID_USER_EMAIL1);
+        String userEmail = modelManager.getMyEmail();
+        assertTrue(prefs.getDefaultEmail().equals(userEmail));
+    }
+
+    @Test
     public void equals() {
         LoanBook loanBook = new LoanBookBuilder()
                 .withLoan(ALICE).withLoan(BENSON)
@@ -116,7 +145,7 @@ public class ModelManagerTest {
         assertTrue(modelManager.equals(modelManager));
 
         // null -> returns false
-        assertFalse(modelManager.equals(null));
+        assertFalse(modelManager == null);
 
         // different types -> returns false
         assertFalse(modelManager.equals(5));
@@ -126,7 +155,7 @@ public class ModelManagerTest {
 
         // different filteredList -> returns false
         String[] keywords = ALICE.getName().value.split("\\s+");
-        modelManager.updateFilteredLoanList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
+        modelManager.updateFilteredLoanList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)).forLoans());
         assertFalse(modelManager.equals(new ModelManager(loanBook, userPrefs)));
 
         // resets modelManager to initial state for upcoming tests

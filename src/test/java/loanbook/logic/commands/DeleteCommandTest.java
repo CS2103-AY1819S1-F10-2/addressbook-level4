@@ -50,7 +50,8 @@ public class DeleteCommandTest {
     @Test
     public void execute_invalidIndexUnfilteredList_throwsCommandException() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredLoanList().size() + 1);
-        DeleteCommand deleteCommand = new DeleteCommand(outOfBoundIndex, new Password(model.getPass()));
+        Password expectedPassword = new Password("a12345");
+        DeleteCommand deleteCommand = new DeleteCommand(outOfBoundIndex, expectedPassword);
 
         assertCommandFailure(deleteCommand, model, commandHistory, Messages.MESSAGE_INVALID_LOAN_DISPLAYED_INDEX);
     }
@@ -182,7 +183,7 @@ public class DeleteCommandTest {
         assertFalse(deleteFirstCommand.equals(1));
 
         // null -> returns false
-        assertFalse(deleteFirstCommand.equals(null));
+        assertFalse(deleteFirstCommand == null);
 
         // different loan -> returns false
         assertFalse(deleteFirstCommand.equals(deleteSecondCommand));

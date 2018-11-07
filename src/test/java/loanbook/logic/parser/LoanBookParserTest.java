@@ -2,6 +2,14 @@ package loanbook.logic.parser;
 
 import static loanbook.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static loanbook.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static loanbook.logic.commands.CommandTestUtil.BIKE_DESC_AMY;
+import static loanbook.logic.commands.CommandTestUtil.DEFAULT_USER_EMAIL;
+import static loanbook.logic.commands.CommandTestUtil.NAME_DESC_AMY;
+import static loanbook.logic.commands.CommandTestUtil.PASSWORD2_DESC;
+import static loanbook.logic.commands.CommandTestUtil.VALID_NAME_AMY;
+import static loanbook.logic.commands.CommandTestUtil.VALID_NAME_BIKE1;
+import static loanbook.logic.commands.CommandTestUtil.VALID_USER_EMAIL1;
+import static loanbook.logic.parser.CliSyntax.PREFIX_PASSWORD;
 import static loanbook.testutil.TypicalIndexes.INDEX_FIRST_LOAN;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -16,10 +24,9 @@ import org.junit.rules.ExpectedException;
 
 import loanbook.logic.commands.AddBikeCommand;
 import loanbook.logic.commands.AddCommand;
-import loanbook.logic.commands.ClearCommand;
+import loanbook.logic.commands.CheckEmailCommand;
 import loanbook.logic.commands.DeleteCommand;
 import loanbook.logic.commands.EditCommand;
-import loanbook.logic.commands.EditCommand.EditLoanDescriptor;
 import loanbook.logic.commands.ExitCommand;
 import loanbook.logic.commands.FindCommand;
 import loanbook.logic.commands.HelpCommand;
@@ -27,12 +34,20 @@ import loanbook.logic.commands.HistoryCommand;
 import loanbook.logic.commands.ListBikesCommand;
 import loanbook.logic.commands.ListCommand;
 import loanbook.logic.commands.RedoCommand;
+import loanbook.logic.commands.RemindCommand;
+import loanbook.logic.commands.ResetLoansCommand;
+import loanbook.logic.commands.ReturnCommand;
+import loanbook.logic.commands.SearchCommand;
 import loanbook.logic.commands.SelectCommand;
+import loanbook.logic.commands.SetEmailCommand;
+import loanbook.logic.commands.SetPasswordCommand;
 import loanbook.logic.commands.UndoCommand;
 import loanbook.logic.parser.exceptions.ParseException;
 import loanbook.model.Password;
 import loanbook.model.bike.Bike;
 import loanbook.model.loan.Loan;
+import loanbook.model.loan.LoanTime;
+import loanbook.model.loan.Name;
 import loanbook.model.loan.NameContainsKeywordsPredicate;
 import loanbook.testutil.BikeBuilder;
 import loanbook.testutil.BikeUtil;
@@ -55,15 +70,22 @@ public class LoanBookParserTest {
 
     @Test
     public void parseCommand_add() throws Exception {
-        Loan loan = new LoanBuilder().build();
+        Loan loan = new LoanBuilder()
+                .withLoanId(AddCommandParser.PLACEHOLDER_LOAN_ID.toString())
+                .build();
         AddCommand command = (AddCommand) parser.parseCommand(LoanUtil.getAddCommand(loan));
         assertEquals(new AddCommand(loan), command);
     }
 
     @Test
     public void parseCommand_clear() throws Exception {
-        assertTrue(parser.parseCommand(ClearCommand.COMMAND_WORD) instanceof ClearCommand);
-        assertTrue(parser.parseCommand(ClearCommand.COMMAND_WORD + " 3") instanceof ClearCommand);
+        String samplePasswordUserInput = "a12345";
+        Password samplePassword = new Password(samplePasswordUserInput);
+
+        ResetLoansCommand expectedCommand = new ResetLoansCommand(samplePassword);
+
+        assertEquals(expectedCommand,
+                parser.parseCommand(ResetLoansCommand.COMMAND_WORD + " " + PREFIX_PASSWORD + samplePasswordUserInput));
     }
 
     @Test
@@ -77,7 +99,7 @@ public class LoanBookParserTest {
     @Test
     public void parseCommand_edit() throws Exception {
         Loan loan = new LoanBuilder().build();
-        EditLoanDescriptor descriptor = new EditLoanDescriptorBuilder(loan).build();
+        EditCommand.EditLoanDescriptor descriptor = new EditLoanDescriptorBuilder(loan).build();
         EditCommand command = (EditCommand) parser.parseCommand(EditCommand.COMMAND_WORD + " "
                 + INDEX_FIRST_LOAN.getOneBased() + " " + LoanUtil.getEditLoanDescriptorDetails(descriptor));
         assertEquals(new EditCommand(INDEX_FIRST_LOAN, descriptor), command);
@@ -95,6 +117,22 @@ public class LoanBookParserTest {
         FindCommand command = (FindCommand) parser.parseCommand(
                 FindCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")));
         assertEquals(new FindCommand(new NameContainsKeywordsPredicate(keywords)), command);
+    }
+
+    @Test
+    public void parseCommand_setemail() throws Exception {
+        SetEmailCommand command = (SetEmailCommand) parser.parseCommand(
+                SetEmailCommand.COMMAND_WORD + " default " + "abcdefg@gmail.com");
+        assertEquals(new SetEmailCommand(DEFAULT_USER_EMAIL, VALID_USER_EMAIL1), command);
+    }
+
+    @Test
+    public void parseCommand_remind() throws Exception {
+        RemindCommand command = (RemindCommand) parser.parseCommand(
+                RemindCommand.COMMAND_WORD + PASSWORD2_DESC + NAME_DESC_AMY + BIKE_DESC_AMY);
+        Name name = new Name(VALID_NAME_AMY);
+        Bike bike = new Bike(new Name(VALID_NAME_BIKE1));
+        assertEquals(new RemindCommand("loanbookpassword", name, bike), command);
     }
 
     @Test
@@ -123,6 +161,12 @@ public class LoanBookParserTest {
     }
 
     @Test
+    public void parseCommand_checkemail() throws Exception {
+        assertTrue(parser.parseCommand(CheckEmailCommand.COMMAND_WORD) instanceof CheckEmailCommand);
+        assertTrue(parser.parseCommand(CheckEmailCommand.COMMAND_WORD + " 3") instanceof CheckEmailCommand);
+    }
+
+    @Test
     public void parseCommand_listbikes() throws Exception {
         assertTrue(parser.parseCommand(ListBikesCommand.COMMAND_WORD) instanceof ListBikesCommand);
         assertTrue(parser.parseCommand(ListBikesCommand.COMMAND_WORD + " 3") instanceof ListBikesCommand);
@@ -133,6 +177,33 @@ public class LoanBookParserTest {
         SelectCommand command = (SelectCommand) parser.parseCommand(
                 SelectCommand.COMMAND_WORD + " " + INDEX_FIRST_LOAN.getOneBased());
         assertEquals(new SelectCommand(INDEX_FIRST_LOAN), command);
+    }
+
+    @Test
+    public void parseCommand_return() throws Exception {
+        ReturnCommand command = (ReturnCommand) parser.parseCommand(
+                ReturnCommand.COMMAND_WORD + " i/" + INDEX_FIRST_LOAN.getOneBased());
+        assertEquals(new ReturnCommand(INDEX_FIRST_LOAN), command);
+    }
+
+    @Test
+    public void parseCommand_setpass() throws Exception {
+        String oldPass = "oldPass";
+        String newPass = "newPass";
+        SetPasswordCommand command = (SetPasswordCommand) parser.parseCommand(
+                SetPasswordCommand.COMMAND_WORD + " " + oldPass + " " + newPass);
+        assertEquals(new SetPasswordCommand(new Password(oldPass), new Password(newPass)), command);
+    }
+
+    @Test
+    public void parseCommand_search() throws Exception {
+        String oldDate = "2018-01-01";
+        String newDate = "2018-01-02";
+
+        SearchCommand command = (SearchCommand) parser.parseCommand(
+                SearchCommand.COMMAND_WORD + " " + oldDate + " " + newDate);
+        assertEquals(new SearchCommand(LoanTime.startOfDayLoanTime(oldDate), LoanTime.endOfDayLoanTime(newDate)),
+                command);
     }
 
     @Test
