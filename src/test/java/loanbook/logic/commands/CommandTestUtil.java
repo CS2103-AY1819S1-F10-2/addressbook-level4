@@ -2,6 +2,7 @@ package loanbook.logic.commands;
 
 import static loanbook.logic.parser.CliSyntax.PREFIX_BIKE;
 import static loanbook.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static loanbook.logic.parser.CliSyntax.PREFIX_EMAILPW;
 import static loanbook.logic.parser.CliSyntax.PREFIX_LOANRATE;
 import static loanbook.logic.parser.CliSyntax.PREFIX_NAME;
 import static loanbook.logic.parser.CliSyntax.PREFIX_NRIC;
@@ -87,6 +88,8 @@ public class CommandTestUtil {
     public static final String USER_EMAIL2_DESC = " " + VALID_USER_EMAIL2;
     public static final String USER_EMAIL3_DESC = " " + VALID_USER_EMAIL3;
     public static final String USER_EMAIL4_DESC = " " + VALID_USER_EMAIL4;
+    public static final String EMAILPW1_DESC = " " + PREFIX_EMAILPW + PASSWORD1;
+    public static final String EMAILPW2_DESC = " " + PREFIX_EMAILPW + PASSWORD2;
     public static final String PASSWORD1_DESC = " " + PREFIX_PASSWORD + PASSWORD1;
     public static final String PASSWORD2_DESC = " " + PREFIX_PASSWORD + PASSWORD2;
 

@@ -24,7 +24,7 @@ public class Messages {
             + "Please make sure you have network connected!";
     public static final String MESSAGE_BAD_RUNTIME = "You execute your code in a Java runtime"
             + " that does not support UTF-8!";
-    public static final String MESSAGE_INVALID_INFO = "No loan contains both %1$s and %2$s!";
+    public static final String MESSAGE_INVALID_INFO = "There is no Loan with this id in the LoanBook!";
     public static final String MESSAGE_LOAN_IS_DONE = "You do not need to send reminder, because the loan is %s";
     public static final String MESSAGE_WRONG_OLDEMAIL = "The old email address is wrong!";
     public static final String MESSAGE_DUPLICATE_FAILURE = "The old email and the new email cannot be the same!";
