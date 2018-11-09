@@ -2,12 +2,11 @@ package loanbook.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static loanbook.commons.util.CollectionUtil.requireAllNonNull;
-import static loanbook.logic.parser.CliSyntax.PREFIX_BIKE;
-import static loanbook.logic.parser.CliSyntax.PREFIX_NAME;
-import static loanbook.logic.parser.CliSyntax.PREFIX_PASSWORD;
+import static loanbook.logic.parser.CliSyntax.PREFIX_EMAILPW;
+import static loanbook.logic.parser.CliSyntax.PREFIX_ID;
 
 import java.io.UnsupportedEncodingException;
-import java.util.List;
+import java.util.Optional;
 
 import javax.mail.AuthenticationFailedException;
 import javax.mail.MessagingException;
@@ -17,10 +16,9 @@ import loanbook.logic.CommandHistory;
 import loanbook.logic.SendReminder;
 import loanbook.logic.commands.exceptions.CommandException;
 import loanbook.model.Model;
-import loanbook.model.bike.Bike;
 import loanbook.model.loan.Loan;
+import loanbook.model.loan.LoanId;
 import loanbook.model.loan.LoanStatus;
-import loanbook.model.loan.Name;
 
 /**
  * Send a reminder email to the customer.
@@ -31,49 +29,41 @@ public class RemindCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Send a reminder email to the customer.\n"
             + "Parameter: "
-            + PREFIX_PASSWORD + "EMAILPASSWORD "
-            + PREFIX_NAME + "NAME "
-            + PREFIX_BIKE + "BIKE\n"
+            + PREFIX_EMAILPW + "EMAILPASSWORD "
+            + PREFIX_ID + "ID "
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_PASSWORD + "samplepassword "
-            + PREFIX_NAME + "John Doe "
-            + PREFIX_BIKE + "BIKE001";
+            + PREFIX_EMAILPW + "samplepassword "
+            + PREFIX_ID + "0 ";
 
     public static final String MESSAGE_SUCCESS = "Email sent!";
 
-    private final Name name;
-    private final Bike bike;
+    private final LoanId id;
     private final String emailPassword;
 
     /**
      * Creates an RemindCommand to send a reminder email to customer's {@code Email}
      * according to the {@code Name} and {@code BikeId} provided.
      */
-    public RemindCommand(String emailPassword, Name name, Bike bike) {
-        requireAllNonNull(emailPassword, name, bike);
-        this.name = name;
-        this.bike = bike;
+    public RemindCommand(String emailPassword, LoanId id) {
+        requireAllNonNull(emailPassword, id);
+        this.id = id;
         this.emailPassword = emailPassword;
     }
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
-        List<Loan> lastShownList = model.getLoanBook().getLoanList();
+        Optional<Loan> targetLoan = model.getLoanById(id);
 
-        Loan targetLoan = getLoan(lastShownList, name, bike);
-
-        if (targetLoan == null) {
-            throw new CommandException(String.format(Messages.MESSAGE_INVALID_INFO, name, bike.getName()));
+        if (!targetLoan.isPresent()) {
+            throw new CommandException(Messages.MESSAGE_INVALID_INFO);
         }
 
-        if (targetLoan.getLoanStatus().equals(LoanStatus.RETURNED)) {
+        if (targetLoan.get().getLoanStatus().equals(LoanStatus.RETURNED)) {
             throw new CommandException(String.format(Messages.MESSAGE_LOAN_IS_DONE, LoanStatus.RETURNED.toString()));
-        } else if (targetLoan.getLoanStatus().equals(LoanStatus.DELETED)) {
-            throw new CommandException(String.format(Messages.MESSAGE_LOAN_IS_DONE, LoanStatus.DELETED.toString()));
         }
 
-        SendReminder sendReminder = new SendReminder(model, emailPassword, targetLoan);
+        SendReminder sendReminder = new SendReminder(model, emailPassword, targetLoan.get());
 
         try {
             sendReminder.send();
@@ -87,24 +77,11 @@ public class RemindCommand extends Command {
         }
     }
 
-    /**
-     * Returns the {@code Loan} Object with both the target name and bike id.
-     */
-    private Loan getLoan(List<Loan> loanList, Name name, Bike bike) {
-        for (Loan loan: loanList) {
-            if (loan.getName().equals(name) && loan.getBike().equals(bike)) {
-                return loan;
-            }
-        }
-        return null;
-    }
-
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof RemindCommand // instanceof handles nulls
                 && emailPassword.equals(((RemindCommand) other).emailPassword)
-                && name.equals(((RemindCommand) other).name)
-                && bike.equals(((RemindCommand) other).bike)); // state check
+                && id.equals(((RemindCommand) other).id)); // state check
     }
 }

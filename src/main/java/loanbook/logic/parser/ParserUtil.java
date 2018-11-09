@@ -40,6 +40,21 @@ public class ParserUtil {
     }
 
     /**
+     * Parses a {@code String id} into a {@code LoanId}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code id} is invalid.
+     */
+    public static LoanId parseLoanId(String id) throws ParseException {
+        requireNonNull(id);
+        String trimmedLoanId = id.trim();
+        if (!LoanId.isValidLoanId(trimmedLoanId)) {
+            throw new ParseException(LoanId.MESSAGE_LOANID_CONSTRAINTS);
+        }
+        return new LoanId(trimmedLoanId);
+    }
+
+    /**
      * Parses a {@code String name} into a {@code Name}.
      * Leading and trailing whitespaces will be trimmed.
      *
@@ -144,21 +159,6 @@ public class ParserUtil {
             throw new ParseException(LoanRate.MESSAGE_LOANRATE_CONSTRAINTS);
         }
         return new LoanRate(trimmedLoanRate);
-    }
-
-    /**
-     * Parses a {@code String loanId} into a {@code LoanID}.
-     * Leading and trailing whitespaces will be trimmed.
-     *
-     * @throws ParseException if the given {@code loanId} is invalid.
-     */
-    public static LoanId parseLoanId(String loanId) throws ParseException {
-        requireNonNull(loanId);
-        String trimmedLoanId = loanId.trim();
-        if (!LoanId.isValidLoanId(trimmedLoanId)) {
-            throw new ParseException(LoanId.MESSAGE_LOANID_CONSTRAINTS);
-        }
-        return new LoanId(trimmedLoanId);
     }
 
     /**
