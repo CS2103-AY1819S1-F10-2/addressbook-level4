@@ -40,20 +40,19 @@ public class Messages {
             "Dates provided are not in a valid range. The end date cannot be before the start date.";
 
     /* Email connection */
-    public static final String MESSAGE_AUTHEN_FAILURE = "Your password might be wrong "
-            + "or you did not enable \"less secure app\" in your google account setting before you use remind command."
+    public static final String MESSAGE_AUTHEN_FAILURE = "Your password might be incorrect,"
+            + " or you have not enabled the \"Less secure apps\" setting in your Google account settings."
             + " Please refer to the User Guide by pressing F1!";
-    public static final String MESSAGE_NO_NETWORK_CONNECTION = "No connection to the network! "
-            + "Please make sure you have network connected!";
-    public static final String MESSAGE_BAD_RUNTIME = "You execute your code in a Java runtime"
-            + " that does not support UTF-8!";
+    public static final String MESSAGE_NO_NETWORK_CONNECTION = "No connection to the network!";
+    public static final String MESSAGE_BAD_RUNTIME = "Your Java runtime environment does not support UTF-8!"
+            + " Please update your system to the latest version of Java.";
 
     /* Loan verification for email */
     public static final String MESSAGE_INVALID_INFO = "There is no Loan with this ID in the LoanBook!";
-    public static final String MESSAGE_LOAN_IS_DONE = "There is no need to send a reminder, because the loan is %s";
+    public static final String MESSAGE_LOAN_IS_DONE = "There is no need to send a reminder, because the loan is %s.";
 
     /* Email verification */
-    public static final String MESSAGE_WRONG_OLDEMAIL = "The old email address is wrong!";
-    public static final String MESSAGE_DUPLICATE_FAILURE = "The old email and the new email cannot be the same!";
-    public static final String MESSAGE_INVALID_EMAIL = "Your new email address is invalid! It must be valid gmail!";
+    public static final String MESSAGE_WRONG_OLDEMAIL = "The old email address is incorrect!";
+    public static final String MESSAGE_DUPLICATE_FAILURE = "The new email should not be the same as the old email!";
+    public static final String MESSAGE_INVALID_EMAIL = "Your new email address must be valid gmail.";
 }
