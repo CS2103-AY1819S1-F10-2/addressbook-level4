@@ -48,7 +48,7 @@ public class Messages {
             + " Please update your system to the latest version of Java.";
 
     /* Loan verification for email */
-    public static final String MESSAGE_INVALID_INFO = "There is no Loan with this ID in the LoanBook!";
+    public static final String MESSAGE_INVALID_LOAN = "There is no Loan with this ID in the LoanBook!";
     public static final String MESSAGE_LOAN_IS_DONE = "There is no need to send a reminder, because the loan is %s.";
 
     /* Email verification */
