@@ -43,8 +43,8 @@ public class Messages {
             + " that does not support UTF-8!";
 
     /* Loan verification for email */
-    public static final String MESSAGE_INVALID_INFO = "There is no Loan with this id in the LoanBook!";
-    public static final String MESSAGE_LOAN_IS_DONE = "You do not need to send reminder, because the loan is %s";
+    public static final String MESSAGE_INVALID_INFO = "There is no Loan with this ID in the LoanBook!";
+    public static final String MESSAGE_LOAN_IS_DONE = "There is no need to send a reminder, because the loan is %s";
 
     /* Email verification */
     public static final String MESSAGE_WRONG_OLDEMAIL = "The old email address is wrong!";
