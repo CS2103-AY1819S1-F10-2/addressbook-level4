@@ -17,6 +17,9 @@ public class Messages {
             + "Please ensure that the index is within the bounds of the list.";
     public static final String MESSAGE_LOANS_LISTED_OVERVIEW = "%1$d loans listed!";
 
+    /* Bikes */
+    public static final String MESSAGE_DUPLICATE_BIKE = "A bike with the same name already exists in the loan book.";
+
     /* Password */
     public static final String MESSAGE_INVALID_PASSWORD = "The password provided is incorrect!";
     public static final String MESSAGE_INVALID_OLD_PASS = "The old password entered is incorrect!";
