@@ -13,7 +13,8 @@ public class Messages {
             + "\n%1$s";
 
     /* Lists */
-    public static final String MESSAGE_INVALID_LOAN_DISPLAYED_INDEX = "The loan index provided is invalid";
+    public static final String MESSAGE_INVALID_LOAN_DISPLAYED_INDEX = "The loan index provided is invalid."
+            + "Please ensure that the index is within the bounds of the list.";
     public static final String MESSAGE_LOANS_LISTED_OVERVIEW = "%1$d loans listed!";
 
     /* Password */
