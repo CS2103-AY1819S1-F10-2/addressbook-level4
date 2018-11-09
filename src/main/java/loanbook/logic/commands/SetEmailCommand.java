@@ -44,7 +44,7 @@ public class SetEmailCommand extends Command {
         }
 
         if (newEmail.equals(oldEmail)) {
-            throw new CommandException(Messages.MESSAGE_DUPLICATE_FAILURE);
+            throw new CommandException(Messages.MESSAGE_SAME_AS_OLDEMAIL);
         }
 
         if (!Email.isValidGmail(newEmail)) {

@@ -53,6 +53,6 @@ public class Messages {
 
     /* Email verification */
     public static final String MESSAGE_WRONG_OLDEMAIL = "The old email address is incorrect!";
-    public static final String MESSAGE_DUPLICATE_FAILURE = "The new email should not be the same as the old email!";
+    public static final String MESSAGE_SAME_AS_OLDEMAIL = "The new email should not be the same as the old email!";
     public static final String MESSAGE_INVALID_EMAIL = "Your new email address must be valid gmail.";
 }
