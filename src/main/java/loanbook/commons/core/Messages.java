@@ -1,5 +1,7 @@
 package loanbook.commons.core;
 
+import loanbook.logic.commands.HelpCommand;
+
 /**
  * Container for user visible messages.
  */
@@ -7,7 +9,8 @@ public class Messages {
 
     /* General */
     public static final String MESSAGE_UNKNOWN_COMMAND = "Unknown command."
-            + " Use the `help` command (or press F1) to view a list of available commands.";
+            + " Type in the `" + HelpCommand.COMMAND_WORD + "` command (or press F1)"
+            + " to view a list of available commands.";
     public static final String MESSAGE_INVALID_COMMAND_FORMAT = "Invalid command format!"
             + "\nPlease check that all required parameter prefixes are present and correctly typed in."
             + "\n%1$s";
