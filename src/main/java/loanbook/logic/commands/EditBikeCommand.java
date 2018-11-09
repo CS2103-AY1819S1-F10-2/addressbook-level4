@@ -29,7 +29,6 @@ public class EditBikeCommand extends Command {
         + PREFIX_NAME + "Bike002";
 
     public static final String MESSAGE_EDIT_BIKE_SUCCESS = "Edited bike: %1$s";
-    public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
 
     private final Name bikeName;
     private final EditBikeDescriptor editBikeDescriptor;

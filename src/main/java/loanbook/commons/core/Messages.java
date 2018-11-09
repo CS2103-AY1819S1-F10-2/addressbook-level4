@@ -21,6 +21,9 @@ public class Messages {
     public static final String MESSAGE_DUPLICATE_BIKE = "A bike with the same name already exists in the loan book.";
     public static final String MESSAGE_BIKE_NOT_FOUND = "No bike with that name exists within the loan book.";
 
+    /* Editing */
+    public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
+
     /* Password */
     public static final String MESSAGE_INVALID_PASSWORD = "The password provided is incorrect!";
     public static final String MESSAGE_INVALID_OLD_PASS = "The old password entered is incorrect!";
