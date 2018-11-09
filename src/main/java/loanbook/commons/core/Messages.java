@@ -19,6 +19,7 @@ public class Messages {
 
     /* Bikes */
     public static final String MESSAGE_DUPLICATE_BIKE = "A bike with the same name already exists in the loan book.";
+    public static final String MESSAGE_BIKE_NOT_FOUND = "No bike with that name exists within the loan book.";
 
     /* Password */
     public static final String MESSAGE_INVALID_PASSWORD = "The password provided is incorrect!";

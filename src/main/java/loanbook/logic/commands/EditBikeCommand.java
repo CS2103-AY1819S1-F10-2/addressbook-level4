@@ -1,6 +1,7 @@
 package loanbook.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static loanbook.commons.core.Messages.MESSAGE_BIKE_NOT_FOUND;
 import static loanbook.logic.parser.CliSyntax.PREFIX_NAME;
 import static loanbook.model.Model.PREDICATE_SHOW_ALL_BIKES;
 
@@ -29,7 +30,6 @@ public class EditBikeCommand extends Command {
 
     public static final String MESSAGE_EDIT_BIKE_SUCCESS = "Edited bike: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_BIKE_NOT_FOUND = "No bike with that name exists within the loan book.";
 
     private final Name bikeName;
     private final EditBikeDescriptor editBikeDescriptor;
