@@ -32,6 +32,8 @@ public class Password {
      * Generate salt for hashing.
      * @return salt key.
      */
+    //@@author {wn96}-reused
+    //http://www.appsdeveloperblog.com/encrypt-user-password-example-java/
     public static String getSalt() {
         StringBuilder returnValue = new StringBuilder(KEY_LENGTH);
         for (int i = 0; i < KEY_LENGTH; i++) {
@@ -46,6 +48,8 @@ public class Password {
      * @param salt
      * @return hashed passsword.
      */
+    //@@author {wn96}-reused
+    //http://www.appsdeveloperblog.com/encrypt-user-password-example-java/
     private static byte[] hash(char[] password, byte[] salt) {
         PBEKeySpec spec = new PBEKeySpec(password, salt, ITERATIONS, KEY_LENGTH);
         Arrays.fill(password, Character.MIN_VALUE);
@@ -59,6 +63,8 @@ public class Password {
         }
     }
 
+    //@@author {wn96}-reused
+    //http://www.appsdeveloperblog.com/encrypt-user-password-example-java/
     private static String generateSecurePassword(String password, String salt) {
         byte[] securePassword = hash(password.toCharArray(), salt.getBytes());
 
@@ -82,6 +88,8 @@ public class Password {
      * @param salt
      * @return
      */
+    //@@author {wn96}-reused
+    //http://www.appsdeveloperblog.com/encrypt-user-password-example-java/
     private static boolean verifyUserPassword(String providedPassword,
                                              String securedPassword, String salt) {
         boolean returnValue = false;
