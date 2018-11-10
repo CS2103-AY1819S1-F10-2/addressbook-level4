@@ -32,7 +32,7 @@ public class DeleteCommand extends PasswordProtectedCommand {
     private final Index targetIndex;
 
     public DeleteCommand(Index targetIndex, Password pass) {
-        super(pass);
+        super(pass, COMMAND_WORD);
         this.targetIndex = targetIndex;
     }
 
