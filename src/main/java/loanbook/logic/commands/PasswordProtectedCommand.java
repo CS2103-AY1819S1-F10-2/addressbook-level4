@@ -9,7 +9,6 @@ import loanbook.model.Password;
  * Represents a Command that requires password authentication.
  */
 public abstract class PasswordProtectedCommand extends Command {
-
     private final String targetPassword;
     private final String commandName;
 
@@ -34,5 +33,9 @@ public abstract class PasswordProtectedCommand extends Command {
         return other == this
                 || (other instanceof PasswordProtectedCommand
                 && targetPassword.equals(((PasswordProtectedCommand) other).targetPassword));
+    }
+
+    public String getCommandName() {
+        return commandName;
     }
 }
