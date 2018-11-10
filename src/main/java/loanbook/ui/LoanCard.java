@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import loanbook.model.loan.Loan;
+import loanbook.model.loan.LoanTime;
 import loanbook.model.tag.Tag;
 
 /**
@@ -49,8 +50,10 @@ public class LoanCard extends ListCard<Loan> {
         bike.setText(loan.getBike().getName().value);
         rate.setText(loan.getLoanRate().toString());
         startTime.setText(loan.getLoanStartTime().toString());
-        // TODO Set the endtime to display correctly here
-        endTime.setText("PLACEHOLDER");
+
+        // Assign this variable so that we do not need to call the function twice.
+        LoanTime loanEndTime = loan.getLoanEndTime();
+        endTime.setText(loanEndTime == null ? "ONGOING" : loanEndTime.toString());
         initTags(loan);
     }
 
