@@ -62,12 +62,12 @@ This will cause a pop-up window to appear, containing a copy of this User Guide.
 [TIP]
 This is not the only way to get help! If you key in the commands with the wrong format, you will get a prompt in the display box which will give you a brief description of the command. It will also tell you how to use the command correctly.
 
-Format: `help`
+[big]#*Format*: `help`#
 
 === Adding a bike: `addbike`
 
 Adds a bike to the loan book with the following parameters, and displays the bike's details as confirmation. +
-Format: `addbike n/BIKE_NAME`
+[big]#*Format*: `addbike n/BIKE_NAME`#
 
 [NOTE]
 `BIKE_NAME` is used as a bicycle identifier, that is, every bicycle should have a unique bicycle name. As such, `BIKE_NAME` will be rejected if it matches the name of an existing bike in the LoanBook.
@@ -77,14 +77,14 @@ Examples:
 * `addbike n/A Wonderful Bike`
 * `addbike n/BX-0027`
 
-[big red]#*List of Parameters*#:
+[big red]#List of Parameters#:
 
 `n/`: `BIKE_NAME` +
 
 === Adding a loan: `add`
 
 Adds a loan to the loan book with the following parameters, and displays the transaction along with a LOAN_ID to keep track of the loan. +
-Format: `add n/NAME ic/NRIC p/PHONE e/EMAIL b/BIKE lr/LOANRATE [t/TAG]...`
+[big]#*Format*: `add n/NAME ic/NRIC p/PHONE e/EMAIL b/BIKE lr/LOANRATE [t/TAG]...`#
 
 [NOTE]
 PERSON_PHONE_NO and PERSON_EMAIL should not be blank. +
@@ -102,7 +102,7 @@ Examples:
 The best part about this is you do not even need to key in the time that you created this loan! LoanBook does the timing for you! Simple isn't it?
 ====
 
-[big red]#*List of Parameters*#:
+[big red]#List of Parameters#:
 
 `n/`: `PERSON'S NAME` +
 `ic/`: `PERSON'S IC` +
@@ -115,17 +115,17 @@ The best part about this is you do not even need to key in the time that you cre
 === Listing all bikes: `listbikes`
 
 Shows a list of all registered bicycles in the LoanBook. +
-Format: `listbikes`
+[big]#*Format*: `listbikes`#
 
 === Listing all loans: `list`
 
 Shows a list of all loans in the LoanBook. +
-Format: `list`
+[big]#*Format*: `list`#
 
 === [Coming in v1.4] Editing a bike : `editbike`
 
 To keep the system updated with any changes in the bicycles, this command allows details of a bicycle to be edited. +
-Format: `edit BIKE_NAME [n/NEW_BIKE_NAME]`
+[big]#*Format*: `edit BIKE_NAME [n/NEW_BIKE_NAME]`#
 
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values. Any values not specified in the command will be unchanged.
@@ -138,7 +138,7 @@ For the bicycle named "Bike 1", its name is changed to "Bike-001", as long as "B
 === Editing a loan: `edit`
 
 In case a wrong entry is keyed in, or the customer changes their mind, this command allows details of a loan entry to be edited. +
-Format: `edit INDEX (must be a positive integer) [n/NAME] [ic/NRIC] [p/PHONE] [e/EMAIL] [b/BIKE] [lr/LOANRATE] [t/TAG]...`
+[big]#*Format*: `edit INDEX (must be a positive integer) [n/NAME] [ic/NRIC] [p/PHONE] [e/EMAIL] [b/BIKE] [lr/LOANRATE] [t/TAG]...`#
 
 ****
 * Edits the loan at the specified `LOAN_INDEX`. This LOAN_INDEX refers to the LOAN_INDEX number shown in the displayed loan list. The LOAN_INDEX *must be a positive integer* 1, 2, 3, ...
@@ -159,7 +159,7 @@ For the loan at index 1, changes the customer to James Tan, who has the specifie
 We do not allow editing of the loan's start time or the return time because we want you to be able to use our application as an auditing tool. We hope that this can then simplify the management of your business.
 ====
 
-[big red]#*List of Parameters*#:
+[big red]#List of Parameters#:
 
 [`n/`: `EDITED NAME`] (Optional) +
 [`ic/`: `EDITED IC`] (Optional) +
@@ -175,7 +175,7 @@ At least one of the above fields has to be included. If not, LoanBook will not b
 === Locating loans by keywords: `find`
 
 Finds loans whose customers' names contain any of the given keywords. +
-Format: find KEYWORD [MORE_KEYWORDS]
+[big]#*Format*: `find KEYWORD [MORE_KEYWORDS]`#
 
 ****
 * The search is case insensitive. e.g `hans` will match `Hans`
@@ -192,7 +192,7 @@ Returns `john` and `John Doe`
 * `find Betsy Tim John` +
 Returns any loan having names `Betsy`, `Tim`, or `John`
 
-[big red]#*List of Parameters*#:
+[big red]#List of Parameters#:
 
 The keywords you you want to search for.
 Note that for this command, there is no prefix that you need to type. Just separate the keywords with spaces.
@@ -203,7 +203,7 @@ You need to provide at least one keyword. If not, LoanBook will not be able to p
 === [Coming in v1.4] Deleting the chosen bike from the loan book : `deletebike`
 
 Deletes a bike from the loan book. +
-Format: `deletebike BIKE_NAME x/CURRENT_PASSWORD`
+[big]#*Format*: `deletebike BIKE_NAME x/CURRENT_PASSWORD`#
 
 [NOTE]
 The command will be rejected if there are any ongoing loans that use that bicycle. Return or delete those loans first.
@@ -217,7 +217,7 @@ Deletes the bicycle with the name of "Bike 1".
 
 Delete the loan from the loan book. If you want to delete one loan, use `delete i/LOAN_INDEX x/CURRENT_PASSWORD`.
 Due to `delete` modifying transactional summary, it is a critical command and hence elevation is required hence the password field. +
-Format: `delete i/LOAN_INDEX x/CURRENT_PASSWORD`
+[big]#*Format*: `delete i/LOAN_INDEX x/CURRENT_PASSWORD`#
 
 ****
 * Deletes the loan at the specified `i/LOAN_INDEX`.
@@ -235,7 +235,7 @@ Examples:
 * `delete i/1 x/a12345` +
 Deletes the loan with that has been indexed at position 1.
 
-[big red]#*List of Parameters*#:
+[big red]#List of Parameters#:
 
 `i/`: `INDEX OF THE LOAN` in the left hand side display. +
 `x/`: `PASSWORD` used in the LoanBook.
@@ -244,7 +244,7 @@ Deletes the loan with that has been indexed at position 1.
 === Changing the password of the app: `setpass`
 
 Change the current password of the app to `NEW_PASSWORD`. This ensures that critical commands such as `delete` and `resetall` may be performed by authorized personnel only. +
-Format: `setpass CURRENT_PASSWORD NEW_PASSWORD`
+[big]#*Format*: `setpass CURRENT_PASSWORD NEW_PASSWORD`#
 
 ****
 * Set the password of the app to `NEW_PASSWORD`
@@ -257,16 +257,18 @@ Examples:
 Set the password of the app to `n3wP4sS`.
 // end::setpass[]
 
-[big red]#*List of Parameters*#:
+[big red]#List of Parameters#:
 
 The old and new passwords of the application. +
 Note that you only need to use spaces to seperate the two passwords. There is no prefix for this command!
 
 === Returning a loan: `return`
 
-What's the use of a LoanBook if you are unable to return the loans that you have? This is how you can do that! In fact, we see your pains trying to calculate the amount payable on a calculator, so we decided to help you out by doing all the number crunching for you.
+So how do you even return a loan that you have loaned out? You can do so with this simple command! In fact, we see your pains trying to calculate the amount payable on a calculator, so we decided to help you out by doing all the number crunching for you.
 
 This command marks a loan as returned based on LOAN_INDEX and automatically prints out the amount payable. The amount payable will be prorated and rounded down to the nearest minute. +
+
+[big]#*Format*: `return i/LOAN_INDEX`#
 
 [TIP]
 ====
@@ -277,10 +279,15 @@ Also, this would be good for your business, as customers will not feel that they
 
 Do note that you will have to list out all the loans in order, or search for a particular loan that you would like to return. From there, you need to key in the index number of the loan as a parameter into this command.
 
-Format: `return i/LOAN_INDEX`
+The number crunching will work for any type of currency, however it is optimised for dollar amounts. The display also uses the dollar sign and will give you the output to 2 decimal places. +
 
 [NOTE]
-Do be careful to note that it is the loan INDEX that you are keying into the program. Please do not key in the LoanID instead!
+====
+Do be careful to note that it is the loan INDEX that you are keying into the program. Please do not key in the LoanID instead! +
+The INDEX is the one position of the loan in the list on the left hand side. Refer to the circled object in the below diagram:
+
+image::LoanIndexWarning.png[]
+====
 
 [WARNING]
 ====
@@ -293,8 +300,10 @@ Examples:
 
 * `return i/1` +
 Marks the loan that has been indexed at position 1 as returned. Also automatically prints out the amount payable based on loan time and rate.
+* `return i/55` +
+Marks the loan that has been indexed at position 55 as returned. Also automatically prints out the amount payable based on loan time and rate.
 
-[big red]#*List of Parameters*#:
+[big red]#List of Parameters#:
 
 `i/`: `INDEX OF THE LOAN` in the left hand side display.
 
@@ -302,7 +311,7 @@ Marks the loan that has been indexed at position 1 as returned. Also automatical
 === Locating loans by date of loan: `search`
 
 Returns all loans that were created between the range provided
-Format: `search START_DATE END_DATE`
+[big]#*Format*: `search START_DATE END_DATE`#
 
 ****
 * Date format must be YYYY-MM-DD.
@@ -320,7 +329,7 @@ Searches for loans with loan start date and time as 2018-01-01.
 Searches for loans with loan start date and time between 2018-01-01 and 2018-01-02, inclusive.
 // end::searchcommand[]
 
-[big red]#*List of Parameters*#:
+[big red]#List of Parameters#:
 
 START_DATE and END_DATE: The date range in which you want to search for. +
 Note that you only need to use spaces to seperate the two dates. There is no prefix for this command!
@@ -330,7 +339,7 @@ Note that you only need to use spaces to seperate the two dates. There is no pre
 
 Removes all loans from the loan book and resets the Loan ID counter. This operation requires password authentication.
 
-Format: `resetloans x/CURRENT_PASSWORD`
+[big]#*Format*: `resetloans x/CURRENT_PASSWORD`#
 
 Example:
 
@@ -356,7 +365,7 @@ This operation will not modify the bicycles in the Loan Book. To reset the entir
 ====
 // end::resetloans[]
 
-[big red]#*List of Parameters*#:
+[big red]#List of Parameters#:
 
 `x/`: `PASSWORD` used in the LoanBook.
 
@@ -365,7 +374,7 @@ This operation will not modify the bicycles in the Loan Book. To reset the entir
 
 Resets the entire loan book. This includes the removal of all loans and bikes from the loan book and the Loan ID counter being reset. This operation requires password authentication.
 
-Format: `resetall x/CURRENT_PASSWORD`
+[big]#*Format*: `resetall x/CURRENT_PASSWORD`#
 
 Example:
 
@@ -377,7 +386,7 @@ Example:
 ====
 // end::resetall[]
 
-[big red]#*List of Parameters*#:
+[big red]#List of Parameters#:
 
 `x/`: `PASSWORD` used in the LoanBook.
 
@@ -400,7 +409,7 @@ Current implementations would only allow the summary of the above statistics. Ho
 If you would like the summary functionality to report certain stats that are not included, feel free to contact us, and if it's feasible, we will include it into our next release!
 ====
 
-Format: `summary`
+[big]#*Format*: `summary`#
 
 [NOTE]
 ====
@@ -412,7 +421,7 @@ The summary feature may take a while to run, especially when you have many loans
 === Listing entered commands: `history`
 
 Lists all the commands that you have entered in reverse chronological order. +
-Format: `history`
+[big]#*Format*: `history`#
 
 [NOTE]
 ====
@@ -422,12 +431,12 @@ Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and 
 === Check your email: `checkemail`
 
 Checks whether you have set your email or not, and displays the censored email address if you have set it before. +
-Format: `checkemail`
+[big]#*Format*: `checkemail`#
 
 === Set your email: `setemail`
 
 Sets the email address to send reminder emails from. +
-Format: `setemail OLDEMAIL NEWEMAIL`
+[big]#*Format*: `setemail OLDEMAIL NEWEMAIL`#
 
 * `OLDEMAIL` is `default` if you have not set an email yet.
 * `OLDEMAIL` must be the same as the one you set last time.
@@ -442,7 +451,7 @@ Examples:
 * `setemail default \new_email@gmail.com`
 * `setemail \old_email@gmail.com \new_email@gmail.com`
 
-[big red]#*List of Parameters*#:
+[big red]#List of Parameters#:
 
 The old email that you have set to the current one that you would want to use. +
 Note that for this command, there is no prefix that you need to type. Just separate the emails with spaces.
@@ -450,7 +459,7 @@ Note that for this command, there is no prefix that you need to type. Just separ
 === Send reminder email: `remind`
 
 Sends a reminder email to the customer. +
-Format: `remind pw/EMAILPASSWORD id/LOANID`
+[big]#*Format*: `remind pw/EMAILPASSWORD id/LOANID`#
 
 * `LOANID` is the ID of the loan, not the index.
 * `EMAILPASSWORD` must be correct.
@@ -462,7 +471,7 @@ Examples:
 
 * `remind pw/samplepassword id/0`
 
-[big red]#*List of Parameters*#:
+[big red]#List of Parameters#:
 
 `pw/`: `PASSWORD` of the email address you are sending the messages from. +
 `id/`: `LOANID` of the loan you want to remind +
@@ -470,7 +479,7 @@ Examples:
 === Exiting the program: `exit`
 
 Exits the program. +
-Format: `exit`
+[big]#*Format*: `exit`#
 
 == Future features
 The following are a list of features that the team will implement in version 2.0.

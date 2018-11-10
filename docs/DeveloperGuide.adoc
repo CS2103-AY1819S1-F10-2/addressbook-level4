@@ -463,6 +463,7 @@ decrypt our stored password.
 
 // end::adminauthentication[]
 
+// tag::returnfeature[]
 === Return a Loan feature
 
 A LoanBook application that only allows users to do loans without being able to return them would not serve its purpose. When you take out a loan, it should automatically come with the feature of being returnable. This is the functionality for that.
@@ -471,12 +472,16 @@ A LoanBook application that only allows users to do loans without being able to 
 
 Returning a loan is done by setting the corresponding status of the loan to `LoanStatus.RETURNED`. Other than setting the enum to be returned, the cost of the loan will also be calculated and displayed to the user.
 
-The steps that have to be done by LoanBook is as follows:
+The steps that have to be done by LoanBook is as follows.
 
 * Check the start and end time of the loan to ensure that the loan period is valid.
 * Store the current time as the return time of the loan.
 * Change the enum of `LoanStatus` to become `LoanStatus.RETURNED`.
 * Calculate the cost of the loan and display it in the GUI as a suggestion for the user.
+
+This is summarized in the following Activity Diagram:
+
+image::ReturnFlow.png[width="450"]
 
 These steps would change the given `Loan` object, and update the properties of the `Loan` object. The appropriate values stored within the `Loan` object would therefore change accordingly.
 
@@ -508,6 +513,19 @@ The result is then displayed into the GUI for the user as the cost price of the 
 [NOTE]
 It is possible for the LoanBook to have a loan that lasts for 0 minutes. This is because there may be some weird edge case where an object is loaned for less than a minute, which gets prorated down.
 
+[big red]#Sequence diagram#
+
+The sequence diagram has been split into 2 parts. +
+First, the sequence diagram of command parsing:
+
+image::ReturnSequence.png[width="600"]
+
+{nbsp} +
+
+Second, the sequence diagram of command execution:
+
+image::ReturnSequenceLogic.png[width="600"]
+
 {nbsp} +
 
 ==== Design considerations:
@@ -532,7 +550,6 @@ Currently, the `summary` command displays to the user the following statistics:
 
 * Total number of ongoing loans
 * Total number of loans ever taken out
-* Total amount of time all bikes have been loaned for
 * Total revenue from the loan service
 
 This would give a very handy summary page as well as a printable audit page for the bicycle shop owners.
@@ -567,6 +584,7 @@ These are the proposed features you would be able to search based on:
 As well, having to recalculate all the loans would be a bad idea when the LoanBook contains many loans. A proposed solution would be to cache the results of the main summary method, so that the LoanBook would only have to recalculate the numbers based on loans that have not been added to the final tally.
 
 Another idea would be to display all the loans in a printable table, when the summary feature is called. Perhaps this would generate a pdf file which shows all the list of loans that the LoanBook is keeping track of. Users can then take use this as a more stringent auditing tool.
+// end::returnfeature[]
 
 === Logging
 
