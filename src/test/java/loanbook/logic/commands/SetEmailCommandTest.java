@@ -1,10 +1,9 @@
 package loanbook.logic.commands;
 
-import static loanbook.logic.commands.CommandTestUtil.DEFAULT_USER_EMAIL;
+import static loanbook.logic.commands.CommandTestUtil.PASSWORD1;
+import static loanbook.logic.commands.CommandTestUtil.PASSWORD2;
 import static loanbook.logic.commands.CommandTestUtil.VALID_USER_EMAIL1;
 import static loanbook.logic.commands.CommandTestUtil.VALID_USER_EMAIL2;
-import static loanbook.logic.commands.CommandTestUtil.VALID_USER_EMAIL3;
-import static loanbook.logic.commands.CommandTestUtil.VALID_USER_EMAIL4;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -16,6 +15,8 @@ import org.junit.rules.ExpectedException;
 import loanbook.commons.core.Messages;
 import loanbook.logic.CommandHistory;
 import loanbook.logic.commands.exceptions.CommandException;
+import loanbook.model.Password;
+import loanbook.model.loan.Email;
 import loanbook.testutil.ModelStub;
 
 public class SetEmailCommandTest {
@@ -28,114 +29,90 @@ public class SetEmailCommandTest {
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
-    public void constructor_nullOldEmail_throwsNullPointerException() {
+    public void constructor_nullNewEmail_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        new SetEmailCommand(null, VALID_USER_EMAIL1);
+        new SetEmailCommand(null, new Password("a12345"));
     }
 
     @Test
-    public void constructor_nullNewEmail_throwsNullPointerException() {
+    public void constructor_nullEmailPassword_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        new SetEmailCommand(VALID_USER_EMAIL2, null);
+        new SetEmailCommand(new Email(VALID_USER_EMAIL2), null);
     }
 
     @Test
     public void execute_setemailSuccessful() throws Exception {
         ModelStubWithUserEmail modelStub = new ModelStubWithUserEmail();
 
-        // User's Email is default
         CommandResult commandResult =
-                new SetEmailCommand(DEFAULT_USER_EMAIL, VALID_USER_EMAIL1).execute(modelStub, commandHistory);
+                new SetEmailCommand(
+                        new Email(VALID_USER_EMAIL2), new Password(PASSWORD2)).execute(modelStub, commandHistory);
 
         assertEquals(SetEmailCommand.MESSAGE_SUCCESS, commandResult.feedbackToUser);
         assertEquals(EMPTY_COMMAND_HISTORY, commandHistory);
-
-        // Change user's email from default to a valid gmail
-        modelStub.setMyEmail(VALID_USER_EMAIL4);
-
-        commandResult = new SetEmailCommand(VALID_USER_EMAIL4, VALID_USER_EMAIL1).execute(modelStub, commandHistory);
-
-        assertEquals(SetEmailCommand.MESSAGE_SUCCESS, commandResult.feedbackToUser);
-        assertEquals(EMPTY_COMMAND_HISTORY, commandHistory);
-    }
-
-    @Test
-    public void execute_wrongOldEmailWhenUserEmailIsDefault_throwsCommandException() throws Exception {
-        SetEmailCommand command = new SetEmailCommand(VALID_USER_EMAIL1, VALID_USER_EMAIL2);
-        ModelStubWithUserEmail modelStub = new ModelStubWithUserEmail();
-
-        thrown.expect(CommandException.class);
-        thrown.expectMessage(Messages.MESSAGE_WRONG_OLDEMAIL);
-        command.execute(modelStub, commandHistory);
-    }
-
-    @Test
-    public void execute_wrongOldEmail_throwsCommandException() throws Exception {
-        SetEmailCommand command = new SetEmailCommand(VALID_USER_EMAIL1, VALID_USER_EMAIL2);
-        ModelStubWithUserEmail modelStub = new ModelStubWithUserEmail();
-
-        thrown.expect(CommandException.class);
-        thrown.expectMessage(Messages.MESSAGE_WRONG_OLDEMAIL);
-        modelStub.setMyEmail(VALID_USER_EMAIL4);
-        command.execute(modelStub, commandHistory);
     }
 
     @Test
     public void execute_duplicateNewEmail_throwsCommandException() throws Exception {
-        SetEmailCommand command = new SetEmailCommand(VALID_USER_EMAIL1, VALID_USER_EMAIL1);
+        SetEmailCommand command = new SetEmailCommand(new Email(VALID_USER_EMAIL1), new Password(PASSWORD2));
         ModelStubWithUserEmail modelStub = new ModelStubWithUserEmail();
 
         thrown.expect(CommandException.class);
         thrown.expectMessage(Messages.MESSAGE_DUPLICATE_FAILURE);
-        modelStub.setMyEmail(VALID_USER_EMAIL1);
         command.execute(modelStub, commandHistory);
     }
 
     @Test
     public void execute_invalidNewEmail_throwsCommandException() throws Exception {
-        SetEmailCommand command = new SetEmailCommand(VALID_USER_EMAIL1, "example@gmail.com@gmail.com");
+        SetEmailCommand command = new SetEmailCommand(
+                new Email("invalid_example@gmail.com"), new Password(PASSWORD2));
         ModelStubWithUserEmail modelStub = new ModelStubWithUserEmail();
 
         thrown.expect(CommandException.class);
         thrown.expectMessage(Messages.MESSAGE_INVALID_EMAIL);
-        modelStub.setMyEmail(VALID_USER_EMAIL1);
+        command.execute(modelStub, commandHistory);
+    }
+
+    @Test
+    public void execute_wrongAppPassword_throwsCommandException() throws Exception {
+        SetEmailCommand command = new SetEmailCommand(new Email(VALID_USER_EMAIL2), new Password(PASSWORD1));
+        ModelStubWithUserEmail modelStub = new ModelStubWithUserEmail();
+
+        thrown.expect(CommandException.class);
+        thrown.expectMessage(Messages.MESSAGE_INVALID_PASSWORD);
         command.execute(modelStub, commandHistory);
     }
 
     @Test
     public void equals() {
-        final SetEmailCommand standardCommand = new SetEmailCommand(VALID_USER_EMAIL1, VALID_USER_EMAIL2);
-        final SetEmailCommand standardCommandWithDefault = new SetEmailCommand(DEFAULT_USER_EMAIL, VALID_USER_EMAIL3);
-        SetEmailCommand commandWithSameValues = new SetEmailCommand(VALID_USER_EMAIL1, VALID_USER_EMAIL2);
-        SetEmailCommand commandWithSameValuesWithDefault = new SetEmailCommand(DEFAULT_USER_EMAIL, VALID_USER_EMAIL3);
+        Email email1 = new Email(VALID_USER_EMAIL1);
+        Email email2 = new Email(VALID_USER_EMAIL2);
+        Password password = new Password("a12345");
+        final SetEmailCommand standardCommand = new SetEmailCommand(email1, password);
+        SetEmailCommand commandWithSameValues = new SetEmailCommand(email1, password);
 
         // same values -> returns true
         assertTrue(standardCommand.equals(commandWithSameValues));
-        assertTrue(standardCommandWithDefault.equals(commandWithSameValuesWithDefault));
 
         // same object -> returns true
         assertTrue(standardCommand.equals(standardCommand));
-        assertTrue(standardCommandWithDefault.equals(commandWithSameValuesWithDefault));
 
         // null -> returns false
         assertFalse(standardCommand == null);
-        assertFalse(standardCommandWithDefault == null);
 
         // different types -> returns false
-        assertFalse(standardCommand.equals(new ListCommand()));
-        assertFalse(standardCommandWithDefault.equals(new UndoCommand()));
+        assertFalse(standardCommand.equals(new UndoCommand()));
 
         // different value -> returns false
-        assertFalse(standardCommand.equals(new SetEmailCommand(VALID_USER_EMAIL4, VALID_USER_EMAIL2)));
-        assertFalse(standardCommand.equals(new SetEmailCommand(DEFAULT_USER_EMAIL, VALID_USER_EMAIL2)));
-        assertFalse(standardCommandWithDefault.equals(new SetEmailCommand(DEFAULT_USER_EMAIL, VALID_USER_EMAIL4)));
+        assertFalse(standardCommand.equals(new SetEmailCommand(email2, password)));
     }
 
     /**
      * A Model stub with a functional setMyEmail() and getMyEmail().
      */
     private class ModelStubWithUserEmail extends ModelStub {
-        private String defaultEmail = "default";
+        private String defaultEmail = VALID_USER_EMAIL1;
+        private String password = (new Password("a12345")).hashedPassword();
 
         @Override
         public void setMyEmail(String email) {
@@ -145,6 +122,11 @@ public class SetEmailCommandTest {
         @Override
         public String getMyEmail() {
             return defaultEmail;
+        }
+
+        @Override
+        public String getPass() {
+            return password;
         }
     }
 }
