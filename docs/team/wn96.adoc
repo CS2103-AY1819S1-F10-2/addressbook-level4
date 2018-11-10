@@ -41,7 +41,7 @@ This section provides a brief summary on the contributions of major and minor en
 *** Maintained the issue tracker
 *** Changed the gradle build script to display team name: [https://github.com/CS2103-AY1819S1-F10-2/main/pull/1[#1]]
 ** Community:
-*** PRs reviewed (with non-trivial review comments): [https://github.com/CS2103-AY1819S1-F10-2/main/pull/35[#35]], [https://github.com/CS2103-AY1819S1-F10-2/main/pull/24[#24]]
+*** PRs reviewed (with non-trivial review comments): [https://github.com/CS2103-AY1819S1-F10-2/main/pull/35[#35]], [https://github.com/CS2103-AY1819S1-F10-2/main/pull/24[#24]][https://github.com/CS2103-AY1819S1-F10-2/main/pull/125[#125]]
 
 ** Tools:
 *** Integrated TravisCI, AppVeyor, Coveralls, Codacy, and Netlify to the team repo. [https://github.com/CS2103-AY1819S1-F10-2/main/pull/23[#23]]
