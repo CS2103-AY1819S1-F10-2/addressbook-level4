@@ -6,18 +6,16 @@ import static loanbook.logic.parser.CliSyntax.PREFIX_PASSWORD;
 
 import java.util.Optional;
 
-import loanbook.commons.core.Messages;
 import loanbook.logic.CommandHistory;
 import loanbook.logic.commands.exceptions.CommandException;
 import loanbook.model.Model;
-import loanbook.model.Password;
 import loanbook.model.bike.Bike;
 import loanbook.model.loan.Name;
 
 /**
  * Deletes a bike identified using it's displayed index from the loan book.
  */
-public class DeleteBikeCommand extends Command {
+public class DeleteBikeCommand extends PasswordProtectedCommand {
 
     public static final String COMMAND_WORD = "deletebike";
 
@@ -34,22 +32,19 @@ public class DeleteBikeCommand extends Command {
     private final String targetPassword;
 
     public DeleteBikeCommand(Name bikeName, String pass) {
+        super(pass, COMMAND_WORD);
         this.bikeName = bikeName;
         targetPassword = pass;
     }
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
-
         requireNonNull(model);
+        assertCorrectPassword(model);
 
         Optional<Bike> actualBike = model.getBike(bikeName.value);
         if (!actualBike.isPresent()) {
             throw new CommandException(MESSAGE_BIKE_NOT_FOUND);
-        }
-
-        if (!Password.isSamePassword(model.getPass(), targetPassword, model.getSalt())) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PASSWORD);
         }
 
         model.deleteBike(actualBike.get());

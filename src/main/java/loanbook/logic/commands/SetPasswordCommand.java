@@ -11,7 +11,7 @@ import loanbook.model.Password;
 /**
  * Set password to loan book.
  */
-public class SetPasswordCommand extends Command {
+public class SetPasswordCommand extends PasswordProtectedCommand {
 
     public static final String COMMAND_WORD = "setpass";
 
@@ -26,6 +26,7 @@ public class SetPasswordCommand extends Command {
     private String newPassInput;
 
     public SetPasswordCommand(String oldPassInput, String newPassInput) {
+        super(oldPassInput, COMMAND_WORD);
         requireNonNull(oldPassInput);
         requireNonNull(newPassInput);
         this.oldPassInput = oldPassInput;
@@ -35,13 +36,14 @@ public class SetPasswordCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
-        if (!Password.isSamePassword(model.getPass(), oldPassInput, model.getSalt())) {
-            throw new CommandException(Messages.MESSAGE_INVALID_OLD_PASS);
-        }
-        if (oldPassInput == newPassInput) {
+        assertCorrectPassword(model);
+
+        if (oldPassInput.equals(newPassInput)) {
             throw new CommandException(Messages.MESSAGE_SAME_AS_CURRENT_PASSWORD);
         }
+
         model.setPass(new Password(newPassInput, model.getSalt()));
+
         return new CommandResult(MESSAGE_CHANGE_PASSWORD_SUCCESS);
     }
 
