@@ -36,7 +36,7 @@ public class LogicManagerTest {
     public void execute_commandExecutionError_throwsCommandException() {
         String deleteCommand = "delete i/9 x/a12345";
         assertCommandException(deleteCommand, MESSAGE_INVALID_LOAN_DISPLAYED_INDEX);
-        assertHistoryCorrect(deleteCommand);
+        assertHistoryCorrect("delete");
     }
 
     @Test

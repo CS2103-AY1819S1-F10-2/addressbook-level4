@@ -201,7 +201,7 @@ Examples:
 Deletes the loan with that has been indexed at position 1.
 
 // tag::setpass[]
-=== Changing the password of the app: `setpass`
+=== Change the password of the app: `setpass`.
 
 Change the current password of the app to `NEW_PASSWORD`. This ensures that critical commands such as `delete` and `resetall` may be performed by authorized personnel only. +
 Format: `setpass CURRENT_PASSWORD NEW_PASSWORD`
@@ -209,7 +209,11 @@ Format: `setpass CURRENT_PASSWORD NEW_PASSWORD`
 ****
 * Set the password of the app to `NEW_PASSWORD`
 * Password change will not occur if `CURRENT_PASSWORD` is incorrect.
+* Password should be alphanumeric of length between 6 and 10, inclusive.
 ****
+
+[NOTE]
+Default password for the app is `a12345`. To change the default password, type `setpass a12345 newpass`.
 
 Examples:
 
@@ -252,7 +256,7 @@ Marks the loan that has been indexed at position 1 as returned. Also automatical
 // tag::searchcommand[]
 === Locating loans by date of loan: `search`
 
-Returns all loans that were created between the range provided
+Populate all loans that were created between the range provided.
 Format: `search START_DATE END_DATE`
 
 ****
