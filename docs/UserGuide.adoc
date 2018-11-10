@@ -346,7 +346,8 @@ Format: `history`
 
 [NOTE]
 ====
-Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and next input respectively in the command box.
+* Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and next input respectively in the command box.
+* Commands that requires password will not have its input saved in history. i.e. `delete i/1 x/a12345` will be saved as `delete`.
 ====
 
 === Check your email: `checkemail`
