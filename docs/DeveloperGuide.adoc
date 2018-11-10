@@ -429,7 +429,7 @@ Step 1. The user launches the application for the first time. `UserPref` will be
 
 Step 2. The user executes `setpass a12345 newP4sS` command to change the password to `newP4sS`.
 
-Step 3. Input password will be checked against the app's password using `Password#isSamePassword() to ensure that the user has sufficient elevation to change the password of the app.
+Step 3. Input password will be checked against the app's password using `Password#isSamePassword()` to ensure that the user has sufficient elevation to change the password of the app.
 
 Step 4 `Password` class will encrypt the new password using `Password#encrypt()`, and call Model#setPass() to changes the password of the application in `UserPref`.
 
@@ -446,10 +446,14 @@ The following activity diagram summarizes what happens when a user executes `set
 
 image::setpassActivityDiagram.png[width="650"]
 
-Step 6. The user executes a critical command `delete i/1 x/a12345`, which calls Model#getPass() to retrieve the encrypted value of current password. It then call Password#isSamePassword() to determine if the input password in the command is the same as the existing password. Since the input password is the same as the password of the app, deletion of loan at index 1 will occur.
+Step 6. The user executes a critical command `delete i/1 x/a12345`.
+
+Step 7. This command runs `Model#getPass()` to retrieve the current password. It then call `Password#isSamePassword()` to determine if the input password in the command is the same as the existing password.
+
+Step 8. Deletion of loan at index 1 will occur.
 
 [NOTE]
-If the current password input is wrong, loan at input index will not be deleted.
+If current password input is wrong, or if the index provided is invalid, deletion will not occur.
 
 The following sequence diagram shows how the new `delete` operation works:
 
@@ -481,7 +485,7 @@ image::deleteActivityDiagram.png[width="650"]
 ** Cons:
 .. Difficult to implement
 .. Not effective for our target audience as bicycle shop owners are often family-owned business, which does not have a large manpower.
-.. If a staff did not log out, non-authorized users can execute critical commands, making the app's data vulnerable.
+.. If a staff did not log out, non-authorized users will be able to execute critical commands, making the app's data vulnerable.
 
 ===== Aspect: Method of encryption
 * *Alternative 1 (current choice)*: Generate a salt to encrypt password, and store the salt locally
