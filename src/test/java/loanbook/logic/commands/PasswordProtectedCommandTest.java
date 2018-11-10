@@ -49,13 +49,8 @@ public class PasswordProtectedCommandTest {
     }
 
     private static class PasswordProtectedCommandStub extends PasswordProtectedCommand {
-<<<<<<< Updated upstream
-        PasswordProtectedCommandStub(Password password) {
-            super(password);
-=======
         PasswordProtectedCommandStub(String password) {
             super(password, "TEST_COMMAND");
->>>>>>> Stashed changes
         }
 
         @Override
