@@ -1,0 +1,574 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]--><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="Asciidoctor 1.5.6.1"><title>Ang Wei Neng - Project Portfolio</title><link rel="stylesheet" href="../stylesheets/gh-pages.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="../stylesheets/coderay-asciidoctor.css"></head><body class="article"><div id="site-header"><nav class="navbar navbar-light bg-light"><div class="container"><a class="navbar-brand" href="../index.html">LoanBook</a><ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="../UserGuide.html">User Guide</a></li><li class="nav-item"><a class="nav-link" href="../DeveloperGuide.html">Developer Guide</a></li><li class="nav-item"><a class="nav-link active" href="../AboutUs.html">About Us</a></li><li class="nav-item"><a class="nav-link" href="../ContactUs.html">Contact Us</a></li><li class="navitem"><a class="nav-link" href="https://github.com/CS2103-AY1819S1-F10-2/main.git"><span class="fa fa-github fa-lg" aria-hidden="true"></span>&nbsp;View on GitHub</a></li></ul></div></nav></div><div id="header"><h1>Ang Wei Neng - Project Portfolio</h1></div><div id="content"><div class="sect1">
+<h2 id="project-loanbook"><a class="link" href="#project-loanbook">PROJECT: LoanBook</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This portfolio page serves to showcases my contributions to the project, [<a href="https://github.com/CS2103-AY1819S1-F10-2/main">LoanBook</a>]. My resume and full portfolio can be found [<a href="https://weineng.io">here</a>].</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="overview-of-loanbook"><a class="link" href="#overview-of-loanbook">Overview of LoanBook</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>AddressBook - Level 4 is a desktop address book application used for teaching Software Engineering principles. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="summary-of-contributions"><a class="link" href="#summary-of-contributions">Summary of contributions</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This section provides a brief summary on the contributions of major and minor enhancement I made for the project.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Major enhancement</strong>: Added a password feature to improve the integrity of the app&#8217;s data.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>What it does:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Allow user to set password and change password for the app, so that critical comments that affects statistical integrity (Transaction summery &amp; Tax-filing) cannot be performed by unauthorised personnel. Password stored is also encrypted to prevent hackers from retrieving the password.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Justification:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>This feature improves the product significantly because now, only authorized users are able use the critical commands (E.g. <code>delete</code> command) to delete loans. Without this, the data from the summary report may be incorrect, affecting tax-filling, revenue management.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Highlights:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Allow users to change the password of the app, ensuring that the same password is not used for a long time.</p>
+</li>
+<li>
+<p>Encryption using randomly generated salts provide a higher level of encryption as hackers will not be able to reverse engineer the password. Used existing code by <a href="http://www.appsdeveloperblog.com/encrypt-user-password-example-java/">Sergey Kargopolov</a>.</p>
+</li>
+<li>
+<p>Inputs of commands requiring password no longer appears in the command history.</p>
+</li>
+<li>
+<p>Existing commands was modified to require a password input. (E.g. <code>delete</code>)</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Minor enhancement</strong>:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Create NRIC class to store Singapore issued NRIC. Also include a checksum validation to ensure correct NRIC. [<a href="https://github.com/CS2103-AY1819S1-F10-2/main/pull/36">#36</a>]</p>
+</li>
+<li>
+<p>Allow searching for loans of specific date. [<a href="https://github.com/CS2103-AY1819S1-F10-2/main/pull/158">#158</a>]</p>
+</li>
+<li>
+<p>Using tags to notify users on the status of loans. [<a href="https://github.com/CS2103-AY1819S1-F10-2/main/pull/163">#163</a>]</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Other contributions</strong>:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Project management:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Managed releases <code>v1.1</code> - <code>v1.4</code> (4 releases) on GitHub.</p>
+</li>
+<li>
+<p>Added badges to show CI status, code quality and type of licence for the master branch [<a href="https://github.com/CS2103-AY1819S1-F10-2/main/pull/2">#2</a>][<a href="https://github.com/CS2103-AY1819S1-F10-2/main/pull/32">#32</a>]</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Enhancements to existing features:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Add colour to tags [<a href="https://github.com/CS2103-AY1819S1-F10-2/main/pull/90">#90</a>]</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Documentation:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Maintained the issue tracker</p>
+</li>
+<li>
+<p>Changed the gradle build script to display team name: [<a href="https://github.com/CS2103-AY1819S1-F10-2/main/pull/1">#1</a>]</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Community:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>PRs reviewed (with non-trivial review comments): [<a href="https://github.com/CS2103-AY1819S1-F10-2/main/pull/35">#35</a>], [<a href="https://github.com/CS2103-AY1819S1-F10-2/main/pull/24">#24</a>][<a href="https://github.com/CS2103-AY1819S1-F10-2/main/pull/125">#125</a>]</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Tools:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Integrated TravisCI, AppVeyor, Coveralls, Codacy, and Netlify to the team repo. [<a href="https://github.com/CS2103-AY1819S1-F10-2/main/pull/23">#23</a>]</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Ensures that all code that was pushed adhere to coding standards, and does not break existing code.</p>
+</li>
+<li>
+<p>Automatic deployment of website with Netlify to ensure that team&#8217;s web page is always up to date.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Set up [<a href="https://cs2103-ay1819s1-f10-2.github.io/main/">team website</a>]</p>
+</li>
+<li>
+<p>Set up slack notification and web hook for team.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>This provides notification to developers on any updates to the repository.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><a href="https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&amp;search=wn96&amp;sort=displayName&amp;since=2018-09-12&amp;until=2018-11-09&amp;timeframe=day&amp;reverse=false&amp;repoSort=true">Code contributed</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="contributions-to-the-user-guide"><a class="link" href="#contributions-to-the-user-guide">Contributions to the User Guide</a></h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 100%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users.</em></p></td>
+</tr>
+</tbody>
+</table>
+<div class="sect2">
+<h3 id="locating-loans-by-date-of-loan-code-search-code"><a class="link" href="#locating-loans-by-date-of-loan-code-search-code">Locating loans by date of loan: <code>search</code></a></h3>
+<div class="paragraph">
+<p>Populate all loans that were created between the range provided.
+Format: <code>search START_DATE END_DATE</code></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>Date format must be YYYY-MM-DD.</p>
+</li>
+<li>
+<p>The search is format sensitive sensitive. i.e. Date format must be strictly followed`.</p>
+</li>
+<li>
+<p>The search is determined on the date and time of loan created.</p>
+</li>
+<li>
+<p>Date provided must be valid. i.e. 2018-02-31 will return an error as it is not a valid date.</p>
+</li>
+<li>
+<p>The start date provided should be before end date. i.e. <code>search 2018-01-02 2018-01-01</code> will throw an error.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>search 2018-01-01 2018-01-01</code><br>
+Searches for loans with loan start date and time as 2018-01-01.</p>
+</li>
+<li>
+<p><code>search 2018-01-01 2018-01-02</code><br>
+Searches for loans with loan start date and time between 2018-01-01 and 2018-01-02, inclusive.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="change-the-password-of-the-app-code-setpass-code"><a class="link" href="#change-the-password-of-the-app-code-setpass-code">Change the password of the app: <code>setpass</code>.</a></h3>
+<div class="paragraph">
+<p>Change the current password of the app to <code>NEW_PASSWORD</code>. This ensures that critical commands such as <code>delete</code> and <code>resetall</code> may be performed by authorized personnel only.<br>
+Format: <code>setpass CURRENT_PASSWORD NEW_PASSWORD</code></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>Set the password of the app to <code>NEW_PASSWORD</code></p>
+</li>
+<li>
+<p>Password change will not occur if <code>CURRENT_PASSWORD</code> is incorrect.</p>
+</li>
+<li>
+<p>Password should be alphanumeric of length between 6 and 10, inclusive.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Default password for the app is <code>a12345</code>. To change the default password, type <code>setpass a12345 newpass</code>.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>setpass a12345 n3wP4sS</code><br>
+Set the password of the app to <code>n3wP4sS</code>.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="contributions-to-the-developer-guide"><a class="link" href="#contributions-to-the-developer-guide">Contributions to the Developer Guide</a></h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 100%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project.</em></p></td>
+</tr>
+</tbody>
+</table>
+<div class="sect2">
+<h3 id="admin-authentication"><a class="link" href="#admin-authentication">Admin Authentication</a></h3>
+<div class="paragraph">
+<p>Before critical actions such as deleting a loan can be performed, admin authentication
+should be required. This ensures that only authorized users are able to perform critical actions.
+This is done by requiring a password before performing a critical action.</p>
+</div>
+<div class="sect3">
+<h4 id="current-implementation"><a class="link" href="#current-implementation">Current Implementation</a></h4>
+<div class="paragraph">
+<p>The authentication mechanism is provided by <code>Password</code>. It implements the following operations that facilitates authentications:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>Password#isSamePassword(currentPass, providedPass)</code>&#8201;&#8212;&#8201;Checks if both <code>providedPass</code> and <code>currentPass</code> are the same password after decryption.</p>
+</li>
+<li>
+<p><code>Password#generateSalt()</code>&#8201;&#8212;&#8201;Generate a hash salt for the app.</p>
+</li>
+<li>
+<p><code>Password#encrypt(providedPass, salt)</code>&#8201;&#8212;&#8201;Encrypt <code>providedPass</code> using hashing <code>salt</code>.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Given below is an example usage scenario and how the authentication mechanism behaves at each step:</p>
+</div>
+<div class="paragraph">
+<p>Step 1. The user launches the application for the first time. <code>UserPref</code> will be initialised with a randomly generated salt by calling <code>Password#generateSalt()</code>, and a default hashed password from <code>a12345</code>.</p>
+</div>
+<div class="paragraph">
+<p>Step 2. The user executes <code>setpass a12345 newP4sS</code> command to change the password to <code>newP4sS</code>.</p>
+</div>
+<div class="paragraph">
+<p>Step 3. Input password will be checked against the app&#8217;s password using <code>Password#isSamePassword()</code> to ensure that the user has sufficient elevation to change the password of the app.</p>
+</div>
+<div class="paragraph">
+<p>Step 4 <code>Password</code> class will encrypt the new password using <code>Password#encrypt()</code>, and call Model#setPass() to changes the password of the application in <code>UserPref</code>.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+If the current password input is wrong or if the current password is the same as the new password input, it will not call <code>Model#setPass()</code>, so the <code>UserPref</code> state will not be saved.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Step 5. Password in <code>UserPref</code> is saved to the encrypted value of the new password input.</p>
+</div>
+<div class="paragraph">
+<p>The following sequence diagram shows how the <code>setpass</code> operation works:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/setPasswordLogic.png" alt="setPasswordLogic" width="800">
+</div>
+</div>
+<div class="paragraph">
+<p>The following activity diagram summarizes what happens when a user executes <code>setpass</code>:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/setpassActivityDiagram.png" alt="setpassActivityDiagram" width="650">
+</div>
+</div>
+<div class="paragraph">
+<p>Step 6. The user executes a critical command <code>delete i/1 x/a12345</code>.</p>
+</div>
+<div class="paragraph">
+<p>Step 7. This command runs <code>Model#getPass()</code> to retrieve the current password. It then call <code>Password#isSamePassword()</code> to determine if the input password in the command is the same as the existing password.</p>
+</div>
+<div class="paragraph">
+<p>Step 8. Deletion of loan at index 1 will occur.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+If current password input is wrong, or if the index provided is invalid, deletion will not occur.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The following sequence diagram shows how the new <code>delete</code> operation works:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/deleteLoanWithPass.png" alt="deleteLoanWithPass" width="800">
+</div>
+</div>
+<div class="paragraph">
+<p>The following activity diagram summarizes what happens when a user executes <code>delete</code>:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/deleteActivityDiagram.png" alt="deleteActivityDiagram" width="650">
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="design-considerations"><a class="link" href="#design-considerations">Design Considerations</a></h4>
+<div class="sect4">
+<h5 id="aspect-how-to-authenticate-users"><a class="link" href="#aspect-how-to-authenticate-users">Aspect: How to authenticate users</a></h5>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Alternative 1 (current choice)</strong>: Require a password every time a critical command is executed</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros:</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Ensures that each command authenticates the user before executing</p>
+</li>
+<li>
+<p>Easy to implement</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>Cons:</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Might be inconvenient to perform multiple critical commands as repeated typing of password is required.</p>
+</li>
+</ol>
+</div>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Alternative 2</strong>: A login page to authenticate each user</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros:</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Customized to each staff</p>
+</li>
+<li>
+<p>Provides accountability of each command execution as we can now track which staff ran which commands</p>
+</li>
+<li>
+<p>Scalable for a large company.</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>Cons:</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Difficult to implement</p>
+</li>
+<li>
+<p>Not effective for our target audience as bicycle shop owners are often family-owned business, which does not have a large manpower.</p>
+</li>
+<li>
+<p>If a staff did not log out, non-authorized users will be able to execute critical commands, making the app&#8217;s data vulnerable.</p>
+</li>
+</ol>
+</div>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect4">
+<h5 id="aspect-method-of-encryption"><a class="link" href="#aspect-method-of-encryption">Aspect: Method of encryption</a></h5>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Alternative 1 (current choice)</strong>: Generate a salt to encrypt password, and store the salt locally</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros:</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Does not require the internet, ensuring that any hack attempts to the app has to be done physically.</p>
+</li>
+<li>
+<p>Much less complicated to implement as compared to alternatives solutions.</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>Cons:</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Encrypted password and salt can be accessed in <code>preference.json</code>.</p>
+</li>
+</ol>
+</div>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Alternative 2</strong>: Send a POST request to an online server to authenticate each login request</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros:</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>If done properly, ensures that hashed password cannot be intercepted/retrieved by hackers.</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>Cons:</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Requires the internet, which might not be available to bicycle shop owners as parks are not fibre-optic ready.</p>
+</li>
+<li>
+<p>Difficult to implement.</p>
+</li>
+<li>
+<p>Data can be intercepted and manipulated during POST request, as opposed to a local storage of password.</p>
+</li>
+</ol>
+</div>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+We used a less secure alternative due to the nature of the target audience. It is highly improbable for hackers to be targeting a bicycle shop.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-10 12:57:11 UTC</div></div></div></body></html>

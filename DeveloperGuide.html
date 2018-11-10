@@ -83,10 +83,11 @@
 <li><a href="#edit-a-bike">F.4. Edit a bike</a></li>
 <li><a href="#deleting-a-bike">F.5. Deleting a bike</a></li>
 <li><a href="#deleting-a-loan">F.6. Deleting a loan</a></li>
-<li><a href="#return-a-loan-functionality">F.7. Return a loan functionality</a></li>
-<li><a href="#summary-functionality">F.8. Summary functionality</a></li>
-<li><a href="#saving-data">F.9. Saving data</a></li>
-<li><a href="#sending-reminder-emails">F.10. Sending Reminder Emails</a></li>
+<li><a href="#changing-password">F.7. Changing password</a></li>
+<li><a href="#search-loans">F.8. Search loans</a></li>
+<li><a href="#return-a-loan-functionality">F.9. Return a loan functionality</a></li>
+<li><a href="#summary-functionality">F.10. Summary functionality</a></li>
+<li><a href="#sending-reminder-emails">F.11. Sending Reminder Emails</a></li>
 </ul>
 </li>
 </ul>
@@ -1054,70 +1055,38 @@ Since this value will be a represented by a Java <code>int</code>, the maximum p
 should be required. This ensures that only authorized users are able to perform critical actions.
 This is done by requiring a password before performing a critical action.</p>
 </div>
+<div class="sect3">
+<h4 id="current-implementation-3"><a class="link" href="#current-implementation-3">3.3.1. Current Implementation</a></h4>
+<div class="paragraph">
+<p>The authentication mechanism is provided by <code>Password</code>. It implements the following operations that facilitates authentications:</p>
+</div>
 <div class="ulist">
 <ul>
 <li>
-<p>Current Implementation *
-There are three stages in this implementation:</p>
+<p><code>Password#isSamePassword(currentPass, providedPass)</code>&#8201;&#8212;&#8201;Checks if both <code>providedPass</code> and <code>currentPass</code> are the same password after decryption.</p>
+</li>
+<li>
+<p><code>Password#generateSalt()</code>&#8201;&#8212;&#8201;Generate a hash salt for the app.</p>
+</li>
+<li>
+<p><code>Password#encrypt(providedPass, salt)</code>&#8201;&#8212;&#8201;Encrypt <code>providedPass</code> using hashing <code>salt</code>.</p>
 </li>
 </ul>
 </div>
-<div class="sect3">
-<h4 id="allowing-the-code-delete-code-command-to-accept-a-password"><a class="link" href="#allowing-the-code-delete-code-command-to-accept-a-password">3.3.1. Allowing the <code>delete</code> command to accept a password</a></h4>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>To allow <code>delete</code> command to accept a password, we set a stub password of <code>a12345</code> and require all <code>delete</code> command to take in a password argument.</p>
-<div class="ulist">
-<ul>
-<li>
-<p>When password is wrong, we do not perform the deletion of the loans.</p>
-</li>
-<li>
-<p>Only when password matches with stub password will the loan be deleted.</p>
-</li>
-</ul>
-</div>
-</li>
-<li>
-<p>Existing tests were edited to include and check for a valid password before deletion.</p>
-</li>
-</ol>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-The default password for a new app is <code>a12345</code>.
-</td>
-</tr>
-</table>
+<div class="paragraph">
+<p>Given below is an example usage scenario and how the authentication mechanism behaves at each step:</p>
 </div>
 <div class="paragraph">
-<p>The following sequence diagram shows how the new <code>delete</code> operation works.</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="images/deleteLoanWithPass.png" alt="deleteLoanWithPass" width="1000">
-</div>
-</div>
-</div>
-<div class="sect3">
-<h4 id="allow-changing-of-master-password"><a class="link" href="#allow-changing-of-master-password">3.3.2. Allow changing of master password</a></h4>
-<div class="paragraph">
-<p>Given below is an example usage scenario and how the <code>setpass</code> mechanism behaves at each step.</p>
-</div>
-<div class="paragraph">
-<p>Step 1. The user launches the application for the first time. <code>UserPref</code> file will initialise the password as <code>a12345</code>.</p>
+<p>Step 1. The user launches the application for the first time. <code>UserPref</code> will be initialised with a randomly generated salt by calling <code>Password#generateSalt()</code>, and a default hashed password from <code>a12345</code>.</p>
 </div>
 <div class="paragraph">
 <p>Step 2. The user executes <code>setpass a12345 newP4sS</code> command to change the password to <code>newP4sS</code>.</p>
 </div>
 <div class="paragraph">
-<p>Step 3. <code>Password</code> class will encrypt the password, and call Model#setPass, that changes the password of the application in <code>UserPref</code>.</p>
+<p>Step 3. Input password will be checked against the app&#8217;s password using <code>Password#isSamePassword()</code> to ensure that the user has sufficient elevation to change the password of the app.</p>
+</div>
+<div class="paragraph">
+<p>Step 4 <code>Password</code> class will encrypt the new password using <code>Password#encrypt()</code>, and call Model#setPass() to changes the password of the application in <code>UserPref</code>.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -1126,25 +1095,13 @@ The default password for a new app is <code>a12345</code>.
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-If the current password input is wrong, it will not call Model#setPass, so the UserPref state will not be saved.
-</td>
-</tr>
-</table>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-If the current password input the same as the new password input, it will not call Model#setPass, so the UserPref state will not be saved.
+If the current password input is wrong or if the current password is the same as the new password input, it will not call <code>Model#setPass()</code>, so the <code>UserPref</code> state will not be saved.
 </td>
 </tr>
 </table>
 </div>
 <div class="paragraph">
-<p>Step 4. Password in <code>UserPref</code> is set to new password input.</p>
+<p>Step 5. Password in <code>UserPref</code> is saved to the encrypted value of the new password input.</p>
 </div>
 <div class="paragraph">
 <p>The following sequence diagram shows how the <code>setpass</code> operation works:</p>
@@ -1154,16 +1111,211 @@ If the current password input the same as the new password input, it will not ca
 <img src="images/setPasswordLogic.png" alt="setPasswordLogic" width="800">
 </div>
 </div>
+<div class="paragraph">
+<p>The following activity diagram summarizes what happens when a user executes <code>setpass</code>:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/setpassActivityDiagram.png" alt="setpassActivityDiagram" width="650">
+</div>
+</div>
+<div class="paragraph">
+<p>Step 6. The user executes a critical command <code>delete i/1 x/a12345</code>.</p>
+</div>
+<div class="paragraph">
+<p>Step 7. This command runs <code>Model#getPass()</code> to retrieve the current password. It then call <code>Password#isSamePassword()</code> to determine if the input password in the command is the same as the existing password.</p>
+</div>
+<div class="paragraph">
+<p>Step 8. Deletion of loan at index 1 will occur.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+If current password input is wrong, or if the index provided is invalid, deletion will not occur.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The following sequence diagram shows how the new <code>delete</code> operation works:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/deleteLoanWithPass.png" alt="deleteLoanWithPass" width="800">
+</div>
+</div>
+<div class="paragraph">
+<p>The following activity diagram summarizes what happens when a user executes <code>delete</code>:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/deleteActivityDiagram.png" alt="deleteActivityDiagram" width="650">
+</div>
+</div>
 </div>
 <div class="sect3">
-<h4 id="encrypt-current-password-for-security"><a class="link" href="#encrypt-current-password-for-security">3.3.3. Encrypt current password for security</a></h4>
-<div class="paragraph">
-<p>To ensure that others are unable to retrieve the app&#8217;s password from the preference.json, we encrypt the password before storing. Decryption of password can only be done by the <code>Password</code> class.</p>
+<h4 id="design-considerations-3"><a class="link" href="#design-considerations-3">3.3.2. Design Considerations</a></h4>
+<div class="sect4">
+<h5 id="aspect-how-to-authenticate-users"><a class="link" href="#aspect-how-to-authenticate-users">Aspect: How to authenticate users</a></h5>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Alternative 1 (current choice)</strong>: Require a password every time a critical command is executed</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros:</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Ensures that each command authenticates the user before executing</p>
+</li>
+<li>
+<p>Easy to implement</p>
+</li>
+</ol>
 </div>
-<div class="paragraph">
-<p>This is currently done by appending <code>-encrypt</code> to the password, and removing it when
-decrypting. For version 2.0, we plan to utilise existing libraries to encrypt and
-decrypt our stored password.</p>
+</li>
+<li>
+<p>Cons:</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Might be inconvenient to perform multiple critical commands as repeated typing of password is required.</p>
+</li>
+</ol>
+</div>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Alternative 2</strong>: A login page to authenticate each user</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros:</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Customized to each staff</p>
+</li>
+<li>
+<p>Provides accountability of each command execution as we can now track which staff ran which commands</p>
+</li>
+<li>
+<p>Scalable for a large company.</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>Cons:</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Difficult to implement</p>
+</li>
+<li>
+<p>Not effective for our target audience as bicycle shop owners are often family-owned business, which does not have a large manpower.</p>
+</li>
+<li>
+<p>If a staff did not log out, non-authorized users will be able to execute critical commands, making the app&#8217;s data vulnerable.</p>
+</li>
+</ol>
+</div>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect4">
+<h5 id="aspect-method-of-encryption"><a class="link" href="#aspect-method-of-encryption">Aspect: Method of encryption</a></h5>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Alternative 1 (current choice)</strong>: Generate a salt to encrypt password, and store the salt locally</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros:</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Does not require the internet, ensuring that any hack attempts to the app has to be done physically.</p>
+</li>
+<li>
+<p>Much less complicated to implement as compared to alternatives solutions.</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>Cons:</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Encrypted password and salt can be accessed in <code>preference.json</code>.</p>
+</li>
+</ol>
+</div>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Alternative 2</strong>: Send a POST request to an online server to authenticate each login request</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros:</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>If done properly, ensures that hashed password cannot be intercepted/retrieved by hackers.</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>Cons:</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Requires the internet, which might not be available to bicycle shop owners as parks are not fibre-optic ready.</p>
+</li>
+<li>
+<p>Difficult to implement.</p>
+</li>
+<li>
+<p>Data can be intercepted and manipulated during POST request, as opposed to a local storage of password.</p>
+</li>
+</ol>
+</div>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+We used a less secure alternative due to the nature of the target audience. It is highly improbable for hackers to be targeting a bicycle shop.
+</td>
+</tr>
+</table>
+</div>
 </div>
 </div>
 </div>
@@ -1272,7 +1424,7 @@ It is possible for the LoanBook to have a loan that lasts for 0 minutes. This is
 </div>
 </div>
 <div class="sect3">
-<h4 id="design-considerations-3"><a class="link" href="#design-considerations-3">3.4.2. Design considerations:</a></h4>
+<h4 id="design-considerations-4"><a class="link" href="#design-considerations-4">3.4.2. Design considerations:</a></h4>
 <div class="sect4">
 <h5 id="aspect-using-an-enum-vs-changing-the-location-of-the-loan"><a class="link" href="#aspect-using-an-enum-vs-changing-the-location-of-the-loan">Aspect: Using an enum vs changing the location of the loan</a></h5>
 <div class="ulist">
@@ -1354,7 +1506,7 @@ It is possible for the LoanBook to have a loan that lasts for 0 minutes. This is
 </div>
 </div>
 <div class="sect3">
-<h4 id="design-considerations-4"><a class="link" href="#design-considerations-4">3.5.2. Design considerations:</a></h4>
+<h4 id="design-considerations-5"><a class="link" href="#design-considerations-5">3.5.2. Design considerations:</a></h4>
 <div class="sect4">
 <h5 id="aspect-getting-the-summary"><a class="link" href="#aspect-getting-the-summary">Aspect: Getting the summary</a></h5>
 <div class="ulist">
@@ -1591,7 +1743,7 @@ The loan will be rejected if no bicycle is found that matches the bicycle name p
 </div>
 </div>
 <div class="sect3">
-<h4 id="design-considerations-5"><a class="link" href="#design-considerations-5">3.8.4. Design Considerations</a></h4>
+<h4 id="design-considerations-6"><a class="link" href="#design-considerations-6">3.8.4. Design Considerations</a></h4>
 <div class="sect4">
 <h5 id="aspect-internal-representation-of-bicycles"><a class="link" href="#aspect-internal-representation-of-bicycles">Aspect: Internal representation of bicycles</a></h5>
 <div class="ulist">
@@ -1642,7 +1794,7 @@ Example: The customer&#8217;s <code>Nric</code> as stored in the database is <co
 </div>
 </div>
 <div class="sect3">
-<h4 id="current-implementation-3"><a class="link" href="#current-implementation-3">3.9.1. Current implementation</a></h4>
+<h4 id="current-implementation-4"><a class="link" href="#current-implementation-4">3.9.1. Current implementation</a></h4>
 <div class="paragraph">
 <p>Hidden private information is facilitated by an interface called <code>Censor</code>. It is implemented by classes <code>Nric</code>, <code>Phone</code> and <code>Email</code>.</p>
 </div>
@@ -1700,7 +1852,7 @@ For example: <code>phone.setText(loan.getPhone().getCensored().value);</code> wi
 </div>
 </div>
 <div class="sect3">
-<h4 id="design-considerations-6"><a class="link" href="#design-considerations-6">3.9.2. Design Considerations</a></h4>
+<h4 id="design-considerations-7"><a class="link" href="#design-considerations-7">3.9.2. Design Considerations</a></h4>
 <div class="paragraph">
 <p><strong>Aspect: How to execute getCensored() and doCensoring(int)</strong></p>
 </div>
@@ -1745,7 +1897,7 @@ For example: <code>phone.setText(loan.getPhone().getCensored().value);</code> wi
 <div class="sect2">
 <h3 id="send-reminder-email-feature"><a class="link" href="#send-reminder-email-feature">3.10. Send Reminder Email feature</a></h3>
 <div class="sect3">
-<h4 id="current-implementation-4"><a class="link" href="#current-implementation-4">3.10.1. Current Implementation</a></h4>
+<h4 id="current-implementation-5"><a class="link" href="#current-implementation-5">3.10.1. Current Implementation</a></h4>
 <div class="paragraph">
 <p>The email sending mechanism is supported by the <a href="https://docs.oracle.com/javaee/7/api/javax/mail/package-summary.html"><code>JavaMail</code></a> library. This feature is composed of three commands: <code>checkemail</code>, <code>setemail</code> and <code>remind</code>.</p>
 </div>
@@ -1889,7 +2041,7 @@ If it throws a <code>CommandException</code> with authentication failed message 
 </div>
 </div>
 <div class="sect3">
-<h4 id="design-considerations-7"><a class="link" href="#design-considerations-7">3.10.2. Design considerations</a></h4>
+<h4 id="design-considerations-8"><a class="link" href="#design-considerations-8">3.10.2. Design considerations</a></h4>
 <div class="paragraph">
 <p><strong>Aspect: use user&#8217;s personal email vs share an immutable common email</strong></p>
 </div>
@@ -1980,7 +2132,7 @@ If it throws a <code>CommandException</code> with authentication failed message 
 <div class="sect2">
 <h3 id="proposed-improved-code-delete-code-functionality"><a class="link" href="#proposed-improved-code-delete-code-functionality">3.11. [Proposed] Improved <code>delete</code> functionality</a></h3>
 <div class="sect3">
-<h4 id="current-implementation-5"><a class="link" href="#current-implementation-5">3.11.1. Current Implementation</a></h4>
+<h4 id="current-implementation-6"><a class="link" href="#current-implementation-6">3.11.1. Current Implementation</a></h4>
 <div class="paragraph">
 <p>When the user deletes a loan from the LoanBook, it deletes the correct loan, then commits the result into memory. What this entails is that the entire XML file gets overwritten when each delete command is being called.</p>
 </div>
@@ -1995,7 +2147,7 @@ If it throws a <code>CommandException</code> with authentication failed message 
 </div>
 </div>
 <div class="sect3">
-<h4 id="design-considerations-8"><a class="link" href="#design-considerations-8">3.11.3. Design Considerations</a></h4>
+<h4 id="design-considerations-9"><a class="link" href="#design-considerations-9">3.11.3. Design Considerations</a></h4>
 <div class="paragraph">
 <p><strong>Aspect: Deleting a loan</strong></p>
 </div>
@@ -3105,6 +3257,18 @@ These instructions only provide a starting point for testers to work on; testers
 </tr>
 </table>
 </div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+If this is your first time using the app, note that the default password of the app is set to <code>a12345</code>.
+</td>
+</tr>
+</table>
+</div>
 <div class="sect2">
 <h3 id="launch-and-shutdown"><a class="link" href="#launch-and-shutdown">F.1. Launch and Shutdown</a></h3>
 <div class="olist arabic">
@@ -3138,9 +3302,6 @@ Expected: The most recent window size and location is retained.</p>
 </div>
 </li>
 </ol>
-</div>
-<div class="paragraph">
-<p><em>{ more test cases &#8230;&#8203; }</em></p>
 </div>
 </div>
 <div class="sect2">
@@ -3297,12 +3458,77 @@ Expected: Similar to previous.</p>
 </li>
 </ol>
 </div>
-<div class="paragraph">
-<p><em>{ more test cases &#8230;&#8203; }</em></p>
+</div>
+<div class="sect2">
+<h3 id="changing-password"><a class="link" href="#changing-password">F.7. Changing password</a></h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Changing the password of the application</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Prerequisites: Both existing and new password should be alphanumeric of length between 6 and 10 inclusive. Existing password is currently <code>a12345</code>.</p>
+</li>
+<li>
+<p>Test case: <code>setpass wrongPass newWorld</code><br>
+Expected: Password remains the same as current password entered is wrong.</p>
+</li>
+<li>
+<p>Test case: <code>setpass a12345 </code><br>
+Expected: Password remains the same as new password entered is not alphanumeric.</p>
+</li>
+<li>
+<p>Test case: <code>setpass a12345 newPass</code><br>
+Expected: Password is now changed to <code>newPass</code>.</p>
+</li>
+<li>
+<p>Other incorrect setpass commands to try: <code>setpass</code>, <code>setpass a12345</code>.</p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
 </div>
 </div>
 <div class="sect2">
-<h3 id="return-a-loan-functionality"><a class="link" href="#return-a-loan-functionality">F.7. Return a loan functionality</a></h3>
+<h3 id="search-loans"><a class="link" href="#search-loans">F.8. Search loans</a></h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Search loans within a specific time frame</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Prerequisites: Input date is of the correct format (YYYY-MM-DD)</p>
+</li>
+<li>
+<p>Test case: <code>search 2018-01-01 2018-01-01</code>
+Expected: Shows loan that was created on 2018-01-01.</p>
+</li>
+<li>
+<p>Test case: <code>search 2018-02-30 2018-02-30</code>
+Expected: Does not filter loans as 2018-02-30 is not a valid date.</p>
+</li>
+<li>
+<p>Test case: <code>search 2018-01-02 2018-01-01</code>
+Expected: Does not filter loans as start date should be before end date.</p>
+</li>
+<li>
+<p>Test case: <code>search 2018-01-01 2018-12-31</code>
+Expected: Shows all loan created in year 2018.</p>
+</li>
+<li>
+<p>Other incorrect search commands to try: <code>search</code>, <code>search 2018-01-01</code>.</p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="return-a-loan-functionality"><a class="link" href="#return-a-loan-functionality">F.9. Return a loan functionality</a></h3>
 <div class="paragraph">
 <p>Prerequisites: List all loans using the list command. Ensure there are multiple loans in the list.</p>
 </div>
@@ -3357,7 +3583,7 @@ Expected: No loan is returned. Error details shown in the status message, the me
 </div>
 </div>
 <div class="sect2">
-<h3 id="summary-functionality"><a class="link" href="#summary-functionality">F.8. Summary functionality</a></h3>
+<h3 id="summary-functionality"><a class="link" href="#summary-functionality">F.10. Summary functionality</a></h3>
 <div class="paragraph">
 <p>Use the <code>summary</code> command on various sizes of the LoanBook to test this functionality</p>
 </div>
@@ -3482,27 +3708,7 @@ Expected: The displayed page should report the following:</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="saving-data"><a class="link" href="#saving-data">F.9. Saving data</a></h3>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Dealing with missing/corrupted data files</p>
-<div class="olist loweralpha">
-<ol class="loweralpha" type="a">
-<li>
-<p><em>{explain how to simulate a missing/corrupted file and the expected behavior}</em></p>
-</li>
-</ol>
-</div>
-</li>
-</ol>
-</div>
-<div class="paragraph">
-<p><em>{ more test cases &#8230;&#8203; }</em></p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="sending-reminder-emails"><a class="link" href="#sending-reminder-emails">F.10. Sending Reminder Emails</a></h3>
+<h3 id="sending-reminder-emails"><a class="link" href="#sending-reminder-emails">F.11. Sending Reminder Emails</a></h3>
 <div class="paragraph">
 <p>Prerequisites: Make sure the system is connected to the internet. The email must be gmail and its <code>Less secure apps</code> option is enabled.</p>
 </div>
@@ -3585,4 +3791,4 @@ Expected: Failure message "Connection to your email failed! The password is wron
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-10 11:55:56 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-10 12:57:11 UTC</div></div></div></body></html>
