@@ -513,7 +513,7 @@ The result is then displayed into the GUI for the user as the cost price of the 
 [NOTE]
 It is possible for the LoanBook to have a loan that lasts for 0 minutes. This is because there may be some weird edge case where an object is loaned for less than a minute, which gets prorated down.
 
-[big red]#Sequence diagram#
+==== Sequence diagram
 
 The sequence diagram has been split into 2 parts. +
 First, the sequence diagram of command parsing:
