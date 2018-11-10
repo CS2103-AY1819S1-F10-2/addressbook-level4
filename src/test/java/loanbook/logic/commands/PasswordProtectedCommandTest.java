@@ -51,7 +51,7 @@ public class PasswordProtectedCommandTest {
 
     private static class PasswordProtectedCommandStub extends PasswordProtectedCommand {
         PasswordProtectedCommandStub(Password password) {
-            super(password);
+            super(password, "TEST_COMMAND");
         }
 
         @Override
