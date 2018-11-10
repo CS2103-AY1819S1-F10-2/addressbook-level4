@@ -8,7 +8,6 @@ import java.util.List;
 import loanbook.commons.core.index.Index;
 import loanbook.logic.commands.DeleteCommand;
 import loanbook.logic.parser.exceptions.ParseException;
-import loanbook.model.Password;
 
 /**
  * Parses input arguments and creates a new DeleteCommand object.
@@ -27,7 +26,7 @@ public class DeleteCommandParser extends ArgumentParser<DeleteCommand> {
                 DeleteCommand.MESSAGE_USAGE);
 
         Index index = ParserUtil.parseIndex(argMultimap.getValue(PREFIX_INDEX).get());
-        Password password = ParserUtil.parsePass(argMultimap.getValue(PREFIX_PASSWORD).get());
+        String password = ParserUtil.parsePass(argMultimap.getValue(PREFIX_PASSWORD).get());
 
         return new DeleteCommand(index, password);
     }

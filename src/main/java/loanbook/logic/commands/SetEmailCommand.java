@@ -28,12 +28,12 @@ public class SetEmailCommand extends Command {
     public static final String MESSAGE_SUCCESS = "Your email is set successfully!";
 
     private final Email newEmail;
-    private final Password password;
+    private final String password;
 
     /**
      * Creates an SetEmailCommand to set user's {@code Email} according to the {@code newEmail} provided.
      */
-    public SetEmailCommand(Email newEmail, Password password) {
+    public SetEmailCommand(Email newEmail, String password) {
         requireAllNonNull(newEmail, password);
         this.newEmail = newEmail;
         this.password = password;
@@ -51,7 +51,7 @@ public class SetEmailCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_EMAIL);
         }
 
-        if (!Password.isSamePassword(model.getPass(), password)) {
+        if (!Password.isSamePassword(model.getPass(), password, model.getSalt())) {
             throw new CommandException(Messages.MESSAGE_INVALID_PASSWORD);
         }
 

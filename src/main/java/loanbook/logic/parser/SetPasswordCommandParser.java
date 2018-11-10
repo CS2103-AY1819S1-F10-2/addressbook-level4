@@ -28,9 +28,7 @@ public class SetPasswordCommandParser implements Parser<SetPasswordCommand> {
         if (!Password.isValidPass(newPass)) {
             throw new ParseException(Password.MESSAGE_PASSWORD_CONSTRAINTS);
         }
-        Password oldPassInput = new Password(oldPass);
-        Password newPassInput = new Password(newPass);
 
-        return new SetPasswordCommand(oldPassInput, newPassInput);
+        return new SetPasswordCommand(oldPass, newPass);
     }
 }

@@ -31,7 +31,7 @@ public class SetPasswordCommandParserTest {
     public void parse_allFieldsSpecified_success() {
         String userInput = "oldPass newPass";
 
-        SetPasswordCommand expectedCommand = new SetPasswordCommand(new Password("oldPass"), new Password ("newPass"));
+        SetPasswordCommand expectedCommand = new SetPasswordCommand("oldPass", "newPass");
         assertParseSuccess(parser, userInput, expectedCommand);
     }
 }

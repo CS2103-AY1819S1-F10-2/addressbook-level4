@@ -99,6 +99,11 @@ public interface Model {
     String getPass();
 
     /**
+     * Get password salt;
+     */
+    String getSalt();
+
+    /**
      * Get next available Loan ID.
      */
     LoanId getNextAvailableId();

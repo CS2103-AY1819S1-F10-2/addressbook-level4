@@ -22,10 +22,10 @@ public class SetPasswordCommand extends Command {
 
     public static final String MESSAGE_CHANGE_PASSWORD_SUCCESS = "Password successfully changed!";
 
-    private Password oldPassInput;
-    private Password newPassInput;
+    private String oldPassInput;
+    private String newPassInput;
 
-    public SetPasswordCommand(Password oldPassInput, Password newPassInput) {
+    public SetPasswordCommand(String oldPassInput, String newPassInput) {
         requireNonNull(oldPassInput);
         requireNonNull(newPassInput);
         this.oldPassInput = oldPassInput;
@@ -35,13 +35,13 @@ public class SetPasswordCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
-        if (!Password.isSamePassword(model.getPass(), oldPassInput)) {
+        if (!Password.isSamePassword(model.getPass(), oldPassInput, model.getSalt())) {
             throw new CommandException(Messages.MESSAGE_INVALID_OLD_PASS);
         }
-        if (Password.isSamePassword(model.getPass(), newPassInput)) {
+        if (oldPassInput == newPassInput) {
             throw new CommandException(Messages.MESSAGE_SAME_AS_CURRENT_PASSWORD);
         }
-        model.setPass(newPassInput);
+        model.setPass(new Password(newPassInput, model.getSalt()));
         return new CommandResult(MESSAGE_CHANGE_PASSWORD_SUCCESS);
     }
 

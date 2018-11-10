@@ -257,6 +257,11 @@ public class ModelManager extends ComponentManager implements Model {
         return preference.getPass();
     }
 
+    @Override
+    public String getSalt() {
+        return preference.getSalt();
+    }
+
     //=========== Utility ==================================================================================
 
     @Override

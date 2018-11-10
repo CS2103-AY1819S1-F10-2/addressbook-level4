@@ -31,7 +31,7 @@ public class SetEmailCommandTest {
     @Test
     public void constructor_nullNewEmail_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        new SetEmailCommand(null, new Password("a12345"));
+        new SetEmailCommand(null, "a12345");
     }
 
     @Test
@@ -46,7 +46,7 @@ public class SetEmailCommandTest {
 
         CommandResult commandResult =
                 new SetEmailCommand(
-                        new Email(VALID_USER_EMAIL2), new Password(PASSWORD2)).execute(modelStub, commandHistory);
+                        new Email(VALID_USER_EMAIL2), PASSWORD2).execute(modelStub, commandHistory);
 
         assertEquals(SetEmailCommand.MESSAGE_SUCCESS, commandResult.feedbackToUser);
         assertEquals(EMPTY_COMMAND_HISTORY, commandHistory);
@@ -54,7 +54,7 @@ public class SetEmailCommandTest {
 
     @Test
     public void execute_duplicateNewEmail_throwsCommandException() throws Exception {
-        SetEmailCommand command = new SetEmailCommand(new Email(VALID_USER_EMAIL1), new Password(PASSWORD2));
+        SetEmailCommand command = new SetEmailCommand(new Email(VALID_USER_EMAIL1), PASSWORD2);
         ModelStubWithUserEmail modelStub = new ModelStubWithUserEmail();
 
         thrown.expect(CommandException.class);
@@ -65,7 +65,7 @@ public class SetEmailCommandTest {
     @Test
     public void execute_invalidNewEmail_throwsCommandException() throws Exception {
         SetEmailCommand command = new SetEmailCommand(
-                new Email("invalid_example@gmail.com"), new Password(PASSWORD2));
+                new Email("invalid_example@gmail.com"), PASSWORD2);
         ModelStubWithUserEmail modelStub = new ModelStubWithUserEmail();
 
         thrown.expect(CommandException.class);
@@ -75,7 +75,7 @@ public class SetEmailCommandTest {
 
     @Test
     public void execute_wrongAppPassword_throwsCommandException() throws Exception {
-        SetEmailCommand command = new SetEmailCommand(new Email(VALID_USER_EMAIL2), new Password(PASSWORD1));
+        SetEmailCommand command = new SetEmailCommand(new Email(VALID_USER_EMAIL2), PASSWORD1);
         ModelStubWithUserEmail modelStub = new ModelStubWithUserEmail();
 
         thrown.expect(CommandException.class);
@@ -87,7 +87,7 @@ public class SetEmailCommandTest {
     public void equals() {
         Email email1 = new Email(VALID_USER_EMAIL1);
         Email email2 = new Email(VALID_USER_EMAIL2);
-        Password password = new Password("a12345");
+        String password = "a12345";
         final SetEmailCommand standardCommand = new SetEmailCommand(email1, password);
         SetEmailCommand commandWithSameValues = new SetEmailCommand(email1, password);
 
@@ -112,7 +112,8 @@ public class SetEmailCommandTest {
      */
     private class ModelStubWithUserEmail extends ModelStub {
         private String defaultEmail = VALID_USER_EMAIL1;
-        private String password = (new Password("a12345")).hashedPassword();
+        private String dummySalt = "1";
+        private String password = (new Password("a12345", dummySalt)).hashedPassword();
 
         @Override
         public void setMyEmail(String email) {
@@ -127,6 +128,11 @@ public class SetEmailCommandTest {
         @Override
         public String getPass() {
             return password;
+        }
+
+        @Override
+        public String getSalt() {
+            return dummySalt;
         }
     }
 }

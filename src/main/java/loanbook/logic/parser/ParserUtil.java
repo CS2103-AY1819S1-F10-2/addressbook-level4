@@ -100,18 +100,18 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String password} into a {@code Password}.
+     * Parses a {@code String password} into a {@code String}.
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @throws ParseException if the given {@code Password} is invalid.
+     * @throws ParseException if the given {@code pass} is invalid.
      */
-    public static Password parsePass(String pass) throws ParseException {
+    public static String parsePass(String pass) throws ParseException {
         requireNonNull(pass);
         String trimmedPass = pass.trim();
         if (!Password.isValidPass(trimmedPass)) {
             throw new ParseException(Password.MESSAGE_PASSWORD_CONSTRAINTS);
         }
-        return new Password(trimmedPass);
+        return trimmedPass;
     }
 
     /**

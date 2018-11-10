@@ -31,9 +31,9 @@ public class DeleteBikeCommand extends Command {
     public static final String MESSAGE_BIKE_NOT_FOUND = "No bike with that name exists within the loan book";
 
     private final Name bikeName;
-    private final Password targetPassword;
+    private final String targetPassword;
 
-    public DeleteBikeCommand(Name bikeName, Password pass) {
+    public DeleteBikeCommand(Name bikeName, String pass) {
         this.bikeName = bikeName;
         targetPassword = pass;
     }
@@ -48,7 +48,7 @@ public class DeleteBikeCommand extends Command {
             throw new CommandException(MESSAGE_BIKE_NOT_FOUND);
         }
 
-        if (!Password.isSamePassword(model.getPass(), targetPassword)) {
+        if (!Password.isSamePassword(model.getPass(), targetPassword, model.getSalt())) {
             throw new CommandException(Messages.MESSAGE_INVALID_PASSWORD);
         }
 

@@ -10,10 +10,12 @@ import loanbook.model.Password;
  */
 public abstract class PasswordProtectedCommand extends Command {
 
-    private final Password targetPassword;
+    private final String targetPassword;
+    private final String commandName;
 
-    public PasswordProtectedCommand(Password password) {
+    public PasswordProtectedCommand(String password, String commandName) {
         targetPassword = password;
+        this.commandName = commandName;
     }
 
     /**
@@ -22,7 +24,7 @@ public abstract class PasswordProtectedCommand extends Command {
      * @throws CommandException if the password does not match the specified model's
      */
     protected void assertCorrectPassword(Model model) throws CommandException {
-        if (!Password.isSamePassword(model.getPass(), targetPassword)) {
+        if (!Password.isSamePassword(model.getPass(), targetPassword, model.getSalt())) {
             throw new CommandException(Messages.MESSAGE_INVALID_PASSWORD);
         }
     }
