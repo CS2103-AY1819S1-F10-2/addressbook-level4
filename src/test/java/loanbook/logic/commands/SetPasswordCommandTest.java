@@ -82,7 +82,7 @@ public class SetPasswordCommandTest {
         ModelStubWithPassword modelStub = new ModelStubWithPassword();
 
         thrown.expect(CommandException.class);
-        thrown.expectMessage(Messages.MESSAGE_INVALID_OLD_PASS);
+        thrown.expectMessage(Messages.MESSAGE_INVALID_PASSWORD);
         setPasswordCommand.execute(modelStub, commandHistory);
     }
 
