@@ -418,28 +418,35 @@ This is done by requiring a password before performing a critical action.
 
 ==== Current Implementation
 The authentication mechanism is provided by `Password`. It implements the following operations that facilitates authentications:
+
 * `Password#isSamePassword(currentPass, providedPass)` -- Checks if both `providedPass` and `currentPass` are the same password after decryption.
 * `Password#generateSalt()` -- Generate a hash salt for the app.
 * `Password#encrypt(providedPass, salt)` -- Encrypt `providedPass` using hashing `salt`.
 
-Given below is an example usage scenario and how the authentication mechanism behaves at each step.
+Given below is an example usage scenario and how the authentication mechanism behaves at each step:
 
-Step 1. The user launches the application for the first time. UserPref will be initialised with a randomly generated salt by calling `Password#generateSalt()`, and a default hashed password from `a12345`.
+Step 1. The user launches the application for the first time. `UserPref` will be initialised with a randomly generated salt by calling `Password#generateSalt()`, and a default hashed password from `a12345`.
 
 Step 2. The user executes `setpass a12345 newP4sS` command to change the password to `newP4sS`.
 
-Step 3. `Password` class will encrypt the password, and call Model#setPass, that changes the password of the application in `UserPref`.
+Step 3. Input password will be checked against the app's password using `Password#isSamePassword() to ensure that the user has sufficient elevation to change the password of the app.
+
+Step 4 `Password` class will encrypt the new password using `Password#encrypt()`, and call Model#setPass() to changes the password of the application in `UserPref`.
 
 [NOTE]
-If the current password input is wrong or if the current password is the same as the new password input, it will not call Model#setPass, so the UserPref state will not be saved.
+If the current password input is wrong or if the current password is the same as the new password input, it will not call `Model#setPass()`, so the `UserPref` state will not be saved.
 
-Step 4. Password in `UserPref` is saved to the encrypted value of the new password input.
+Step 5. Password in `UserPref` is saved to the encrypted value of the new password input.
 
 The following sequence diagram shows how the `setpass` operation works:
 
 image::setPasswordLogic.png[width="800"]
 
-Step 5. The user executes `delete i/1 x/a12345`, which calls Model#getPass() to retrieve the encrypted value of current password. It then call Password#isSamePassword() to determine if the input password in the command is the same as the existing password. Since the input password is the same as the password of the app, deletion of loan at index 1 will occur.
+The following activity diagram summarizes what happens when a user executes `setpass`:
+
+image::setpassActivityDiagram.png[width="650"]
+
+Step 6. The user executes a critical command `delete i/1 x/a12345`, which calls Model#getPass() to retrieve the encrypted value of current password. It then call Password#isSamePassword() to determine if the input password in the command is the same as the existing password. Since the input password is the same as the password of the app, deletion of loan at index 1 will occur.
 
 [NOTE]
 If the current password input is wrong, loan at input index will not be deleted.
@@ -447,6 +454,10 @@ If the current password input is wrong, loan at input index will not be deleted.
 The following sequence diagram shows how the new `delete` operation works:
 
 image::deleteLoanWithPass.png[width="800"]
+
+The following activity diagram summarizes what happens when a user executes `delete`:
+
+image::deleteActivityDiagram.png[width="650"]
 
 ==== Design Considerations
 
@@ -490,6 +501,10 @@ image::deleteLoanWithPass.png[width="800"]
 ** Cons:
 .. Requires the internet, which might not be available to bicycle shop owners as parks are not fibre-optic ready.
 .. Difficult to implement.
+.. Data can be intercepted and manipulated during POST request, as opposed to a local storage of password.
+
+[NOTE]
+We used a less secure alternative due to the nature of the target audience. It is highly improbable for hackers to be targeting a bicycle shop.
 // end::adminauthentication[]
 
 === Return a Loan feature
