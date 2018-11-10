@@ -41,6 +41,7 @@ public class Password {
         }
         return new String(returnValue);
     }
+    //@@author
 
     /**
      * Algorithm to hash string.
@@ -62,6 +63,7 @@ public class Password {
             spec.clearPassword();
         }
     }
+    //@@author
 
     //@@author {wn96}-reused
     //http://www.appsdeveloperblog.com/encrypt-user-password-example-java/
@@ -70,6 +72,7 @@ public class Password {
 
         return Base64.getEncoder().encodeToString(securePassword);
     }
+    //@@author
 
     /**
      * Check if hashed currentPassword and hashed oldPassInput is same when decrypted.
@@ -102,6 +105,7 @@ public class Password {
 
         return returnValue;
     }
+    //@@author
 
     /**
      * Returns true if a given string is a valid password.
