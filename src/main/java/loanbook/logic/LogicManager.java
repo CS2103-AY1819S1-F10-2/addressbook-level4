@@ -41,7 +41,7 @@ public class LogicManager extends ComponentManager implements Logic {
             command = loanBookParser.parseCommand(commandText);
             if (command instanceof PasswordProtectedCommand) {
                 isPasswordProtectedCommand = true;
-                commandName = ((PasswordProtectedCommand)command).getCommandName();
+                commandName = ((PasswordProtectedCommand) command).getCommandName();
             }
             return command.execute(model, history);
         } finally {
