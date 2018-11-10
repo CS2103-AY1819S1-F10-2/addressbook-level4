@@ -77,6 +77,10 @@ Examples:
 * `addbike n/A Wonderful Bike`
 * `addbike n/BX-0027`
 
+[big red]#*List of Parameters*#:
+
+`n/`: `BIKE_NAME` +
+
 === Adding a loan: `add`
 
 Adds a loan to the loan book with the following parameters, and displays the transaction along with a LOAN_ID to keep track of the loan. +
@@ -97,6 +101,16 @@ Examples:
 ====
 The best part about this is you do not even need to key in the time that you created this loan! LoanBook does the timing for you! Simple isn't it?
 ====
+
+[big red]#*List of Parameters*#:
+
+`n/`: `PERSON'S NAME` +
+`ic/`: `PERSON'S IC` +
+`p/`: `PERSON'S PHONE NUMBER` +
+`e/`: `PERSON'S EMAIL` +
+`b/`: `BIKE NAME` to be rented +
+`lr/`: `RATE` of the loan, in dollars per hour +
+[`t/`: `TAGS`] (Optional) +
 
 === Listing all bikes: `listbikes`
 
@@ -145,6 +159,19 @@ For the loan at index 1, changes the customer to James Tan, who has the specifie
 We do not allow editing of the loan's start time or the return time because we want you to be able to use our application as an auditing tool. We hope that this can then simplify the management of your business.
 ====
 
+[big red]#*List of Parameters*#:
+
+[`n/`: `EDITED NAME`] (Optional) +
+[`ic/`: `EDITED IC`] (Optional) +
+[`p/`: `EDITED PHONE NUMBER`] (Optional) +
+[`e/`: `EDITED EMAIL`] (Optional) +
+[`b/`: `EDITED BIKE NAME`] (Optional) +
+[`lr/`: `EDITED RATE` of the loan, in dollars per hour] (Optional) +
+[`t/`: `EDITED TAGS`] (Optional) +
+
+[IMPORTANT]
+At least one of the above fields has to be included. If not, LoanBook will not be able to parse your command!
+
 === Locating loans by keywords: `find`
 
 Finds loans whose customers' names contain any of the given keywords. +
@@ -164,6 +191,14 @@ Examples:
 Returns `john` and `John Doe`
 * `find Betsy Tim John` +
 Returns any loan having names `Betsy`, `Tim`, or `John`
+
+[big red]#*List of Parameters*#:
+
+The keywords you you want to search for.
+Note that for this command, there is no prefix that you need to type. Just separate the keywords with spaces.
+
+[IMPORTANT]
+You need to provide at least one keyword. If not, LoanBook will not be able to parse your command!
 
 === [Coming in v1.4] Deleting the chosen bike from the loan book : `deletebike`
 
@@ -200,6 +235,11 @@ Examples:
 * `delete i/1 x/a12345` +
 Deletes the loan with that has been indexed at position 1.
 
+[big red]#*List of Parameters*#:
+
+`i/`: `INDEX OF THE LOAN` in the left hand side display. +
+`x/`: `PASSWORD` used in the LoanBook.
+
 // tag::setpass[]
 === Changing the password of the app: `setpass`
 
@@ -216,6 +256,11 @@ Examples:
 * `setpass a12345 n3wP4sS` +
 Set the password of the app to `n3wP4sS`.
 // end::setpass[]
+
+[big red]#*List of Parameters*#:
+
+The old and new passwords of the application. +
+Note that you only need to use spaces to seperate the two passwords. There is no prefix for this command!
 
 === Returning a loan: `return`
 
@@ -249,6 +294,10 @@ Examples:
 * `return i/1` +
 Marks the loan that has been indexed at position 1 as returned. Also automatically prints out the amount payable based on loan time and rate.
 
+[big red]#*List of Parameters*#:
+
+`i/`: `INDEX OF THE LOAN` in the left hand side display.
+
 // tag::searchcommand[]
 === Locating loans by date of loan: `search`
 
@@ -270,6 +319,11 @@ Searches for loans with loan start date and time as 2018-01-01.
 * `search 2018-01-01 2018-01-02` +
 Searches for loans with loan start date and time between 2018-01-01 and 2018-01-02, inclusive.
 // end::searchcommand[]
+
+[big red]#*List of Parameters*#:
+
+START_DATE and END_DATE: The date range in which you want to search for. +
+Note that you only need to use spaces to seperate the two dates. There is no prefix for this command!
 
 // tag::resetloans[]
 === Hard reset all loans from loan book : `resetloans`
@@ -302,6 +356,10 @@ This operation will not modify the bicycles in the Loan Book. To reset the entir
 ====
 // end::resetloans[]
 
+[big red]#*List of Parameters*#:
+
+`x/`: `PASSWORD` used in the LoanBook.
+
 // tag::resetall[]
 === Hard reset the entire loan book : `resetall`
 
@@ -319,6 +377,11 @@ Example:
 ====
 // end::resetall[]
 
+[big red]#*List of Parameters*#:
+
+`x/`: `PASSWORD` used in the LoanBook.
+
+// tag::summary[]
 === Summarize all the transactions: `summary`
 
 Do you want to find out at a glance how much money your business has collected? Or maybe out of all the bicycles you have, how many are currently loaned out? Here's the command for you.
@@ -329,8 +392,13 @@ The `summary` function would display the statistics of all your loans in the dis
 
 * Total number of ongoing loans
 * Total number of loans ever taken out
-* Total amount of time all bikes have been loaned for
-* Total revenue from the loan service
+* Total revenue from your loan service
+
+[NOTE]
+====
+Current implementations would only allow the summary of the above statistics. However, the LoanBook Team is looking to implement more summary items into the above summary. +
+If you would like the summary functionality to report certain stats that are not included, feel free to contact us, and if it's feasible, we will include it into our next release!
+====
 
 Format: `summary`
 
@@ -338,6 +406,8 @@ Format: `summary`
 ====
 The summary feature may take a while to run, especially when you have many loans that you have made in the past. Please allow about a second for it to process.
 ====
+
+// end::summary[]
 
 === Listing entered commands: `history`
 
@@ -372,12 +442,17 @@ Examples:
 * `setemail default \new_email@gmail.com`
 * `setemail \old_email@gmail.com \new_email@gmail.com`
 
+[big red]#*List of Parameters*#:
+
+The old email that you have set to the current one that you would want to use. +
+Note that for this command, there is no prefix that you need to type. Just separate the emails with spaces.
+
 === Send reminder email: `remind`
 
 Sends a reminder email to the customer. +
-Format: `remind x/EMAILPASSWORD n/NAME b/BIKE`
+Format: `remind pw/EMAILPASSWORD id/LOANID`
 
-* `NAME` and `BIKE` must be from the same `ONGOING` loan.
+* `LOANID` is the ID of the loan, not the index.
 * `EMAILPASSWORD` must be correct.
 
 [NOTE]
@@ -385,8 +460,17 @@ Format: `remind x/EMAILPASSWORD n/NAME b/BIKE`
 
 Examples:
 
-* `remind x/123456 n/Alex b/Bike001`
-* `remind x/nscjhbdhv n/Peter Lee b/NewBike`
+* `remind pw/samplepassword id/0`
+
+[big red]#*List of Parameters*#:
+
+`pw/`: `PASSWORD` of the email address you are sending the messages from. +
+`id/`: `LOANID` of the loan you want to remind +
+
+=== Exiting the program: `exit`
+
+Exits the program. +
+Format: `exit`
 
 == Future features
 The following are a list of features that the team will implement in version 2.0.
@@ -463,11 +547,6 @@ The `redo` command fails as there are no `undo` commands executed previously.
 
 Clears all entries from the address book. +
 Format: `clear`
-
-=== Exiting the program: `exit`
-
-Exits the program. +
-Format: `exit`
 
 === Saving the data
 
