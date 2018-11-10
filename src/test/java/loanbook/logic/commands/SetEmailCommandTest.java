@@ -69,7 +69,6 @@ public class SetEmailCommandTest {
         ModelStubWithUserEmail modelStub = new ModelStubWithUserEmail();
 
         thrown.expect(CommandException.class);
-
         thrown.expectMessage(Messages.MESSAGE_INVALID_EMAIL);
         command.execute(modelStub, commandHistory);
     }
