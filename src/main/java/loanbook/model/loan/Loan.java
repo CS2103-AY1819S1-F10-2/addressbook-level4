@@ -47,6 +47,7 @@ public class Loan implements UniqueListItem<Loan> {
                 LoanTime endTime,
                 LoanStatus loanStatus,
                 Set<Tag> tags) {
+
         // Note that endTime can be null. This loans in progress do not have an endTime.
         requireAllNonNull(id, name, nric, phone, email, bike, rate, startTime, tags);
         this.id = id;

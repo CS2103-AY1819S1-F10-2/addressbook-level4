@@ -416,51 +416,99 @@ Before critical actions such as deleting a loan can be performed, admin authenti
 should be required. This ensures that only authorized users are able to perform critical actions.
 This is done by requiring a password before performing a critical action.
 
-* Current Implementation *
-There are three stages in this implementation:
+==== Current Implementation
+The authentication mechanism is provided by `Password`. It implements the following operations that facilitates authentications:
 
-==== Allowing the `delete` command to accept a password
-1. To allow `delete` command to accept a password, we set a stub password of `a12345` and require all `delete` command to take in a password argument.
-* When password is wrong, we do not perform the deletion of the loans.
-* Only when password matches with stub password will the loan be deleted.
-2. Existing tests were edited to include and check for a valid password before deletion.
+* `Password#isSamePassword(currentPass, providedPass)` -- Checks if both `providedPass` and `currentPass` are the same password after decryption.
+* `Password#generateSalt()` -- Generate a hash salt for the app.
+* `Password#encrypt(providedPass, salt)` -- Encrypt `providedPass` using hashing `salt`.
 
-[NOTE]
-The default password for a new app is `a12345`.
+Given below is an example usage scenario and how the authentication mechanism behaves at each step:
 
-The following sequence diagram shows how the new `delete` operation works.
-
-image::deleteLoanWithPass.png[width="1000"]
-
-==== Allow changing of master password
-
-Given below is an example usage scenario and how the `setpass` mechanism behaves at each step.
-
-Step 1. The user launches the application for the first time. `UserPref` file will initialise the password as `a12345`.
+Step 1. The user launches the application for the first time. `UserPref` will be initialised with a randomly generated salt by calling `Password#generateSalt()`, and a default hashed password from `a12345`.
 
 Step 2. The user executes `setpass a12345 newP4sS` command to change the password to `newP4sS`.
 
-Step 3. `Password` class will encrypt the password, and call Model#setPass, that changes the password of the application in `UserPref`.
+Step 3. Input password will be checked against the app's password using `Password#isSamePassword()` to ensure that the user has sufficient elevation to change the password of the app.
+
+Step 4 `Password` class will encrypt the new password using `Password#encrypt()`, and call Model#setPass() to changes the password of the application in `UserPref`.
 
 [NOTE]
-If the current password input is wrong, it will not call Model#setPass, so the UserPref state will not be saved.
+If the current password input is wrong or if the current password is the same as the new password input, it will not call `Model#setPass()`, so the `UserPref` state will not be saved.
 
-[NOTE]
-If the current password input the same as the new password input, it will not call Model#setPass, so the UserPref state will not be saved.
-
-Step 4. Password in `UserPref` is set to new password input.
+Step 5. Password in `UserPref` is saved to the encrypted value of the new password input.
 
 The following sequence diagram shows how the `setpass` operation works:
 
 image::setPasswordLogic.png[width="800"]
 
-==== Encrypt current password for security
-To ensure that others are unable to retrieve the app's password from the preference.json, we encrypt the password before storing. Decryption of password can only be done by the `Password` class.
+The following activity diagram summarizes what happens when a user executes `setpass`:
 
-This is currently done by appending `-encrypt` to the password, and removing it when
-decrypting. For version 2.0, we plan to utilise existing libraries to encrypt and
-decrypt our stored password.
+image::setpassActivityDiagram.png[width="650"]
 
+Step 6. The user executes a critical command `delete i/1 x/a12345`.
+
+Step 7. This command runs `Model#getPass()` to retrieve the current password. It then call `Password#isSamePassword()` to determine if the input password in the command is the same as the existing password.
+
+Step 8. Deletion of loan at index 1 will occur.
+
+[NOTE]
+If current password input is wrong, or if the index provided is invalid, deletion will not occur.
+
+The following sequence diagram shows how the new `delete` operation works:
+
+image::deleteLoanWithPass.png[width="800"]
+
+The following activity diagram summarizes what happens when a user executes `delete`:
+
+image::deleteActivityDiagram.png[width="650"]
+
+==== Design Considerations
+
+===== Aspect: How to authenticate users
+* *Alternative 1 (current choice)*: Require a password every time a critical command is executed
+
+** Pros:
+.. Ensures that each command authenticates the user before executing
+.. Easy to implement
+
+** Cons:
+.. Might be inconvenient to perform multiple critical commands as repeated typing of password is required.
+
+* *Alternative 2*: A login page to authenticate each user
+
+** Pros:
+.. Customized to each staff
+.. Provides accountability of each command execution as we can now track which staff ran which commands
+.. Scalable for a large company.
+
+** Cons:
+.. Difficult to implement
+.. Not effective for our target audience as bicycle shop owners are often family-owned business, which does not have a large manpower.
+.. If a staff did not log out, non-authorized users will be able to execute critical commands, making the app's data vulnerable.
+
+===== Aspect: Method of encryption
+* *Alternative 1 (current choice)*: Generate a salt to encrypt password, and store the salt locally
+
+** Pros:
+.. Does not require the internet, ensuring that any hack attempts to the app has to be done physically.
+.. Much less complicated to implement as compared to alternatives solutions.
+
+** Cons:
+.. Encrypted password and salt can be accessed in `preference.json`.
+
+* *Alternative 2*: Send a POST request to an online server to authenticate each login request
+
+** Pros:
+.. If done properly, ensures that hashed password cannot be intercepted/retrieved by hackers.
+
+** Cons:
+.. Requires the internet, which might not be available to bicycle shop owners as parks are not fibre-optic ready.
+.. Difficult to implement.
+.. Data can be intercepted and manipulated during POST request, as opposed to a local storage of password.
+
+[NOTE]
+We used a less secure alternative due to the nature of the target audience. It is highly improbable for hackers to be targeting a bicycle shop.
 // end::adminauthentication[]
 
 === Return a Loan feature
@@ -1415,6 +1463,9 @@ Given below are instructions to test the app manually.
 [NOTE]
 These instructions only provide a starting point for testers to work on; testers are expected to do more _exploratory_ testing.
 
+[TIP]
+If this is your first time using the app, note that the default password of the app is set to `a12345`.
+
 === Launch and Shutdown
 
 . Initial launch
@@ -1428,8 +1479,6 @@ These instructions only provide a starting point for testers to work on; testers
 .. Resize the window to an optimum size. Move the window to a different location. Close the window.
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
-
-_{ more test cases ... }_
 
 === Adding a bike
 
@@ -1482,7 +1531,6 @@ _{ more test cases ... }_
    Expected: Similar to previous.
 
 === Deleting a loan
-
 . Deleting a loan while all loans are listed
 
 .. Prerequisites: List all loans using the `list` command. Multiple loans in the list.
@@ -1495,7 +1543,31 @@ _{ more test cases ... }_
 .. Other incorrect delete commands to try: `delete`, `delete i/x x/a12345` (where x is larger than the list size) +
    Expected: Similar to previous.
 
-_{ more test cases ... }_
+=== Changing password
+. Changing the password of the application
+
+.. Prerequisites: Both existing and new password should be alphanumeric of length between 6 and 10 inclusive. Existing password is currently `a12345`.
+.. Test case: `setpass wrongPass newWorld` +
+   Expected: Password remains the same as current password entered is wrong.
+.. Test case: `setpass a12345 $$$$$$$$` +
+   Expected: Password remains the same as new password entered is not alphanumeric.
+.. Test case: `setpass a12345 newPass` +
+   Expected: Password is now changed to `newPass`.
+.. Other incorrect setpass commands to try: `setpass`, `setpass a12345`.
+
+=== Search loans
+. Search loans within a specific time frame
+
+.. Prerequisites: Input date is of the correct format (YYYY-MM-DD)
+.. Test case: `search 2018-01-01 2018-01-01`
+   Expected: Shows loan that was created on 2018-01-01.
+.. Test case: `search 2018-02-30 2018-02-30`
+   Expected: Does not filter loans as 2018-02-30 is not a valid date.
+.. Test case: `search 2018-01-02 2018-01-01`
+   Expected: Does not filter loans as start date should be before end date.
+.. Test case: `search 2018-01-01 2018-12-31`
+   Expected: Shows all loan created in year 2018.
+.. Other incorrect search commands to try: `search`, `search 2018-01-01`.
 
 === Return a loan functionality
 
@@ -1561,14 +1633,6 @@ Expected: The displayed page should report the following:
 ** Returned loans: 3
 ** Total product loan time: 4 minutes
 ** Total revenue: $6.50
-
-=== Saving data
-
-. Dealing with missing/corrupted data files
-
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
-
-_{ more test cases ... }_
 
 === Sending Reminder Emails
 

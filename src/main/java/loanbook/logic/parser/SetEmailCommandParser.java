@@ -1,14 +1,19 @@
 package loanbook.logic.parser;
 
-import static loanbook.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static loanbook.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static loanbook.logic.parser.CliSyntax.PREFIX_PASSWORD;
+
+import java.util.List;
 
 import loanbook.logic.commands.SetEmailCommand;
 import loanbook.logic.parser.exceptions.ParseException;
+import loanbook.model.Password;
+import loanbook.model.loan.Email;
 
 /**
  * Parses input arguments and creates a new SetEmailCommand object.
  */
-public class SetEmailCommandParser implements Parser<SetEmailCommand> {
+public class SetEmailCommandParser extends ArgumentParser<SetEmailCommand> {
 
     /**
      * Parses the given {@code String} of arguments in the context of the SetEmailCommand
@@ -16,15 +21,14 @@ public class SetEmailCommandParser implements Parser<SetEmailCommand> {
      * @throws ParseException if the user input does not conform the expected format
      */
     public SetEmailCommand parse(String args) throws ParseException {
-        String[] parts = args.trim().split(" ");
+        ArgumentMultimap argMultimap = getArgumentMultimap(args,
+                List.of(PREFIX_EMAIL, PREFIX_PASSWORD),
+                List.of(),
+                SetEmailCommand.MESSAGE_USAGE);
 
-        if (parts.length != 2) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SetEmailCommand.MESSAGE_USAGE));
-        }
+        Email email = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get());
+        Password password = ParserUtil.parsePass(argMultimap.getValue(PREFIX_PASSWORD).get());
 
-        String oldEmail = parts[0];
-        String newEmail = parts[1];
-
-        return new SetEmailCommand(oldEmail, newEmail);
+        return new SetEmailCommand(email, password);
     }
 }

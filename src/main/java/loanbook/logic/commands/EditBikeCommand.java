@@ -2,6 +2,7 @@ package loanbook.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static loanbook.commons.core.Messages.MESSAGE_BIKE_NOT_FOUND;
+import static loanbook.commons.core.Messages.MESSAGE_DUPLICATE_BIKE;
 import static loanbook.logic.parser.CliSyntax.PREFIX_NAME;
 import static loanbook.model.Model.PREDICATE_SHOW_ALL_BIKES;
 
@@ -72,7 +73,12 @@ public class EditBikeCommand extends Command {
         Model model) throws CommandException {
         assert bikeToEdit != null;
 
-        Name updatedName = editBikeDescriptor.getName().orElse(bikeToEdit.getName());
+        Optional<Name> optionalNewName = editBikeDescriptor.getName();
+        if (optionalNewName.isPresent() && model.getBike(optionalNewName.get().value).isPresent()) {
+            throw new CommandException(MESSAGE_DUPLICATE_BIKE);
+        }
+
+        Name updatedName = optionalNewName.orElse(bikeToEdit.getName());
 
         return new Bike(
             updatedName

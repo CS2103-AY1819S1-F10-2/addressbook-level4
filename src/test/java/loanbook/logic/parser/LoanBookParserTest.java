@@ -2,8 +2,10 @@ package loanbook.logic.parser;
 
 import static loanbook.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static loanbook.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-import static loanbook.logic.commands.CommandTestUtil.DEFAULT_USER_EMAIL;
 import static loanbook.logic.commands.CommandTestUtil.EMAILPW2_DESC;
+import static loanbook.logic.commands.CommandTestUtil.PASSWORD2;
+import static loanbook.logic.commands.CommandTestUtil.PASSWORD2_DESC;
+import static loanbook.logic.commands.CommandTestUtil.USER_EMAIL1_DESC;
 import static loanbook.logic.commands.CommandTestUtil.VALID_USER_EMAIL1;
 import static loanbook.logic.parser.CliSyntax.PREFIX_ID;
 import static loanbook.logic.parser.CliSyntax.PREFIX_PASSWORD;
@@ -42,6 +44,7 @@ import loanbook.logic.commands.UndoCommand;
 import loanbook.logic.parser.exceptions.ParseException;
 import loanbook.model.Password;
 import loanbook.model.bike.Bike;
+import loanbook.model.loan.Email;
 import loanbook.model.loan.Loan;
 import loanbook.model.loan.LoanId;
 import loanbook.model.loan.LoanTime;
@@ -119,8 +122,8 @@ public class LoanBookParserTest {
     @Test
     public void parseCommand_setemail() throws Exception {
         SetEmailCommand command = (SetEmailCommand) parser.parseCommand(
-                SetEmailCommand.COMMAND_WORD + " default " + "abcdefg@gmail.com");
-        assertEquals(new SetEmailCommand(DEFAULT_USER_EMAIL, VALID_USER_EMAIL1), command);
+                SetEmailCommand.COMMAND_WORD + USER_EMAIL1_DESC + PASSWORD2_DESC);
+        assertEquals(new SetEmailCommand(new Email(VALID_USER_EMAIL1), new Password(PASSWORD2)), command);
     }
 
     @Test
@@ -128,7 +131,7 @@ public class LoanBookParserTest {
         RemindCommand command = (RemindCommand) parser.parseCommand(
                 RemindCommand.COMMAND_WORD + EMAILPW2_DESC + " " + PREFIX_ID + "0");
         LoanId id = new LoanId("0");
-        assertEquals(new RemindCommand("loanbookpassword", id), command);
+        assertEquals(new RemindCommand(PASSWORD2, id), command);
     }
 
     @Test
