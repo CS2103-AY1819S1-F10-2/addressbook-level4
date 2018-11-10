@@ -58,7 +58,7 @@ public class SetEmailCommandTest {
         ModelStubWithUserEmail modelStub = new ModelStubWithUserEmail();
 
         thrown.expect(CommandException.class);
-        thrown.expectMessage(Messages.MESSAGE_DUPLICATE_FAILURE);
+        thrown.expectMessage(Messages.MESSAGE_SAME_AS_OLDEMAIL);
         command.execute(modelStub, commandHistory);
     }
 
