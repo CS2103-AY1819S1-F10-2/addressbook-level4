@@ -21,9 +21,9 @@ This section provides a brief summary on the contributions of major and minor en
 **** This feature improves the product significantly because now, only authorized users are able use the critical commands (E.g. `delete` command) to delete loans. Without this, the data from the summary report may be incorrect, affecting tax-filling, revenue management.
 ** Highlights:
 *** Allow users to change the password of the app, ensuring that the same password is not used for a long time.
-*** Encryption using randomly generated salts provide a higher level of encryption as hackers will not be able to reverse engineer the password.
+*** Encryption using randomly generated salts provide a higher level of encryption as hackers will not be able to reverse engineer the password. Used existing code by http://www.appsdeveloperblog.com/encrypt-user-password-example-java/[Sergey Kargopolov].
 *** Inputs of commands requiring password no longer appears in the command history.
-*** Existing commands was modified to require a password input.
+*** Existing commands was modified to require a password input. (E.g. `delete`)
 
 * *Minor enhancement*:
 ** Create NRIC class to store Singapore issued NRIC. Also include a checksum validation to ensure correct NRIC. [https://github.com/CS2103-AY1819S1-F10-2/main/pull/36[#36]]
