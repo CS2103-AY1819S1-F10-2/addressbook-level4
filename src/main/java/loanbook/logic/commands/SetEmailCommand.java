@@ -45,7 +45,7 @@ public class SetEmailCommand extends PasswordProtectedCommand {
         assertCorrectPassword(model);
 
         if ((newEmail.value).equals(model.getMyEmail())) {
-            throw new CommandException(Messages.MESSAGE_DUPLICATE_FAILURE);
+            throw new CommandException(Messages.MESSAGE_SAME_AS_OLDEMAIL);
         }
 
         if (!Email.isValidGmail(newEmail.value)) {

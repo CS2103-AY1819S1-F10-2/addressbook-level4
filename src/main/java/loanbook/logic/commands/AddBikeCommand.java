@@ -1,6 +1,7 @@
 package loanbook.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static loanbook.commons.core.Messages.MESSAGE_DUPLICATE_BIKE;
 import static loanbook.logic.parser.CliSyntax.PREFIX_NAME;
 
 import loanbook.logic.CommandHistory;
@@ -22,7 +23,6 @@ public class AddBikeCommand extends Command {
         + PREFIX_NAME + "Bike001";
 
     public static final String MESSAGE_SUCCESS = "New bike added: %1$s";
-    public static final String MESSAGE_DUPLICATE_BIKE = "A bike with the same name already exists in the loan book";
 
     private final Bike toAdd;
 

@@ -1,5 +1,6 @@
 package loanbook.logic.commands;
 
+import static loanbook.commons.core.Messages.MESSAGE_BIKE_NOT_FOUND;
 import static loanbook.logic.commands.CommandTestUtil.DESC_AMY;
 import static loanbook.logic.commands.CommandTestUtil.DESC_BOB;
 import static loanbook.logic.commands.CommandTestUtil.NOEXIST_NAME_BIKE;
@@ -151,7 +152,7 @@ public class EditCommandTest {
             .withBike(NOEXIST_NAME_BIKE).build();
         EditCommand editCommand = new EditCommand(indexLastLoan, descriptor);
 
-        assertCommandFailure(editCommand, model, commandHistory, EditCommand.MESSAGE_BIKE_NOT_FOUND);
+        assertCommandFailure(editCommand, model, commandHistory, MESSAGE_BIKE_NOT_FOUND);
     }
 
     @Test

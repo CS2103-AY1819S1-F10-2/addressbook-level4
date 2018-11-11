@@ -1,6 +1,7 @@
 package loanbook.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static loanbook.commons.core.Messages.MESSAGE_BIKE_NOT_FOUND;
 import static loanbook.logic.parser.CliSyntax.PREFIX_BIKE;
 import static loanbook.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static loanbook.logic.parser.CliSyntax.PREFIX_LOANRATE;
@@ -46,7 +47,6 @@ public class AddCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "New loan added: %1$s";
     public static final String MESSAGE_LOANBOOK_FULL = "The loan book is full";
-    public static final String MESSAGE_BIKE_NOT_FOUND = "No bike with that name exists within the loan book";
 
     private final Loan toAdd;
 

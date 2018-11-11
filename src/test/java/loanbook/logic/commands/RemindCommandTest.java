@@ -62,7 +62,7 @@ public class RemindCommandTest {
         RemindCommand command = new RemindCommand(PASSWORD1, id);
 
         thrown.expect(CommandException.class);
-        thrown.expectMessage(Messages.MESSAGE_INVALID_INFO);
+        thrown.expectMessage(Messages.MESSAGE_INVALID_LOAN);
         command.execute(modelStub, commandHistory);
     }
 
@@ -90,7 +90,7 @@ public class RemindCommandTest {
         RemindCommand command = new RemindCommand(PASSWORD1, id);
 
         thrown.expect(CommandException.class);
-        thrown.expectMessage(Messages.MESSAGE_INVALID_INFO);
+        thrown.expectMessage(Messages.MESSAGE_INVALID_LOAN);
         command.execute(modelStub, commandHistory);
     }
 

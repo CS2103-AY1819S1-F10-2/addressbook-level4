@@ -1,5 +1,6 @@
 package systemtests;
 
+import static loanbook.commons.core.Messages.MESSAGE_NOT_EDITED;
 import static loanbook.logic.commands.CommandTestUtil.BIKE_DESC_AMY;
 import static loanbook.logic.commands.CommandTestUtil.BIKE_DESC_BOB;
 import static loanbook.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
@@ -195,7 +196,7 @@ public class EditCommandSystemTest extends LoanBookSystemTest {
 
         /* Case: missing all fields -> rejected */
         assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_LOAN.getOneBased(),
-                EditCommand.MESSAGE_NOT_EDITED);
+                MESSAGE_NOT_EDITED);
 
         /* Case: invalid name -> rejected */
         assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_LOAN.getOneBased() + INVALID_NAME_DESC,

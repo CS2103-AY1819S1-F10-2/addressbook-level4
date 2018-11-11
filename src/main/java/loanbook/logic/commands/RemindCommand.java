@@ -56,7 +56,7 @@ public class RemindCommand extends Command {
         Optional<Loan> targetLoan = model.getLoanById(id);
 
         if (!targetLoan.isPresent()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_INFO);
+            throw new CommandException(Messages.MESSAGE_INVALID_LOAN);
         }
 
         if (targetLoan.get().getLoanStatus().equals(LoanStatus.RETURNED)) {

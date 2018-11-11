@@ -1,6 +1,7 @@
 package loanbook.logic.parser;
 
 import static loanbook.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static loanbook.commons.core.Messages.MESSAGE_NOT_EDITED;
 import static loanbook.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
 import static loanbook.logic.commands.CommandTestUtil.EMAIL_DESC_BOB;
 import static loanbook.logic.commands.CommandTestUtil.INVALID_EMAIL_DESC;
@@ -52,7 +53,7 @@ public class EditCommandParserTest {
         assertParseFailure(parser, VALID_NAME_AMY, MESSAGE_INVALID_FORMAT);
 
         // no field specified
-        assertParseFailure(parser, "1", EditCommand.MESSAGE_NOT_EDITED);
+        assertParseFailure(parser, "1", MESSAGE_NOT_EDITED);
 
         // no index and no field specified
         assertParseFailure(parser, "", MESSAGE_INVALID_FORMAT);
