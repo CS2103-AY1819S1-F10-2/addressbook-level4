@@ -11,9 +11,11 @@ import loanbook.model.Password;
 public abstract class PasswordProtectedCommand extends Command {
 
     private final Password targetPassword;
+    private final String commandName;
 
-    public PasswordProtectedCommand(Password password) {
+    public PasswordProtectedCommand(Password password, String commandName) {
         targetPassword = password;
+        this.commandName = commandName;
     }
 
     /**
@@ -32,5 +34,9 @@ public abstract class PasswordProtectedCommand extends Command {
         return other == this
                 || (other instanceof PasswordProtectedCommand
                 && targetPassword.equals(((PasswordProtectedCommand) other).targetPassword));
+    }
+
+    public String getCommandName() {
+        return commandName;
     }
 }

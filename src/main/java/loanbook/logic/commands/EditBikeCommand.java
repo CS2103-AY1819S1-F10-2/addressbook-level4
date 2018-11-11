@@ -29,6 +29,7 @@ public class EditBikeCommand extends Command {
 
     public static final String MESSAGE_EDIT_BIKE_SUCCESS = "Edited bike: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
+    public static final String MESSAGE_DUPLICATE_BIKE = "A bike with the same name already exists in the loan book";
     public static final String MESSAGE_BIKE_NOT_FOUND = "No bike with that name exists within the loan book.";
 
     private final Name bikeName;
@@ -73,7 +74,12 @@ public class EditBikeCommand extends Command {
         Model model) throws CommandException {
         assert bikeToEdit != null;
 
-        Name updatedName = editBikeDescriptor.getName().orElse(bikeToEdit.getName());
+        Optional<Name> optionalNewName = editBikeDescriptor.getName();
+        if (optionalNewName.isPresent() && model.getBike(optionalNewName.get().value).isPresent()) {
+            throw new CommandException(MESSAGE_DUPLICATE_BIKE);
+        }
+
+        Name updatedName = optionalNewName.orElse(bikeToEdit.getName());
 
         return new Bike(
             updatedName

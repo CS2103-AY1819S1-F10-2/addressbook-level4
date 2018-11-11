@@ -24,7 +24,7 @@ public class ResetAllCommand extends PasswordProtectedCommand {
     public static final String MESSAGE_RESET_ALL_SUCCESS = "Loan book has been successfully reset!";
 
     public ResetAllCommand(Password pass) {
-        super(pass);
+        super(pass, COMMAND_WORD);
     }
 
     @Override
