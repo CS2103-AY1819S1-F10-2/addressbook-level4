@@ -1,6 +1,7 @@
 package loanbook.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static loanbook.commons.core.Messages.MESSAGE_BIKE_NOT_FOUND;
 import static loanbook.logic.parser.CliSyntax.PREFIX_BIKE;
 import static loanbook.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static loanbook.logic.parser.CliSyntax.PREFIX_LOANRATE;
@@ -57,8 +58,6 @@ public class EditCommand extends Command {
             + PREFIX_EMAIL + "johndoe@example.com";
 
     public static final String MESSAGE_EDIT_LOAN_SUCCESS = "Edited Loan: %1$s";
-    public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_BIKE_NOT_FOUND = "No bike with that name exists within the loan book.";
 
     private final Index index;
     private final EditLoanDescriptor editLoanDescriptor;

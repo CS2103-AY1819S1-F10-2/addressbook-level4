@@ -1,6 +1,7 @@
 package loanbook.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static loanbook.commons.core.Messages.MESSAGE_BIKE_NOT_FOUND;
 import static loanbook.logic.parser.CliSyntax.PREFIX_NAME;
 import static loanbook.logic.parser.CliSyntax.PREFIX_PASSWORD;
 
@@ -28,7 +29,6 @@ public class DeleteBikeCommand extends Command {
         + "Example: " + COMMAND_WORD + " " + PREFIX_NAME + "Bike001 " + PREFIX_PASSWORD + "a12345";
 
     public static final String MESSAGE_DELETE_BIKE_SUCCESS = "Deleted Bike: %1$s";
-    public static final String MESSAGE_BIKE_NOT_FOUND = "No bike with that name exists within the loan book";
 
     private final Name bikeName;
     private final Password targetPassword;
