@@ -71,7 +71,7 @@ Adds a bike to the loan book with the following parameters, and displays the bik
 
 [big red]#List of Parameters#:
 
-`n/`: `BIKE_NAME` +
+`n/BIKE_NAME` : Name of the bicycle +
 
 [NOTE]
 `BIKE_NAME` is used as a bicycle identifier, that is, every bicycle should have a unique bicycle name. As such, `BIKE_NAME` will be rejected if it matches the name of an existing bike in the LoanBook.
@@ -88,13 +88,13 @@ Adds a loan to the loan book with the following parameters, and displays the tra
 
 [big red]#List of Parameters#:
 
-`n/`: `PERSON'S NAME` +
-`ic/`: `PERSON'S IC` +
-`p/`: `PERSON'S PHONE NUMBER` +
-`e/`: `PERSON'S EMAIL` +
-`b/`: `BIKE NAME` to be rented +
-`lr/`: `RATE` of the loan, in dollars per hour +
-[`t/`: `TAGS`] (Optional) +
+`n/NAME`: Loaner's name +
+`ic/NRIC`: Loaner's IC +
+`p/PHONE`: Loaner'S phone number +
+`e/EMAIL`: Loaner'S email address +
+`b/BIKE`: Name of bicycle to be rented +
+`lr/LOANRATE`: Rate of the loan, in dollars per hour +
+[`t/TAG`: Optional Tags to tag the loan] +
 
 [NOTE]
 `PERSON_PHONE_NO` and `PERSON_EMAIL` should not be blank. +
@@ -141,13 +141,13 @@ In case a wrong entry is keyed in, or the customer changes their mind, this comm
 
 [big red]#List of Parameters#:
 
-[`n/`: `EDITED NAME`] (Optional) +
-[`ic/`: `EDITED IC`] (Optional) +
-[`p/`: `EDITED PHONE NUMBER`] (Optional) +
-[`e/`: `EDITED EMAIL`] (Optional) +
-[`b/`: `EDITED BIKE NAME`] (Optional) +
-[`lr/`: `EDITED RATE` of the loan, in dollars per hour] (Optional) +
-[`t/`: `EDITED TAGS`] (Optional) +
+[`n/NAME`: Optional edited loaner's name] () +
+[`ic/NRIC`: Optional edited loaner's NRIC] (Optional) +
+[`p/PHONE`: Optional edited loaner's phone number] (Optional) +
+[`e/EMAIL`: Optional edited loaner's email] (Optional) +
+[`b/BIKE`: Optional edited bicycle name] (Optional) +
+[`lr/LOANRATE`: Optional edited  of the loan, in dollars per hour] (Optional) +
+[`t/TAG`: Optional edited tags of the loan] (Optional) +
 
 ****
 * Edits the loan at the specified `LOAN_INDEX`. This LOAN_INDEX refers to the LOAN_INDEX number shown in the displayed loan list. The LOAN_INDEX *must be a positive integer* 1, 2, 3, ...
@@ -220,8 +220,8 @@ Due to `delete` modifying transactional summary, it is a critical command and he
 
 [big red]#List of Parameters#:
 
-`i/`: `INDEX OF THE LOAN` in the left hand side display. +
-`x/`: `PASSWORD` used in the LoanBook.
+`i/LOAN_INDEX`: Index of the loan, in the left hand side display. +
+`x/CURRENT_PASSWORD`: Password used in the LoanBook.
 
 ****
 * Deletes the loan at the specified `i/LOAN_INDEX`.
@@ -271,7 +271,7 @@ This command marks a loan as returned based on LOAN_INDEX and automatically prin
 
 [big red]#List of Parameters#:
 
-`i/`: `INDEX OF THE LOAN` in the left hand side display.
+`i/LOAN_INDEX`: Index of the loan, in the left hand side display. +
 
 [TIP]
 ====
@@ -342,7 +342,7 @@ Removes all loans from the loan book and resets the Loan ID counter. This operat
 
 [big red]#List of Parameters#:
 
-`x/`: `PASSWORD` used in the LoanBook.
+`x/CURRENT_PASSWORD`: Password used in the LoanBook.
 
 Example:
 
@@ -377,7 +377,7 @@ Resets the entire loan book. This includes the removal of all loans and bikes fr
 
 [big red]#List of Parameters#:
 
-`x/`: `PASSWORD` used in the LoanBook.
+`x/CURRENT_PASSWORD`: Password used in the LoanBook.
 
 Example:
 
@@ -460,12 +460,12 @@ Examples:
 === Send reminder email: `remind`
 
 Sends a reminder email to the customer. +
-[big]#*Format*: `remind pw/EMAILPASSWORD id/LOANID`#
+[big]#*Format*: `remind pw/EMAILPASSWORD id/LOAN_ID`#
 
 [big red]#List of Parameters#:
 
-`pw/`: `PASSWORD` of the email address you are sending the messages from. +
-`id/`: `LOANID` of the loan you want to remind +
+`pw/PASSWORD`: Password of the email address you are sending the messages from. +
+`id/LOAN_ID`: LoanID of the loan you want to remind +
 
 * `LOANID` is the ID of the loan, not the index.
 * `EMAILPASSWORD` must be correct.
