@@ -209,8 +209,8 @@ image::DeleteLoanSdForLogic.png[width="800"]
 The model component:
 
 * Stores the LoanBook data.
-* Exposes an unmodifiable `ObservableList<Loan>` that can be 'observed' by the UI, so that the UI automatically updates when the data in the model changes.
 * Stores the user's preferences.
+* Exposes an unmodifiable `ObservableList<Loan>` that can be 'observed' by the UI, so that the UI automatically updates when the data in the model changes.
 * Does not depend on any of the other three components.
 
 It allows the following operations:
@@ -224,7 +224,9 @@ The component's class diagram is given below:
 .Structure of the Model Component
 image::ModelClassDiagram.png[width="800"]
 
-*API* : link:{repoURL}/src/main/java/loanbook/model/Model.java[`Model.java`]
+
+
+*API file*: link:{repoURL}/src/main/java/loanbook/model/Model.java[`Model.java`]
 
 The API is backed by a `ModelManager` which contains:
 
@@ -232,7 +234,7 @@ The API is backed by a `ModelManager` which contains:
 * A filtered list each for `Bike` s and `Loan` s to expose to the UI.
 * A `UserPrefs` object to track the user's preferences.
 
-Most operations passed to the `Model` component deals with its `VersionedLoanBook`. A `VersionedLoanBook` is simply a regular `LoanBook` that keeps track of its own history, for the undo/redo operation. The `LoanBook` itself contains:
+Most operations passed to the `Model` component deal with its `VersionedLoanBook`. A `VersionedLoanBook` is simply a regular `LoanBook` that keeps track of its own history, for the undo/redo operation. The `LoanBook` itself contains:
 
 * A `LoanIdManager` that helps to assign a unique `LoanId` to every `Loan`, so that `Loan` s may be easily identified.
 * A list of unique `Bike` s.
@@ -250,13 +252,13 @@ We want to exclude duplicate items from these lists to make sure that identifyin
 To facilitate this structure, both the `Bike` and `Loan` class implement a `UniqueListItem` interface, and the `Bike` and `Loan` lists inherit from a `UniqueList` class.
 ====
 
-Most of the commands passed into the `Model` are forwarded to its `LoanBook`, who then executes these commands on the `Bike` and `Loan` lists that it has.
+Most of the commands passed into the `Model` are forwarded to its `LoanBook`, which then executes these commands on the `Bike` and `Loan` lists that it has.
 
 A `Loan` contains:
 
 * The customer's particulars: Their `Name`, `Nric`, `Phone` and `Email`.
 * The `Bike` that the customer is renting.
-* A `LoanStatus` used signal whether this `Loan` is `Ongoing`, `Returned` or `Deleted`.
+* A `LoanStatus` used to signal whether this `Loan` is `Ongoing`, `Returned` or `Deleted`.
 * A `LoanId` used for identifying this `Loan`.
 * A `LoanRate` specifying the rate which the bicycle is being loaned at, in $/hr.
 * A `loanStartTime` and `loanEndTime`, specifying the scheduled start and end times of the loan. `loanEndTime` might be `null` if the loan has no scheduled return time.
@@ -264,7 +266,11 @@ A `Loan` contains:
 
 A `Bike` contains:
 
-* A `Name` used for identifying this Bike.
+* A `Name` used for identifying this `Bike`.
+* A `BikeStatus` reflecting the current status of this `Bike`, e.g. whether it's available for rental, loaned out, under repair etc.
+
+[WARNING]
+Currently, the `BikeStatus` field within the `Bike` class is present but not being used for anything. A future use of this field is proposed in the section on <<Implementation-Bicycle-Management,Bicycle Management>>.
 
 [NOTE]
 The `DataField` class is used to unify the common idea that the above details for `Loan` s and `Bike` s are specifiable by a user-inputted string. The only exception is the `Bike` field in the `Loan` class, which is specified using the `Bike` 's `Name` instead.
@@ -636,6 +642,7 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 
 Certain properties of the application can be controlled (e.g App name, logging level) through the configuration file (default: `config.json`).
 
+[[Implementation-Bicycle-Management]]
 === Bicycle Management
 
 As bicycles have a lot of properties, statuses and actions associated with them, they are represented in the code base as a dedicated `Bike` class.
