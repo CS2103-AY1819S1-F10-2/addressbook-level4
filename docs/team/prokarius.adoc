@@ -13,7 +13,7 @@ LoanBook is a desktop application targetted at bicycle shop owners to manage the
 
 The users interacts with it using a CLI, and it has a GUI created with JavaFX. The code base has approximately 20 thousand lines of code.
 
-This report documents my contributions to this team-based project on both the code base and documentation as part of the NUS CS2103T -- Software Engineering module. 
+This report documents my contributions to this team-based project on both the code base and documentation as part of the NUS CS2103T -- Software Engineering module.
 
 == Summary of contributions
 
@@ -21,7 +21,7 @@ This report documents my contributions to this team-based project on both the co
 |_This section records my contributions to the main code base._
 |===
 
-==== *Major enhancement 1*: `return` functionality.
+=== *Major enhancement 1*: `return` functionality.
 
 Added a command that allows the user to return a loan.
 
@@ -33,26 +33,26 @@ Added a command that allows the user to return a loan.
 
 ** PR https://github.com/CS2103-AY1819S1-F10-2/main/pull/159[#159].
 
-==== *Major enhancement 2*: `summary` functionality
+=== *Major enhancement 2*: `summary` functionality
 
-** Feature: Generates a single page summary of all the undeleted loans that the user has enetered into the LoanBook. 
+** Feature: Generates a single page summary of all the undeleted loans that the user has enetered into the LoanBook.
 
 ** Justification: This simplifies the auditing process for the user, by generating a simple easy to understand summary, so that the user does not need to manually tabulate receipts.
 
 ** PR https://github.com/CS2103-AY1819S1-F10-2/main/pull/251[#251].
 
-==== *Minor enhancement*: Added tags to distinguish the loans with their respective statuses
+=== *Minor enhancement*: Added tags to distinguish the loans with their respective statuses
 
-** Feature: Used a small color coded tag 
+** Feature: Used a small color coded tag
 
 ** Justification: Doing this would allow users to at a glance, see the status of the loans.
 
 ** PR https://github.com/CS2103-AY1819S1-F10-2/main/pull/163[#163].
 
-==== *Code contributed*:
+=== *Code contributed*:
 * https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=prokarius&sort=displayName&since=2018-09-12&until=2018-11-09&timeframe=day&reverse=false&repoSort=true[Reposense Link].
 
-==== *Other contributions*:
+=== *Other contributions*:
 
 * Project management:
 ** Managed releases `v1.2` - `v1.4` (3 releases) on GitHub
@@ -75,13 +75,13 @@ Added a command that allows the user to return a loan.
 
 * Team Management:
 ** Managed the features and upgrades for the team between scrums.
-** Coached team mates who were new to git and taught them various git CLI functionalities. 
+** Coached team mates who were new to git and taught them various git CLI functionalities.
 
 
 == Contributions to the User Guide
 
 |===
-_These are some samples of the sections I contributed to the User Guide which showcases my ability to create easy to follow and engaging documentation for end-users._
+|_These are some samples of the sections I contributed to the User Guide which showcases my ability to create easy to follow and engaging documentation for end-users._
 |===
 
 === Returning a loan: `return`
