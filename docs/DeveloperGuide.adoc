@@ -547,7 +547,7 @@ image::return-loan-loan2.png[]
 Note that originally the loan has a `null` value for end time. Note that the `endTime` and `loanStatus` values has been updated.
 
 [TIP]
-If the loan has already been returned or deleted, a corresponding error message will notify you that you cannot return a loan that is not ongoing. The message will also display the current status of the loan for troubleshooting. This check happens during this step.
+If the loan has already been returned or deleted, a corresponding error message will notify you that you cannot return a loan that is not ongoing. This check happens during this step.
 
 {nbsp} +
 

@@ -288,7 +288,7 @@ Do note that you will have to list out all the loans in order, or search for a p
 
 The number crunching will work for any type of currency, however it is optimised for dollar amounts. The display also uses the dollar sign and will give you the output to 2 decimal places. +
 
-[NOTE]
+[WARNING]
 ====
 Do be careful to note that it is the loan INDEX that you are keying into the program. Please do not key in the LoanID instead! +
 The INDEX is the one position of the loan in the list on the left hand side. Refer to the circled object in the below diagram:
@@ -298,7 +298,7 @@ image::LoanIndexWarning.png[]
 
 [WARNING]
 ====
-This command is currently not undoable. Please be careful to double check.
+This command is currently not undoable. Please be careful to double check that you are returning the correct loan!
 
 We are working on fixing this issue! Do look forward to seeing this new functionality in the next release of LoanBook, version 2.0!
 ====
@@ -398,6 +398,8 @@ Example:
 
 Do you want to find out at a glance how much money your business has collected? Or maybe out of all the bicycles you have, how many are currently loaned out? Here's the command for you.
 
+[big]#*Format*: `summary`#
+
 This feature shows the total number of loans that are done and in progress. It also summarizes the loan status of each item, the number of times an object was loaned before.
 
 The `summary` function would display the statistics of all your loans in the display box on the right of the application. There, you will find the following statistics:
@@ -411,8 +413,6 @@ The `summary` function would display the statistics of all your loans in the dis
 Current implementations would only allow the summary of the above statistics. However, the LoanBook Team is looking to implement more summary items into the above summary. +
 If you would like the summary functionality to report certain stats that are not included, feel free to contact us, and if it's feasible, we will include it into our next release!
 ====
-
-[big]#*Format*: `summary`#
 
 [NOTE]
 ====
