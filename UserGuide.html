@@ -33,6 +33,7 @@
 <li><a href="#check-your-email-code-checkemail-code">3.18. Check your email: <code>checkemail</code></a></li>
 <li><a href="#set-your-email-code-setemail-code">3.19. Set your email: <code>setemail</code></a></li>
 <li><a href="#send-reminder-email-code-remind-code">3.20. Send reminder email: <code>remind</code></a></li>
+<li><a href="#exiting-the-program-code-exit-code">3.21. Exiting the program: <code>exit</code></a></li>
 </ul>
 </li>
 <li><a href="#future-features">4. Future features</a>
@@ -172,14 +173,20 @@ This is not the only way to get help! If you key in the commands with the wrong 
 </table>
 </div>
 <div class="paragraph">
-<p>Format: <code>help</code></p>
+<p><span class="big"><strong>Format</strong>: <code>help</code></span></p>
 </div>
 </div>
 <div class="sect2">
 <h3 id="adding-a-bike-code-addbike-code"><a class="link" href="#adding-a-bike-code-addbike-code">3.2. Adding a bike: <code>addbike</code></a></h3>
 <div class="paragraph">
 <p>Adds a bike to the loan book with the following parameters, and displays the bike&#8217;s details as confirmation.<br>
-Format: <code>addbike n/BIKE_NAME</code></p>
+<span class="big"><strong>Format</strong>: <code>addbike n/BIKE_NAME</code></span></p>
+</div>
+<div class="paragraph">
+<p><span class="big red">List of Parameters</span>:</p>
+</div>
+<div class="paragraph">
+<p><code>n/BIKE_NAME</code> : Name of the bicycle<br></p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -210,8 +217,20 @@ Format: <code>addbike n/BIKE_NAME</code></p>
 <div class="sect2">
 <h3 id="adding-a-loan-code-add-code"><a class="link" href="#adding-a-loan-code-add-code">3.3. Adding a loan: <code>add</code></a></h3>
 <div class="paragraph">
-<p>Adds a loan to the loan book with the following parameters, and displays the transaction along with a LOAN_ID to keep track of the loan.<br>
-Format: <code>add n/NAME ic/NRIC p/PHONE e/EMAIL b/BIKE lr/LOANRATE [t/TAG]&#8230;&#8203;</code></p>
+<p>Adds a loan to the loan book with the following parameters, and displays the transaction along with a <code>LOAN_ID</code> to keep track of the loan.<br>
+<span class="big"><strong>Format</strong>: <code>add n/NAME ic/NRIC p/PHONE e/EMAIL b/BIKE lr/LOANRATE [t/TAG]&#8230;&#8203;</code></span></p>
+</div>
+<div class="paragraph">
+<p><span class="big red">List of Parameters</span>:</p>
+</div>
+<div class="paragraph">
+<p><code>n/NAME</code>: Loaner&#8217;s name<br>
+<code>ic/NRIC</code>: Loaner&#8217;s IC<br>
+<code>p/PHONE</code>: Loaner&#8217;S phone number<br>
+<code>e/EMAIL</code>: Loaner&#8217;S email address<br>
+<code>b/BIKE</code>: Name of bicycle to be rented<br>
+<code>lr/LOANRATE</code>: Rate of the loan, in dollars per hour<br>
+[<code>t/TAG</code>: Optional Tags to tag the loan]<br></p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -220,10 +239,9 @@ Format: <code>add n/NAME ic/NRIC p/PHONE e/EMAIL b/BIKE lr/LOANRATE [t/TAG]&#823
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-PERSON_PHONE_NO and PERSON_EMAIL should not be blank.<br>
-BIKE_NAME must be the name of a bicycle that has already been registered into the LoanBook.<br>
-NUMBER_LOANED and LOAN_OUT_PERIOD must be a positive integer.<br>
-LOANRATE is in dollars per hour.
+<code>PERSON_PHONE_NO</code> and <code>PERSON_EMAIL</code> should not be blank.<br>
+<code>BIKE_NAME</code> must be the name of a bicycle that has already been registered into the LoanBook.<br>
+<code>LOANRATE</code> is in dollars per hour.
 </td>
 </tr>
 </table>
@@ -260,21 +278,21 @@ LOANRATE is in dollars per hour.
 <h3 id="listing-all-bikes-code-listbikes-code"><a class="link" href="#listing-all-bikes-code-listbikes-code">3.4. Listing all bikes: <code>listbikes</code></a></h3>
 <div class="paragraph">
 <p>Shows a list of all registered bicycles in the LoanBook.<br>
-Format: <code>listbikes</code></p>
+<span class="big"><strong>Format</strong>: <code>listbikes</code></span></p>
 </div>
 </div>
 <div class="sect2">
 <h3 id="listing-all-loans-code-list-code"><a class="link" href="#listing-all-loans-code-list-code">3.5. Listing all loans: <code>list</code></a></h3>
 <div class="paragraph">
 <p>Shows a list of all loans in the LoanBook.<br>
-Format: <code>list</code></p>
+<span class="big"><strong>Format</strong>: <code>list</code></span></p>
 </div>
 </div>
 <div class="sect2">
 <h3 id="coming-in-v1-4-editing-a-bike-code-editbike-code"><a class="link" href="#coming-in-v1-4-editing-a-bike-code-editbike-code">3.6. [Coming in v1.4] Editing a bike : <code>editbike</code></a></h3>
 <div class="paragraph">
 <p>To keep the system updated with any changes in the bicycles, this command allows details of a bicycle to be edited.<br>
-Format: <code>edit BIKE_NAME [n/NEW_BIKE_NAME]</code></p>
+<span class="big"><strong>Format</strong>: <code>edit BIKE_NAME [n/NEW_BIKE_NAME]</code></span></p>
 </div>
 <div class="ulist">
 <ul>
@@ -302,7 +320,19 @@ For the bicycle named "Bike 1", its name is changed to "Bike-001", as long as "B
 <h3 id="editing-a-loan-code-edit-code"><a class="link" href="#editing-a-loan-code-edit-code">3.7. Editing a loan: <code>edit</code></a></h3>
 <div class="paragraph">
 <p>In case a wrong entry is keyed in, or the customer changes their mind, this command allows details of a loan entry to be edited.<br>
-Format: <code>edit INDEX (must be a positive integer) [n/NAME] [ic/NRIC] [p/PHONE] [e/EMAIL] [b/BIKE] [lr/LOANRATE] [t/TAG]&#8230;&#8203;</code></p>
+<span class="big"><strong>Format</strong>: <code>edit INDEX (must be a positive integer) [n/NAME] [ic/NRIC] [p/PHONE] [e/EMAIL] [b/BIKE] [lr/LOANRATE] [t/TAG]&#8230;&#8203;</code></span></p>
+</div>
+<div class="paragraph">
+<p><span class="big red">List of Parameters</span>:</p>
+</div>
+<div class="paragraph">
+<p>[<code>n/NAME</code>: Optional edited loaner&#8217;s name] ()<br>
+[<code>ic/NRIC</code>: Optional edited loaner&#8217;s NRIC] (Optional)<br>
+[<code>p/PHONE</code>: Optional edited loaner&#8217;s phone number] (Optional)<br>
+[<code>e/EMAIL</code>: Optional edited loaner&#8217;s email] (Optional)<br>
+[<code>b/BIKE</code>: Optional edited bicycle name] (Optional)<br>
+[<code>lr/LOANRATE</code>: Optional edited  of the loan, in dollars per hour] (Optional)<br>
+[<code>t/TAG</code>: Optional edited tags of the loan] (Optional)<br></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
@@ -353,12 +383,31 @@ For the loan at index 1, changes the customer to James Tan, who has the specifie
 </tr>
 </table>
 </div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+At least one of the above fields has to be included. If not, LoanBook will not be able to parse your command!
+</td>
+</tr>
+</table>
+</div>
 </div>
 <div class="sect2">
 <h3 id="locating-loans-by-keywords-code-find-code"><a class="link" href="#locating-loans-by-keywords-code-find-code">3.8. Locating loans by keywords: <code>find</code></a></h3>
 <div class="paragraph">
 <p>Finds loans whose customers' names contain any of the given keywords.<br>
-Format: find KEYWORD [MORE_KEYWORDS]</p>
+<span class="big"><strong>Format</strong>: <code>find KEYWORD [MORE_KEYWORDS]</code></span></p>
+</div>
+<div class="paragraph">
+<p><span class="big red">List of Parameters</span>:</p>
+</div>
+<div class="paragraph">
+<p>The keywords you you want to search for.<br>
+Note that for this command, there is no prefix that you need to type. Just separate the keywords with spaces.</p>
 </div>
 <div class="sidebarblock">
 <div class="content">
@@ -398,12 +447,24 @@ Returns any loan having names <code>Betsy</code>, <code>Tim</code>, or <code>Joh
 </li>
 </ul>
 </div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+You need to provide at least one keyword. If not, LoanBook will not be able to parse your command!
+</td>
+</tr>
+</table>
+</div>
 </div>
 <div class="sect2">
 <h3 id="coming-in-v1-4-deleting-the-chosen-bike-from-the-loan-book-code-deletebike-code"><a class="link" href="#coming-in-v1-4-deleting-the-chosen-bike-from-the-loan-book-code-deletebike-code">3.9. [Coming in v1.4] Deleting the chosen bike from the loan book : <code>deletebike</code></a></h3>
 <div class="paragraph">
 <p>Deletes a bike from the loan book.<br>
-Format: <code>deletebike BIKE_NAME x/CURRENT_PASSWORD</code></p>
+<span class="big"><strong>Format</strong>: <code>deletebike BIKE_NAME x/CURRENT_PASSWORD</code></span></p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -434,7 +495,14 @@ Deletes the bicycle with the name of "Bike 1".</p>
 <div class="paragraph">
 <p>Delete the loan from the loan book. If you want to delete one loan, use <code>delete i/LOAN_INDEX x/CURRENT_PASSWORD</code>.
 Due to <code>delete</code> modifying transactional summary, it is a critical command and hence elevation is required hence the password field.<br>
-Format: <code>delete i/LOAN_INDEX x/CURRENT_PASSWORD</code></p>
+<span class="big"><strong>Format</strong>: <code>delete i/LOAN_INDEX x/CURRENT_PASSWORD</code></span></p>
+</div>
+<div class="paragraph">
+<p><span class="big red">List of Parameters</span>:</p>
+</div>
+<div class="paragraph">
+<p><code>i/LOAN_INDEX</code>: Index of the loan, in the left hand side display.<br>
+<code>x/CURRENT_PASSWORD</code>: Password used in the LoanBook.</p>
 </div>
 <div class="sidebarblock">
 <div class="content">
@@ -483,7 +551,14 @@ Deletes the loan with that has been indexed at position 1.</p>
 <h3 id="change-the-password-of-the-app-code-setpass-code"><a class="link" href="#change-the-password-of-the-app-code-setpass-code">3.11. Change the password of the app: <code>setpass</code>.</a></h3>
 <div class="paragraph">
 <p>Change the current password of the app to <code>NEW_PASSWORD</code>. This ensures that critical commands such as <code>delete</code> and <code>resetall</code> may be performed by authorized personnel only.<br>
-Format: <code>setpass CURRENT_PASSWORD NEW_PASSWORD</code></p>
+<span class="big"><strong>Format</strong>: <code>setpass CURRENT_PASSWORD NEW_PASSWORD</code></span></p>
+</div>
+<div class="paragraph">
+<p><span class="big red">List of Parameters</span>:</p>
+</div>
+<div class="paragraph">
+<p>The old and new passwords of the application.<br>
+Note that you only need to use spaces to seperate the two passwords. There is no prefix for this command!</p>
 </div>
 <div class="sidebarblock">
 <div class="content">
@@ -529,10 +604,19 @@ Set the password of the app to <code>n3wP4sS</code>.</p>
 <div class="sect2">
 <h3 id="returning-a-loan-code-return-code"><a class="link" href="#returning-a-loan-code-return-code">3.12. Returning a loan: <code>return</code></a></h3>
 <div class="paragraph">
-<p>What&#8217;s the use of a LoanBook if you are unable to return the loans that you have? This is how you can do that! In fact, we see your pains trying to calculate the amount payable on a calculator, so we decided to help you out by doing all the number crunching for you.</p>
+<p>So how do you even return a loan that you have loaned out? You can do so with this simple command! In fact, we see your pains trying to calculate the amount payable on a calculator, so we decided to help you out by doing all the number crunching for you.</p>
 </div>
 <div class="paragraph">
 <p>This command marks a loan as returned based on LOAN_INDEX and automatically prints out the amount payable. The amount payable will be prorated and rounded down to the nearest minute.<br></p>
+</div>
+<div class="paragraph">
+<p><span class="big"><strong>Format</strong>: <code>return i/LOAN_INDEX</code></span></p>
+</div>
+<div class="paragraph">
+<p><span class="big red">List of Parameters</span>:</p>
+</div>
+<div class="paragraph">
+<p><code>i/LOAN_INDEX</code>: Index of the loan, in the left hand side display.<br></p>
 </div>
 <div class="admonitionblock tip">
 <table>
@@ -555,7 +639,7 @@ Set the password of the app to <code>n3wP4sS</code>.</p>
 <p>Do note that you will have to list out all the loans in order, or search for a particular loan that you would like to return. From there, you need to key in the index number of the loan as a parameter into this command.</p>
 </div>
 <div class="paragraph">
-<p>Format: <code>return i/LOAN_INDEX</code></p>
+<p>The number crunching will work for any type of currency, however it is optimised for dollar amounts. The display also uses the dollar sign and will give you the output to 2 decimal places.<br></p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -564,7 +648,15 @@ Set the password of the app to <code>n3wP4sS</code>.</p>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-Do be careful to note that it is the loan INDEX that you are keying into the program. Please do not key in the LoanID instead!
+<div class="paragraph">
+<p>Do be careful to note that it is the loan INDEX that you are keying into the program. Please do not key in the LoanID instead!<br>
+The INDEX is the one position of the loan in the list on the left hand side. Refer to the circled object in the below diagram:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/LoanIndexWarning.png" alt="LoanIndexWarning">
+</div>
+</div>
 </td>
 </tr>
 </table>
@@ -595,6 +687,10 @@ Do be careful to note that it is the loan INDEX that you are keying into the pro
 <p><code>return i/1</code><br>
 Marks the loan that has been indexed at position 1 as returned. Also automatically prints out the amount payable based on loan time and rate.</p>
 </li>
+<li>
+<p><code>return i/55</code><br>
+Marks the loan that has been indexed at position 55 as returned. Also automatically prints out the amount payable based on loan time and rate.</p>
+</li>
 </ul>
 </div>
 </div>
@@ -602,7 +698,14 @@ Marks the loan that has been indexed at position 1 as returned. Also automatical
 <h3 id="locating-loans-by-date-of-loan-code-search-code"><a class="link" href="#locating-loans-by-date-of-loan-code-search-code">3.13. Locating loans by date of loan: <code>search</code></a></h3>
 <div class="paragraph">
 <p>Populate all loans that were created between the range provided.
-Format: <code>search START_DATE END_DATE</code></p>
+<span class="big"><strong>Format</strong>: <code>search START_DATE END_DATE</code></span></p>
+</div>
+<div class="paragraph">
+<p><span class="big red">List of Parameters</span>:</p>
+</div>
+<div class="paragraph">
+<p>START_DATE and END_DATE: The date range in which you want to search for.<br>
+Note that you only need to use spaces to seperate the two dates. There is no prefix for this command!</p>
 </div>
 <div class="sidebarblock">
 <div class="content">
@@ -649,7 +752,13 @@ Searches for loans with loan start date and time between 2018-01-01 and 2018-01-
 <p>Removes all loans from the loan book and resets the Loan ID counter. This operation requires password authentication.</p>
 </div>
 <div class="paragraph">
-<p>Format: <code>resetloans x/CURRENT_PASSWORD</code></p>
+<p><span class="big"><strong>Format</strong>: <code>resetloans x/CURRENT_PASSWORD</code></span></p>
+</div>
+<div class="paragraph">
+<p><span class="big red">List of Parameters</span>:</p>
+</div>
+<div class="paragraph">
+<p><code>x/CURRENT_PASSWORD</code>: Password used in the LoanBook.</p>
 </div>
 <div class="paragraph">
 <p>Example:</p>
@@ -696,7 +805,13 @@ Searches for loans with loan start date and time between 2018-01-01 and 2018-01-
 <p>Resets the entire loan book. This includes the removal of all loans and bikes from the loan book and the Loan ID counter being reset. This operation requires password authentication.</p>
 </div>
 <div class="paragraph">
-<p>Format: <code>resetall x/CURRENT_PASSWORD</code></p>
+<p><span class="big"><strong>Format</strong>: <code>resetall x/CURRENT_PASSWORD</code></span></p>
+</div>
+<div class="paragraph">
+<p><span class="big red">List of Parameters</span>:</p>
+</div>
+<div class="paragraph">
+<p><code>x/CURRENT_PASSWORD</code>: Password used in the LoanBook.</p>
 </div>
 <div class="paragraph">
 <p>Example:</p>
@@ -743,15 +858,27 @@ Searches for loans with loan start date and time between 2018-01-01 and 2018-01-
 <p>Total number of loans ever taken out</p>
 </li>
 <li>
-<p>Total amount of time all bikes have been loaned for</p>
-</li>
-<li>
-<p>Total revenue from the loan service</p>
+<p>Total revenue from your loan service</p>
 </li>
 </ul>
 </div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
 <div class="paragraph">
-<p>Format: <code>summary</code></p>
+<p>Current implementations would only allow the summary of the above statistics. However, the LoanBook Team is looking to implement more summary items into the above summary.<br>
+If you would like the summary functionality to report certain stats that are not included, feel free to contact us, and if it&#8217;s feasible, we will include it into our next release!</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p><span class="big"><strong>Format</strong>: <code>summary</code></span></p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -772,7 +899,7 @@ Searches for loans with loan start date and time between 2018-01-01 and 2018-01-
 <h3 id="listing-entered-commands-code-history-code"><a class="link" href="#listing-entered-commands-code-history-code">3.17. Listing entered commands: <code>history</code></a></h3>
 <div class="paragraph">
 <p>Lists all the commands that you have entered in reverse chronological order.<br>
-Format: <code>history</code></p>
+<span class="big"><strong>Format</strong>: <code>history</code></span></p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -800,14 +927,24 @@ Format: <code>history</code></p>
 <h3 id="check-your-email-code-checkemail-code"><a class="link" href="#check-your-email-code-checkemail-code">3.18. Check your email: <code>checkemail</code></a></h3>
 <div class="paragraph">
 <p>Checks whether you have set your email or not, and displays the censored email address if you have set it before.<br>
-Format: <code>checkemail</code></p>
+<span class="big"><strong>Format</strong>: <code>checkemail</code></span></p>
 </div>
 </div>
 <div class="sect2">
 <h3 id="set-your-email-code-setemail-code"><a class="link" href="#set-your-email-code-setemail-code">3.19. Set your email: <code>setemail</code></a></h3>
 <div class="paragraph">
 <p>Sets the email address to send reminder emails from.<br>
-Format: <code>setemail OLDEMAIL NEWEMAIL</code></p>
+<span class="big"><strong>Format</strong>: <code>setemail OLDEMAIL NEWEMAIL</code></span></p>
+</div>
+<div class="paragraph">
+<p><span class="big red">List of Parameters</span>:</p>
+</div>
+<div class="paragraph">
+<p>The old email that you have set to the current one that you would want to use.<br>
+Note that for this command, there is no prefix that you need to type. Just separate the emails with spaces.</p>
+</div>
+<div class="paragraph">
+<p>Some things to take note of for first time users:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -855,12 +992,19 @@ Only Gmail is accepted!
 <h3 id="send-reminder-email-code-remind-code"><a class="link" href="#send-reminder-email-code-remind-code">3.20. Send reminder email: <code>remind</code></a></h3>
 <div class="paragraph">
 <p>Sends a reminder email to the customer.<br>
-Format: <code>remind x/EMAILPASSWORD n/NAME b/BIKE</code></p>
+<span class="big"><strong>Format</strong>: <code>remind pw/EMAILPASSWORD id/LOAN_ID</code></span></p>
+</div>
+<div class="paragraph">
+<p><span class="big red">List of Parameters</span>:</p>
+</div>
+<div class="paragraph">
+<p><code>pw/PASSWORD</code>: Password of the email address you are sending the messages from.<br>
+<code>id/LOAN_ID</code>: LoanID of the loan you want to remind<br></p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p><code>NAME</code> and <code>BIKE</code> must be from the same <code>ONGOING</code> loan.</p>
+<p><code>LOANID</code> is the ID of the loan, not the index.</p>
 </li>
 <li>
 <p><code>EMAILPASSWORD</code> must be correct.</p>
@@ -885,12 +1029,16 @@ Format: <code>remind x/EMAILPASSWORD n/NAME b/BIKE</code></p>
 <div class="ulist">
 <ul>
 <li>
-<p><code>remind x/123456 n/Alex b/Bike001</code></p>
-</li>
-<li>
-<p><code>remind x/nscjhbdhv n/Peter Lee b/NewBike</code></p>
+<p><code>remind pw/samplepassword id/0</code></p>
 </li>
 </ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="exiting-the-program-code-exit-code"><a class="link" href="#exiting-the-program-code-exit-code">3.21. Exiting the program: <code>exit</code></a></h3>
+<div class="paragraph">
+<p>Exits the program.<br>
+<span class="big"><strong>Format</strong>: <code>exit</code></span></p>
 </div>
 </div>
 </div>
@@ -939,4 +1087,4 @@ will be resolved in v2.0.</p>
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-11 08:47:40 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-11 12:55:45 UTC</div></div></div></body></html>
