@@ -7,7 +7,6 @@ import static loanbook.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import org.junit.Test;
 
 import loanbook.logic.commands.ResetAllCommand;
-import loanbook.model.Password;
 
 public class ResetAllCommandParserTest {
 
@@ -17,8 +16,7 @@ public class ResetAllCommandParserTest {
 
     @Test
     public void parse_validArgs_returnsResetAllCommand() {
-        Password expectedPassword = new Password(VALID_PASSWORD_STRING);
-        assertParseSuccess(parser, " x/" + VALID_PASSWORD_STRING, new ResetAllCommand(expectedPassword));
+        assertParseSuccess(parser, " x/" + VALID_PASSWORD_STRING, new ResetAllCommand(VALID_PASSWORD_STRING));
     }
 
     @Test

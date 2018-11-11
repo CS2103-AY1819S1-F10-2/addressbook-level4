@@ -1,5 +1,6 @@
 package loanbook.logic.commands;
 
+import static loanbook.commons.core.Messages.MESSAGE_BIKE_NOT_FOUND;
 import static loanbook.logic.commands.CommandTestUtil.NOEXIST_NAME_BIKE;
 import static loanbook.logic.commands.CommandTestUtil.VALID_NAME_BIKE1;
 import static loanbook.logic.commands.CommandTestUtil.VALID_NAME_BIKE2;
@@ -30,11 +31,12 @@ public class DeleteBikeCommandTest {
 
     private Model model = new ModelManager(getTypicalLoanBook(), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
+    private String pass = "a12345";
+    private Password dummyPassword = new Password(pass, model.getSalt());
 
     @Test
     public void execute_validNameUnfilteredList_success() {
-        Password pass = new Password("a12345");
-        model.setPass(pass);
+        model.setPass(dummyPassword);
 
         Bike bikeToDelete = model.getFilteredBikeList().get(INDEX_FIRST_LOAN.getZeroBased());
         DeleteBikeCommand deleteBikeCommand = new DeleteBikeCommand(bikeToDelete.getName(), pass);
@@ -51,15 +53,14 @@ public class DeleteBikeCommandTest {
     @Test
     public void execute_invalidNameUnfilteredList_throwsCommandException() {
         DeleteBikeCommand deleteBikeCommand =
-                new DeleteBikeCommand(new Name(NOEXIST_NAME_BIKE), new Password(model.getPass()));
+                new DeleteBikeCommand(new Name(NOEXIST_NAME_BIKE), pass);
 
-        assertCommandFailure(deleteBikeCommand, model, commandHistory, DeleteBikeCommand.MESSAGE_BIKE_NOT_FOUND);
+        assertCommandFailure(deleteBikeCommand, model, commandHistory, MESSAGE_BIKE_NOT_FOUND);
     }
 
     @Test
     public void execute_validNameFilteredList_success() {
-        Password pass = new Password("a12345");
-        model.setPass(pass);
+        model.setPass(dummyPassword);
 
         showBikeAtIndex(model, INDEX_FIRST_LOAN);
 
@@ -78,8 +79,7 @@ public class DeleteBikeCommandTest {
 
     @Test
     public void execute_bikeNotInFilteredList_success() {
-        Password pass = new Password("a12345");
-        model.setPass(pass);
+        model.setPass(dummyPassword);
 
         // Have at least 2 bikes in the list
         assertTrue(model.getLoanBook().getBikeList().size() >= 2);
@@ -103,8 +103,7 @@ public class DeleteBikeCommandTest {
 
     @Test
     public void executeUndoRedo_validNameUnfilteredList_success() throws Exception {
-        Password pass = new Password("a12345");
-        model.setPass(pass);
+        model.setPass(dummyPassword);
 
         Bike bikeToDelete = model.getFilteredBikeList().get(INDEX_FIRST_LOAN.getZeroBased());
         DeleteBikeCommand deleteBikeCommand = new DeleteBikeCommand(bikeToDelete.getName(), pass);
@@ -126,13 +125,12 @@ public class DeleteBikeCommandTest {
 
     @Test
     public void executeUndoRedo_invalidBikeName_failure() {
-        Password pass = new Password("a12345");
-        model.setPass(pass);
+        model.setPass(dummyPassword);
 
         DeleteBikeCommand deleteBikeCommand = new DeleteBikeCommand(new Name(NOEXIST_NAME_BIKE), pass);
 
         // execution failed -> loan book state not added into model
-        assertCommandFailure(deleteBikeCommand, model, commandHistory, DeleteBikeCommand.MESSAGE_BIKE_NOT_FOUND);
+        assertCommandFailure(deleteBikeCommand, model, commandHistory, MESSAGE_BIKE_NOT_FOUND);
 
         // single loan book state in model -> undoCommand and redoCommand fail
         assertCommandFailure(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_FAILURE);
@@ -141,8 +139,7 @@ public class DeleteBikeCommandTest {
 
     @Test
     public void equals() {
-        Password pass = new Password("a12345");
-        model.setPass(pass);
+        model.setPass(dummyPassword);
 
         DeleteBikeCommand deleteFirstCommand = new DeleteBikeCommand(new Name(VALID_NAME_BIKE1), pass);
         DeleteBikeCommand deleteSecondCommand = new DeleteBikeCommand(new Name(VALID_NAME_BIKE2), pass);

@@ -1,6 +1,7 @@
 package loanbook.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static loanbook.commons.core.Messages.MESSAGE_DUPLICATE_BIKE;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -54,7 +55,7 @@ public class AddBikeCommandTest {
         ModelStub modelStub = new ModelStubWithBike(validBike);
 
         thrown.expect(CommandException.class);
-        thrown.expectMessage(AddBikeCommand.MESSAGE_DUPLICATE_BIKE);
+        thrown.expectMessage(MESSAGE_DUPLICATE_BIKE);
         addBikeCommand.execute(modelStub, commandHistory);
     }
 

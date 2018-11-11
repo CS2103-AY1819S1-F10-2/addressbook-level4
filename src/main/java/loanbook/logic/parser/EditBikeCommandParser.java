@@ -2,6 +2,7 @@ package loanbook.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 import static loanbook.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static loanbook.commons.core.Messages.MESSAGE_NOT_EDITED;
 import static loanbook.logic.parser.CliSyntax.PREFIX_NAME;
 
 import loanbook.logic.commands.EditBikeCommand;
@@ -38,7 +39,7 @@ public class EditBikeCommandParser implements Parser<EditBikeCommand> {
         }
 
         if (!editBikeDescriptor.isAnyFieldEdited()) {
-            throw new ParseException(EditBikeCommand.MESSAGE_NOT_EDITED);
+            throw new ParseException(MESSAGE_NOT_EDITED);
         }
 
         return new EditBikeCommand(bikeName, editBikeDescriptor);

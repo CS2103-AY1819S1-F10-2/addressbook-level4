@@ -1,6 +1,7 @@
 package loanbook.logic.parser;
 
 import static loanbook.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static loanbook.commons.core.Messages.MESSAGE_NOT_EDITED;
 import static loanbook.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
 import static loanbook.logic.commands.CommandTestUtil.NAME_DESC_BIKE1;
 import static loanbook.logic.commands.CommandTestUtil.NAME_DESC_BIKE2;
@@ -29,7 +30,7 @@ public class EditBikeCommandParserTest {
         assertParseFailure(parser, "n/Bike002", MESSAGE_INVALID_FORMAT);
 
         // no field specified
-        assertParseFailure(parser, "Bike001", EditBikeCommand.MESSAGE_NOT_EDITED);
+        assertParseFailure(parser, "Bike001", MESSAGE_NOT_EDITED);
 
         // no bike name and no field specified
         assertParseFailure(parser, "", MESSAGE_INVALID_FORMAT);
@@ -42,7 +43,7 @@ public class EditBikeCommandParserTest {
 
         // invalid arguments being parsed as preamble: considered part of the bike's name
         assertParseFailure(parser, VALID_NAME_BIKE1 + " some random string",
-                EditBikeCommand.MESSAGE_NOT_EDITED);
+                MESSAGE_NOT_EDITED);
 
         // invalid prefix being parsed as preamble
         assertParseFailure(parser, VALID_NAME_BIKE1 + "i/ string", MESSAGE_INVALID_FORMAT);

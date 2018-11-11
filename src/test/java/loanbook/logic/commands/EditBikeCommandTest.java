@@ -1,5 +1,6 @@
 package loanbook.logic.commands;
 
+import static loanbook.commons.core.Messages.MESSAGE_BIKE_NOT_FOUND;
 import static loanbook.logic.commands.CommandTestUtil.DESC_BIKE1;
 import static loanbook.logic.commands.CommandTestUtil.DESC_BIKE2;
 import static loanbook.logic.commands.CommandTestUtil.NOEXIST_NAME_BIKE;
@@ -94,7 +95,7 @@ public class EditBikeCommandTest {
             .withName(VALID_NAME_BIKE1).build();
         EditBikeCommand command = new EditBikeCommand(new Name(NOEXIST_NAME_BIKE), descriptor);
 
-        assertCommandFailure(command, model, commandHistory, EditBikeCommand.MESSAGE_BIKE_NOT_FOUND);
+        assertCommandFailure(command, model, commandHistory, MESSAGE_BIKE_NOT_FOUND);
     }
 
     @Test
@@ -104,7 +105,7 @@ public class EditBikeCommandTest {
         EditBikeCommand command = new EditBikeCommand(new Name(NOEXIST_NAME_BIKE), descriptor);
 
         // execution failed -> loan book state not added into model
-        assertCommandFailure(command, model, commandHistory, EditBikeCommand.MESSAGE_BIKE_NOT_FOUND);
+        assertCommandFailure(command, model, commandHistory, MESSAGE_BIKE_NOT_FOUND);
 
         // single loan book state in model -> undoCommand and redoCommand fail
         assertCommandFailure(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_FAILURE);

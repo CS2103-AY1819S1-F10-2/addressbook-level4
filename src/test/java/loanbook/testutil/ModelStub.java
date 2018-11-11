@@ -177,6 +177,11 @@ public class ModelStub implements Model {
     }
 
     @Override
+    public String getSalt() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
     public boolean hasEqualEditableFields(Model other) {
         throw new AssertionError("This method should not be called.");
     }

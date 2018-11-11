@@ -19,6 +19,7 @@ import loanbook.logic.commands.FindCommand;
 import loanbook.logic.commands.RedoCommand;
 import loanbook.logic.commands.UndoCommand;
 import loanbook.model.Model;
+import loanbook.model.Password;
 import loanbook.model.tag.Tag;
 
 public class FindCommandSystemTest extends LoanBookSystemTest {
@@ -30,6 +31,7 @@ public class FindCommandSystemTest extends LoanBookSystemTest {
          */
         String command = "   " + FindCommand.COMMAND_WORD + " " + KEYWORD_MATCHING_MEIER + "   ";
         Model expectedModel = getModel();
+        expectedModel.setPass(new Password("a12345", expectedModel.getSalt()));
         ModelHelper.setFilteredList(expectedModel, BENSON, DANIEL); // first names of Benson and Daniel are "Meier"
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();

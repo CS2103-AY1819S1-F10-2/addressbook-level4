@@ -444,7 +444,7 @@ image::setPasswordLogic.png[width="800"]
 
 The following activity diagram summarizes what happens when a user executes `setpass`:
 
-image::setpassActivityDiagram.png[width="650"]
+image::setPassActivityDiagram.png[width="650"]
 
 Step 6. The user executes a critical command `delete i/1 x/a12345`.
 
