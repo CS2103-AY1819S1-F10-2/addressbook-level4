@@ -682,7 +682,7 @@ This implementation of bicycles affects existing commands in the following ways:
 
 * When `add` ing a new `Loan` to the LoanBook, LoanBook first checks if the `Bike` name provided by the command refers to an existing `Bike` within the LoanBook, and will reject the command if LoanBook does not. This check can only be done at the execution stage of the command (opposed to the parsing stage), as it requires specific knowledge of the model that it is acting on. A sequence diagram describing this behaviour in further detail is shown below:
 
-image::AddLoanSequenceDiagram.png[]
+image::AddLoanSequenceDiagram.png[600px]
 
 * Similarly, when editing a loan, LoanBook also checks that the new `Bike` assigned to the loan exists within the LoanBook before it accepts the operation.
 
@@ -696,7 +696,7 @@ Please refer to the User Guide for the basic functionality for these commands. T
 On the other hand, `add` does not check for "duplicate loans" as loans are automatically differentiated via their `LoanID`, even if all other parameters are the same.
 
 ==== Editing a bike's details: `editbike`
-`editbike` similarly checks if the `Bike` to be edited exists within the LoanBook, and whether the `Bike`'s new name, if specified, is the same as another `Bike` in the LoanBook.
+`editbike` similarly checks if the `Bike` to be edited exists within the LoanBook, and whether the `Bike` 's new name, if specified, is the same as another `Bike` in the LoanBook.
 
 [WARNING]
 ====
@@ -725,15 +725,18 @@ This sub-feature aims to enhance the existing purpose of the Bicycle Management 
 
 One way which this sub-feature can accomplish this is by using a `BikeStatus` to indicate whether the `Bike` is available or not for rental.
 
-The activity diagrams below demonstrates how this sub-feature could be implemented for the loaning out and returning of bicycles respectively:
+The activity diagram below demonstrates how this sub-feature could be implemented for the loaning out of bicycles:
 
-image::BikeStatusAddLoanActivityDiagram.png[]
+image::BikeStatusAddLoanActivityDiagram.png[600px]
 
-image::BikeStatusReturnLoanActivityDiagram.png[]
+And this acitivty dragram demonstrates the same for returning bicycles:
+
+image::BikeStatusReturnLoanActivityDiagram.png[600px]
 
 Additionally, the deletion of a `Bike` can be denied if the `Bike` does not currently have a suitable status, such as being loaned out.
 
 This sub-feature can be further expanded with additional `BikeStatus` es other than `AVAILABLE` and `LOANED_OUT`. Such statuses could reflect an unavailability for rental for reasons other than already being loaned out. For example:
+
 * `NEEDS_REPAIR`: Signals that the `Bike` is not suitable for rental as it is damaged, thus creating a hazard for customers.
 * `UNDER_REPAIR`: Signals that the `Bike` is not available for rental as it is currently with a repairman undergoing servicing.
 * `ON_DISPLAY`: Signals that the `Bike` is not suitable for rental as it is currently being used for display, to attract customers.
