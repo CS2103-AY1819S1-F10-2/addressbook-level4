@@ -20,6 +20,7 @@ By: `Team F10-2`      Since: `Sep 2018`      Licence: `MIT`
 
 Have you ever seen your clients waiting angrily for 15 minutes before finally getting their rental bikes? Introducing Forever A-Loan, a lightweight Command Line Interface (CLI) application that revolutionizes the way bike loans are logged. Forever A-Loan promises to drastically decrease the time taken for bike rental shop owners to manage their inventories by leveraging on state of the art inventory management algorithms and the absence of a clunky Graphical User Interface (GUI) that hinders fast typists. Enjoy!
 
+[[Quick-Start]]
 == Quick Start
 Here is a quick guide to help you set up the LoanBook application on your device.
 
