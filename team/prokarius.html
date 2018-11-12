@@ -1,0 +1,514 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]--><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="Asciidoctor 1.5.6.1"><title>David Kum - Project Portfolio</title><link rel="stylesheet" href="../stylesheets/gh-pages.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="../stylesheets/coderay-asciidoctor.css"></head><body class="article"><div id="site-header"><nav class="navbar navbar-light bg-light"><div class="container"><a class="navbar-brand" href="../index.html">LoanBook</a><ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="../UserGuide.html">User Guide</a></li><li class="nav-item"><a class="nav-link" href="../DeveloperGuide.html">Developer Guide</a></li><li class="nav-item"><a class="nav-link active" href="../AboutUs.html">About Us</a></li><li class="nav-item"><a class="nav-link" href="../ContactUs.html">Contact Us</a></li><li class="navitem"><a class="nav-link" href="https://github.com/CS2103-AY1819S1-F10-2/main.git"><span class="fa fa-github fa-lg" aria-hidden="true"></span>&nbsp;View on GitHub</a></li></ul></div></nav></div><div id="header"><h1>David Kum - Project Portfolio</h1></div><div id="content"><div id="preamble">
+<div class="sectionbody">
+<div class="imageblock">
+<div class="content">
+<img src="../images/LoanBookLogo.png" alt="LoanBookLogo" width="400">
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="overview"><a class="link" href="#overview">Overview</a></h2>
+<div class="sectionbody">
+<div class="imageblock">
+<div class="content">
+<img src="../images/LoanBookFront.png" alt="LoanBookFront" width="400">
+</div>
+</div>
+<div class="paragraph">
+<p>LoanBook is a desktop application targetted at bicycle shop owners to manage their bicycle loans. This will allow the bicycle shop owners who are proficient with the CLI to keep track of their loans, and simplify the auditing process. You may find the master code of the application here: <a href="https://github.com/CS2103-AY1819S1-F10-2/main">Loanbook github page</a>.</p>
+</div>
+<div class="paragraph">
+<p>The users interacts with it using a CLI, and it has a GUI created with JavaFX. The code base has approximately 20 thousand lines of code.</p>
+</div>
+<div class="paragraph">
+<p>This report documents my contributions to this team-based project on both the code base and documentation as part of the NUS CS2103T&#8201;&#8212;&#8201;Software Engineering module.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="summary-of-contributions"><a class="link" href="#summary-of-contributions">Summary of contributions</a></h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 100%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>This section records my contributions to the main code base.</em></p></td>
+</tr>
+</tbody>
+</table>
+<div class="sect2">
+<h3 id="strong-major-enhancement-1-strong-code-return-code-functionality"><a class="link" href="#strong-major-enhancement-1-strong-code-return-code-functionality"><strong>Major enhancement 1</strong>: <code>return</code> functionality.</a></h3>
+<div class="paragraph">
+<p>Added a command that allows the user to return a loan.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Feature</strong>: Allows the user to mark a loan that has been returned and prompts the user with the total price of the loan.</p>
+</li>
+<li>
+<p>Justification: This simplifies the bicycle return process by allowing the user to simply key in a command, and get the payable cost of the loan. As well, it will mark the loan with the correct status so that the <code>summary</code> functionality audits the LoanBook correctly.</p>
+</li>
+<li>
+<p>Highlights: The implementation of this feature required the creation of 3 new classes, 2 of which were implemented by me. The time of when the loan is returned defaults to the current time, and this data is saved into the LoanBook.</p>
+</li>
+<li>
+<p>PR <a href="https://github.com/CS2103-AY1819S1-F10-2/main/pull/159">#159</a>.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="strong-major-enhancement-2-strong-code-summary-code-functionality"><a class="link" href="#strong-major-enhancement-2-strong-code-summary-code-functionality"><strong>Major enhancement 2</strong>: <code>summary</code> functionality</a></h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Feature: Generates a single page summary of all the undeleted loans that the user has enetered into the LoanBook.</p>
+</li>
+<li>
+<p>Justification: This simplifies the auditing process for the user, by generating a simple easy to understand summary, so that the user does not need to manually tabulate receipts.</p>
+</li>
+<li>
+<p>PR <a href="https://github.com/CS2103-AY1819S1-F10-2/main/pull/251">#251</a>.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="strong-minor-enhancement-strong-added-tags-to-distinguish-the-loans-with-their-respective-statuses"><a class="link" href="#strong-minor-enhancement-strong-added-tags-to-distinguish-the-loans-with-their-respective-statuses"><strong>Minor enhancement</strong>: Added tags to distinguish the loans with their respective statuses</a></h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Feature: Used a small color coded tag</p>
+</li>
+<li>
+<p>Justification: Doing this would allow users to at a glance, see the status of the loans.</p>
+</li>
+<li>
+<p>PR <a href="https://github.com/CS2103-AY1819S1-F10-2/main/pull/163">#163</a>.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="strong-code-contributed-strong"><a class="link" href="#strong-code-contributed-strong"><strong>Code contributed</strong>:</a></h3>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&amp;search=prokarius&amp;sort=displayName&amp;since=2018-09-12&amp;until=2018-11-09&amp;timeframe=day&amp;reverse=false&amp;repoSort=true">Reposense Link</a>.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="strong-other-contributions-strong"><a class="link" href="#strong-other-contributions-strong"><strong>Other contributions</strong>:</a></h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Project management:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Managed releases <code>v1.2</code> - <code>v1.4</code> (3 releases) on GitHub</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Enhancements to existing features:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Implemented the <code>LoanStatus</code> enum (<a href="https://github.com/CS2103-AY1819S1-F10-2/main/pull/105">#105</a>) and <code>LoanTime</code> class (<a href="https://github.com/CS2103-AY1819S1-F10-2/main/pull/24">#24</a>), which was used by other parts of the project.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Fixed the broken <code>Loan</code> class to intergrate with them team&#8217;s discussed changes: <a href="https://github.com/CS2103-AY1819S1-F10-2/main/pull/133">#133</a></p>
+</li>
+<li>
+<p>Wrote additional tests for existing features to increase coverage from 92% to 94%: PR <a href="https://github.com/CS2103-AY1819S1-F10-2/main/pull/252">#252</a>.</p>
+</li>
+<li>
+<p>Documentation:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Contributed to the writing of both the user guide and the developer guide: <a href="https://github.com/CS2103-AY1819S1-F10-2/main/pull/44">#44</a>, <a href="https://github.com/CS2103-AY1819S1-F10-2/main/pull/94">#94</a>, <a href="https://github.com/CS2103-AY1819S1-F10-2/main/pull/126">#126</a>, <a href="https://github.com/CS2103-AY1819S1-F10-2/main/pull/142">#142</a>, <a href="https://github.com/CS2103-AY1819S1-F10-2/main/pull/245">#245</a>, <a href="https://github.com/CS2103-AY1819S1-F10-2/main/pull/246">#246</a>, <a href="https://github.com/CS2103-AY1819S1-F10-2/main/pull/263">#263</a></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Community:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>PRs reviewed (with non-trivial review comments): <a href="https://github.com/CS2103-AY1819S1-F10-2/main/pull/151">#151</a>, <a href="https://github.com/CS2103-AY1819S1-F10-2/main/pull/158">#158</a></p>
+</li>
+<li>
+<p>Reported bugs and suggestions for other teams in the class:</p>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://github.com/CS2103-AY1819S1-W10-3/main/issues/146">W10-3: incorrect setDate behaviour</a></p>
+</li>
+<li>
+<p><a href="https://github.com/CS2103-AY1819S1-W10-3/main/issues/131">W10-3: maxSchedule incorrectly parsed</a></p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Team Management:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Managed the features and upgrades for the team between scrums.</p>
+</li>
+<li>
+<p>Coached team mates who were new to git and taught them various git CLI functionalities.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="contributions-to-the-user-guide"><a class="link" href="#contributions-to-the-user-guide">Contributions to the User Guide</a></h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 100%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>These are some samples of the sections I contributed to the User Guide which showcases my ability to create easy to follow and engaging documentation for end-users.</em></p></td>
+</tr>
+</tbody>
+</table>
+<div class="sect2">
+<h3 id="returning-a-loan-code-return-code"><a class="link" href="#returning-a-loan-code-return-code">Returning a loan: <code>return</code></a></h3>
+<div class="paragraph">
+<p>So how do you even return a loan that you have loaned out? You can do so with this simple command! In fact, we see your pains trying to calculate the amount payable on a calculator, so we decided to help you out by doing all the number crunching for you.</p>
+</div>
+<div class="paragraph">
+<p>This command marks a loan as returned based on LOAN_INDEX and automatically prints out the amount payable. The amount payable will be prorated and rounded down to the nearest minute.<br></p>
+</div>
+<div class="paragraph">
+<p><span class="big"><strong>Format</strong>: <code>return i/LOAN_INDEX</code></span></p>
+</div>
+<div class="paragraph">
+<p><span class="big red">List of Parameters</span>:</p>
+</div>
+<div class="paragraph">
+<p><code>i/LOAN_INDEX</code>: Index of the loan, in the left hand side display.<br></p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>We choose to do this because when we get down to seconds, the difference in the earnings you will get is going to be on the order of a fraction of cents. We hope that by doing this, your business would not seem to be very petty about the money.</p>
+</div>
+<div class="paragraph">
+<p>Also, this would be good for your business, as customers will not feel that they have been ripped off the cost of renting a bike for an extra minute just because you took 5 seconds to log their return details! :)</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Do note that you will have to list out all the loans in order, or search for a particular loan that you would like to return. From there, you need to key in the index number of the loan as a parameter into this command.</p>
+</div>
+<div class="paragraph">
+<p>The number crunching will work for any type of currency, however it is optimised for dollar amounts. The display also uses the dollar sign and will give you the output to 2 decimal places.<br></p>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Do be careful to note that it is the loan INDEX that you are keying into the program. Please do not key in the LoanID instead!<br>
+The INDEX is the one position of the loan in the list on the left hand side. Refer to the circled object in the below diagram:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/LoanIndexWarning.png" alt="LoanIndexWarning">
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>This command is currently not undoable. Please be careful to double check that you are returning the correct loan!</p>
+</div>
+<div class="paragraph">
+<p>We are working on fixing this issue! Do look forward to seeing this new functionality in the next release of LoanBook, version 2.0!</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>return i/1</code><br>
+Marks the loan that has been indexed at position 1 as returned. Also automatically prints out the amount payable based on loan time and rate.</p>
+</li>
+<li>
+<p><code>return i/55</code><br>
+Marks the loan that has been indexed at position 55 as returned. Also automatically prints out the amount payable based on loan time and rate.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="summarize-all-the-transactions-code-summary-code"><a class="link" href="#summarize-all-the-transactions-code-summary-code">Summarize all the transactions: <code>summary</code></a></h3>
+<div class="paragraph">
+<p>Do you want to find out at a glance how much money your business has collected? Or maybe out of all the bicycles you have, how many are currently loaned out? Here&#8217;s the command for you.</p>
+</div>
+<div class="paragraph">
+<p><span class="big"><strong>Format</strong>: <code>summary</code></span></p>
+</div>
+<div class="paragraph">
+<p>This feature shows the total number of loans that are done and in progress. It also summarizes the loan status of each item, the number of times an object was loaned before.</p>
+</div>
+<div class="paragraph">
+<p>The <code>summary</code> function would display the statistics of all your loans in the display box on the right of the application. There, you will find the following statistics:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Total number of ongoing loans</p>
+</li>
+<li>
+<p>Total number of loans ever taken out</p>
+</li>
+<li>
+<p>Total revenue from your loan service</p>
+</li>
+</ul>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Current implementations would only allow the summary of the above statistics. However, the LoanBook Team is looking to implement more summary items into the above summary.<br>
+If you would like the summary functionality to report certain stats that are not included, feel free to contact us, and if it&#8217;s feasible, we will include it into our next release!</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>The summary feature may take a while to run, especially when you have many loans that you have made in the past. Please allow about a second for it to process.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="contributions-to-the-developer-guide"><a class="link" href="#contributions-to-the-developer-guide">Contributions to the Developer Guide</a></h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 100%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>These are some samples of the sections I contributed to the Developer Guide, which showcases my ability to write techincal documents that will be followed by other developers.</em></p></td>
+</tr>
+</tbody>
+</table>
+<div class="sect2">
+<h3 id="return-a-loan-feature"><a class="link" href="#return-a-loan-feature">Return a Loan feature</a></h3>
+<div class="paragraph">
+<p>A LoanBook application that only allows users to do loans without being able to return them would not serve its purpose. When you take out a loan, it should automatically come with the feature of being returnable. This is the functionality for that.</p>
+</div>
+<div class="sect3">
+<h4 id="proposed-implementation"><a class="link" href="#proposed-implementation">Proposed Implementation</a></h4>
+<div class="paragraph">
+<p>Returning a loan is done by setting the corresponding status of the loan to <code>LoanStatus.RETURNED</code>. Other than setting the enum to be returned, the cost of the loan will also be calculated and displayed to the user.</p>
+</div>
+<div class="paragraph">
+<p>The steps that have to be done by LoanBook is as follows.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Check the start and end time of the loan to ensure that the loan period is valid.</p>
+</li>
+<li>
+<p>Store the current time as the return time of the loan.</p>
+</li>
+<li>
+<p>Change the enum of <code>LoanStatus</code> to become <code>LoanStatus.RETURNED</code>.</p>
+</li>
+<li>
+<p>Calculate the cost of the loan and display it in the GUI as a suggestion for the user.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>This is summarized in the following Activity Diagram:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/ReturnFlow.png" alt="ReturnFlow" width="450">
+</div>
+</div>
+<div class="paragraph">
+<p>These steps would change the given <code>Loan</code> object, and update the properties of the <code>Loan</code> object. The appropriate values stored within the <code>Loan</code> object would therefore change accordingly.</p>
+</div>
+<div class="paragraph">
+<p>Given below is an example usage scenerio and how the internals of the Loan would behave:</p>
+</div>
+<div class="paragraph">
+<p><strong>Step 1.</strong> The user would have to do a search for which loan they would like to return. This will pull up a list of loans from which the user would be able to select the correct loan.</p>
+</div>
+<div class="paragraph">
+<p><strong>Step 2.</strong> Using the current system time as the <code>endTime</code>, the duration of the loan will be calculated. Should the duration ever be negative, an error message will be thrown. This is because such a scenario would not ever be possible in the LoanBook.</p>
+</div>
+<div class="paragraph">
+<p><strong>Step 3.</strong> The user decides to return the current loan (in the case of the above image, the user wants to return loan at index 3, as selected). User will therefore key in <code>return i/3</code>.</p>
+</div>
+<div class="paragraph">
+<p>The LoanBook will save the current time into the <code>LoanTime endTime</code> field. This would be done by calling the constructor <code>LoanTime()</code>. Also, the loanStatus field would also be updated from <code>ONGOING</code> to <code>RETURNED</code>.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/return-loan-loan2.png" alt="return loan loan2">
+</div>
+</div>
+<div class="paragraph">
+<p>Note that originally the loan has a <code>null</code> value for end time. Note that the <code>endTime</code> and <code>loanStatus</code> values has been updated.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+If the loan has already been returned or deleted, a corresponding error message will notify you that you cannot return a loan that is not ongoing. This check happens during this step.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>&#160;<br></p>
+</div>
+<div class="paragraph">
+<p><strong>Step 4.</strong> The function now calculates the cost of the loan. This price would be based on the amount of time the loan was active for, as well as the loanRate that was set, by multiplying the time with the rate.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Although the time saved is to the millisecond, the time that is multiplied when we are getting the cost is rounded down to the nearest minute. In a sense, this is "pro-rating" the cost, and making it more discrete.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The result is then displayed into the GUI for the user as the cost price of the loan.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+It is possible for the LoanBook to have a loan that lasts for 0 minutes. This is because there may be some weird edge case where an object is loaned for less than a minute, which gets prorated down.
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect3">
+<h4 id="design-considerations"><a class="link" href="#design-considerations">Design considerations:</a></h4>
+<div class="sect4">
+<h5 id="aspect-using-an-enum-vs-changing-the-location-of-the-loan"><a class="link" href="#aspect-using-an-enum-vs-changing-the-location-of-the-loan">Aspect: Using an enum vs changing the location of the loan</a></h5>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Alternative 1 (current choice):</strong> To create an enum that will store the status of the linked list.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: Easy to implement the return a loan feature, and do not need to create new data storage features.</p>
+</li>
+<li>
+<p>Cons: When using the <code>summary</code> function, it will take a longer amount of time, as the LoanBook would have to do a check at every step to ensure the correct data is appended to the correct place.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Alternative 2: Create new ArrayLists of <code>Loans</code> for each possible status of the <code>Loan</code> objects.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: Computing the <code>summary</code> of the LoanBook would be much easier, and quicker.</p>
+</li>
+<li>
+<p>Cons: <code>return</code> functionality would run much slower, as there will be empty slots in the ArrayList after shifting the Loan objects around. Searching for loans would also be much more difficult, as the results from the various Loan ArrayLists has to be appended together.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-12 05:11:33 UTC</div></div></div></body></html>
