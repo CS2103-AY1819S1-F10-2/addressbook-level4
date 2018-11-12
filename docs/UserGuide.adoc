@@ -39,7 +39,7 @@ image::Ui.png[800px]
 
 A brief description of each section:
 
-* At the very top of the window are two *dropdown menu*s, labelled `File` and `Help`. You can access them with the mouse. The `File` menu allows you to exit LoanBook, while the `Help` menu lets you access this document.
+* At the very top of the window are two *dropdown menu* s, labelled `File` and `Help`. You can access them with the mouse. The `File` menu allows you to exit LoanBook, while the `Help` menu lets you access this document.
 * Right below the dropdown menus is the *command box*. Here is where you type in the commands to be executed by the app.
 * Below the command box, the space is split horizontally into two sections. The left section is the *list panel*. Here is where a list of your bikes and loans will appear, together with some individual details on them.
 * The right section is the *result display*. Whenever you execute a command with the command box, this section will notify you of their outcome by displaying a message.
@@ -61,7 +61,7 @@ The commands in LoanBook follow this format: `<KEYWORD> <PARAMETERS...>`. As an 
 * `i/1 x/a12345` specifies the command's *parameters*. Parameters are separated by spaces, and each parameter consists of a prefix (e.g. `i` or `x`), followed by a forward slash (`/`), then the value of that parameter (e.g. `1` or `a12345`).
 
 [NOTE]
-Note that some commands do not use prefixes for their parameters, while others don't even have parameters! Exactly what parameters are needed is dependent on the specific command, and they are all documented in <<Commands>>.
+Note that some commands do not use prefixes for their parameters, while others do not even have parameters! Exactly what parameters are needed depends on the specific command, and they are all documented in <<Commands>>.
 
 Once you are done entering the command, just press kbd:[ENTER] to execute it. LoanBook will process your command and feedback the result to you using the result display.
 
@@ -87,7 +87,7 @@ Even though you have successfully registered a bicycle into LoanBook, you might 
 Simply repeat this process until you have registered all your bikes within LoanBook.
 
 === Renting Out Bicycles
-Now that you have some bicycles within LoanBook, you can now rent them out using the `add` command. The format for the `add` command is as follows:
+Now that you have some bicycles within LoanBook, you can rent them out using the `add` command. The format for the `add` command is as follows:
 
 `add n/NAME ic/NRIC p/PHONE e/EMAIL b/BIKE lr/LOANRATE [t/TAG]...`
 
@@ -102,7 +102,7 @@ Do not be overwhelmed by the sudden increase in length! Let us take it bit by bi
 * `LOANRATE` is the rate at which you are charging your customer for the bicycle rental, in dollars per hour. This will help your financial calculations later.
 * `TAG` are optional labels that you can tag the loan with. They are simply there to keep better track of your loans, should you wish to use them. You can specify no tags at all, just one tag, or multiple tags (with each tag needing a separate `t/` prefix).
 
-In summary, most of the parameters you specify here are simply customer-specific data. Once you iron out the details of the rental with them, this command is as easy as any other. Simply fill in the details and you should see a success message: "New loan added: ...", showing you all the details of the transaction.
+In summary, most of the parameters you specify here are simply customer-specific data. Once you iron out the details of the rental with them, this command is as easy as any other. Simply fill in the details and you should see a success message: "New loan added: (...)", showing you all the details of the transaction.
 
 [NOTE]
 Right now, LoanBook should still be displaying the list of bikes. To get it to display the list of loans again, simply use the `list` command. You should see the new loan you added at the bottom of the list. You can toggle between these two lists at will using the `list` and `listbikes` commands.
@@ -117,7 +117,7 @@ Once your customer is done enjoying themself, it is time to conclude the loan. T
 
 The `LIST_INDEX` is simply the index of the loan that you want to return in the list panel. It is *not* the Loan ID.
 
-If the returning is successful, you should see a message in the result display saying "Loan Returned: ..." followed by the details of the loan. You will also get to see how much you should charge the customer for renting out your bike for as long as they did.
+If the returning is successful, you should see a message in the result display saying "Loan Returned: (...)" followed by the details of the loan. You will also get to see how much you should charge the customer for renting out your bike for as long as they did.
 
 
 
