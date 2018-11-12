@@ -18,13 +18,32 @@
 </div>
 </div>
 <div class="paragraph">
-<p>LoanBook is a desktop application targetted at bicycle shop owners to manage their bicycle loans. This will allow the bicycle shop owners who are proficient with the CLI to keep track of their loans, and simplify the auditing process. You may find the master code of the application here: <a href="https://github.com/CS2103-AY1819S1-F10-2/main">Loanbook github page</a>.</p>
+<p>LoanBook is a desktop application targetted at bicycle shop owners to manage their bicycle loans. This will allow the bicycle shop owners who are proficient with the Command Line Interface (CLI) to keep track of their loans, and simplify the auditing process. You may find the code of the application here: <a href="https://github.com/CS2103-AY1819S1-F10-2/main">Loanbook github page</a>.</p>
 </div>
 <div class="paragraph">
 <p>The users interacts with it using a CLI, and it has a GUI created with JavaFX. The code base has approximately 20 thousand lines of code.</p>
 </div>
 <div class="paragraph">
-<p>This report documents my contributions to this team-based project on both the code base and documentation as part of the NUS CS2103T&#8201;&#8212;&#8201;Software Engineering module.</p>
+<p>LoanBook&#8217;s <strong>core functionalities</strong> include:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Keeping track of the status of bicycle rentals</p>
+</li>
+<li>
+<p>Keeping track of bicycles within the shop</p>
+</li>
+<li>
+<p>Allowing users to send reminder emails to people who took out loans</p>
+</li>
+<li>
+<p>Generating a summary of the application&#8217;s data</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The project was morphed from the <a href="https://github.com/nus-cs2103-AY1819S1/addressbook-level4">original Addressbook application</a> by a team of 5 members. This report documents my contributions to this team-based project on both the code base and documentation as part of the NUS CS2103T&#8201;&#8212;&#8201;Software Engineering module.</p>
 </div>
 </div>
 </div>
@@ -80,14 +99,14 @@
 </div>
 </div>
 <div class="sect2">
-<h3 id="strong-minor-enhancement-strong-added-tags-to-distinguish-the-loans-with-their-respective-statuses"><a class="link" href="#strong-minor-enhancement-strong-added-tags-to-distinguish-the-loans-with-their-respective-statuses"><strong>Minor enhancement</strong>: Added tags to distinguish the loans with their respective statuses</a></h3>
+<h3 id="strong-minor-enhancement-strong-used-tags-to-show-the-loan-s-status"><a class="link" href="#strong-minor-enhancement-strong-used-tags-to-show-the-loan-s-status"><strong>Minor enhancement</strong>: Used tags to show the loan&#8217;s status</a></h3>
 <div class="ulist">
 <ul>
 <li>
-<p>Feature: Used a small color coded tag</p>
+<p>Feature: Used a small color coded tag to display the status of the loans to the users. This tag is color coded to allow users to easily distinguish the status of their loans.</p>
 </li>
 <li>
-<p>Justification: Doing this would allow users to at a glance, see the status of the loans.</p>
+<p>Justification: Doing this would allow users to at a glance, know the status of the loans.</p>
 </li>
 <li>
 <p>PR <a href="https://github.com/CS2103-AY1819S1-F10-2/main/pull/163">#163</a>.</p>
@@ -301,9 +320,6 @@ Marks the loan that has been indexed at position 55 as returned. Also automatica
 <p><span class="big"><strong>Format</strong>: <code>summary</code></span></p>
 </div>
 <div class="paragraph">
-<p>This feature shows the total number of loans that are done and in progress. It also summarizes the loan status of each item, the number of times an object was loaned before.</p>
-</div>
-<div class="paragraph">
 <p>The <code>summary</code> function would display the statistics of all your loans in the display box on the right of the application. There, you will find the following statistics:</p>
 </div>
 <div class="ulist">
@@ -370,7 +386,10 @@ If you would like the summary functionality to report certain stats that are not
 <p>A LoanBook application that only allows users to do loans without being able to return them would not serve its purpose. When you take out a loan, it should automatically come with the feature of being returnable. This is the functionality for that.</p>
 </div>
 <div class="sect3">
-<h4 id="proposed-implementation"><a class="link" href="#proposed-implementation">Proposed Implementation</a></h4>
+<h4 id="current-implementation"><a class="link" href="#current-implementation">Current Implementation</a></h4>
+<div class="paragraph">
+<p>The source code for this implementation can be found in <a href="../../src/main/java/loanbook/logic/commands/ReturnCommand.java">ReturnCommand.java</a>.</p>
+</div>
 <div class="paragraph">
 <p>Returning a loan is done by setting the corresponding status of the loan to <code>LoanStatus.RETURNED</code>. Other than setting the enum to be returned, the cost of the loan will also be calculated and displayed to the user.</p>
 </div>
@@ -474,6 +493,32 @@ It is possible for the LoanBook to have a loan that lasts for 0 minutes. This is
 </div>
 </div>
 <div class="sect3">
+<h4 id="sequence-diagram"><a class="link" href="#sequence-diagram">Sequence diagram</a></h4>
+<div class="paragraph">
+<p>The sequence diagram has been split into 2 parts.<br>
+First, the sequence diagram of command parsing:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/ReturnSequence.png" alt="ReturnSequence" width="450">
+</div>
+</div>
+<div class="paragraph">
+<p>&#160;<br></p>
+</div>
+<div class="paragraph">
+<p>Second, the sequence diagram of command execution:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/ReturnSequenceLogic.png" alt="ReturnSequenceLogic" width="450">
+</div>
+</div>
+<div class="paragraph">
+<p>&#160;<br></p>
+</div>
+</div>
+<div class="sect3">
 <h4 id="design-considerations"><a class="link" href="#design-considerations">Design considerations:</a></h4>
 <div class="sect4">
 <h5 id="aspect-using-an-enum-vs-changing-the-location-of-the-loan"><a class="link" href="#aspect-using-an-enum-vs-changing-the-location-of-the-loan">Aspect: Using an enum vs changing the location of the loan</a></h5>
@@ -511,4 +556,4 @@ It is possible for the LoanBook to have a loan that lasts for 0 minutes. This is
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-12 05:11:33 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-12 08:16:40 UTC</div></div></div></body></html>
