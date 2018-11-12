@@ -977,7 +977,12 @@ Since this value will be a represented by a Java <code>int</code>, the maximum p
 <p><strong>Step 3</strong>: A new <code>Loan</code> instance will be generated using the generated Loan ID value. This new <code>Loan</code> instance gets inserted into the <code>VersionedLoanBook</code> and gets committed.</p>
 </div>
 <div class="paragraph">
-<p>The following sequence diagram shows how the updated <code>add</code> command works:</p>
+<p>The following sequence diagram shows how the <code>add</code> command functions, including the retrieval of the next Loan ID from the Model:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/LoanIdAddCommandSequenceDiagram.png" alt="LoanIdAddCommandSequenceDiagram" width="800">
+</div>
 </div>
 </div>
 <div class="sect3">
@@ -987,57 +992,97 @@ Since this value will be a represented by a Java <code>int</code>, the maximum p
 <div class="ulist">
 <ul>
 <li>
-<p><strong>Alternative 1</strong>: Use a <code>String</code> to represent the Loan ID</p>
+<p><strong>Alternative</strong>: Use a <code>String</code> to represent the Loan ID</p>
 <div class="ulist">
 <ul>
 <li>
-<p>Pros:</p>
-<div class="ulist">
-<ul>
-<li>
-<p>More Loan ID values can be created given the same number of characters.</p>
-</li>
+<p>Pros: More Loan ID values can be created given the same number of characters.</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
 <li>
 <p>There would be no technical limit to the number of Loan IDs possible. If all Loan IDs of a certain length get exhausted, the next generated Loan ID can be one character longer.</p>
 </li>
-</ul>
+</ol>
 </div>
 </li>
 <li>
 <p>Cons:</p>
-<div class="ulist">
-<ul>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
 <li>
 <p>Generating the next available Loan ID may be more complicated for a string as compared to an integer (though not by a significant amount).</p>
 </li>
-</ul>
+</ol>
 </div>
+</li>
+<li>
+<p><strong>Possible Implementation</strong>: A running counter, starting from 0, that resets at the start of every day. The Loan ID is formed by taking the current date, in "YYYYMMDD" format, and appending it with said running counter.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: Simple to implement.</p>
+</li>
+<li>
+<p>Cons: Depending on the end-user, the fact that the Loan ID displays the number of loans created during that day may be undesirable.</p>
 </li>
 </ul>
 </div>
 </li>
 <li>
-<p><strong>Alternative 2</strong>: Have a static integer variable in the <code>Loan</code> or the <code>VersionedLoanBook</code> class</p>
+<p><strong>Possible implementation</strong>: Generate a string with a fixed number of characters.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: The ID does not allow the number of loans created to be determined. This may be useful if this behaviour is desirable by the end-user.</p>
+</li>
+<li>
+<p>Cons:</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>The model needs to keep track of all the IDs that have been used before to prevent duplicates.</p>
+</li>
+<li>
+<p>The ID may be troublesome to type in the command-line, especially if the Loan ID is used for other commands.</p>
+</li>
+</ol>
+</div>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect4">
+<h5 id="aspect-having-a-loanidmanager-class-simply-to-keep-track-of-a-running-counter"><a class="link" href="#aspect-having-a-loanidmanager-class-simply-to-keep-track-of-a-running-counter">Aspect: Having a LoanIdManager class simply to keep track of a running counter</a></h5>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Alternative</strong>: Have a static integer variable in the <code>Loan</code> or the <code>VersionedLoanBook</code> class</p>
 <div class="ulist">
 <ul>
 <li>
 <p>Pros:</p>
-<div class="ulist">
-<ul>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
 <li>
 <p>The process of incrementing the running value is simpler and has lesser steps than with a <code>LoanIdManager</code> class.</p>
 </li>
-</ul>
+</ol>
 </div>
 </li>
 <li>
 <p>Cons:</p>
-<div class="ulist">
-<ul>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
 <li>
-<p>It is more complicated to capture the state of the running value. The undo/redo mechanism will not work with a static variable.</p>
+<p>It is more complicated to capture the state of the running value. The undo/redo mechanism may not work with a static variable.</p>
 </li>
-</ul>
+</ol>
 </div>
 </li>
 </ul>
@@ -3355,11 +3400,41 @@ Expected: No bike is added as a bike with the same name already exists within th
 <div class="olist loweralpha">
 <ol class="loweralpha" type="a">
 <li>
-<p>Prerequisites: List all loans using the <code>list</code> command. Multiple loans in the list.</p>
+<p>Prerequisites: List all loans using the <code>list</code> command. Multiple loans in the list. A Bike with the name <code>Bike001</code> is present in the Loanbook. The last used Loan ID is smaller than 999,999,999, or the Loanbook is new.</p>
 </li>
 <li>
-<p>Test case: <code>PLACEHOLDER</code><br>
-Expected: PLACEHOLDER</p>
+<p>Test case: <code>add n/David ic/T0248272F p/98765432 e/david@example.com b/Bike001 lr/3.5 t/Overnight</code><br>
+Expected: A new loan is added to the list.</p>
+<div class="olist lowerroman">
+<ol class="lowerroman" type="i">
+<li>
+<p>The editable details of the loan (e.g. Name, NRIC, etc.) match the fields specified in the command.</p>
+</li>
+<li>
+<p>The Loan ID of the new loan is larger than that of all existing loans.</p>
+</li>
+<li>
+<p>The "Start Time" field is equal to the time of execution of the <code>add</code> command.</p>
+</li>
+<li>
+<p>The tags that appear are "Ongoing" and "Overnight".</p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>Adding a loan with a bike that does not exist</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Prerequisites: A bike with the name <code>MissingBike</code> does not exist in the Loanbook.</p>
+</li>
+<li>
+<p>Test case: <code>add n/David ic/T0248272F p/98765432 e/david@example.com b/MissingBike lr/3.5 t/Overnight</code><br>
+Expected: No new loan is created. The following error message should appear: "No bike with that name exists within the loan book."</p>
 </li>
 </ol>
 </div>
@@ -3786,4 +3861,4 @@ Expected: Failure message "No connection to the network!" will show. The email i
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-12 13:33:22 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-12 13:45:53 UTC</div></div></div></body></html>
