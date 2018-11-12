@@ -28,7 +28,9 @@ The project was morphed from the https://github.com/nus-cs2103-AY1819S1/addressb
 |_This section records my contributions to the main code base._
 |===
 
-=== *Major enhancement 1*: `return` functionality.
+=== *Major enhancement*: return and summary functionality.
+
+==== `return` functionality
 
 Added a command that allows the user to return a loan.
 
@@ -40,7 +42,7 @@ Added a command that allows the user to return a loan.
 
 ** PR https://github.com/CS2103-AY1819S1-F10-2/main/pull/159[#159].
 
-=== *Major enhancement 2*: `summary` functionality
+==== `summary` functionality
 
 ** Feature: Generates a single page summary of all the undeleted loans that the user has enetered into the LoanBook.
 
