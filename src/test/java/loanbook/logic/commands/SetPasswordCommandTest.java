@@ -16,31 +16,31 @@ import loanbook.model.loan.LoanId;
 import loanbook.testutil.ModelStub;
 
 public class SetPasswordCommandTest {
-
     private static final CommandHistory EMPTY_COMMAND_HISTORY = new CommandHistory();
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
     private CommandHistory commandHistory = new CommandHistory();
+    private String dummySalt = "1";
 
     @Test
     public void constructor_nullOldPass_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        new SetPasswordCommand(null, new Password("123"));
+        new SetPasswordCommand(null, "123");
     }
 
     @Test
     public void constructor_nullNewPass_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        new SetPasswordCommand(new Password("123"), null);
+        new SetPasswordCommand("123", null);
     }
 
     @Test
     public void equals() {
-        Password oldPass = new Password("12345678");
-        Password newPass = new Password("abcdefgh");
-        Password wrongPass = new Password("$$$$$$$$");
+        String oldPass = "12345678";
+        String newPass = "abcdefgh";
+        String wrongPass = "$$$$$$$$";
         SetPasswordCommand addOldPassCommand = new SetPasswordCommand(oldPass, newPass);
         SetPasswordCommand wrongPassCommand = new SetPasswordCommand(wrongPass, newPass);
 
@@ -63,8 +63,8 @@ public class SetPasswordCommandTest {
 
     @Test
     public void execute_newPasswordAcceptedByModel_setPassSuccessful() throws Exception {
-        Password currentPass = new Password("a12345");
-        Password newPass = new Password("abcdefgh");
+        String currentPass = "a12345";
+        String newPass = "abcdefgh";
         ModelStubWithPassword modelStub = new ModelStubWithPassword();
 
         CommandResult commandResult = new SetPasswordCommand(currentPass, newPass).execute(modelStub, commandHistory);
@@ -76,13 +76,13 @@ public class SetPasswordCommandTest {
 
     @Test
     public void execute_wrongCurrentPassword_throwsCommandException() throws Exception {
-        Password wrongPass = new Password("xxxxxxxx");
-        Password newPass = new Password("abcdefgh");
+        String wrongPass = "xxxxxxxx";
+        String newPass = "abcdefgh";
         SetPasswordCommand setPasswordCommand = new SetPasswordCommand(wrongPass, newPass);
         ModelStubWithPassword modelStub = new ModelStubWithPassword();
 
         thrown.expect(CommandException.class);
-        thrown.expectMessage(Messages.MESSAGE_INVALID_OLD_PASS);
+        thrown.expectMessage(Messages.MESSAGE_INVALID_PASSWORD);
         setPasswordCommand.execute(modelStub, commandHistory);
     }
 
@@ -92,7 +92,7 @@ public class SetPasswordCommandTest {
         String pass = "a12345";
 
         SetPasswordCommand setPasswordCommand =
-                new SetPasswordCommand(new Password(pass), new Password(pass));
+                new SetPasswordCommand(pass, pass);
 
         thrown.expect(CommandException.class);
         thrown.expectMessage(Messages.MESSAGE_SAME_AS_CURRENT_PASSWORD);
@@ -103,7 +103,7 @@ public class SetPasswordCommandTest {
      * A Model stub with a functional setPass() and getPass().
      */
     private class ModelStubWithPassword extends ModelStub {
-        private Password currPass = new Password("a12345");
+        private Password currPass = new Password("a12345", dummySalt);
 
         @Override
         public void setPass(Password pass) {
@@ -113,6 +113,11 @@ public class SetPasswordCommandTest {
         @Override
         public String getPass() {
             return currPass.hashedPassword();
+        }
+
+        @Override
+        public String getSalt() {
+            return dummySalt;
         }
 
         @Override

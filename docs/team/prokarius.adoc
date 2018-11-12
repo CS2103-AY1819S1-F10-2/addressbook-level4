@@ -1,0 +1,243 @@
+= David Kum - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+image::LoanBookLogo.png[width="400"]
+
+== Overview
+
+image::LoanBookFront.png[width="400"]
+
+LoanBook is a desktop application targetted at bicycle shop owners to manage their bicycle loans. This will allow the bicycle shop owners who are proficient with the Command Line Interface (CLI) to keep track of their loans, and simplify the auditing process. You may find the code of the application here: https://github.com/CS2103-AY1819S1-F10-2/main[Loanbook github page].
+
+The users interacts with it using a CLI, and it has a GUI created with JavaFX. The code base has approximately 20 thousand lines of code.
+
+LoanBook's *core functionalities* include:
+
+* Keeping track of the status of bicycle rentals
+* Keeping track of bicycles within the shop
+* Allowing users to send reminder emails to people who took out loans
+* Generating a summary of the application's data
+
+The project was morphed from the https://github.com/nus-cs2103-AY1819S1/addressbook-level4[original Addressbook application] by a team of 5 members. This report documents my contributions to this team-based project on both the code base and documentation as part of the NUS CS2103T -- Software Engineering module.
+
+== Summary of contributions
+
+|===
+|_This section records my contributions to the main code base._
+|===
+
+=== *Major enhancement 1*: `return` functionality.
+
+Added a command that allows the user to return a loan.
+
+** *Feature*: Allows the user to mark a loan that has been returned and prompts the user with the total price of the loan.
+
+** Justification: This simplifies the bicycle return process by allowing the user to simply key in a command, and get the payable cost of the loan. As well, it will mark the loan with the correct status so that the `summary` functionality audits the LoanBook correctly.
+
+** Highlights: The implementation of this feature required the creation of 3 new classes, 2 of which were implemented by me. The time of when the loan is returned defaults to the current time, and this data is saved into the LoanBook.
+
+** PR https://github.com/CS2103-AY1819S1-F10-2/main/pull/159[#159].
+
+=== *Major enhancement 2*: `summary` functionality
+
+** Feature: Generates a single page summary of all the undeleted loans that the user has enetered into the LoanBook.
+
+** Justification: This simplifies the auditing process for the user, by generating a simple easy to understand summary, so that the user does not need to manually tabulate receipts.
+
+** PR https://github.com/CS2103-AY1819S1-F10-2/main/pull/251[#251].
+
+=== *Minor enhancement*: Used tags to show the loan's status
+
+** Feature: Used a small color coded tag to display the status of the loans to the users. This tag is color coded to allow users to easily distinguish the status of their loans.
+
+** Justification: Doing this would allow users to at a glance, know the status of the loans.
+
+** PR https://github.com/CS2103-AY1819S1-F10-2/main/pull/163[#163].
+
+=== *Code contributed*:
+* https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=prokarius&sort=displayName&since=2018-09-12&until=2018-11-09&timeframe=day&reverse=false&repoSort=true[Reposense Link].
+
+=== *Other contributions*:
+
+* Project management:
+** Managed releases `v1.2` - `v1.4` (3 releases) on GitHub
+
+* Enhancements to existing features:
+** Implemented the `LoanStatus` enum (https://github.com/CS2103-AY1819S1-F10-2/main/pull/105[#105]) and `LoanTime` class (https://github.com/CS2103-AY1819S1-F10-2/main/pull/24[#24]), which was used by other parts of the project.
+
+* Fixed the broken `Loan` class to intergrate with them team's discussed changes: https://github.com/CS2103-AY1819S1-F10-2/main/pull/133[#133]
+
+* Wrote additional tests for existing features to increase coverage from 92% to 94%: PR https://github.com/CS2103-AY1819S1-F10-2/main/pull/252[#252].
+
+* Documentation:
+** Contributed to the writing of both the user guide and the developer guide: https://github.com/CS2103-AY1819S1-F10-2/main/pull/44[#44], https://github.com/CS2103-AY1819S1-F10-2/main/pull/94[#94], https://github.com/CS2103-AY1819S1-F10-2/main/pull/126[#126], https://github.com/CS2103-AY1819S1-F10-2/main/pull/142[#142], https://github.com/CS2103-AY1819S1-F10-2/main/pull/245[#245], https://github.com/CS2103-AY1819S1-F10-2/main/pull/246[#246], https://github.com/CS2103-AY1819S1-F10-2/main/pull/263[#263]
+
+* Community:
+** PRs reviewed (with non-trivial review comments): https://github.com/CS2103-AY1819S1-F10-2/main/pull/151[#151], https://github.com/CS2103-AY1819S1-F10-2/main/pull/158[#158]
+** Reported bugs and suggestions for other teams in the class:
+*** https://github.com/CS2103-AY1819S1-W10-3/main/issues/146[W10-3: incorrect setDate behaviour]
+*** https://github.com/CS2103-AY1819S1-W10-3/main/issues/131[W10-3: maxSchedule incorrectly parsed]
+
+* Team Management:
+** Managed the features and upgrades for the team between scrums.
+** Coached team mates who were new to git and taught them various git CLI functionalities.
+
+
+== Contributions to the User Guide
+
+|===
+|_These are some samples of the sections I contributed to the User Guide which showcases my ability to create easy to follow and engaging documentation for end-users._
+|===
+
+=== Returning a loan: `return`
+
+So how do you even return a loan that you have loaned out? You can do so with this simple command! In fact, we see your pains trying to calculate the amount payable on a calculator, so we decided to help you out by doing all the number crunching for you.
+
+This command marks a loan as returned based on LOAN_INDEX and automatically prints out the amount payable. The amount payable will be prorated and rounded down to the nearest minute. +
+
+[big]#*Format*: `return i/LOAN_INDEX`#
+
+[big red]#List of Parameters#:
+
+`i/LOAN_INDEX`: Index of the loan, in the left hand side display. +
+
+[TIP]
+====
+We choose to do this because when we get down to seconds, the difference in the earnings you will get is going to be on the order of a fraction of cents. We hope that by doing this, your business would not seem to be very petty about the money.
+
+Also, this would be good for your business, as customers will not feel that they have been ripped off the cost of renting a bike for an extra minute just because you took 5 seconds to log their return details! :)
+====
+
+Do note that you will have to list out all the loans in order, or search for a particular loan that you would like to return. From there, you need to key in the index number of the loan as a parameter into this command.
+
+The number crunching will work for any type of currency, however it is optimised for dollar amounts. The display also uses the dollar sign and will give you the output to 2 decimal places. +
+
+[WARNING]
+====
+Do be careful to note that it is the loan INDEX that you are keying into the program. Please do not key in the LoanID instead! +
+The INDEX is the one position of the loan in the list on the left hand side. Refer to the circled object in the below diagram:
+
+image::LoanIndexWarning.png[]
+====
+
+[WARNING]
+====
+This command is currently not undoable. Please be careful to double check that you are returning the correct loan!
+
+We are working on fixing this issue! Do look forward to seeing this new functionality in the next release of LoanBook, version 2.0!
+====
+
+Examples:
+
+* `return i/1` +
+Marks the loan that has been indexed at position 1 as returned. Also automatically prints out the amount payable based on loan time and rate.
+* `return i/55` +
+Marks the loan that has been indexed at position 55 as returned. Also automatically prints out the amount payable based on loan time and rate.
+
+=== Summarize all the transactions: `summary`
+
+Do you want to find out at a glance how much money your business has collected? Or maybe out of all the bicycles you have, how many are currently loaned out? Here's the command for you.
+
+[big]#*Format*: `summary`#
+
+The `summary` function would display the statistics of all your loans in the display box on the right of the application. There, you will find the following statistics:
+
+* Total number of ongoing loans
+* Total number of loans ever taken out
+* Total revenue from your loan service
+
+[NOTE]
+====
+Current implementations would only allow the summary of the above statistics. However, the LoanBook Team is looking to implement more summary items into the above summary. +
+If you would like the summary functionality to report certain stats that are not included, feel free to contact us, and if it's feasible, we will include it into our next release!
+====
+
+[NOTE]
+====
+The summary feature may take a while to run, especially when you have many loans that you have made in the past. Please allow about a second for it to process.
+====
+
+== Contributions to the Developer Guide
+
+|===
+|_These are some samples of the sections I contributed to the Developer Guide, which showcases my ability to write techincal documents that will be followed by other developers._
+|===
+
+=== Return a Loan feature
+
+A LoanBook application that only allows users to do loans without being able to return them would not serve its purpose. When you take out a loan, it should automatically come with the feature of being returnable. This is the functionality for that.
+
+==== Current Implementation
+
+The source code for this implementation can be found in link:../../src/main/java/loanbook/logic/commands/ReturnCommand.java[ReturnCommand.java].
+
+Returning a loan is done by setting the corresponding status of the loan to `LoanStatus.RETURNED`. Other than setting the enum to be returned, the cost of the loan will also be calculated and displayed to the user.
+
+The steps that have to be done by LoanBook is as follows.
+
+* Check the start and end time of the loan to ensure that the loan period is valid.
+* Store the current time as the return time of the loan.
+* Change the enum of `LoanStatus` to become `LoanStatus.RETURNED`.
+* Calculate the cost of the loan and display it in the GUI as a suggestion for the user.
+
+This is summarized in the following Activity Diagram:
+
+image::ReturnFlow.png[width="450"]
+
+These steps would change the given `Loan` object, and update the properties of the `Loan` object. The appropriate values stored within the `Loan` object would therefore change accordingly.
+
+Given below is an example usage scenerio and how the internals of the Loan would behave:
+
+**Step 1.** The user would have to do a search for which loan they would like to return. This will pull up a list of loans from which the user would be able to select the correct loan.
+
+**Step 2.** Using the current system time as the `endTime`, the duration of the loan will be calculated. Should the duration ever be negative, an error message will be thrown. This is because such a scenario would not ever be possible in the LoanBook.
+
+**Step 3.** The user decides to return the current loan (in the case of the above image, the user wants to return loan at index 3, as selected). User will therefore key in `return i/3`.
+
+The LoanBook will save the current time into the `LoanTime endTime` field. This would be done by calling the constructor `LoanTime()`. Also, the loanStatus field would also be updated from `ONGOING` to `RETURNED`.
+
+image::return-loan-loan2.png[]
+Note that originally the loan has a `null` value for end time. Note that the `endTime` and `loanStatus` values has been updated.
+
+[TIP]
+If the loan has already been returned or deleted, a corresponding error message will notify you that you cannot return a loan that is not ongoing. This check happens during this step.
+
+{nbsp} +
+
+**Step 4.** The function now calculates the cost of the loan. This price would be based on the amount of time the loan was active for, as well as the loanRate that was set, by multiplying the time with the rate.
+
+[NOTE]
+Although the time saved is to the millisecond, the time that is multiplied when we are getting the cost is rounded down to the nearest minute. In a sense, this is "pro-rating" the cost, and making it more discrete.
+
+The result is then displayed into the GUI for the user as the cost price of the loan.
+
+[NOTE]
+It is possible for the LoanBook to have a loan that lasts for 0 minutes. This is because there may be some weird edge case where an object is loaned for less than a minute, which gets prorated down.
+
+==== Sequence diagram
+
+The sequence diagram has been split into 2 parts. +
+First, the sequence diagram of command parsing:
+
+image::ReturnSequence.png[width="450"]
+
+{nbsp} +
+
+Second, the sequence diagram of command execution:
+
+image::ReturnSequenceLogic.png[width="450"]
+
+{nbsp} +
+
+==== Design considerations:
+===== Aspect: Using an enum vs changing the location of the loan
+* **Alternative 1 (current choice):** To create an enum that will store the status of the linked list.
+** Pros: Easy to implement the return a loan feature, and do not need to create new data storage features.
+** Cons: When using the `summary` function, it will take a longer amount of time, as the LoanBook would have to do a check at every step to ensure the correct data is appended to the correct place.
+
+* Alternative 2: Create new ArrayLists of `Loans` for each possible status of the `Loan` objects.
+** Pros: Computing the `summary` of the LoanBook would be much easier, and quicker.
+** Cons: `return` functionality would run much slower, as there will be empty slots in the ArrayList after shifting the Loan objects around. Searching for loans would also be much more difficult, as the results from the various Loan ArrayLists has to be appended together.
+

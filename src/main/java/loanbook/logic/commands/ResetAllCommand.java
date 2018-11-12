@@ -6,7 +6,6 @@ import static loanbook.logic.parser.CliSyntax.PREFIX_PASSWORD;
 import loanbook.logic.CommandHistory;
 import loanbook.logic.commands.exceptions.CommandException;
 import loanbook.model.Model;
-import loanbook.model.Password;
 
 /**
  * Clears the loans and bikes and resets the loan ID in the loan book.
@@ -23,7 +22,7 @@ public class ResetAllCommand extends PasswordProtectedCommand {
 
     public static final String MESSAGE_RESET_ALL_SUCCESS = "Loan book has been successfully reset!";
 
-    public ResetAllCommand(Password pass) {
+    public ResetAllCommand(String pass) {
         super(pass, COMMAND_WORD);
     }
 

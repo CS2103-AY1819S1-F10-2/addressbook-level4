@@ -11,7 +11,6 @@ import loanbook.commons.core.index.Index;
 import loanbook.logic.CommandHistory;
 import loanbook.logic.commands.exceptions.CommandException;
 import loanbook.model.Model;
-import loanbook.model.Password;
 import loanbook.model.loan.Loan;
 
 /**
@@ -31,7 +30,7 @@ public class DeleteCommand extends PasswordProtectedCommand {
 
     private final Index targetIndex;
 
-    public DeleteCommand(Index targetIndex, Password pass) {
+    public DeleteCommand(Index targetIndex, String pass) {
         super(pass, COMMAND_WORD);
         this.targetIndex = targetIndex;
     }

@@ -7,7 +7,6 @@ import static loanbook.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import org.junit.Test;
 
 import loanbook.logic.commands.DeleteBikeCommand;
-import loanbook.model.Password;
 import loanbook.model.loan.Name;
 
 public class DeleteBikeCommandParserTest {
@@ -17,7 +16,7 @@ public class DeleteBikeCommandParserTest {
     @Test
     public void parse_validArgs_returnsDeleteBikeCommand() {
         assertParseSuccess(parser, " n/Bike001 x/a12345",
-                new DeleteBikeCommand(new Name("Bike001"), new Password("a12345")));
+                new DeleteBikeCommand(new Name("Bike001"), "a12345"));
     }
 
     @Test

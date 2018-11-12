@@ -6,7 +6,6 @@ import java.util.List;
 
 import loanbook.logic.commands.ResetAllCommand;
 import loanbook.logic.parser.exceptions.ParseException;
-import loanbook.model.Password;
 
 /**
  * Parses input arguments and creates a new DeleteCommand object.
@@ -25,7 +24,7 @@ public class ResetAllCommandParser extends ArgumentParser<ResetAllCommand> {
                 List.of(),
                 ResetAllCommand.MESSAGE_USAGE);
 
-        Password password = ParserUtil.parsePass(argMultimap.getValue(PREFIX_PASSWORD).get());
+        String password = ParserUtil.parsePass(argMultimap.getValue(PREFIX_PASSWORD).get());
 
         return new ResetAllCommand(password);
     }

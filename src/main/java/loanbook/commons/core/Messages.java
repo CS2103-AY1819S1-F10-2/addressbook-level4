@@ -29,7 +29,6 @@ public class Messages {
 
     /* Password */
     public static final String MESSAGE_INVALID_PASSWORD = "The password provided is incorrect!";
-    public static final String MESSAGE_INVALID_OLD_PASS = "The old password entered is incorrect!";
     public static final String MESSAGE_SAME_AS_CURRENT_PASSWORD = "The password provided is same as before!";
 
     /* Date */

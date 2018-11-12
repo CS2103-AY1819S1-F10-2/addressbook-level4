@@ -42,7 +42,6 @@ import loanbook.logic.commands.SetEmailCommand;
 import loanbook.logic.commands.SetPasswordCommand;
 import loanbook.logic.commands.UndoCommand;
 import loanbook.logic.parser.exceptions.ParseException;
-import loanbook.model.Password;
 import loanbook.model.bike.Bike;
 import loanbook.model.loan.Email;
 import loanbook.model.loan.Loan;
@@ -79,20 +78,19 @@ public class LoanBookParserTest {
 
     @Test
     public void parseCommand_clear() throws Exception {
-        String samplePasswordUserInput = "a12345";
-        Password samplePassword = new Password(samplePasswordUserInput);
+        String samplePassword = "a12345";
 
         ResetLoansCommand expectedCommand = new ResetLoansCommand(samplePassword);
 
         assertEquals(expectedCommand,
-                parser.parseCommand(ResetLoansCommand.COMMAND_WORD + " " + PREFIX_PASSWORD + samplePasswordUserInput));
+                parser.parseCommand(ResetLoansCommand.COMMAND_WORD + " " + PREFIX_PASSWORD + samplePassword));
     }
 
     @Test
     public void parseCommand_delete() throws Exception {
         DeleteCommand command = (DeleteCommand) parser.parseCommand(
                 DeleteCommand.COMMAND_WORD + " i/" + INDEX_FIRST_LOAN.getOneBased() + " x/" + "a12345");
-        Password pass = new Password("a12345");
+        String pass = "a12345";
         assertEquals(new DeleteCommand(INDEX_FIRST_LOAN, pass), command);
     }
 
@@ -123,7 +121,7 @@ public class LoanBookParserTest {
     public void parseCommand_setemail() throws Exception {
         SetEmailCommand command = (SetEmailCommand) parser.parseCommand(
                 SetEmailCommand.COMMAND_WORD + USER_EMAIL1_DESC + PASSWORD2_DESC);
-        assertEquals(new SetEmailCommand(new Email(VALID_USER_EMAIL1), new Password(PASSWORD2)), command);
+        assertEquals(new SetEmailCommand(new Email(VALID_USER_EMAIL1), PASSWORD2), command);
     }
 
     @Test
@@ -191,7 +189,7 @@ public class LoanBookParserTest {
         String newPass = "newPass";
         SetPasswordCommand command = (SetPasswordCommand) parser.parseCommand(
                 SetPasswordCommand.COMMAND_WORD + " " + oldPass + " " + newPass);
-        assertEquals(new SetPasswordCommand(new Password(oldPass), new Password(newPass)), command);
+        assertEquals(new SetPasswordCommand(oldPass, newPass), command);
     }
 
     @Test

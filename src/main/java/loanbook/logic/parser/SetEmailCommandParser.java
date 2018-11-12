@@ -7,7 +7,6 @@ import java.util.List;
 
 import loanbook.logic.commands.SetEmailCommand;
 import loanbook.logic.parser.exceptions.ParseException;
-import loanbook.model.Password;
 import loanbook.model.loan.Email;
 
 /**
@@ -27,7 +26,7 @@ public class SetEmailCommandParser extends ArgumentParser<SetEmailCommand> {
                 SetEmailCommand.MESSAGE_USAGE);
 
         Email email = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get());
-        Password password = ParserUtil.parsePass(argMultimap.getValue(PREFIX_PASSWORD).get());
+        String password = ParserUtil.parsePass(argMultimap.getValue(PREFIX_PASSWORD).get());
 
         return new SetEmailCommand(email, password);
     }

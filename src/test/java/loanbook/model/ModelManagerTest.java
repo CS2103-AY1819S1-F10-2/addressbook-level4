@@ -108,15 +108,15 @@ public class ModelManagerTest {
     @Test
     public void getPass_returnsTrue() {
         String currPass = modelManager.getPass();
-        assertTrue(Password.isSamePassword(currPass, new Password("a12345")));
+        assertTrue(Password.isSamePassword(currPass, "a12345", modelManager.getSalt()));
     }
 
     @Test
     public void setPass_returnsTrue() {
-        Password newPass = new Password("newpassword");
-        modelManager.setPass(newPass);
+        String newPass = "newpassword";
+        modelManager.setPass(new Password(newPass, modelManager.getSalt()));
         String currPass = modelManager.getPass();
-        assertTrue(Password.isSamePassword(currPass, newPass));
+        assertTrue(Password.isSamePassword(currPass, newPass, modelManager.getSalt()));
     }
 
     @Test

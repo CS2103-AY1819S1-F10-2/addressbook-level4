@@ -11,7 +11,6 @@ import loanbook.logic.CommandHistory;
 import loanbook.logic.commands.exceptions.CommandException;
 import loanbook.model.Model;
 import loanbook.model.ModelManager;
-import loanbook.model.Password;
 import loanbook.model.UserPrefs;
 import loanbook.testutil.Assert;
 
@@ -21,8 +20,8 @@ public class PasswordProtectedCommandTest {
     public void assertCorrectPassword_correctAndIncorrectPassword_throwsCommandException() {
         Model model = new ModelManager(getTypicalLoanBook(), new UserPrefs());
 
-        Password expectedCorrectPassword = new Password("a12345");
-        Password expectedIncorrectPassword = new Password("incorrect");
+        String expectedCorrectPassword = "a12345";
+        String expectedIncorrectPassword = "incorrect";
 
         PasswordProtectedCommandStub correctStub = new PasswordProtectedCommandStub(expectedCorrectPassword);
         PasswordProtectedCommandStub incorrectStub = new PasswordProtectedCommandStub(expectedIncorrectPassword);
@@ -39,9 +38,9 @@ public class PasswordProtectedCommandTest {
 
     @Test
     public void equalityTest() {
-        PasswordProtectedCommandStub command1 = new PasswordProtectedCommandStub(new Password("coverage"));
-        PasswordProtectedCommandStub command2 = new PasswordProtectedCommandStub(new Password("coverage"));
-        PasswordProtectedCommandStub command3 = new PasswordProtectedCommandStub(new Password("galore"));
+        PasswordProtectedCommandStub command1 = new PasswordProtectedCommandStub("coverage");
+        PasswordProtectedCommandStub command2 = new PasswordProtectedCommandStub("coverage");
+        PasswordProtectedCommandStub command3 = new PasswordProtectedCommandStub("galore");
 
         assertEquals(command1, command1); // Same instance
         assertEquals(command1, command2); // Same password
@@ -50,7 +49,7 @@ public class PasswordProtectedCommandTest {
     }
 
     private static class PasswordProtectedCommandStub extends PasswordProtectedCommand {
-        PasswordProtectedCommandStub(Password password) {
+        PasswordProtectedCommandStub(String password) {
             super(password, "TEST_COMMAND");
         }
 

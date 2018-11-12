@@ -12,7 +12,6 @@ import static loanbook.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import org.junit.Test;
 
 import loanbook.logic.commands.SetEmailCommand;
-import loanbook.model.Password;
 import loanbook.model.loan.Email;
 
 public class SetEmailCommandParserTest {
@@ -22,7 +21,7 @@ public class SetEmailCommandParserTest {
     public void parse_allFieldsPresent_success() {
         assertParseSuccess(parser,
                 PREAMBLE_WHITESPACE + USER_EMAIL1_DESC + PASSWORD2_DESC,
-                new SetEmailCommand(new Email(VALID_USER_EMAIL1), new Password(PASSWORD2)));
+                new SetEmailCommand(new Email(VALID_USER_EMAIL1), PASSWORD2));
     }
 
     @Test

@@ -446,11 +446,11 @@ Step 5. Password in `UserPref` is saved to the encrypted value of the new passwo
 
 The following sequence diagram shows how the `setpass` operation works:
 
-image::SetPasswordLogic.png[width="800"]
+image::setPasswordLogic.png[width="800"]
 
 The following activity diagram summarizes what happens when a user executes `setpass`:
 
-image::SetPassActivityDiagram.png[width="650"]
+image::setPassActivityDiagram.png[width="650"]
 
 Step 6. The user executes a critical command `delete i/1 x/a12345`.
 
@@ -463,11 +463,11 @@ If current password input is wrong, or if the index provided is invalid, deletio
 
 The following sequence diagram shows how the new `delete` operation works:
 
-image::DeleteLoanWithPass.png[width="800"]
+image::deleteLoanWithPass.png[width="800"]
 
 The following activity diagram summarizes what happens when a user executes `delete`:
 
-image::DeleteActivityDiagram.png[width="650"]
+image::deleteActivityDiagram.png[width="650"]
 
 ==== Design Considerations
 
@@ -517,20 +517,27 @@ image::DeleteActivityDiagram.png[width="650"]
 We used a less secure alternative due to the nature of the target audience. It is highly improbable for hackers to be targeting a bicycle shop.
 // end::adminauthentication[]
 
+// tag::returnfeature[]
 === Return a Loan feature
 
 A LoanBook application that only allows users to do loans without being able to return them would not serve its purpose. When you take out a loan, it should automatically come with the feature of being returnable. This is the functionality for that.
 
-==== Proposed Implementation
+==== Current Implementation
+
+The source code for this implementation can be found in link:../../src/main/java/loanbook/logic/commands/ReturnCommand.java[ReturnCommand.java].
 
 Returning a loan is done by setting the corresponding status of the loan to `LoanStatus.RETURNED`. Other than setting the enum to be returned, the cost of the loan will also be calculated and displayed to the user.
 
-The steps that have to be done by LoanBook is as follows:
+The steps that have to be done by LoanBook is as follows.
 
 * Check the start and end time of the loan to ensure that the loan period is valid.
 * Store the current time as the return time of the loan.
 * Change the enum of `LoanStatus` to become `LoanStatus.RETURNED`.
 * Calculate the cost of the loan and display it in the GUI as a suggestion for the user.
+
+This is summarized in the following Activity Diagram:
+
+image::ReturnFlow.png[width="450"]
 
 These steps would change the given `Loan` object, and update the properties of the `Loan` object. The appropriate values stored within the `Loan` object would therefore change accordingly.
 
@@ -548,7 +555,7 @@ image::return-loan-loan2.png[]
 Note that originally the loan has a `null` value for end time. Note that the `endTime` and `loanStatus` values has been updated.
 
 [TIP]
-If the loan has already been returned or deleted, a corresponding error message will notify you that you cannot return a loan that is not ongoing. The message will also display the current status of the loan for troubleshooting. This check happens during this step.
+If the loan has already been returned or deleted, a corresponding error message will notify you that you cannot return a loan that is not ongoing. This check happens during this step.
 
 {nbsp} +
 
@@ -561,6 +568,19 @@ The result is then displayed into the GUI for the user as the cost price of the 
 
 [NOTE]
 It is possible for the LoanBook to have a loan that lasts for 0 minutes. This is because there may be some weird edge case where an object is loaned for less than a minute, which gets prorated down.
+
+==== Sequence diagram
+
+The sequence diagram has been split into 2 parts. +
+First, the sequence diagram of command parsing:
+
+image::ReturnSequence.png[width="600"]
+
+{nbsp} +
+
+Second, the sequence diagram of command execution:
+
+image::ReturnSequenceLogic.png[width="600"]
 
 {nbsp} +
 
@@ -578,7 +598,9 @@ It is possible for the LoanBook to have a loan that lasts for 0 minutes. This is
 
 In order to allow the user to use the LoanBook effectively as an auditing tool, they must be able to get a summary of all the loans that they have made. This summary should ideally give them an idea of the statistics of each of their transactions at a glance.
 
-==== Proposed Implementation
+==== Current Implementation
+
+The source code for this implementation can be found in link:../../src/main/java/loanbook/logic/commands/SummaryCommand.java[SummaryCommand.java].
 
 Getting the summary of all the loans is simply done by looping through all the stored loans before and aggregating the statistics of all the loans.
 
@@ -586,7 +608,6 @@ Currently, the `summary` command displays to the user the following statistics:
 
 * Total number of ongoing loans
 * Total number of loans ever taken out
-* Total amount of time all bikes have been loaned for
 * Total revenue from the loan service
 
 This would give a very handy summary page as well as a printable audit page for the bicycle shop owners.
@@ -621,6 +642,7 @@ These are the proposed features you would be able to search based on:
 As well, having to recalculate all the loans would be a bad idea when the LoanBook contains many loans. A proposed solution would be to cache the results of the main summary method, so that the LoanBook would only have to recalculate the numbers based on loans that have not been added to the final tally.
 
 Another idea would be to display all the loans in a printable table, when the summary feature is called. Perhaps this would generate a pdf file which shows all the list of loans that the LoanBook is keeping track of. Users can then take use this as a more stringent auditing tool.
+// end::returnfeature[]
 
 === Logging
 

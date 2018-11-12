@@ -8,7 +8,6 @@ import org.junit.Test;
 import loanbook.logic.CommandHistory;
 import loanbook.model.Model;
 import loanbook.model.ModelManager;
-import loanbook.model.Password;
 import loanbook.model.UserPrefs;
 
 public class ResetLoansCommandTest {
@@ -21,7 +20,7 @@ public class ResetLoansCommandTest {
         Model expectedModel = new ModelManager();
         expectedModel.commitLoanBook();
 
-        Password expectedPassword = new Password("a12345");
+        String expectedPassword = "a12345";
         ResetLoansCommand command = new ResetLoansCommand(expectedPassword);
 
         assertCommandSuccess(command, model, commandHistory, ResetLoansCommand.MESSAGE_RESET_LOANS_SUCCESS,
@@ -36,7 +35,7 @@ public class ResetLoansCommandTest {
         expectedModel.resetId();
         expectedModel.commitLoanBook();
 
-        Password expectedPassword = new Password("a12345");
+        String expectedPassword = "a12345";
         ResetLoansCommand command = new ResetLoansCommand(expectedPassword);
 
         assertCommandSuccess(command, model, commandHistory, ResetLoansCommand.MESSAGE_RESET_LOANS_SUCCESS,

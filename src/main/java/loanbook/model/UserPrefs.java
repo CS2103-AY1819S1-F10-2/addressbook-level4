@@ -15,11 +15,19 @@ public class UserPrefs {
     private String password;
     private String defaultEmail;
     private Path loanBookFilePath = Paths.get("data" , "loanbook.xml");
+    private String passwordSalt;
 
     public UserPrefs() {
         setGuiSettings(500, 500, 0, 0);
-        password = (new Password("a12345")).hashedPassword(); // Default password is set to a12345
+        passwordSalt = Password.getSalt();
+        password = (new Password("a12345", passwordSalt)).hashedPassword(); // Default password is set to a12345
         defaultEmail = "default";
+    }
+
+    public UserPrefs(String salt) {
+        this();
+        passwordSalt = salt;
+        password = (new Password("a12345", passwordSalt)).hashedPassword();
     }
 
     public GuiSettings getGuiSettings() {
@@ -44,6 +52,10 @@ public class UserPrefs {
 
     public void setPass(Password pass) {
         password = pass.hashedPassword();
+    }
+
+    public String getSalt() {
+        return passwordSalt;
     }
 
     public String getPass() {

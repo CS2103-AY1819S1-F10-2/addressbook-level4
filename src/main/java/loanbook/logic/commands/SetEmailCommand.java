@@ -9,13 +9,12 @@ import loanbook.commons.core.Messages;
 import loanbook.logic.CommandHistory;
 import loanbook.logic.commands.exceptions.CommandException;
 import loanbook.model.Model;
-import loanbook.model.Password;
 import loanbook.model.loan.Email;
 
 /**
  * Set user's email to the app.
  */
-public class SetEmailCommand extends Command {
+public class SetEmailCommand extends PasswordProtectedCommand {
 
     public static final String COMMAND_WORD = "setemail";
 
@@ -28,12 +27,13 @@ public class SetEmailCommand extends Command {
     public static final String MESSAGE_SUCCESS = "Your email is set successfully!";
 
     private final Email newEmail;
-    private final Password password;
+    private final String password;
 
     /**
      * Creates an SetEmailCommand to set user's {@code Email} according to the {@code newEmail} provided.
      */
-    public SetEmailCommand(Email newEmail, Password password) {
+    public SetEmailCommand(Email newEmail, String password) {
+        super(password, COMMAND_WORD);
         requireAllNonNull(newEmail, password);
         this.newEmail = newEmail;
         this.password = password;
@@ -42,6 +42,7 @@ public class SetEmailCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
+        assertCorrectPassword(model);
 
         if ((newEmail.value).equals(model.getMyEmail())) {
             throw new CommandException(Messages.MESSAGE_SAME_AS_OLDEMAIL);
@@ -49,10 +50,6 @@ public class SetEmailCommand extends Command {
 
         if (!Email.isValidGmail(newEmail.value)) {
             throw new CommandException(Messages.MESSAGE_INVALID_EMAIL);
-        }
-
-        if (!Password.isSamePassword(model.getPass(), password)) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PASSWORD);
         }
 
         model.setMyEmail(newEmail.value);

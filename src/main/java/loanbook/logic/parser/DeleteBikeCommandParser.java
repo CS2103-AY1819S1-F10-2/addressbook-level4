@@ -7,7 +7,6 @@ import java.util.List;
 
 import loanbook.logic.commands.DeleteBikeCommand;
 import loanbook.logic.parser.exceptions.ParseException;
-import loanbook.model.Password;
 import loanbook.model.loan.Name;
 
 /**
@@ -27,7 +26,7 @@ public class DeleteBikeCommandParser extends ArgumentParser<DeleteBikeCommand> {
             DeleteBikeCommand.MESSAGE_USAGE);
 
         Name bikeName = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
-        Password password = ParserUtil.parsePass(argMultimap.getValue(PREFIX_PASSWORD).get());
+        String password = ParserUtil.parsePass(argMultimap.getValue(PREFIX_PASSWORD).get());
 
         return new DeleteBikeCommand(bikeName, password);
     }

@@ -12,13 +12,12 @@ import loanbook.commons.core.Messages;
 import loanbook.logic.CommandHistory;
 import loanbook.model.Model;
 import loanbook.model.ModelManager;
-import loanbook.model.Password;
 import loanbook.model.UserPrefs;
 
 public class ResetAllCommandTest {
 
-    private static final Password CORRECT_PASSWORD = new Password("a12345");
-    private static final Password INCORRECT_PASSWORD = new Password("incorrectPass");
+    private static final String CORRECT_PASSWORD = "a12345";
+    private static final String INCORRECT_PASSWORD = "incorrectPass";
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
@@ -54,9 +53,9 @@ public class ResetAllCommandTest {
 
     @Test
     public void equalityTest() {
-        ResetAllCommand resetAllCommand1 = new ResetAllCommand(new Password("identical"));
-        ResetAllCommand resetAllCommand2 = new ResetAllCommand(new Password("identical"));
-        ResetAllCommand resetAllCommand3 = new ResetAllCommand(new Password("different"));
+        ResetAllCommand resetAllCommand1 = new ResetAllCommand("identical");
+        ResetAllCommand resetAllCommand2 = new ResetAllCommand("identical");
+        ResetAllCommand resetAllCommand3 = new ResetAllCommand("different");
 
         assertEquals(resetAllCommand1, resetAllCommand1); // Same instance
         assertEquals(resetAllCommand1, resetAllCommand2); // Same password

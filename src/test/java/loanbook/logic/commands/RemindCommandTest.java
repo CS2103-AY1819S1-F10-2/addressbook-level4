@@ -18,7 +18,6 @@ import loanbook.logic.CommandHistory;
 import loanbook.logic.commands.exceptions.CommandException;
 import loanbook.model.Model;
 import loanbook.model.ModelManager;
-import loanbook.model.Password;
 import loanbook.model.UserPrefs;
 import loanbook.model.loan.LoanId;
 import loanbook.model.loan.LoanStatus;
@@ -84,7 +83,7 @@ public class RemindCommandTest {
     @Test
     public void execute_sendToDeletedLoan_throwsCommandException() throws Exception {
         Model modelStub = new ModelManager(getTypicalLoanBook(), new UserPrefs());
-        DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_LOAN, new Password("a12345"));
+        DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_LOAN, "a12345");
         deleteCommand.execute(modelStub, commandHistory);
 
         LoanId id = new LoanId("0");
