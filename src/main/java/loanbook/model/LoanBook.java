@@ -160,6 +160,13 @@ public class LoanBook implements ReadOnlyLoanBook {
         loans.remove(key);
     }
 
+    /**
+     * Returns the loan whose Loan ID matches the specified Loan ID, if it exists.
+     */
+    public Optional<Loan> getLoanById(LoanId loanId) {
+        return loans.getLoanById(loanId);
+    }
+
     //// Loan ID methods
 
     /**

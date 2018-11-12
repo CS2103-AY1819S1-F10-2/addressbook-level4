@@ -57,6 +57,11 @@ public class ModelStub implements Model {
     }
 
     @Override
+    public void resetBikes() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
     public ObservableList<Bike> getFilteredBikeList() {
         throw new AssertionError("This method should not be called.");
     }
@@ -98,6 +103,11 @@ public class ModelStub implements Model {
 
     @Override
     public void setLoans(List<Loan> loans) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public Optional<Loan> getLoanById(LoanId loanId) {
         throw new AssertionError("This method should not be called.");
     }
 
@@ -163,6 +173,11 @@ public class ModelStub implements Model {
 
     @Override
     public void setPass(Password pass) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public String getSalt() {
         throw new AssertionError("This method should not be called.");
     }
 

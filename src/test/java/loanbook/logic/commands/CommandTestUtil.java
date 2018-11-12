@@ -2,6 +2,7 @@ package loanbook.logic.commands;
 
 import static loanbook.logic.parser.CliSyntax.PREFIX_BIKE;
 import static loanbook.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static loanbook.logic.parser.CliSyntax.PREFIX_EMAILPW;
 import static loanbook.logic.parser.CliSyntax.PREFIX_LOANRATE;
 import static loanbook.logic.parser.CliSyntax.PREFIX_NAME;
 import static loanbook.logic.parser.CliSyntax.PREFIX_NRIC;
@@ -20,8 +21,10 @@ import loanbook.logic.CommandHistory;
 import loanbook.logic.commands.exceptions.CommandException;
 import loanbook.model.LoanBook;
 import loanbook.model.Model;
+import loanbook.model.bike.Bike;
 import loanbook.model.loan.Loan;
 import loanbook.model.loan.NameContainsKeywordsPredicate;
+import loanbook.testutil.EditBikeDescriptorBuilder;
 import loanbook.testutil.EditLoanDescriptorBuilder;
 
 /**
@@ -52,13 +55,12 @@ public class CommandTestUtil {
     public static final String VALID_NAME_BIKE4 = "Blue Ocean";
     public static final String NOEXIST_NAME_BIKE = "This bike does not exist";
 
-    public static final String DEFAULT_USER_EMAIL = "default";
     public static final String VALID_USER_EMAIL1 = "abcdefg@gmail.com";
     public static final String VALID_USER_EMAIL2 = "cs2103@gmail.com";
     public static final String VALID_USER_EMAIL3 = "cs2103f10-2@gmail.com";
     public static final String VALID_USER_EMAIL4 = "loanbookteam@gmail.com";
     public static final String PASSWORD1 = "cs2103f10-2";
-    public static final String PASSWORD2 = "loanbookpassword";
+    public static final String PASSWORD2 = "a12345";
 
     public static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_AMY;
     public static final String NAME_DESC_BOB = " " + PREFIX_NAME + VALID_NAME_BOB;
@@ -80,11 +82,12 @@ public class CommandTestUtil {
     public static final String NAME_DESC_BIKE3 = " " + PREFIX_NAME + VALID_NAME_BIKE3;
     public static final String NAME_DESC_BIKE4 = " " + PREFIX_NAME + VALID_NAME_BIKE4;
 
-    public static final String DEFAULT_EMAIL_DESC = " " + DEFAULT_USER_EMAIL;
-    public static final String USER_EMAIL1_DESC = " " + VALID_USER_EMAIL1;
-    public static final String USER_EMAIL2_DESC = " " + VALID_USER_EMAIL2;
-    public static final String USER_EMAIL3_DESC = " " + VALID_USER_EMAIL3;
-    public static final String USER_EMAIL4_DESC = " " + VALID_USER_EMAIL4;
+    public static final String USER_EMAIL1_DESC = " " + PREFIX_EMAIL + VALID_USER_EMAIL1;
+    public static final String USER_EMAIL2_DESC = " " + PREFIX_EMAIL + VALID_USER_EMAIL2;
+    public static final String USER_EMAIL3_DESC = " " + PREFIX_EMAIL + VALID_USER_EMAIL3;
+    public static final String USER_EMAIL4_DESC = " " + PREFIX_EMAIL + VALID_USER_EMAIL4;
+    public static final String EMAILPW1_DESC = " " + PREFIX_EMAILPW + PASSWORD1;
+    public static final String EMAILPW2_DESC = " " + PREFIX_EMAILPW + PASSWORD2;
     public static final String PASSWORD1_DESC = " " + PREFIX_PASSWORD + PASSWORD1;
     public static final String PASSWORD2_DESC = " " + PREFIX_PASSWORD + PASSWORD2;
 
@@ -99,10 +102,16 @@ public class CommandTestUtil {
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
 
+    public static final EditBikeCommand.EditBikeDescriptor DESC_BIKE1;
+    public static final EditBikeCommand.EditBikeDescriptor DESC_BIKE2;
+
     public static final EditCommand.EditLoanDescriptor DESC_AMY;
     public static final EditCommand.EditLoanDescriptor DESC_BOB;
 
     static {
+        DESC_BIKE1 = new EditBikeDescriptorBuilder().withName(VALID_NAME_BIKE1).build();
+        DESC_BIKE2 = new EditBikeDescriptorBuilder().withName(VALID_NAME_BIKE2).build();
+
         DESC_AMY = new EditLoanDescriptorBuilder().withName(VALID_NAME_AMY)
                 .withNric(VALID_NRIC_AMY)
                 .withPhone(VALID_PHONE_AMY).withEmail(VALID_EMAIL_AMY)
@@ -184,6 +193,20 @@ public class CommandTestUtil {
     }
 
     /**
+     * Updates {@code model}'s filtered list to show only the bike at the given {@code targetIndex} in the
+     * {@code model}'s loan book.
+     */
+    public static void showBikeAtIndex(Model model, Index targetIndex) {
+        assertTrue(targetIndex.getZeroBased() < model.getFilteredBikeList().size());
+
+        Bike bike = model.getFilteredBikeList().get(targetIndex.getZeroBased());
+        final String[] splitName = bike.getName().value.split("\\s+");
+        model.updateFilteredBikeList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])).forBikes());
+
+        assertEquals(1, model.getFilteredBikeList().size());
+    }
+
+    /**
      * Updates {@code model}'s filtered list to show only the loan at the given {@code targetIndex} in the
      * {@code model}'s loan book.
      */
@@ -192,7 +215,7 @@ public class CommandTestUtil {
 
         Loan loan = model.getFilteredLoanList().get(targetIndex.getZeroBased());
         final String[] splitName = loan.getName().value.split("\\s+");
-        model.updateFilteredLoanList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
+        model.updateFilteredLoanList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])).forLoans());
 
         assertEquals(1, model.getFilteredLoanList().size());
     }

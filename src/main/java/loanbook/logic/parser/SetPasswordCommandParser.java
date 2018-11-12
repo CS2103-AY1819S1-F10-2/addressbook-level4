@@ -9,7 +9,7 @@ import loanbook.model.Password;
 /**
  * Parses input arguments and creates a new SetPasswordCommand object
  */
-public class SetPasswordCommandParser {
+public class SetPasswordCommandParser implements Parser<SetPasswordCommand> {
     /**
      * Parses the given {@code String} of arguments in the context of the DeleteCommand
      * and returns an DeleteCommand object for execution.
@@ -28,9 +28,7 @@ public class SetPasswordCommandParser {
         if (!Password.isValidPass(newPass)) {
             throw new ParseException(Password.MESSAGE_PASSWORD_CONSTRAINTS);
         }
-        Password oldPassInput = new Password(oldPass);
-        Password newPassInput = new Password(newPass);
 
-        return new SetPasswordCommand(oldPassInput, newPassInput);
+        return new SetPasswordCommand(oldPass, newPass);
     }
 }

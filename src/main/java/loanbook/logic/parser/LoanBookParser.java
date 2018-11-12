@@ -9,9 +9,10 @@ import java.util.regex.Pattern;
 import loanbook.logic.commands.AddBikeCommand;
 import loanbook.logic.commands.AddCommand;
 import loanbook.logic.commands.CheckEmailCommand;
-import loanbook.logic.commands.ClearCommand;
 import loanbook.logic.commands.Command;
+import loanbook.logic.commands.DeleteBikeCommand;
 import loanbook.logic.commands.DeleteCommand;
+import loanbook.logic.commands.EditBikeCommand;
 import loanbook.logic.commands.EditCommand;
 import loanbook.logic.commands.ExitCommand;
 import loanbook.logic.commands.FindCommand;
@@ -21,11 +22,14 @@ import loanbook.logic.commands.ListBikesCommand;
 import loanbook.logic.commands.ListCommand;
 import loanbook.logic.commands.RedoCommand;
 import loanbook.logic.commands.RemindCommand;
+import loanbook.logic.commands.ResetAllCommand;
+import loanbook.logic.commands.ResetLoansCommand;
 import loanbook.logic.commands.ReturnCommand;
 import loanbook.logic.commands.SearchCommand;
 import loanbook.logic.commands.SelectCommand;
 import loanbook.logic.commands.SetEmailCommand;
 import loanbook.logic.commands.SetPasswordCommand;
+import loanbook.logic.commands.SummaryCommand;
 import loanbook.logic.commands.UndoCommand;
 import loanbook.logic.parser.exceptions.ParseException;
 
@@ -62,6 +66,9 @@ public class LoanBookParser {
         case AddCommand.COMMAND_WORD:
             return new AddCommandParser().parse(arguments);
 
+        case EditBikeCommand.COMMAND_WORD:
+            return new EditBikeCommandParser().parse(arguments);
+
         case EditCommand.COMMAND_WORD:
             return new EditCommandParser().parse(arguments);
 
@@ -71,11 +78,20 @@ public class LoanBookParser {
         case ReturnCommand.COMMAND_WORD:
             return new ReturnCommandParser().parse(arguments);
 
+        case SummaryCommand.COMMAND_WORD:
+            return new SummaryCommand();
+
+        case DeleteBikeCommand.COMMAND_WORD:
+            return new DeleteBikeCommandParser().parse(arguments);
+
         case DeleteCommand.COMMAND_WORD:
             return new DeleteCommandParser().parse(arguments);
 
-        case ClearCommand.COMMAND_WORD:
-            return new ClearCommand();
+        case ResetLoansCommand.COMMAND_WORD:
+            return new ResetLoansCommandParser().parse(arguments);
+
+        case ResetAllCommand.COMMAND_WORD:
+            return new ResetAllCommandParser().parse(arguments);
 
         case SearchCommand.COMMAND_WORD:
             return new SearchCommandParser().parse(arguments);

@@ -1,6 +1,7 @@
 package loanbook.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static loanbook.commons.core.Messages.MESSAGE_BIKE_NOT_FOUND;
 import static loanbook.logic.commands.CommandTestUtil.NOEXIST_NAME_BIKE;
 import static loanbook.testutil.TypicalLoanBook.getTypicalLoanBook;
 import static org.junit.Assert.assertEquals;
@@ -65,7 +66,7 @@ public class AddCommandTest {
         Model model = new ModelManager(getTypicalLoanBook(), new UserPrefs());
 
         thrown.expect(CommandException.class);
-        thrown.expectMessage(AddCommand.MESSAGE_BIKE_NOT_FOUND);
+        thrown.expectMessage(MESSAGE_BIKE_NOT_FOUND);
         addCommand.execute(model, commandHistory);
     }
 
@@ -87,7 +88,7 @@ public class AddCommandTest {
         assertFalse(addAliceCommand.equals(1));
 
         // null -> returns false
-        assertFalse(addAliceCommand.equals(null));
+        assertFalse(addAliceCommand == null);
 
         // different loan -> returns false
         assertFalse(addAliceCommand.equals(addBobCommand));

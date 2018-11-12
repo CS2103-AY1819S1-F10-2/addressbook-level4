@@ -7,6 +7,7 @@ import loanbook.commons.core.ComponentManager;
 import loanbook.commons.core.LogsCenter;
 import loanbook.logic.commands.Command;
 import loanbook.logic.commands.CommandResult;
+import loanbook.logic.commands.PasswordProtectedCommand;
 import loanbook.logic.commands.exceptions.CommandException;
 import loanbook.logic.parser.LoanBookParser;
 import loanbook.logic.parser.exceptions.ParseException;
@@ -32,12 +33,23 @@ public class LogicManager extends ComponentManager implements Logic {
 
     @Override
     public CommandResult execute(String commandText) throws CommandException, ParseException {
+        Command command;
+        String commandName = "";
+        boolean isPasswordProtectedCommand = false;
         logger.info("----------------[USER COMMAND][" + commandText + "]");
         try {
-            Command command = loanBookParser.parseCommand(commandText);
+            command = loanBookParser.parseCommand(commandText);
+            if (command instanceof PasswordProtectedCommand) {
+                isPasswordProtectedCommand = true;
+                commandName = ((PasswordProtectedCommand) command).getCommandName();
+            }
             return command.execute(model, history);
         } finally {
-            history.add(commandText);
+            if (!isPasswordProtectedCommand) {
+                history.add(commandText);
+            } else {
+                history.add(commandName);
+            }
         }
     }
 

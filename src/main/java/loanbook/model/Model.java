@@ -63,6 +63,11 @@ public interface Model {
     void setBikes(List<Bike> bikes);
 
     /**
+     * Clears the bike list.
+     */
+    void resetBikes();
+
+    /**
      * Updates the filter of the filtered bike list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
      */
@@ -92,6 +97,11 @@ public interface Model {
      * Get hashed password for the App
      */
     String getPass();
+
+    /**
+     * Get password salt;
+     */
+    String getSalt();
 
     /**
      * Get next available Loan ID.
@@ -134,7 +144,12 @@ public interface Model {
     void setLoans(List<Loan> loans);
 
     /**
-     * Clears the loan list and resets the loan ID.
+     * Retrieve a Loan by its Loan ID, if it exists.
+     */
+    Optional<Loan> getLoanById(LoanId loanId);
+
+    /**
+     * Clears the loan list.
      */
     void resetLoans();
 

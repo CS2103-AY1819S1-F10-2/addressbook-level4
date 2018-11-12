@@ -11,13 +11,12 @@ import loanbook.commons.core.index.Index;
 import loanbook.logic.CommandHistory;
 import loanbook.logic.commands.exceptions.CommandException;
 import loanbook.model.Model;
-import loanbook.model.Password;
 import loanbook.model.loan.Loan;
 
 /**
  * Deletes a loan identified using it's displayed index from the loan book.
  */
-public class DeleteCommand extends Command {
+public class DeleteCommand extends PasswordProtectedCommand {
 
     public static final String COMMAND_WORD = "delete";
 
@@ -30,25 +29,22 @@ public class DeleteCommand extends Command {
     public static final String MESSAGE_DELETE_LOAN_SUCCESS = "Deleted Loan: %1$s";
 
     private final Index targetIndex;
-    private final Password targetPassword;
 
-    public DeleteCommand(Index targetIndex, Password pass) {
+    public DeleteCommand(Index targetIndex, String pass) {
+        super(pass, COMMAND_WORD);
         this.targetIndex = targetIndex;
-        targetPassword = pass;
     }
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
 
         requireNonNull(model);
+        assertCorrectPassword(model);
+
         List<Loan> lastShownList = model.getFilteredLoanList();
 
         if (targetIndex.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_LOAN_DISPLAYED_INDEX);
-        }
-
-        if (!Password.isSamePassword(model.getPass(), targetPassword)) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PASSWORD);
         }
 
         Loan loanToDelete = lastShownList.get(targetIndex.getZeroBased());
@@ -61,7 +57,7 @@ public class DeleteCommand extends Command {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof DeleteCommand // instanceof handles nulls
-                && targetIndex.equals(((DeleteCommand) other).targetIndex)
-                && targetPassword.equals(((DeleteCommand) other).targetPassword)); // state check
+                && super.equals(other)
+                && targetIndex.equals(((DeleteCommand) other).targetIndex));
     }
 }

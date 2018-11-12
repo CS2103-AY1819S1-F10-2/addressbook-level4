@@ -12,8 +12,8 @@ import loanbook.logic.parser.exceptions.ParseException;
 import loanbook.model.Password;
 import loanbook.model.bike.Bike;
 import loanbook.model.loan.Email;
+import loanbook.model.loan.LoanId;
 import loanbook.model.loan.LoanRate;
-import loanbook.model.loan.LoanTime;
 import loanbook.model.loan.Name;
 import loanbook.model.loan.Nric;
 import loanbook.model.loan.Phone;
@@ -37,6 +37,21 @@ public class ParserUtil {
             throw new ParseException(MESSAGE_INVALID_INDEX);
         }
         return Index.fromOneBased(Integer.parseInt(trimmedIndex));
+    }
+
+    /**
+     * Parses a {@code String id} into a {@code LoanId}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code id} is invalid.
+     */
+    public static LoanId parseLoanId(String id) throws ParseException {
+        requireNonNull(id);
+        String trimmedLoanId = id.trim();
+        if (!LoanId.isValidLoanId(trimmedLoanId)) {
+            throw new ParseException(LoanId.MESSAGE_LOANID_CONSTRAINTS);
+        }
+        return new LoanId(trimmedLoanId);
     }
 
     /**
@@ -85,18 +100,18 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String password} into a {@code Password}.
+     * Parses a {@code String password} into a {@code String}.
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @throws ParseException if the given {@code Password} is invalid.
+     * @throws ParseException if the given {@code pass} is invalid.
      */
-    public static Password parsePass(String pass) throws ParseException {
+    public static String parsePass(String pass) throws ParseException {
         requireNonNull(pass);
         String trimmedPass = pass.trim();
         if (!Password.isValidPass(trimmedPass)) {
             throw new ParseException(Password.MESSAGE_PASSWORD_CONSTRAINTS);
         }
-        return new Password(trimmedPass);
+        return trimmedPass;
     }
 
     /**
@@ -144,21 +159,6 @@ public class ParserUtil {
             throw new ParseException(LoanRate.MESSAGE_LOANRATE_CONSTRAINTS);
         }
         return new LoanRate(trimmedLoanRate);
-    }
-
-    /**
-     * Parses a {@code String time} into a {@code LoanTime}.
-     * Leading and trailing whitespaces will be trimmed.
-     *
-     * @throws ParseException if the given {@code time} is invalid.
-     */
-    public static LoanTime parseLoanTime(String time) throws ParseException {
-        requireNonNull(time);
-        String trimmedLoanTime = time.trim();
-        if (!LoanTime.isValidLoanTime(trimmedLoanTime)) {
-            throw new ParseException(LoanTime.MESSAGE_LOANTIME_CONSTRAINTS);
-        }
-        return new LoanTime(trimmedLoanTime);
     }
 
     /**

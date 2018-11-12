@@ -16,6 +16,7 @@ import org.junit.rules.ExpectedException;
 
 import loanbook.logic.parser.exceptions.ParseException;
 import loanbook.model.loan.Email;
+import loanbook.model.loan.LoanId;
 import loanbook.model.loan.Name;
 import loanbook.model.loan.Phone;
 import loanbook.model.tag.Tag;
@@ -26,12 +27,14 @@ public class ParserUtilTest {
     private static final String INVALID_PHONE = "+651234";
     private static final String INVALID_EMAIL = "example.com";
     private static final String INVALID_TAG = "#friend";
+    private static final String INVALID_ID = "-1";
 
     private static final String VALID_NAME = "Rachel Walker";
     private static final String VALID_PHONE = "123456";
     private static final String VALID_EMAIL = "rachel@example.com";
     private static final String VALID_TAG_1 = "friend";
     private static final String VALID_TAG_2 = "neighbour";
+    private static final String VALID_ID = "12";
 
     private static final String WHITESPACE = " \t\r\n";
 
@@ -48,7 +51,7 @@ public class ParserUtilTest {
     public void parseIndex_outOfRangeInput_throwsParseException() throws Exception {
         thrown.expect(ParseException.class);
         thrown.expectMessage(MESSAGE_INVALID_INDEX);
-        ParserUtil.parseIndex(Long.toString(Integer.MAX_VALUE + 1));
+        ParserUtil.parseIndex(Long.toString((long) Integer.MAX_VALUE + 1));
     }
 
     @Test
@@ -59,6 +62,22 @@ public class ParserUtilTest {
         // Leading and trailing whitespaces
         assertEquals(INDEX_FIRST_LOAN, ParserUtil.parseIndex("  1  "));
     }
+
+    @Test
+    public void parseLoanId_validInput_success() throws Exception {
+        // No whitespaces
+        assertEquals(LoanId.fromInt(50), ParserUtil.parseLoanId("50"));
+
+        // Leading and trailing whitespaces
+        assertEquals(LoanId.fromInt(50), ParserUtil.parseLoanId("  50  "));
+    }
+
+    @Test
+    public void parseLoanId_invalidInput_throwsParseException() {
+        Assert.assertThrows(ParseException.class, LoanId.MESSAGE_LOANID_CONSTRAINTS, () ->
+                ParserUtil.parseLoanId("Invalid ID"));
+    }
+
 
     @Test
     public void parseName_null_throwsNullPointerException() {
@@ -81,6 +100,29 @@ public class ParserUtilTest {
         String nameWithWhitespace = WHITESPACE + VALID_NAME + WHITESPACE;
         Name expectedName = new Name(VALID_NAME);
         assertEquals(expectedName, ParserUtil.parseName(nameWithWhitespace));
+    }
+
+    @Test
+    public void parseId_null_throwsNullPointerException() {
+        Assert.assertThrows(NullPointerException.class, () -> ParserUtil.parseLoanId((String) null));
+    }
+
+    @Test
+    public void parseId_invalidValue_throwsParseException() {
+        Assert.assertThrows(ParseException.class, () -> ParserUtil.parseLoanId(INVALID_ID));
+    }
+
+    @Test
+    public void parseId_validValueWithoutWhitespace_returnsId() throws Exception {
+        LoanId expectedId = new LoanId(VALID_ID);
+        assertEquals(expectedId, ParserUtil.parseLoanId(VALID_ID));
+    }
+
+    @Test
+    public void parseId_validValueWithWhitespace_returnsTrimmedId() throws Exception {
+        String idWithWhitespace = WHITESPACE + VALID_ID + WHITESPACE;
+        LoanId expectedId = new LoanId(VALID_ID);
+        assertEquals(expectedId, ParserUtil.parseLoanId(idWithWhitespace));
     }
 
     @Test

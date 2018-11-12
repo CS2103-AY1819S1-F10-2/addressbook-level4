@@ -105,6 +105,17 @@ public class ModelManager extends ComponentManager implements Model {
         indicateLoanBookChanged();
     }
 
+    @Override
+    public void resetBikes() {
+        setBikes(Collections.emptyList());
+        // Change has already been indicated in the above command.
+    }
+
+    @Override
+    public Optional<Loan> getLoanById(LoanId loanId) {
+        return versionedLoanBook.getLoanById(loanId);
+    }
+
     //=========== Filtered Bike List Accessors =============================================================
 
     /**
@@ -150,12 +161,11 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     /**
-     * Clears the loan list and resets the loan ID.
+     * Clears the loan list.
      */
     @Override
     public void resetLoans() {
         setLoans(Collections.emptyList());
-        resetId();
         // Change has already been indicated in the above commands
     }
 
@@ -247,6 +257,11 @@ public class ModelManager extends ComponentManager implements Model {
         return preference.getPass();
     }
 
+    @Override
+    public String getSalt() {
+        return preference.getSalt();
+    }
+
     //=========== Utility ==================================================================================
 
     @Override
@@ -295,6 +310,16 @@ public class ModelManager extends ComponentManager implements Model {
         return versionedLoanBook.equals(other.versionedLoanBook)
                 && filteredBikes.equals(other.filteredBikes)
                 && filteredLoans.equals(other.filteredLoans);
+    }
+
+    @Override
+    public String toString() {
+        return logger
+            + ", " + versionedLoanBook
+            + ", " + filteredBikes
+            + ", " + filteredLoans
+            + ", " + preference;
+
     }
 
 }

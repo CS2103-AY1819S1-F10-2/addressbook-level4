@@ -4,11 +4,12 @@ import java.util.List;
 import java.util.function.Predicate;
 
 import loanbook.commons.util.StringUtil;
+import loanbook.model.bike.Bike;
 
 /**
- * Tests that a {@code Loan}'s {@code Name} matches any of the keywords given.
+ * Tests that a {@code Name} matches any of the keywords given.
  */
-public class NameContainsKeywordsPredicate implements Predicate<Loan> {
+public class NameContainsKeywordsPredicate implements Predicate<Name> {
     private final List<String> keywords;
 
     public NameContainsKeywordsPredicate(List<String> keywords) {
@@ -16,9 +17,17 @@ public class NameContainsKeywordsPredicate implements Predicate<Loan> {
     }
 
     @Override
-    public boolean test(Loan loan) {
+    public boolean test(Name name) {
         return keywords.stream()
-                .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(loan.getName().value, keyword));
+                .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(name.value, keyword));
+    }
+
+    public Predicate<Bike> forBikes() {
+        return bike -> test(bike.getName());
+    }
+
+    public Predicate<Loan> forLoans() {
+        return loan -> test(loan.getName());
     }
 
     @Override

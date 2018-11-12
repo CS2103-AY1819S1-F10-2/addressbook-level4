@@ -219,7 +219,7 @@ public class VersionedLoanBookTest {
         assertTrue(versionedLoanBook.equals(versionedLoanBook));
 
         // null -> returns false
-        assertFalse(versionedLoanBook.equals(null));
+        assertFalse(versionedLoanBook == null);
 
         // different types -> returns false
         assertFalse(versionedLoanBook.equals(1));

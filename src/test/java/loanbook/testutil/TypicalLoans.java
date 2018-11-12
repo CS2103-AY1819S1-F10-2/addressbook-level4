@@ -164,35 +164,11 @@ public class TypicalLoans {
             .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND)
             .build();
 
-    public static final Loan AP = new LoanBuilder().withName("Alice Pauline")
-            .withNric("S0848937H")
-            .withPhone("94351253")
-            .withBike(VALID_NAME_BIKE1)
-            .withLoanRate("1.1")
-            .withEmail("alice@example.com")
-            .withLoanStartTime("12:33")
-            .withLoanEndTime("23:54")
-            .withLoanStatus("RETURNED")
-            .withTags("friends").build();
-    public static final Loan BM = new LoanBuilder().withName("Benson Meier")
-            .withNric("F1342714M")
-            .withEmail("johnd@example.com").withPhone("98765432")
-            .withBike(VALID_NAME_BIKE2)
-            .withLoanRate("0.15")
-            .withLoanStartTime("2017-10-12 06:08")
-            .withLoanEndTime("2017-10-12 23:54")
-            .withLoanStatus("DELETED")
-            .withTags("owesMoney", "friends").build();
-
     public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
 
     private TypicalLoans() {} // prevents instantiation
 
     public static List<Loan> getTypicalLoans() {
         return new ArrayList<>(Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE));
-    }
-
-    public static List<Loan> getLoansForRemindTest() {
-        return new ArrayList<>(Arrays.asList(AP, BM));
     }
 }

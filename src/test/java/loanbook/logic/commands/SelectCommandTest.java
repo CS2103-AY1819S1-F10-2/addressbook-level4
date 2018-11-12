@@ -86,7 +86,7 @@ public class SelectCommandTest {
         assertFalse(selectFirstCommand.equals(1));
 
         // null -> returns false
-        assertFalse(selectFirstCommand.equals(null));
+        assertFalse(selectFirstCommand == null);
 
         // different loan -> returns false
         assertFalse(selectFirstCommand.equals(selectSecondCommand));
