@@ -372,6 +372,7 @@ image::UndoRedoActivityDiagram.png[width="650"]
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
 
+// tag:loanid[]
 === Unique Loan ID
 To keep individual loan transactions identifiable, we have a Loan ID for every loan. This will be automatically assigned when the user creates a Loan using the `add` command, and will be unique among all Loans in the Loanbook.
 
@@ -393,22 +394,36 @@ The following steps are taken when the user adds a new Loan using the `add` comm
 
 **Step 3**: A new `Loan` instance will be generated using the generated Loan ID value. This new `Loan` instance gets inserted into the `VersionedLoanBook` and gets committed.
 
-The following sequence diagram shows how the updated `add` command works:
+The following sequence diagram shows how the `add` command functions, including the retrieval of the next Loan ID from the Model:
+
+image::AddCommandSequenceDiagram.png[width="800"]
 
 ==== Design Considerations
 ===== Aspect: Using an Integer for the Loan ID
-* **Alternative 1**: Use a `String` to represent the Loan ID
-** Pros:
-*** More Loan ID values can be created given the same number of characters.
-*** There would be no technical limit to the number of Loan IDs possible. If all Loan IDs of a certain length get exhausted, the next generated Loan ID can be one character longer.
+* **Alternative**: Use a `String` to represent the Loan ID
+** Pros: More Loan ID values can be created given the same number of characters.
+.. There would be no technical limit to the number of Loan IDs possible. If all Loan IDs of a certain length get exhausted, the next generated Loan ID can be one character longer.
 ** Cons:
-*** Generating the next available Loan ID may be more complicated for a string as compared to an integer (though not by a significant amount).
+.. Generating the next available Loan ID may be more complicated for a string as compared to an integer (though not by a significant amount).
 
-* **Alternative 2**: Have a static integer variable in the `Loan` or the `VersionedLoanBook` class
+** **Possible Implementation**: A running counter, starting from 0, that resets at the start of every day. The Loan ID is formed by taking the current date, in "YYYYMMDD" format, and appending it with said running counter.
+*** Pros: Simple to implement.
+*** Cons: Depending on the end-user, the fact that the Loan ID displays the number of loans created during that day may be undesirable.
+
+** **Possible implementation**: Generate a string with a fixed number of characters.
+*** Pros: The ID does not allow the number of loans created to be determined. This may be useful if this behaviour is desirable by the end-user.
+*** Cons: 
+.. The model needs to keep track of all the IDs that have been used before to prevent duplicates.
+.. The ID may be troublesome to type in the command-line, especially if the Loan ID is used for other commands.
+
+===== Aspect: Having a LoanIdManager class simply to keep track of a running counter
+* **Alternative**: Have a static integer variable in the `Loan` or the `VersionedLoanBook` class
 ** Pros:
-*** The process of incrementing the running value is simpler and has lesser steps than with a `LoanIdManager` class.
+.. The process of incrementing the running value is simpler and has lesser steps than with a `LoanIdManager` class.
 ** Cons:
-*** It is more complicated to capture the state of the running value. The undo/redo mechanism will not work with a static variable.
+.. It is more complicated to capture the state of the running value. The undo/redo mechanism may not work with a static variable.
+
+// end:loanid[]
 
 // tag::adminauthentication[]
 === Admin Authentication
