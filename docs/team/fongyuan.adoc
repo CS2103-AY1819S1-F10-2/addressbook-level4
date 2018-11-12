@@ -56,7 +56,7 @@ Excerpt (Quick Start):
 === Graphic User Interface (GUI)
 A screenshot of the LoanBook app is shown below:
 
-image::Ui.png[450px]
+image::Ui.png[width="600"]
 
 A brief description of each section:
 

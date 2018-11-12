@@ -35,7 +35,7 @@ To ensure that LoanBook is running smoothly, try typing `help` into the textbox,
 === Graphic User Interface (GUI)
 A screenshot of the LoanBook app is shown below:
 
-image::Ui.png[800px]
+image::Ui.png[width="800"]
 
 A brief description of each section:
 

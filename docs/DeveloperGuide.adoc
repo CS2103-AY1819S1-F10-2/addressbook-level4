@@ -682,7 +682,7 @@ This implementation of bicycles affects existing commands in the following ways:
 
 * When `add` ing a new `Loan` to the LoanBook, LoanBook first checks if the `Bike` name provided by the command refers to an existing `Bike` within the LoanBook, and will reject the command if LoanBook does not. This check can only be done at the execution stage of the command (opposed to the parsing stage), as it requires specific knowledge of the model that it is acting on. A sequence diagram describing this behaviour in further detail is shown below:
 
-image::AddLoanSequenceDiagram.png[600px]
+image::AddLoanSequenceDiagram.png[width="600"]
 
 * Similarly, when editing a loan, LoanBook also checks that the new `Bike` assigned to the loan exists within the LoanBook before it accepts the operation.
 
@@ -691,7 +691,7 @@ The list of bicycles is maintained in largely the same way as the list of loans.
 Please refer to the User Guide for the basic functionality for these commands. The following subsections describe additional points to note for these commands, such as differences from the corresponding commands for loans.
 
 ==== Adding a bike: `addbike`
-`addbike` checks if there's a `Bike` with the same name already in the LoanBook, and rejects the command if so.
+`addbike` checks if there is a `Bike` with the same name already in the LoanBook, and rejects the command if so.
 
 On the other hand, `add` does not check for "duplicate loans" as loans are automatically differentiated via their `LoanID`, even if all other parameters are the same.
 
@@ -727,11 +727,11 @@ One way which this sub-feature can accomplish this is by using a `BikeStatus` to
 
 The activity diagram below demonstrates how this sub-feature could be implemented for the loaning out of bicycles:
 
-image::BikeStatusAddLoanActivityDiagram.png[600px]
+image::BikeStatusAddLoanActivityDiagram.png[width="600"]
 
 And this acitivty dragram demonstrates the same for returning bicycles:
 
-image::BikeStatusReturnLoanActivityDiagram.png[600px]
+image::BikeStatusReturnLoanActivityDiagram.png[width="600"]
 
 Additionally, the deletion of a `Bike` can be denied if the `Bike` does not currently have a suitable status, such as being loaned out.
 
