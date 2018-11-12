@@ -18,7 +18,11 @@ By: `Team F10-2`      Since: `Sep 2018`      Licence: `MIT`
 
 == Introduction
 
-Have you ever seen your clients waiting angrily for 15 minutes before finally getting their rental bikes? Introducing Forever A-Loan, a lightweight Command Line Interface (CLI) application that revolutionizes the way bike loans are logged. Forever A-Loan promises to drastically decrease the time taken for bike rental shop owners to manage their inventories by leveraging on state of the art inventory management algorithms and the absence of a clunky Graphical User Interface (GUI) that hinders fast typists. Enjoy!
+Introducing LoanBook,
+the all-in-one free inventory management software that promises to improve the efficiency of your bicycle rental business!
+It comes out of the box with every feature that your business will require.
+By parsing commands typed by users, a mouse is no longer required to use the app. Compared to a Graphical User Interface (GUI) or the traditional pen and paper, fast typists will find that LoanBook allows user to manage bicycle loans much faster.
+LoanBook was built with love together with 4 other students in NUS, namely David Kum, Lim Fong Yuan, Liu Xiaohang and Muhammad Irham.
 
 [[Quick-Start]]
 == Quick Start
