@@ -46,7 +46,7 @@ LoanBook was built with love together with 4 other students in NUS, namely David
 ** Allow searching for loans of specific date. [https://github.com/CS2103-AY1819S1-F10-2/main/pull/158[#158]]
 ** Using tags to notify users on the status of loans. [https://github.com/CS2103-AY1819S1-F10-2/main/pull/163[#163]]
 
-** Code contributed: https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=wn96&sort=displayName&since=2018-09-12&until=2018-11-09&timeframe=day&reverse=false&repoSort=true[RepoSense]
+* Code contributed: https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=wn96&sort=displayName&since=2018-09-12&until=2018-11-09&timeframe=day&reverse=false&repoSort=true[RepoSense]
 
 * *Other contributions*:
 

@@ -473,11 +473,11 @@ If the current password input is wrong or if the current password is the same as
 
 The following sequence diagram shows how the `setpass` operation works:
 
-image::setPasswordLogic.png[width="800"]
+image::setPasswordLogic.png[width="650"]
 
 The following activity diagram summarizes what happens when a user executes `setpass`:
 
-image::setPassActivityDiagram.png[width="650"]
+image::setPassActivityDiagram.png[width="600"]
 
 *Step 6*. The user executes a critical command `delete i/1 x/a12345`.
 
@@ -490,11 +490,11 @@ If current password input is wrong, or if the index provided is invalid, deletio
 
 The following sequence diagram shows how the new `delete` operation works:
 
-image::deleteLoanWithPass.png[width="800"]
+image::deleteLoanWithPass.png[width="600"]
 
 The following activity diagram summarizes what happens when a user executes `delete`:
 
-image::deleteActivityDiagram.png[width="650"]
+image::deleteActivityDiagram.png[width="450"]
 
 ==== Design Considerations
 |===

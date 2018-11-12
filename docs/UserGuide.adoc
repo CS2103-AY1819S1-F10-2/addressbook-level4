@@ -332,7 +332,7 @@ Deletes the loan with that has been indexed at position 1.
 
 This command changes the current password of the app. This allows you to use a different password in the event that the old password was compromised. Simply follow the example screenshot below: +
 
-image::setpassExample.png[width="650"]
+image::setpassExample.png[width="400"]
 
 [big]#*Format*: `setpass CURRENT_PASSWORD NEW_PASSWORD`#
 
@@ -406,7 +406,7 @@ Marks the loan that has been indexed at position 55 as returned. Also automatica
 
 Populate all loans that were created between the range provided. If you want to search for loans created within a given period for loan tracking, simply enter the command, as shown in the screenshot below:
 
-image::searchCommandScreenshot.png[width="650"]
+image::searchCommandScreenshot.png[width="450"]
 
 [big]#*Format*: `search START_DATE END_DATE`#
 
