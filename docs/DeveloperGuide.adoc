@@ -682,7 +682,7 @@ This implementation of bicycles affects existing commands in the following ways:
 
 * When `add` ing a new `Loan` to the LoanBook, LoanBook first checks if the `Bike` name provided by the command refers to an existing `Bike` within the LoanBook, and will reject the command if LoanBook does not. This check can only be done at the execution stage of the command (opposed to the parsing stage), as it requires specific knowledge of the model that it is acting on. A sequence diagram describing this behaviour in further detail is shown below:
 
-image::AddLoanSequenceDiagram.png[width="600"]
+image::BicycleManagementAddLoanSequenceDiagram.png[width="800"]
 
 * Similarly, when editing a loan, LoanBook also checks that the new `Bike` assigned to the loan exists within the LoanBook before it accepts the operation.
 
