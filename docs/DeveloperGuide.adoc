@@ -412,7 +412,7 @@ image::AddCommandSequenceDiagram.png[width="800"]
 
 ** **Possible implementation**: Generate a string with a fixed number of characters.
 *** Pros: The ID does not allow the number of loans created to be determined. This may be useful if this behaviour is desirable by the end-user.
-*** Cons: 
+*** Cons:
 .. The model needs to keep track of all the IDs that have been used before to prevent duplicates.
 .. The ID may be troublesome to type in the command-line, especially if the Loan ID is used for other commands.
 
@@ -1531,9 +1531,9 @@ If this is your first time using the app, note that the default password of the 
 
 .. Prerequisites: List all loans using the `list` command. Multiple loans in the list. A Bike with the name `Bike001` is present in the Loanbook. The last used Loan ID is smaller than 999,999,999, or the Loanbook is new.
 .. Test case: `add n/David ic/T0248272F p/98765432 e/david@example.com b/Bike001 lr/3.5 t/Overnight` +
-   Expected: A new loan is added to the list. 
+   Expected: A new loan is added to the list.
 ... The editable details of the loan (e.g. Name, NRIC, etc.) match the fields specified in the command.
-... The Loan ID of the new loan is larger than that of all existing loans. 
+... The Loan ID of the new loan is larger than that of all existing loans.
 ... The "Start Time" field is equal to the time of execution of the `add` command.
 ... The tags that appear are "Ongoing" and "Overnight".
 
