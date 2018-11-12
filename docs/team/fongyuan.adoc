@@ -51,14 +51,12 @@ This portfolio documents my contributions to the LoanBook project.
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-include::../UserGuide.adoc[tag=Quick-Start]
-
-Excerpt:
+Excerpt (Quick Start):
 
 === Graphic User Interface (GUI)
 A screenshot of the LoanBook app is shown below:
 
-image::Ui.png[]
+image::Ui.png[450px]
 
 A brief description of each section:
 
@@ -153,9 +151,9 @@ Of course, LoanBook supports a multitude of additional functionalities that will
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=Design-Model]
+Bicycle Management implementation.
 
-Excerpt:
+Excerpt (Model component):
 
 The model component:
 
@@ -225,8 +223,4 @@ Currently, the `BikeStatus` field within the `Bike` class is present but not bei
 
 [NOTE]
 The `DataField` class is used to unify the common idea that the above details for `Loan` s and `Bike` s are specifiable by a user-inputted string. The only exception is the `Bike` field in the `Loan` class, which is specified using the `Bike` 's `Name` instead.
-
-
-
-include::../DeveloperGuide.adoc[tag=Implementation-Bicycle-Management]
 
