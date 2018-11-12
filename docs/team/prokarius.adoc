@@ -9,11 +9,18 @@ image::LoanBookLogo.png[width="400"]
 
 image::LoanBookFront.png[width="400"]
 
-LoanBook is a desktop application targetted at bicycle shop owners to manage their bicycle loans. This will allow the bicycle shop owners who are proficient with the CLI to keep track of their loans, and simplify the auditing process. You may find the master code of the application here: https://github.com/CS2103-AY1819S1-F10-2/main[Loanbook github page].
+LoanBook is a desktop application targetted at bicycle shop owners to manage their bicycle loans. This will allow the bicycle shop owners who are proficient with the Command Line Interface (CLI) to keep track of their loans, and simplify the auditing process. You may find the code of the application here: https://github.com/CS2103-AY1819S1-F10-2/main[Loanbook github page].
 
 The users interacts with it using a CLI, and it has a GUI created with JavaFX. The code base has approximately 20 thousand lines of code.
 
-This report documents my contributions to this team-based project on both the code base and documentation as part of the NUS CS2103T -- Software Engineering module.
+LoanBook's *core functionalities* include:
+
+* Keeping track of the status of bicycle rentals
+* Keeping track of bicycles within the shop
+* Allowing users to send reminder emails to people who took out loans
+* Generating a summary of the application's data
+
+The project was morphed from the https://github.com/nus-cs2103-AY1819S1/addressbook-level4[original Addressbook application] by a team of 5 members. This report documents my contributions to this team-based project on both the code base and documentation as part of the NUS CS2103T -- Software Engineering module.
 
 == Summary of contributions
 
@@ -41,11 +48,11 @@ Added a command that allows the user to return a loan.
 
 ** PR https://github.com/CS2103-AY1819S1-F10-2/main/pull/251[#251].
 
-=== *Minor enhancement*: Added tags to distinguish the loans with their respective statuses
+=== *Minor enhancement*: Used tags to show the loan's status
 
-** Feature: Used a small color coded tag
+** Feature: Used a small color coded tag to display the status of the loans to the users. This tag is color coded to allow users to easily distinguish the status of their loans.
 
-** Justification: Doing this would allow users to at a glance, see the status of the loans.
+** Justification: Doing this would allow users to at a glance, know the status of the loans.
 
 ** PR https://github.com/CS2103-AY1819S1-F10-2/main/pull/163[#163].
 
@@ -135,8 +142,6 @@ Do you want to find out at a glance how much money your business has collected? 
 
 [big]#*Format*: `summary`#
 
-This feature shows the total number of loans that are done and in progress. It also summarizes the loan status of each item, the number of times an object was loaned before.
-
 The `summary` function would display the statistics of all your loans in the display box on the right of the application. There, you will find the following statistics:
 
 * Total number of ongoing loans
@@ -164,7 +169,9 @@ The summary feature may take a while to run, especially when you have many loans
 
 A LoanBook application that only allows users to do loans without being able to return them would not serve its purpose. When you take out a loan, it should automatically come with the feature of being returnable. This is the functionality for that.
 
-==== Proposed Implementation
+==== Current Implementation
+
+The source code for this implementation can be found in link:../../src/main/java/loanbook/logic/commands/ReturnCommand.java[ReturnCommand.java].
 
 Returning a loan is done by setting the corresponding status of the loan to `LoanStatus.RETURNED`. Other than setting the enum to be returned, the cost of the loan will also be calculated and displayed to the user.
 
@@ -208,6 +215,21 @@ The result is then displayed into the GUI for the user as the cost price of the 
 
 [NOTE]
 It is possible for the LoanBook to have a loan that lasts for 0 minutes. This is because there may be some weird edge case where an object is loaned for less than a minute, which gets prorated down.
+
+==== Sequence diagram
+
+The sequence diagram has been split into 2 parts. +
+First, the sequence diagram of command parsing:
+
+image::ReturnSequence.png[width="450"]
+
+{nbsp} +
+
+Second, the sequence diagram of command execution:
+
+image::ReturnSequenceLogic.png[width="450"]
+
+{nbsp} +
 
 ==== Design considerations:
 ===== Aspect: Using an enum vs changing the location of the loan

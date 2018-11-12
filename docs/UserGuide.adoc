@@ -400,8 +400,6 @@ Do you want to find out at a glance how much money your business has collected? 
 
 [big]#*Format*: `summary`#
 
-This feature shows the total number of loans that are done and in progress. It also summarizes the loan status of each item, the number of times an object was loaned before.
-
 The `summary` function would display the statistics of all your loans in the display box on the right of the application. There, you will find the following statistics:
 
 * Total number of ongoing loans

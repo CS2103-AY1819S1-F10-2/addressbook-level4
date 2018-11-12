@@ -516,7 +516,9 @@ We used a less secure alternative due to the nature of the target audience. It i
 
 A LoanBook application that only allows users to do loans without being able to return them would not serve its purpose. When you take out a loan, it should automatically come with the feature of being returnable. This is the functionality for that.
 
-==== Proposed Implementation
+==== Current Implementation
+
+The source code for this implementation can be found in link:../../src/main/java/loanbook/logic/commands/ReturnCommand.java[ReturnCommand.java].
 
 Returning a loan is done by setting the corresponding status of the loan to `LoanStatus.RETURNED`. Other than setting the enum to be returned, the cost of the loan will also be calculated and displayed to the user.
 
@@ -590,7 +592,9 @@ image::ReturnSequenceLogic.png[width="600"]
 
 In order to allow the user to use the LoanBook effectively as an auditing tool, they must be able to get a summary of all the loans that they have made. This summary should ideally give them an idea of the statistics of each of their transactions at a glance.
 
-==== Proposed Implementation
+==== Current Implementation
+
+The source code for this implementation can be found in link:../../src/main/java/loanbook/logic/commands/SummaryCommand.java[SummaryCommand.java].
 
 Getting the summary of all the loans is simply done by looping through all the stored loans before and aggregating the statistics of all the loans.
 
