@@ -719,12 +719,13 @@ The list of bicycles can be filtered using the same algorithm to filter the list
 ** Pros: Simpler internal representation. Less data to manage internally or in storage.
 ** Cons: Data on bikes have to be algorithmically searched for. Bicycles are assumed to exist and there is no verification for mistyped bicycle names. More difficult to implement bike-specific features.
 
+// tag::hideinfo[]
 === Hide private information
 
 Users must provide some important and personal information when adding a loan, e.g. `Nric`, so it is our responsibility to protect their privacy.
 
 As a result, we have added a new feature to hide the private information from the Window. +
-Example: The customer's `Nric` as stored in the database is `Nric: G1234567U`, but our `LoanCard` will only show `Nric: Gxxxxx67U`.
+Example: The customer's `Nric` as stored in the database is `Nric: T0248272F`, but our `LoanCard` will only show `Nric: Txxxxx72F`.
 
 image::LoanListPanelView.png[]
 
@@ -770,16 +771,12 @@ image::HideInfoSequenceDiagrams.png[]
 
 * **Alternative 1 (current choice)**: each class implements from `Censor` interface.
 ** Pros: Easy to implement.
-** Cons:
 
 * **Alternative 2**: `Loan` class implements from `Censor` interface.
-** Pros: Maybe easy to understand.
 ** Cons: The method might be bulky.
+// end::hideinfo[]
 
-==== How to see the hidden information
-
-The censored data are only hidden from the window, not changed in the database. The `BrowserPanel` on the bottom right of the window will still show all the information including the hidden information.
-
+// tag::sendemail[]
 === Send Reminder Email feature
 
 ==== Current Implementation
@@ -788,7 +785,7 @@ The email sending mechanism is supported by the https://docs.oracle.com/javaee/7
 
 * `checkemail` command: display the email address that the user has set to send emails from. The app will censor the email address.
 [NOTE]
-If user has not set an email, the email address will be a string `"default"` and the app show a "You have not set your email yet!" message.
+If user has not set an email, the email address will be an invalid email and the app show a "You have not set your email yet!" message.
 
 * `setemail` command: set the email address used for sending reminders to the customers.
 [NOTE]
@@ -800,7 +797,7 @@ The email will contain the `Name`, `BikeId`, `LoanStartTime` and `LoanRate` of t
 
 Given below is an example usage scenario and how the reminder email mechanism behaves at each step.
 
-*Step 1.* The user launches the application for the first time. The user's email address is string `"default"` by default.
+*Step 1.* The user launches the application for the first time. The user's email address is invalid by default.
 
 *Step 2.* The user executes `checkemail`. The following sequence diagram shows how `checkemail` works:
 
@@ -808,28 +805,24 @@ image::CheckEmailSequenceDiagram.png[]
 
 The command executes `Model#getMyEmail()`, which calls `UserPrefs#getDefaultEmail()` and returns user's email stored in `UserPref`. The app checks if user's email equals to `"default"`. In this case, they are equal, so it throws a `CommandException`.
 
-*Step 3.* The user executes `setemail OLDEMAIL NEWEMAIL`. This command does a few checks first:
+*Step 3.* The user executes `setemail e/EMAIL x/PASSWORDFORAPP`. This command does a few checks first:
 
-.. If `OLDEMAIL` is not equal to either `"default"` or the previously set email, then a `CommandException` is thrown, as the validation of the old email fails.
+.. The app then checks if `EMAIL` equals to the user email that has been already set to the app. If so, then a `CommandException` is thrown, to warn the user that they are setting the same email as last time.
 
-.. Otherwise, the app then checks if `OLDEMAIL` and `NEWEMAIL` are equal. If so, then a `CommandException` is thrown, to warn the user that they are setting the same email as last time.
+.. Otherwise, `SetEmailCommand#isValidGmail(EMAIL)` is called to check if `EMAIL` is a valid gmail. If not, a `CommandException` is thrown to warn the user that they are setting invalid email address.
 
-.. Otherwise, `SetEmailCommand#isValidGmail(NEWEMAIL)` is called to check if `NEWEMAIL` is a valid gmail. If not, a `CommandException` is thrown to warn the user that they are setting the same email as last time.
+*Step 4.* The user forgets what email has been set before, so the user executes `checkemail` again. The procedure is the same as in *Step 2*. However, the app detects that user's email is not the default invalid string this time, so it creates an `Email(userEmail)` object and executes `Email#getCensored()`. Then, the function returns a `CommandResult` with a success message and the censored user email.
 
-*Step 4.* The user forgets what email he has set before, so he executes `checkemail` again. The procedure is the same as in *Step 2*. However, the app detects that user's email is not `"default"` this time, so it creates an `Email(userEmail)` object and executes `Email#getCensored()`. Then, the function returns a `CommandResult` with a success message and the censored user email.
+*Step 5.* The user sends a reminder email to a customer by executing `remind pw/EMAILPASSWORD id/LOAN_ID`. This command implements the following operations:
 
-*Step 5.* The user sends a reminder email to a customer by executing `remind x/EMAILPASSWORD n/NAME b/BIKEID`. This command implements the following operations:
+a. Execute `Model#getLoanById()` and return an optional<Loan> object called `targetLoan`.
 
-a. Get a list of `Loans` from the `LoanBook` class and execute `RemindCommand#getLoan(list, NAME, BIKE)` to check if there is a `loan` that contains both this `NAME` and `BIKE`.
+b. Check if `targetLoan.isPresent()` returns a non-null `loan`, then check if its `LoanStatus` is `ONGOING`.
 
-b. If it returns a non-null `loan`, then check its `LoanStatus`.
-
-c. If its `LoanStatus` is `LoanStatus.ONGOING`, create a `SendReminder(model, EMAILPASSWORD, loan)` object and execute `SendReminder#send()` to send email. +
+c. If its `LoanStatus` is `ONGOING`, create a `SendReminder(model, EMAILPASSWORD, loan)` object and execute `SendReminder#send()` to send email. +
 The `SendReminder#send()` method calls `SendReminder#createReminderEmail(session, userEmail)` to create the content of the email, connects user's email using `EMAILPASSWORD` and finally send the email.
 [NOTE]
-If the user cannot remember the customer's `NAME` or the loaned `BIKE`, he can use the `find [NAME] [BIKE]` command to search for the target loan.
-[NOTE]
-For Steps (a) and (b), if the next step cannot be executed, a `CommandException` with corresponding failure message will be thrown.
+For Steps (b), if the next step cannot be executed, a `CommandException` with corresponding failure message will be thrown.
 [NOTE]
 If it throws a `CommandException` with authentication failed message in step (c), please check if user's email and password are correct. If they are, please make sure that the `Less secure apps` setting of user's email is enabled. If it is not, enable it and refresh the page.
 
@@ -861,6 +854,7 @@ If it throws a `CommandException` with authentication failed message in step (c)
 We plan to add a feature that can automatically send an e-receipt to the customer after `return` ing a loan.
 
 The e-receipt will contain the `Name`, `BikeID`, `LoanStartTime`, `LoanEndTime` and `TotalCost` of the loan.
+// end::sendemail[]
 
 === [Proposed] Improved `delete` functionality
 
@@ -1658,35 +1652,29 @@ Expected: The displayed page should report the following:
 
 === Sending Reminder Emails
 
-Prerequisites: Make sure the system is connected to the internet. The email must be gmail and its `Less secure apps` option is enabled.
+Prerequisites: Make sure the system is connected to the network and the network allows smtp. The email must be gmail and its `Less secure apps` option is enabled.
 
 . Send a reminder email successfully. Please follow these steps:
 
 * `add` a loan with a valid customer's email (but you own it of course).
 * Execute the `checkemail` command. Then use the `setemail` command to set the sender's email.
-* After that, execute `remind x/correctpassword n/Name b/BikeId`.
+* After that, execute `remind pw/CORRECTWMAILPW id/ONGOING_LOAN_ID`.
 
 Expected: Receive a success message "Email sent!" on the screen. A reminder email should have been sent from the sender's email (check the Sent folder). The same email should also be in the inbox of the customer's email account that you have set.
 
 . Negative tests:
-.. Test case: `setemail \WRONG_OLD_EMAIL@gmail.com \NEW_EMAIL@gmail.com` +
-Expected: Failure message "The old email address is wrong!" will show. User's email is not changed.
-.. Test case: `setemail \YOUR_EMAIL@gmail.com \YOUR_EMAIL@gmail.com` +
-Expected: Failure message "The old email and the new email cannot be the same!" will show. User's email is not changed.
-.. Test case: `setemail \OLD_EMAIL@gmail.com \INVALID_NEW_EMAIL@outlook.com` +
-Expected: Failure message "Your new email address is invalid! It must be a valid gmail!" will show. User's email is not changed.
-.. Test case: `setemail \OLD_EMAIL@gmail.com \INVALID_NEW_EMAIL@gmail.com@gmail.com` +
-Expected: Failure message "Your new email address is invalid! It must be a valid gmail!" will show. User's email is not changed.
-.. Test case: `remind x/CORRECTPASSWORD n/NAME b/MISMATCHED_BIKE` +
-Expected: Failure message "No loan contains both `NAME` and `MISMATCHED_BIKE`!" will show. The email is not sent.
-.. Test case: `remind x/CORRECTPASSWORD n/MISMATCHED_NAME b/BIKE` +
-Expected: Failure message "No loan contains both `MISMATCHED_NAME` and `BIKE`!" will show. The email is not sent.
-.. Test case: `remind x/CORRECTPASSWORD n/RETURNED_NAME b/RETURNED_BIKE` +
-Expected: Failure message "That loan has already been returned!" will show. The email is not sent.
-.. Test case: `remind x/CORRECTPASSWORD n/DELETED_NAME n/DELETED_BIKE` +
-Expected: Failure message "That loan has been deleted!" will show. The email is not sent.
-.. Test case: `remind x/WRONGPASSWORD n/NAME b/BIKE` +
-Expected: Failure message "Connection to your email failed! The password is wrong or you did not enable the `less secure app` option in your google account setting before you use remind command. Please refer to the User Guide!" will show. The email is not sent.
-.. Test case: Make sure your email is set, disable its `less secure apps` setting and refresh the setting page. Execute `remind x/CORRECTPASSWORD n/NAME b/BIKE` +
-Expected: Failure message "Connection to your email failed! The password is wrong or you did not enable `less secure app` in your google account setting before you use remind command. Please refer to the User Guide!" will show. The email is not sent.
+.. Test case: `setemail e/\OLD.EMAIL@gmail.com x/PASSWORDFORAPP` +
+Expected: Failure message "The new email should not be the same as the old email!" will show. User's email is not changed.
+.. Test case: `setemail e/\NEW.EMAIL@outlook.com x/PASSWORDFORAPP` +
+Expected: Failure message "Your new email address must be valid gmail." will show. User's email is not changed.
+.. Test case: `remind pw/CORRECTPASSWORD id/NON_EXIST_ID` +
+Expected: Failure message "There is no Loan with this ID in the LoanBook!" will show. The email is not sent.
+.. Test case: `remind pw/CORRECTPASSWORD id/RETURNED_ID` +
+Expected: Failure message "There is no need to send a reminder, because the loan is RETURNED" will show. The email is not sent.
+.. Test case: `remind pw/WRONGPASSWORD id/VALID_LOAN_ID` +
+Expected: Failure message "Your password might be incorrect, or you have not enabled the \"Less secure apps\" setting in your Google account settings. Please refer to the User Guide by pressing F1!" will show. The email is not sent.
+.. Test case: Make sure your email is set, disable its `less secure apps` setting and refresh the setting page. Execute `remind pw/CORRECTPASSWORD id/VALID_LOAN_ID` +
+Expected: Failure message "Your password might be incorrect, or you have not enabled the \"Less secure apps\" setting in your Google account settings. Please refer to the User Guide by pressing F1!" will show. The email is not sent.
+.. Test case: Disconnect your network. Execute `remind pw/CORRECTPASSWORD id/VALID_LOAN_ID` +
+Expected: Failure message "No connection to the network!" will show. The email is not sent.
 .. Other incorrect commands to try: `setemail`, `setemail x` (where x can be any string), `remind`, `remind x y z` (no prefix, x, y and z can be any string).
