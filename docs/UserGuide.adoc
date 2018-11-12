@@ -21,26 +21,57 @@ By: `Team F10-2`      Since: `Sep 2018`      Licence: `MIT`
 Have you ever seen your clients waiting angrily for 15 minutes before finally getting their rental bikes? Introducing Forever A-Loan, a lightweight Command Line Interface (CLI) application that revolutionizes the way bike loans are logged. Forever A-Loan promises to drastically decrease the time taken for bike rental shop owners to manage their inventories by leveraging on state of the art inventory management algorithms and the absence of a clunky Graphical User Interface (GUI) that hinders fast typists. Enjoy!
 
 == Quick Start
+Here is a quick guide to help you set up the LoanBook application on your device.
 
 .  Ensure you have Java version `9` or later installed in your computer.
 .  Download the latest `LoanBook.jar` link:{repoURL}/releases[here].
 .  Run the .jar file. The GUI should appear in a few seconds.
-.  Type the command in the command box and press kbd:[ENTER] to execute it. +
-e.g. typing *`help`* and pressing kbd:[ENTER] will open the help window.
-.  Some example commands you can try:
 
-* *`list`* : List the status of the loanbook
-* **`add`**`p/John hp/12345678 e/john@abc.com r/3 o/Bicycle-007` : Loans Bicycle-007 to John at a rate of $3 per hour
-* **`delete`**`i/1 x/a12345` : deletes the 1st loan shown in the current list
-* *`resetall`* : Reset the loanbook
+You should see a textbox near the top of the window with a blinking vertical line. If the textbox says "Enter command here..." instead, click on the box with your mouse.
+
+To ensure that LoanBook is running smoothly, try typing `help` into the textbox, and then press kbd:[ENTER] to execute it. A new window containing this guide should pop up.
+
+=== Graphic User Interface (GUI)
+A screenshot of the LoanBook app is shown below:
+
+image::Ui.png[]
+
+A brief description of each section:
+
+* At the very top of the window are two *dropdown menu*s, labelled `File` and `Help`. You can access them with the mouse. The `File` menu allows you to exit LoanBook, while the `Help` menu lets you access this document.
+* Right below the dropdown menus is the *command box*. Here is where you type in the commands to be executed by the app.
+* Below the command box, the space is split horizontally into two sections. The left section is the *list panel*. Here is where a list of your bikes and loans will appear, together with some individual details on them.
+* The right section is the *result display*. Whenever you execute a command with the command box, this section will notify you of their outcome by displaying a message.
+* At the bottom of the window is the *status bar*. It contains two texts. The text on the left displays when was the last time the LoanBook's data was saved to the hard disk. The text on the right displays the file path of where the LoanBook data is saved, in relation to LoanBook's root directory. If the terms here confuse you, you can simply ignore this section.
+
+The *command box*, *list panel* and *result display* are what you will be using the most in LoanBook.
+
+=== Using Commands
+LoanBook uses a Command Line Interface (CLI), which means that it is fully usable just using your keyboard, no mouse required!
+
+When you type in anything on your keyboard, your input should appear in the command box. (If the command box says "Enter command here..." instead, please click on the command box to select it. If you do not have a mouse, press kbd:[TAB] a few times until it is selected.)
+
+The commands in LoanBook follow this format: `<KEYWORD> <PARAMETERS>`. As an example, consider the following command: `delete i/1 x/a12345`
+
+* `delete` is the command's *keyword*. The keyword is used to identify which action from the LoanBook is being requested by you.
+* `i/1 x/a12345` specifies the command's *parameters*. Parameters are separated by spaces, and each parameter consists of a prefix (e.g. `i` or `x`), followed by a forward slash (`/`), then the value of that parameter (e.g. `1` or `a12345`).
 
 [NOTE]
-The default password for the app is `a12345`. This is required for some commands such as `resetall` and `delete`.
+Note that some commands do not use prefixes for their parameters, while others don't even have parameters! Exactly what parameters are needed is dependent on the specific command, and they are all documented in the <<Commands>> section.
 
-.  Refer to <<Features>> for details of each command.
+Once you are done entering the command, just press kbd:[ENTER] to execute it. LoanBook will process your command and feedback the result to you using the result display.
 
-[[Features]]
-== Features
+[NOTE]
+At any time, for a more detailed description of any command used, please check out the <<Commands>> section. LoanBook will also remind you of the correct command format should you type anything in incorrectly. So do not worry, there is plenty of help at every step of the way.
+
+Now that LoanBook is up and running and you are oriented with its GUI, it is time to set up your data within it.
+
+=== Registering Your Bicycles Into LoanBook
+//
+
+[[Commands]]
+== Commands
+This section contains detailed info on the usage and behaviour for every command in the LoanBook.
 
 ====
 *Command Format*
