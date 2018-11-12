@@ -233,7 +233,7 @@ In case a wrong entry is keyed in, or the customer changes their mind, this comm
 [`t/TAG`: Optional edited tags of the loan] (Optional) +
 
 ****
-* Edits the loan at the specified `LOAN_INDEX`. This LOAN_INDEX refers to the LOAN_INDEX number shown in the displayed loan list. The LOAN_INDEX *must be a positive integer* 1, 2, 3, ...
+* Edits the loan at the specified `LIST_INDEX`. This LIST_INDEX refers to the LIST_INDEX number shown in the displayed loan list. The LIST_INDEX *must be a positive integer* 1, 2, 3, ...
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
 * When editing tags, the existing tags of the loan will be removed i.e adding of tags is not cumulative.
@@ -297,17 +297,17 @@ Deletes the bicycle with the name of "Bike 1".
 
 === Deleting the chosen loan from the loan book: `delete`
 
-Delete the loan from the loan book. If you want to delete one loan, use `delete i/LOAN_INDEX x/CURRENT_PASSWORD`.
+Delete the loan from the loan book. If you want to delete one loan, use `delete i/LIST_INDEX x/CURRENT_PASSWORD`.
 Due to `delete` modifying transactional summary, it is a critical command and hence elevation is required hence the password field. +
-[big]#*Format*: `delete i/LOAN_INDEX x/CURRENT_PASSWORD`#
+[big]#*Format*: `delete i/LIST_INDEX x/CURRENT_PASSWORD`#
 
 [big red]#List of Parameters#:
 
-`i/LOAN_INDEX`: Index of the loan, in the left hand side display. +
+`i/LIST_INDEX`: Index of the loan, in the left hand side display. +
 `x/CURRENT_PASSWORD`: Password used in the LoanBook.
 
 ****
-* Deletes the loan at the specified `i/LOAN_INDEX`.
+* Deletes the loan at the specified `i/LIST_INDEX`.
 * Note that this does not reset `LOAN_ID`.
 * Deletion will not occur if `CURRENT_PASSWORD` is incorrect.
 ****
@@ -352,13 +352,13 @@ Set the password of the app to `n3wP4sS`.
 
 So how do you even return a loan that you have loaned out? You can do so with this simple command! In fact, we see your pains trying to calculate the amount payable on a calculator, so we decided to help you out by doing all the number crunching for you.
 
-This command marks a loan as returned based on LOAN_INDEX and automatically prints out the amount payable. The amount payable will be prorated and rounded down to the nearest minute. +
+This command marks a loan as returned based on LIST_INDEX and automatically prints out the amount payable. The amount payable will be prorated and rounded down to the nearest minute. +
 
-[big]#*Format*: `return i/LOAN_INDEX`#
+[big]#*Format*: `return i/LIST_INDEX`#
 
 [big red]#List of Parameters#:
 
-`i/LOAN_INDEX`: Index of the loan, in the left hand side display. +
+`i/LIST_INDEX`: Index of the loan, in the left hand side display. +
 
 [TIP]
 ====
