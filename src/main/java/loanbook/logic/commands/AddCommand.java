@@ -42,8 +42,8 @@ public class AddCommand extends Command {
             + PREFIX_EMAIL + "johnd@example.com "
             + PREFIX_BIKE + "Bike001 "
             + PREFIX_LOANRATE + "3.5 "
-            + PREFIX_TAG + "friends "
-            + PREFIX_TAG + "owesMoney";
+            + PREFIX_TAG + "helmet "
+            + PREFIX_TAG + "discountedRate";
 
     public static final String MESSAGE_SUCCESS = "New loan added: %1$s";
     public static final String MESSAGE_LOANBOOK_FULL = "The loan book is full";
