@@ -1,12 +1,6 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]--><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="Asciidoctor 1.5.6.1"><title>PROJECT: LoanBook</title><link rel="stylesheet" href="./gh-pages.css">
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]--><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="Asciidoctor 1.5.6.1"><title>Lim Fong Yuan - Project Portfolio</title><link rel="stylesheet" href="../stylesheets/gh-pages.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
-<link rel="stylesheet" href="./coderay-asciidoctor.css"></head><body class="article"><div id="site-header"><nav class="navbar navbar-light bg-light"><div class="container"><a class="navbar-brand" href="../index.html">LoanBook</a><ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="../UserGuide.html">User Guide</a></li><li class="nav-item"><a class="nav-link" href="../DeveloperGuide.html">Developer Guide</a></li><li class="nav-item"><a class="nav-link" href="../AboutUs.html">About Us</a></li><li class="nav-item"><a class="nav-link" href="../ContactUs.html">Contact Us</a></li><li class="navitem"><a class="nav-link" href="https://github.com/CS2103-AY1819S1-F10-2/main.git"><span class="fa fa-github fa-lg" aria-hidden="true"></span>&nbsp;View on GitHub</a></li></ul></div></nav></div><div id="header"></div><div id="content"><div class="paragraph">
-<p>Lim Fong Yuan - Project Portfolio
-:site-section: AboutUs
-:imagesDir: ../images
-:stylesDir: ../stylesheets</p>
-</div>
-<div class="sect1">
+<link rel="stylesheet" href="../stylesheets/coderay-asciidoctor.css"></head><body class="article"><div id="site-header"><nav class="navbar navbar-light bg-light"><div class="container"><a class="navbar-brand" href="../index.html">LoanBook</a><ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="../UserGuide.html">User Guide</a></li><li class="nav-item"><a class="nav-link" href="../DeveloperGuide.html">Developer Guide</a></li><li class="nav-item"><a class="nav-link active" href="../AboutUs.html">About Us</a></li><li class="nav-item"><a class="nav-link" href="../ContactUs.html">Contact Us</a></li><li class="navitem"><a class="nav-link" href="https://github.com/CS2103-AY1819S1-F10-2/main.git"><span class="fa fa-github fa-lg" aria-hidden="true"></span>&nbsp;View on GitHub</a></li></ul></div></nav></div><div id="header"><h1>Lim Fong Yuan - Project Portfolio</h1></div><div id="content"><div class="sect1">
 <h2 id="project-loanbook"><a class="link" href="#project-loanbook">PROJECT: LoanBook</a></h2>
 <div class="sectionbody">
 <hr>
@@ -16,7 +10,13 @@
 <h2 id="overview"><a class="link" href="#overview">Overview</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>AddressBook - Level 4 is a desktop address book application used for teaching Software Engineering principles. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.</p>
+<p>LoanBook is a desktop application that helps bicycle rental shop owners in Singapore keep track of their bicycles and bicycle rental transactions. The user interacts with LoanBook using a command line interface (CLI), and receives feedback through a graphic user interface (GUI) that is created with the JavaFX library. The codebase is written in Java, and has about 25 kLoC.</p>
+</div>
+<div class="paragraph">
+<p>The LoanBook project was morphed from an existing codebase by a team of 5 NUS Computing students including myself, as part of the curriculum for the CS2103T Software Engineering module.</p>
+</div>
+<div class="paragraph">
+<p>This portfolio documents my contributions to the LoanBook project.</p>
 </div>
 </div>
 </div>
@@ -26,29 +26,23 @@
 <div class="ulist">
 <ul>
 <li>
-<p><strong>Major enhancement</strong>: added <strong>the ability to undo/redo previous commands</strong></p>
+<p><strong>Major enhancement</strong>: Added <strong>the ability to track bicycles</strong></p>
 <div class="ulist">
 <ul>
 <li>
-<p>What it does: allows the user to undo all previous commands one at a time. Preceding undo commands can be reversed by using the redo command.</p>
+<p>Functionality: This enhancement allows the user to register and edit bicycles within the app.</p>
 </li>
 <li>
-<p>Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.</p>
+<p>Justification: By tracking the status of bicycles, the management of rentals also becomes easier as it is clearer exactly what choices of bicycles are available, and what actions should not be allowed. This feature improves the product significantly because it can help the user catch mistakes or dangerous situations in rentals before they cause a problem.</p>
 </li>
 <li>
-<p>Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.</p>
-</li>
-<li>
-<p>Credits: <em>{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}</em></p>
+<p>Highlights: This enhancement goes further than just duplicating the existing code for loans, as many areas which used to handle only one list or set now have to handle two. As the purpose of this feature is partly to help with the validation of loans, additional checks also had to be integrated into the app and the commands. In touching the various components, I had to learn about the structure of the code base as well as the various tools used such as Git, FXML and CSS and how they integrate with Java.</p>
 </li>
 </ul>
 </div>
 </li>
 <li>
-<p><strong>Minor enhancement</strong>: added a history command that allows the user to navigate to previous commands using up/down keys.</p>
-</li>
-<li>
-<p><strong>Code contributed</strong>: [<a href="https://github.com">Functional code</a>] [<a href="https://github.com">Test code</a>] <em>{give links to collated code files}</em></p>
+<p>[<a href="https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&amp;search=fongyuan"><strong>Code contributed</strong></a>]</p>
 </li>
 <li>
 <p><strong>Other contributions</strong>:</p>
@@ -59,7 +53,7 @@
 <div class="ulist">
 <ul>
 <li>
-<p>Managed releases <code>v1.3</code> - <code>v1.5rc</code> (3 releases) on GitHub</p>
+<p>Managed releases <code>v1.3</code> - <code>v1.4</code> (2 releases) on GitHub</p>
 </li>
 </ul>
 </div>
@@ -69,10 +63,20 @@
 <div class="ulist">
 <ul>
 <li>
-<p>Updated the GUI color scheme (Pull requests <a href="https://github.com">#33</a>, <a href="https://github.com">#34</a>)</p>
+<p>Updated the GUI (Pull requests <a href="https://github.com/CS2103-AY1819S1-F10-2/main/pull/157">#157</a>, <a href="https://github.com/CS2103-AY1819S1-F10-2/main/pull/177">#177</a>)</p>
+</li>
+</ul>
+</div>
 </li>
 <li>
-<p>Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests <a href="https://github.com">#36</a>, <a href="https://github.com">#38</a>)</p>
+<p>Adaptation of code base:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Renaming and refactoring (Pull requests <a href="https://github.com/CS2103-AY1819S1-F10-2/main/pull/10">#10</a>, <a href="https://github.com/CS2103-AY1819S1-F10-2/main/pull/120">#120</a>, <a href="https://github.com/CS2103-AY1819S1-F10-2/main/pull/138">#138</a>)</p>
+</li>
+<li>
+<p>Extracting common behaviour of certain classes (Pull requests <a href="https://github.com/CS2103-AY1819S1-F10-2/main/pull/35">#35</a>, <a href="https://github.com/CS2103-AY1819S1-F10-2/main/pull/123">#123</a>, <a href="https://github.com/CS2103-AY1819S1-F10-2/main/pull/155">#155</a>)</p>
 </li>
 </ul>
 </div>
@@ -82,7 +86,22 @@
 <div class="ulist">
 <ul>
 <li>
-<p>Did cosmetic tweaks to existing contents of the User Guide: <a href="https://github.com">#14</a></p>
+<p>Updated the class diagrams for the major components of the codebase: <a href="https://github.com/CS2103-AY1819S1-F10-2/main/pull/152">#152</a></p>
+</li>
+<li>
+<p>Explained the model component in the developer guide: <a href="https://github.com/CS2103-AY1819S1-F10-2/main/pull/165">#165</a></p>
+</li>
+<li>
+<p>Explained my major enhancement in the developer guide: <a href="https://github.com/CS2103-AY1819S1-F10-2/main/pull/95">#95</a></p>
+</li>
+<li>
+<p>Updated the product scope in the developer guide: <a href="https://github.com/CS2103-AY1819S1-F10-2/main/pull/165">#165</a></p>
+</li>
+<li>
+<p>Added user stories in the developer guide: <a href="https://github.com/CS2103-AY1819S1-F10-2/main/pull/45">#45</a></p>
+</li>
+<li>
+<p>Contributed to the use cases and manual testing sections in the developer guide: <a href="https://github.com/CS2103-AY1819S1-F10-2/main/pull/165">#165</a></p>
 </li>
 </ul>
 </div>
@@ -92,29 +111,13 @@
 <div class="ulist">
 <ul>
 <li>
-<p>PRs reviewed (with non-trivial review comments): <a href="https://github.com">#12</a>, <a href="https://github.com">#32</a>, <a href="https://github.com">#19</a>, <a href="https://github.com">#42</a></p>
+<p>Taught my teammates how to create the required diagrams for documentation</p>
 </li>
 <li>
-<p>Contributed to forum discussions (examples:  <a href="https://github.com">1</a>, <a href="https://github.com">2</a>, <a href="https://github.com">3</a>, <a href="https://github.com">4</a>)</p>
+<p>Plenty of PRs reviewed (with non-trivial review comments): <a href="https://github.com/CS2103-AY1819S1-F10-2/main/pull/29">#29</a>, <a href="https://github.com/CS2103-AY1819S1-F10-2/main/pull/36">#36</a>,, <a href="https://github.com/CS2103-AY1819S1-F10-2/main/pull/106">#106</a>,  <a href="https://github.com/CS2103-AY1819S1-F10-2/main/pull/142">#142</a>, <a href="https://github.com/CS2103-AY1819S1-F10-2/main/pull/148">#148</a></p>
 </li>
 <li>
-<p>Reported bugs and suggestions for other teams in the class (examples:  <a href="https://github.com">1</a>, <a href="https://github.com">2</a>, <a href="https://github.com">3</a>)</p>
-</li>
-<li>
-<p>Some parts of the history feature I added was adopted by several other class mates (<a href="https://github.com">1</a>, <a href="https://github.com">2</a>)</p>
-</li>
-</ul>
-</div>
-</li>
-<li>
-<p>Tools:</p>
-<div class="ulist">
-<ul>
-<li>
-<p>Integrated a third party library (Natty) to the project (<a href="https://github.com">#42</a>)</p>
-</li>
-<li>
-<p>Integrated a new Github plugin (CircleCI) to the team repo</p>
+<p>Contributed to forum discussions (examples: <a href="https://github.com/nus-cs2103-AY1819S1/forum/issues/60#issuecomment-427720633">delete a Person field cleanly</a>)</p>
 </li>
 </ul>
 </div>
@@ -123,9 +126,6 @@
 </div>
 </li>
 </ul>
-</div>
-<div class="paragraph">
-<p><em>{you can add/remove categories in the list above}</em></p>
 </div>
 </div>
 </div>
@@ -142,11 +142,43 @@
 </tr>
 </tbody>
 </table>
-<div class="sect2">
-<h3 id="undoing-previous-command-code-undo-code"><a class="link" href="#undoing-previous-command-code-undo-code">Undoing previous command: <code>undo</code></a></h3>
 <div class="paragraph">
-<p>Restores the address book to the state before the previous <em>undoable</em> command was executed.<br>
-Format: <code>undo</code></p>
+<p>Excerpt (Quick Start):</p>
+</div>
+<div class="sect2">
+<h3 id="graphic-user-interface-gui"><a class="link" href="#graphic-user-interface-gui">Graphic User Interface (GUI)</a></h3>
+<div class="paragraph">
+<p>A screenshot of the LoanBook app is shown below:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/Ui.png" alt="Ui" width="600">
+</div>
+</div>
+<div class="paragraph">
+<p>A brief description of each section:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>At the very top of the window are two <strong>dropdown menu</strong> s, labelled <code>File</code> and <code>Help</code>. You can access them with the mouse. The <code>File</code> menu allows you to exit LoanBook, while the <code>Help</code> menu lets you access this document.</p>
+</li>
+<li>
+<p>Right below the dropdown menus is the <strong>command box</strong>. Here is where you type in the commands to be executed by the app.</p>
+</li>
+<li>
+<p>Below the command box, the space is split horizontally into two sections. The left section is the <strong>list panel</strong>. Here is where a list of your bikes and loans will appear, together with some individual details on them.</p>
+</li>
+<li>
+<p>The right section is the <strong>result display</strong>. Whenever you execute a command with the command box, this section will notify you of their outcome by displaying a message.</p>
+</li>
+<li>
+<p>At the bottom of the window is the <strong>status bar</strong>. It contains two texts. The text on the left displays when was the last time the LoanBook&#8217;s data was saved to the hard disk. The text on the right displays the file path of where the LoanBook data is saved, in relation to LoanBook&#8217;s root directory. If the terms here confuse you, you can simply ignore this section.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The <strong>command box</strong>, <strong>list panel</strong> and <strong>result display</strong> are what you will be using the most in LoanBook.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -155,74 +187,183 @@ Format: <code>undo</code></p>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="paragraph">
-<p>Undoable commands: those commands that modify the address book&#8217;s content (<code>add</code>, <code>delete</code>, <code>edit</code> and <code>clear</code>).</p>
+When you are just starting out, the list panel and result display should be empty as there is no information in the LoanBook yet, so do not worry if you do not see anything there.
+</td>
+</tr>
+</table>
 </div>
+</div>
+<div class="sect2">
+<h3 id="using-commands"><a class="link" href="#using-commands">Using Commands</a></h3>
+<div class="paragraph">
+<p>LoanBook uses a Command Line Interface (CLI), which means that it is fully usable with only your keyboard, no mouse required!</p>
+</div>
+<div class="paragraph">
+<p>When you type in anything on your keyboard, your input should appear in the command box. (If the command box says "Enter command here&#8230;&#8203;" instead, please click on the command box to select it. If you do not have a mouse, press <kbd>TAB</kbd> a few times until it is selected.)</p>
+</div>
+<div class="paragraph">
+<p>The commands in LoanBook follow this format: <code>&lt;KEYWORD&gt; &lt;PARAMETERS&#8230;&#8203;&gt;</code>. As an example, consider the following command: <code>delete i/1 x/a12345</code></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>delete</code> is the command&#8217;s <strong>keyword</strong>. The keyword is used to identify which action from the LoanBook is being requested by you.</p>
+</li>
+<li>
+<p><code>i/1 x/a12345</code> specifies the command&#8217;s <strong>parameters</strong>. Parameters are separated by spaces, and each parameter consists of a prefix (e.g. <code>i</code> or <code>x</code>), followed by a forward slash (<code>/</code>), then the value of that parameter (e.g. <code>1</code> or <code>a12345</code>).</p>
+</li>
+</ul>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Note that some commands do not use prefixes for their parameters, while others do not even have parameters! Exactly what parameters are needed depends on the specific command, and they are all documented in <a href="#Commands">[Commands]</a>.
 </td>
 </tr>
 </table>
 </div>
 <div class="paragraph">
-<p>Examples:</p>
+<p>Once you are done entering the command, just press <kbd>ENTER</kbd> to execute it. LoanBook will process your command and feedback the result to you using the result display.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+At any time, for a more detailed description of any command used, please check out <a href="#Commands">[Commands]</a>. LoanBook will also remind you of the correct command format should you type anything in incorrectly. So do not worry, there is plenty of help at every step of the way.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Now that LoanBook is up and running and you are oriented with its GUI, it is time to set up your data within it.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="registering-your-bicycles-into-loanbook"><a class="link" href="#registering-your-bicycles-into-loanbook">Registering Your Bicycles Into LoanBook</a></h3>
+<div class="paragraph">
+<p>Before LoanBook can do anything, it needs to know what bicycles you have at your disposal.</p>
+</div>
+<div class="paragraph">
+<p>To register a bike into LoanBook, use the following command:</p>
+</div>
+<div class="paragraph">
+<p><code>addbike n/BIKE_NAME</code></p>
+</div>
+<div class="paragraph">
+<p>where <code>BIKE_NAME</code> is the name of your bicycle. It will be used to identify your bike, so it must be a unique name. Your bicycle&#8217;s ID number can be a good fit for this field.</p>
+</div>
+<div class="paragraph">
+<p>On success, you should see a message in the result display saying: "New bike added: <code>BIKE_NAME</code> Status: Available". If you receive an error, follow the instructions in the result display and try again.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Even though you have successfully registered a bicycle into LoanBook, you might be disappointed that nothing is appearing in the list panel. That is because LoanBook defaults to showing you the list of loans in the list panel, and you currently do not have any. To view the list of bikes instead, use the command <code>listbikes</code>. You should now see a list of the bike(s) that you just keyed in!
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Simply repeat this process until you have registered all your bikes within LoanBook.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="renting-out-bicycles"><a class="link" href="#renting-out-bicycles">Renting Out Bicycles</a></h3>
+<div class="paragraph">
+<p>Now that you have some bicycles within LoanBook, you can rent them out using the <code>add</code> command. The format for the <code>add</code> command is as follows:</p>
+</div>
+<div class="paragraph">
+<p><code>add n/NAME ic/NRIC p/PHONE e/EMAIL b/BIKE lr/LOANRATE [t/TAG]&#8230;&#8203;</code></p>
+</div>
+<div class="paragraph">
+<p>Do not be overwhelmed by the sudden increase in length! Let us take it bit by bit&#8230;&#8203;</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p><code>delete 1</code><br>
-<code>list</code><br>
-<code>undo</code> (reverses the <code>delete 1</code> command)<br></p>
+<p><code>add</code> is simply the command&#8217;s keyword.</p>
 </li>
 <li>
-<p><code>select 1</code><br>
-<code>list</code><br>
-<code>undo</code><br>
-The <code>undo</code> command fails as there are no undoable commands executed previously.</p>
+<p><code>NAME</code> is the name of the customer who is renting a bike from you, e.g. <code>John Doe</code>.</p>
 </li>
 <li>
-<p><code>delete 1</code><br>
-<code>clear</code><br>
-<code>undo</code> (reverses the <code>clear</code> command)<br>
-<code>undo</code> (reverses the <code>delete 1</code> command)<br></p>
+<p><code>NRIC</code> is the customer&#8217;s NRIC number.</p>
+</li>
+<li>
+<p><code>PHONE</code> is the customer&#8217;s phone number, so that you know who to call if your bicycle is not returned on time.</p>
+</li>
+<li>
+<p><code>EMAIL</code> is the customer&#8217;s email address, so that you can send reminders and e-receipts to them.</p>
+</li>
+<li>
+<p><code>BIKE</code> is the name of the bike that you want to rent out to them. In the previous section, it was mentioned that the <code>BIKE_NAME</code> that you specify for a bike is used to identify that bike uniquely; here is where it comes into play.</p>
+</li>
+<li>
+<p><code>LOANRATE</code> is the rate at which you are charging your customer for the bicycle rental, in dollars per hour. This will help your financial calculations later.</p>
+</li>
+<li>
+<p><code>TAG</code> are optional labels that you can tag the loan with. They are simply there to keep better track of your loans, should you wish to use them. You can specify no tags at all, just one tag, or multiple tags (with each tag needing a separate <code>t/</code> prefix).</p>
 </li>
 </ul>
 </div>
-</div>
-<div class="sect2">
-<h3 id="redoing-the-previously-undone-command-code-redo-code"><a class="link" href="#redoing-the-previously-undone-command-code-redo-code">Redoing the previously undone command : <code>redo</code></a></h3>
 <div class="paragraph">
-<p>Reverses the most recent <code>undo</code> command.<br>
-Format: <code>redo</code></p>
+<p>In summary, most of the parameters you specify here are simply customer-specific data. Once you iron out the details of the rental with them, this command is as easy as any other. Simply fill in the details and you should see a success message: "New loan added: (&#8230;&#8203;)", showing you all the details of the transaction.</p>
 </div>
-<div class="paragraph">
-<p>Examples:</p>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Right now, LoanBook should still be displaying the list of bikes. To get it to display the list of loans again, simply use the <code>list</code> command. You should see the new loan you added at the bottom of the list. You can toggle between these two lists at will using the <code>list</code> and <code>listbikes</code> commands.
+</td>
+</tr>
+</table>
 </div>
-<div class="ulist">
-<ul>
-<li>
-<p><code>delete 1</code><br>
-<code>undo</code> (reverses the <code>delete 1</code> command)<br>
-<code>redo</code> (reapplies the <code>delete 1</code> command)<br></p>
-</li>
-<li>
-<p><code>delete 1</code><br>
-<code>redo</code><br>
-The <code>redo</code> command fails as there are no <code>undo</code> commands executed previously.</p>
-</li>
-<li>
-<p><code>delete 1</code><br>
-<code>clear</code><br>
-<code>undo</code> (reverses the <code>clear</code> command)<br>
-<code>undo</code> (reverses the <code>delete 1</code> command)<br>
-<code>redo</code> (reapplies the <code>delete 1</code> command)<br>
-<code>redo</code> (reapplies the <code>clear</code> command)<br></p>
-</li>
-</ul>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+A further visual cue to help you differentiate whether you are viewing the list of bikes or of loans is that the list of bikes is coloured blue, while the list of loans is coloured yellow-brown.
+</td>
+</tr>
+</table>
 </div>
 </div>
 <div class="sect2">
-<h3 id="encrypting-data-files-code-coming-in-v2-0-code"><a class="link" href="#encrypting-data-files-code-coming-in-v2-0-code">Encrypting data files <code>[coming in v2.0]</code></a></h3>
+<h3 id="returning-bicycles"><a class="link" href="#returning-bicycles">Returning Bicycles</a></h3>
 <div class="paragraph">
-<p><em>{explain how the user can enable/disable data encryption}</em></p>
+<p>Once your customer is done enjoying themself, it is time to conclude the loan. This is done using the <code>return</code> command:</p>
+</div>
+<div class="paragraph">
+<p><code>return i/LIST_INDEX</code></p>
+</div>
+<div class="paragraph">
+<p>The <code>LIST_INDEX</code> is simply the index of the loan that you want to return in the list panel. It is <strong>not</strong> the Loan ID.</p>
+</div>
+<div class="paragraph">
+<p>If the returning is successful, you should see a message in the result display saying "Loan Returned: (&#8230;&#8203;)" followed by the details of the loan. You will also get to see how much you should charge the customer for renting out your bike for as long as they did.</p>
+</div>
+<div class="paragraph">
+<p>And using LoanBook is as simple as that!</p>
+</div>
+<div class="paragraph">
+<p>Of course, LoanBook supports a multitude of additional functionalities that will help to facilitate your bicycle rental management even further. The next section lists all the commands that you can try out once you are comfortable with the basic process above. Good luck and happy renting!</p>
 </div>
 </div>
 </div>
@@ -236,159 +377,94 @@ The <code>redo</code> command fails as there are no <code>undo</code> commands e
 </colgroup>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users.</em></p></td>
-</tr>
-</tbody>
-</table>
-<div class="sect2">
-<h3 id="undoing-previous-command-code-undo-code-2"><a class="link" href="#undoing-previous-command-code-undo-code-2">Undoing previous command: <code>undo</code></a></h3>
-<div class="paragraph">
-<p>Restores the address book to the state before the previous <em>undoable</em> command was executed.<br>
-Format: <code>undo</code></p>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-<div class="paragraph">
-<p>Undoable commands: those commands that modify the address book&#8217;s content (<code>add</code>, <code>delete</code>, <code>edit</code> and <code>clear</code>).</p>
-</div>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Examples:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><code>delete 1</code><br>
-<code>list</code><br>
-<code>undo</code> (reverses the <code>delete 1</code> command)<br></p>
-</li>
-<li>
-<p><code>select 1</code><br>
-<code>list</code><br>
-<code>undo</code><br>
-The <code>undo</code> command fails as there are no undoable commands executed previously.</p>
-</li>
-<li>
-<p><code>delete 1</code><br>
-<code>clear</code><br>
-<code>undo</code> (reverses the <code>clear</code> command)<br>
-<code>undo</code> (reverses the <code>delete 1</code> command)<br></p>
-</li>
-</ul>
-</div>
-</div>
-<div class="sect2">
-<h3 id="redoing-the-previously-undone-command-code-redo-code-2"><a class="link" href="#redoing-the-previously-undone-command-code-redo-code-2">Redoing the previously undone command : <code>redo</code></a></h3>
-<div class="paragraph">
-<p>Reverses the most recent <code>undo</code> command.<br>
-Format: <code>redo</code></p>
-</div>
-<div class="paragraph">
-<p>Examples:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><code>delete 1</code><br>
-<code>undo</code> (reverses the <code>delete 1</code> command)<br>
-<code>redo</code> (reapplies the <code>delete 1</code> command)<br></p>
-</li>
-<li>
-<p><code>delete 1</code><br>
-<code>redo</code><br>
-The <code>redo</code> command fails as there are no <code>undo</code> commands executed previously.</p>
-</li>
-<li>
-<p><code>delete 1</code><br>
-<code>clear</code><br>
-<code>undo</code> (reverses the <code>clear</code> command)<br>
-<code>undo</code> (reverses the <code>delete 1</code> command)<br>
-<code>redo</code> (reapplies the <code>delete 1</code> command)<br>
-<code>redo</code> (reapplies the <code>clear</code> command)<br></p>
-</li>
-</ul>
-</div>
-</div>
-<div class="sect2">
-<h3 id="encrypting-data-files-code-coming-in-v2-0-code-2"><a class="link" href="#encrypting-data-files-code-coming-in-v2-0-code-2">Encrypting data files <code>[coming in v2.0]</code></a></h3>
-<div class="paragraph">
-<p><em>{explain how the user can enable/disable data encryption}</em></p>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="contributions-to-the-developer-guide-2"><a class="link" href="#contributions-to-the-developer-guide-2">Contributions to the Developer Guide</a></h2>
-<div class="sectionbody">
-<table class="tableblock frame-all grid-all spread">
-<colgroup>
-<col style="width: 100%;">
-</colgroup>
-<tbody>
-<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><em>Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project.</em></p></td>
 </tr>
 </tbody>
 </table>
-<div class="sect2">
-<h3 id="undo-redo-feature"><a class="link" href="#undo-redo-feature">Undo/Redo feature</a></h3>
-<div class="sect3">
-<h4 id="current-implementation"><a class="link" href="#current-implementation">Current Implementation</a></h4>
 <div class="paragraph">
-<p>The undo/redo mechanism is facilitated by <code>VersionedLoanBook</code>.
-It extends <code>LoanBook</code> with an undo/redo history, stored internally as a <code>loanBookStateList</code> and <code>currentStatePointer</code>.
-Additionally, it implements the following operations:</p>
+<p>Bicycle Management implementation.</p>
+</div>
+<div class="paragraph">
+<p>Excerpt (Model component):</p>
+</div>
+<div class="paragraph">
+<p>The model component:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p><code>VersionedLoanBook#commit()</code>&#8201;&#8212;&#8201;Saves the current loan book state in its history.</p>
+<p>Stores the LoanBook data.</p>
 </li>
 <li>
-<p><code>VersionedLoanBook#undo()</code>&#8201;&#8212;&#8201;Restores the previous loan book state from its history.</p>
+<p>Stores the user&#8217;s preferences.</p>
 </li>
 <li>
-<p><code>VersionedLoanBook#redo()</code>&#8201;&#8212;&#8201;Restores a previously undone loan book state from its history.</p>
+<p>Exposes an unmodifiable <code>ObservableList&lt;Loan&gt;</code> that can be 'observed' by the UI, so that the UI automatically updates when the data in the model changes.</p>
+</li>
+<li>
+<p>Does not depend on any of the other three components.</p>
 </li>
 </ul>
 </div>
 <div class="paragraph">
-<p>These operations are exposed in the <code>Model</code> interface as <code>Model#commitLoanBook()</code>, <code>Model#undoLoanBook()</code> and <code>Model#redoLoanBook()</code> respectively.</p>
+<p>It allows the following operations:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Viewing, adding, modifying and deleting <code>Bike</code> s and <code>Loan</code> s from the LoanBook.</p>
+</li>
+<li>
+<p>Retrieving lists of <code>Bike</code> s and <code>Loan</code> s that are registered in the LoanBook, filtered by a <code>Predicate</code>.</p>
+</li>
+<li>
+<p>Undo/redo operations.</p>
+</li>
+</ul>
 </div>
 <div class="paragraph">
-<p>Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.</p>
-</div>
-<div class="paragraph">
-<p>Step 1. The user launches the application for the first time. The <code>VersionedLoanBook</code> will be initialized with the initial loan book state, and the <code>currentStatePointer</code> pointing to that single loan book state.</p>
+<p>The component&#8217;s class diagram is given below:</p>
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="UndoRedoStartingStateListDiagram.png" alt="UndoRedoStartingStateListDiagram" width="800">
+<img src="../images/ModelClassDiagram.png" alt="ModelClassDiagram" width="800">
 </div>
-</div>
-<div class="paragraph">
-<p>Step 2. The user executes <code>delete 5</code> command to delete the 5th loan in the loan book. The <code>delete</code> command calls <code>Model#commitLoanBook()</code>, causing the modified state of the loan book after the <code>delete 5</code> command executes to be saved in the <code>loanBookStateList</code>, and the <code>currentStatePointer</code> is shifted to the newly inserted loan book state.</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="UndoRedoNewCommand1StateListDiagram.png" alt="UndoRedoNewCommand1StateListDiagram" width="800">
-</div>
+<div class="title">Figure 1. Structure of the Model Component</div>
 </div>
 <div class="paragraph">
-<p>Step 3. The user executes <code>add n/David &#8230;&#8203;</code> to add a new loan. The <code>add</code> command also calls <code>Model#commitLoanBook()</code>, causing another modified loan book state to be saved into the <code>loanBookStateList</code>.</p>
+<p><strong>API file</strong>: <a href="{repoURL}/src/main/java/loanbook/model/Model.java"><code>Model.java</code></a></p>
 </div>
-<div class="imageblock">
-<div class="content">
-<img src="UndoRedoNewCommand2StateListDiagram.png" alt="UndoRedoNewCommand2StateListDiagram" width="800">
+<div class="paragraph">
+<p>The API is backed by a <code>ModelManager</code> which contains:</p>
 </div>
+<div class="ulist">
+<ul>
+<li>
+<p>A <code>VersionedLoanBook</code> object which tracks the main data (i.e. <code>Bike</code> s and <code>Loan</code> s) within the LoanBook.</p>
+</li>
+<li>
+<p>A filtered list each for <code>Bike</code> s and <code>Loan</code> s to expose to the UI.</p>
+</li>
+<li>
+<p>A <code>UserPrefs</code> object to track the user&#8217;s preferences.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Most operations passed to the <code>Model</code> component deal with its <code>VersionedLoanBook</code>. A <code>VersionedLoanBook</code> is simply a regular <code>LoanBook</code> that keeps track of its own history, for the undo/redo operation. The <code>LoanBook</code> itself contains:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>A <code>LoanIdManager</code> that helps to assign a unique <code>LoanId</code> to every <code>Loan</code>, so that <code>Loan</code> s may be easily identified.</p>
+</li>
+<li>
+<p>A list of unique <code>Bike</code> s.</p>
+</li>
+<li>
+<p>A list of unique <code>Loan</code> s.</p>
+</li>
+</ul>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -397,18 +473,84 @@ Additionally, it implements the following operations:</p>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-If a command fails its execution, it will not call <code>Model#commitLoanBook()</code>, so the loan book state will not be saved into the <code>loanBookStateList</code>.
+<div class="paragraph">
+<p>A unique list in the sense above is a list where no two elements are the "same":</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>A <code>Bike</code> is considered to be the same as another <code>Bike</code> if their <code>Name</code> s match.</p>
+</li>
+<li>
+<p>A <code>Loan</code> is considered to be the same as another <code>Loan</code> if their <code>LoanId</code> s match.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>We want to exclude duplicate items from these lists to make sure that identifying any given <code>Bike</code> or <code>Loan</code> is simple and without ambiguity.<br></p>
+</div>
+<div class="paragraph">
+<p>To facilitate this structure, both the <code>Bike</code> and <code>Loan</code> class implement a <code>UniqueListItem</code> interface, and the <code>Bike</code> and <code>Loan</code> lists inherit from a <code>UniqueList</code> class.</p>
+</div>
 </td>
 </tr>
 </table>
 </div>
 <div class="paragraph">
-<p>Step 4. The user now decides that adding the loan was a mistake, and decides to undo that action by executing the <code>undo</code> command. The <code>undo</code> command will call <code>Model#undoLoanBook()</code>, which will shift the <code>currentStatePointer</code> once to the left, pointing it to the previous loan book state, and restores the loan book to that state.</p>
+<p>Most of the commands passed into the <code>Model</code> are forwarded to its <code>LoanBook</code>, which then executes these commands on the <code>Bike</code> and <code>Loan</code> lists that it has.</p>
 </div>
-<div class="imageblock">
-<div class="content">
-<img src="UndoRedoExecuteUndoStateListDiagram.png" alt="UndoRedoExecuteUndoStateListDiagram" width="800">
+<div class="paragraph">
+<p>A <code>Loan</code> contains:</p>
 </div>
+<div class="ulist">
+<ul>
+<li>
+<p>The customer&#8217;s particulars: Their <code>Name</code>, <code>Nric</code>, <code>Phone</code> and <code>Email</code>.</p>
+</li>
+<li>
+<p>The <code>Bike</code> that the customer is renting.</p>
+</li>
+<li>
+<p>A <code>LoanStatus</code> used to signal whether this <code>Loan</code> is <code>Ongoing</code>, <code>Returned</code> or <code>Deleted</code>.</p>
+</li>
+<li>
+<p>A <code>LoanId</code> used for identifying this <code>Loan</code>.</p>
+</li>
+<li>
+<p>A <code>LoanRate</code> specifying the rate which the bicycle is being loaned at, in $/hr.</p>
+</li>
+<li>
+<p>A <code>loanStartTime</code> and <code>loanEndTime</code>, specifying the scheduled start and end times of the loan. <code>loanEndTime</code> might be <code>null</code> if the loan has no scheduled return time.</p>
+</li>
+<li>
+<p>Any number of <code>Tag</code> s to provide additional details for the <code>Loan</code>.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>A <code>Bike</code> contains:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>A <code>Name</code> used for identifying this <code>Bike</code>.</p>
+</li>
+<li>
+<p>A <code>BikeStatus</code> reflecting the current status of this <code>Bike</code>, e.g. whether it&#8217;s available for rental, loaned out, under repair etc.</p>
+</li>
+</ul>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+Currently, the <code>BikeStatus</code> field within the <code>Bike</code> class is present but not being used for anything. A future use of this field is proposed in the section on <a href="#Implementation-Bicycle-Management">Bicycle Management</a>.
+</td>
+</tr>
+</table>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -417,137 +559,10 @@ If a command fails its execution, it will not call <code>Model#commitLoanBook()<
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-If the <code>currentStatePointer</code> is at index 0, pointing to the initial loan book state, then there are no previous loan book states to restore. The <code>undo</code> command uses <code>Model#canUndoLoanBook()</code> to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
+The <code>DataField</code> class is used to unify the common idea that the above details for <code>Loan</code> s and <code>Bike</code> s are specifiable by a user-inputted string. The only exception is the <code>Bike</code> field in the <code>Loan</code> class, which is specified using the <code>Bike</code> 's <code>Name</code> instead.
 </td>
 </tr>
 </table>
 </div>
-<div class="paragraph">
-<p>The following sequence diagram shows how the undo operation works:</p>
 </div>
-<div class="imageblock">
-<div class="content">
-<img src="UndoRedoSequenceDiagram.png" alt="UndoRedoSequenceDiagram" width="800">
-</div>
-</div>
-<div class="paragraph">
-<p>The <code>redo</code> command does the opposite&#8201;&#8212;&#8201;it calls <code>Model#redoLoanBook()</code>, which shifts the <code>currentStatePointer</code> once to the right, pointing to the previously undone state, and restores the loan book to that state.</p>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-If the <code>currentStatePointer</code> is at index <code>loanBookStateList.size() - 1</code>, pointing to the latest loan book state, then there are no undone loan book states to restore. The <code>redo</code> command uses <code>Model#canRedoLoanBook()</code> to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Step 5. The user then decides to execute the command <code>list</code>. Commands that do not modify the loan book, such as <code>list</code>, will usually not call <code>Model#commitLoanBook()</code>, <code>Model#undoLoanBook()</code> or <code>Model#redoLoanBook()</code>. Thus, the <code>loanBookStateList</code> remains unchanged.</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="UndoRedoNewCommand3StateListDiagram.png" alt="UndoRedoNewCommand3StateListDiagram" width="800">
-</div>
-</div>
-<div class="paragraph">
-<p>Step 6. The user executes <code>clear</code>, which calls <code>Model#commitLoanBook()</code>. Since the <code>currentStatePointer</code> is not pointing at the end of the <code>loanBookStateList</code>, all loan book states after the <code>currentStatePointer</code> will be purged. We designed it this way because it no longer makes sense to redo the <code>add n/David &#8230;&#8203;</code> command. This is the behavior that most modern desktop applications follow.</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="UndoRedoNewCommand4StateListDiagram.png" alt="UndoRedoNewCommand4StateListDiagram" width="800">
-</div>
-</div>
-<div class="paragraph">
-<p>The following activity diagram summarizes what happens when a user executes a new command:</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="UndoRedoActivityDiagram.png" alt="UndoRedoActivityDiagram" width="650">
-</div>
-</div>
-</div>
-<div class="sect3">
-<h4 id="design-considerations"><a class="link" href="#design-considerations">Design Considerations</a></h4>
-<div class="sect4">
-<h5 id="aspect-how-undo-redo-executes"><a class="link" href="#aspect-how-undo-redo-executes">Aspect: How undo &amp; redo executes</a></h5>
-<div class="ulist">
-<ul>
-<li>
-<p><strong>Alternative 1 (current choice):</strong> Saves the entire loan book.</p>
-<div class="ulist">
-<ul>
-<li>
-<p>Pros: Easy to implement.</p>
-</li>
-<li>
-<p>Cons: May have performance issues in terms of memory usage.</p>
-</li>
-</ul>
-</div>
-</li>
-<li>
-<p><strong>Alternative 2:</strong> Individual command knows how to undo/redo by itself.</p>
-<div class="ulist">
-<ul>
-<li>
-<p>Pros: Will use less memory (e.g. for <code>delete</code>, just save the loan being deleted).</p>
-</li>
-<li>
-<p>Cons: We must ensure that the implementation of each individual command are correct.</p>
-</li>
-</ul>
-</div>
-</li>
-</ul>
-</div>
-</div>
-<div class="sect4">
-<h5 id="aspect-data-structure-to-support-the-undo-redo-commands"><a class="link" href="#aspect-data-structure-to-support-the-undo-redo-commands">Aspect: Data structure to support the undo/redo commands</a></h5>
-<div class="ulist">
-<ul>
-<li>
-<p><strong>Alternative 1 (current choice):</strong> Use a list to store the history of loan book states.</p>
-<div class="ulist">
-<ul>
-<li>
-<p>Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.</p>
-</li>
-<li>
-<p>Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both <code>HistoryManager</code> and <code>VersionedLoanBook</code>.</p>
-</li>
-</ul>
-</div>
-</li>
-<li>
-<p><strong>Alternative 2:</strong> Use <code>HistoryManager</code> for undo/redo</p>
-<div class="ulist">
-<ul>
-<li>
-<p>Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.</p>
-</li>
-<li>
-<p>Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as <code>HistoryManager</code> now needs to do two different things.</p>
-</li>
-</ul>
-</div>
-</li>
-</ul>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="project-powerpointlabs"><a class="link" href="#project-powerpointlabs">PROJECT: PowerPointLabs</a></h2>
-<div class="sectionbody">
-<hr>
-<div class="paragraph">
-<p><em>{Optionally, you may include other projects in your portfolio.}</em></p>
-</div>
-</div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-12 13:45:53 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-12 13:53:47 UTC</div></div></div></body></html>

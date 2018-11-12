@@ -10,18 +10,26 @@
 <div id="toctitle">UserGuide</div>
 <ul class="sectlevel1">
 <li><a href="#introduction">1. Introduction</a></li>
-<li><a href="#quick-start">2. Quick Start</a></li>
-<li><a href="#Features">3. Features</a>
+<li><a href="#Quick-Start">2. Quick Start</a>
+<ul class="sectlevel2">
+<li><a href="#graphic-user-interface-gui">2.1. Graphic User Interface (GUI)</a></li>
+<li><a href="#using-commands">2.2. Using Commands</a></li>
+<li><a href="#registering-your-bicycles-into-loanbook">2.3. Registering Your Bicycles Into LoanBook</a></li>
+<li><a href="#renting-out-bicycles">2.4. Renting Out Bicycles</a></li>
+<li><a href="#returning-bicycles">2.5. Returning Bicycles</a></li>
+</ul>
+</li>
+<li><a href="#Commands">3. Commands</a>
 <ul class="sectlevel2">
 <li><a href="#viewing-help-code-help-code">3.1. Viewing help: <code>help</code></a></li>
 <li><a href="#adding-a-bike-code-addbike-code">3.2. Adding a bike: <code>addbike</code></a></li>
 <li><a href="#adding-a-loan-code-add-code">3.3. Adding a loan: <code>add</code></a></li>
 <li><a href="#listing-all-bikes-code-listbikes-code">3.4. Listing all bikes: <code>listbikes</code></a></li>
 <li><a href="#listing-all-loans-code-list-code">3.5. Listing all loans: <code>list</code></a></li>
-<li><a href="#coming-in-v1-4-editing-a-bike-code-editbike-code">3.6. [Coming in v1.4] Editing a bike : <code>editbike</code></a></li>
+<li><a href="#editing-a-bike-code-editbike-code">3.6. Editing a bike : <code>editbike</code></a></li>
 <li><a href="#editing-a-loan-code-edit-code">3.7. Editing a loan: <code>edit</code></a></li>
 <li><a href="#locating-loans-by-keywords-code-find-code">3.8. Locating loans by keywords: <code>find</code></a></li>
-<li><a href="#coming-in-v1-4-deleting-the-chosen-bike-from-the-loan-book-code-deletebike-code">3.9. [Coming in v1.4] Deleting the chosen bike from the loan book : <code>deletebike</code></a></li>
+<li><a href="#deleting-the-chosen-bike-from-the-loan-book-code-deletebike-code">3.9. Deleting the chosen bike from the loan book : <code>deletebike</code></a></li>
 <li><a href="#deleting-the-chosen-loan-from-the-loan-book-code-delete-code">3.10. Deleting the chosen loan from the loan book: <code>delete</code></a></li>
 <li><a href="#change-the-password-of-the-app-code-setpass-code">3.11. Change the password of the app: <code>setpass</code>.</a></li>
 <li><a href="#returning-a-loan-code-return-code">3.12. Returning a loan: <code>return</code></a></li>
@@ -55,8 +63,11 @@
 </div>
 </div>
 <div class="sect1">
-<h2 id="quick-start"><a class="link" href="#quick-start">2. Quick Start</a></h2>
+<h2 id="Quick-Start"><a class="link" href="#Quick-Start">2. Quick Start</a></h2>
 <div class="sectionbody">
+<div class="paragraph">
+<p>Here is a quick guide to help you set up the LoanBook application on your device.</p>
+</div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -68,30 +79,48 @@
 <li>
 <p>Run the .jar file. The GUI should appear in a few seconds.</p>
 </li>
-<li>
-<p>Type the command in the command box and press <kbd>ENTER</kbd> to execute it.<br>
-e.g. typing <strong><code>help</code></strong> and pressing <kbd>ENTER</kbd> will open the help window.</p>
-</li>
-<li>
-<p>Some example commands you can try:</p>
+</ol>
+</div>
+<div class="paragraph">
+<p>You should see a textbox near the top of the window with a blinking vertical line. If the textbox says "Enter command here&#8230;&#8203;" instead, click on the box with your mouse.</p>
+</div>
+<div class="paragraph">
+<p>To ensure that LoanBook is running smoothly, try typing <code>help</code> into the textbox, and then press <kbd>ENTER</kbd> to execute it. A new window containing this guide should pop up.</p>
+</div>
+<div class="sect2">
+<h3 id="graphic-user-interface-gui"><a class="link" href="#graphic-user-interface-gui">2.1. Graphic User Interface (GUI)</a></h3>
+<div class="paragraph">
+<p>A screenshot of the LoanBook app is shown below:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/Ui.png" alt="Ui" width="800">
+</div>
+</div>
+<div class="paragraph">
+<p>A brief description of each section:</p>
+</div>
 <div class="ulist">
 <ul>
 <li>
-<p><strong><code>list</code></strong> : List the status of the loanbook</p>
+<p>At the very top of the window are two <strong>dropdown menu</strong> s, labelled <code>File</code> and <code>Help</code>. You can access them with the mouse. The <code>File</code> menu allows you to exit LoanBook, while the <code>Help</code> menu lets you access this document.</p>
 </li>
 <li>
-<p><strong><code>add</code></strong><code>p/John hp/12345678 e/john@abc.com r/3 o/Bicycle-007</code> : Loans Bicycle-007 to John at a rate of $3 per hour</p>
+<p>Right below the dropdown menus is the <strong>command box</strong>. Here is where you type in the commands to be executed by the app.</p>
 </li>
 <li>
-<p><strong><code>delete</code></strong><code>i/1 x/a12345</code> : deletes the 1st loan shown in the current list</p>
+<p>Below the command box, the space is split horizontally into two sections. The left section is the <strong>list panel</strong>. Here is where a list of your bikes and loans will appear, together with some individual details on them.</p>
 </li>
 <li>
-<p><strong><code>resetall</code></strong> : Reset the loanbook</p>
+<p>The right section is the <strong>result display</strong>. Whenever you execute a command with the command box, this section will notify you of their outcome by displaying a message.</p>
+</li>
+<li>
+<p>At the bottom of the window is the <strong>status bar</strong>. It contains two texts. The text on the left displays when was the last time the LoanBook&#8217;s data was saved to the hard disk. The text on the right displays the file path of where the LoanBook data is saved, in relation to LoanBook&#8217;s root directory. If the terms here confuse you, you can simply ignore this section.</p>
 </li>
 </ul>
 </div>
-</li>
-</ol>
+<div class="paragraph">
+<p>The <strong>command box</strong>, <strong>list panel</strong> and <strong>result display</strong> are what you will be using the most in LoanBook.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -100,23 +129,193 @@ e.g. typing <strong><code>help</code></strong> and pressing <kbd>ENTER</kbd> wil
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-The default password for the app is <code>a12345</code>. This is required for some commands such as <code>resetall</code> and <code>delete</code>.
+When you are just starting out, the list panel and result display should be empty as there is no information in the LoanBook yet, so do not worry if you do not see anything there.
 </td>
 </tr>
 </table>
 </div>
-<div class="olist arabic">
-<ol class="arabic">
+</div>
+<div class="sect2">
+<h3 id="using-commands"><a class="link" href="#using-commands">2.2. Using Commands</a></h3>
+<div class="paragraph">
+<p>LoanBook uses a Command Line Interface (CLI), which means that it is fully usable with only your keyboard, no mouse required!</p>
+</div>
+<div class="paragraph">
+<p>When you type in anything on your keyboard, your input should appear in the command box. (If the command box says "Enter command here&#8230;&#8203;" instead, please click on the command box to select it. If you do not have a mouse, press <kbd>TAB</kbd> a few times until it is selected.)</p>
+</div>
+<div class="paragraph">
+<p>The commands in LoanBook follow this format: <code>&lt;KEYWORD&gt; &lt;PARAMETERS&#8230;&#8203;&gt;</code>. As an example, consider the following command: <code>delete i/1 x/a12345</code></p>
+</div>
+<div class="ulist">
+<ul>
 <li>
-<p>Refer to <a href="#Features">Section 3, &#8220;Features&#8221;</a> for details of each command.</p>
+<p><code>delete</code> is the command&#8217;s <strong>keyword</strong>. The keyword is used to identify which action from the LoanBook is being requested by you.</p>
 </li>
-</ol>
+<li>
+<p><code>i/1 x/a12345</code> specifies the command&#8217;s <strong>parameters</strong>. Parameters are separated by spaces, and each parameter consists of a prefix (e.g. <code>i</code> or <code>x</code>), followed by a forward slash (<code>/</code>), then the value of that parameter (e.g. <code>1</code> or <code>a12345</code>).</p>
+</li>
+</ul>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Note that some commands do not use prefixes for their parameters, while others do not even have parameters! Exactly what parameters are needed depends on the specific command, and they are all documented in <a href="#Commands">Section 3, &#8220;Commands&#8221;</a>.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Once you are done entering the command, just press <kbd>ENTER</kbd> to execute it. LoanBook will process your command and feedback the result to you using the result display.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+At any time, for a more detailed description of any command used, please check out <a href="#Commands">Section 3, &#8220;Commands&#8221;</a>. LoanBook will also remind you of the correct command format should you type anything in incorrectly. So do not worry, there is plenty of help at every step of the way.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Now that LoanBook is up and running and you are oriented with its GUI, it is time to set up your data within it.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="registering-your-bicycles-into-loanbook"><a class="link" href="#registering-your-bicycles-into-loanbook">2.3. Registering Your Bicycles Into LoanBook</a></h3>
+<div class="paragraph">
+<p>Before LoanBook can do anything, it needs to know what bicycles you have at your disposal.</p>
+</div>
+<div class="paragraph">
+<p>To register a bike into LoanBook, use the following command:</p>
+</div>
+<div class="paragraph">
+<p><code>addbike n/BIKE_NAME</code></p>
+</div>
+<div class="paragraph">
+<p>where <code>BIKE_NAME</code> is the name of your bicycle. It will be used to identify your bike, so it must be a unique name. Your bicycle&#8217;s ID number can be a good fit for this field.</p>
+</div>
+<div class="paragraph">
+<p>On success, you should see a message in the result display saying: "New bike added: <code>BIKE_NAME</code> Status: Available". If you receive an error, follow the instructions in the result display and try again.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Even though you have successfully registered a bicycle into LoanBook, you might be disappointed that nothing is appearing in the list panel. That is because LoanBook defaults to showing you the list of loans in the list panel, and you currently do not have any. To view the list of bikes instead, use the command <code>listbikes</code>. You should now see a list of the bike(s) that you just keyed in!
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Simply repeat this process until you have registered all your bikes within LoanBook.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="renting-out-bicycles"><a class="link" href="#renting-out-bicycles">2.4. Renting Out Bicycles</a></h3>
+<div class="paragraph">
+<p>Now that you have some bicycles within LoanBook, you can rent them out using the <code>add</code> command. The format for the <code>add</code> command is as follows:</p>
+</div>
+<div class="paragraph">
+<p><code>add n/NAME ic/NRIC p/PHONE e/EMAIL b/BIKE lr/LOANRATE [t/TAG]&#8230;&#8203;</code></p>
+</div>
+<div class="paragraph">
+<p>Do not be overwhelmed by the sudden increase in length! Let us take it bit by bit&#8230;&#8203;</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>add</code> is simply the command&#8217;s keyword.</p>
+</li>
+<li>
+<p><code>NAME</code> is the name of the customer who is renting a bike from you, e.g. <code>John Doe</code>.</p>
+</li>
+<li>
+<p><code>NRIC</code> is the customer&#8217;s NRIC number.</p>
+</li>
+<li>
+<p><code>PHONE</code> is the customer&#8217;s phone number, so that you know who to call if your bicycle is not returned on time.</p>
+</li>
+<li>
+<p><code>EMAIL</code> is the customer&#8217;s email address, so that you can send reminders and e-receipts to them.</p>
+</li>
+<li>
+<p><code>BIKE</code> is the name of the bike that you want to rent out to them. In the previous section, it was mentioned that the <code>BIKE_NAME</code> that you specify for a bike is used to identify that bike uniquely; here is where it comes into play.</p>
+</li>
+<li>
+<p><code>LOANRATE</code> is the rate at which you are charging your customer for the bicycle rental, in dollars per hour. This will help your financial calculations later.</p>
+</li>
+<li>
+<p><code>TAG</code> are optional labels that you can tag the loan with. They are simply there to keep better track of your loans, should you wish to use them. You can specify no tags at all, just one tag, or multiple tags (with each tag needing a separate <code>t/</code> prefix).</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>In summary, most of the parameters you specify here are simply customer-specific data. Once you iron out the details of the rental with them, this command is as easy as any other. Simply fill in the details and you should see a success message: "New loan added: (&#8230;&#8203;)", showing you all the details of the transaction.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Right now, LoanBook should still be displaying the list of bikes. To get it to display the list of loans again, simply use the <code>list</code> command. You should see the new loan you added at the bottom of the list. You can toggle between these two lists at will using the <code>list</code> and <code>listbikes</code> commands.
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+A further visual cue to help you differentiate whether you are viewing the list of bikes or of loans is that the list of bikes is coloured blue, while the list of loans is coloured yellow-brown.
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="returning-bicycles"><a class="link" href="#returning-bicycles">2.5. Returning Bicycles</a></h3>
+<div class="paragraph">
+<p>Once your customer is done enjoying themself, it is time to conclude the loan. This is done using the <code>return</code> command:</p>
+</div>
+<div class="paragraph">
+<p><code>return i/LIST_INDEX</code></p>
+</div>
+<div class="paragraph">
+<p>The <code>LIST_INDEX</code> is simply the index of the loan that you want to return in the list panel. It is <strong>not</strong> the Loan ID.</p>
+</div>
+<div class="paragraph">
+<p>If the returning is successful, you should see a message in the result display saying "Loan Returned: (&#8230;&#8203;)" followed by the details of the loan. You will also get to see how much you should charge the customer for renting out your bike for as long as they did.</p>
+</div>
+<div class="paragraph">
+<p>And using LoanBook is as simple as that!</p>
+</div>
+<div class="paragraph">
+<p>Of course, LoanBook supports a multitude of additional functionalities that will help to facilitate your bicycle rental management even further. The next section lists all the commands that you can try out once you are comfortable with the basic process above. Good luck and happy renting!</p>
+</div>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="Features"><a class="link" href="#Features">3. Features</a></h2>
+<h2 id="Commands"><a class="link" href="#Commands">3. Commands</a></h2>
 <div class="sectionbody">
+<div class="paragraph">
+<p>This section contains detailed info on the usage and behaviour for every command in the LoanBook.</p>
+</div>
 <div class="exampleblock">
 <div class="content">
 <div class="paragraph">
@@ -239,8 +438,8 @@ This is not the only way to get help! If you key in the commands with the wrong 
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<code>PERSON_PHONE_NO</code> and <code>PERSON_EMAIL</code> should not be blank.<br>
-<code>BIKE_NAME</code> must be the name of a bicycle that has already been registered into the LoanBook.<br>
+<code>PHONE</code> and <code>EMAIL</code> should not be blank.<br>
+<code>BIKE</code> must be the name of a bicycle that has already been registered into the LoanBook.<br>
 <code>LOANRATE</code> is in dollars per hour.
 </td>
 </tr>
@@ -289,10 +488,10 @@ This is not the only way to get help! If you key in the commands with the wrong 
 </div>
 </div>
 <div class="sect2">
-<h3 id="coming-in-v1-4-editing-a-bike-code-editbike-code"><a class="link" href="#coming-in-v1-4-editing-a-bike-code-editbike-code">3.6. [Coming in v1.4] Editing a bike : <code>editbike</code></a></h3>
+<h3 id="editing-a-bike-code-editbike-code"><a class="link" href="#editing-a-bike-code-editbike-code">3.6. Editing a bike : <code>editbike</code></a></h3>
 <div class="paragraph">
 <p>To keep the system updated with any changes in the bicycles, this command allows details of a bicycle to be edited.<br>
-<span class="big"><strong>Format</strong>: <code>edit BIKE_NAME [n/NEW_BIKE_NAME]</code></span></p>
+<span class="big"><strong>Format</strong>: <code>editbike BIKE_NAME [n/NEW_BIKE_NAME]</code></span></p>
 </div>
 <div class="ulist">
 <ul>
@@ -302,6 +501,9 @@ This is not the only way to get help! If you key in the commands with the wrong 
 <li>
 <p>Existing values will be updated to the input values. Any values not specified in the command will be unchanged.</p>
 </li>
+<li>
+<p>You cannot edit a bike&#8217;s name to be the same as another existing bike in the LoanBook.</p>
+</li>
 </ul>
 </div>
 <div class="paragraph">
@@ -310,7 +512,7 @@ This is not the only way to get help! If you key in the commands with the wrong 
 <div class="ulist">
 <ul>
 <li>
-<p><code>edit Bike 1 n/Bike-001</code><br>
+<p><code>editbike Bike 1 n/Bike-001</code><br>
 For the bicycle named "Bike 1", its name is changed to "Bike-001", as long as "Bike-001" isn&#8217;t already the name of another registered bicycle.</p>
 </li>
 </ul>
@@ -339,7 +541,7 @@ For the bicycle named "Bike 1", its name is changed to "Bike-001", as long as "B
 <div class="ulist">
 <ul>
 <li>
-<p>Edits the loan at the specified <code>LOAN_INDEX</code>. This LOAN_INDEX refers to the LOAN_INDEX number shown in the displayed loan list. The LOAN_INDEX <strong>must be a positive integer</strong> 1, 2, 3, &#8230;&#8203;</p>
+<p>Edits the loan at the specified <code>LIST_INDEX</code>. This LIST_INDEX refers to the LIST_INDEX number shown in the displayed loan list. The LIST_INDEX <strong>must be a positive integer</strong> 1, 2, 3, &#8230;&#8203;</p>
 </li>
 <li>
 <p>At least one of the optional fields must be provided.</p>
@@ -461,10 +663,10 @@ You need to provide at least one keyword. If not, LoanBook will not be able to p
 </div>
 </div>
 <div class="sect2">
-<h3 id="coming-in-v1-4-deleting-the-chosen-bike-from-the-loan-book-code-deletebike-code"><a class="link" href="#coming-in-v1-4-deleting-the-chosen-bike-from-the-loan-book-code-deletebike-code">3.9. [Coming in v1.4] Deleting the chosen bike from the loan book : <code>deletebike</code></a></h3>
+<h3 id="deleting-the-chosen-bike-from-the-loan-book-code-deletebike-code"><a class="link" href="#deleting-the-chosen-bike-from-the-loan-book-code-deletebike-code">3.9. Deleting the chosen bike from the loan book : <code>deletebike</code></a></h3>
 <div class="paragraph">
 <p>Deletes a bike from the loan book.<br>
-<span class="big"><strong>Format</strong>: <code>deletebike BIKE_NAME x/CURRENT_PASSWORD</code></span></p>
+<span class="big"><strong>Format</strong>: <code>deletebike n/BIKE_NAME x/CURRENT_PASSWORD</code></span></p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -473,7 +675,7 @@ You need to provide at least one keyword. If not, LoanBook will not be able to p
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-The command will be rejected if there are any ongoing loans that use that bicycle. Return or delete those loans first.
+(Coming in v2.0) The command will be rejected if there are any ongoing loans that use that bicycle. Return or delete those loans first.
 </td>
 </tr>
 </table>
@@ -484,7 +686,7 @@ The command will be rejected if there are any ongoing loans that use that bicycl
 <div class="ulist">
 <ul>
 <li>
-<p><code>delete Bike 1 x/a12345</code><br>
+<p><code>delete n/Bike 1 x/a12345</code><br>
 Deletes the bicycle with the name of "Bike 1".</p>
 </li>
 </ul>
@@ -493,15 +695,15 @@ Deletes the bicycle with the name of "Bike 1".</p>
 <div class="sect2">
 <h3 id="deleting-the-chosen-loan-from-the-loan-book-code-delete-code"><a class="link" href="#deleting-the-chosen-loan-from-the-loan-book-code-delete-code">3.10. Deleting the chosen loan from the loan book: <code>delete</code></a></h3>
 <div class="paragraph">
-<p>Delete the loan from the loan book. If you want to delete one loan, use <code>delete i/LOAN_INDEX x/CURRENT_PASSWORD</code>.
+<p>Delete the loan from the loan book. If you want to delete one loan, use <code>delete i/LIST_INDEX x/CURRENT_PASSWORD</code>.
 Due to <code>delete</code> modifying transactional summary, it is a critical command and hence elevation is required hence the password field.<br>
-<span class="big"><strong>Format</strong>: <code>delete i/LOAN_INDEX x/CURRENT_PASSWORD</code></span></p>
+<span class="big"><strong>Format</strong>: <code>delete i/LIST_INDEX x/CURRENT_PASSWORD</code></span></p>
 </div>
 <div class="paragraph">
 <p><span class="big red">List of Parameters</span>:</p>
 </div>
 <div class="paragraph">
-<p><code>i/LOAN_INDEX</code>: Index of the loan, in the left hand side display.<br>
+<p><code>i/LIST_INDEX</code>: Index of the loan, in the left hand side display.<br>
 <code>x/CURRENT_PASSWORD</code>: Password used in the LoanBook.</p>
 </div>
 <div class="sidebarblock">
@@ -509,7 +711,7 @@ Due to <code>delete</code> modifying transactional summary, it is a critical com
 <div class="ulist">
 <ul>
 <li>
-<p>Deletes the loan at the specified <code>i/LOAN_INDEX</code>.</p>
+<p>Deletes the loan at the specified <code>i/LIST_INDEX</code>.</p>
 </li>
 <li>
 <p>Note that this does not reset <code>LOAN_ID</code>.</p>
@@ -607,16 +809,16 @@ Set the password of the app to <code>n3wP4sS</code>.</p>
 <p>So how do you even return a loan that you have loaned out? You can do so with this simple command! In fact, we see your pains trying to calculate the amount payable on a calculator, so we decided to help you out by doing all the number crunching for you.</p>
 </div>
 <div class="paragraph">
-<p>This command marks a loan as returned based on LOAN_INDEX and automatically prints out the amount payable. The amount payable will be prorated and rounded down to the nearest minute.<br></p>
+<p>This command marks a loan as returned based on LIST_INDEX and automatically prints out the amount payable. The amount payable will be prorated and rounded down to the nearest minute.<br></p>
 </div>
 <div class="paragraph">
-<p><span class="big"><strong>Format</strong>: <code>return i/LOAN_INDEX</code></span></p>
+<p><span class="big"><strong>Format</strong>: <code>return i/LIST_INDEX</code></span></p>
 </div>
 <div class="paragraph">
 <p><span class="big red">List of Parameters</span>:</p>
 </div>
 <div class="paragraph">
-<p><code>i/LOAN_INDEX</code>: Index of the loan, in the left hand side display.<br></p>
+<p><code>i/LIST_INDEX</code>: Index of the loan, in the left hand side display.<br></p>
 </div>
 <div class="admonitionblock tip">
 <table>
@@ -1087,4 +1289,4 @@ will be resolved in v2.0.</p>
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-12 13:45:53 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-12 13:53:47 UTC</div></div></div></body></html>

@@ -36,7 +36,7 @@
 <li><a href="#summary-feature">3.5. Summary Feature</a></li>
 <li><a href="#logging">3.6. Logging</a></li>
 <li><a href="#Implementation-Configuration">3.7. Configuration</a></li>
-<li><a href="#bicycle-management">3.8. Bicycle Management</a></li>
+<li><a href="#Implementation-Bicycle-Management">3.8. Bicycle Management</a></li>
 <li><a href="#hide-private-information">3.9. Hide private information</a></li>
 <li><a href="#send-reminder-email-feature">3.10. Send Reminder Email feature</a></li>
 <li><a href="#proposed-improved-code-delete-code-functionality">3.11. [Proposed] Improved <code>delete</code> functionality</a></li>
@@ -541,10 +541,10 @@ Note how the event is propagated through the <code>EventsCenter</code> to the <c
 <p>Stores the LoanBook data.</p>
 </li>
 <li>
-<p>Exposes an unmodifiable <code>ObservableList&lt;Loan&gt;</code> that can be 'observed' by the UI, so that the UI automatically updates when the data in the model changes.</p>
+<p>Stores the user&#8217;s preferences.</p>
 </li>
 <li>
-<p>Stores the user&#8217;s preferences.</p>
+<p>Exposes an unmodifiable <code>ObservableList&lt;Loan&gt;</code> that can be 'observed' by the UI, so that the UI automatically updates when the data in the model changes.</p>
 </li>
 <li>
 <p>Does not depend on any of the other three components.</p>
@@ -577,7 +577,7 @@ Note how the event is propagated through the <code>EventsCenter</code> to the <c
 <div class="title">Figure 8. Structure of the Model Component</div>
 </div>
 <div class="paragraph">
-<p><strong>API</strong> : <a href="https://github.com/CS2103-AY1819S1-F10-2/main/tree/master/src/main/java/loanbook/model/Model.java"><code>Model.java</code></a></p>
+<p><strong>API file</strong>: <a href="https://github.com/CS2103-AY1819S1-F10-2/main/tree/master/src/main/java/loanbook/model/Model.java"><code>Model.java</code></a></p>
 </div>
 <div class="paragraph">
 <p>The API is backed by a <code>ModelManager</code> which contains:</p>
@@ -596,7 +596,7 @@ Note how the event is propagated through the <code>EventsCenter</code> to the <c
 </ul>
 </div>
 <div class="paragraph">
-<p>Most operations passed to the <code>Model</code> component deals with its <code>VersionedLoanBook</code>. A <code>VersionedLoanBook</code> is simply a regular <code>LoanBook</code> that keeps track of its own history, for the undo/redo operation. The <code>LoanBook</code> itself contains:</p>
+<p>Most operations passed to the <code>Model</code> component deal with its <code>VersionedLoanBook</code>. A <code>VersionedLoanBook</code> is simply a regular <code>LoanBook</code> that keeps track of its own history, for the undo/redo operation. The <code>LoanBook</code> itself contains:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -642,7 +642,7 @@ Note how the event is propagated through the <code>EventsCenter</code> to the <c
 </table>
 </div>
 <div class="paragraph">
-<p>Most of the commands passed into the <code>Model</code> are forwarded to its <code>LoanBook</code>, who then executes these commands on the <code>Bike</code> and <code>Loan</code> lists that it has.</p>
+<p>Most of the commands passed into the <code>Model</code> are forwarded to its <code>LoanBook</code>, which then executes these commands on the <code>Bike</code> and <code>Loan</code> lists that it has.</p>
 </div>
 <div class="paragraph">
 <p>A <code>Loan</code> contains:</p>
@@ -656,7 +656,7 @@ Note how the event is propagated through the <code>EventsCenter</code> to the <c
 <p>The <code>Bike</code> that the customer is renting.</p>
 </li>
 <li>
-<p>A <code>LoanStatus</code> used signal whether this <code>Loan</code> is <code>Ongoing</code>, <code>Returned</code> or <code>Deleted</code>.</p>
+<p>A <code>LoanStatus</code> used to signal whether this <code>Loan</code> is <code>Ongoing</code>, <code>Returned</code> or <code>Deleted</code>.</p>
 </li>
 <li>
 <p>A <code>LoanId</code> used for identifying this <code>Loan</code>.</p>
@@ -678,9 +678,24 @@ Note how the event is propagated through the <code>EventsCenter</code> to the <c
 <div class="ulist">
 <ul>
 <li>
-<p>A <code>Name</code> used for identifying this Bike.</p>
+<p>A <code>Name</code> used for identifying this <code>Bike</code>.</p>
+</li>
+<li>
+<p>A <code>BikeStatus</code> reflecting the current status of this <code>Bike</code>, e.g. whether it&#8217;s available for rental, loaned out, under repair etc.</p>
 </li>
 </ul>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+Currently, the <code>BikeStatus</code> field within the <code>Bike</code> class is present but not being used for anything. A future use of this field is proposed in the section on <a href="#Implementation-Bicycle-Management">Bicycle Management</a>.
+</td>
+</tr>
+</table>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -1694,15 +1709,15 @@ First, the sequence diagram of command parsing:</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="bicycle-management"><a class="link" href="#bicycle-management">3.8. Bicycle Management</a></h3>
+<h3 id="Implementation-Bicycle-Management"><a class="link" href="#Implementation-Bicycle-Management">3.8. Bicycle Management</a></h3>
 <div class="paragraph">
-<p>As bicycles have a lot of properties, statuses and actions associated with them, they are represented in the code base as a dedicated <code>Bike</code> class.</p>
+<p>As bicycles potentially have a lot of properties, statuses and actions associated with them, they are represented in the code base as a dedicated <code>Bike</code> class.</p>
 </div>
 <div class="paragraph">
-<p>Each <code>LoanBook</code> will have its own list of <code>Bike</code> s, representing all the bicycles that a bicycle shop owner has at their disposal. For the most part, the list of bicycles will be maintained in the same way as the list of loans.</p>
+<p>Each <code>LoanBook</code> has its own list of <code>Bike</code> s, representing all the bicycles that a bicycle shop owner has at their disposal. Please refer to the class diagram under the <a href="#Design-Model"><code>Model</code></a> section of this guide for a full view of how <code>Bike</code> s are handled within LoanBook.</p>
 </div>
 <div class="paragraph">
-<p>Every bicycle will have the following members:</p>
+<p>Every bicycle has the following members:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -1710,41 +1725,84 @@ First, the sequence diagram of command parsing:</p>
 <p><code>name</code>: A name that uniquely identifies the bicycle, e.g. the bicycle&#8217;s serial number.</p>
 </li>
 <li>
-<p><code>status</code>: The bicycle&#8217;s current status that represents where it is or what it is doing, e.g. <code>Available</code>, <code>Loaned Out</code>, <code>On Display</code>, <code>Under Repair</code>.</p>
-</li>
-<li>
-<p><code>loanHistory</code>: A list of past loans associated with this bicycle, sorted chronologically.</p>
-</li>
-<li>
-<p><code>loanReserves</code>: A list of future loans (i.e. reservations) associated with this bicycle, sorted chronologically.</p>
-</li>
-<li>
-<p>Traits that characterize the bicycle, such as <code>brand</code>, <code>model</code>, <code>top speed</code>, <code>wheel size</code>, <code>weight</code>, <code>material</code> etc.</p>
+<p><code>status</code>: The bicycle&#8217;s current status that represents where it is or what it is doing, e.g. <code>AVAILABLE</code>, <code>LOANED_OUT</code>.</p>
 </li>
 </ul>
 </div>
 <div class="paragraph">
-<p>The new structure of the Loan Book is demonstrated in the class diagram below:</p>
+<p><code>Bike</code> s are uniquely identified by their name, playing the same role as the <code>id</code> field for <code>Loan</code> s.</p>
+</div>
+<div class="paragraph">
+<p>This implementation of bicycles affects existing commands in the following ways:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>When <code>add</code> ing a new <code>Loan</code> to the LoanBook, LoanBook first checks if the <code>Bike</code> name provided by the command refers to an existing <code>Bike</code> within the LoanBook, and will reject the command if LoanBook does not. This check can only be done at the execution stage of the command (opposed to the parsing stage), as it requires specific knowledge of the model that it is acting on. A sequence diagram describing this behaviour in further detail is shown below:</p>
+</li>
+</ul>
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="images/BicycleManagementClassDiagram.png" alt="BicycleManagementClassDiagram" width="720">
+<img src="images/BicycleManagementAddLoanSequenceDiagram.png" alt="BicycleManagementAddLoanSequenceDiagram" width="800">
 </div>
 </div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-Why does the bicycle track loans using two lists, instead of collating them into one big list? Because each list has a specific category of loans and it is more common to encounter situations that deal with only one of the lists (e.g. checking transaction history, or checking for clashes with reservations), rather than both.
-</td>
-</tr>
-</table>
+<div class="ulist">
+<ul>
+<li>
+<p>Similarly, when editing a loan, LoanBook also checks that the new <code>Bike</code> assigned to the loan exists within the LoanBook before it accepts the operation.</p>
+</li>
+</ul>
 </div>
 <div class="paragraph">
-<p>Every <code>Loan</code> will have a reference to exactly one <code>Bike</code>: the bicycle that is loaned out. Conversely, every <code>Bike</code> has two lists of references of <code>Loan</code> s, which track the bicycle&#8217;s loan history and future reservations.</p>
+<p>The list of bicycles is maintained in largely the same way as the list of loans. The equivalent commands of <code>add</code>, <code>edit</code>, <code>delete</code> and <code>list</code> for maintaining the list of <code>Bike</code> s are <code>addbike</code>, <code>editbike</code>, <code>deletebike</code> and <code>listbikes</code> respectively.</p>
+</div>
+<div class="paragraph">
+<p>Please refer to the User Guide for the basic functionality for these commands. The following subsections describe additional points to note for these commands, such as differences from the corresponding commands for loans.</p>
+</div>
+<div class="sect3">
+<h4 id="adding-a-bike-code-addbike-code"><a class="link" href="#adding-a-bike-code-addbike-code">3.8.1. Adding a bike: <code>addbike</code></a></h4>
+<div class="paragraph">
+<p><code>addbike</code> checks if there is a <code>Bike</code> with the same name already in the LoanBook, and rejects the command if so.</p>
+</div>
+<div class="paragraph">
+<p>On the other hand, <code>add</code> does not check for "duplicate loans" as loans are automatically differentiated via their <code>LoanID</code>, even if all other parameters are the same.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="editing-a-bike-s-details-code-editbike-code"><a class="link" href="#editing-a-bike-s-details-code-editbike-code">3.8.2. Editing a bike&#8217;s details: <code>editbike</code></a></h4>
+<div class="paragraph">
+<p><code>editbike</code> similarly checks if the <code>Bike</code> to be edited exists within the LoanBook, and whether the <code>Bike</code> 's new name, if specified, is the same as another <code>Bike</code> in the LoanBook.</p>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>In the ideal scenario, when a <code>Bike</code> is updated within LoanBook, all <code>Loan</code> s associated with it should be updated as well. Due to time constraints however, this feature has not been implemented. Here are two possible ways to implement this feature:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Make the <code>Bike</code> class mutable, so that by having a reference to the <code>Bike</code> object, <code>Loan</code> s will always be updated to the latest information. However, having a mutable class within the LoanBook may break the undo/redo feature, thus you should be careful when implementing this.</p>
+</li>
+<li>
+<p>Whenever a <code>Bike</code> is updated, every <code>Loan</code> that references the <code>Bike</code> is manually updated. However, this is computationally unfavourable and there is more room for error, such as having un-updated <code>Bike</code> s left in the LoanBook.</p>
+</li>
+</ul>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect3">
+<h4 id="deleting-a-bike-code-deletebike-code"><a class="link" href="#deleting-a-bike-code-deletebike-code">3.8.3. Deleting a bike: <code>deletebike</code></a></h4>
+<div class="paragraph">
+<p>Deleting <code>Bike</code> s from the LoanBook is currently quite unrestrictive: no constraints are imposed on the <code>Bike</code> that is being deleted.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -1753,76 +1811,121 @@ Why does the bicycle track loans using two lists, instead of collating them into
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-This makes the <code>LoanBook</code> 's list of loans a little harder to manage, due to the extra references. However, we have chosen to implement it anyway as referencing a bicycle&#8217;s history is a very useful and frequently used operation. To manage the deletion of loans, the loan will be dereferenced from the Bike it references before it gets deleted. The sequence diagram below demonstrates this process:
+This idea has not been implemented yet, but due to the dependency of <code>Loan</code> s on <code>Bike</code> s, it can be enforced that any bicycle that has been loaned out at least once should not be deleted from the system, merely archived and labelled <code>Decommissioned</code> instead. The <code>Bike</code> can still be deleted completely if all of the <code>Loan</code> s associated with it are deleted (i.e. invalidated) first.
 </td>
 </tr>
 </table>
+</div>
+</div>
+<div class="sect3">
+<h4 id="viewing-the-list-of-bikes-in-the-ui-code-listbikes-code"><a class="link" href="#viewing-the-list-of-bikes-in-the-ui-code-listbikes-code">3.8.4. Viewing the list of bikes in the UI: <code>listbikes</code></a></h4>
+<div class="paragraph">
+<p>The only purpose of the <code>listbikes</code> command is to toggle the UI to show the list of bikes. To return to viewing the list of loans, use the <code>list</code> command.</p>
+</div>
+<div class="paragraph">
+<p>Internally, the <code>MainWindow</code> class of LoanBook keeps track of two separate UI elements: a <code>BikeListPanel</code> and a <code>LoanListPanel</code>, both inheriting from a <code>ListPanel</code> object. It also keeps track of which list is currently active (i.e. displayed to the user) by using a <code>ListPanel</code> pointer, so that only the <code>ListPanel</code> referred to by this pointer is displayed. When the <code>MainWindow</code> receives a signal (an event thrown by <code>list</code> or <code>listbikes</code>) to toggle which list is being displayed, it simply reassigns this pointer and rebuilds the display.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="future-considerations"><a class="link" href="#future-considerations">3.8.5. Future Considerations</a></h4>
+<div class="sect4">
+<h5 id="tracking-the-status-of-bikes"><a class="link" href="#tracking-the-status-of-bikes">Tracking the status of bikes</a></h5>
+<div class="paragraph">
+<p>As mentioned in the <a href="#Design-Model"><code>Model</code></a> section earlier in this guide, a <code>BikeStatus</code> is currently present in the <code>Bike</code> class but does not do anything.</p>
+</div>
+<div class="paragraph">
+<p>This sub-feature aims to enhance the existing purpose of the Bicycle Management feature: keep better track of bicycles and prevent invalid transactions from being carried out.</p>
+</div>
+<div class="paragraph">
+<p>One way which this sub-feature can accomplish this is by using a <code>BikeStatus</code> to indicate whether the <code>Bike</code> is available or not for rental.</p>
+</div>
+<div class="paragraph">
+<p>The activity diagram below demonstrates how this sub-feature could be implemented for the loaning out of bicycles:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/BikeStatusAddLoanActivityDiagram.png" alt="BikeStatusAddLoanActivityDiagram" width="600">
+</div>
+</div>
+<div class="paragraph">
+<p>And this acitivty dragram demonstrates the same for returning bicycles:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/BikeStatusReturnLoanActivityDiagram.png" alt="BikeStatusReturnLoanActivityDiagram" width="600">
+</div>
+</div>
+<div class="paragraph">
+<p>Additionally, the deletion of a <code>Bike</code> can be denied if the <code>Bike</code> does not currently have a suitable status, such as being loaned out.</p>
+</div>
+<div class="paragraph">
+<p>This sub-feature can be further expanded with additional <code>BikeStatus</code> es other than <code>AVAILABLE</code> and <code>LOANED_OUT</code>. Such statuses could reflect an unavailability for rental for reasons other than already being loaned out. For example:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>NEEDS_REPAIR</code>: Signals that the <code>Bike</code> is not suitable for rental as it is damaged, thus creating a hazard for customers.</p>
+</li>
+<li>
+<p><code>UNDER_REPAIR</code>: Signals that the <code>Bike</code> is not available for rental as it is currently with a repairman undergoing servicing.</p>
+</li>
+<li>
+<p><code>ON_DISPLAY</code>: Signals that the <code>Bike</code> is not suitable for rental as it is currently being used for display, to attract customers.</p>
+</li>
+<li>
+<p><code>MISSING</code>: Signals that the <code>Bike</code> is not available for rental as its location is unaccounted for; perhaps the last customer lost it, or it was stolen during the night.</p>
+</li>
+<li>
+<p><code>DECOMMISSIONED</code>: Signals that the <code>Bike</code> is no longer for rental for whatever reason (e.g. not economically feasible to repair), but remains in the LoanBook for administrative or archiving purposes.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect4">
+<h5 id="tracking-the-loans-of-a-bike"><a class="link" href="#tracking-the-loans-of-a-bike">Tracking the loans of a bike</a></h5>
+<div class="paragraph">
+<p><code>Loan</code> s already refer to <code>Bike</code> s, but <code>Bike</code> s can also track a list of references to the <code>Loan</code> s that loan them out. This could be especially useful for digging up the history of a particular <code>Bike</code> for investigative or analytical purposes.</p>
+</div>
+<div class="paragraph">
+<p>This will make the <code>LoanBook</code> 's list of loans a little harder to manage, due to the extra references. To manage the deletion of loans, the loan will have to be dereferenced from the Bike it references before it gets deleted. The sequence diagram below demonstrates this process:</p>
 </div>
 <div class="imageblock">
 <div class="content">
 <img src="images/DeleteLoanSequenceDiagram.png" alt="DeleteLoanSequenceDiagram" width="800">
 </div>
 </div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-Due to the dependency of <code>Loan</code> s on <code>Bike</code> s, any bicycle that has been loaned out at least once will never be deleted from the system, merely archived and labelled <code>Decommissioned</code>. The <code>Bike</code> can still be deleted completely if all of the <code>Loan</code> s associated with it are deleted (i.e. invalidated) first.
-</td>
-</tr>
-</table>
 </div>
+<div class="sect4">
+<h5 id="more-bike-properties"><a class="link" href="#more-bike-properties">More bike properties</a></h5>
 <div class="paragraph">
-<p>Using this framework, it is now more efficient to implement and use a set of mini-features and operations to facilitate bicycle management, as detailed in the following sections:</p>
-</div>
-<div class="sect3">
-<h4 id="visible-bicycle-statuses"><a class="link" href="#visible-bicycle-statuses">3.8.1. Visible bicycle statuses</a></h4>
-<div class="paragraph">
-<p>The current availability of bicycles are tracked by LoanBook. Bicycles can thus be filtered by whether they are available or not, and the available ones are readily visible in the UI.</p>
-</div>
-</div>
-<div class="sect3">
-<h4 id="invalid-loans"><a class="link" href="#invalid-loans">3.8.2. Invalid loans</a></h4>
-<div class="paragraph">
-<p>Loaning out a particular bicycle during the time which it is unavailable or has already been reserved will be denied. This prevents accidents in loaning out bicycles.</p>
+<p>Additional fields can be added to the <code>Bike</code> class to track more properties specific to those <code>Bike</code> s. For example:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>When attempting to loan out a bicycle, the associated bicycle is retrieved from the system.</p>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-The loan will be rejected if no bicycle is found that matches the bicycle name provided.
-</td>
-</tr>
-</table>
-</div>
+<p>The bicycle&#8217;s brand, make and model.</p>
 </li>
 <li>
-<p>If the loan will take effect immediately, the bicycle&#8217;s status is checked. If the bicycle is unavailable, the loan is rejected, and the bicycle&#8217;s status is reported to the user.</p>
+<p>The bicycle&#8217;s material and weight.</p>
 </li>
 <li>
-<p>If the loan is a reservation, i.e. it schedules a loan for the future, the bicycle&#8217;s future reservations are checked. LoanBook will attempt to insert the reservation into the list of existing reservations. If the reservation clashes with the one directly before or after it, the loan is rejected, and the clash is reported to the user.</p>
+<p>The bicycle&#8217;s length, height and wheel size.</p>
+</li>
+<li>
+<p>The bicycle&#8217;s top speed and braking power.</p>
+</li>
+<li>
+<p>How many gears the bicycle has, if at all.</p>
 </li>
 </ul>
 </div>
-</div>
-<div class="sect3">
-<h4 id="bicycles-for-particular-needs"><a class="link" href="#bicycles-for-particular-needs">3.8.3. Bicycles for particular needs</a></h4>
 <div class="paragraph">
-<p>The list of bicycles can be filtered using the same algorithm to filter the list of loans in order to find bicycles with particular properties, to suit particular customer&#8217;s needs or activities.</p>
+<p>These fields can then be filtered to find <code>Bike</code> s that could better suit a customer&#8217;s needs.</p>
+</div>
 </div>
 </div>
 <div class="sect3">
-<h4 id="design-considerations-6"><a class="link" href="#design-considerations-6">3.8.4. Design Considerations</a></h4>
+<h4 id="design-considerations-6"><a class="link" href="#design-considerations-6">3.8.6. Design Considerations</a></h4>
 <div class="sect4">
 <h5 id="aspect-internal-representation-of-bicycles"><a class="link" href="#aspect-internal-representation-of-bicycles">Aspect: Internal representation of bicycles</a></h5>
 <div class="ulist">
@@ -2172,7 +2275,7 @@ If it throws a <code>CommandException</code> with authentication failed message 
 </div>
 </div>
 <div class="sect3">
-<h4 id="future-considerations"><a class="link" href="#future-considerations">3.10.3. Future considerations</a></h4>
+<h4 id="future-considerations-2"><a class="link" href="#future-considerations-2">3.10.3. Future considerations</a></h4>
 <div class="paragraph">
 <p>We plan to add a feature that can automatically send an e-receipt to the customer after <code>return</code> ing a loan.</p>
 </div>
@@ -3861,4 +3964,4 @@ Expected: Failure message "No connection to the network!" will show. The email i
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-12 13:45:53 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-12 13:53:47 UTC</div></div></div></body></html>
