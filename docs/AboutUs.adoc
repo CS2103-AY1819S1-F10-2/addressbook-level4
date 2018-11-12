@@ -21,7 +21,7 @@ Responsibilities: Integration + Git expert
 
 === Liu Xiaohang
 image::kelly9373.png[width="150", align="left"]
-{empty}[https://github.com/Kelly9373[github]] [<<Xiaohang#, portfolio>>]
+{empty}[https://github.com/Kelly9373[github]] [<<kelly9373#, portfolio>>]
 
 Role: Developer +
 Responsibilities: Storage + Documentation
