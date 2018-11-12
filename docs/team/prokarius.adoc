@@ -243,3 +243,69 @@ image::ReturnSequenceLogic.png[width="450"]
 ** Pros: Computing the `summary` of the LoanBook would be much easier, and quicker.
 ** Cons: `return` functionality would run much slower, as there will be empty slots in the ArrayList after shifting the Loan objects around. Searching for loans would also be much more difficult, as the results from the various Loan ArrayLists has to be appended together.
 
+
+=== Instructions for Manual Testing
+==== Return a loan functionality
+
+Prerequisites: List all loans using the list command. Ensure there are multiple loans in the list.
+
+. Returning a valid loan
+
+.. Choose a loan that has not been returned. These loans are marked with the ONGOING tag. Find the index number of it and run `return i/<INDEX>`. +
+   Expected: The loan is returned successfully. The display message details that the loan has been deleted, and gives a suggestion for the cost price of the duration of the loan.
+
+.. Choose another ongoing loan from the list and run `return i/<INDEX>`. +
+   Expected: The loan is returned successfully as well. The display message details that the loan has been deleted, and gives a suggestion for the cost price of the duration of the loan.
+
+. Negative tests:
+.. Test case: `return i/0` +
+   Expected: No loan is returned. Error details shown in the status message, the message should say "the specified index is invalid" in this case. Status bar remains the same.
+.. Other incorrect `return` commands to try:
+... `return`
+... `return i/x` (where `x` is larger than the list size)
+... `return i/aaa` (Where `aaa` is a string)
+... `return i/y` (where `y` is the index of a loan that is not `ONGOING`). +
+
+==== Summary functionality
+
+Use the `summary` command on various sizes of the LoanBook to test this functionality
+
+. Create an empty LoanBook and run the `summary` command. +
+Expected: The summary should report the following:
+** Total loans: 0
+** Loans in progress: 0
+** Returned loans: 0
+** Total product loan time: 0 minutes
+** Total revenue: $0.00
+
+. Add 1 loan with a rate of $30/hr. Run the `summary` command. +
+Expected: The displayed page should report the following:
+** Total loans: 1
+** Loans in progress: 1
+** Returned loans: 0
+** Total product loan time: 0 minutes
+** Total revenue: $0.00
+
+. Add 3 more loans with rates $120/hr. Run the `summary` command. +
+Expected: The displayed page should report the following:
+** Total loans: 4
+** Loans in progress: 4
+** Returned loans: 0
+** Total product loan time: 0 minutes
+** Total revenue: $0.00
+
+. Return the first loan that you have added from above after exactly 1 minute, and run the `summary` command. +
+Expected: The displayed page should report the following:
+** Total loans: 4
+** Loans in progress: 3
+** Returned loans: 1
+** Total product loan time: 1 minutes
+** Total revenue: $0.50
+
+. Return 2 of the 3 loans that you have added from above after exactly 1 and 2 minutes from when you added them, respectively. Run the `summary` command. +
+Expected: The displayed page should report the following:
+** Total loans: 4
+** Loans in progress: 1
+** Returned loans: 3
+** Total product loan time: 4 minutes
+** Total revenue: $6.50
