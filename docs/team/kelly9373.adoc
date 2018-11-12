@@ -1,0 +1,106 @@
+= Liu Xiaohang - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: LoanBook
+
+This portfolio aims to document the contributions made by Liu Xiaohang to the LoanBook. The source code is available here: https://github.com/CS2103-AY1819S1-F10-2/main[Loanbook source code].
+
+== Overview
+
+LoanBook is a desktop loan book application targeted for bicycle rental shop owners to manage and keep track of their loans.
+
+The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 20 kLoC.
+
+LoanBook is a CS2103T project and it is morphed from https://github.com/nus-cs2103-AY1819S1/addressbook-level4[AddressBook-Level4].
+
+The main features of Loanbook are:
+
+* Edit the details of the bikes or loans after added them.
+
+* Set and change the app password for information security.
+
+* Delete unwanted bikes or loans using the app's password.
+
+* View all the bikes or loans.
+
+* Set and change the user's email.
+
+* Use the user's email to send e-reminder to the customer of the targeted loan.
+
+== Summary of contributions
+
+This section shows my contribution to the LoanBook's development.
+
+* *Major enhancements*: added the *send email functionality* to *set and check user's email* and *send reminder email*, which contains three commands: `checkemail`, `setemail` and `remind`.
+
+** What it does: allows the user to set the user email for the app and check this email if the user forget which user email was set for the app, and use this email to send reminder emails to the customers.
+
+** Justification: This feature improves the product significantly because users are able to send reminder emails by typing in only one command instead of typing the whole emails. This can save a lot of efforts and time for the user.
+
+** Highlights:
+
+*** Show censored user email address if the user wanted to check which email was set to the app, which ensures the privacy and security of the user's information.
+
+*** The user is required to type in the correct app password if they want to change the user email for the app, which prevents malicious operations.
+
+*** This functionality can automatically generate the reminder email with all the necessary information of the target loan and send it.
+
+** Credits: The send reminder email command is supported by https://github.com/javaee/javamail[JavaMail] library. Email connection and content generating codes are reused from https://github.com/clk528/maven-spring/blob/master/src/main/java/com/clk/library/sendmail.java[sendEmail].
+
+** Pull request https://github.com/CS2103-AY1819S1-F10-2/main/pull/151[#151]
+
+* *Minor enhancement*:
+
+** added LoanRate class to store non-nagative numbers with at most two decimal places. (Pull request https://github.com/CS2103-AY1819S1-F10-2/main/pull/29[#29])
+
+** added censoring function in Nric, Phone and Email class to enable hiding sensitive information feature in LoanCard UI. (Pull request https://github.com/CS2103-AY1819S1-F10-2/main/pull/125[#125])
+
+* *Other contributions*:
+
+** Project management:
+
+*** Add config.json file to fix the problem that repoSense not correctly detecting teammates' contributions.
+
+** Enhancements to existing features:
+
+*** Refactored "address" to "loan". (Pull request https://github.com/CS2103-AY1819S1-F10-2/main/pull/115[#115])
+
+*** Added data fields(Nric, Bike, LoanRate, LoanTime) to Loan class and wrote tests for the new data fields. (Pull request https://github.com/CS2103-AY1819S1-F10-2/main/pull/124[#124])
+
+*** Added data fields in LoanCard and changed its UI. (Pull request https://github.com/CS2103-AY1819S1-F10-2/main/pull/125[#125])
+
+** Documentation:
+
+*** Updated README to change the app's name and its introduction. (Pull request https://github.com/CS2103-AY1819S1-F10-2/main/pull/21[#21])
+
+*** Added JavaMail jar into the lib folder and changed build.gradle file to ensure the JavaMail library can be imported successfully. (Pull request https://github.com/CS2103-AY1819S1-F10-2/main/pull/151[#151])
+
+*** Contributed to update User Guide and Developer Guide: (Pull requests https://github.com/CS2103-AY1819S1-F10-2/main/pull/5[#5], https://github.com/CS2103-AY1819S1-F10-2/main/pull/18[#18], https://github.com/CS2103-AY1819S1-F10-2/main/pull/106[#106], https://github.com/CS2103-AY1819S1-F10-2/main/pull/132[#132], https://github.com/CS2103-AY1819S1-F10-2/main/pull/134[#134], https://github.com/CS2103-AY1819S1-F10-2/main/pull/149[#149], https://github.com/CS2103-AY1819S1-F10-2/main/pull/172[#172])
+
+** Community:
+
+*** PRs reviewed (with non-trivial review comments): (Pull request https://github.com/CS2103-AY1819S1-F10-2/main/pull/95[#95])
+
+*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com/CS2103-AY1819S1-T09-1/main/issues/140[#140], https://github.com/CS2103-AY1819S1-T09-1/main/issues/137[#137], https://github.com/CS2103-AY1819S1-T09-1/main/issues/134[#134], https://github.com/CS2103-AY1819S1-T09-1/main/issues/132[#132], https://github.com/CS2103-AY1819S1-T09-1/main/issues/124[#124])
+
+*** Contributed to forum discussions (example:  https://github.com/nus-cs2103-AY1819S1/forum/issues/121[#121])
+
+** Tools:
+
+*** Integrated a third party library (JavaMail) to the project (https://github.com/CS2103-AY1819S1-F10-2/main/pull/151[#151])
+
+== Contributions to the User Guide
+
+This section shows the contributions I made to the User Guide. The following instructions show how to use the send email functionality.
+
+include::../UserGuide.adoc[tag=sendemail]
+
+== Contributions to the Developer Guide
+
+This section shows the contributions I made to the Developer Guide. The following instructions show how to the send email functionality is implemented.
+
+include::../DeveloperGuide.adoc[tag=hideinfo]
+
+include::../DeveloperGuide.adoc[tag=sendemail]

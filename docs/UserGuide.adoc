@@ -430,6 +430,7 @@ Lists all the commands that you have entered in reverse chronological order. +
 * Commands that require a password will not have its input saved in history. i.e. `delete i/1 x/a12345` will be saved as `delete`.
 ====
 
+// tag::sendemail[]
 === Check your email: `checkemail`
 
 Checks whether you have set your email or not, and displays the censored email address if you have set it before. +
@@ -438,18 +439,16 @@ Checks whether you have set your email or not, and displays the censored email a
 === Set your email: `setemail`
 
 Sets the email address to send reminder emails from. +
-[big]#*Format*: `setemail OLDEMAIL NEWEMAIL`#
+[big]#*Format*: `setemail e/NEWEMAIL x/PASSWORDFORAPP`#
 
 [big red]#List of Parameters#:
 
-The old email that you have set to the current one that you would want to use. +
-Note that for this command, there is no prefix that you need to type. Just separate the emails with spaces.
+`e/NEWEMAIL`: The new user email that you want to set to the app. +
+`x/PASSWORDFORAPP`: The password you set for the app. Not your email password.
 
 Some things to take note of for first time users:
 
-* `OLDEMAIL` is `default` if you have not set an email yet.
-* `OLDEMAIL` must be the same as the one you set last time.
-* `NEWEMAIL` cannot the same as `OLDEMAIL`.
+* `NEWEMAIL` cannot the same as the user email you have already set to the app.
 * `NEWEMAIL` must be a valid Gmail address.
 
 [NOTE]
@@ -457,8 +456,7 @@ Only Gmail is accepted!
 
 Examples:
 
-* `setemail default \new_email@gmail.com`
-* `setemail \old_email@gmail.com \new_email@gmail.com`
+* `setemail e/\new.email@gmail.com x/a12345`
 
 === Send reminder email: `remind`
 
@@ -474,11 +472,14 @@ Sends a reminder email to the customer. +
 * `EMAILPASSWORD` must be correct.
 
 [NOTE]
-*[IMPORTANT] Before using this command, please go to* https://www.google.com/settings/security/lesssecureapps[Less Secure Apps] *, enable it and refresh the Settings page!*
+*[IMPORTANT] Before using this command, please go to https://www.google.com/settings/security/lesssecureapps[Less Secure Apps] , enable it and restart the app! [red]#However! If your help page does not respond when enabling, please copy this link: \https://www.google.com/settings/security/lesssecureapps and access it in your browser. Then enable the less secure app setting and refresh the setting page!#* +
+[NOTE]
+*[IMPORTANT] Please do not connect to eduroam network when using this functionality!*
 
 Examples:
 
 * `remind pw/samplepassword id/0`
+// end::sendemail[]
 
 === Exiting the program: `exit`
 
@@ -502,8 +503,6 @@ a password.
 === Prevent some commands from showing in the command history.
 Currently, commands that require a password input will be exposed to the user when they view command history. This will
 will be resolved in v2.0.
-
-// end::sendemail[]
 
 ////
 // tag::undoredo[]
