@@ -1,4 +1,4 @@
-Lim Fong Yuan - Project Portfolio
+= Lim Fong Yuan - Project Portfolio
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
@@ -9,61 +9,144 @@ Lim Fong Yuan - Project Portfolio
 
 == Overview
 
-AddressBook - Level 4 is a desktop address book application used for teaching Software Engineering principles. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
+LoanBook is a desktop application that helps bicycle rental shop owners in Singapore keep track of their bicycles and bicycle rental transactions. The user interacts with LoanBook using a command line interface (CLI), and receives feedback through a graphic user interface (GUI) that is created with the JavaFX library. The codebase is written in Java, and has about 25 kLoC.
+
+The LoanBook project was morphed from an existing codebase by a team of 5 NUS Computing students including myself, as part of the curriculum for the CS2103T Software Engineering module.
+
+This portfolio documents my contributions to the LoanBook project.
 
 == Summary of contributions
 
-* *Major enhancement*: added *the ability to undo/redo previous commands*
-** What it does: allows the user to undo all previous commands one at a time. Preceding undo commands can be reversed by using the redo command.
-** Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.
-** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
-** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
+* *Major enhancement*: Added *the ability to track bicycles*
+** Functionality: This enhancement allows the user to register and edit bicycles within the app.
+** Justification: By tracking the status of bicycles, the management of rentals also becomes easier as it is clearer exactly what choices of bicycles are available, and what actions should not be allowed. This feature improves the product significantly because it can help the user catch mistakes or dangerous situations in rentals before they cause a problem.
+** Highlights: This enhancement goes further than just duplicating the existing code for loans, as many areas which used to handle only one list or set now have to handle two. As the purpose of this feature is partly to help with the validation of loans, additional checks also had to be integrated into the app and the commands. In touching the various components, I had to learn about the structure of the code base as well as the various tools used such as Git, FXML and CSS and how they integrate with Java.
 
-* *Minor enhancement*: added a history command that allows the user to navigate to previous commands using up/down keys.
-
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+* [https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=fongyuan[*Code contributed*]]
 
 * *Other contributions*:
 
 ** Project management:
-*** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
+*** Managed releases `v1.3` - `v1.4` (2 releases) on GitHub
 ** Enhancements to existing features:
-*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
-*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
+*** Updated the GUI (Pull requests https://github.com/CS2103-AY1819S1-F10-2/main/pull/157[#157], https://github.com/CS2103-AY1819S1-F10-2/main/pull/177[#177])
+** Adaptation of code base:
+*** Renaming and refactoring (Pull requests https://github.com/CS2103-AY1819S1-F10-2/main/pull/10[#10], https://github.com/CS2103-AY1819S1-F10-2/main/pull/120[#120], https://github.com/CS2103-AY1819S1-F10-2/main/pull/138[#138])
+*** Extracting common behaviour of certain classes (Pull requests https://github.com/CS2103-AY1819S1-F10-2/main/pull/35[#35], https://github.com/CS2103-AY1819S1-F10-2/main/pull/123[#123], https://github.com/CS2103-AY1819S1-F10-2/main/pull/155[#155])
 ** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
+*** Updated the class diagrams for the major components of the codebase: https://github.com/CS2103-AY1819S1-F10-2/main/pull/152[#152]
+*** Explained the model component in the developer guide: https://github.com/CS2103-AY1819S1-F10-2/main/pull/165[#165]
+*** Explained my major enhancement in the developer guide: https://github.com/CS2103-AY1819S1-F10-2/main/pull/95[#95]
+*** Updated the product scope in the developer guide: https://github.com/CS2103-AY1819S1-F10-2/main/pull/165[#165]
+*** Added user stories in the developer guide: https://github.com/CS2103-AY1819S1-F10-2/main/pull/45[#45]
+*** Contributed to the use cases and manual testing sections in the developer guide: https://github.com/CS2103-AY1819S1-F10-2/main/pull/165[#165]
 ** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
-*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
-** Tools:
-*** Integrated a third party library (Natty) to the project (https://github.com[#42])
-*** Integrated a new Github plugin (CircleCI) to the team repo
-
-_{you can add/remove categories in the list above}_
+*** Taught my teammates how to create the required diagrams for documentation
+*** Plenty of PRs reviewed (with non-trivial review comments): https://github.com/CS2103-AY1819S1-F10-2/main/pull/29[#29], https://github.com/CS2103-AY1819S1-F10-2/main/pull/36[#36],, https://github.com/CS2103-AY1819S1-F10-2/main/pull/106[#106],  https://github.com/CS2103-AY1819S1-F10-2/main/pull/142[#142], https://github.com/CS2103-AY1819S1-F10-2/main/pull/148[#148]
+*** Contributed to forum discussions (examples: https://github.com/nus-cs2103-AY1819S1/forum/issues/60#issuecomment-427720633[delete a Person field cleanly])
 
 == Contributions to the User Guide
 
-
 |===
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-include::../UserGuide.adoc[tag=undoredo]
+Excerpt (Quick Start):
 
-include::../UserGuide.adoc[tag=dataencryption]
+=== Graphic User Interface (GUI)
+A screenshot of the LoanBook app is shown below:
 
-== Contributions to the Developer Guide
+image::Ui.png[width="600"]
+
+A brief description of each section:
+
+* At the very top of the window are two *dropdown menu* s, labelled `File` and `Help`. You can access them with the mouse. The `File` menu allows you to exit LoanBook, while the `Help` menu lets you access this document.
+* Right below the dropdown menus is the *command box*. Here is where you type in the commands to be executed by the app.
+* Below the command box, the space is split horizontally into two sections. The left section is the *list panel*. Here is where a list of your bikes and loans will appear, together with some individual details on them.
+* The right section is the *result display*. Whenever you execute a command with the command box, this section will notify you of their outcome by displaying a message.
+* At the bottom of the window is the *status bar*. It contains two texts. The text on the left displays when was the last time the LoanBook's data was saved to the hard disk. The text on the right displays the file path of where the LoanBook data is saved, in relation to LoanBook's root directory. If the terms here confuse you, you can simply ignore this section.
+
+The *command box*, *list panel* and *result display* are what you will be using the most in LoanBook.
+
+[NOTE]
+When you are just starting out, the list panel and result display should be empty as there is no information in the LoanBook yet, so do not worry if you do not see anything there.
+
+=== Using Commands
+LoanBook uses a Command Line Interface (CLI), which means that it is fully usable with only your keyboard, no mouse required!
+
+When you type in anything on your keyboard, your input should appear in the command box. (If the command box says "Enter command here..." instead, please click on the command box to select it. If you do not have a mouse, press kbd:[TAB] a few times until it is selected.)
+
+The commands in LoanBook follow this format: `<KEYWORD> <PARAMETERS...>`. As an example, consider the following command: `delete i/1 x/a12345`
+
+* `delete` is the command's *keyword*. The keyword is used to identify which action from the LoanBook is being requested by you.
+* `i/1 x/a12345` specifies the command's *parameters*. Parameters are separated by spaces, and each parameter consists of a prefix (e.g. `i` or `x`), followed by a forward slash (`/`), then the value of that parameter (e.g. `1` or `a12345`).
+
+[NOTE]
+Note that some commands do not use prefixes for their parameters, while others do not even have parameters! Exactly what parameters are needed depends on the specific command, and they are all documented in <<Commands>>.
+
+Once you are done entering the command, just press kbd:[ENTER] to execute it. LoanBook will process your command and feedback the result to you using the result display.
+
+[NOTE]
+At any time, for a more detailed description of any command used, please check out <<Commands>>. LoanBook will also remind you of the correct command format should you type anything in incorrectly. So do not worry, there is plenty of help at every step of the way.
+
+Now that LoanBook is up and running and you are oriented with its GUI, it is time to set up your data within it.
+
+=== Registering Your Bicycles Into LoanBook
+Before LoanBook can do anything, it needs to know what bicycles you have at your disposal.
+
+To register a bike into LoanBook, use the following command:
+
+`addbike n/BIKE_NAME`
+
+where `BIKE_NAME` is the name of your bicycle. It will be used to identify your bike, so it must be a unique name. Your bicycle's ID number can be a good fit for this field.
+
+On success, you should see a message in the result display saying: "New bike added: `BIKE_NAME` Status: Available". If you receive an error, follow the instructions in the result display and try again.
+
+[NOTE]
+Even though you have successfully registered a bicycle into LoanBook, you might be disappointed that nothing is appearing in the list panel. That is because LoanBook defaults to showing you the list of loans in the list panel, and you currently do not have any. To view the list of bikes instead, use the command `listbikes`. You should now see a list of the bike(s) that you just keyed in!
+
+Simply repeat this process until you have registered all your bikes within LoanBook.
+
+=== Renting Out Bicycles
+Now that you have some bicycles within LoanBook, you can rent them out using the `add` command. The format for the `add` command is as follows:
+
+`add n/NAME ic/NRIC p/PHONE e/EMAIL b/BIKE lr/LOANRATE [t/TAG]...`
+
+Do not be overwhelmed by the sudden increase in length! Let us take it bit by bit...
+
+* `add` is simply the command's keyword.
+* `NAME` is the name of the customer who is renting a bike from you, e.g. `John Doe`.
+* `NRIC` is the customer's NRIC number.
+* `PHONE` is the customer's phone number, so that you know who to call if your bicycle is not returned on time.
+* `EMAIL` is the customer's email address, so that you can send reminders and e-receipts to them.
+* `BIKE` is the name of the bike that you want to rent out to them. In the previous section, it was mentioned that the `BIKE_NAME` that you specify for a bike is used to identify that bike uniquely; here is where it comes into play.
+* `LOANRATE` is the rate at which you are charging your customer for the bicycle rental, in dollars per hour. This will help your financial calculations later.
+* `TAG` are optional labels that you can tag the loan with. They are simply there to keep better track of your loans, should you wish to use them. You can specify no tags at all, just one tag, or multiple tags (with each tag needing a separate `t/` prefix).
+
+In summary, most of the parameters you specify here are simply customer-specific data. Once you iron out the details of the rental with them, this command is as easy as any other. Simply fill in the details and you should see a success message: "New loan added: (...)", showing you all the details of the transaction.
+
+[NOTE]
+Right now, LoanBook should still be displaying the list of bikes. To get it to display the list of loans again, simply use the `list` command. You should see the new loan you added at the bottom of the list. You can toggle between these two lists at will using the `list` and `listbikes` commands.
+
+[NOTE]
+A further visual cue to help you differentiate whether you are viewing the list of bikes or of loans is that the list of bikes is coloured blue, while the list of loans is coloured yellow-brown.
+
+=== Returning Bicycles
+Once your customer is done enjoying themself, it is time to conclude the loan. This is done using the `return` command:
+
+`return i/LIST_INDEX`
+
+The `LIST_INDEX` is simply the index of the loan that you want to return in the list panel. It is *not* the Loan ID.
+
+If the returning is successful, you should see a message in the result display saying "Loan Returned: (...)" followed by the details of the loan. You will also get to see how much you should charge the customer for renting out your bike for as long as they did.
 
 
-|===
-|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
-|===
 
-include::../UserGuide.adoc[tag=undoredo]
+And using LoanBook is as simple as that!
 
-include::../UserGuide.adoc[tag=dataencryption]
+Of course, LoanBook supports a multitude of additional functionalities that will help to facilitate your bicycle rental management even further. The next section lists all the commands that you can try out once you are comfortable with the basic process above. Good luck and happy renting!
+
+
 
 == Contributions to the Developer Guide
 
@@ -71,14 +154,76 @@ include::../UserGuide.adoc[tag=dataencryption]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=undoredo]
+Bicycle Management implementation.
 
-include::../DeveloperGuide.adoc[tag=dataencryption]
+Excerpt (Model component):
+
+The model component:
+
+* Stores the LoanBook data.
+* Stores the user's preferences.
+* Exposes an unmodifiable `ObservableList<Loan>` that can be 'observed' by the UI, so that the UI automatically updates when the data in the model changes.
+* Does not depend on any of the other three components.
+
+It allows the following operations:
+
+* Viewing, adding, modifying and deleting `Bike` s and `Loan` s from the LoanBook.
+* Retrieving lists of `Bike` s and `Loan` s that are registered in the LoanBook, filtered by a `Predicate`.
+* Undo/redo operations.
+
+The component's class diagram is given below:
+
+.Structure of the Model Component
+image::ModelClassDiagram.png[width="800"]
 
 
-== PROJECT: PowerPointLabs
 
----
+*API file*: link:{repoURL}/src/main/java/loanbook/model/Model.java[`Model.java`]
 
-_{Optionally, you may include other projects in your portfolio.}_
+The API is backed by a `ModelManager` which contains:
+
+* A `VersionedLoanBook` object which tracks the main data (i.e. `Bike` s and `Loan` s) within the LoanBook.
+* A filtered list each for `Bike` s and `Loan` s to expose to the UI.
+* A `UserPrefs` object to track the user's preferences.
+
+Most operations passed to the `Model` component deal with its `VersionedLoanBook`. A `VersionedLoanBook` is simply a regular `LoanBook` that keeps track of its own history, for the undo/redo operation. The `LoanBook` itself contains:
+
+* A `LoanIdManager` that helps to assign a unique `LoanId` to every `Loan`, so that `Loan` s may be easily identified.
+* A list of unique `Bike` s.
+* A list of unique `Loan` s.
+
+[NOTE]
+====
+A unique list in the sense above is a list where no two elements are the "same":
+
+* A `Bike` is considered to be the same as another `Bike` if their `Name` s match.
+* A `Loan` is considered to be the same as another `Loan` if their `LoanId` s match.
+
+We want to exclude duplicate items from these lists to make sure that identifying any given `Bike` or `Loan` is simple and without ambiguity. +
+
+To facilitate this structure, both the `Bike` and `Loan` class implement a `UniqueListItem` interface, and the `Bike` and `Loan` lists inherit from a `UniqueList` class.
+====
+
+Most of the commands passed into the `Model` are forwarded to its `LoanBook`, which then executes these commands on the `Bike` and `Loan` lists that it has.
+
+A `Loan` contains:
+
+* The customer's particulars: Their `Name`, `Nric`, `Phone` and `Email`.
+* The `Bike` that the customer is renting.
+* A `LoanStatus` used to signal whether this `Loan` is `Ongoing`, `Returned` or `Deleted`.
+* A `LoanId` used for identifying this `Loan`.
+* A `LoanRate` specifying the rate which the bicycle is being loaned at, in $/hr.
+* A `loanStartTime` and `loanEndTime`, specifying the scheduled start and end times of the loan. `loanEndTime` might be `null` if the loan has no scheduled return time.
+* Any number of `Tag` s to provide additional details for the `Loan`.
+
+A `Bike` contains:
+
+* A `Name` used for identifying this `Bike`.
+* A `BikeStatus` reflecting the current status of this `Bike`, e.g. whether it's available for rental, loaned out, under repair etc.
+
+[WARNING]
+Currently, the `BikeStatus` field within the `Bike` class is present but not being used for anything. A future use of this field is proposed in the section on <<Implementation-Bicycle-Management,Bicycle Management>>.
+
+[NOTE]
+The `DataField` class is used to unify the common idea that the above details for `Loan` s and `Bike` s are specifiable by a user-inputted string. The only exception is the `Bike` field in the `Loan` class, which is specified using the `Bike` 's `Name` instead.
 

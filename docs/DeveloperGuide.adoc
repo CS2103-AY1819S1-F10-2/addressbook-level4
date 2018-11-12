@@ -209,8 +209,8 @@ image::DeleteLoanSdForLogic.png[width="800"]
 The model component:
 
 * Stores the LoanBook data.
-* Exposes an unmodifiable `ObservableList<Loan>` that can be 'observed' by the UI, so that the UI automatically updates when the data in the model changes.
 * Stores the user's preferences.
+* Exposes an unmodifiable `ObservableList<Loan>` that can be 'observed' by the UI, so that the UI automatically updates when the data in the model changes.
 * Does not depend on any of the other three components.
 
 It allows the following operations:
@@ -224,7 +224,9 @@ The component's class diagram is given below:
 .Structure of the Model Component
 image::ModelClassDiagram.png[width="800"]
 
-*API* : link:{repoURL}/src/main/java/loanbook/model/Model.java[`Model.java`]
+
+
+*API file*: link:{repoURL}/src/main/java/loanbook/model/Model.java[`Model.java`]
 
 The API is backed by a `ModelManager` which contains:
 
@@ -232,7 +234,7 @@ The API is backed by a `ModelManager` which contains:
 * A filtered list each for `Bike` s and `Loan` s to expose to the UI.
 * A `UserPrefs` object to track the user's preferences.
 
-Most operations passed to the `Model` component deals with its `VersionedLoanBook`. A `VersionedLoanBook` is simply a regular `LoanBook` that keeps track of its own history, for the undo/redo operation. The `LoanBook` itself contains:
+Most operations passed to the `Model` component deal with its `VersionedLoanBook`. A `VersionedLoanBook` is simply a regular `LoanBook` that keeps track of its own history, for the undo/redo operation. The `LoanBook` itself contains:
 
 * A `LoanIdManager` that helps to assign a unique `LoanId` to every `Loan`, so that `Loan` s may be easily identified.
 * A list of unique `Bike` s.
@@ -250,13 +252,13 @@ We want to exclude duplicate items from these lists to make sure that identifyin
 To facilitate this structure, both the `Bike` and `Loan` class implement a `UniqueListItem` interface, and the `Bike` and `Loan` lists inherit from a `UniqueList` class.
 ====
 
-Most of the commands passed into the `Model` are forwarded to its `LoanBook`, who then executes these commands on the `Bike` and `Loan` lists that it has.
+Most of the commands passed into the `Model` are forwarded to its `LoanBook`, which then executes these commands on the `Bike` and `Loan` lists that it has.
 
 A `Loan` contains:
 
 * The customer's particulars: Their `Name`, `Nric`, `Phone` and `Email`.
 * The `Bike` that the customer is renting.
-* A `LoanStatus` used signal whether this `Loan` is `Ongoing`, `Returned` or `Deleted`.
+* A `LoanStatus` used to signal whether this `Loan` is `Ongoing`, `Returned` or `Deleted`.
 * A `LoanId` used for identifying this `Loan`.
 * A `LoanRate` specifying the rate which the bicycle is being loaned at, in $/hr.
 * A `loanStartTime` and `loanEndTime`, specifying the scheduled start and end times of the loan. `loanEndTime` might be `null` if the loan has no scheduled return time.
@@ -264,7 +266,11 @@ A `Loan` contains:
 
 A `Bike` contains:
 
-* A `Name` used for identifying this Bike.
+* A `Name` used for identifying this `Bike`.
+* A `BikeStatus` reflecting the current status of this `Bike`, e.g. whether it's available for rental, loaned out, under repair etc.
+
+[WARNING]
+Currently, the `BikeStatus` field within the `Bike` class is present but not being used for anything. A future use of this field is proposed in the section on <<Implementation-Bicycle-Management,Bicycle Management>>.
 
 [NOTE]
 The `DataField` class is used to unify the common idea that the above details for `Loan` s and `Bike` s are specifiable by a user-inputted string. The only exception is the `Bike` field in the `Loan` class, which is specified using the `Bike` 's `Name` instead.
@@ -372,6 +378,7 @@ image::UndoRedoActivityDiagram.png[width="650"]
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
 
+// tag::loanid[]
 === Unique Loan ID
 To keep individual loan transactions identifiable, we have a Loan ID for every loan. This will be automatically assigned when the user creates a Loan using the `add` command, and will be unique among all Loans in the Loanbook.
 
@@ -393,22 +400,36 @@ The following steps are taken when the user adds a new Loan using the `add` comm
 
 **Step 3**: A new `Loan` instance will be generated using the generated Loan ID value. This new `Loan` instance gets inserted into the `VersionedLoanBook` and gets committed.
 
-The following sequence diagram shows how the updated `add` command works:
+The following sequence diagram shows how the `add` command functions, including the retrieval of the next Loan ID from the Model:
+
+image::LoanIdAddCommandSequenceDiagram.png[width="800"]
 
 ==== Design Considerations
 ===== Aspect: Using an Integer for the Loan ID
-* **Alternative 1**: Use a `String` to represent the Loan ID
-** Pros:
-*** More Loan ID values can be created given the same number of characters.
-*** There would be no technical limit to the number of Loan IDs possible. If all Loan IDs of a certain length get exhausted, the next generated Loan ID can be one character longer.
+* **Alternative**: Use a `String` to represent the Loan ID
+** Pros: More Loan ID values can be created given the same number of characters.
+.. There would be no technical limit to the number of Loan IDs possible. If all Loan IDs of a certain length get exhausted, the next generated Loan ID can be one character longer.
 ** Cons:
-*** Generating the next available Loan ID may be more complicated for a string as compared to an integer (though not by a significant amount).
+.. Generating the next available Loan ID may be more complicated for a string as compared to an integer (though not by a significant amount).
 
-* **Alternative 2**: Have a static integer variable in the `Loan` or the `VersionedLoanBook` class
+** **Possible Implementation**: A running counter, starting from 0, that resets at the start of every day. The Loan ID is formed by taking the current date, in "YYYYMMDD" format, and appending it with said running counter.
+*** Pros: Simple to implement.
+*** Cons: Depending on the end-user, the fact that the Loan ID displays the number of loans created during that day may be undesirable.
+
+** **Possible implementation**: Generate a string with a fixed number of characters.
+*** Pros: The ID does not allow the number of loans created to be determined. This may be useful if this behaviour is desirable by the end-user.
+*** Cons:
+.. The model needs to keep track of all the IDs that have been used before to prevent duplicates.
+.. The ID may be troublesome to type in the command-line, especially if the Loan ID is used for other commands.
+
+===== Aspect: Having a LoanIdManager class simply to keep track of a running counter
+* **Alternative**: Have a static integer variable in the `Loan` or the `VersionedLoanBook` class
 ** Pros:
-*** The process of incrementing the running value is simpler and has lesser steps than with a `LoanIdManager` class.
+.. The process of incrementing the running value is simpler and has lesser steps than with a `LoanIdManager` class.
 ** Cons:
-*** It is more complicated to capture the state of the running value. The undo/redo mechanism will not work with a static variable.
+.. It is more complicated to capture the state of the running value. The undo/redo mechanism may not work with a static variable.
+
+// end::loanid[]
 
 // tag::adminauthentication[]
 === Admin Authentication
@@ -658,54 +679,102 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 
 Certain properties of the application can be controlled (e.g App name, logging level) through the configuration file (default: `config.json`).
 
+[[Implementation-Bicycle-Management]]
 === Bicycle Management
 
-As bicycles have a lot of properties, statuses and actions associated with them, they are represented in the code base as a dedicated `Bike` class.
+As bicycles potentially have a lot of properties, statuses and actions associated with them, they are represented in the code base as a dedicated `Bike` class.
 
-Each `LoanBook` will have its own list of `Bike` s, representing all the bicycles that a bicycle shop owner has at their disposal. For the most part, the list of bicycles will be maintained in the same way as the list of loans.
+Each `LoanBook` has its own list of `Bike` s, representing all the bicycles that a bicycle shop owner has at their disposal. Please refer to the class diagram under the <<Design-Model,`Model`>> section of this guide for a full view of how `Bike` s are handled within LoanBook.
 
-Every bicycle will have the following members:
+Every bicycle has the following members:
 
 * `name`: A name that uniquely identifies the bicycle, e.g. the bicycle's serial number.
-* `status`: The bicycle's current status that represents where it is or what it is doing, e.g. `Available`, `Loaned Out`, `On Display`, `Under Repair`.
-* `loanHistory`: A list of past loans associated with this bicycle, sorted chronologically.
-* `loanReserves`: A list of future loans (i.e. reservations) associated with this bicycle, sorted chronologically.
-* Traits that characterize the bicycle, such as `brand`, `model`, `top speed`, `wheel size`, `weight`, `material` etc.
+* `status`: The bicycle's current status that represents where it is or what it is doing, e.g. `AVAILABLE`, `LOANED_OUT`.
 
-The new structure of the Loan Book is demonstrated in the class diagram below:
+`Bike` s are uniquely identified by their name, playing the same role as the `id` field for `Loan` s.
 
-image::BicycleManagementClassDiagram.png[width="720"]
+This implementation of bicycles affects existing commands in the following ways:
+
+* When `add` ing a new `Loan` to the LoanBook, LoanBook first checks if the `Bike` name provided by the command refers to an existing `Bike` within the LoanBook, and will reject the command if LoanBook does not. This check can only be done at the execution stage of the command (opposed to the parsing stage), as it requires specific knowledge of the model that it is acting on. A sequence diagram describing this behaviour in further detail is shown below:
+
+image::BicycleManagementAddLoanSequenceDiagram.png[width="800"]
+
+* Similarly, when editing a loan, LoanBook also checks that the new `Bike` assigned to the loan exists within the LoanBook before it accepts the operation.
+
+The list of bicycles is maintained in largely the same way as the list of loans. The equivalent commands of `add`, `edit`, `delete` and `list` for maintaining the list of `Bike` s are `addbike`, `editbike`, `deletebike` and `listbikes` respectively.
+
+Please refer to the User Guide for the basic functionality for these commands. The following subsections describe additional points to note for these commands, such as differences from the corresponding commands for loans.
+
+==== Adding a bike: `addbike`
+`addbike` checks if there is a `Bike` with the same name already in the LoanBook, and rejects the command if so.
+
+On the other hand, `add` does not check for "duplicate loans" as loans are automatically differentiated via their `LoanID`, even if all other parameters are the same.
+
+==== Editing a bike's details: `editbike`
+`editbike` similarly checks if the `Bike` to be edited exists within the LoanBook, and whether the `Bike` 's new name, if specified, is the same as another `Bike` in the LoanBook.
+
+[WARNING]
+====
+In the ideal scenario, when a `Bike` is updated within LoanBook, all `Loan` s associated with it should be updated as well. Due to time constraints however, this feature has not been implemented. Here are two possible ways to implement this feature:
+
+- Make the `Bike` class mutable, so that by having a reference to the `Bike` object, `Loan` s will always be updated to the latest information. However, having a mutable class within the LoanBook may break the undo/redo feature, thus you should be careful when implementing this.
+- Whenever a `Bike` is updated, every `Loan` that references the `Bike` is manually updated. However, this is computationally unfavourable and there is more room for error, such as having un-updated `Bike` s left in the LoanBook.
+====
+
+==== Deleting a bike: `deletebike`
+Deleting `Bike` s from the LoanBook is currently quite unrestrictive: no constraints are imposed on the `Bike` that is being deleted.
 
 [NOTE]
-Why does the bicycle track loans using two lists, instead of collating them into one big list? Because each list has a specific category of loans and it is more common to encounter situations that deal with only one of the lists (e.g. checking transaction history, or checking for clashes with reservations), rather than both.
+This idea has not been implemented yet, but due to the dependency of `Loan` s on `Bike` s, it can be enforced that any bicycle that has been loaned out at least once should not be deleted from the system, merely archived and labelled `Decommissioned` instead. The `Bike` can still be deleted completely if all of the `Loan` s associated with it are deleted (i.e. invalidated) first.
 
-Every `Loan` will have a reference to exactly one `Bike`: the bicycle that is loaned out. Conversely, every `Bike` has two lists of references of `Loan` s, which track the bicycle's loan history and future reservations.
+==== Viewing the list of bikes in the UI: `listbikes`
+The only purpose of the `listbikes` command is to toggle the UI to show the list of bikes. To return to viewing the list of loans, use the `list` command.
 
-[NOTE]
-This makes the `LoanBook` 's list of loans a little harder to manage, due to the extra references. However, we have chosen to implement it anyway as referencing a bicycle's history is a very useful and frequently used operation. To manage the deletion of loans, the loan will be dereferenced from the Bike it references before it gets deleted. The sequence diagram below demonstrates this process:
+Internally, the `MainWindow` class of LoanBook keeps track of two separate UI elements: a `BikeListPanel` and a `LoanListPanel`, both inheriting from a `ListPanel` object. It also keeps track of which list is currently active (i.e. displayed to the user) by using a `ListPanel` pointer, so that only the `ListPanel` referred to by this pointer is displayed. When the `MainWindow` receives a signal (an event thrown by `list` or `listbikes`) to toggle which list is being displayed, it simply reassigns this pointer and rebuilds the display.
+
+==== Future Considerations
+===== Tracking the status of bikes
+As mentioned in the <<Design-Model,`Model`>> section earlier in this guide, a `BikeStatus` is currently present in the `Bike` class but does not do anything.
+
+This sub-feature aims to enhance the existing purpose of the Bicycle Management feature: keep better track of bicycles and prevent invalid transactions from being carried out.
+
+One way which this sub-feature can accomplish this is by using a `BikeStatus` to indicate whether the `Bike` is available or not for rental.
+
+The activity diagram below demonstrates how this sub-feature could be implemented for the loaning out of bicycles:
+
+image::BikeStatusAddLoanActivityDiagram.png[width="600"]
+
+And this acitivty dragram demonstrates the same for returning bicycles:
+
+image::BikeStatusReturnLoanActivityDiagram.png[width="600"]
+
+Additionally, the deletion of a `Bike` can be denied if the `Bike` does not currently have a suitable status, such as being loaned out.
+
+This sub-feature can be further expanded with additional `BikeStatus` es other than `AVAILABLE` and `LOANED_OUT`. Such statuses could reflect an unavailability for rental for reasons other than already being loaned out. For example:
+
+* `NEEDS_REPAIR`: Signals that the `Bike` is not suitable for rental as it is damaged, thus creating a hazard for customers.
+* `UNDER_REPAIR`: Signals that the `Bike` is not available for rental as it is currently with a repairman undergoing servicing.
+* `ON_DISPLAY`: Signals that the `Bike` is not suitable for rental as it is currently being used for display, to attract customers.
+* `MISSING`: Signals that the `Bike` is not available for rental as its location is unaccounted for; perhaps the last customer lost it, or it was stolen during the night.
+* `DECOMMISSIONED`: Signals that the `Bike` is no longer for rental for whatever reason (e.g. not economically feasible to repair), but remains in the LoanBook for administrative or archiving purposes.
+
+===== Tracking the loans of a bike
+`Loan` s already refer to `Bike` s, but `Bike` s can also track a list of references to the `Loan` s that loan them out. This could be especially useful for digging up the history of a particular `Bike` for investigative or analytical purposes.
+
+This will make the `LoanBook` 's list of loans a little harder to manage, due to the extra references. To manage the deletion of loans, the loan will have to be dereferenced from the Bike it references before it gets deleted. The sequence diagram below demonstrates this process:
 
 image::DeleteLoanSequenceDiagram.png[width="800"]
 
-[NOTE]
-Due to the dependency of `Loan` s on `Bike` s, any bicycle that has been loaned out at least once will never be deleted from the system, merely archived and labelled `Decommissioned`. The `Bike` can still be deleted completely if all of the `Loan` s associated with it are deleted (i.e. invalidated) first.
+===== More bike properties
+Additional fields can be added to the `Bike` class to track more properties specific to those `Bike` s. For example:
 
-Using this framework, it is now more efficient to implement and use a set of mini-features and operations to facilitate bicycle management, as detailed in the following sections:
+* The bicycle's brand, make and model.
+* The bicycle's material and weight.
+* The bicycle's length, height and wheel size.
+* The bicycle's top speed and braking power.
+* How many gears the bicycle has, if at all.
 
-==== Visible bicycle statuses
-The current availability of bicycles are tracked by LoanBook. Bicycles can thus be filtered by whether they are available or not, and the available ones are readily visible in the UI.
-
-==== Invalid loans
-Loaning out a particular bicycle during the time which it is unavailable or has already been reserved will be denied. This prevents accidents in loaning out bicycles.
-
-* When attempting to loan out a bicycle, the associated bicycle is retrieved from the system.
-[NOTE]
-The loan will be rejected if no bicycle is found that matches the bicycle name provided.
-
-* If the loan will take effect immediately, the bicycle's status is checked. If the bicycle is unavailable, the loan is rejected, and the bicycle's status is reported to the user.
-* If the loan is a reservation, i.e. it schedules a loan for the future, the bicycle's future reservations are checked. LoanBook will attempt to insert the reservation into the list of existing reservations. If the reservation clashes with the one directly before or after it, the loan is rejected, and the clash is reported to the user.
-
-==== Bicycles for particular needs
-The list of bicycles can be filtered using the same algorithm to filter the list of loans in order to find bicycles with particular properties, to suit particular customer's needs or activities.
+These fields can then be filtered to find `Bike` s that could better suit a customer's needs.
 
 ==== Design Considerations
 
@@ -1514,9 +1583,19 @@ If this is your first time using the app, note that the default password of the 
 
 . Adding a loan while all loans are listed
 
-.. Prerequisites: List all loans using the `list` command. Multiple loans in the list.
-.. Test case: `PLACEHOLDER` +
-   Expected: PLACEHOLDER
+.. Prerequisites: List all loans using the `list` command. Multiple loans in the list. A Bike with the name `Bike001` is present in the Loanbook. The last used Loan ID is smaller than 999,999,999, or the Loanbook is new.
+.. Test case: `add n/David ic/T0248272F p/98765432 e/david@example.com b/Bike001 lr/3.5 t/Overnight` +
+   Expected: A new loan is added to the list.
+... The editable details of the loan (e.g. Name, NRIC, etc.) match the fields specified in the command.
+... The Loan ID of the new loan is larger than that of all existing loans.
+... The "Start Time" field is equal to the time of execution of the `add` command.
+... The tags that appear are "Ongoing" and "Overnight".
+
+. Adding a loan with a bike that does not exist
+
+.. Prerequisites: A bike with the name `MissingBike` does not exist in the Loanbook.
+.. Test case: `add n/David ic/T0248272F p/98765432 e/david@example.com b/MissingBike lr/3.5 t/Overnight` +
+   Expected: No new loan is created. The following error message should appear: "No bike with that name exists within the loan book."
 
 === Edit a bike
 

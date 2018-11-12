@@ -20,27 +20,114 @@ By: `Team F10-2`      Since: `Sep 2018`      Licence: `MIT`
 
 Have you ever seen your clients waiting angrily for 15 minutes before finally getting their rental bikes? Introducing Forever A-Loan, a lightweight Command Line Interface (CLI) application that revolutionizes the way bike loans are logged. Forever A-Loan promises to drastically decrease the time taken for bike rental shop owners to manage their inventories by leveraging on state of the art inventory management algorithms and the absence of a clunky Graphical User Interface (GUI) that hinders fast typists. Enjoy!
 
+[[Quick-Start]]
 == Quick Start
+Here is a quick guide to help you set up the LoanBook application on your device.
 
 .  Ensure you have Java version `9` or later installed in your computer.
 .  Download the latest `LoanBook.jar` link:{repoURL}/releases[here].
 .  Run the .jar file. The GUI should appear in a few seconds.
-.  Type the command in the command box and press kbd:[ENTER] to execute it. +
-e.g. typing *`help`* and pressing kbd:[ENTER] will open the help window.
-.  Some example commands you can try:
 
-* *`list`* : List the status of the loanbook
-* **`add`**`p/John hp/12345678 e/john@abc.com r/3 o/Bicycle-007` : Loans Bicycle-007 to John at a rate of $3 per hour
-* **`delete`**`i/1 x/a12345` : deletes the 1st loan shown in the current list
-* *`resetall`* : Reset the loanbook
+You should see a textbox near the top of the window with a blinking vertical line. If the textbox says "Enter command here..." instead, click on the box with your mouse.
+
+To ensure that LoanBook is running smoothly, try typing `help` into the textbox, and then press kbd:[ENTER] to execute it. A new window containing this guide should pop up.
+
+=== Graphic User Interface (GUI)
+A screenshot of the LoanBook app is shown below:
+
+image::Ui.png[width="800"]
+
+A brief description of each section:
+
+* At the very top of the window are two *dropdown menu* s, labelled `File` and `Help`. You can access them with the mouse. The `File` menu allows you to exit LoanBook, while the `Help` menu lets you access this document.
+* Right below the dropdown menus is the *command box*. Here is where you type in the commands to be executed by the app.
+* Below the command box, the space is split horizontally into two sections. The left section is the *list panel*. Here is where a list of your bikes and loans will appear, together with some individual details on them.
+* The right section is the *result display*. Whenever you execute a command with the command box, this section will notify you of their outcome by displaying a message.
+* At the bottom of the window is the *status bar*. It contains two texts. The text on the left displays when was the last time the LoanBook's data was saved to the hard disk. The text on the right displays the file path of where the LoanBook data is saved, in relation to LoanBook's root directory. If the terms here confuse you, you can simply ignore this section.
+
+The *command box*, *list panel* and *result display* are what you will be using the most in LoanBook.
 
 [NOTE]
-The default password for the app is `a12345`. This is required for some commands such as `resetall` and `delete`.
+When you are just starting out, the list panel and result display should be empty as there is no information in the LoanBook yet, so do not worry if you do not see anything there.
 
-.  Refer to <<Features>> for details of each command.
+=== Using Commands
+LoanBook uses a Command Line Interface (CLI), which means that it is fully usable with only your keyboard, no mouse required!
 
-[[Features]]
-== Features
+When you type in anything on your keyboard, your input should appear in the command box. (If the command box says "Enter command here..." instead, please click on the command box to select it. If you do not have a mouse, press kbd:[TAB] a few times until it is selected.)
+
+The commands in LoanBook follow this format: `<KEYWORD> <PARAMETERS...>`. As an example, consider the following command: `delete i/1 x/a12345`
+
+* `delete` is the command's *keyword*. The keyword is used to identify which action from the LoanBook is being requested by you.
+* `i/1 x/a12345` specifies the command's *parameters*. Parameters are separated by spaces, and each parameter consists of a prefix (e.g. `i` or `x`), followed by a forward slash (`/`), then the value of that parameter (e.g. `1` or `a12345`).
+
+[NOTE]
+Note that some commands do not use prefixes for their parameters, while others do not even have parameters! Exactly what parameters are needed depends on the specific command, and they are all documented in <<Commands>>.
+
+Once you are done entering the command, just press kbd:[ENTER] to execute it. LoanBook will process your command and feedback the result to you using the result display.
+
+[NOTE]
+At any time, for a more detailed description of any command used, please check out <<Commands>>. LoanBook will also remind you of the correct command format should you type anything in incorrectly. So do not worry, there is plenty of help at every step of the way.
+
+Now that LoanBook is up and running and you are oriented with its GUI, it is time to set up your data within it.
+
+=== Registering Your Bicycles Into LoanBook
+Before LoanBook can do anything, it needs to know what bicycles you have at your disposal.
+
+To register a bike into LoanBook, use the following command:
+
+`addbike n/BIKE_NAME`
+
+where `BIKE_NAME` is the name of your bicycle. It will be used to identify your bike, so it must be a unique name. Your bicycle's ID number can be a good fit for this field.
+
+On success, you should see a message in the result display saying: "New bike added: `BIKE_NAME` Status: Available". If you receive an error, follow the instructions in the result display and try again.
+
+[NOTE]
+Even though you have successfully registered a bicycle into LoanBook, you might be disappointed that nothing is appearing in the list panel. That is because LoanBook defaults to showing you the list of loans in the list panel, and you currently do not have any. To view the list of bikes instead, use the command `listbikes`. You should now see a list of the bike(s) that you just keyed in!
+
+Simply repeat this process until you have registered all your bikes within LoanBook.
+
+=== Renting Out Bicycles
+Now that you have some bicycles within LoanBook, you can rent them out using the `add` command. The format for the `add` command is as follows:
+
+`add n/NAME ic/NRIC p/PHONE e/EMAIL b/BIKE lr/LOANRATE [t/TAG]...`
+
+Do not be overwhelmed by the sudden increase in length! Let us take it bit by bit...
+
+* `add` is simply the command's keyword.
+* `NAME` is the name of the customer who is renting a bike from you, e.g. `John Doe`.
+* `NRIC` is the customer's NRIC number.
+* `PHONE` is the customer's phone number, so that you know who to call if your bicycle is not returned on time.
+* `EMAIL` is the customer's email address, so that you can send reminders and e-receipts to them.
+* `BIKE` is the name of the bike that you want to rent out to them. In the previous section, it was mentioned that the `BIKE_NAME` that you specify for a bike is used to identify that bike uniquely; here is where it comes into play.
+* `LOANRATE` is the rate at which you are charging your customer for the bicycle rental, in dollars per hour. This will help your financial calculations later.
+* `TAG` are optional labels that you can tag the loan with. They are simply there to keep better track of your loans, should you wish to use them. You can specify no tags at all, just one tag, or multiple tags (with each tag needing a separate `t/` prefix).
+
+In summary, most of the parameters you specify here are simply customer-specific data. Once you iron out the details of the rental with them, this command is as easy as any other. Simply fill in the details and you should see a success message: "New loan added: (...)", showing you all the details of the transaction.
+
+[NOTE]
+Right now, LoanBook should still be displaying the list of bikes. To get it to display the list of loans again, simply use the `list` command. You should see the new loan you added at the bottom of the list. You can toggle between these two lists at will using the `list` and `listbikes` commands.
+
+[NOTE]
+A further visual cue to help you differentiate whether you are viewing the list of bikes or of loans is that the list of bikes is coloured blue, while the list of loans is coloured yellow-brown.
+
+=== Returning Bicycles
+Once your customer is done enjoying themself, it is time to conclude the loan. This is done using the `return` command:
+
+`return i/LIST_INDEX`
+
+The `LIST_INDEX` is simply the index of the loan that you want to return in the list panel. It is *not* the Loan ID.
+
+If the returning is successful, you should see a message in the result display saying "Loan Returned: (...)" followed by the details of the loan. You will also get to see how much you should charge the customer for renting out your bike for as long as they did.
+
+
+
+And using LoanBook is as simple as that!
+
+Of course, LoanBook supports a multitude of additional functionalities that will help to facilitate your bicycle rental management even further. The next section lists all the commands that you can try out once you are comfortable with the basic process above. Good luck and happy renting!
+
+[[Commands]]
+== Commands
+This section contains detailed info on the usage and behaviour for every command in the LoanBook.
 
 ====
 *Command Format*
@@ -97,8 +184,8 @@ Adds a loan to the loan book with the following parameters, and displays the tra
 [`t/TAG`: Optional Tags to tag the loan] +
 
 [NOTE]
-`PERSON_PHONE_NO` and `PERSON_EMAIL` should not be blank. +
-`BIKE_NAME` must be the name of a bicycle that has already been registered into the LoanBook. +
+`PHONE` and `EMAIL` should not be blank. +
+`BIKE` must be the name of a bicycle that has already been registered into the LoanBook. +
 `LOANRATE` is in dollars per hour.
 
 Examples:
@@ -121,17 +208,18 @@ Shows a list of all registered bicycles in the LoanBook. +
 Shows a list of all loans in the LoanBook. +
 [big]#*Format*: `list`#
 
-=== [Coming in v1.4] Editing a bike : `editbike`
+=== Editing a bike : `editbike`
 
 To keep the system updated with any changes in the bicycles, this command allows details of a bicycle to be edited. +
-[big]#*Format*: `edit BIKE_NAME [n/NEW_BIKE_NAME]`#
+[big]#*Format*: `editbike BIKE_NAME [n/NEW_BIKE_NAME]`#
 
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values. Any values not specified in the command will be unchanged.
+* You cannot edit a bike's name to be the same as another existing bike in the LoanBook.
 
 Examples:
 
-* `edit Bike 1 n/Bike-001` +
+* `editbike Bike 1 n/Bike-001` +
 For the bicycle named "Bike 1", its name is changed to "Bike-001", as long as "Bike-001" isn't already the name of another registered bicycle.
 
 === Editing a loan: `edit`
@@ -150,7 +238,7 @@ In case a wrong entry is keyed in, or the customer changes their mind, this comm
 [`t/TAG`: Optional edited tags of the loan] (Optional) +
 
 ****
-* Edits the loan at the specified `LOAN_INDEX`. This LOAN_INDEX refers to the LOAN_INDEX number shown in the displayed loan list. The LOAN_INDEX *must be a positive integer* 1, 2, 3, ...
+* Edits the loan at the specified `LIST_INDEX`. This LIST_INDEX refers to the LIST_INDEX number shown in the displayed loan list. The LIST_INDEX *must be a positive integer* 1, 2, 3, ...
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
 * When editing tags, the existing tags of the loan will be removed i.e adding of tags is not cumulative.
@@ -199,32 +287,32 @@ Returns any loan having names `Betsy`, `Tim`, or `John`
 [IMPORTANT]
 You need to provide at least one keyword. If not, LoanBook will not be able to parse your command!
 
-=== [Coming in v1.4] Deleting the chosen bike from the loan book : `deletebike`
+=== Deleting the chosen bike from the loan book : `deletebike`
 
 Deletes a bike from the loan book. +
-[big]#*Format*: `deletebike BIKE_NAME x/CURRENT_PASSWORD`#
+[big]#*Format*: `deletebike n/BIKE_NAME x/CURRENT_PASSWORD`#
 
 [NOTE]
-The command will be rejected if there are any ongoing loans that use that bicycle. Return or delete those loans first.
+(Coming in v2.0) The command will be rejected if there are any ongoing loans that use that bicycle. Return or delete those loans first.
 
 Examples:
 
-* `delete Bike 1 x/a12345` +
+* `delete n/Bike 1 x/a12345` +
 Deletes the bicycle with the name of "Bike 1".
 
 === Deleting the chosen loan from the loan book: `delete`
 
-Delete the loan from the loan book. If you want to delete one loan, use `delete i/LOAN_INDEX x/CURRENT_PASSWORD`.
+Delete the loan from the loan book. If you want to delete one loan, use `delete i/LIST_INDEX x/CURRENT_PASSWORD`.
 Due to `delete` modifying transactional summary, it is a critical command and hence elevation is required hence the password field. +
-[big]#*Format*: `delete i/LOAN_INDEX x/CURRENT_PASSWORD`#
+[big]#*Format*: `delete i/LIST_INDEX x/CURRENT_PASSWORD`#
 
 [big red]#List of Parameters#:
 
-`i/LOAN_INDEX`: Index of the loan, in the left hand side display. +
+`i/LIST_INDEX`: Index of the loan, in the left hand side display. +
 `x/CURRENT_PASSWORD`: Password used in the LoanBook.
 
 ****
-* Deletes the loan at the specified `i/LOAN_INDEX`.
+* Deletes the loan at the specified `i/LIST_INDEX`.
 * Note that this does not reset `LOAN_ID`.
 * Deletion will not occur if `CURRENT_PASSWORD` is incorrect.
 ****
@@ -269,13 +357,13 @@ Set the password of the app to `n3wP4sS`.
 
 So how do you even return a loan that you have loaned out? You can do so with this simple command! In fact, we see your pains trying to calculate the amount payable on a calculator, so we decided to help you out by doing all the number crunching for you.
 
-This command marks a loan as returned based on LOAN_INDEX and automatically prints out the amount payable. The amount payable will be prorated and rounded down to the nearest minute. +
+This command marks a loan as returned based on LIST_INDEX and automatically prints out the amount payable. The amount payable will be prorated and rounded down to the nearest minute. +
 
-[big]#*Format*: `return i/LOAN_INDEX`#
+[big]#*Format*: `return i/LIST_INDEX`#
 
 [big red]#List of Parameters#:
 
-`i/LOAN_INDEX`: Index of the loan, in the left hand side display. +
+`i/LIST_INDEX`: Index of the loan, in the left hand side display. +
 
 [TIP]
 ====
