@@ -931,14 +931,14 @@ If you would like the summary functionality to report certain stats that are not
 <h3 id="set-your-email-code-setemail-code"><a class="link" href="#set-your-email-code-setemail-code">3.19. Set your email: <code>setemail</code></a></h3>
 <div class="paragraph">
 <p>Sets the email address to send reminder emails from.<br>
-<span class="big"><strong>Format</strong>: <code>setemail OLDEMAIL NEWEMAIL</code></span></p>
+<span class="big"><strong>Format</strong>: <code>setemail e/NEWEMAIL x/PASSWORDFORAPP</code></span></p>
 </div>
 <div class="paragraph">
 <p><span class="big red">List of Parameters</span>:</p>
 </div>
 <div class="paragraph">
-<p>The old email that you have set to the current one that you would want to use.<br>
-Note that for this command, there is no prefix that you need to type. Just separate the emails with spaces.</p>
+<p><code>e/NEWEMAIL</code>: The new user email that you want to set to the app.<br>
+<code>x/PASSWORDFORAPP</code>: The password you set for the app. Not your email password.</p>
 </div>
 <div class="paragraph">
 <p>Some things to take note of for first time users:</p>
@@ -946,13 +946,7 @@ Note that for this command, there is no prefix that you need to type. Just separ
 <div class="ulist">
 <ul>
 <li>
-<p><code>OLDEMAIL</code> is <code>default</code> if you have not set an email yet.</p>
-</li>
-<li>
-<p><code>OLDEMAIL</code> must be the same as the one you set last time.</p>
-</li>
-<li>
-<p><code>NEWEMAIL</code> cannot the same as <code>OLDEMAIL</code>.</p>
+<p><code>NEWEMAIL</code> cannot the same as the user email you have already set to the app.</p>
 </li>
 <li>
 <p><code>NEWEMAIL</code> must be a valid Gmail address.</p>
@@ -977,10 +971,7 @@ Only Gmail is accepted!
 <div class="ulist">
 <ul>
 <li>
-<p><code>setemail default new_email@gmail.com</code></p>
-</li>
-<li>
-<p><code>setemail old_email@gmail.com new_email@gmail.com</code></p>
+<p><code>setemail e/new.email@gmail.com x/a12345</code></p>
 </li>
 </ul>
 </div>
@@ -1015,7 +1006,19 @@ Only Gmail is accepted!
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<strong>[IMPORTANT] Before using this command, please go to</strong> <a href="https://www.google.com/settings/security/lesssecureapps">Less Secure Apps</a> <strong>, enable it and refresh the Settings page!</strong>
+<strong>[IMPORTANT] Before using this command, please go to <a href="https://www.google.com/settings/security/lesssecureapps">Less Secure Apps</a> , enable it and restart the app! <span class="red">However! If your help page does not respond when enabling, please copy this link: https://www.google.com/settings/security/lesssecureapps and access it in your browser. Then enable the less secure app setting and refresh the setting page!</span></strong><br>
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<strong>[IMPORTANT] Please do not connect to eduroam network when using this functionality!</strong>
 </td>
 </tr>
 </table>
@@ -1084,4 +1087,4 @@ will be resolved in v2.0.</p>
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-12 08:16:40 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-12 09:34:32 UTC</div></div></div></body></html>

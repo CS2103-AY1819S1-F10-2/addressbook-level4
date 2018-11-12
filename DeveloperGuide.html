@@ -1820,7 +1820,7 @@ The loan will be rejected if no bicycle is found that matches the bicycle name p
 </div>
 <div class="paragraph">
 <p>As a result, we have added a new feature to hide the private information from the Window.<br>
-Example: The customer&#8217;s <code>Nric</code> as stored in the database is <code>Nric: G1234567U</code>, but our <code>LoanCard</code> will only show <code>Nric: Gxxxxx67U</code>.</p>
+Example: The customer&#8217;s <code>Nric</code> as stored in the database is <code>Nric: T0248272F</code>, but our <code>LoanCard</code> will only show <code>Nric: Txxxxx72F</code>.</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -1899,9 +1899,6 @@ For example: <code>phone.setText(loan.getPhone().getCensored().value);</code> wi
 <li>
 <p>Pros: Easy to implement.</p>
 </li>
-<li>
-<p>Cons:</p>
-</li>
 </ul>
 </div>
 </li>
@@ -1910,21 +1907,12 @@ For example: <code>phone.setText(loan.getPhone().getCensored().value);</code> wi
 <div class="ulist">
 <ul>
 <li>
-<p>Pros: Maybe easy to understand.</p>
-</li>
-<li>
 <p>Cons: The method might be bulky.</p>
 </li>
 </ul>
 </div>
 </li>
 </ul>
-</div>
-</div>
-<div class="sect3">
-<h4 id="how-to-see-the-hidden-information"><a class="link" href="#how-to-see-the-hidden-information">3.9.3. How to see the hidden information</a></h4>
-<div class="paragraph">
-<p>The censored data are only hidden from the window, not changed in the database. The <code>BrowserPanel</code> on the bottom right of the window will still show all the information including the hidden information.</p>
 </div>
 </div>
 </div>
@@ -1946,7 +1934,7 @@ For example: <code>phone.setText(loan.getPhone().getCensored().value);</code> wi
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-If user has not set an email, the email address will be a string <code>"default"</code> and the app show a "You have not set your email yet!" message.
+If user has not set an email, the email address will be an invalid email and the app show a "You have not set your email yet!" message.
 </td>
 </tr>
 </table>
@@ -1988,7 +1976,7 @@ The email will contain the <code>Name</code>, <code>BikeId</code>, <code>LoanSta
 <p>Given below is an example usage scenario and how the reminder email mechanism behaves at each step.</p>
 </div>
 <div class="paragraph">
-<p><strong>Step 1.</strong> The user launches the application for the first time. The user&#8217;s email address is string <code>"default"</code> by default.</p>
+<p><strong>Step 1.</strong> The user launches the application for the first time. The user&#8217;s email address is invalid by default.</p>
 </div>
 <div class="paragraph">
 <p><strong>Step 2.</strong> The user executes <code>checkemail</code>. The following sequence diagram shows how <code>checkemail</code> works:</p>
@@ -2002,37 +1990,34 @@ The email will contain the <code>Name</code>, <code>BikeId</code>, <code>LoanSta
 <p>The command executes <code>Model#getMyEmail()</code>, which calls <code>UserPrefs#getDefaultEmail()</code> and returns user&#8217;s email stored in <code>UserPref</code>. The app checks if user&#8217;s email equals to <code>"default"</code>. In this case, they are equal, so it throws a <code>CommandException</code>.</p>
 </div>
 <div class="paragraph">
-<p><strong>Step 3.</strong> The user executes <code>setemail OLDEMAIL NEWEMAIL</code>. This command does a few checks first:</p>
+<p><strong>Step 3.</strong> The user executes <code>setemail e/EMAIL x/PASSWORDFORAPP</code>. This command does a few checks first:</p>
 </div>
 <div class="olist loweralpha">
 <ol class="loweralpha" type="a">
 <li>
-<p>If <code>OLDEMAIL</code> is not equal to either <code>"default"</code> or the previously set email, then a <code>CommandException</code> is thrown, as the validation of the old email fails.</p>
+<p>The app then checks if <code>EMAIL</code> equals to the user email that has been already set to the app. If so, then a <code>CommandException</code> is thrown, to warn the user that they are setting the same email as last time.</p>
 </li>
 <li>
-<p>Otherwise, the app then checks if <code>OLDEMAIL</code> and <code>NEWEMAIL</code> are equal. If so, then a <code>CommandException</code> is thrown, to warn the user that they are setting the same email as last time.</p>
-</li>
-<li>
-<p>Otherwise, <code>SetEmailCommand#isValidGmail(NEWEMAIL)</code> is called to check if <code>NEWEMAIL</code> is a valid gmail. If not, a <code>CommandException</code> is thrown to warn the user that they are setting the same email as last time.</p>
+<p>Otherwise, <code>SetEmailCommand#isValidGmail(EMAIL)</code> is called to check if <code>EMAIL</code> is a valid gmail. If not, a <code>CommandException</code> is thrown to warn the user that they are setting invalid email address.</p>
 </li>
 </ol>
 </div>
 <div class="paragraph">
-<p><strong>Step 4.</strong> The user forgets what email he has set before, so he executes <code>checkemail</code> again. The procedure is the same as in <strong>Step 2</strong>. However, the app detects that user&#8217;s email is not <code>"default"</code> this time, so it creates an <code>Email(userEmail)</code> object and executes <code>Email#getCensored()</code>. Then, the function returns a <code>CommandResult</code> with a success message and the censored user email.</p>
+<p><strong>Step 4.</strong> The user forgets what email has been set before, so the user executes <code>checkemail</code> again. The procedure is the same as in <strong>Step 2</strong>. However, the app detects that user&#8217;s email is not the default invalid string this time, so it creates an <code>Email(userEmail)</code> object and executes <code>Email#getCensored()</code>. Then, the function returns a <code>CommandResult</code> with a success message and the censored user email.</p>
 </div>
 <div class="paragraph">
-<p><strong>Step 5.</strong> The user sends a reminder email to a customer by executing <code>remind x/EMAILPASSWORD n/NAME b/BIKEID</code>. This command implements the following operations:</p>
+<p><strong>Step 5.</strong> The user sends a reminder email to a customer by executing <code>remind pw/EMAILPASSWORD id/LOAN_ID</code>. This command implements the following operations:</p>
 </div>
 <div class="olist loweralpha">
 <ol class="loweralpha" type="a">
 <li>
-<p>Get a list of <code>Loans</code> from the <code>LoanBook</code> class and execute <code>RemindCommand#getLoan(list, NAME, BIKE)</code> to check if there is a <code>loan</code> that contains both this <code>NAME</code> and <code>BIKE</code>.</p>
+<p>Execute <code>Model#getLoanById()</code> and return an optional&lt;Loan&gt; object called <code>targetLoan</code>.</p>
 </li>
 <li>
-<p>If it returns a non-null <code>loan</code>, then check its <code>LoanStatus</code>.</p>
+<p>Check if <code>targetLoan.isPresent()</code> returns a non-null <code>loan</code>, then check if its <code>LoanStatus</code> is <code>ONGOING</code>.</p>
 </li>
 <li>
-<p>If its <code>LoanStatus</code> is <code>LoanStatus.ONGOING</code>, create a <code>SendReminder(model, EMAILPASSWORD, loan)</code> object and execute <code>SendReminder#send()</code> to send email.<br>
+<p>If its <code>LoanStatus</code> is <code>ONGOING</code>, create a <code>SendReminder(model, EMAILPASSWORD, loan)</code> object and execute <code>SendReminder#send()</code> to send email.<br>
 The <code>SendReminder#send()</code> method calls <code>SendReminder#createReminderEmail(session, userEmail)</code> to create the content of the email, connects user&#8217;s email using <code>EMAILPASSWORD</code> and finally send the email.</p>
 <div class="admonitionblock note">
 <table>
@@ -2041,19 +2026,7 @@ The <code>SendReminder#send()</code> method calls <code>SendReminder#createRemin
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-If the user cannot remember the customer&#8217;s <code>NAME</code> or the loaned <code>BIKE</code>, he can use the <code>find [NAME] [BIKE]</code> command to search for the target loan.
-</td>
-</tr>
-</table>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-For Steps (a) and (b), if the next step cannot be executed, a <code>CommandException</code> with corresponding failure message will be thrown.
+For Steps (b), if the next step cannot be executed, a <code>CommandException</code> with corresponding failure message will be thrown.
 </td>
 </tr>
 </table>
@@ -3744,7 +3717,7 @@ Expected: The displayed page should report the following:</p>
 <div class="sect2">
 <h3 id="sending-reminder-emails"><a class="link" href="#sending-reminder-emails">F.11. Sending Reminder Emails</a></h3>
 <div class="paragraph">
-<p>Prerequisites: Make sure the system is connected to the internet. The email must be gmail and its <code>Less secure apps</code> option is enabled.</p>
+<p>Prerequisites: Make sure the system is connected to the network and the network allows smtp. The email must be gmail and its <code>Less secure apps</code> option is enabled.</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
@@ -3759,7 +3732,7 @@ Expected: The displayed page should report the following:</p>
 <p>Execute the <code>checkemail</code> command. Then use the <code>setemail</code> command to set the sender&#8217;s email.</p>
 </li>
 <li>
-<p>After that, execute <code>remind x/correctpassword n/Name b/BikeId</code>.</p>
+<p>After that, execute <code>remind pw/CORRECTWMAILPW id/ONGOING_LOAN_ID</code>.</p>
 </li>
 </ul>
 </div>
@@ -3776,44 +3749,32 @@ Expected: The displayed page should report the following:</p>
 <div class="olist loweralpha">
 <ol class="loweralpha" type="a">
 <li>
-<p>Test case: <code>setemail WRONG_OLD_EMAIL@gmail.com NEW_EMAIL@gmail.com</code><br>
-Expected: Failure message "The old email address is wrong!" will show. User&#8217;s email is not changed.</p>
+<p>Test case: <code>setemail e/OLD.EMAIL@gmail.com x/PASSWORDFORAPP</code><br>
+Expected: Failure message "The new email should not be the same as the old email!" will show. User&#8217;s email is not changed.</p>
 </li>
 <li>
-<p>Test case: <code>setemail YOUR_EMAIL@gmail.com YOUR_EMAIL@gmail.com</code><br>
-Expected: Failure message "The old email and the new email cannot be the same!" will show. User&#8217;s email is not changed.</p>
+<p>Test case: <code>setemail e/NEW.EMAIL@outlook.com x/PASSWORDFORAPP</code><br>
+Expected: Failure message "Your new email address must be valid gmail." will show. User&#8217;s email is not changed.</p>
 </li>
 <li>
-<p>Test case: <code>setemail OLD_EMAIL@gmail.com INVALID_NEW_EMAIL@outlook.com</code><br>
-Expected: Failure message "Your new email address is invalid! It must be a valid gmail!" will show. User&#8217;s email is not changed.</p>
+<p>Test case: <code>remind pw/CORRECTPASSWORD id/NON_EXIST_ID</code><br>
+Expected: Failure message "There is no Loan with this ID in the LoanBook!" will show. The email is not sent.</p>
 </li>
 <li>
-<p>Test case: <code>setemail OLD_EMAIL@gmail.com INVALID_NEW_EMAIL@gmail.com@gmail.com</code><br>
-Expected: Failure message "Your new email address is invalid! It must be a valid gmail!" will show. User&#8217;s email is not changed.</p>
+<p>Test case: <code>remind pw/CORRECTPASSWORD id/RETURNED_ID</code><br>
+Expected: Failure message "There is no need to send a reminder, because the loan is RETURNED" will show. The email is not sent.</p>
 </li>
 <li>
-<p>Test case: <code>remind x/CORRECTPASSWORD n/NAME b/MISMATCHED_BIKE</code><br>
-Expected: Failure message "No loan contains both <code>NAME</code> and <code>MISMATCHED_BIKE</code>!" will show. The email is not sent.</p>
+<p>Test case: <code>remind pw/WRONGPASSWORD id/VALID_LOAN_ID</code><br>
+Expected: Failure message "Your password might be incorrect, or you have not enabled the \"Less secure apps\" setting in your Google account settings. Please refer to the User Guide by pressing F1!" will show. The email is not sent.</p>
 </li>
 <li>
-<p>Test case: <code>remind x/CORRECTPASSWORD n/MISMATCHED_NAME b/BIKE</code><br>
-Expected: Failure message "No loan contains both <code>MISMATCHED_NAME</code> and <code>BIKE</code>!" will show. The email is not sent.</p>
+<p>Test case: Make sure your email is set, disable its <code>less secure apps</code> setting and refresh the setting page. Execute <code>remind pw/CORRECTPASSWORD id/VALID_LOAN_ID</code><br>
+Expected: Failure message "Your password might be incorrect, or you have not enabled the \"Less secure apps\" setting in your Google account settings. Please refer to the User Guide by pressing F1!" will show. The email is not sent.</p>
 </li>
 <li>
-<p>Test case: <code>remind x/CORRECTPASSWORD n/RETURNED_NAME b/RETURNED_BIKE</code><br>
-Expected: Failure message "That loan has already been returned!" will show. The email is not sent.</p>
-</li>
-<li>
-<p>Test case: <code>remind x/CORRECTPASSWORD n/DELETED_NAME n/DELETED_BIKE</code><br>
-Expected: Failure message "That loan has been deleted!" will show. The email is not sent.</p>
-</li>
-<li>
-<p>Test case: <code>remind x/WRONGPASSWORD n/NAME b/BIKE</code><br>
-Expected: Failure message "Connection to your email failed! The password is wrong or you did not enable the <code>less secure app</code> option in your google account setting before you use remind command. Please refer to the User Guide!" will show. The email is not sent.</p>
-</li>
-<li>
-<p>Test case: Make sure your email is set, disable its <code>less secure apps</code> setting and refresh the setting page. Execute <code>remind x/CORRECTPASSWORD n/NAME b/BIKE</code><br>
-Expected: Failure message "Connection to your email failed! The password is wrong or you did not enable <code>less secure app</code> in your google account setting before you use remind command. Please refer to the User Guide!" will show. The email is not sent.</p>
+<p>Test case: Disconnect your network. Execute <code>remind pw/CORRECTPASSWORD id/VALID_LOAN_ID</code><br>
+Expected: Failure message "No connection to the network!" will show. The email is not sent.</p>
 </li>
 <li>
 <p>Other incorrect commands to try: <code>setemail</code>, <code>setemail x</code> (where x can be any string), <code>remind</code>, <code>remind x y z</code> (no prefix, x, y and z can be any string).</p>
@@ -3825,4 +3786,4 @@ Expected: Failure message "Connection to your email failed! The password is wron
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-12 08:16:40 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-12 09:34:32 UTC</div></div></div></body></html>

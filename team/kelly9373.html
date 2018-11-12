@@ -1,0 +1,637 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]--><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="Asciidoctor 1.5.6.1"><title>Liu Xiaohang - Project Portfolio</title><link rel="stylesheet" href="../stylesheets/gh-pages.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="../stylesheets/coderay-asciidoctor.css"></head><body class="article"><div id="site-header"><nav class="navbar navbar-light bg-light"><div class="container"><a class="navbar-brand" href="../index.html">LoanBook</a><ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="../UserGuide.html">User Guide</a></li><li class="nav-item"><a class="nav-link" href="../DeveloperGuide.html">Developer Guide</a></li><li class="nav-item"><a class="nav-link active" href="../AboutUs.html">About Us</a></li><li class="nav-item"><a class="nav-link" href="../ContactUs.html">Contact Us</a></li><li class="navitem"><a class="nav-link" href="https://github.com/CS2103-AY1819S1-F10-2/main.git"><span class="fa fa-github fa-lg" aria-hidden="true"></span>&nbsp;View on GitHub</a></li></ul></div></nav></div><div id="header"><h1>Liu Xiaohang - Project Portfolio</h1></div><div id="content"><div class="sect1">
+<h2 id="project-loanbook"><a class="link" href="#project-loanbook">PROJECT: LoanBook</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This portfolio aims to document the contributions made by Liu Xiaohang to the LoanBook. The source code is available here: <a href="https://github.com/CS2103-AY1819S1-F10-2/main">Loanbook source code</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="overview"><a class="link" href="#overview">Overview</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>LoanBook is a desktop loan book application targeted for bicycle rental shop owners to manage and keep track of their loans.</p>
+</div>
+<div class="paragraph">
+<p>The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 20 kLoC.</p>
+</div>
+<div class="paragraph">
+<p>LoanBook is a CS2103T project and it is morphed from <a href="https://github.com/nus-cs2103-AY1819S1/addressbook-level4">AddressBook-Level4</a>.</p>
+</div>
+<div class="paragraph">
+<p>The main features of Loanbook are:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Edit the details of the bikes or loans after added them.</p>
+</li>
+<li>
+<p>Set and change the app password for information security.</p>
+</li>
+<li>
+<p>Delete unwanted bikes or loans using the app&#8217;s password.</p>
+</li>
+<li>
+<p>View all the bikes or loans.</p>
+</li>
+<li>
+<p>Set and change the user&#8217;s email.</p>
+</li>
+<li>
+<p>Use the user&#8217;s email to send e-reminder to the customer of the targeted loan.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="summary-of-contributions"><a class="link" href="#summary-of-contributions">Summary of contributions</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This section shows my contribution to the LoanBook&#8217;s development.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Major enhancements</strong>: added the <strong>send email functionality</strong> to <strong>set and check user&#8217;s email</strong> and <strong>send reminder email</strong>, which contains three commands: <code>checkemail</code>, <code>setemail</code> and <code>remind</code>.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>What it does: allows the user to set the user email for the app and check this email if the user forget which user email was set for the app, and use this email to send reminder emails to the customers.</p>
+</li>
+<li>
+<p>Justification: This feature improves the product significantly because users are able to send reminder emails by typing in only one command instead of typing the whole emails. This can save a lot of efforts and time for the user.</p>
+</li>
+<li>
+<p>Highlights:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Show censored user email address if the user wanted to check which email was set to the app, which ensures the privacy and security of the user&#8217;s information.</p>
+</li>
+<li>
+<p>The user is required to type in the correct app password if they want to change the user email for the app, which prevents malicious operations.</p>
+</li>
+<li>
+<p>This functionality can automatically generate the reminder email with all the necessary information of the target loan and send it.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Credits: The send reminder email command is supported by <a href="https://github.com/javaee/javamail">JavaMail</a> library. Email connection and content generating codes are reused from <a href="https://github.com/clk528/maven-spring/blob/master/src/main/java/com/clk/library/sendmail.java">sendEmail</a>.</p>
+</li>
+<li>
+<p>Pull request <a href="https://github.com/CS2103-AY1819S1-F10-2/main/pull/151">#151</a></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Minor enhancement</strong>:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>added LoanRate class to store non-nagative numbers with at most two decimal places. (Pull request <a href="https://github.com/CS2103-AY1819S1-F10-2/main/pull/29">#29</a>)</p>
+</li>
+<li>
+<p>added censoring function in Nric, Phone and Email class to enable hiding sensitive information feature in LoanCard UI. (Pull request <a href="https://github.com/CS2103-AY1819S1-F10-2/main/pull/125">#125</a>)</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Other contributions</strong>:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Project management:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Add config.json file to fix the problem that repoSense not correctly detecting teammates' contributions.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Enhancements to existing features:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Refactored "address" to "loan". (Pull request <a href="https://github.com/CS2103-AY1819S1-F10-2/main/pull/115">#115</a>)</p>
+</li>
+<li>
+<p>Added data fields(Nric, Bike, LoanRate, LoanTime) to Loan class and wrote tests for the new data fields. (Pull request <a href="https://github.com/CS2103-AY1819S1-F10-2/main/pull/124">#124</a>)</p>
+</li>
+<li>
+<p>Added data fields in LoanCard and changed its UI. (Pull request <a href="https://github.com/CS2103-AY1819S1-F10-2/main/pull/125">#125</a>)</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Documentation:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Updated README to change the app&#8217;s name and its introduction. (Pull request <a href="https://github.com/CS2103-AY1819S1-F10-2/main/pull/21">#21</a>)</p>
+</li>
+<li>
+<p>Added JavaMail jar into the lib folder and changed build.gradle file to ensure the JavaMail library can be imported successfully. (Pull request <a href="https://github.com/CS2103-AY1819S1-F10-2/main/pull/151">#151</a>)</p>
+</li>
+<li>
+<p>Contributed to update User Guide and Developer Guide: (Pull requests <a href="https://github.com/CS2103-AY1819S1-F10-2/main/pull/5">#5</a>, <a href="https://github.com/CS2103-AY1819S1-F10-2/main/pull/18">#18</a>, <a href="https://github.com/CS2103-AY1819S1-F10-2/main/pull/106">#106</a>, <a href="https://github.com/CS2103-AY1819S1-F10-2/main/pull/132">#132</a>, <a href="https://github.com/CS2103-AY1819S1-F10-2/main/pull/134">#134</a>, <a href="https://github.com/CS2103-AY1819S1-F10-2/main/pull/149">#149</a>, <a href="https://github.com/CS2103-AY1819S1-F10-2/main/pull/172">#172</a>)</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Community:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>PRs reviewed (with non-trivial review comments): (Pull request <a href="https://github.com/CS2103-AY1819S1-F10-2/main/pull/95">#95</a>)</p>
+</li>
+<li>
+<p>Reported bugs and suggestions for other teams in the class (examples:  <a href="https://github.com/CS2103-AY1819S1-T09-1/main/issues/140">#140</a>, <a href="https://github.com/CS2103-AY1819S1-T09-1/main/issues/137">#137</a>, <a href="https://github.com/CS2103-AY1819S1-T09-1/main/issues/134">#134</a>, <a href="https://github.com/CS2103-AY1819S1-T09-1/main/issues/132">#132</a>, <a href="https://github.com/CS2103-AY1819S1-T09-1/main/issues/124">#124</a>)</p>
+</li>
+<li>
+<p>Contributed to forum discussions (example:  <a href="https://github.com/nus-cs2103-AY1819S1/forum/issues/121">#121</a>)</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Tools:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Integrated a third party library (JavaMail) to the project (<a href="https://github.com/CS2103-AY1819S1-F10-2/main/pull/151">#151</a>)</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="contributions-to-the-user-guide"><a class="link" href="#contributions-to-the-user-guide">Contributions to the User Guide</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This section shows the contributions I made to the User Guide. The following instructions show how to use the send email functionality.</p>
+</div>
+<div class="sect2">
+<h3 id="check-your-email-code-checkemail-code"><a class="link" href="#check-your-email-code-checkemail-code">Check your email: <code>checkemail</code></a></h3>
+<div class="paragraph">
+<p>Checks whether you have set your email or not, and displays the censored email address if you have set it before.<br>
+<span class="big"><strong>Format</strong>: <code>checkemail</code></span></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="set-your-email-code-setemail-code"><a class="link" href="#set-your-email-code-setemail-code">Set your email: <code>setemail</code></a></h3>
+<div class="paragraph">
+<p>Sets the email address to send reminder emails from.<br>
+<span class="big"><strong>Format</strong>: <code>setemail e/NEWEMAIL x/PASSWORDFORAPP</code></span></p>
+</div>
+<div class="paragraph">
+<p><span class="big red">List of Parameters</span>:</p>
+</div>
+<div class="paragraph">
+<p><code>e/NEWEMAIL</code>: The new user email that you want to set to the app.<br>
+<code>x/PASSWORDFORAPP</code>: The password you set for the app. Not your email password.</p>
+</div>
+<div class="paragraph">
+<p>Some things to take note of for first time users:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>NEWEMAIL</code> cannot the same as the user email you have already set to the app.</p>
+</li>
+<li>
+<p><code>NEWEMAIL</code> must be a valid Gmail address.</p>
+</li>
+</ul>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Only Gmail is accepted!
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>setemail e/new.email@gmail.com x/a12345</code></p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="send-reminder-email-code-remind-code"><a class="link" href="#send-reminder-email-code-remind-code">Send reminder email: <code>remind</code></a></h3>
+<div class="paragraph">
+<p>Sends a reminder email to the customer.<br>
+<span class="big"><strong>Format</strong>: <code>remind pw/EMAILPASSWORD id/LOAN_ID</code></span></p>
+</div>
+<div class="paragraph">
+<p><span class="big red">List of Parameters</span>:</p>
+</div>
+<div class="paragraph">
+<p><code>pw/PASSWORD</code>: Password of the email address you are sending the messages from.<br>
+<code>id/LOAN_ID</code>: LoanID of the loan you want to remind<br></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>LOANID</code> is the ID of the loan, not the index.</p>
+</li>
+<li>
+<p><code>EMAILPASSWORD</code> must be correct.</p>
+</li>
+</ul>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<strong>[IMPORTANT] Before using this command, please go to <a href="https://www.google.com/settings/security/lesssecureapps">Less Secure Apps</a> , enable it and restart the app! <span class="red">However! If your help page does not respond when enabling, please copy this link: https://www.google.com/settings/security/lesssecureapps and access it in your browser. Then enable the less secure app setting and refresh the setting page!</span></strong><br>
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<strong>[IMPORTANT] Please do not connect to eduroam network when using this functionality!</strong>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>remind pw/samplepassword id/0</code></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="contributions-to-the-developer-guide"><a class="link" href="#contributions-to-the-developer-guide">Contributions to the Developer Guide</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This section shows the contributions I made to the Developer Guide. The following instructions show how to the send email functionality is implemented.</p>
+</div>
+<div class="sect2">
+<h3 id="hide-private-information"><a class="link" href="#hide-private-information">Hide private information</a></h3>
+<div class="paragraph">
+<p>Users must provide some important and personal information when adding a loan, e.g. <code>Nric</code>, so it is our responsibility to protect their privacy.</p>
+</div>
+<div class="paragraph">
+<p>As a result, we have added a new feature to hide the private information from the Window.<br>
+Example: The customer&#8217;s <code>Nric</code> as stored in the database is <code>Nric: T0248272F</code>, but our <code>LoanCard</code> will only show <code>Nric: Txxxxx72F</code>.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/LoanListPanelView.png" alt="LoanListPanelView">
+</div>
+</div>
+<div class="sect3">
+<h4 id="current-implementation"><a class="link" href="#current-implementation">Current implementation</a></h4>
+<div class="paragraph">
+<p>Hidden private information is facilitated by an interface called <code>Censor</code>. It is implemented by classes <code>Nric</code>, <code>Phone</code> and <code>Email</code>.</p>
+</div>
+<div class="paragraph">
+<p>When showing a new loan, it will do the following operations:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>LoanCard#LoanCard()</code>&#8201;&#8212;&#8201;the constructor will assign values to each of the labels shown in the LoanCard.</p>
+</li>
+<li>
+<p><code>Nric#getCensored()</code>&#8201;&#8212;&#8201;censor the Nric value and hide the first five digital numbers. Then it returns the censored String.</p>
+</li>
+<li>
+<p><code>Nric#doCensoring(int length)</code>&#8201;&#8212;&#8201;Take in the length of the Nric String and return the censored part ("x" part) according to the length.</p>
+</li>
+<li>
+<p><code>Phone#getCensored()</code>&#8201;&#8212;&#8201;censor the phone number and hide the first five digital numbers. Then it returns the censored String.</p>
+</li>
+<li>
+<p><code>Phone#doCensoring(int length)</code>&#8201;&#8212;&#8201;Take in the length of the Phone String and return the censored part ("x" part) according to the length.</p>
+</li>
+<li>
+<p><code>Email#getCensored()</code>&#8201;&#8212;&#8201;censor the email address and hide every characters except the last two characters in the local-part and the domain.</p>
+</li>
+<li>
+<p><code>Email#doCensoring(int length)</code>&#8201;&#8212;&#8201;Take in the length of the Email String and return the censored part ("x" part) according to the length.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Given below is an example usage scenario and how this mechanism behaves at each step.</p>
+</div>
+<div class="paragraph">
+<p><strong>Step1.</strong> The user adds a new loan to the LoanBook. A new <code>LoanCard</code> object will be created.<br>
+The <code>LoanCard</code> object will contain information on the loan: <code>LoanID</code>, <code>BikeID</code>, <code>Name</code>, <code>Nric</code>, <code>Phone</code>, <code>Email</code>, <code>LoanRate</code> and <code>LoanTime</code>.</p>
+</div>
+<div class="paragraph">
+<p><strong>Step2.</strong> Assign the value of each of the components to their corresponding labels.<br>
+For example: <code>name.setText(loan.getName().value);</code> will directly assign the name String of this loan to the <code>name</code> label.<br></p>
+</div>
+<div class="paragraph">
+<p>However, the values of <code>Nric</code>, <code>Phone</code> and <code>Email</code> need censoring before assigning their values, so they will call their own <code>getCensored()</code> method in their class.<br>
+<code>getCensored()</code> in each of these class will call their corresponding <code>doCensoring(int)</code> method. Then combine the censored part and remain part and return.<br>
+For example: <code>phone.setText(loan.getPhone().getCensored().value);</code> will censor the value of the phone String of this loan and then assign the censored value to the <code>phone</code> label.</p>
+</div>
+<div class="paragraph">
+<p>The following sequence diagram shows how this operation works:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/HideInfoSequenceDiagrams.png" alt="HideInfoSequenceDiagrams">
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="design-considerations"><a class="link" href="#design-considerations">Design Considerations</a></h4>
+<div class="paragraph">
+<p><strong>Aspect: How to execute getCensored() and doCensoring(int)</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Alternative 1 (current choice)</strong>: each class implements from <code>Censor</code> interface.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: Easy to implement.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Alternative 2</strong>: <code>Loan</code> class implements from <code>Censor</code> interface.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Cons: The method might be bulky.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="send-reminder-email-feature"><a class="link" href="#send-reminder-email-feature">Send Reminder Email feature</a></h3>
+<div class="sect3">
+<h4 id="current-implementation-2"><a class="link" href="#current-implementation-2">Current Implementation</a></h4>
+<div class="paragraph">
+<p>The email sending mechanism is supported by the <a href="https://docs.oracle.com/javaee/7/api/javax/mail/package-summary.html"><code>JavaMail</code></a> library. This feature is composed of three commands: <code>checkemail</code>, <code>setemail</code> and <code>remind</code>.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>checkemail</code> command: display the email address that the user has set to send emails from. The app will censor the email address.</p>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+If user has not set an email, the email address will be an invalid email and the app show a "You have not set your email yet!" message.
+</td>
+</tr>
+</table>
+</div>
+</li>
+<li>
+<p><code>setemail</code> command: set the email address used for sending reminders to the customers.</p>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Only gmail is accepted by the app.
+</td>
+</tr>
+</table>
+</div>
+</li>
+<li>
+<p><code>remind</code> command: automatically generate an email containing some core information about the loan, and send it to the corresponding customer from user&#8217;s email. This command will use the <code>JavaMail</code> library.</p>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The email will contain the <code>Name</code>, <code>BikeId</code>, <code>LoanStartTime</code> and <code>LoanRate</code> of the loan.
+</td>
+</tr>
+</table>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Given below is an example usage scenario and how the reminder email mechanism behaves at each step.</p>
+</div>
+<div class="paragraph">
+<p><strong>Step 1.</strong> The user launches the application for the first time. The user&#8217;s email address is invalid by default.</p>
+</div>
+<div class="paragraph">
+<p><strong>Step 2.</strong> The user executes <code>checkemail</code>. The following sequence diagram shows how <code>checkemail</code> works:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/CheckEmailSequenceDiagram.png" alt="CheckEmailSequenceDiagram">
+</div>
+</div>
+<div class="paragraph">
+<p>The command executes <code>Model#getMyEmail()</code>, which calls <code>UserPrefs#getDefaultEmail()</code> and returns user&#8217;s email stored in <code>UserPref</code>. The app checks if user&#8217;s email equals to <code>"default"</code>. In this case, they are equal, so it throws a <code>CommandException</code>.</p>
+</div>
+<div class="paragraph">
+<p><strong>Step 3.</strong> The user executes <code>setemail e/EMAIL x/PASSWORDFORAPP</code>. This command does a few checks first:</p>
+</div>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>The app then checks if <code>EMAIL</code> equals to the user email that has been already set to the app. If so, then a <code>CommandException</code> is thrown, to warn the user that they are setting the same email as last time.</p>
+</li>
+<li>
+<p>Otherwise, <code>SetEmailCommand#isValidGmail(EMAIL)</code> is called to check if <code>EMAIL</code> is a valid gmail. If not, a <code>CommandException</code> is thrown to warn the user that they are setting invalid email address.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><strong>Step 4.</strong> The user forgets what email has been set before, so the user executes <code>checkemail</code> again. The procedure is the same as in <strong>Step 2</strong>. However, the app detects that user&#8217;s email is not the default invalid string this time, so it creates an <code>Email(userEmail)</code> object and executes <code>Email#getCensored()</code>. Then, the function returns a <code>CommandResult</code> with a success message and the censored user email.</p>
+</div>
+<div class="paragraph">
+<p><strong>Step 5.</strong> The user sends a reminder email to a customer by executing <code>remind pw/EMAILPASSWORD id/LOAN_ID</code>. This command implements the following operations:</p>
+</div>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Execute <code>Model#getLoanById()</code> and return an optional&lt;Loan&gt; object called <code>targetLoan</code>.</p>
+</li>
+<li>
+<p>Check if <code>targetLoan.isPresent()</code> returns a non-null <code>loan</code>, then check if its <code>LoanStatus</code> is <code>ONGOING</code>.</p>
+</li>
+<li>
+<p>If its <code>LoanStatus</code> is <code>ONGOING</code>, create a <code>SendReminder(model, EMAILPASSWORD, loan)</code> object and execute <code>SendReminder#send()</code> to send email.<br>
+The <code>SendReminder#send()</code> method calls <code>SendReminder#createReminderEmail(session, userEmail)</code> to create the content of the email, connects user&#8217;s email using <code>EMAILPASSWORD</code> and finally send the email.</p>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+For Steps (b), if the next step cannot be executed, a <code>CommandException</code> with corresponding failure message will be thrown.
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+If it throws a <code>CommandException</code> with authentication failed message in step (c), please check if user&#8217;s email and password are correct. If they are, please make sure that the <code>Less secure apps</code> setting of user&#8217;s email is enabled. If it is not, enable it and refresh the page.
+</td>
+</tr>
+</table>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect3">
+<h4 id="design-considerations-2"><a class="link" href="#design-considerations-2">Design considerations</a></h4>
+<div class="paragraph">
+<p><strong>Aspect: use user&#8217;s personal email vs share an immutable common email</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Alternative 1 (current choice):</strong> Use a user-specified email.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>The user has a choice of what email address to use.</p>
+</li>
+<li>
+<p>The user needs to type in the correct password if they want to send a reminder email, which ensures the security and privacy of the email.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Cons:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>The user needs to enable the <code>Less secure apps</code> setting, which could be a security concern.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Alternative 2:</strong> Use a common email provided by the app.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>The user does not need to set their own email when sending reminder emails, reducing hassle when setting up.</p>
+</li>
+<li>
+<p>The user does not need to type in a password when sending a reminder email.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Cons:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>The common email is less secure, as its password can be found within the program.</p>
+</li>
+<li>
+<p>The password of the common email can be changed by malicious users.</p>
+</li>
+<li>
+<p>The email might get overloaded.</p>
+</li>
+<li>
+<p>Customers might receive spam emails, as the <code>remind</code> command does not require a password.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="future-considerations"><a class="link" href="#future-considerations">Future considerations</a></h4>
+<div class="paragraph">
+<p>We plan to add a feature that can automatically send an e-receipt to the customer after <code>return</code> ing a loan.</p>
+</div>
+<div class="paragraph">
+<p>The e-receipt will contain the <code>Name</code>, <code>BikeID</code>, <code>LoanStartTime</code>, <code>LoanEndTime</code> and <code>TotalCost</code> of the loan.</p>
+</div>
+</div>
+</div>
+</div>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-12 09:34:32 UTC</div></div></div></body></html>
