@@ -31,7 +31,7 @@
 <li><a href="#locating-loans-by-keywords-code-find-code">3.8. Locating loans by keywords: <code>find</code></a></li>
 <li><a href="#deleting-the-chosen-bike-from-the-loan-book-code-deletebike-code">3.9. Deleting the chosen bike from the loan book : <code>deletebike</code></a></li>
 <li><a href="#deleting-the-chosen-loan-from-the-loan-book-code-delete-code">3.10. Deleting the chosen loan from the loan book: <code>delete</code></a></li>
-<li><a href="#change-the-password-of-the-app-code-setpass-code">3.11. Change the password of the app: <code>setpass</code>.</a></li>
+<li><a href="#change-the-password-of-the-app-code-setpass-code">3.11. Change the password of the app: <code>setpass</code></a></li>
 <li><a href="#returning-a-loan-code-return-code">3.12. Returning a loan: <code>return</code></a></li>
 <li><a href="#locating-loans-by-date-of-loan-code-search-code">3.13. Locating loans by date of loan: <code>search</code></a></li>
 <li><a href="#hard-reset-all-loans-from-loan-book-code-resetloans-code">3.14. Hard reset all loans from loan book : <code>resetloans</code></a></li>
@@ -750,10 +750,17 @@ Deletes the loan with that has been indexed at position 1.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="change-the-password-of-the-app-code-setpass-code"><a class="link" href="#change-the-password-of-the-app-code-setpass-code">3.11. Change the password of the app: <code>setpass</code>.</a></h3>
+<h3 id="change-the-password-of-the-app-code-setpass-code"><a class="link" href="#change-the-password-of-the-app-code-setpass-code">3.11. Change the password of the app: <code>setpass</code></a></h3>
 <div class="paragraph">
-<p>Change the current password of the app to <code>NEW_PASSWORD</code>. This ensures that critical commands such as <code>delete</code> and <code>resetall</code> may be performed by authorized personnel only.<br>
-<span class="big"><strong>Format</strong>: <code>setpass CURRENT_PASSWORD NEW_PASSWORD</code></span></p>
+<p>This command changes the current password of the app. This allows you to use a different password in the event that the old password was compromised. Simply follow the example screenshot below:<br></p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/setpassExample.png" alt="setpassExample" width="650">
+</div>
+</div>
+<div class="paragraph">
+<p><span class="big"><strong>Format</strong>: <code>setpass CURRENT_PASSWORD NEW_PASSWORD</code></span></p>
 </div>
 <div class="paragraph">
 <p><span class="big red">List of Parameters</span>:</p>
@@ -786,7 +793,7 @@ Note that you only need to use spaces to seperate the two passwords. There is no
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-Default password for the app is <code>a12345</code>. To change the default password, type <code>setpass a12345 newpass</code>.
+The default password for the app is <code>a12345</code>. To change the default password, execute the command: <code>setpass a12345 &lt;newpass&gt;</code>.
 </td>
 </tr>
 </table>
@@ -899,8 +906,15 @@ Marks the loan that has been indexed at position 55 as returned. Also automatica
 <div class="sect2">
 <h3 id="locating-loans-by-date-of-loan-code-search-code"><a class="link" href="#locating-loans-by-date-of-loan-code-search-code">3.13. Locating loans by date of loan: <code>search</code></a></h3>
 <div class="paragraph">
-<p>Populate all loans that were created between the range provided.
-<span class="big"><strong>Format</strong>: <code>search START_DATE END_DATE</code></span></p>
+<p>Populate all loans that were created between the range provided. If you want to search for loans created within a given period for loan tracking, simply enter the command, as shown in the screenshot below:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/searchCommandScreenshot.png" alt="searchCommandScreenshot" width="650">
+</div>
+</div>
+<div class="paragraph">
+<p><span class="big"><strong>Format</strong>: <code>search START_DATE END_DATE</code></span></p>
 </div>
 <div class="paragraph">
 <p><span class="big red">List of Parameters</span>:</p>
@@ -917,16 +931,16 @@ Note that you only need to use spaces to seperate the two dates. There is no pre
 <p>Date format must be YYYY-MM-DD.</p>
 </li>
 <li>
-<p>The search is format sensitive sensitive. i.e. Date format must be strictly followed`.</p>
+<p>The search command is format sensitive. i.e. Date format must be strictly followed`.</p>
 </li>
 <li>
-<p>The search is determined on the date and time of loan created.</p>
+<p>The search result is dependent on the date and time of loan created.</p>
 </li>
 <li>
 <p>Date provided must be valid. i.e. 2018-02-31 will return an error as it is not a valid date.</p>
 </li>
 <li>
-<p>The start date provided should be before end date. i.e. <code>search 2018-01-02 2018-01-01</code> will throw an error.</p>
+<p>The start date provided should be before end date. i.e. <code>search 2018-01-02 2018-01-01</code> will return an error.</p>
 </li>
 </ul>
 </div>
@@ -939,11 +953,11 @@ Note that you only need to use spaces to seperate the two dates. There is no pre
 <ul>
 <li>
 <p><code>search 2018-01-01 2018-01-01</code><br>
-Searches for loans with loan start date and time as 2018-01-01.</p>
+Search for loans created on 2018-01-01.</p>
 </li>
 <li>
 <p><code>search 2018-01-01 2018-01-02</code><br>
-Searches for loans with loan start date and time between 2018-01-01 and 2018-01-02, inclusive.</p>
+Searches for loans created between 2018-01-01 and 2018-01-02, inclusive.</p>
 </li>
 </ul>
 </div>
@@ -1289,4 +1303,4 @@ will be resolved in v2.0.</p>
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-12 14:16:58 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-12 14:25:50 UTC</div></div></div></body></html>

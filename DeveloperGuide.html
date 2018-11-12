@@ -31,7 +31,7 @@
 <ul class="sectlevel2">
 <li><a href="#undo-redo-feature">3.1. Undo/Redo feature</a></li>
 <li><a href="#unique-loan-id">3.2. Unique Loan ID</a></li>
-<li><a href="#admin-authentication">3.3. Admin Authentication</a></li>
+<li><a href="#authentication">3.3. Authentication</a></li>
 <li><a href="#return-a-loan-feature">3.4. Return a Loan feature</a></li>
 <li><a href="#summary-feature">3.5. Summary Feature</a></li>
 <li><a href="#logging">3.6. Logging</a></li>
@@ -1109,16 +1109,26 @@ Since this value will be a represented by a Java <code>int</code>, the maximum p
 </div>
 </div>
 <div class="sect2">
-<h3 id="admin-authentication"><a class="link" href="#admin-authentication">3.3. Admin Authentication</a></h3>
+<h3 id="authentication"><a class="link" href="#authentication">3.3. Authentication</a></h3>
 <div class="paragraph">
-<p>Before critical actions such as deleting a loan can be performed, admin authentication
-should be required. This ensures that only authorized users are able to perform critical actions.
+<p>Before critical actions such as deleting a loan can be performed, authentication of user
+is required. This ensures that only authorized users are able to perform critical actions.
 This is done by requiring a password before performing a critical action.</p>
 </div>
 <div class="sect3">
 <h4 id="current-implementation-3"><a class="link" href="#current-implementation-3">3.3.1. Current Implementation</a></h4>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 100%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>The following provide a walkthrough on how the authentication feature is implemented.</em></p></td>
+</tr>
+</tbody>
+</table>
 <div class="paragraph">
-<p>The authentication mechanism is provided by <code>Password</code>. It implements the following operations that facilitates authentications:</p>
+<p>The authentication mechanism is provided by the <code>Password</code> class. It implements the following operations that facilitates authentications:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -1126,7 +1136,7 @@ This is done by requiring a password before performing a critical action.</p>
 <p><code>Password#isSamePassword(currentPass, providedPass)</code>&#8201;&#8212;&#8201;Checks if both <code>providedPass</code> and <code>currentPass</code> are the same password after decryption.</p>
 </li>
 <li>
-<p><code>Password#generateSalt()</code>&#8201;&#8212;&#8201;Generate a hash salt for the app.</p>
+<p><code>Password#generateSalt()</code>&#8201;&#8212;&#8201;Generate a hashing salt for the app.</p>
 </li>
 <li>
 <p><code>Password#encrypt(providedPass, salt)</code>&#8201;&#8212;&#8201;Encrypt <code>providedPass</code> using hashing <code>salt</code>.</p>
@@ -1137,16 +1147,32 @@ This is done by requiring a password before performing a critical action.</p>
 <p>Given below is an example usage scenario and how the authentication mechanism behaves at each step:</p>
 </div>
 <div class="paragraph">
-<p>Step 1. The user launches the application for the first time. <code>UserPref</code> will be initialised with a randomly generated salt by calling <code>Password#generateSalt()</code>, and a default hashed password from <code>a12345</code>.</p>
+<p><strong>Step 1</strong>. The user launches the application for the first time. <code>UserPref</code> will be initialised with a randomly generated salt by calling <code>Password#generateSalt()</code>, and a default hashed password from <code>a12345</code>.</p>
 </div>
 <div class="paragraph">
-<p>Step 2. The user executes <code>setpass a12345 newP4sS</code> command to change the password to <code>newP4sS</code>.</p>
+<p>Example of a hashing salt is:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code>R9hE4pccZYI3BYfQa6etrVD5n7sLRK8G9S8KJRLUqTvdJH15oYnsR1EyrYL2FGH1xDVulTrPEYt1ByVPoVmS4uDDzKzPjZJg2i9SPvOdOMtap6xfBVZLld7ZnEqgdMuhknvLzYilwKy8yHzaEsjk0PEhR5G1XaEMd2dqw6fAhng4ML5UzvIMo2s8HmB4NU7G5pk5yyiQYvam5XrLm0k24ZLUV7zbmmhKXACYlFKcEMMI9LzQcMwBXgN5KHe08H3U</code></pre>
+</div>
 </div>
 <div class="paragraph">
-<p>Step 3. Input password will be checked against the app&#8217;s password using <code>Password#isSamePassword()</code> to ensure that the user has sufficient elevation to change the password of the app.</p>
+<p><strong>Step 2</strong>. The user executes <code>setpass a12345 newP4sS</code> command to change the password to <code>newP4sS</code>.</p>
 </div>
 <div class="paragraph">
-<p>Step 4 <code>Password</code> class will encrypt the new password using <code>Password#encrypt()</code>, and call Model#setPass() to changes the password of the application in <code>UserPref</code>.</p>
+<p><strong>Step 3</strong>. Input password will be checked against the app&#8217;s password using <code>Password#isSamePassword()</code> to ensure that the user has sufficient elevation to change the password of the app.</p>
+</div>
+<div class="paragraph">
+<p><strong>Step 4</strong> <code>Password</code> class will encrypt the new password using <code>Password#encrypt()</code>, and call Model#setPass() to changes the password of the application in <code>UserPref</code>.</p>
+</div>
+<div class="paragraph">
+<p>Example of an encrypted password:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code>d46XwZ4pClMXcItYHiNPJ4gHc8IKRFt8QnVDJd8axQ0=</code></pre>
+</div>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -1161,7 +1187,7 @@ If the current password input is wrong or if the current password is the same as
 </table>
 </div>
 <div class="paragraph">
-<p>Step 5. Password in <code>UserPref</code> is saved to the encrypted value of the new password input.</p>
+<p><strong>Step 5</strong>. Password in <code>UserPref</code> is saved to the encrypted value of the new password input.</p>
 </div>
 <div class="paragraph">
 <p>The following sequence diagram shows how the <code>setpass</code> operation works:</p>
@@ -1180,13 +1206,13 @@ If the current password input is wrong or if the current password is the same as
 </div>
 </div>
 <div class="paragraph">
-<p>Step 6. The user executes a critical command <code>delete i/1 x/a12345</code>.</p>
+<p><strong>Step 6</strong>. The user executes a critical command <code>delete i/1 x/a12345</code>.</p>
 </div>
 <div class="paragraph">
-<p>Step 7. This command runs <code>Model#getPass()</code> to retrieve the current password. It then call <code>Password#isSamePassword()</code> to determine if the input password in the command is the same as the existing password.</p>
+<p><strong>Step 7</strong>. This command runs <code>Model#getPass()</code> to retrieve the current password. It then call <code>Password#isSamePassword()</code> to determine if the input password in the command is the same as the existing password.</p>
 </div>
 <div class="paragraph">
-<p>Step 8. Deletion of loan at index 1 will occur.</p>
+<p><strong>Step 8</strong>. Deletion of loan at index 1 will occur.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -1219,8 +1245,21 @@ If current password input is wrong, or if the index provided is invalid, deletio
 </div>
 <div class="sect3">
 <h4 id="design-considerations-3"><a class="link" href="#design-considerations-3">3.3.2. Design Considerations</a></h4>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 100%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>The following aspects are considerations that our team had made before the implementation of this feature.</em></p></td>
+</tr>
+</tbody>
+</table>
 <div class="sect4">
 <h5 id="aspect-how-to-authenticate-users"><a class="link" href="#aspect-how-to-authenticate-users">Aspect: How to authenticate users</a></h5>
+<div class="paragraph">
+<p>To ensure that only authorised users can execute elevated commands, we had to consider different alternatives on how to authenticate the user.</p>
+</div>
 <div class="ulist">
 <ul>
 <li>
@@ -1254,7 +1293,7 @@ If current password input is wrong, or if the index provided is invalid, deletio
 </div>
 </li>
 <li>
-<p><strong>Alternative 2</strong>: A login page to authenticate each user</p>
+<p><strong>Alternative 2</strong>: A login page to authenticate users</p>
 <div class="ulist">
 <ul>
 <li>
@@ -1297,6 +1336,9 @@ If current password input is wrong, or if the index provided is invalid, deletio
 </div>
 <div class="sect4">
 <h5 id="aspect-method-of-encryption"><a class="link" href="#aspect-method-of-encryption">Aspect: Method of encryption</a></h5>
+<div class="paragraph">
+<p>To ensure that the app&#8217;s password is properly encrypted, we had to consider between storing the password locally, and storing the password online.</p>
+</div>
 <div class="ulist">
 <ul>
 <li>
@@ -1363,18 +1405,6 @@ If current password input is wrong, or if the index provided is invalid, deletio
 </div>
 </li>
 </ul>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-We used a less secure alternative due to the nature of the target audience. It is highly improbable for hackers to be targeting a bicycle shop.
-</td>
-</tr>
-</table>
 </div>
 </div>
 </div>
@@ -3964,4 +3994,4 @@ Expected: Failure message "No connection to the network!" will show. The email i
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-12 14:16:58 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-12 14:25:50 UTC</div></div></div></body></html>
