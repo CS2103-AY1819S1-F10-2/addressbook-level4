@@ -1535,9 +1535,19 @@ If this is your first time using the app, note that the default password of the 
 
 . Adding a loan while all loans are listed
 
-.. Prerequisites: List all loans using the `list` command. Multiple loans in the list.
-.. Test case: `PLACEHOLDER` +
-   Expected: PLACEHOLDER
+.. Prerequisites: List all loans using the `list` command. Multiple loans in the list. A Bike with the name `Bike001` is present in the Loanbook. The last used Loan ID is smaller than 999,999,999, or the Loanbook is new.
+.. Test case: `add n/David ic/T0248272F p/98765432 e/david@example.com b/Bike001 lr/3.5 t/Overnight` +
+   Expected: A new loan is added to the list. 
+... The editable details of the loan (e.g. Name, NRIC, etc.) match the fields specified in the command.
+... The Loan ID of the new loan is larger than that of all existing loans. 
+... The "Start Time" field is equal to the time of execution of the `add` command.
+... The tags that appear are "Ongoing" and "Overnight".
+
+. Adding a loan with a bike that does not exist
+
+.. Prerequisites: A bike with the name `MissingBike` does not exist in the Loanbook.
+.. Test case: `add n/David ic/T0248272F p/98765432 e/david@example.com b/MissingBike lr/3.5 t/Overnight` +
+   Expected: No new loan is created. The following error message should appear: "No bike with that name exists within the loan book."
 
 === Edit a bike
 
