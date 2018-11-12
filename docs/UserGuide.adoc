@@ -180,8 +180,8 @@ Adds a loan to the loan book with the following parameters, and displays the tra
 [`t/TAG`: Optional Tags to tag the loan] +
 
 [NOTE]
-`PERSON_PHONE_NO` and `PERSON_EMAIL` should not be blank. +
-`BIKE_NAME` must be the name of a bicycle that has already been registered into the LoanBook. +
+`PHONE` and `EMAIL` should not be blank. +
+`BIKE` must be the name of a bicycle that has already been registered into the LoanBook. +
 `LOANRATE` is in dollars per hour.
 
 Examples:
@@ -204,7 +204,7 @@ Shows a list of all registered bicycles in the LoanBook. +
 Shows a list of all loans in the LoanBook. +
 [big]#*Format*: `list`#
 
-=== [Coming in v1.4] Editing a bike : `editbike`
+=== Editing a bike : `editbike`
 
 To keep the system updated with any changes in the bicycles, this command allows details of a bicycle to be edited. +
 [big]#*Format*: `edit BIKE_NAME [n/NEW_BIKE_NAME]`#
@@ -282,13 +282,13 @@ Returns any loan having names `Betsy`, `Tim`, or `John`
 [IMPORTANT]
 You need to provide at least one keyword. If not, LoanBook will not be able to parse your command!
 
-=== [Coming in v1.4] Deleting the chosen bike from the loan book : `deletebike`
+=== Deleting the chosen bike from the loan book : `deletebike`
 
 Deletes a bike from the loan book. +
 [big]#*Format*: `deletebike BIKE_NAME x/CURRENT_PASSWORD`#
 
 [NOTE]
-The command will be rejected if there are any ongoing loans that use that bicycle. Return or delete those loans first.
+(Coming in v2.0) The command will be rejected if there are any ongoing loans that use that bicycle. Return or delete those loans first.
 
 Examples:
 
