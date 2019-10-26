@@ -8,6 +8,8 @@ import java.util.function.Function;
  */
 public class Email extends DataField<String> implements Censor {
 
+    private static final int CENSOR_LENGTH = 3;
+
     private static final String SPECIAL_CHARACTERS = "!#$%&'*+/=?`{|}~^.-";
     public static final String MESSAGE_EMAIL_CONSTRAINTS = "Emails should be of the format local-part@domain "
             + "and adhere to the following constraints:\n"
@@ -63,11 +65,11 @@ public class Email extends DataField<String> implements Censor {
 
     @Override
     public String doCensoring(int length) {
-        if (length <= 3) {
+        if (length <= CENSOR_LENGTH) {
             return "";
         } else {
             StringBuffer sb = new StringBuffer();
-            for (int i = 0; i < length - 3; i++) {
+            for (int i = 0; i < length - CENSOR_LENGTH; i++) {
                 sb.append('x');
             }
             return sb.toString();
